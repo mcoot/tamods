@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\SDK_HEADERS">
+      <UniqueIdentifier>{3bd9752e-8468-4682-80a3-8fef168eee15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SDK_SOURCES">
+      <UniqueIdentifier>{af21636d-4ec4-4c79-8e83-5b18cfafcdc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Mods">
+      <UniqueIdentifier>{1455bd29-426f-4c91-8153-288538169964}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\GFxUI_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\IpDrv_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\OnlineSubsystemMcts_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\PlatformCommon_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\TribesGame_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\TribesGameContent_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\UDKBase_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\UTGame_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\WinDrv_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\XAudio2_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\Core_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\Engine_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK_SOURCES\GameFramework_functions.cpp">
+      <Filter>Source Files\SDK_SOURCES</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Loadout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_Reticules.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_DamageNumbers.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_Loadouts.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_General.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dllmain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SdkHeaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\Core_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\Core_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\Core_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\Engine_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\Engine_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\Engine_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\GameFramework_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\GameFramework_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\GameFramework_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\GFxUI_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\GFxUI_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\GFxUI_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\IpDrv_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\IpDrv_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\IpDrv_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\OnlineSubsystemMcts_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\OnlineSubsystemMcts_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\OnlineSubsystemMcts_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\PlatformCommon_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\PlatformCommon_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\PlatformCommon_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\TribesGameContent_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\TribesGameContent_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\TribesGameContent_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\TribesGame_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\TribesGame_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\TribesGame_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\UDKBase_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\UDKBase_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\UDKBase_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\UTGame_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\UTGame_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\UTGame_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\WinDrv_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\WinDrv_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\WinDrv_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\XAudio2_classes.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\XAudio2_f_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK_HEADERS\XAudio2_structs.h">
+      <Filter>Header Files\SDK_HEADERS</Filter>
+    </ClInclude>
+    <ClInclude Include="Hooks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Loadout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mods.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
