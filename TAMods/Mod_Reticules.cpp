@@ -21,19 +21,6 @@ bool TrPC_ReleasedZoom(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 	return (false);
 }
 
-bool TrPC_ReloadWeapon(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
-	ATrDevice *dev = NULL;
-
-	if (!that->Pawn || !that->Pawn->Weapon)
-		return (false);
-	dev = (ATrDevice *)that->Pawn->Weapon;
-	if (dev->CanClientRequestReloadNow() && dev->m_bEndZoomOnReload)
-		g_zoomed = false;
-	return (false);
-}
-
 static void TrDev_UpdateReticule(AWeapon *weapon)
 {
 	ATrDevice *dev = NULL;
