@@ -121,6 +121,9 @@ bool Config::parseLine(const std::string &str)
 
 int Config::_getWeaponID(const std::string &class_name, const std::string &str)
 {
+	if (Utils::cleanString(class_name) == "vehicle")
+		return Utils::searchMapId(Data::vehicle_weapons, str, "vehicle weapon");
+
 	int class_id = Utils::searchMapId(Data::classes, class_name, "a Class") - 1;
 	if (class_id == -1)
 		return (0);

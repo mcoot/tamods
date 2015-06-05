@@ -24,6 +24,7 @@ void onDLLProcessAttach()
 
 		// Reticules
 		Hooks::add(&TrPlayerPawn_Tick, "Function TribesGame.TrPlayerPawn.Tick", Hooks::POST);
+		Hooks::add(&TrVehicle_Tick, "Function TribesGame.TrVehicle.Tick", Hooks::POST);
 
 		// Per-weapon crosshair customization
 		Hooks::add(&TrPC_PressedZoom, "Function TribesGame.TrPlayerController.PressedZoom");
