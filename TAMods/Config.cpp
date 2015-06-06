@@ -30,6 +30,11 @@ void Config::reset()
 	showWeapon = true;
 	showCrosshair = true;
 	crosshairScale = 1;
+
+	// Damage number stream
+	showDamageNumberStream = false;
+	lastDamageNumberShowEventTime = 0;
+	damageNumberStreamValue = 0;
 }
 
 void Config::parseFile()
@@ -114,6 +119,8 @@ bool Config::parseLine(const std::string &str)
 			showWeapon = (match[2] == "true");
 		else if (name == "showcrosshair")
 			showCrosshair = (match[2] == "true");
+		else if (name == "showdamagenumberstream")
+			showDamageNumberStream = (match[2] == "true");
 		return (true);
 	}
 	return (false);
