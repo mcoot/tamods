@@ -294,6 +294,14 @@ namespace Data
 		}
 	};
 
+	std::map<std::string, int> vehicle_weapons =
+	{
+		{ R"rx(^(grav(cycle|bike)?)$)rx", CONST_WEAPON_ID_PILOT_GRAVCYCLE },
+		{ R"rx(^(shrike)$)rx", CONST_WEAPON_ID_PILOT_SHRIKE },
+		{ R"rx(^(tank|beowulf(cann?on)?)$)rx", CONST_WEAPON_ID_PILOT_BEOWULF },
+		{ R"rx(^((tank|beowulf)(gunner|chaingun|chain|gun))$)rx", CONST_WEAPON_ID_GUNNER_BEOWULF }
+	};
+
 	std::map<std::string, int> classes =
 	{
 		{ R"rx(^(pathfinder|pth)$)rx", 1 },
