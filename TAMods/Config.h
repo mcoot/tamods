@@ -32,6 +32,7 @@ public:
 
 	// Damage number streaming
 	bool showDamageNumberStream;
+	double damageNumberStreamingResetTime;
 	unsigned long lastDamageNumberShowEventTime;
 	int damageNumberStreamValue;
 };

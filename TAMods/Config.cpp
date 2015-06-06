@@ -33,6 +33,8 @@ void Config::reset()
 
 	// Damage number stream
 	showDamageNumberStream = false;
+	// Default damage stream reset time is 1/2 second
+	damageNumberStreamingResetTime = 0.5;
 	lastDamageNumberShowEventTime = 0;
 	damageNumberStreamValue = 0;
 }
@@ -105,6 +107,8 @@ bool Config::parseLine(const std::string &str)
 			crosshairScale = (float) atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberslimit")
 			damageNumbersLimit = (int)atof(std::string(match[2]).c_str());
+		else if (name == "damageNumberStreamTimeout")
+			damageNumberStreamingResetTime = (int)atof(std::string(match[2]).c_str());
 		return (true);
 	}
 
