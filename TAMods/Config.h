@@ -33,8 +33,10 @@ public:
 	// Damage number / chain count streaming
 	bool showDamageNumberStream;
 	bool showChainBulletHitCount;
+	bool showRainbow;
 	double damageNumberStreamingResetTime;
 	unsigned long lastDamageNumberShowEventTime;
 	int damageNumberStreamValue;
 	int damageNumberStreamCount;
+	int rainbowBulletInt;
 };

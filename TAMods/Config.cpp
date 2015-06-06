@@ -33,11 +33,13 @@ void Config::reset()
 
 	// Damage number stream
 	showDamageNumberStream = false;
+	showRainbow = false;
 	// Default damage stream reset time is 1/2 second
 	damageNumberStreamingResetTime = 0.5;
 	lastDamageNumberShowEventTime = 0;
 	damageNumberStreamValue = 0;
 	damageNumberStreamCount = 0;
+	rainbowBulletInt = 0;
 }
 
 void Config::parseFile()
@@ -107,9 +109,9 @@ bool Config::parseLine(const std::string &str)
 		if (name == "crosshairscale")
 			crosshairScale = (float) atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberslimit")
-			damageNumbersLimit = (int)atof(std::string(match[2]).c_str());
+			damageNumbersLimit = (int) atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberstreamtimeout")
-			damageNumberStreamingResetTime = (int)atof(std::string(match[2]).c_str());
+			damageNumberStreamingResetTime = (double)atof(std::string(match[2]).c_str());
 		return (true);
 	}
 
@@ -128,6 +130,8 @@ bool Config::parseLine(const std::string &str)
 			showChainBulletHitCount = (match[2] == "true");
 		else if (name == "showdamagenumberstream")
 			showDamageNumberStream = (match[2] == "true");
+		else if (name == "showrainbow")
+			showRainbow = (match[2] == "true");
 		
 		return (true);
 	}
