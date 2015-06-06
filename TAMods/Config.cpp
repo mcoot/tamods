@@ -37,6 +37,7 @@ void Config::reset()
 	damageNumberStreamingResetTime = 0.5;
 	lastDamageNumberShowEventTime = 0;
 	damageNumberStreamValue = 0;
+	damageNumberStreamCount = 0;
 }
 
 void Config::parseFile()
@@ -107,6 +108,8 @@ bool Config::parseLine(const std::string &str)
 			crosshairScale = (float) atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberslimit")
 			damageNumbersLimit = (int)atof(std::string(match[2]).c_str());
+		else if (name == "damagenumberstreamtimeout")
+			damageNumberStreamingResetTime = (int)atof(std::string(match[2]).c_str());
 		return (true);
 	}
 
@@ -121,8 +124,11 @@ bool Config::parseLine(const std::string &str)
 			showWeapon = (match[2] == "true");
 		else if (name == "showcrosshair")
 			showCrosshair = (match[2] == "true");
+		else if (name == "showchainbullethitcount")
+			showChainBulletHitCount = (match[2] == "true");
 		else if (name == "showdamagenumberstream")
 			showDamageNumberStream = (match[2] == "true");
+		
 		return (true);
 	}
 	return (false);

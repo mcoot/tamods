@@ -30,9 +30,11 @@ public:
 	Loadout *loadouts[9][9];
 	std::map<int, std::pair<int, int>> crosshairs;
 
-	// Damage number streaming
+	// Damage number / chain count streaming
 	bool showDamageNumberStream;
+	bool showChainBulletHitCount;
 	double damageNumberStreamingResetTime;
 	unsigned long lastDamageNumberShowEventTime;
 	int damageNumberStreamValue;
+	int damageNumberStreamCount;
 };
