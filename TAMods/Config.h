@@ -41,7 +41,7 @@ public:
 	// Damage number colors
 	bool showRainbow;
 	int rainbowBulletInt;
-	int xhairR;
-	int xhairG;
-	int xhairB;
+	int damNumR;
+	int damNumG;
+	int damNumB;
 };

@@ -43,9 +43,9 @@ void Config::reset()
 	//Damage Number color variables
 	rainbowBulletInt = 0;
 	damageNumbersLimit = 0;
-	xhairR = 255;
-	xhairG = 255;
-	xhairB = 255;
+	damNumR = 255;
+	damNumG = 255;
+	damNumB = 255;
 }
 
 void Config::parseFile()
@@ -118,12 +118,12 @@ bool Config::parseLine(const std::string &str)
 			damageNumbersLimit = (int) atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberstreamtimeout")
 			damageNumberStreamingResetTime = (double)atof(std::string(match[2]).c_str());
-		else if (name == "xhairr")
-			xhairR = (int)atof(std::string(match[2]).c_str());
-		else if (name == "xhairg")
-			xhairG = (int)atof(std::string(match[2]).c_str());
-		else if (name == "xhairb")
-			xhairB = (int)atof(std::string(match[2]).c_str());
+		else if (name == "damNumr")
+			damNumR = (int)atof(std::string(match[2]).c_str());
+		else if (name == "damNumg")
+			damNumG = (int)atof(std::string(match[2]).c_str());
+		else if (name == "damNumb")
+			damNumB = (int)atof(std::string(match[2]).c_str());
 		return (true);
 	}
 

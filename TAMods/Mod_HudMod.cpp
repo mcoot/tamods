@@ -67,9 +67,9 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	else
 	{
 		//grab config colors
-		_r = g_config.xhairR;
-		_g = g_config.xhairG;
-		_b = g_config.xhairB;
+		_r = g_config.damNumR;
+		_g = g_config.damNumG;
+		_b = g_config.damNumB;
 
 		a->R = _r;
 		a->G = _g;
