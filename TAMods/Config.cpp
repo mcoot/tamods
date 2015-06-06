@@ -25,12 +25,12 @@ void Config::reset()
 	}
 
 	crosshairs.clear();
-	damageNumbersLimit = 0;
+	
 	showErrorNotifications = true;
 	showWeapon = true;
 	showCrosshair = true;
 	crosshairScale = 1;
-
+	
 	// Damage number stream
 	showDamageNumberStream = false;
 	showRainbow = false;
@@ -39,7 +39,13 @@ void Config::reset()
 	lastDamageNumberShowEventTime = 0;
 	damageNumberStreamValue = 0;
 	damageNumberStreamCount = 0;
+
+	//Damage Number color variables
 	rainbowBulletInt = 0;
+	damageNumbersLimit = 0;
+	xhairR = 255;
+	xhairG = 255;
+	xhairB = 255;
 }
 
 void Config::parseFile()
@@ -112,6 +118,12 @@ bool Config::parseLine(const std::string &str)
 			damageNumbersLimit = (int) atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberstreamtimeout")
 			damageNumberStreamingResetTime = (double)atof(std::string(match[2]).c_str());
+		else if (name == "xhairr")
+			xhairR = (int)atof(std::string(match[2]).c_str());
+		else if (name == "xhairg")
+			xhairG = (int)atof(std::string(match[2]).c_str());
+		else if (name == "xhairb")
+			xhairB = (int)atof(std::string(match[2]).c_str());
 		return (true);
 	}
 

@@ -8,7 +8,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 	// Create an FColor
 	FColor *a = new FColor();
-
+	a->A = 255;
 	if (g_config.showRainbow == true){
 		//TODO switch statement should be replaced with a while statement
 		switch (g_config.rainbowBulletInt) {
@@ -56,7 +56,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 		}
 
 		//Apply settings
-		a->A = 255;
+		
 		a->R = _r;
 		a->G = _g;
 		a->B = _b;
@@ -64,12 +64,17 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 		that->m_OverheadNumberColorMax = *a;
 		that->m_OverheadNumberColorMin = *a;
 	}
-	else{
+	else
+	{
+		//grab config colors
+		_r = g_config.xhairR;
+		_g = g_config.xhairG;
+		_b = g_config.xhairB;
 
-		//TODO Add config for static
-		a->R = 255;
-		a->G = 255;
-		a->B = 255;
+		a->R = _r;
+		a->G = _g;
+		a->B = _b;
+
 		that->m_OverheadNumberColorMax = *a;
 		that->m_OverheadNumberColorMin = *a;
 	}
