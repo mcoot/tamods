@@ -16,13 +16,14 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	if (stream_ended) {
 		g_config.damageNumberStreamValue = 0;
 	}
+	
+	if (g_config.showDamageNumberStream) {
+		// Set the damage number to the streamed value if damage streaming is on
+		g_config.damageNumberStreamValue += ((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow;
+		((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow = g_config.damageNumberStreamValue;
+	}
 
 	if (((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow <= g_config.damageNumbersLimit)
-		if (g_config.showDamageNumberStream) {
-			// Set the damage number to the streamed value if damage streaming is on
-			g_config.damageNumberStreamValue += ((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow;
-			((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow = g_config.damageNumberStreamValue;
-		}
 		return (true);
 	return (false);
 }

@@ -107,8 +107,6 @@ bool Config::parseLine(const std::string &str)
 			crosshairScale = (float) atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberslimit")
 			damageNumbersLimit = (int)atof(std::string(match[2]).c_str());
-		else if (name == "damageNumberStreamTimeout")
-			damageNumberStreamingResetTime = (int)atof(std::string(match[2]).c_str());
 		return (true);
 	}
 
