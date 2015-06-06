@@ -4,6 +4,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 
+	// Create an FColor
 	FColor *a = new FColor();
 	a->A = 255;
 	a->R = 0;
