@@ -97,7 +97,7 @@
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
     <ClCompile Include="Mod_HudMod.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Mods</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

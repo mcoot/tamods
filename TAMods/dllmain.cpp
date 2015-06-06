@@ -16,7 +16,7 @@ void onDLLProcessAttach()
 		Hooks::add(&TrGVC_PostRender, "Function TribesGame.TrGameViewportClient.PostRender");
 
 		// HUD modification
-		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.eventPostRender");
+		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender");
 
 		// Damage numbers
 		Hooks::add(&TrPC_ClientShowOverheadNumber, "Function TribesGame.TrPlayerController.ClientShowOverheadNumber");

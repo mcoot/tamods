@@ -25,8 +25,9 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 		((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow = g_config.damageNumberStreamValue;
 	}
 
+	g_config.damageNumberStreamCount++;
+
 	if (g_config.showChainBulletHitCount) {
-		g_config.damageNumberStreamCount++;
 		((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow = g_config.damageNumberStreamCount;
 	}
 
