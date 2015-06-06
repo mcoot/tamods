@@ -92,6 +92,7 @@
     <ClCompile Include="Loadout.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mod_General.cpp" />
+    <ClCompile Include="Mod_HudMod.cpp" />
     <ClCompile Include="Mod_Loadouts.cpp" />
     <ClCompile Include="Mod_Reticules.cpp" />
     <ClCompile Include="SDK_SOURCES\Core_functions.cpp" />

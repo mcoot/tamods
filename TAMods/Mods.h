@@ -14,6 +14,9 @@ bool TrPI_OnVGSNumKeyPressed(int ID, UObject *dwCallingObject, UFunction* pFunct
 // Damage numbers
 bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
+// HUD Modification
+bool TrHUD_eventPostRender(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
 // Per weapon reticule customization
 bool TrPC_PressedZoom(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_ReleasedZoom(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
