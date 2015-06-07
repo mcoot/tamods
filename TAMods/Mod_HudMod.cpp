@@ -99,7 +99,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	that->WhisperChatColor = g_config.whisperChatColor;
 
 	if (g_config.showRainbow == true){
-		FColor rainbow;
+		static FColor rainbow;
 		//TODO switch statement should be replaced with a while statement
 		switch (g_config.rainbowBulletInt) {
 		case 0:
