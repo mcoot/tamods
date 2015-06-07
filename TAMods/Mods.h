@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "Utils.h"
 #include "Data.h"
+#include "Geom.h"
 
 extern Config g_config;
 

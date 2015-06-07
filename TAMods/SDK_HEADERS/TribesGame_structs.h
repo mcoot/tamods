@@ -646,6 +646,7 @@ struct FOverheadNumber
 	struct FColor                                      CurrentColor;                                     		// 0x0020 (0x0004) [0x0000000000000000]              
 	float                                              CurrentScale;                                     		// 0x0024 (0x0004) [0x0000000000000000]              
 	unsigned long                                      bShieldDamage : 1;                                		// 0x0028 (0x0004) [0x0000000000000000] [0x00000001] 
+	int												   muthaFuckingPaddingFuckThisShit;
 };
 
 // ScriptStruct TribesGame.TrMainMenuContentData.MeshData

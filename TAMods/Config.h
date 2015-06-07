@@ -30,6 +30,11 @@ public:
 	Loadout *loadouts[9][9];
 	std::map<int, std::pair<int, int>> crosshairs;
 
+	// Damage number customization
+	float damageNumbersOffsetX;
+	float damageNumbersOffsetY;
+	float damageNumbersScale;
+
 	// Damage number / chain count streaming
 	bool showDamageNumberStream;
 	bool showChainBulletHitCount;

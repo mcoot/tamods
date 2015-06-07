@@ -31,6 +31,11 @@ void Config::reset()
 	showCrosshair = true;
 	crosshairScale = 1;
 
+	// Damage number customization
+	damageNumbersOffsetX = 0.0f;
+	damageNumbersOffsetY = 0.0f;
+	damageNumbersScale = 1.0f;
+
 	// Damage number stream
 	showDamageNumberStream = false;
 	// Default damage stream reset time is 1/2 second
@@ -105,11 +110,17 @@ bool Config::parseLine(const std::string &str)
 	{
 		std::string name = Utils::cleanString(match[1]);
 		if (name == "crosshairscale")
-			crosshairScale = (float) atof(std::string(match[2]).c_str());
+			crosshairScale = (float)atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberslimit")
 			damageNumbersLimit = (int)atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberstreamtimeout")
 			damageNumberStreamingResetTime = (int)atof(std::string(match[2]).c_str());
+		else if (name == "damagenumbersscale")
+			damageNumbersScale = (float)atof(std::string(match[2]).c_str());
+		else if (name == "damagenumbersoffsetx")
+			damageNumbersOffsetX = (float)atof(std::string(match[2]).c_str());
+		else if (name == "damagenumbersoffsety")
+			damageNumbersOffsetY = (float)atof(std::string(match[2]).c_str());
 		return (true);
 	}
 
