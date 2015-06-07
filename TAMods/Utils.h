@@ -7,6 +7,8 @@
 
 namespace Utils
 {
+	FColor color(byte r, byte g, byte b, byte alpha = 255);
+
 	// String
 	std::string f2std(FString &fstr);
 	std::string cleanString(const std::string &str);

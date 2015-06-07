@@ -25,7 +25,7 @@ void Config::reset()
 	}
 
 	crosshairs.clear();
-	damageNumbersLimit = 0;
+	
 	showErrorNotifications = true;
 	showWeapon = true;
 	showCrosshair = true;
@@ -38,11 +38,22 @@ void Config::reset()
 
 	// Damage number stream
 	showDamageNumberStream = false;
+	showRainbow = false;
 	// Default damage stream reset time is 1/2 second
 	damageNumberStreamingResetTime = 0.5;
 	lastDamageNumberShowEventTime = 0;
 	damageNumberStreamValue = 0;
 	damageNumberStreamCount = 0;
+
+	//Damage Number color variables
+	rainbowBulletInt = 0;
+	damageNumbersLimit = 0;
+	damageNumbersColorMin = Utils::color(255, 255, 255);
+	damageNumbersColorMax = Utils::color(248, 83, 83);
+	friendlyChatColor = Utils::color(158, 208, 212);
+	enemyChatColor = Utils::color(255, 111, 111);
+	teamChatColor = Utils::color(199, 254, 218);
+	whisperChatColor = Utils::color(207, 165, 101);
 }
 
 void Config::parseFile()
@@ -104,6 +115,25 @@ bool Config::parseLine(const std::string &str)
 		return (true);
 	}
 
+	// varname = (r, g, b, a)
+	rx = std::regex(R"rx(^\s*([a-zA-Z]+)\s*=\s*\(\s*([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\s*\)\s*$)rx");
+	if (std::regex_match(str, match, rx))
+	{
+		std::string name = Utils::cleanString(match[1]);
+		FColor col = Utils::color(
+			(byte)atoi(std::string(match[2]).c_str()),
+			(byte)atoi(std::string(match[3]).c_str()),
+			(byte)atoi(std::string(match[4]).c_str()),
+			(byte)atoi(std::string(match[5]).c_str()));
+		if (name == "damagenumberscolormin") damageNumbersColorMin = col;
+		else if (name == "damagenumberscolormax") damageNumbersColorMax = col;
+		else if (name == "friendlychatcolor") friendlyChatColor = col;
+		else if (name == "enemychatcolor") enemyChatColor = col;
+		else if (name == "teamchatcolor") teamChatColor = col;
+		else if (name == "whisperchatcolor") whisperChatColor = col;
+		return (true);
+	}
+
 	// varName = x.xxx (float)
 	rx = std::regex(R"rx(^\s*([a-zA-Z]+)\s*=\s*(-?[.0-9]+)\s*$)rx");
 	if (std::regex_match(str, match, rx))
@@ -112,9 +142,9 @@ bool Config::parseLine(const std::string &str)
 		if (name == "crosshairscale")
 			crosshairScale = (float)atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberslimit")
-			damageNumbersLimit = (int)atof(std::string(match[2]).c_str());
+			damageNumbersLimit = (int) atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberstreamtimeout")
-			damageNumberStreamingResetTime = (int)atof(std::string(match[2]).c_str());
+			damageNumberStreamingResetTime = (double)atof(std::string(match[2]).c_str());
 		else if (name == "damagenumbersscale")
 			damageNumbersScale = (float)atof(std::string(match[2]).c_str());
 		else if (name == "damagenumbersoffsetx")
@@ -139,6 +169,8 @@ bool Config::parseLine(const std::string &str)
 			showChainBulletHitCount = (match[2] == "true");
 		else if (name == "showdamagenumberstream")
 			showDamageNumberStream = (match[2] == "true");
+		else if (name == "showrainbow")
+			showRainbow = (match[2] == "true");
 		
 		return (true);
 	}

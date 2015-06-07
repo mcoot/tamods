@@ -1,5 +1,6 @@
 #include "Mods.h"
 
+
 bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
@@ -25,6 +26,17 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 		((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow = g_config.damageNumberStreamValue;
 	}
 
+	//Count for rainbow int
+	if (g_config.showRainbow == true){
+		if (g_config.rainbowBulletInt <= 12){
+			g_config.rainbowBulletInt++;
+		}
+		else
+		{
+			g_config.rainbowBulletInt = 0;
+		}
+	}
+	
 	g_config.damageNumberStreamCount++;
 
 	if (g_config.showChainBulletHitCount) {

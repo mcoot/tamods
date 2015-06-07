@@ -7,6 +7,7 @@
 #include "Loadout.h"
 #include "Utils.h"
 #include "Data.h"
+#include "SdkHeaders.h"
 
 class Config
 {
@@ -42,4 +43,14 @@ public:
 	unsigned long lastDamageNumberShowEventTime;
 	int damageNumberStreamValue;
 	int damageNumberStreamCount;
+
+	// Damage number colors
+	bool showRainbow;
+	int rainbowBulletInt;
+	FColor damageNumbersColorMin;
+	FColor damageNumbersColorMax;
+	FColor friendlyChatColor;
+	FColor enemyChatColor;
+	FColor teamChatColor;
+	FColor whisperChatColor;
 };
