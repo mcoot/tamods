@@ -104,7 +104,7 @@ void inline Geom::getAxes(FRotator R, FVector &X, FVector &Y, FVector &Z)
 	normalize(X);
 	R.Yaw += 16384;
 	FRotator R2 = R;
-	R2.Pitch = 0.f;
+	R2.Pitch = 0;
 	Y = rotationToVector(R2);
 	normalize(Y);
 	Y.Z = 0.f;
