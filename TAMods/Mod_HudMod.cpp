@@ -3,12 +3,13 @@
 int _r = 0;
 int _g = 0;
 int _b = 0;
+int _a = 255;
 
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 	// Create an FColor
 	FColor *a = new FColor();
-	a->A = 255;
+
 	if (g_config.showRainbow == true){
 		//TODO switch statement should be replaced with a while statement
 		switch (g_config.rainbowBulletInt) {
@@ -56,7 +57,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 		}
 
 		//Apply settings
-		
+		a->A = 255;
 		a->R = _r;
 		a->G = _g;
 		a->B = _b;
@@ -70,7 +71,9 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 		_r = g_config.damNumR;
 		_g = g_config.damNumG;
 		_b = g_config.damNumB;
+		_a = g_config.damNumA;
 
+		a->A = _a;
 		a->R = _r;
 		a->G = _g;
 		a->B = _b;

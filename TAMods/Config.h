@@ -44,4 +44,5 @@ public:
 	int damNumR;
 	int damNumG;
 	int damNumB;
+	int damNumA;
 };

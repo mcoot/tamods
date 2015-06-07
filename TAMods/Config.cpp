@@ -46,6 +46,7 @@ void Config::reset()
 	damNumR = 255;
 	damNumG = 255;
 	damNumB = 255;
+	damNumA = 255;
 }
 
 void Config::parseFile()
@@ -124,6 +125,8 @@ bool Config::parseLine(const std::string &str)
 			damNumG = (int)atof(std::string(match[2]).c_str());
 		else if (name == "damNumb")
 			damNumB = (int)atof(std::string(match[2]).c_str());
+		else if (name == "damNuma")
+			damNumA = (int)atof(std::string(match[2]).c_str());
 		return (true);
 	}
 
