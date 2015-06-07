@@ -64,7 +64,7 @@ static void TrDev_UpdateReticule(AWeapon *weapon)
 			if (hud)
 			{
 				UGfxTrHud *hud_movie = (UGfxTrHud *)hud->HudMovie;
-				if (hud_movie)
+				if (hud_movie && hud->HudMovie->IsA(UGfxTrHud::StaticClass()))
 				{
 					UGFxTrReticules *reticule = (UGFxTrReticules *)hud_movie->Reticules;
 					if (reticule && reticule->m_nCurrentReticuleIndex != (dev ? dev->m_nReticuleIndex : vdev->m_nReticuleIndex))

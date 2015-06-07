@@ -7,7 +7,8 @@
 
 namespace Utils
 {
-	FColor color(byte r, byte g, byte b, byte alpha = 255);
+	FColor rgba(byte r, byte g, byte b, byte alpha);
+	FColor rgb(byte r, byte g, byte b);
 
 	// String
 	std::string f2std(FString &fstr);

@@ -6,7 +6,7 @@ namespace Utils
 	UTrGameViewportClient *tr_gvc = NULL;
 }
 
-FColor Utils::color(byte r, byte g, byte b, byte alpha)
+FColor Utils::rgba(byte r, byte g, byte b, byte alpha)
 {
 	FColor col;
 	col.R = r;
@@ -14,6 +14,11 @@ FColor Utils::color(byte r, byte g, byte b, byte alpha)
 	col.B = b;
 	col.A = alpha;
 	return col;
+}
+
+FColor Utils::rgb(byte r, byte g, byte b)
+{
+	return rgba(r, g, b, 255);
 }
 
 // Converts UE3's FString to std::string

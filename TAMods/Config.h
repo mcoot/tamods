@@ -7,7 +7,28 @@
 #include "Loadout.h"
 #include "Utils.h"
 #include "Data.h"
+#include "Lua.h"
 #include "SdkHeaders.h"
+
+struct Crosshairs
+{
+	Crosshairs(const std::string &pstd, const std::string &pzoomed)
+		: standard(pstd), zoomed(pzoomed)
+	{ }
+
+	static Crosshairs create(const std::string &xhair)
+	{
+		return Crosshairs(xhair, xhair);
+	}
+
+	static Crosshairs create2(const std::string &xhair1, const std::string &xhair2)
+	{
+		return Crosshairs(xhair1, xhair2);
+	}
+
+	std::string standard;
+	std::string zoomed;
+};
 
 class Config
 {
@@ -17,10 +38,7 @@ public:
 
 	void reset();
 	void parseFile();
-	bool parseLine(const std::string &str);
-
-private:
-	int _getWeaponID(const std::string &class_name, const std::string &str);
+	void setVariables(Lua &lua);
 
 public:
 	int damageNumbersLimit;
@@ -39,7 +57,7 @@ public:
 	// Damage number / chain count streaming
 	bool showDamageNumberStream;
 	bool showChainBulletHitCount;
-	double damageNumberStreamingResetTime;
+	double damageNumberStreamTimeout;
 	unsigned long lastDamageNumberShowEventTime;
 	int damageNumberStreamValue;
 	int damageNumberStreamCount;

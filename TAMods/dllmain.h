@@ -9,3 +9,6 @@
 #include "Logger.h"
 #include "Config.h"
 #include "Mods.h"
+#include "Lua.h"
+
+extern Lua L;

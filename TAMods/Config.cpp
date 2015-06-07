@@ -40,7 +40,7 @@ void Config::reset()
 	showDamageNumberStream = false;
 	showRainbow = false;
 	// Default damage stream reset time is 1/2 second
-	damageNumberStreamingResetTime = 0.5;
+	damageNumberStreamTimeout = 0.5;
 	lastDamageNumberShowEventTime = 0;
 	damageNumberStreamValue = 0;
 	damageNumberStreamCount = 0;
@@ -48,136 +48,64 @@ void Config::reset()
 	//Damage Number color variables
 	rainbowBulletInt = 0;
 	damageNumbersLimit = 0;
-	damageNumbersColorMin = Utils::color(255, 255, 255);
-	damageNumbersColorMax = Utils::color(248, 83, 83);
-	friendlyChatColor = Utils::color(158, 208, 212);
-	enemyChatColor = Utils::color(255, 111, 111);
-	teamChatColor = Utils::color(199, 254, 218);
-	whisperChatColor = Utils::color(207, 165, 101);
+	damageNumbersColorMin = Utils::rgb(255, 255, 255);
+	damageNumbersColorMax = Utils::rgb(248, 83, 83);
+	friendlyChatColor = Utils::rgb(158, 208, 212);
+	enemyChatColor = Utils::rgb(255, 111, 111);
+	teamChatColor = Utils::rgb(199, 254, 218);
+	whisperChatColor = Utils::rgb(207, 165, 101);
 }
 
 void Config::parseFile()
 {
 	const char *profile = getenv("USERPROFILE");
 	std::string directory;
-	std::string line;
+	Lua lua;
 
 	if (profile)
 		directory = std::string(profile) + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
 	else
 		directory = std::string("C:\\");
-	std::ifstream infile(directory + "mods.conf");
-	if (!infile.is_open())
+	reset();
+	std::string err = lua.doFile(directory + "config.lua");
+	if (err.size())
 	{
-		Utils::console("WARNING: Couldn't open file 'mods.conf' in directory: %s", directory.c_str());
+		Utils::console("Lua config error: %s", err.c_str());
 		return;
 	}
-	reset();
-
-	while (std::getline(infile, line))
-	{
-		if (Utils::trim(line)[0] == ';' || parseLine(line))
-			continue;
-		std::smatch match;
-		// class#id(loadout name): primary, secondary, belt, pack, perk1, perk2
-		std::regex rx(R"rx(^\s*([a-zA-Z]+)#([1-9])\s*\(([^)]*)\):([-'a-zA-Z0-9\s]*),([-'a-zA-Z0-9\s]*),([-'a-zA-Z0-9\s]*),([-'a-zA-Z0-9\s]*),([-'a-zA-Z0-9\s]*),([-'a-zA-Z0-9\s]*)$)rx");
-		if (std::regex_match(line, match, rx))
-		{
-			Loadout *loadout = new Loadout(match);
-			if (!loadout->valid)
-			{
-				delete loadout;
-				continue;
-			}
-			if (loadouts[loadout->class_type][loadout->loadout_nb])
-				delete loadouts[loadout->class_type][loadout->loadout_nb];
-			loadouts[loadout->class_type][loadout->loadout_nb] = loadout;
-		}
-	}
-	infile.close();
+	setVariables(lua);
 }
 
-bool Config::parseLine(const std::string &str)
+#define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
+void Config::setVariables(Lua &lua)
 {
-	std::smatch match;
-	std::regex rx;
+	SET_VARIABLE(int, damageNumbersLimit);
+	SET_VARIABLE(bool, showErrorNotifications);
+	SET_VARIABLE(bool, showWeapon);
+	SET_VARIABLE(bool, showCrosshair);
+	SET_VARIABLE(float, crosshairScale);
 
-	// setCrosshairs(className, weaponName): crosshairName, zommedCrosshairName
-	rx = std::regex(R"rx(^\s*setcrosshairs?\s*\(\s*([a-zA-Z]+)\s*,([-'a-zA-Z0-9\s]*)\)\s*:\s*([_a-zA-Z0-9\s]*)\s*,\s*([_a-zA-Z0-9\s]*)\s*$)rx", std::regex_constants::icase);
-	if (std::regex_match(str, match, rx))
-	{
-		int weapon_id = _getWeaponID(match[1], match[2]);
-		if (!weapon_id)
-			return (true);
-		int xhair1 = Utils::searchMapId(Data::crosshairs, match[3], "Crosshair");
-		int xhair2 = Utils::searchMapId(Data::crosshairs, match[4], "Crosshair");
-		crosshairs[weapon_id] = std::pair<int, int>(xhair1, xhair2);
-		return (true);
-	}
+	// Damage number customization
+	SET_VARIABLE(float, damageNumbersOffsetX);
+	SET_VARIABLE(float, damageNumbersOffsetY);
+	SET_VARIABLE(float, damageNumbersScale);
 
-	// varname = (r, g, b, a)
-	rx = std::regex(R"rx(^\s*([a-zA-Z]+)\s*=\s*\(\s*([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\s*\)\s*$)rx");
-	if (std::regex_match(str, match, rx))
-	{
-		std::string name = Utils::cleanString(match[1]);
-		FColor col = Utils::color(
-			(byte)atoi(std::string(match[2]).c_str()),
-			(byte)atoi(std::string(match[3]).c_str()),
-			(byte)atoi(std::string(match[4]).c_str()),
-			(byte)atoi(std::string(match[5]).c_str()));
-		if (name == "damagenumberscolormin") damageNumbersColorMin = col;
-		else if (name == "damagenumberscolormax") damageNumbersColorMax = col;
-		else if (name == "friendlychatcolor") friendlyChatColor = col;
-		else if (name == "enemychatcolor") enemyChatColor = col;
-		else if (name == "teamchatcolor") teamChatColor = col;
-		else if (name == "whisperchatcolor") whisperChatColor = col;
-		return (true);
-	}
+	// Damage number / chain count streaming
+	SET_VARIABLE(bool, showDamageNumberStream);
+	SET_VARIABLE(bool, showChainBulletHitCount);
+	SET_VARIABLE(double, damageNumberStreamTimeout);
 
-	// varName = x.xxx (float)
-	rx = std::regex(R"rx(^\s*([a-zA-Z]+)\s*=\s*(-?[.0-9]+)\s*$)rx");
-	if (std::regex_match(str, match, rx))
-	{
-		std::string name = Utils::cleanString(match[1]);
-		if (name == "crosshairscale")
-			crosshairScale = (float)atof(std::string(match[2]).c_str());
-		else if (name == "damagenumberslimit")
-			damageNumbersLimit = (int) atof(std::string(match[2]).c_str());
-		else if (name == "damagenumberstreamtimeout")
-			damageNumberStreamingResetTime = (double)atof(std::string(match[2]).c_str());
-		else if (name == "damagenumbersscale")
-			damageNumbersScale = (float)atof(std::string(match[2]).c_str());
-		else if (name == "damagenumbersoffsetx")
-			damageNumbersOffsetX = (float)atof(std::string(match[2]).c_str());
-		else if (name == "damagenumbersoffsety")
-			damageNumbersOffsetY = (float)atof(std::string(match[2]).c_str());
-		return (true);
-	}
-
-	// varName = true/false (boolean)
-	rx = std::regex(R"rx(^\s*([a-zA-Z]+)\s*=\s*(true|false)\s*$)rx");
-	if (std::regex_match(str, match, rx))
-	{
-		std::string name = Utils::cleanString(match[1]);
-		if (name == "showerrornotifications")
-			showErrorNotifications = (match[2] == "true");
-		else if (name == "showweapon")
-			showWeapon = (match[2] == "true");
-		else if (name == "showcrosshair")
-			showCrosshair = (match[2] == "true");
-		else if (name == "showchainbullethitcount")
-			showChainBulletHitCount = (match[2] == "true");
-		else if (name == "showdamagenumberstream")
-			showDamageNumberStream = (match[2] == "true");
-		else if (name == "showrainbow")
-			showRainbow = (match[2] == "true");
-		
-		return (true);
-	}
-	return (false);
+	// Damage number colors
+	SET_VARIABLE(bool, showRainbow);
+	SET_VARIABLE(FColor, damageNumbersColorMin);
+	SET_VARIABLE(FColor, damageNumbersColorMax);
+	SET_VARIABLE(FColor, friendlyChatColor);
+	SET_VARIABLE(FColor, enemyChatColor);
+	SET_VARIABLE(FColor, teamChatColor);
+	SET_VARIABLE(FColor, whisperChatColor);
 }
 
-int Config::_getWeaponID(const std::string &class_name, const std::string &str)
+static int getWeaponID(const std::string &class_name, const std::string &str)
 {
 	if (Utils::cleanString(class_name) == "vehicle")
 		return Utils::searchMapId(Data::vehicle_weapons, str, "vehicle weapon");
@@ -193,4 +121,62 @@ int Config::_getWeaponID(const std::string &class_name, const std::string &str)
 	}
 	Utils::console("WARNING: searched item '%s' could not be identified as a %s's weapon", Utils::trim(str).c_str(), Utils::trim(class_name).c_str());
 	return (0);
+}
+
+static bool config_setLoadout(const std::string &pclass, int pnum, const std::string &pname, Equipment &lo)
+{
+	Loadout *loadout = new Loadout(pclass, pnum, pname, lo);
+	if (!loadout->valid)
+	{
+		delete loadout;
+		return false;
+	}
+	if (g_config.loadouts[loadout->class_type][loadout->loadout_nb])
+		delete g_config.loadouts[loadout->class_type][loadout->loadout_nb];
+	g_config.loadouts[loadout->class_type][loadout->loadout_nb] = loadout;
+	return true;
+}
+
+static bool config_setCrosshairs(const std::string &pclass, const std::string &weapon, Crosshairs &xhairs)
+{
+	int weapon_id = getWeaponID(pclass, weapon);
+	if (!weapon_id)
+		return false;
+	int xhair1 = Utils::searchMapId(Data::crosshairs, xhairs.standard, "Crosshair");
+	int xhair2 = Utils::searchMapId(Data::crosshairs, xhairs.zoomed, "Crosshair");
+	g_config.crosshairs[weapon_id] = std::pair<int, int>(xhair1, xhair2);
+	return true;
+}
+
+void Lua::init()
+{
+	getGlobalNamespace(_state).
+		beginClass<FColor>("Color").
+			addData("r", &FColor::R).
+			addData("g", &FColor::G).
+			addData("b", &FColor::B).
+			addData("a", &FColor::A).
+		endClass().
+		addFunction("rgba", &Utils::rgba).
+		addFunction("rgb", &Utils::rgb).
+
+		beginClass<Equipment>("Equipment").
+			addData("primary", &Equipment::primary).
+			addData("secondary", &Equipment::secondary).
+			addData("belt", &Equipment::belt).
+			addData("pack", &Equipment::pack).
+			addData("perk1", &Equipment::perk1).
+			addData("perk2", &Equipment::perk2).
+		endClass().
+		addFunction("equipment", &Equipment::create).
+		addFunction("setLoadout", &config_setLoadout).
+
+		beginClass<Crosshairs>("Crosshairs").
+			addData("standard", &Crosshairs::standard).
+			addData("zoomed", &Crosshairs::zoomed).
+		endClass().
+		addFunction("crosshair", &Crosshairs::create).
+		addFunction("crosshairs", &Crosshairs::create2).
+		addFunction("setCrosshairs", &config_setCrosshairs).
+	endNamespace();
 }

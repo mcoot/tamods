@@ -10,7 +10,7 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 
 
 	// If more than half a second has passed since the last hit, the stream has ended
-	bool stream_ended = ((double)(curClock-g_config.lastDamageNumberShowEventTime) > (CLOCKS_PER_SEC*g_config.damageNumberStreamingResetTime));
+	bool stream_ended = ((double)(curClock-g_config.lastDamageNumberShowEventTime) > (CLOCKS_PER_SEC*g_config.damageNumberStreamTimeout));
 
 	g_config.lastDamageNumberShowEventTime = curClock;
 

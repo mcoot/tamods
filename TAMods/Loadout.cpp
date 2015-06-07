@@ -1,9 +1,31 @@
 #include "Loadout.h"
 
-Loadout::Loadout(const std::smatch &config)
+Loadout::Loadout(const std::string &pclass, int pnum, const std::string &pname, Equipment &lo)
+{
+	std::vector<std::string> config;
+
+	config.push_back("");
+	config.push_back(pclass);
+	config.push_back("");
+	config.push_back(pname);
+	config.push_back(lo.primary);
+	config.push_back(lo.secondary);
+	config.push_back(lo.belt);
+	config.push_back(lo.pack);
+	config.push_back(lo.perk1);
+	config.push_back(lo.perk2);
+	init(pnum, config);
+}
+
+void Loadout::init(int pnum, const std::vector<std::string> &config)
 {
 	valid = false;
-	loadout_nb = atoi(std::string(config[2]).c_str()) - 1;
+	if (pnum < 1 || pnum > 9)
+	{
+		Utils::console("Loadout number must be between 1 and 9 (#%d found)", pnum);
+		return;
+	}
+	loadout_nb = pnum - 1;
 	name = config[3];
 	if (name.size() == 0)
 		name = std::string("LOADOUT ") + std::string(1, 'A' + loadout_nb);
