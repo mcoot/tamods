@@ -119,13 +119,13 @@ bool Config::parseLine(const std::string &str)
 			damageNumbersLimit = (int) atof(std::string(match[2]).c_str());
 		else if (name == "damagenumberstreamtimeout")
 			damageNumberStreamingResetTime = (double)atof(std::string(match[2]).c_str());
-		else if (name == "damNumr")
+		else if (name == "damnumr")
 			damNumR = (int)atof(std::string(match[2]).c_str());
-		else if (name == "damNumg")
+		else if (name == "damnumg")
 			damNumG = (int)atof(std::string(match[2]).c_str());
-		else if (name == "damNumb")
+		else if (name == "damnumb")
 			damNumB = (int)atof(std::string(match[2]).c_str());
-		else if (name == "damNuma")
+		else if (name == "damnuma")
 			damNumA = (int)atof(std::string(match[2]).c_str());
 		return (true);
 	}

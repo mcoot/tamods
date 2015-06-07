@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TAMods", "TAMods\TAMods.vcxproj", "{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TAModConfigurationTool", "TAModConfigurationTool\TAModConfigurationTool.vcxproj", "{340D4A37-D866-413B-9B61-1D07FFF9A9FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Debug|Win32.Build.0 = Debug|Win32
 		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Release|Win32.ActiveCfg = Release|Win32
 		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Release|Win32.Build.0 = Release|Win32
+		{340D4A37-D866-413B-9B61-1D07FFF9A9FA}.Debug|Win32.ActiveCfg = Debug|Win32
+		{340D4A37-D866-413B-9B61-1D07FFF9A9FA}.Debug|Win32.Build.0 = Debug|Win32
+		{340D4A37-D866-413B-9B61-1D07FFF9A9FA}.Release|Win32.ActiveCfg = Release|Win32
+		{340D4A37-D866-413B-9B61-1D07FFF9A9FA}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
