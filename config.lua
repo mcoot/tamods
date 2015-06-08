@@ -2,6 +2,14 @@ damageNumbersLimit = 0
 showDamageNumberStream = false
 showRainbow = false
 
+-- HUD Modifications
+showObjectiveIcon = false
+showCTFBaseIcon = false
+showFlagBaseIcon = true
+showNuggetIcon = true
+showPlayerIcon = true
+showVehicleIcon = true
+
 -- Use rgba() if you want alpha
 red = rgb(255, 0, 0)
 damageNumbersColorMin = rgb(0, 255, 0)

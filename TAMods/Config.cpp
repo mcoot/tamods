@@ -54,6 +54,14 @@ void Config::reset()
 	enemyChatColor = Utils::rgb(255, 111, 111);
 	teamChatColor = Utils::rgb(199, 254, 218);
 	whisperChatColor = Utils::rgb(207, 165, 101);
+
+	// Toggle HUD
+	showObjectiveIcon = true;
+	showFlagBaseIcon = true;
+	showCTFBaseIcon = true;
+	showNuggetIcon = true;
+	showPlayerIcon = true;
+	showVehicleIcon = true;
 }
 
 void Config::parseFile()
@@ -103,6 +111,14 @@ void Config::setVariables(Lua &lua)
 	SET_VARIABLE(FColor, enemyChatColor);
 	SET_VARIABLE(FColor, teamChatColor);
 	SET_VARIABLE(FColor, whisperChatColor);
+
+	// Toggle HUD
+	SET_VARIABLE(bool, showObjectiveIcon);
+	SET_VARIABLE(bool, showFlagBaseIcon);
+	SET_VARIABLE(bool, showCTFBaseIcon);
+	SET_VARIABLE(bool, showNuggetIcon);
+	SET_VARIABLE(bool, showPlayerIcon);
+	SET_VARIABLE(bool, showVehicleIcon);
 }
 
 static int getWeaponID(const std::string &class_name, const std::string &str)
