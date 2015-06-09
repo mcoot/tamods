@@ -299,6 +299,11 @@ namespace TAModConfigurationTool {
                 config.setConfigVar("damageNumbersColorMin", Color.FromArgb((byte)numDamageNumberMinColorA.Value, (byte)numDamageNumberMinColorR.Value, (byte)numDamageNumberMinColorG.Value, (byte)numDamageNumberMinColorB.Value));
                 config.setConfigVar("damageNumbersColorMax", Color.FromArgb((byte)numDamageNumberMaxColorA.Value, (byte)numDamageNumberMaxColorR.Value, (byte)numDamageNumberMaxColorG.Value, (byte)numDamageNumberMaxColorB.Value));
             }
+            else
+            {
+                config.setConfigVar("damageNumbersColorMin", null);
+                config.setConfigVar("damageNumbersColorMax", null);
+            }
 
             // Custom Chat Colours
             if (radioChatColorCustom.Checked)
@@ -307,6 +312,13 @@ namespace TAModConfigurationTool {
                 config.setConfigVar("enemyChatColor", Color.FromArgb((byte)numChatColorEnemyA.Value, (byte)numChatColorEnemyR.Value, (byte)numChatColorEnemyG.Value, (byte)numChatColorEnemyB.Value));
                 config.setConfigVar("teamChatColor", Color.FromArgb((byte)numChatColorTeamA.Value, (byte)numChatColorTeamR.Value, (byte)numChatColorTeamG.Value, (byte)numChatColorTeamB.Value));
                 config.setConfigVar("whisperChatColor", Color.FromArgb((byte)numChatColorWhisperA.Value, (byte)numChatColorWhisperR.Value, (byte)numChatColorWhisperG.Value, (byte)numChatColorWhisperB.Value));
+            }
+            else
+            {
+                config.setConfigVar("friendlyChatColor", null);
+                config.setConfigVar("enemyChatColor", null);
+                config.setConfigVar("teamChatColor", null);
+                config.setConfigVar("whisperChatColor", null);
             }
 
             // Loadouts
@@ -405,7 +417,6 @@ namespace TAModConfigurationTool {
                 {
                     selectLoadoutPrimary.SelectedItem = findMatchingLoadoutItem(curClass, "primary", l.equipment.primary);
                     selectLoadoutSecondary.SelectedItem = findMatchingLoadoutItem(curClass, "secondary", l.equipment.secondary);
-                    System.Diagnostics.Debug.WriteLine(l.equipment.secondary + ": " + findMatchingLoadoutItem(curClass, "secondary", l.equipment.secondary));
                     selectLoadoutBelt.SelectedItem = findMatchingLoadoutItem(curClass, "belt", l.equipment.belt);
                     selectLoadoutPack.SelectedItem = findMatchingLoadoutItem(curClass, "pack", l.equipment.pack);
                     selectLoadoutPerk1.SelectedItem = findMatchingLoadoutItem("all", "perk1", l.equipment.perk1);
@@ -598,6 +609,37 @@ namespace TAModConfigurationTool {
         {
             writeUIToConfig();
             config.saveConfig();
+        }
+
+        private void btnLoadoutDelete_Click(object sender, EventArgs e)
+        {
+            if (listLoadouts.SelectedItem != null)
+            {
+                listLoadouts.Items.Remove(listLoadouts.SelectedItem);
+            }
+        }
+
+        private void btnLoadoutSave_Click(object sender, EventArgs e)
+        {
+            Loadout lNew = new Loadout((string)selectLoadoutClass.SelectedItem, Convert.ToInt32(selectLoadoutNumber.SelectedItem), textLoadoutName.Text,
+                Equipment.create((string)selectLoadoutPrimary.SelectedItem, (string)selectLoadoutSecondary.SelectedItem, (string)selectLoadoutBelt.SelectedItem, (string)selectLoadoutPack.SelectedItem,
+                    (string)selectLoadoutPerk1.SelectedItem, (string)selectLoadoutPerk2.SelectedItem));
+            if (lNew.name.Trim() != "" && lNew.equipment.primary.Trim() != "" && lNew.equipment.secondary.Trim() != ""
+                     && lNew.equipment.belt.Trim() != "" && lNew.equipment.pack.Trim() != ""
+                     && lNew.equipment.perk1.Trim() != "" && lNew.equipment.perk2.Trim() != "")
+            {
+                for (int i = 0; i < listLoadouts.Items.Count; i++)
+                {
+                    if (lNew.Equals(listLoadouts.Items[i]))
+                    {
+                        listLoadouts.Items.Remove(listLoadouts.Items[i]);
+                        break;
+                    }
+                }
+
+                listLoadouts.Items.Add(lNew);
+            }
+            
         }
         
     }
@@ -823,22 +865,25 @@ namespace TAModConfigurationTool {
                 {
                     object value = getConfigVar(variable);
 
-                    if (value is Color)
+                    if (value != null)
                     {
-                        Color c = (Color)value;
-                        if (c.A == 255)
+                        if (value is Color)
                         {
-                            flines.Add(variable + " = rgb(" + c.R + ", " + c.G + ", " + c.B + ")");
+                            Color c = (Color)value;
+                            if (c.A == 255)
+                            {
+                                flines.Add(variable + " = rgb(" + c.R + ", " + c.G + ", " + c.B + ")");
+                            }
+                            else
+                            {
+                                flines.Add(variable + " = rgba(" + c.R + ", " + c.G + ", " + c.B + ", " + c.A + ")");
+                            }
+
                         }
                         else
                         {
-                            flines.Add(variable + " = rgba(" + c.R + ", " + c.G + ", " + c.B + ", " + c.A + ")");
+                            flines.Add(variable + " = " + value.ToString());
                         }
-                        
-                    }
-                    else
-                    {
-                        flines.Add(variable + " = " + value.ToString());
                     }
                 }
 

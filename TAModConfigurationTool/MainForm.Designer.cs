@@ -1491,6 +1491,7 @@
             this.btnLoadoutDelete.TabIndex = 3;
             this.btnLoadoutDelete.Text = "Delete Selected";
             this.btnLoadoutDelete.UseVisualStyleBackColor = true;
+            this.btnLoadoutDelete.Click += new System.EventHandler(this.btnLoadoutDelete_Click);
             // 
             // btnLoadoutLoad
             // 
@@ -1509,6 +1510,7 @@
             this.btnLoadoutSave.TabIndex = 1;
             this.btnLoadoutSave.Text = "Save Edited Loadout";
             this.btnLoadoutSave.UseVisualStyleBackColor = true;
+            this.btnLoadoutSave.Click += new System.EventHandler(this.btnLoadoutSave_Click);
             // 
             // listLoadouts
             // 
