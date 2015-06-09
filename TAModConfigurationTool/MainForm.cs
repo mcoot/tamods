@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using NLua;
 
 namespace TAModConfigurationTool {
     public partial class MainForm : Form {
 
-        Dictionary<string, Dictionary<string, string[]>> loadoutDetails;
+        Dictionary<string, Dictionary<string, List<string>>> loadoutDetails;
+        Dictionary<string, Dictionary<string, List<string>>> loadoutRegex;
         ConfigReader configReader;
 
         public MainForm() {
@@ -136,6 +138,9 @@ namespace TAModConfigurationTool {
             numChatColorWhisperB.Enabled = false;
             numChatColorWhisperB.Value = 101;
 
+            listLoadouts.ClearSelected();
+            listLoadouts.Items.Clear();
+
 
         }
 
@@ -146,7 +151,6 @@ namespace TAModConfigurationTool {
             checkShowWeapon.Checked = (bool)configReader.getConfigVar("showWeapon");
             checkShowCrosshair.Checked = (bool)configReader.getConfigVar("showCrosshair");
             numCrosshairScale.Enabled = (bool)configReader.getConfigVar("showCrosshair");
-            System.Diagnostics.Debug.WriteLine(configReader.getConfigVar("crosshairScale"));
             numCrosshairScale.Value = Convert.ToDecimal(configReader.getConfigVar("crosshairScale"));
 
             // Damage Number Settings
@@ -207,13 +211,13 @@ namespace TAModConfigurationTool {
             numDamageNumberMaxColorG.Value = c.G;
             numDamageNumberMaxColorB.Value = c.B;
 
+            // Custom Chat Colours
             radioChatColorDefault.Checked = true;
             if (configReader.configVarSet("friendlyChatColor") || configReader.configVarSet("enemyChatColor")
                 || configReader.configVarSet("teamChatColor") || configReader.configVarSet("whisperChatColor"))
             {
                 radioChatColorCustom.Checked = true;
             }
-
             c = (Color)configReader.getConfigVar("friendlyChatColor");
             numChatColorFriendlyA.Value = c.A;
             numChatColorFriendlyR.Value = c.R;
@@ -234,12 +238,30 @@ namespace TAModConfigurationTool {
             numChatColorWhisperR.Value = c.R;
             numChatColorWhisperG.Value = c.G;
             numChatColorWhisperB.Value = c.B;
-            
+
+            // Loadouts
+            listLoadouts.ClearSelected();
+            listLoadouts.Items.Clear();
+            foreach (Loadout l in configReader.getConfigLoadouts())
+            {
+                listLoadouts.Items.Add(l);
+            }
+
         }
 
         private void selectLoadoutClass_SelectedIndexChanged(object sender, EventArgs e)
         {
-            updateEquipmentSelectors();
+            updateLoadoutSelectors(sender);
+        }
+
+        private void listLoadouts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateLoadoutSelectors(sender);
+        }
+
+        private void selectLoadoutNumber_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateLoadoutSelectors(sender);
         }
 
         // Set the colour pickers based on the RGBA values
@@ -261,9 +283,33 @@ namespace TAModConfigurationTool {
 
 
         // Update the dropdown lists for the equipment selection
-        private void updateEquipmentSelectors()
+        private void updateLoadoutSelectors(object from)
         {
-            string curClass = (string)selectLoadoutClass.SelectedItem;
+            string curClass = "";
+            int curNumber = -1;
+            if (from.Equals(listLoadouts))
+            {
+                if (listLoadouts.SelectedItem != null)
+                {
+                    curClass = ((Loadout)listLoadouts.SelectedItem).gameClass;
+                    curNumber = ((Loadout)listLoadouts.SelectedItem).num;
+                    selectLoadoutClass.SelectedItem = curClass;
+                    selectLoadoutNumber.SelectedItem = curNumber.ToString();
+                }
+            }
+            else
+            {
+
+                if (selectLoadoutClass.SelectedItem != null)
+                {
+                    curClass = (string)selectLoadoutClass.SelectedItem;
+                }
+
+                if (selectLoadoutNumber.SelectedItem != null)
+                {
+                    curNumber = Convert.ToInt32(selectLoadoutNumber.SelectedItem);
+                }
+            }
             
             selectLoadoutPrimary.Items.Clear();
             selectLoadoutSecondary.Items.Clear();
@@ -272,12 +318,34 @@ namespace TAModConfigurationTool {
             selectLoadoutPerk1.Items.Clear();
             selectLoadoutPerk2.Items.Clear();
 
-            selectLoadoutPrimary.Items.AddRange(loadoutDetails[curClass]["primary"]);
-            selectLoadoutSecondary.Items.AddRange(loadoutDetails[curClass]["secondary"]);
-            selectLoadoutBelt.Items.AddRange(loadoutDetails[curClass]["belt"]);
-            selectLoadoutPack.Items.AddRange(loadoutDetails[curClass]["pack"]);
-            selectLoadoutPerk1.Items.AddRange(loadoutDetails["all"]["perk1"]);
-            selectLoadoutPerk2.Items.AddRange(loadoutDetails["all"]["perk2"]);
+            if (curClass == "" || curNumber == -1)
+            {
+                return;
+            }
+
+            selectLoadoutPrimary.Items.AddRange(loadoutDetails[curClass]["primary"].ToArray());
+            selectLoadoutSecondary.Items.AddRange(loadoutDetails[curClass]["secondary"].ToArray());
+            selectLoadoutBelt.Items.AddRange(loadoutDetails[curClass]["belt"].ToArray());
+            selectLoadoutPack.Items.AddRange(loadoutDetails[curClass]["pack"].ToArray());
+            selectLoadoutPerk1.Items.AddRange(loadoutDetails["all"]["perk1"].ToArray());
+            selectLoadoutPerk2.Items.AddRange(loadoutDetails["all"]["perk2"].ToArray());
+
+            Loadout lCompare = new Loadout(curClass, curNumber, "", null);
+
+            foreach (Loadout l in listLoadouts.Items) 
+            {
+                if (l.Equals(lCompare))
+                {
+                    selectLoadoutPrimary.SelectedItem = findMatchingLoadoutItem(curClass, "primary", l.equipment.primary);
+                    selectLoadoutSecondary.SelectedItem = findMatchingLoadoutItem(curClass, "secondary", l.equipment.secondary);
+                    selectLoadoutBelt.SelectedItem = findMatchingLoadoutItem(curClass, "belt", l.equipment.belt);
+                    selectLoadoutPack.SelectedItem = findMatchingLoadoutItem(curClass, "pack", l.equipment.pack);
+                    selectLoadoutPerk1.SelectedItem = findMatchingLoadoutItem("all", "perk1", l.equipment.perk1);
+                    selectLoadoutPerk2.SelectedItem = findMatchingLoadoutItem("all", "perk2", l.equipment.perk2);
+                    textLoadoutName.Text = l.name;
+                    break;
+                }
+            }
         }
 
         
@@ -285,65 +353,128 @@ namespace TAModConfigurationTool {
         // Set up the dictionaries containing equipment data
         private void setupLoadouts()
         {
-            loadoutDetails = new Dictionary<string, Dictionary<string, string[]>>();
+            loadoutDetails = new Dictionary<string, Dictionary<string, List<string>>>();
+            loadoutRegex = new Dictionary<string, Dictionary<string, List<string>>>();
 
-            loadoutDetails["Pathfinder"] = new Dictionary<string, string[]>();
-            loadoutDetails["Pathfinder"]["primary"] = new string[] {"Light Spinfusor", "Bolt Launcher", "Dueling Spinfusor", "Light Twinfusor", "Blinksfusor"};
-            loadoutDetails["Pathfinder"]["secondary"] = new string[] { "Shotgun", "Holdout Shotgun", "Light Assault Rifle", "Shocklance" };
-            loadoutDetails["Pathfinder"]["belt"] = new string[] { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons" };
-            loadoutDetails["Pathfinder"]["pack"] = new string[] { "Energy Recharge", "Thrust Pack" };
+            loadoutDetails["Pathfinder"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Pathfinder"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Pathfinder"]["primary"] = new List<String> {"Light Spinfusor", "Bolt Launcher", "Dueling Spinfusor", "Light Twinfusor", "Blinksfusor"};
+            loadoutRegex["Pathfinder"]["primary"] = new List<String> { "^(spin(fusor)?|light(spin)?(fusor)?)$", "^(bolt|boltlauncher)$", "^(duel|dueling|duelingspinfusor)$", "^(twin|twinfusor|lighttwinfusor)$", "^(blinks|blinksfusor)$" };
+            loadoutDetails["Pathfinder"]["secondary"] = new List<string> { "Shotgun", "Holdout Shotgun", "Light Assault Rifle", "Shocklance" };
+            loadoutRegex["Pathfinder"]["secondary"] = new List<String> { "^(shotgun)$", "^(holdoutshotgun|holdout)$", "^(lightassaultrifle|lar|ar|assaultrifle|rifle)$", "^(shocklance)$" };
+            loadoutDetails["Pathfinder"]["belt"] = new List<string> { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons" };
+            loadoutRegex["Pathfinder"]["belt"] = new List<string> { "^(nitrons?|impactnitrons?|impacts?)$", "^(explosivenitrons?|explosives?)$", "^(compactnitrons?|compacts?)$" };
+            loadoutDetails["Pathfinder"]["pack"] = new List<string> { "Energy Recharge", "Thrust Pack" };
+            loadoutRegex["Pathfinder"]["pack"] = new List<string> { "^(energyrecharge|energy)$", "^(thrustpack|thrust)$" };
 
-            loadoutDetails["Sentinel"] = new Dictionary<string, string[]>();
-            loadoutDetails["Sentinel"]["primary"] = new string[] { "BXT1 Rifle", "BXT1A Rifle", "Phase rifle", "SAP20 Rifle" };
-            loadoutDetails["Sentinel"]["secondary"] = new string[] { "Nova Blaster", "Nova Blaster MX", "Falcon", "Accurized Shotgun", "Shocklance" };
-            loadoutDetails["Sentinel"]["belt"] = new string[] { "Claymore Mines", "Focused Claymores", "T5 Grenades", "Motion Mines" };
-            loadoutDetails["Sentinel"]["pack"] = new string[] { "Drop Jammer", "Energy Recharge" };
+            loadoutDetails["Sentinel"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Sentinel"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Sentinel"]["primary"] = new List<string> { "BXT1 Rifle", "BXT1A Rifle", "Phase rifle", "SAP20 Rifle" };
+            loadoutRegex["Sentinel"]["primary"] = new List<string> { "^(bxt|bxt1|bxt1rifle)$", "^(bxt1a|bxt1-a|bxt1-arifle|bxt1arifle)$", "^(phase|phaserifle)$", "^(sap20(sniper)?(rifle)?)$" };
+            loadoutDetails["Sentinel"]["secondary"] = new List<string> { "Nova Blaster", "Nova Blaster MX", "Falcon", "Accurized Shotgun", "Shocklance" };
+            loadoutRegex["Sentinel"]["secondary"] = new List<string> { "^(nova|blaster|novablaster)$", "^(falcon)$", "^(mx|novablastermx|novamx|blastermx)$", "^(shotgun|accurizedshotgun)$", "^(shocklance)$" };
+            loadoutDetails["Sentinel"]["belt"] = new List<string> { "Claymore Mines", "Focused Claymores", "T5 Grenades", "Motion Mines" };
+            loadoutRegex["Sentinel"]["belt"] = new List<string> { "^(claymores?|claymoremines?)$", "^(focusedclaymores?|focusedclaymoremines?)$", "^(t5s?|grenades?|t5grenades?)$", "^(motionmines?|motions?|mines?)$" };
+            loadoutDetails["Sentinel"]["pack"] = new List<string> { "Drop Jammer", "Energy Recharge" };
+            loadoutRegex["Sentinel"]["pack"] = new List<string> { "^(dropjammer|jammer|jammerpack)$", "^(energypack|energyrecharge|energy)$" };
 
-            loadoutDetails["Infiltrator"] = new Dictionary<string, string[]>();
-            loadoutDetails["Infiltrator"]["primary"] = new string[] { "Rhino SMG", "Stealth Spinfusor", "Jackal", "Arctic Rhino SMG" };
-            loadoutDetails["Infiltrator"]["secondary"] = new string[] { "SN7 Silenced Pistol", "Throwing Knives", "Arctic SN7 Silenced Pistol", "Shocklance" };
-            loadoutDetails["Infiltrator"]["belt"] = new string[] { "Sticky Grenades", "Sticky Grenades XL", "Prism Mines", "Smoke Grenades" };
-            loadoutDetails["Infiltrator"]["pack"] = new string[] { "Stealth Pack" };
+            loadoutDetails["Infiltrator"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Infiltrator"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Infiltrator"]["primary"] = new List<string> { "Rhino SMG", "Stealth Spinfusor", "Jackal", "Arctic Rhino SMG" };
+            loadoutRegex["Infiltrator"]["primary"] = new List<string> { "^(rhinosmg|smg|rhino)$", "^(stealthspinfusor|spinfusor|spin|stealth)$", "^(jackal)$", "^(arcticrhinosmg|arcticrhino|arcticsmg)$" };
+            loadoutDetails["Infiltrator"]["secondary"] = new List<string> { "SN7 Silenced Pistol", "Throwing Knives", "Arctic SN7 Silenced Pistol", "Shocklance" };
+            loadoutRegex["Infiltrator"]["secondary"] = new List<string> { "^(sn7silencedpistol|sn7|pistol)$", "^(throwingknives|knives)$", "^(arcticsn7silencedpistol|arcticsn7|arcticpistol)$", "^(shocklance)$" };
+            loadoutDetails["Infiltrator"]["belt"] = new List<string> { "Sticky Grenades", "Sticky Grenades XL", "Prism Mines", "Smoke Grenades" };
+            loadoutRegex["Infiltrator"]["belt"] = new List<string> { "^(stickygrenades?|sticky|stickies)$", "^(stickygrenades?xl|stickyxls?|stickiesxl)$", "^(prismmines?|mines?)$", "^(smokegrenades?|smokes?" };
+            loadoutDetails["Infiltrator"]["pack"] = new List<string> { "Stealth Pack" };
+            loadoutRegex["Infiltrator"]["pack"] = new List<string> { "^(stealthpack|stealth)$" };
 
-            loadoutDetails["Soldier"] = new Dictionary<string, string[]>();
-            loadoutDetails["Soldier"]["primary"] = new string[] { "Assault Rifle", "Gast's Rifle", "Spinfusor", "Twinfusor" };
-            loadoutDetails["Soldier"]["secondary"] = new string[] { "Thumper D", "Thumper DX", "Spare Spinfusor", "Eagle Pistol", "Shocklance" };
-            loadoutDetails["Soldier"]["belt"] = new string[] { "Frag Grenades XL", "AP Grenades", "Proxies", "Short-fuse Frag Grenades" };
-            loadoutDetails["Soldier"]["pack"] = new string[] { "Energy Pack", "Utility Pack" };
+            loadoutDetails["Soldier"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Soldier"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Soldier"]["primary"] = new List<string> { "Assault Rifle", "Gast's Rifle", "Spinfusor", "Twinfusor" };
+            loadoutRegex["Soldier"]["primary"] = new List<string> { "^(assaultrifle|rifle|ar)$", "^(gast'srifle|gast|gastrifle)$", "^(spinfusor|spin)$", "^(twinfusor)$" };
+            loadoutDetails["Soldier"]["secondary"] = new List<string> { "Thumper D", "Thumper DX", "Spare Spinfusor", "Eagle Pistol", "Shocklance" };
+            loadoutRegex["Soldier"]["secondary"] = new List<string> { "^(thumper|thumperd)$", "^(thumperdx)$", "^(sparespinfusor|sparespin|spin|spinfusor)$", "^(eaglepistol|eagle|pistol)$", "^(shocklance)$" };
+            loadoutDetails["Soldier"]["belt"] = new List<string> { "Frag Grenades XL", "AP Grenades", "Proxies", "Short-fuse Frag Grenades" };
+            loadoutRegex["Soldier"]["belt"] = new List<string> { "^(fraggrenades?(xl)?|frag(xl)?|grenades?(xl)?)$", "^(anti-?personnelgrenades?|aps?|apgrenades?)$", "^(proxmitys?(grenades?)?|proxies|proxys?)$", "^(short-?fusefraggrenades?|short-?fuses?)$" };
+            loadoutDetails["Soldier"]["pack"] = new List<string> { "Energy Pack", "Utility Pack" };
+            loadoutRegex["Soldier"]["pack"] = new List<string> { "^(energypack|energy)$", "^(utilitypack|utility)$" };
 
-            loadoutDetails["Technician"] = new Dictionary<string, string[]>();
-            loadoutDetails["Technician"]["primary"] = new string[] { "Arx Buster", "Dust Devil", "Grenade Launcher", "Plasma Gun" };
-            loadoutDetails["Technician"]["secondary"] = new string[] { "NJ4 SMG", "Desert NJ4 SMG", "NJ5-B SMG", "Shocklance" };
-            loadoutDetails["Technician"]["belt"] = new string[] { "EMP Grenades", "EMP XLs", "Blackout Grenades", "Cluster Grenades" };
-            loadoutDetails["Technician"]["pack"] = new string[] { "Shield Pack", "Jammer Pack" };
+            loadoutDetails["Raider"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Raider"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Raider"]["primary"] = new List<string> { "Arx Buster", "Dust Devil", "Grenade Launcher", "Plasma Gun" };
+            loadoutRegex["Raider"]["primary"] = new List<string> { "^(arxbuster|arx)$", "^(dustdevil|dust|devil)$", "^(grenadelauncher|nadelauncher|launcher)$", "^(plasmagun|plasma)$" };
+            loadoutDetails["Raider"]["secondary"] = new List<string> { "NJ4 SMG", "Desert NJ4 SMG", "NJ5-B SMG", "Shocklance" };
+            loadoutRegex["Raider"]["secondary"] = new List<string> { "^(nj4smg|nj4)$", "^(desertnj4smg|desertnj4|desert)$", "^(nj5-?bsmg|nj5)$", "^(shocklance)$" };
+            loadoutDetails["Raider"]["belt"] = new List<string> { "EMP Grenades", "EMP XLs", "Blackout Grenades", "Cluster Grenades" };
+            loadoutRegex["Raider"]["belt"] = new List<string> { "^(emps?|empgrenades?)$", "^(emps?xls?|empgrenades?xls?)$", "^(blackouts?|blackoutgrenades?)$", "^(clustergrenades?|clusters?)$" };
+            loadoutDetails["Raider"]["pack"] = new List<string> { "Shield Pack", "Jammer Pack" };
+            loadoutRegex["Raider"]["pack"] = new List<string> { "^(shieldpack|shield)$", "^(jammerpack|jammer)$" };
 
-            loadoutDetails["Raider"] = new Dictionary<string, string[]>();
-            loadoutDetails["Raider"]["primary"] = new string[] { "TCN4 SMG", "Rockwind SMG", "Thumper", "TC24" };
-            loadoutDetails["Raider"]["secondary"] = new string[] { "Improved Repair Tool", "Long Range Repair Tool", "Sawed-off Shotgun", "Sparrow", "Shocklance" };
-            loadoutDetails["Raider"]["belt"] = new string[] { "TCNGs", "TCNG Quickfuses", "Motion Sensors", "Repair Kits" };
-            loadoutDetails["Raider"]["pack"] = new string[] { "Light Turret", "EXR Turret" };
+            loadoutDetails["Technician"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Technician"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Technician"]["primary"] = new List<string> { "TCN4 SMG", "Rockwind SMG", "Thumper", "TC24" };
+            loadoutRegex["Technician"]["primary"] = new List<string> { "^(tcn4smg|tcn4)$", "^(tcn4rockwindsmg|rockwind|rockwindsmg|tcn4rockwind)$", "^(thumper)$", "^(tc24)$" };
+            loadoutDetails["Technician"]["secondary"] = new List<string> { "Improved Repair Tool", "Long Range Repair Tool", "Sawed-off Shotgun", "Sparrow", "Shocklance" };
+            loadoutRegex["Technician"]["secondary"] = new List<string> { "^(improvedrepairtool|repairtool|repair)$", "^(longrangerepairtool|longrange(repair|tool)?)$", "^(sawed-?offshotgun|shotgun|sawed-?off)$", "^(sparrow)$", "^(shocklance)$" };
+            loadoutDetails["Technician"]["belt"] = new List<string> { "TCNGs", "TCNG Quickfuses", "Motion Sensors", "Repair Kits" };
+            loadoutRegex["Technician"]["belt"] = new List<string> { "^(tcngs?|grenades?)$", "^(tcngs?quickfuses?|quickfuses?)$", "^(motionsensors?|sensors?)$", "^(repairkits?|repair|kits?)$" };
+            loadoutDetails["Technician"]["pack"] = new List<string> { "Light Turret", "EXR Turret" };
+            loadoutRegex["Technician"]["pack"] = new List<string> { "^(turrets?|lightturrets?)$", "^(exrs?|exrturrets?)$" };
 
-            loadoutDetails["Juggernaut"] = new Dictionary<string, string[]>();
-            loadoutDetails["Juggernaut"]["primary"] = new string[] { "Fusion Mortar", "Fusion Mortar Deluxe", "MIRV Launcher" };
-            loadoutDetails["Juggernaut"]["secondary"] = new string[] { "Spinfusor MKD", "Spinfusor MK-X", "X1 LMG", "Heavy Twinfusor", "Shocklance" };
-            loadoutDetails["Juggernaut"]["belt"] = new string[] { "Heavy AP Grenades", "Heavy AP Grenades XL", "Spinfusor Disks" };
-            loadoutDetails["Juggernaut"]["pack"] = new string[] { "Health Regen Pack" };
+            loadoutDetails["Juggernaut"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Juggernaut"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Juggernaut"]["primary"] = new List<string> { "Fusion Mortar", "Fusion Mortar Deluxe", "MIRV Launcher" };
+            loadoutRegex["Juggernaut"]["primary"] = new List<string> { "^(fusionmortar|mortar)$", "^((fusion)?(mortar)?deluxe)$", "^(mirvlauncher|mirv)$" };
+            loadoutDetails["Juggernaut"]["secondary"] = new List<string> { "Spinfusor MKD", "Spinfusor MK-X", "X1 LMG", "Heavy Twinfusor", "Shocklance" };
+            loadoutRegex["Juggernaut"]["secondary"] = new List<string> { "^(spin(fusor)?|spin(fusor)?mkd|(fusor)?mkd)$", "^((spin)?(fusor)?mk-?x)$", "^(x1|lmg|x1lmg)$", "^(heavytwinfusor|twinfusor|twin)$", "^(shocklance)$" };
+            loadoutDetails["Juggernaut"]["belt"] = new List<string> { "Heavy AP Grenades", "Heavy AP Grenades XL", "Spinfusor Disks" };
+            loadoutRegex["Juggernaut"]["belt"] = new List<string> { "^(heavyaps?grenades?|grenades?|heavyaps?|aps?)$", "^(xls?|heavy(aps?)?(grenades?)?xl|aps?xl|heavyxls?)$", "^(spinfusordisks?|spins?|disks?|discs?|spindisks?|throwingdisks?)$" };
+            loadoutDetails["Juggernaut"]["pack"] = new List<string> { "Health Regen Pack" };
+            loadoutRegex["Juggernaut"]["pack"] = new List<string> { "^(healthregenpack|healthpack|health|regenpack|regen)$" };
 
-            loadoutDetails["Doombringer"] = new Dictionary<string, string[]>();
-            loadoutDetails["Doombringer"]["primary"] = new string[] { "Chaingun", "Chain Cannon", "Heavy Bolt Launcher" };
-            loadoutDetails["Doombringer"]["secondary"] = new string[] { "Saber Launcher", "Titan Launcher", "Shocklance" };
-            loadoutDetails["Doombringer"]["belt"] = new string[] { "Frag Grenades", "Mines", "Defective Frags" };
-            loadoutDetails["Doombringer"]["pack"] = new string[] { "Forcefield" };
+            loadoutDetails["Doombringer"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Doombringer"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Doombringer"]["primary"] = new List<string> { "Chaingun", "Chain Cannon", "Heavy Bolt Launcher" };
+            loadoutRegex["Doombringer"]["primary"] = new List<string> { "^(chaingun)$", "^(chaincannon)$", "^(heavyboltlauncher|boltlauncher|bolt)$" };
+            loadoutDetails["Doombringer"]["secondary"] = new List<string> { "Saber Launcher", "Titan Launcher", "Shocklance" };
+            loadoutRegex["Doombringer"]["secondary"] = new List<string> { "^(saberlauncher|saber)$", "^(titanlauncher|titan)$", "^(shocklance)$" };
+            loadoutDetails["Doombringer"]["belt"] = new List<string> { "Frag Grenades", "Mines", "Defective Frags" };
+            loadoutRegex["Doombringer"]["belt"] = new List<string> { "^(fraggrenades?|frags?)$", "^(mines?)$", "^(defectivefraggrenades?|defectivefrags?|defectivegrenades?)$" };
+            loadoutDetails["Doombringer"]["pack"] = new List<string> { "Forcefield" };
+            loadoutRegex["Doombringer"]["pack"] = new List<string> { "^(forcefield|shield|energyfield)$" };
 
-            loadoutDetails["Brute"] = new Dictionary<string, string[]>();
-            loadoutDetails["Brute"]["primary"] = new string[] { "Heavy Spinfusor", "Devastator Spinfusor", "Gladiator" };
-            loadoutDetails["Brute"]["secondary"] = new string[] { "Automatic Shotgun", "The Hammer", "Nova Colt", "Plasma Cannon", "Shocklance" };
-            loadoutDetails["Brute"]["belt"] = new string[] { "Fractal Grenades", "Extended Fractal Grenades", "Heavy Sticky Grenades" };
-            loadoutDetails["Brute"]["pack"] = new string[] { "Energy Pack", "Survival Pack", "Heavy Shield Pack" };
+            loadoutDetails["Brute"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Brute"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Brute"]["primary"] = new List<string> { "Heavy Spinfusor", "Devastator Spinfusor", "Gladiator" };
+            loadoutRegex["Brute"]["primary"] = new List<string> { "^(heavy(spin)?(fusor)?|spin(fusor)?|fusor)$", "^(devastator|devastatorspin(fusor)?|dev|devspin)$", "^(gladiator)$" };
+            loadoutDetails["Brute"]["secondary"] = new List<string> { "Automatic Shotgun", "The Hammer", "Nova Colt", "Plasma Cannon", "Shocklance" };
+            loadoutRegex["Brute"]["secondary"] = new List<string> { "^(automaticshotgun|autoshotgun|shotgun)$", "^(thehammer|hammer)$", "^(novacolt|colt|nova)$", "^(plasmacannon|plasma)$", "^(shocklance)$" };
+            loadoutDetails["Brute"]["belt"] = new List<string> { "Fractal Grenades", "Extended Fractal Grenades", "Heavy Sticky Grenades" };
+            loadoutRegex["Brute"]["belt"] = new List<string> { "^(fractals?|fractalgrenades?)$", "^(extendedfractalgrenades?|extendedfractals?)$", "^(heavystickygrenades?|stickys?|stickies|heavystickys?|heavystickies)$" };
+            loadoutDetails["Brute"]["pack"] = new List<string> { "Energy Pack", "Survival Pack", "Heavy Shield Pack" };
+            loadoutRegex["Brute"]["pack"] = new List<string> { "^(energypack|energy)$", "^(survivalpack|survival)$", "^(heavyshieldpack|heavyshield|shieldpack|shield)$" };
 
-            loadoutDetails["all"] = new Dictionary<string, string[]>();
-            loadoutDetails["all"]["perk1"] = new string[] { "Rage", "Ultra Capacitor 1", "Reach", "Safe Fall", "Wheel Deal", "Bounty Hunter", "Close Combat", "Looter", "Stealthy", "Safety Third" };
-            loadoutDetails["all"]["perk2"] = new string[] { "Sonic Punch", "Determination", "Egocentric", "Potential Energy", "Pilot", "Survivalist", "Superheavy", "Ultra Capacitor 2", "Quick Draw", "Mechanic", "Lightweight" };
+
+            loadoutDetails["all"] = new Dictionary<string, List<string>>();
+            loadoutRegex["all"] = new Dictionary<string, List<string>>();
+            loadoutDetails["all"]["perk1"] = new List<string> { "Rage", "Ultra Capacitor 1", "Reach", "Safe Fall", "Wheel Deal", "Bounty Hunter", "Close Combat", "Looter", "Stealthy", "Safety Third" };
+            loadoutRegex["all"]["perk1"] = new List<string> { "^(rage)$", "^(ultracapacitor[i1]?|capacitor)$", "^(reach)$", "^(safefall|fall|sf)$", "^(wheeldeal)$", "^(bountyhunter|bounty|hunter)$", "^(closecombat|cc)$", "^(looter)$", "^(stealthy)$", "^(safetythird|safety3rd|3rd|third)$" };
+            loadoutDetails["all"]["perk2"] = new List<string> { "Sonic Punch", "Determination", "Egocentric", "Potential Energy", "Pilot", "Survivalist", "Superheavy", "Ultra Capacitor 2", "Quick Draw", "Mechanic", "Lightweight" };
+            loadoutRegex["all"]["perk2"] = new List<string> { "^(sonicpunch|sonic|punch)$", "^(determination)$", "^(egocentric|ego)$", "^(potentialenergy|potential|pe)$", "^(pilot)$", "^(survivalist)$", "^(superheavy|heavy|sh)$", "^(ultracapacitor(2|ii)?|capacitor)$", "^(quickdraw|qd|draw)$", "^(mechanic)$", "^(lightweight|lw)$" };
+        }
+
+        private string findMatchingLoadoutItem(string gameClass, string slot, string item)
+        {
+            for (int i = 0; i < loadoutDetails[gameClass][slot.ToLower()].Count; i++)
+            {
+                if (Regex.IsMatch(item, loadoutRegex[gameClass][slot.ToLower()][i]))
+                {
+                    return loadoutDetails[gameClass][slot.ToLower()][i];
+                }
+            }
+
+            return null;
         }
 
         private void radioDamageNumberLimit_CheckedChanged(object sender, EventArgs e)
@@ -394,6 +525,7 @@ namespace TAModConfigurationTool {
         {
             numCrosshairScale.Enabled = checkShowCrosshair.Checked;
         }
+        
     }
 
     public class ConfigReader
@@ -611,6 +743,44 @@ namespace TAModConfigurationTool {
 
         public bool setLoadout(string gameClass, int num, string name, Equipment equipment)
         {
+            // Use regex to chack if it's a known class
+            if (Regex.IsMatch(gameClass, "(^(pathfinder|pth|path)$)", RegexOptions.IgnoreCase))
+            {
+                gameClass = "Pathfinder";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(sentinel|sen)$)", RegexOptions.IgnoreCase))
+            {
+                gameClass = "Sentinel";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(infiltrator|inf)$)", RegexOptions.IgnoreCase))
+            {
+                gameClass = "Infiltrator";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(soldier|sld)$)", RegexOptions.IgnoreCase))
+            {
+                gameClass = "Soldier";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(technician|tcn|tech)$)", RegexOptions.IgnoreCase))
+            {
+                gameClass = "Technician";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(raider|rdr)$)", RegexOptions.IgnoreCase))
+            {
+                gameClass = "Raider";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(juggernaut|juggernaught|jug|jugg)$)", RegexOptions.IgnoreCase))
+            {
+                gameClass = "Juggernaut";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(doombringer|doom|dmb)$)", RegexOptions.IgnoreCase))
+            {
+                gameClass = "Doombringer";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(brute|brt)$)", RegexOptions.IgnoreCase))
+            {
+                gameClass = "Brute";
+            }
+            
             configLoadouts.Add(new Loadout(gameClass, num, name, equipment));
             return true;
         }
@@ -623,12 +793,12 @@ namespace TAModConfigurationTool {
 
     }
 
-    public class Loadout
+    public class Loadout : IComparable<Loadout>
     {
-        public string gameClass;
-        public int num;
-        public string name;
-        public Equipment equipment;
+        public readonly string gameClass;
+        public readonly int num;
+        public readonly string name;
+        public readonly Equipment equipment;
 
         public Loadout(string gameClass, int num, string name, Equipment equipment)
         {
@@ -637,17 +807,64 @@ namespace TAModConfigurationTool {
             this.name = name;
             this.equipment = equipment;
         }
+
+        public override string ToString()
+        {
+            return gameClass + " #" + num;
+        }
+
+        public int CompareTo(Loadout other)
+        {
+            List<string> classOrder = new List<string>() { "pathfinder", "sentinel", "infiltrator", "soldier", "technician", "raider", "juggernaut", "doombringer", "brute" };
+            // Sort by class first, then number
+            if (other.gameClass == this.gameClass)
+            {
+                return this.num.CompareTo(other.num);
+            }
+            
+            // If invalid gameClass, then just sort alphabetically
+            if (!classOrder.Contains(this.gameClass) || !classOrder.Contains(other.gameClass)) {
+                return this.gameClass.CompareTo(other.gameClass);
+            }
+
+            return (classOrder.IndexOf(this.gameClass) - classOrder.IndexOf(other.gameClass));
+        }
+
+        // Override Equals method so that loadouts with the same name/num are 'equal' (even if they have different equipment)
+        public override bool Equals(object other)
+        {
+            // Return false if the other object cannot be cast to loadout
+            Loadout lother = other as Loadout;
+            if ((object)lother == null)
+            {
+                return false;
+            }
+
+            if (this.gameClass == lother.gameClass && this.num == lother.num) 
+            {
+                return true;
+            }
+            
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return gameClass.GetHashCode() ^ num.GetHashCode();
+        }
+        
+
     }
 
     public class Equipment
     {
 
-        public string primary;
-        public string secondary;
-        public string belt;
-        public string pack;
-        public string perk1;
-        public string perk2;
+        public readonly string primary;
+        public readonly string secondary;
+        public readonly string belt;
+        public readonly string pack;
+        public readonly string perk1;
+        public readonly string perk2;
 
         public Equipment(string primary, string secondary, string belt, string pack, string perk1, string perk2)
         {
