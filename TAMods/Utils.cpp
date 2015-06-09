@@ -8,10 +8,10 @@ namespace Utils
 
 FLinearColor Utils::linCol(FColor col){
 	FLinearColor lcol;
-	lcol.R = (col.R / 255);
-	lcol.G = (col.G / 255);
-	lcol.B = (col.B / 255);
-	lcol.A = (col.A / 255);
+	lcol.R = ((float)col.R / 255);
+	lcol.G = ((float)col.G / 255);
+	lcol.B = ((float)col.B / 255);
+	lcol.A = ((float)col.A / 255);
 	return lcol;
 }
 
