@@ -98,6 +98,13 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	that->TeamChatColor = g_config.teamChatColor;
 	that->WhisperChatColor = g_config.whisperChatColor;
 
+	//Hud icon colors
+
+	that->MarkerColorEnemy = g_config.enemyColor;
+	that->MarkerColorEnemy_IsFriend = g_config.enemyIsFColor;
+	that->MarkerColorFriendly = g_config.friendColor;
+	that->MarkerColorFriendly_IsFriend = g_config.friendIsFColor;
+
 	if (g_config.showRainbow == true){
 		static FColor rainbow;
 		//TODO switch statement should be replaced with a while statement

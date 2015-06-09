@@ -67,10 +67,16 @@ public:
 	int rainbowBulletInt;
 	FColor damageNumbersColorMin;
 	FColor damageNumbersColorMax;
+	//Chat Cols
 	FColor friendlyChatColor;
 	FColor enemyChatColor;
 	FColor teamChatColor;
 	FColor whisperChatColor;
+	//Marker Cols
+	FLinearColor enemyColor;
+	FLinearColor enemyIsFColor;
+	FLinearColor friendColor;
+	FLinearColor friendIsFColor;
 
 	// HUD elements toggle
 	bool showObjectiveIcon;

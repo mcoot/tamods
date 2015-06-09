@@ -9,6 +9,7 @@ namespace Utils
 {
 	FColor rgba(byte r, byte g, byte b, byte alpha);
 	FColor rgb(byte r, byte g, byte b);
+	FLinearColor linCol(FColor col);
 
 	// String
 	std::string f2std(FString &fstr);

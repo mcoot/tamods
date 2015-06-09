@@ -6,6 +6,15 @@ namespace Utils
 	UTrGameViewportClient *tr_gvc = NULL;
 }
 
+FLinearColor Utils::linCol(FColor col){
+	FLinearColor lcol;
+	lcol.R = col.R;
+	lcol.G = col.G;
+	lcol.B = col.B;
+	lcol.A = col.A;
+	return lcol;
+}
+
 FColor Utils::rgba(byte r, byte g, byte b, byte alpha)
 {
 	FColor col;
@@ -106,6 +115,11 @@ void Utils::console(const char *format, ...)
 	col.R = 0;
 	col.G = 255;
 	col.B = 0;
+	FLinearColor lcol;
+	lcol.A = 255;
+	lcol.R = 0;
+	lcol.G = 255;
+	lcol.B = 0;
 	tr_gvc->ChatConsole->OutputTextLine(wch, col);
 	Utils::notify(L"Ensis' mod", "Error: see console for details");
 }

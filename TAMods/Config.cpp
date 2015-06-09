@@ -55,6 +55,12 @@ void Config::reset()
 	teamChatColor = Utils::rgb(199, 254, 218);
 	whisperChatColor = Utils::rgb(207, 165, 101);
 
+	//Marker Colors
+	enemyColor = Utils::linCol(Utils::rgb(255, 0, 255));
+	enemyIsFColor = Utils::linCol(Utils::rgb(255, 125, 0));
+	friendColor = Utils::linCol(Utils::rgb(0, 125, 255));
+	friendIsFColor = Utils::linCol(Utils::rgb(0, 255, 0));
+
 	// Toggle HUD
 	showObjectiveIcon = true;
 	showFlagBaseIcon = true;
