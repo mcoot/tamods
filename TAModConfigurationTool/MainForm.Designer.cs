@@ -54,6 +54,29 @@
             this.checkShowCrosshair = new System.Windows.Forms.CheckBox();
             this.checkShowWeapon = new System.Windows.Forms.CheckBox();
             this.tabColor = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.boxHUDChatColorEnemy = new System.Windows.Forms.PictureBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.numHUDChatColorEnemyA = new System.Windows.Forms.NumericUpDown();
+            this.label47 = new System.Windows.Forms.Label();
+            this.numHUDChatColorEnemyB = new System.Windows.Forms.NumericUpDown();
+            this.label48 = new System.Windows.Forms.Label();
+            this.numHUDChatColorEnemyG = new System.Windows.Forms.NumericUpDown();
+            this.label49 = new System.Windows.Forms.Label();
+            this.numHUDChatColorEnemyR = new System.Windows.Forms.NumericUpDown();
+            this.label50 = new System.Windows.Forms.Label();
+            this.boxHUDChatColorFriendly = new System.Windows.Forms.PictureBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.numHUDChatColorFriendlyA = new System.Windows.Forms.NumericUpDown();
+            this.label52 = new System.Windows.Forms.Label();
+            this.numHUDChatColorFriendlyB = new System.Windows.Forms.NumericUpDown();
+            this.label53 = new System.Windows.Forms.Label();
+            this.numHUDChatColorFriendlyG = new System.Windows.Forms.NumericUpDown();
+            this.label54 = new System.Windows.Forms.Label();
+            this.numHUDChatColorFriendlyR = new System.Windows.Forms.NumericUpDown();
+            this.radioHUDChatColorCustom = new System.Windows.Forms.RadioButton();
+            this.radioHUDChatColorDefault = new System.Windows.Forms.RadioButton();
             this.groupChat = new System.Windows.Forms.GroupBox();
             this.radioChatColorCustom = new System.Windows.Forms.RadioButton();
             this.radioChatColorDefault = new System.Windows.Forms.RadioButton();
@@ -137,7 +160,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.groupLoadoutSet = new System.Windows.Forms.GroupBox();
             this.btnLoadoutDelete = new System.Windows.Forms.Button();
-            this.btnLoadoutLoad = new System.Windows.Forms.Button();
             this.btnLoadoutSave = new System.Windows.Forms.Button();
             this.listLoadouts = new System.Windows.Forms.ListBox();
             this.groupLoadoutInformation = new System.Windows.Forms.GroupBox();
@@ -148,6 +170,23 @@
             this.label7 = new System.Windows.Forms.Label();
             this.selectLoadoutClass = new System.Windows.Forms.ComboBox();
             this.tabCrosshair = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.boxCrosshairScopedPreview = new System.Windows.Forms.PictureBox();
+            this.groupCrosshairPreview = new System.Windows.Forms.GroupBox();
+            this.boxCrosshairNormalPreview = new System.Windows.Forms.PictureBox();
+            this.groupCrosshairsSet = new System.Windows.Forms.GroupBox();
+            this.btnDeleteCrosshair = new System.Windows.Forms.Button();
+            this.btnSaveCrosshair = new System.Windows.Forms.Button();
+            this.listCrosshairs = new System.Windows.Forms.ListBox();
+            this.groupCrosshairInformation = new System.Windows.Forms.GroupBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.selectCrosshairScoped = new System.Windows.Forms.ComboBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.selectCrosshairNormal = new System.Windows.Forms.ComboBox();
+            this.selectCrosshairWeapon = new System.Windows.Forms.ComboBox();
+            this.selectCrosshairClass = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSaveConfig = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
@@ -163,6 +202,17 @@
             this.groupGeneralDisplay.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCrosshairScale)).BeginInit();
             this.tabColor.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxHUDChatColorEnemy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxHUDChatColorFriendly)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyB)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyR)).BeginInit();
             this.groupChat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxChatColorWhisper)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numChatColorWhisperR)).BeginInit();
@@ -199,6 +249,13 @@
             this.groupLoadoutEquipment.SuspendLayout();
             this.groupLoadoutSet.SuspendLayout();
             this.groupLoadoutInformation.SuspendLayout();
+            this.tabCrosshair.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).BeginInit();
+            this.groupCrosshairPreview.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).BeginInit();
+            this.groupCrosshairsSet.SuspendLayout();
+            this.groupCrosshairInformation.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -214,7 +271,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.02267F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 441);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(768, 526);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tabControlMain
@@ -227,7 +284,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(3, 3);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(762, 390);
+            this.tabControlMain.Size = new System.Drawing.Size(762, 467);
             this.tabControlMain.TabIndex = 0;
             // 
             // tabGeneral
@@ -237,7 +294,7 @@
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGeneral.Size = new System.Drawing.Size(754, 364);
+            this.tabGeneral.Size = new System.Drawing.Size(754, 441);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General Settings";
             this.tabGeneral.UseVisualStyleBackColor = true;
@@ -248,7 +305,7 @@
             this.groupGeneralDamageNumber.Controls.Add(this.groupDamageNumberDisplay);
             this.groupGeneralDamageNumber.Location = new System.Drawing.Point(217, 6);
             this.groupGeneralDamageNumber.Name = "groupGeneralDamageNumber";
-            this.groupGeneralDamageNumber.Size = new System.Drawing.Size(531, 352);
+            this.groupGeneralDamageNumber.Size = new System.Drawing.Size(289, 280);
             this.groupGeneralDamageNumber.TabIndex = 1;
             this.groupGeneralDamageNumber.TabStop = false;
             this.groupGeneralDamageNumber.Text = "Damage Number Settings";
@@ -506,15 +563,294 @@
             // 
             // tabColor
             // 
+            this.tabColor.Controls.Add(this.groupBox1);
             this.tabColor.Controls.Add(this.groupChat);
             this.tabColor.Controls.Add(this.groupDamageNumberColor);
             this.tabColor.Location = new System.Drawing.Point(4, 22);
             this.tabColor.Name = "tabColor";
             this.tabColor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabColor.Size = new System.Drawing.Size(754, 364);
+            this.tabColor.Size = new System.Drawing.Size(754, 441);
             this.tabColor.TabIndex = 3;
             this.tabColor.Text = "Colour Settings";
             this.tabColor.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label45);
+            this.groupBox1.Controls.Add(this.boxHUDChatColorEnemy);
+            this.groupBox1.Controls.Add(this.label46);
+            this.groupBox1.Controls.Add(this.numHUDChatColorEnemyA);
+            this.groupBox1.Controls.Add(this.label47);
+            this.groupBox1.Controls.Add(this.numHUDChatColorEnemyB);
+            this.groupBox1.Controls.Add(this.label48);
+            this.groupBox1.Controls.Add(this.numHUDChatColorEnemyG);
+            this.groupBox1.Controls.Add(this.label49);
+            this.groupBox1.Controls.Add(this.numHUDChatColorEnemyR);
+            this.groupBox1.Controls.Add(this.label50);
+            this.groupBox1.Controls.Add(this.boxHUDChatColorFriendly);
+            this.groupBox1.Controls.Add(this.label51);
+            this.groupBox1.Controls.Add(this.numHUDChatColorFriendlyA);
+            this.groupBox1.Controls.Add(this.label52);
+            this.groupBox1.Controls.Add(this.numHUDChatColorFriendlyB);
+            this.groupBox1.Controls.Add(this.label53);
+            this.groupBox1.Controls.Add(this.numHUDChatColorFriendlyG);
+            this.groupBox1.Controls.Add(this.label54);
+            this.groupBox1.Controls.Add(this.numHUDChatColorFriendlyR);
+            this.groupBox1.Controls.Add(this.radioHUDChatColorCustom);
+            this.groupBox1.Controls.Add(this.radioHUDChatColorDefault);
+            this.groupBox1.Location = new System.Drawing.Point(253, 232);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(241, 200);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "HUD Chat";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(128, 44);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(39, 13);
+            this.label45.TabIndex = 19;
+            this.label45.Text = "Enemy";
+            // 
+            // boxHUDChatColorEnemy
+            // 
+            this.boxHUDChatColorEnemy.BackColor = System.Drawing.Color.Black;
+            this.boxHUDChatColorEnemy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.boxHUDChatColorEnemy.Location = new System.Drawing.Point(128, 166);
+            this.boxHUDChatColorEnemy.Name = "boxHUDChatColorEnemy";
+            this.boxHUDChatColorEnemy.Size = new System.Drawing.Size(100, 27);
+            this.boxHUDChatColorEnemy.TabIndex = 18;
+            this.boxHUDChatColorEnemy.TabStop = false;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(125, 141);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(34, 13);
+            this.label46.TabIndex = 15;
+            this.label46.Text = "Alpha";
+            // 
+            // numHUDChatColorEnemyA
+            // 
+            this.numHUDChatColorEnemyA.Location = new System.Drawing.Point(170, 139);
+            this.numHUDChatColorEnemyA.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorEnemyA.Name = "numHUDChatColorEnemyA";
+            this.numHUDChatColorEnemyA.Size = new System.Drawing.Size(57, 20);
+            this.numHUDChatColorEnemyA.TabIndex = 12;
+            this.numHUDChatColorEnemyA.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorEnemyA.ValueChanged += new System.EventHandler(this.numColor_changed);
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(125, 116);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(28, 13);
+            this.label47.TabIndex = 16;
+            this.label47.Text = "Blue";
+            // 
+            // numHUDChatColorEnemyB
+            // 
+            this.numHUDChatColorEnemyB.Location = new System.Drawing.Point(170, 114);
+            this.numHUDChatColorEnemyB.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorEnemyB.Name = "numHUDChatColorEnemyB";
+            this.numHUDChatColorEnemyB.Size = new System.Drawing.Size(57, 20);
+            this.numHUDChatColorEnemyB.TabIndex = 13;
+            this.numHUDChatColorEnemyB.ValueChanged += new System.EventHandler(this.numColor_changed);
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(125, 91);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(36, 13);
+            this.label48.TabIndex = 17;
+            this.label48.Text = "Green";
+            // 
+            // numHUDChatColorEnemyG
+            // 
+            this.numHUDChatColorEnemyG.Location = new System.Drawing.Point(170, 89);
+            this.numHUDChatColorEnemyG.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorEnemyG.Name = "numHUDChatColorEnemyG";
+            this.numHUDChatColorEnemyG.Size = new System.Drawing.Size(57, 20);
+            this.numHUDChatColorEnemyG.TabIndex = 14;
+            this.numHUDChatColorEnemyG.ValueChanged += new System.EventHandler(this.numColor_changed);
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(125, 66);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(27, 13);
+            this.label49.TabIndex = 11;
+            this.label49.Text = "Red";
+            // 
+            // numHUDChatColorEnemyR
+            // 
+            this.numHUDChatColorEnemyR.Location = new System.Drawing.Point(170, 64);
+            this.numHUDChatColorEnemyR.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorEnemyR.Name = "numHUDChatColorEnemyR";
+            this.numHUDChatColorEnemyR.Size = new System.Drawing.Size(57, 20);
+            this.numHUDChatColorEnemyR.TabIndex = 10;
+            this.numHUDChatColorEnemyR.ValueChanged += new System.EventHandler(this.numColor_changed);
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(7, 44);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(43, 13);
+            this.label50.TabIndex = 9;
+            this.label50.Text = "Friendly";
+            // 
+            // boxHUDChatColorFriendly
+            // 
+            this.boxHUDChatColorFriendly.BackColor = System.Drawing.Color.Black;
+            this.boxHUDChatColorFriendly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.boxHUDChatColorFriendly.Location = new System.Drawing.Point(7, 166);
+            this.boxHUDChatColorFriendly.Name = "boxHUDChatColorFriendly";
+            this.boxHUDChatColorFriendly.Size = new System.Drawing.Size(100, 27);
+            this.boxHUDChatColorFriendly.TabIndex = 8;
+            this.boxHUDChatColorFriendly.TabStop = false;
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(4, 141);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(34, 13);
+            this.label51.TabIndex = 7;
+            this.label51.Text = "Alpha";
+            // 
+            // numHUDChatColorFriendlyA
+            // 
+            this.numHUDChatColorFriendlyA.Location = new System.Drawing.Point(49, 139);
+            this.numHUDChatColorFriendlyA.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorFriendlyA.Name = "numHUDChatColorFriendlyA";
+            this.numHUDChatColorFriendlyA.Size = new System.Drawing.Size(57, 20);
+            this.numHUDChatColorFriendlyA.TabIndex = 6;
+            this.numHUDChatColorFriendlyA.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorFriendlyA.ValueChanged += new System.EventHandler(this.numColor_changed);
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(4, 116);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(28, 13);
+            this.label52.TabIndex = 7;
+            this.label52.Text = "Blue";
+            // 
+            // numHUDChatColorFriendlyB
+            // 
+            this.numHUDChatColorFriendlyB.Location = new System.Drawing.Point(49, 114);
+            this.numHUDChatColorFriendlyB.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorFriendlyB.Name = "numHUDChatColorFriendlyB";
+            this.numHUDChatColorFriendlyB.Size = new System.Drawing.Size(57, 20);
+            this.numHUDChatColorFriendlyB.TabIndex = 6;
+            this.numHUDChatColorFriendlyB.ValueChanged += new System.EventHandler(this.numColor_changed);
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(4, 91);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(36, 13);
+            this.label53.TabIndex = 7;
+            this.label53.Text = "Green";
+            // 
+            // numHUDChatColorFriendlyG
+            // 
+            this.numHUDChatColorFriendlyG.Location = new System.Drawing.Point(49, 89);
+            this.numHUDChatColorFriendlyG.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorFriendlyG.Name = "numHUDChatColorFriendlyG";
+            this.numHUDChatColorFriendlyG.Size = new System.Drawing.Size(57, 20);
+            this.numHUDChatColorFriendlyG.TabIndex = 6;
+            this.numHUDChatColorFriendlyG.ValueChanged += new System.EventHandler(this.numColor_changed);
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(4, 66);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(27, 13);
+            this.label54.TabIndex = 5;
+            this.label54.Text = "Red";
+            // 
+            // numHUDChatColorFriendlyR
+            // 
+            this.numHUDChatColorFriendlyR.Location = new System.Drawing.Point(49, 64);
+            this.numHUDChatColorFriendlyR.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numHUDChatColorFriendlyR.Name = "numHUDChatColorFriendlyR";
+            this.numHUDChatColorFriendlyR.Size = new System.Drawing.Size(57, 20);
+            this.numHUDChatColorFriendlyR.TabIndex = 4;
+            this.numHUDChatColorFriendlyR.ValueChanged += new System.EventHandler(this.numColor_changed);
+            // 
+            // radioHUDChatColorCustom
+            // 
+            this.radioHUDChatColorCustom.AutoSize = true;
+            this.radioHUDChatColorCustom.Location = new System.Drawing.Point(104, 19);
+            this.radioHUDChatColorCustom.Name = "radioHUDChatColorCustom";
+            this.radioHUDChatColorCustom.Size = new System.Drawing.Size(63, 17);
+            this.radioHUDChatColorCustom.TabIndex = 3;
+            this.radioHUDChatColorCustom.TabStop = true;
+            this.radioHUDChatColorCustom.Text = "Custom:";
+            this.radioHUDChatColorCustom.UseVisualStyleBackColor = true;
+            this.radioHUDChatColorCustom.CheckedChanged += new System.EventHandler(this.radioHUDChatColorCustom_CheckedChanged);
+            // 
+            // radioHUDChatColorDefault
+            // 
+            this.radioHUDChatColorDefault.AutoSize = true;
+            this.radioHUDChatColorDefault.Location = new System.Drawing.Point(6, 19);
+            this.radioHUDChatColorDefault.Name = "radioHUDChatColorDefault";
+            this.radioHUDChatColorDefault.Size = new System.Drawing.Size(92, 17);
+            this.radioHUDChatColorDefault.TabIndex = 1;
+            this.radioHUDChatColorDefault.TabStop = true;
+            this.radioHUDChatColorDefault.Text = "Default Colour";
+            this.radioHUDChatColorDefault.UseVisualStyleBackColor = true;
             // 
             // groupChat
             // 
@@ -565,7 +901,7 @@
             this.groupChat.Size = new System.Drawing.Size(482, 220);
             this.groupChat.TabIndex = 4;
             this.groupChat.TabStop = false;
-            this.groupChat.Text = "Chat";
+            this.groupChat.Text = "Console Chat";
             // 
             // radioChatColorCustom
             // 
@@ -1336,7 +1672,7 @@
             this.tabLoadout.Location = new System.Drawing.Point(4, 22);
             this.tabLoadout.Name = "tabLoadout";
             this.tabLoadout.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLoadout.Size = new System.Drawing.Size(754, 364);
+            this.tabLoadout.Size = new System.Drawing.Size(754, 441);
             this.tabLoadout.TabIndex = 1;
             this.tabLoadout.Text = "Loadout Editor";
             this.tabLoadout.UseVisualStyleBackColor = true;
@@ -1357,7 +1693,7 @@
             this.groupLoadoutEquipment.Controls.Add(this.label10);
             this.groupLoadoutEquipment.Location = new System.Drawing.Point(275, 6);
             this.groupLoadoutEquipment.Name = "groupLoadoutEquipment";
-            this.groupLoadoutEquipment.Size = new System.Drawing.Size(222, 284);
+            this.groupLoadoutEquipment.Size = new System.Drawing.Size(222, 352);
             this.groupLoadoutEquipment.TabIndex = 2;
             this.groupLoadoutEquipment.TabStop = false;
             this.groupLoadoutEquipment.Text = "Equipment Editor";
@@ -1473,7 +1809,6 @@
             // groupLoadoutSet
             // 
             this.groupLoadoutSet.Controls.Add(this.btnLoadoutDelete);
-            this.groupLoadoutSet.Controls.Add(this.btnLoadoutLoad);
             this.groupLoadoutSet.Controls.Add(this.btnLoadoutSave);
             this.groupLoadoutSet.Controls.Add(this.listLoadouts);
             this.groupLoadoutSet.Location = new System.Drawing.Point(6, 95);
@@ -1485,28 +1820,19 @@
             // 
             // btnLoadoutDelete
             // 
-            this.btnLoadoutDelete.Location = new System.Drawing.Point(144, 50);
+            this.btnLoadoutDelete.Location = new System.Drawing.Point(136, 19);
             this.btnLoadoutDelete.Name = "btnLoadoutDelete";
-            this.btnLoadoutDelete.Size = new System.Drawing.Size(109, 23);
+            this.btnLoadoutDelete.Size = new System.Drawing.Size(117, 23);
             this.btnLoadoutDelete.TabIndex = 3;
             this.btnLoadoutDelete.Text = "Delete Selected";
             this.btnLoadoutDelete.UseVisualStyleBackColor = true;
             this.btnLoadoutDelete.Click += new System.EventHandler(this.btnLoadoutDelete_Click);
             // 
-            // btnLoadoutLoad
-            // 
-            this.btnLoadoutLoad.Location = new System.Drawing.Point(10, 50);
-            this.btnLoadoutLoad.Name = "btnLoadoutLoad";
-            this.btnLoadoutLoad.Size = new System.Drawing.Size(109, 23);
-            this.btnLoadoutLoad.TabIndex = 2;
-            this.btnLoadoutLoad.Text = "Load Selected";
-            this.btnLoadoutLoad.UseVisualStyleBackColor = true;
-            // 
             // btnLoadoutSave
             // 
             this.btnLoadoutSave.Location = new System.Drawing.Point(10, 19);
             this.btnLoadoutSave.Name = "btnLoadoutSave";
-            this.btnLoadoutSave.Size = new System.Drawing.Size(243, 23);
+            this.btnLoadoutSave.Size = new System.Drawing.Size(120, 23);
             this.btnLoadoutSave.TabIndex = 1;
             this.btnLoadoutSave.Text = "Save Edited Loadout";
             this.btnLoadoutSave.UseVisualStyleBackColor = true;
@@ -1515,9 +1841,9 @@
             // listLoadouts
             // 
             this.listLoadouts.FormattingEnabled = true;
-            this.listLoadouts.Location = new System.Drawing.Point(6, 85);
+            this.listLoadouts.Location = new System.Drawing.Point(6, 45);
             this.listLoadouts.Name = "listLoadouts";
-            this.listLoadouts.Size = new System.Drawing.Size(247, 173);
+            this.listLoadouts.Size = new System.Drawing.Size(247, 212);
             this.listLoadouts.TabIndex = 0;
             this.listLoadouts.SelectedIndexChanged += new System.EventHandler(this.listLoadouts_SelectedIndexChanged);
             // 
@@ -1612,21 +1938,201 @@
             // 
             // tabCrosshair
             // 
+            this.tabCrosshair.Controls.Add(this.groupBox2);
+            this.tabCrosshair.Controls.Add(this.groupCrosshairPreview);
+            this.tabCrosshair.Controls.Add(this.groupCrosshairsSet);
+            this.tabCrosshair.Controls.Add(this.groupCrosshairInformation);
             this.tabCrosshair.Location = new System.Drawing.Point(4, 22);
             this.tabCrosshair.Name = "tabCrosshair";
             this.tabCrosshair.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCrosshair.Size = new System.Drawing.Size(754, 364);
+            this.tabCrosshair.Size = new System.Drawing.Size(754, 441);
             this.tabCrosshair.TabIndex = 2;
             this.tabCrosshair.Text = "Crosshair Editor";
             this.tabCrosshair.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.boxCrosshairScopedPreview);
+            this.groupBox2.Location = new System.Drawing.Point(272, 176);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(171, 164);
+            this.groupBox2.TabIndex = 3;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Preview (Scoped)";
+            // 
+            // boxCrosshairScopedPreview
+            // 
+            this.boxCrosshairScopedPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.boxCrosshairScopedPreview.Location = new System.Drawing.Point(3, 16);
+            this.boxCrosshairScopedPreview.Name = "boxCrosshairScopedPreview";
+            this.boxCrosshairScopedPreview.Size = new System.Drawing.Size(165, 145);
+            this.boxCrosshairScopedPreview.TabIndex = 0;
+            this.boxCrosshairScopedPreview.TabStop = false;
+            // 
+            // groupCrosshairPreview
+            // 
+            this.groupCrosshairPreview.Controls.Add(this.boxCrosshairNormalPreview);
+            this.groupCrosshairPreview.Location = new System.Drawing.Point(272, 6);
+            this.groupCrosshairPreview.Name = "groupCrosshairPreview";
+            this.groupCrosshairPreview.Size = new System.Drawing.Size(171, 164);
+            this.groupCrosshairPreview.TabIndex = 2;
+            this.groupCrosshairPreview.TabStop = false;
+            this.groupCrosshairPreview.Text = "Preview (Normal)";
+            // 
+            // boxCrosshairNormalPreview
+            // 
+            this.boxCrosshairNormalPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.boxCrosshairNormalPreview.Location = new System.Drawing.Point(3, 16);
+            this.boxCrosshairNormalPreview.Name = "boxCrosshairNormalPreview";
+            this.boxCrosshairNormalPreview.Size = new System.Drawing.Size(165, 145);
+            this.boxCrosshairNormalPreview.TabIndex = 0;
+            this.boxCrosshairNormalPreview.TabStop = false;
+            // 
+            // groupCrosshairsSet
+            // 
+            this.groupCrosshairsSet.Controls.Add(this.btnDeleteCrosshair);
+            this.groupCrosshairsSet.Controls.Add(this.btnSaveCrosshair);
+            this.groupCrosshairsSet.Controls.Add(this.listCrosshairs);
+            this.groupCrosshairsSet.Location = new System.Drawing.Point(6, 170);
+            this.groupCrosshairsSet.Name = "groupCrosshairsSet";
+            this.groupCrosshairsSet.Size = new System.Drawing.Size(260, 265);
+            this.groupCrosshairsSet.TabIndex = 1;
+            this.groupCrosshairsSet.TabStop = false;
+            this.groupCrosshairsSet.Text = "Crosshairs Set";
+            // 
+            // btnDeleteCrosshair
+            // 
+            this.btnDeleteCrosshair.Location = new System.Drawing.Point(136, 19);
+            this.btnDeleteCrosshair.Name = "btnDeleteCrosshair";
+            this.btnDeleteCrosshair.Size = new System.Drawing.Size(117, 23);
+            this.btnDeleteCrosshair.TabIndex = 6;
+            this.btnDeleteCrosshair.Text = "Delete Selected";
+            this.btnDeleteCrosshair.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveCrosshair
+            // 
+            this.btnSaveCrosshair.Location = new System.Drawing.Point(7, 19);
+            this.btnSaveCrosshair.Name = "btnSaveCrosshair";
+            this.btnSaveCrosshair.Size = new System.Drawing.Size(120, 23);
+            this.btnSaveCrosshair.TabIndex = 5;
+            this.btnSaveCrosshair.Text = "Save Edited Crosshair";
+            this.btnSaveCrosshair.UseVisualStyleBackColor = true;
+            // 
+            // listCrosshairs
+            // 
+            this.listCrosshairs.FormattingEnabled = true;
+            this.listCrosshairs.Location = new System.Drawing.Point(6, 48);
+            this.listCrosshairs.Name = "listCrosshairs";
+            this.listCrosshairs.Size = new System.Drawing.Size(247, 212);
+            this.listCrosshairs.TabIndex = 4;
+            // 
+            // groupCrosshairInformation
+            // 
+            this.groupCrosshairInformation.Controls.Add(this.label58);
+            this.groupCrosshairInformation.Controls.Add(this.selectCrosshairScoped);
+            this.groupCrosshairInformation.Controls.Add(this.label57);
+            this.groupCrosshairInformation.Controls.Add(this.label56);
+            this.groupCrosshairInformation.Controls.Add(this.label55);
+            this.groupCrosshairInformation.Controls.Add(this.selectCrosshairNormal);
+            this.groupCrosshairInformation.Controls.Add(this.selectCrosshairWeapon);
+            this.groupCrosshairInformation.Controls.Add(this.selectCrosshairClass);
+            this.groupCrosshairInformation.Location = new System.Drawing.Point(6, 6);
+            this.groupCrosshairInformation.Name = "groupCrosshairInformation";
+            this.groupCrosshairInformation.Size = new System.Drawing.Size(260, 161);
+            this.groupCrosshairInformation.TabIndex = 0;
+            this.groupCrosshairInformation.TabStop = false;
+            this.groupCrosshairInformation.Text = "Crosshair Information";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(6, 104);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(96, 13);
+            this.label58.TabIndex = 8;
+            this.label58.Text = "Crosshair (Scoped)";
+            // 
+            // selectCrosshairScoped
+            // 
+            this.selectCrosshairScoped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairScoped.FormattingEnabled = true;
+            this.selectCrosshairScoped.Location = new System.Drawing.Point(102, 101);
+            this.selectCrosshairScoped.Name = "selectCrosshairScoped";
+            this.selectCrosshairScoped.Size = new System.Drawing.Size(133, 21);
+            this.selectCrosshairScoped.TabIndex = 7;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(6, 76);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(92, 13);
+            this.label57.TabIndex = 6;
+            this.label57.Text = "Crosshair (Normal)";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(6, 49);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(48, 13);
+            this.label56.TabIndex = 5;
+            this.label56.Text = "Weapon";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(6, 22);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(32, 13);
+            this.label55.TabIndex = 4;
+            this.label55.Text = "Class";
+            // 
+            // selectCrosshairNormal
+            // 
+            this.selectCrosshairNormal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairNormal.FormattingEnabled = true;
+            this.selectCrosshairNormal.Location = new System.Drawing.Point(102, 73);
+            this.selectCrosshairNormal.Name = "selectCrosshairNormal";
+            this.selectCrosshairNormal.Size = new System.Drawing.Size(133, 21);
+            this.selectCrosshairNormal.TabIndex = 3;
+            // 
+            // selectCrosshairWeapon
+            // 
+            this.selectCrosshairWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairWeapon.FormattingEnabled = true;
+            this.selectCrosshairWeapon.Location = new System.Drawing.Point(64, 46);
+            this.selectCrosshairWeapon.Name = "selectCrosshairWeapon";
+            this.selectCrosshairWeapon.Size = new System.Drawing.Size(171, 21);
+            this.selectCrosshairWeapon.TabIndex = 2;
+            // 
+            // selectCrosshairClass
+            // 
+            this.selectCrosshairClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairClass.FormattingEnabled = true;
+            this.selectCrosshairClass.Items.AddRange(new object[] {
+            "Pathfinder",
+            "Sentinel",
+            "Infiltrator",
+            "Soldier",
+            "Raider",
+            "Technician",
+            "Juggernaut",
+            "Doombringer",
+            "Brute"});
+            this.selectCrosshairClass.Location = new System.Drawing.Point(64, 19);
+            this.selectCrosshairClass.Name = "selectCrosshairClass";
+            this.selectCrosshairClass.Size = new System.Drawing.Size(171, 21);
+            this.selectCrosshairClass.TabIndex = 1;
+            this.selectCrosshairClass.SelectedIndexChanged += new System.EventHandler(this.selectCrosshairClass_SelectedIndexChanged);
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 399);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 476);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(762, 39);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(762, 47);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // btnSaveConfig
@@ -1643,7 +2149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(768, 441);
+            this.ClientSize = new System.Drawing.Size(768, 526);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "MainForm";
             this.Text = "TAMod Configuration Tool";
@@ -1664,6 +2170,18 @@
             this.groupGeneralDisplay.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCrosshairScale)).EndInit();
             this.tabColor.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxHUDChatColorEnemy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxHUDChatColorFriendly)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyB)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyR)).EndInit();
             this.groupChat.ResumeLayout(false);
             this.groupChat.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxChatColorWhisper)).EndInit();
@@ -1704,6 +2222,14 @@
             this.groupLoadoutSet.ResumeLayout(false);
             this.groupLoadoutInformation.ResumeLayout(false);
             this.groupLoadoutInformation.PerformLayout();
+            this.tabCrosshair.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).EndInit();
+            this.groupCrosshairPreview.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).EndInit();
+            this.groupCrosshairsSet.ResumeLayout(false);
+            this.groupCrosshairInformation.ResumeLayout(false);
+            this.groupCrosshairInformation.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1746,7 +2272,6 @@
         private System.Windows.Forms.ListBox listLoadouts;
         private System.Windows.Forms.Button btnLoadoutSave;
         private System.Windows.Forms.Button btnLoadoutDelete;
-        private System.Windows.Forms.Button btnLoadoutLoad;
         private System.Windows.Forms.ComboBox selectLoadoutPrimary;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox selectLoadoutPerk2;
@@ -1833,6 +2358,46 @@
         private System.Windows.Forms.NumericUpDown numDamageNumberYOffset;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.NumericUpDown numDamageNumberXOffset;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.PictureBox boxHUDChatColorEnemy;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.NumericUpDown numHUDChatColorEnemyA;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.NumericUpDown numHUDChatColorEnemyB;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.NumericUpDown numHUDChatColorEnemyG;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.NumericUpDown numHUDChatColorEnemyR;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.PictureBox boxHUDChatColorFriendly;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.NumericUpDown numHUDChatColorFriendlyA;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.NumericUpDown numHUDChatColorFriendlyB;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.NumericUpDown numHUDChatColorFriendlyG;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.NumericUpDown numHUDChatColorFriendlyR;
+        private System.Windows.Forms.RadioButton radioHUDChatColorCustom;
+        private System.Windows.Forms.RadioButton radioHUDChatColorDefault;
+        private System.Windows.Forms.GroupBox groupCrosshairsSet;
+        private System.Windows.Forms.GroupBox groupCrosshairInformation;
+        private System.Windows.Forms.GroupBox groupCrosshairPreview;
+        private System.Windows.Forms.PictureBox boxCrosshairNormalPreview;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.ComboBox selectCrosshairNormal;
+        private System.Windows.Forms.ComboBox selectCrosshairWeapon;
+        private System.Windows.Forms.ComboBox selectCrosshairClass;
+        private System.Windows.Forms.Button btnDeleteCrosshair;
+        private System.Windows.Forms.Button btnSaveCrosshair;
+        private System.Windows.Forms.ListBox listCrosshairs;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.ComboBox selectCrosshairScoped;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.PictureBox boxCrosshairScopedPreview;
     }
 }
 

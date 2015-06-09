@@ -15,6 +15,8 @@ namespace TAModConfigurationTool {
 
         Dictionary<string, Dictionary<string, List<string>>> loadoutDetails;
         Dictionary<string, Dictionary<string, List<string>>> loadoutRegex;
+        List<string> crosshairDetails;
+        List<string> crosshairRegex;
         Config config;
 
         public MainForm() {
@@ -137,6 +139,25 @@ namespace TAModConfigurationTool {
             numChatColorWhisperG.Value = 165;
             numChatColorWhisperB.Enabled = false;
             numChatColorWhisperB.Value = 101;
+            // Custom HUD chat colour settings
+            radioHUDChatColorDefault.Checked = true;
+            numHUDChatColorFriendlyA.Enabled = false;
+            numHUDChatColorFriendlyA.Value = 255;
+            numHUDChatColorFriendlyR.Enabled = false;
+            numHUDChatColorFriendlyR.Value = 158;
+            numHUDChatColorFriendlyG.Enabled = false;
+            numHUDChatColorFriendlyG.Value = 208;
+            numHUDChatColorFriendlyB.Enabled = false;
+            numHUDChatColorFriendlyB.Value = 212;
+            numHUDChatColorEnemyA.Enabled = false;
+            numHUDChatColorEnemyA.Value = 255;
+            numHUDChatColorEnemyR.Enabled = false;
+            numHUDChatColorEnemyR.Value = 249;
+            numHUDChatColorEnemyG.Enabled = false;
+            numHUDChatColorEnemyG.Value = 32;
+            numHUDChatColorEnemyB.Enabled = false;
+            numHUDChatColorEnemyB.Value = 32;
+
 
             listLoadouts.ClearSelected();
             listLoadouts.Items.Clear();
@@ -248,6 +269,26 @@ namespace TAModConfigurationTool {
             numChatColorWhisperG.Value = c.G;
             numChatColorWhisperB.Value = c.B;
 
+            radioHUDChatColorDefault.Checked = true;
+            if (config.isConfigVarSet("friendlyHUDChatColor") || config.isConfigVarSet("enemyHUDChatColor"))
+            {
+                if (!config.getConfigVar("friendlyHUDChatColor").Equals(config.getConfigVarDefault("friendlyHUDChatColor"))
+                    || !config.getConfigVar("enemyHUDChatColor").Equals(config.getConfigVarDefault("enemyHUDChatColor")))
+                {
+                    radioDamageNumberColorCustom.Checked = true;
+                }
+            }
+            c = (Color)config.getConfigVar("friendlyHUDChatColor");
+            numHUDChatColorFriendlyA.Value = c.A;
+            numHUDChatColorFriendlyR.Value = c.R;
+            numHUDChatColorFriendlyG.Value = c.G;
+            numHUDChatColorFriendlyB.Value = c.B;
+            c = (Color)config.getConfigVar("enemyHUDChatColor");
+            numHUDChatColorEnemyA.Value = c.A;
+            numHUDChatColorEnemyR.Value = c.R;
+            numHUDChatColorEnemyG.Value = c.G;
+            numHUDChatColorEnemyB.Value = c.B;
+
             // Loadouts
             listLoadouts.ClearSelected();
             listLoadouts.Items.Clear();
@@ -331,6 +372,18 @@ namespace TAModConfigurationTool {
                 config.setConfigVar("whisperChatColor", null);
             }
 
+            // Custom HUD Chat Colours
+            if (radioHUDChatColorCustom.Checked)
+            {
+                config.setConfigVar("friendlyHUDChatColor", Color.FromArgb((byte)numHUDChatColorFriendlyA.Value, (byte)numHUDChatColorFriendlyR.Value, (byte)numHUDChatColorFriendlyG.Value, (byte)numHUDChatColorFriendlyB.Value));
+                config.setConfigVar("enemyHUDChatColor", Color.FromArgb((byte)numHUDChatColorEnemyA.Value, (byte)numHUDChatColorEnemyR.Value, (byte)numHUDChatColorEnemyG.Value, (byte)numHUDChatColorEnemyB.Value));
+            }
+            else
+            {
+                config.setConfigVar("friendlyHUDChatColor", null);
+                config.setConfigVar("enemyHUDChatColor", null);
+            }
+
             // Loadouts
             config.clearConfigLoadouts();
             foreach (Loadout l in listLoadouts.Items)
@@ -363,6 +416,8 @@ namespace TAModConfigurationTool {
             boxChatColorEnemy.BackColor = Color.FromArgb((int)numChatColorEnemyA.Value, (int)numChatColorEnemyR.Value, (int)numChatColorEnemyG.Value, (int)numChatColorEnemyB.Value);
             boxChatColorTeam.BackColor = Color.FromArgb((int)numChatColorTeamA.Value, (int)numChatColorTeamR.Value, (int)numChatColorTeamG.Value, (int)numChatColorTeamB.Value);
             boxChatColorWhisper.BackColor = Color.FromArgb((int)numChatColorWhisperA.Value, (int)numChatColorWhisperR.Value, (int)numChatColorWhisperG.Value, (int)numChatColorWhisperB.Value);
+            boxHUDChatColorFriendly.BackColor = Color.FromArgb((int)numHUDChatColorFriendlyA.Value, (int)numHUDChatColorFriendlyR.Value, (int)numHUDChatColorFriendlyG.Value, (int)numHUDChatColorFriendlyB.Value);
+            boxHUDChatColorEnemy.BackColor = Color.FromArgb((int)numHUDChatColorEnemyA.Value, (int)numHUDChatColorEnemyR.Value, (int)numHUDChatColorEnemyG.Value, (int)numHUDChatColorEnemyB.Value);
         }
 
         // Colour change events
@@ -436,8 +491,6 @@ namespace TAModConfigurationTool {
                 }
             }
         }
-
-        
 
         // Set up the dictionaries containing equipment data
         private void setupLoadouts()
@@ -551,6 +604,16 @@ namespace TAModConfigurationTool {
             loadoutRegex["all"]["perk1"] = new List<string> { "^(rage)$", "^(ultracapacitor[i1]?|capacitor)$", "^(reach)$", "^(safefall|fall|sf)$", "^(wheeldeal)$", "^(bountyhunter|bounty|hunter)$", "^(closecombat|cc)$", "^(looter)$", "^(stealthy)$", "^(safetythird|safety3rd|3rd|third)$" };
             loadoutDetails["all"]["perk2"] = new List<string> { "Sonic Punch", "Determination", "Egocentric", "Potential Energy", "Pilot", "Survivalist", "Superheavy", "Ultra Capacitor 2", "Quick Draw", "Mechanic", "Lightweight" };
             loadoutRegex["all"]["perk2"] = new List<string> { "^(sonicpunch|sonic|punch)$", "^(determination)$", "^(egocentric|ego)$", "^(potentialenergy|potential|pe)$", "^(pilot)$", "^(survivalist)$", "^(superheavy|heavy|sh)$", "^(ultracapacitor(2|ii)?|capacitor)$", "^(quickdraw|qd|draw)$", "^(mechanic)$", "^(lightweight|lw)$" };
+
+            crosshairDetails = new List<string>() { "Spinfusor", "SMG", "Rifle", "Locked On", "Crossbow", "Flamethrower", "Chaingun", "Thumper", "Nanite", "Shotgun", "Unknown", "Laser", "ch_v13", "Scope", "Nova Blaster", "Mortar", "Melee", "Shrike", "Spectator", "Chain", "BXT1", "Phase Rifle", "SAP20", "Plasma Gun" };
+            crosshairRegex = new List<string>() { "^(spin(fusor)?)$", "^(smg)$", "^(rifle)$", "^(locked_?on)$", "^(crossbow)$", "^(flamethrower)$", "^(chaingun)$", "^(bolt(launcher)?|thumper|missile)$", "^(nanite)$", "^(shotgun)$", "^(unknown)$", "^(laser)$", "^(ch_?v13)$", "^(scope)$", "^(standard|(nova)?(colt|blaster)?)$", "^(grenadelauncher|mortar)$", "^(melee)$", "^(shrike)$", "^(spectator)$", "^(chain|dot|assaultrifle|ar|red_?dot)$", "^(bxt1?)$", "^(phase(rifle)?)$", "^(sap(20)?)$", "^(plasma(gun)?)$" };
+            
+            foreach (string xhair in crosshairDetails)
+            {
+                selectCrosshairNormal.Items.Add(xhair);
+                selectCrosshairScoped.Items.Add(xhair);
+            }
+        
         }
 
         private string findMatchingLoadoutItem(string gameClass, string slot, string item)
@@ -651,6 +714,39 @@ namespace TAModConfigurationTool {
             }
             
         }
+
+        private void radioHUDChatColorCustom_CheckedChanged(object sender, EventArgs e)
+        {
+            numHUDChatColorFriendlyA.Enabled = radioHUDChatColorCustom.Checked;
+            numHUDChatColorFriendlyR.Enabled = radioHUDChatColorCustom.Checked;
+            numHUDChatColorFriendlyG.Enabled = radioHUDChatColorCustom.Checked;
+            numHUDChatColorFriendlyB.Enabled = radioHUDChatColorCustom.Checked;
+            numHUDChatColorEnemyA.Enabled = radioHUDChatColorCustom.Checked;
+            numHUDChatColorEnemyR.Enabled = radioHUDChatColorCustom.Checked;
+            numHUDChatColorEnemyG.Enabled = radioHUDChatColorCustom.Checked;
+            numHUDChatColorEnemyB.Enabled = radioHUDChatColorCustom.Checked;
+        }
+
+        private void selectCrosshairClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            selectCrosshairWeapon.Items.Clear();
+
+            if (selectCrosshairClass.SelectedItem != null)
+            {
+                foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["primary"])
+                {
+                    selectCrosshairWeapon.Items.Add(weapon);
+                }
+                foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["secondary"])
+                {
+                    selectCrosshairWeapon.Items.Add(weapon);
+                }
+                foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["belt"])
+                {
+                    selectCrosshairWeapon.Items.Add(weapon);
+                }
+            }
+        }
         
     }
 
@@ -716,7 +812,9 @@ namespace TAModConfigurationTool {
                 { "friendlyChatColor", null },
                 { "enemyChatColor", null },
                 { "teamChatColor", null },
-                { "whisperChatColor", null }
+                { "whisperChatColor", null },
+                { "friendlyHUDChatColor", null },
+                { "enemyHUDChatColor", null },
             };
 
             configVarsDefault = new Dictionary<String, Object>()
@@ -740,7 +838,9 @@ namespace TAModConfigurationTool {
                 { "friendlyChatColor", rgb(158, 208, 212) },
                 { "enemyChatColor", rgb(255, 111, 111) },
                 { "teamChatColor", rgb(199, 254, 218) },
-                { "whisperChatColor", rgb(207, 165, 101) }
+                { "whisperChatColor", rgb(207, 165, 101) },
+                { "friendlyHUDChatColor", rgb(158, 208, 211) },
+                { "enemyHUDChatColor", rgb(249, 32, 32) },
             };
         }
 
