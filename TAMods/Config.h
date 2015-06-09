@@ -71,4 +71,12 @@ public:
 	FColor enemyChatColor;
 	FColor teamChatColor;
 	FColor whisperChatColor;
+
+	// HUD elements toggle
+	bool showObjectiveIcon;
+	bool showFlagBaseIcon;
+	bool showCTFBaseIcon;
+	bool showNuggetIcon;
+	bool showPlayerIcon;
+	bool showVehicleIcon;
 };

@@ -16,7 +16,13 @@ void onDLLProcessAttach()
 		Hooks::add(&TrGVC_PostRender, "Function TribesGame.TrGameViewportClient.PostRender");
 
 		// HUD modification
-		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender");
+		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers
+		Hooks::add(&TrGO_PostRenderFor, "Function TribesGame.TrGameObjective.PostRenderFor"); // Game objectives (turrets, gen ?, vpad)
+		Hooks::add(&TrCTFBase_PostRenderFor, "Function TribesGame.TrCTFBase.PostRenderFor"); // CTF Base (empty flagstand)
+		Hooks::add(&TrFlagBase_PostRenderFor, "Function TribesGame.TrFlagBase.PostRenderFor"); // Flag base (on-stand flag icon)
+		Hooks::add(&TrNugget_PostRenderFor, "Function TribesGame.TrDroppedPickup.PostRenderFor"); // Nuggets
+		Hooks::add(&TrPawn_PostRenderFor, "Function TribesGame.TrPawn.PostRenderFor"); // Players (held flag, name, lifebar, icon)
+		Hooks::add(&TrVehicle_PostRenderFor, "Function TribesGame.TrVehicle.PostRenderFor"); // Vehicles
 
 		// Damage numbers
 		Hooks::add(&TrPC_ClientShowOverheadNumber, "Function TribesGame.TrPlayerController.ClientShowOverheadNumber");
