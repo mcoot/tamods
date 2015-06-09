@@ -233,6 +233,23 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	return (true);
 }
 
+bool GFxTrScenePS_LoadPlayerMiscData(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	UGFxTrScene_PlayerSummary_execLoadPlayerMiscData_Parms *params = (UGFxTrScene_PlayerSummary_execLoadPlayerMiscData_Parms *)pParams;
+	UGFxTrScene_PlayerSummary *that = (UGFxTrScene_PlayerSummary *)dwCallingObject;
+
+	that->MiscDataCount = 0;
+	that->MiscDataList = params->List;
+	that->AddMiscData();
+
+	if (that->RankBase + that->RankGained > CONST_RANK_XP49)
+	{
+		that->MiscDataList->SetElementMemberString(0, L"rankPercentStart", L"1.0");
+		that->MiscDataList->SetElementMemberString(0, L"rankPercentEnd", L"1.0");
+	}
+	return true;
+}
+
 bool TrGO_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	return !g_config.showObjectiveIcon;
