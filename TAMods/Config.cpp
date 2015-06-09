@@ -118,6 +118,12 @@ void Config::setVariables(Lua &lua)
 	SET_VARIABLE(FColor, teamChatColor);
 	SET_VARIABLE(FColor, whisperChatColor);
 
+	//Marker Colors
+	SET_VARIABLE(FColor, enemyColor);
+	SET_VARIABLE(FColor, enemyIsFColor);
+	SET_VARIABLE(FColor, friendColor);
+	SET_VARIABLE(FColor, friendIsFColor);
+
 	// Toggle HUD
 	SET_VARIABLE(bool, showObjectiveIcon);
 	SET_VARIABLE(bool, showFlagBaseIcon);
