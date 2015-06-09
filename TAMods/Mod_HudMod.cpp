@@ -100,10 +100,10 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 
 	//Hud icon colors
 
-	that->MarkerColorEnemy = g_config.enemyColor;
-	that->MarkerColorEnemy_IsFriend = g_config.enemyIsFColor;
-	that->MarkerColorFriendly = g_config.friendColor;
-	that->MarkerColorFriendly_IsFriend = g_config.friendIsFColor;
+	that->MarkerColorEnemy = Utils::linCol(g_config.enemyColor);
+	that->MarkerColorEnemy_IsFriend = Utils::linCol(g_config.enemyIsFColor);
+	that->MarkerColorFriendly = Utils::linCol(g_config.friendColor);
+	that->MarkerColorFriendly_IsFriend = Utils::linCol(g_config.friendIsFColor);
 
 	if (g_config.showRainbow == true){
 		static FColor rainbow;

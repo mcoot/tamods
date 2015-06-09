@@ -73,10 +73,10 @@ public:
 	FColor teamChatColor;
 	FColor whisperChatColor;
 	//Marker Cols
-	FLinearColor enemyColor;
-	FLinearColor enemyIsFColor;
-	FLinearColor friendColor;
-	FLinearColor friendIsFColor;
+	FColor enemyColor;
+	FColor enemyIsFColor;
+	FColor friendColor;
+	FColor friendIsFColor;
 
 	// HUD elements toggle
 	bool showObjectiveIcon;

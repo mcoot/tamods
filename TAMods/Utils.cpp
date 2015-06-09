@@ -8,10 +8,10 @@ namespace Utils
 
 FLinearColor Utils::linCol(FColor col){
 	FLinearColor lcol;
-	lcol.R = col.R;
-	lcol.G = col.G;
-	lcol.B = col.B;
-	lcol.A = col.A;
+	lcol.R = (col.R / 255);
+	lcol.G = (col.G / 255);
+	lcol.B = (col.B / 255);
+	lcol.A = (col.A / 255);
 	return lcol;
 }
 
@@ -115,11 +115,6 @@ void Utils::console(const char *format, ...)
 	col.R = 0;
 	col.G = 255;
 	col.B = 0;
-	FLinearColor lcol;
-	lcol.A = 255;
-	lcol.R = 0;
-	lcol.G = 255;
-	lcol.B = 0;
 	tr_gvc->ChatConsole->OutputTextLine(wch, col);
 	Utils::notify(L"Ensis' mod", "Error: see console for details");
 }
