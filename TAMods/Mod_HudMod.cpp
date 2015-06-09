@@ -95,8 +95,6 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	//Friend chat, enemy chat, team chat
 	that->FriendlyChatColor = g_config.friendlyChatColor;
 	that->EnemyChatColor = g_config.enemyChatColor;
-	that->TeamChatColor = g_config.teamChatColor;
-	that->WhisperChatColor = g_config.whisperChatColor;
 
 	if (that->m_GFxHud)
 	{
@@ -105,13 +103,6 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 		arr.Add(Utils::rgb2int(g_config.friendlyHUDChatColor));
 		that->m_GFxHud->SetVariableIntArray(L"colorArray", 0, arr);
 	}
-
-	//Hud icon colors
-
-	that->MarkerColorEnemy = Utils::linCol(g_config.enemyColor);
-	that->MarkerColorEnemy_IsFriend = Utils::linCol(g_config.enemyIsFColor);
-	that->MarkerColorFriendly = Utils::linCol(g_config.friendColor);
-	that->MarkerColorFriendly_IsFriend = Utils::linCol(g_config.friendIsFColor);
 
 	if (g_config.showRainbow == true){
 		static FColor rainbow;

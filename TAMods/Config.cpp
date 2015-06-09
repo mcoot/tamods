@@ -52,8 +52,6 @@ void Config::reset()
 	damageNumbersColorMax = Utils::rgb(248, 83, 83);
 	friendlyChatColor = Utils::rgb(158, 208, 212);
 	enemyChatColor = Utils::rgb(255, 111, 111);
-	teamChatColor = Utils::rgb(199, 254, 218);
-	whisperChatColor = Utils::rgb(207, 165, 101);
 	friendlyHUDChatColor = Utils::rgb(158, 208, 211);
 	enemyHUDChatColor = Utils::rgb(249, 32, 32);
 
@@ -122,8 +120,6 @@ void Config::setVariables(Lua &lua)
 	// Chat colors
 	SET_VARIABLE(FColor, friendlyChatColor);
 	SET_VARIABLE(FColor, enemyChatColor);
-	SET_VARIABLE(FColor, teamChatColor);
-	SET_VARIABLE(FColor, whisperChatColor);
 	SET_VARIABLE(FColor, friendlyHUDChatColor);
 	SET_VARIABLE(FColor, enemyHUDChatColor);
 
