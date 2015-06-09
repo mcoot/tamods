@@ -70,11 +70,10 @@ public:
 	//Chat Cols
 	FColor friendlyChatColor;
 	FColor enemyChatColor;
-	FColor teamChatColor;
-	FColor whisperChatColor;
 	FColor friendlyHUDChatColor;
 	FColor enemyHUDChatColor;
 	//Marker Cols
+	//TODO actual implimentation
 	FColor enemyColor;
 	FColor enemyIsFColor;
 	FColor friendColor;
