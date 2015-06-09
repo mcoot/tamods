@@ -197,7 +197,11 @@ namespace TAModConfigurationTool {
             }
             else if (config.isConfigVarSet("damageNumbersColorMin") || config.isConfigVarSet("damageNumbersColorMax"))
             {
-                radioDamageNumberColorCustom.Checked = true;
+                if (!config.getConfigVar("damageNumbersColorMin").Equals(config.getConfigVarDefault("damageNumbersColorMin"))
+                    || !config.getConfigVar("damageNumbersColorMax").Equals(config.getConfigVarDefault("damageNumbersColorMax")))
+                {
+                    radioDamageNumberColorCustom.Checked = true;
+                }
             }
             c = (Color)config.getConfigVar("damageNumbersColorMin");
             numDamageNumberMinColorA.Value = c.A;
@@ -215,7 +219,13 @@ namespace TAModConfigurationTool {
             if (config.isConfigVarSet("friendlyChatColor") || config.isConfigVarSet("enemyChatColor")
                 || config.isConfigVarSet("teamChatColor") || config.isConfigVarSet("whisperChatColor"))
             {
-                radioChatColorCustom.Checked = true;
+                if (!config.getConfigVar("friendlyChatColor").Equals(config.getConfigVarDefault("friendlyChatColor"))
+                    || !config.getConfigVar("enemyChatColor").Equals(config.getConfigVarDefault("enemyChatColor"))
+                    || !config.getConfigVar("teamChatColor").Equals(config.getConfigVarDefault("teamChatColor"))
+                    || !config.getConfigVar("whisperChatColor").Equals(config.getConfigVarDefault("whisperChatColor")))
+                {
+                    radioChatColorCustom.Checked = true;
+                }
             }
             c = (Color)config.getConfigVar("friendlyChatColor");
             numChatColorFriendlyA.Value = c.A;
@@ -794,7 +804,7 @@ namespace TAModConfigurationTool {
             return true;
         }
 
-        public Object getConfigVar(string variableName)
+        public object getConfigVar(string variableName)
         {
             if (configVars.ContainsKey(variableName))
             {
@@ -822,6 +832,11 @@ namespace TAModConfigurationTool {
                 }
             }
             
+        }
+
+        public object getConfigVarDefault(string variableName)
+        {
+            return configVarsDefault[variableName];
         }
 
         public void setConfigVar(string variableName, object value)
