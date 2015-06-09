@@ -70,6 +70,9 @@ void Config::reset()
 	showNuggetIcon = true;
 	showPlayerIcon = true;
 	showVehicleIcon = true;
+
+	//Stats
+	recordStats = false;
 }
 
 void Config::parseFile()
@@ -137,6 +140,9 @@ void Config::setVariables(Lua &lua)
 	SET_VARIABLE(bool, showNuggetIcon);
 	SET_VARIABLE(bool, showPlayerIcon);
 	SET_VARIABLE(bool, showVehicleIcon);
+
+	// Toggle Stats
+	SET_VARIABLE(bool, recordStats);
 }
 
 static int getWeaponID(const std::string &class_name, const std::string &str)

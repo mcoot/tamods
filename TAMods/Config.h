@@ -87,4 +87,7 @@ public:
 	bool showNuggetIcon;
 	bool showPlayerIcon;
 	bool showVehicleIcon;
+
+	//stats
+	bool recordStats;
 };
