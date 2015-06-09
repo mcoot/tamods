@@ -1635,6 +1635,7 @@
             this.btnSaveConfig.TabIndex = 2;
             this.btnSaveConfig.Text = "Save Config";
             this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
             // MainForm
             // 

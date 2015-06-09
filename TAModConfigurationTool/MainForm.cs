@@ -15,7 +15,7 @@ namespace TAModConfigurationTool {
 
         Dictionary<string, Dictionary<string, List<string>>> loadoutDetails;
         Dictionary<string, Dictionary<string, List<string>>> loadoutRegex;
-        ConfigReader configReader;
+        Config config;
 
         public MainForm() {
             InitializeComponent();
@@ -45,10 +45,10 @@ namespace TAModConfigurationTool {
                 directory = profile + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
             }
 
-            configReader = new ConfigReader(directory, "config.lua");
+            config = new Config(directory, "config.lua");
 
             // Load in the config file
-            if (!configReader.loadConfig())
+            if (!config.loadConfig())
             {
                 return false;
             }
@@ -148,38 +148,37 @@ namespace TAModConfigurationTool {
         {
             // General settings
             // Display settings
-            checkShowWeapon.Checked = (bool)configReader.getConfigVar("showWeapon");
-            checkShowCrosshair.Checked = (bool)configReader.getConfigVar("showCrosshair");
-            numCrosshairScale.Enabled = (bool)configReader.getConfigVar("showCrosshair");
-            numCrosshairScale.Value = Convert.ToDecimal(configReader.getConfigVar("crosshairScale"));
+            checkShowWeapon.Checked = (bool)config.getConfigVar("showWeapon");
+            checkShowCrosshair.Checked = (bool)config.getConfigVar("showCrosshair");
+            numCrosshairScale.Value = Convert.ToDecimal(config.getConfigVar("crosshairScale"));
 
             // Damage Number Settings
             // Damage Number Display
             numDamageNumberLimit.Value = 0;
-            if (Convert.ToInt32(configReader.getConfigVar("damageNumbersLimit")) <= 0)
+            if (Convert.ToInt32(config.getConfigVar("damageNumbersLimit")) <= 0)
             {
                 radioDamageNumberShow.Checked = true;
             }
-            else if (Convert.ToInt32(configReader.getConfigVar("damageNumbersLimit")) < 10000)
+            else if (Convert.ToInt32(config.getConfigVar("damageNumbersLimit")) < 10000)
             {
                 radioDamageNumberLimit.Checked = true;
-                numDamageNumberLimit.Value = Convert.ToInt32(configReader.getConfigVar("damageNumbersLimit"));
+                numDamageNumberLimit.Value = Convert.ToInt32(config.getConfigVar("damageNumbersLimit"));
             }
             else
             {
                 radioDamageNumberHide.Checked = true;
             }
 
-            numDamageNumberScale.Value = Convert.ToDecimal(configReader.getConfigVar("damageNumbersScale"));
-            numDamageNumberXOffset.Value = Convert.ToInt32(configReader.getConfigVar("damageNumbersOffsetX"));
-            numDamageNumberYOffset.Value = Convert.ToInt32(configReader.getConfigVar("damageNumbersOffsetY"));
+            numDamageNumberScale.Value = Convert.ToDecimal(config.getConfigVar("damageNumbersScale"));
+            numDamageNumberXOffset.Value = Convert.ToInt32(config.getConfigVar("damageNumbersOffsetX"));
+            numDamageNumberYOffset.Value = Convert.ToInt32(config.getConfigVar("damageNumbersOffsetY"));
 
             // Damage Number Streaming
-            if ((bool)configReader.getConfigVar("showChainBulletHitCount"))
+            if ((bool)config.getConfigVar("showChainBulletHitCount"))
             {
                 radioDamageNumberCount.Checked = true;
             }
-            else if ((bool)configReader.getConfigVar("showDamageNumberStream"))
+            else if ((bool)config.getConfigVar("showDamageNumberStream"))
             {
                 radioDamageNumberStream.Checked = true;
             }
@@ -192,20 +191,20 @@ namespace TAModConfigurationTool {
             Color c;
             // Custom Damage Number Colours
             radioDamageNumberColorDefault.Checked = true;
-            if ((bool)configReader.getConfigVar("showRainbow"))
+            if ((bool)config.getConfigVar("showRainbow"))
             {
                 radioDamageNumberColorRainbow.Checked = true;
             }
-            else if (configReader.configVarSet("damageNumbersColorMin") || configReader.configVarSet("damageNumbersColorMax"))
+            else if (config.isConfigVarSet("damageNumbersColorMin") || config.isConfigVarSet("damageNumbersColorMax"))
             {
                 radioDamageNumberColorCustom.Checked = true;
             }
-            c = (Color)configReader.getConfigVar("damageNumbersColorMin");
+            c = (Color)config.getConfigVar("damageNumbersColorMin");
             numDamageNumberMinColorA.Value = c.A;
             numDamageNumberMinColorR.Value = c.R;
             numDamageNumberMinColorG.Value = c.G;
             numDamageNumberMinColorB.Value = c.B;
-            c = (Color)configReader.getConfigVar("damageNumbersColorMax");
+            c = (Color)config.getConfigVar("damageNumbersColorMax");
             numDamageNumberMaxColorA.Value = c.A;
             numDamageNumberMaxColorR.Value = c.R;
             numDamageNumberMaxColorG.Value = c.G;
@@ -213,27 +212,27 @@ namespace TAModConfigurationTool {
 
             // Custom Chat Colours
             radioChatColorDefault.Checked = true;
-            if (configReader.configVarSet("friendlyChatColor") || configReader.configVarSet("enemyChatColor")
-                || configReader.configVarSet("teamChatColor") || configReader.configVarSet("whisperChatColor"))
+            if (config.isConfigVarSet("friendlyChatColor") || config.isConfigVarSet("enemyChatColor")
+                || config.isConfigVarSet("teamChatColor") || config.isConfigVarSet("whisperChatColor"))
             {
                 radioChatColorCustom.Checked = true;
             }
-            c = (Color)configReader.getConfigVar("friendlyChatColor");
+            c = (Color)config.getConfigVar("friendlyChatColor");
             numChatColorFriendlyA.Value = c.A;
             numChatColorFriendlyR.Value = c.R;
             numChatColorFriendlyG.Value = c.G;
             numChatColorFriendlyB.Value = c.B;
-            c = (Color)configReader.getConfigVar("enemyChatColor");
+            c = (Color)config.getConfigVar("enemyChatColor");
             numChatColorEnemyA.Value = c.A;
             numChatColorEnemyR.Value = c.R;
             numChatColorEnemyG.Value = c.G;
             numChatColorEnemyB.Value = c.B;
-            c = (Color)configReader.getConfigVar("teamChatColor");
+            c = (Color)config.getConfigVar("teamChatColor");
             numChatColorTeamA.Value = c.A;
             numChatColorTeamR.Value = c.R;
             numChatColorTeamG.Value = c.G;
             numChatColorTeamB.Value = c.B;
-            c = (Color)configReader.getConfigVar("whisperChatColor");
+            c = (Color)config.getConfigVar("whisperChatColor");
             numChatColorWhisperA.Value = c.A;
             numChatColorWhisperR.Value = c.R;
             numChatColorWhisperG.Value = c.G;
@@ -242,11 +241,80 @@ namespace TAModConfigurationTool {
             // Loadouts
             listLoadouts.ClearSelected();
             listLoadouts.Items.Clear();
-            foreach (Loadout l in configReader.getConfigLoadouts())
+            foreach (Loadout l in config.getConfigLoadouts())
             {
                 listLoadouts.Items.Add(l);
             }
 
+        }
+
+        private void writeUIToConfig()
+        {
+            // General Settings
+            // Display Settings
+            config.setConfigVar("showWeapon", checkShowWeapon.Checked);
+            config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
+            config.setConfigVar("crosshairScale", (float)numCrosshairScale.Value);
+
+            // Damage Number Settings
+            // Damage Number Display
+            if (radioDamageNumberShow.Checked)
+            {
+                config.setConfigVar("damageNumbersLimit", 0);
+            }
+            else if (radioDamageNumberLimit.Checked)
+            {
+                config.setConfigVar("damageNumbersLimit", (int)numDamageNumberLimit.Value);
+            }
+            else
+            {
+                config.setConfigVar("damageNumbersLimit", 100000);
+            }
+
+            config.setConfigVar("damageNumbersScale", (float)numDamageNumberScale.Value);
+            config.setConfigVar("damageNumbersOffsetX", (int)numDamageNumberXOffset.Value);
+            config.setConfigVar("damageNumbersOffsetY", (int)numDamageNumberYOffset.Value);
+
+            // Damage Number Streaming
+            config.setConfigVar("showChainBulletHitCount", false);
+            config.setConfigVar("showDamageNumberStream", false);
+            if (radioDamageNumberCount.Checked)
+            {
+                config.setConfigVar("showChainBulletHitCount", true);
+            }
+            else if (radioDamageNumberStream.Checked)
+            {
+                config.setConfigVar("showDamageNumberStream", true);
+            }
+
+            // Colour Settings
+            // Custom Damage Number Colours
+            config.setConfigVar("showRainbow", false);
+            if (radioDamageNumberColorRainbow.Checked)
+            {
+                config.setConfigVar("showRainbow", true);
+            }
+            else if (radioDamageNumberColorCustom.Checked)
+            {
+                config.setConfigVar("damageNumbersColorMin", Color.FromArgb((byte)numDamageNumberMinColorA.Value, (byte)numDamageNumberMinColorR.Value, (byte)numDamageNumberMinColorG.Value, (byte)numDamageNumberMinColorB.Value));
+                config.setConfigVar("damageNumbersColorMax", Color.FromArgb((byte)numDamageNumberMaxColorA.Value, (byte)numDamageNumberMaxColorR.Value, (byte)numDamageNumberMaxColorG.Value, (byte)numDamageNumberMaxColorB.Value));
+            }
+
+            // Custom Chat Colours
+            if (radioChatColorCustom.Checked)
+            {
+                config.setConfigVar("friendlyChatColor", Color.FromArgb((byte)numChatColorFriendlyA.Value, (byte)numChatColorFriendlyR.Value, (byte)numChatColorFriendlyG.Value, (byte)numChatColorFriendlyB.Value));
+                config.setConfigVar("enemyChatColor", Color.FromArgb((byte)numChatColorEnemyA.Value, (byte)numChatColorEnemyR.Value, (byte)numChatColorEnemyG.Value, (byte)numChatColorEnemyB.Value));
+                config.setConfigVar("teamChatColor", Color.FromArgb((byte)numChatColorTeamA.Value, (byte)numChatColorTeamR.Value, (byte)numChatColorTeamG.Value, (byte)numChatColorTeamB.Value));
+                config.setConfigVar("whisperChatColor", Color.FromArgb((byte)numChatColorWhisperA.Value, (byte)numChatColorWhisperR.Value, (byte)numChatColorWhisperG.Value, (byte)numChatColorWhisperB.Value));
+            }
+
+            // Loadouts
+            config.clearConfigLoadouts();
+            foreach (Loadout l in listLoadouts.Items)
+            {
+                config.setLoadout(l.gameClass,l.num, l.name, l.equipment);
+            }
         }
 
         private void selectLoadoutClass_SelectedIndexChanged(object sender, EventArgs e)
@@ -299,7 +367,6 @@ namespace TAModConfigurationTool {
             }
             else
             {
-
                 if (selectLoadoutClass.SelectedItem != null)
                 {
                     curClass = (string)selectLoadoutClass.SelectedItem;
@@ -526,10 +593,16 @@ namespace TAModConfigurationTool {
         {
             numCrosshairScale.Enabled = checkShowCrosshair.Checked;
         }
+
+        private void btnSaveConfig_Click(object sender, EventArgs e)
+        {
+            writeUIToConfig();
+            config.saveConfig();
+        }
         
     }
 
-    public class ConfigReader
+    public class Config
     {
         private Lua lua;
         private string configPath;
@@ -539,7 +612,7 @@ namespace TAModConfigurationTool {
         private List<Loadout> configLoadouts;
         private List<Crosshairs> configCrosshairs;
 
-        public ConfigReader(string configPath, string configFilename)
+        public Config(string configPath, string configFilename)
         {
             lua = new Lua();
             // Register necessary functions to the script
@@ -560,7 +633,7 @@ namespace TAModConfigurationTool {
         }
 
         // Constructor puts the config path in the root of the C: drive if no path is given
-        public ConfigReader() : this("C:\\", "config.lua") {}
+        public Config() : this("C:\\", "config.lua") {}
 
         public void setConfigPath(string configPath)
         {
@@ -629,6 +702,11 @@ namespace TAModConfigurationTool {
         public bool loadConfig()
         {
 
+            if (!System.IO.File.Exists(configPath + configFile))
+            {
+                System.IO.File.WriteAllText(configPath + configFile, "");
+            }
+            
             try
             {
                 lua.DoFile(configPath + configFile);
@@ -659,7 +737,7 @@ namespace TAModConfigurationTool {
         }
 
         // Checks if a config variable has been set
-        public bool configVarSet(string variableName)
+        public bool isConfigVarSet(string variableName)
         {
             if (!configVars.ContainsKey(variableName))
             {
@@ -704,6 +782,11 @@ namespace TAModConfigurationTool {
             
         }
 
+        public void setConfigVar(string variableName, object value)
+        {
+            configVars[variableName] = value;
+        }
+
         public List<Loadout> getConfigLoadouts()
         {
             // Make a deep copy of the config loadouts list
@@ -713,6 +796,77 @@ namespace TAModConfigurationTool {
                 cp.Add(l);
             }
             return cp;
+        }
+
+        public void clearConfigLoadouts()
+        {
+            configLoadouts.Clear();
+        }
+
+        // Save the current config to the file, returning success
+        public bool saveConfig()
+        {
+            try
+            {
+
+                List<string> flines = new List<string>();
+
+                flines.Add("------TAMod Lua Configuration Script------");
+                flines.Add("--Generated by TAMod Configuration Tool---");
+                flines.Add("------------------------------------------");
+                flines.Add("");
+
+
+                // Write ConfigVars
+                flines.Add("--Config Variables");
+                foreach (string variable in configVars.Keys)
+                {
+                    object value = getConfigVar(variable);
+
+                    if (value is Color)
+                    {
+                        Color c = (Color)value;
+                        if (c.A == 255)
+                        {
+                            flines.Add(variable + " = rgb(" + c.R + ", " + c.G + ", " + c.B + ")");
+                        }
+                        else
+                        {
+                            flines.Add(variable + " = rgba(" + c.R + ", " + c.G + ", " + c.B + ", " + c.A + ")");
+                        }
+                        
+                    }
+                    else
+                    {
+                        flines.Add(variable + " = " + value.ToString());
+                    }
+                }
+
+                flines.Add("");
+                flines.Add("--Custom Loadouts");
+                // Write Loadouts
+                foreach (Loadout l in configLoadouts)
+                {
+                    flines.Add("setLoadout(\"" + l.gameClass + "\", " + l.num + ", \"" + l.name +
+                        "\", equipment(\"" + l.equipment.primary + "\", \"" + l.equipment.secondary + "\", \"" + l.equipment.belt + "\", \"" + l.equipment.pack + "\", \"" + l.equipment.perk1 + "\", \"" + l.equipment.perk2 + "\"))");
+                }
+
+                flines.Add("");
+                flines.Add("--Custom Crosshair Settings");
+
+                if (System.IO.File.Exists(configPath + configFile))
+                {
+                    System.IO.File.Delete(configPath + configFile);
+                }
+
+                System.IO.File.WriteAllLines(configPath + configFile, flines.ToArray());
+            }
+            catch (System.IO.IOException)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         // Turn an RGBA value into a colour
