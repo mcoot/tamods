@@ -897,7 +897,7 @@ namespace TAModConfigurationTool {
                         }
                         else
                         {
-                            flines.Add(variable + " = " + value.ToString());
+                            flines.Add(variable + " = " + value.ToString().ToLower());
                         }
                     }
                 }
