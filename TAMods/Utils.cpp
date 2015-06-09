@@ -6,7 +6,7 @@ namespace Utils
 	UTrGameViewportClient *tr_gvc = NULL;
 }
 
-FLinearColor Utils::linCol(FColor col){
+FLinearColor Utils::linCol(const FColor &col){
 	FLinearColor lcol;
 	lcol.R = ((float)col.R / 255);
 	lcol.G = ((float)col.G / 255);
@@ -28,6 +28,11 @@ FColor Utils::rgba(byte r, byte g, byte b, byte alpha)
 FColor Utils::rgb(byte r, byte g, byte b)
 {
 	return rgba(r, g, b, 255);
+}
+
+int Utils::rgb2int(const FColor &col)
+{
+	return (col.R << 16) | (col.G << 8) | col.B;
 }
 
 // Converts UE3's FString to std::string

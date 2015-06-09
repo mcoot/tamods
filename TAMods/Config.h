@@ -72,6 +72,8 @@ public:
 	FColor enemyChatColor;
 	FColor teamChatColor;
 	FColor whisperChatColor;
+	FColor friendlyHUDChatColor;
+	FColor enemyHUDChatColor;
 	//Marker Cols
 	FColor enemyColor;
 	FColor enemyIsFColor;

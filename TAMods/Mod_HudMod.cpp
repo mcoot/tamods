@@ -98,6 +98,14 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	that->TeamChatColor = g_config.teamChatColor;
 	that->WhisperChatColor = g_config.whisperChatColor;
 
+	if (that->m_GFxHud)
+	{
+		TArray<int> arr;
+		arr.Add(Utils::rgb2int(g_config.enemyHUDChatColor));
+		arr.Add(Utils::rgb2int(g_config.friendlyHUDChatColor));
+		that->m_GFxHud->SetVariableIntArray(L"colorArray", 0, arr);
+	}
+
 	//Hud icon colors
 
 	that->MarkerColorEnemy = Utils::linCol(g_config.enemyColor);
