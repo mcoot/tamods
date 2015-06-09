@@ -5,8 +5,10 @@
 #include "Utils.h"
 #include "Data.h"
 #include "Geom.h"
+#include "stats.h"
 
 extern Config g_config;
+extern Stats g_stats;
 
 // Loadouts
 bool GFxTrHUD_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
