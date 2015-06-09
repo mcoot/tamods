@@ -25,6 +25,9 @@
     <Filter Include="Source Files\lua_src">
       <UniqueIdentifier>{8ee16e57-cb44-4d1c-bb18-fafb2fddd07e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Additions">
+      <UniqueIdentifier>{973ab2c5-b5d2-42e7-b679-e30d32ae194a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -209,6 +212,9 @@
     </ClCompile>
     <ClCompile Include="lua_src\lzio.c">
       <Filter>Source Files\lua_src</Filter>
+    </ClCompile>
+    <ClCompile Include="Stats.cpp">
+      <Filter>Source Files\Additions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -439,6 +445,9 @@
     </ClInclude>
     <ClInclude Include="lua_src\lzio.h">
       <Filter>Source Files\lua_src</Filter>
+    </ClInclude>
+    <ClInclude Include="Stats.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

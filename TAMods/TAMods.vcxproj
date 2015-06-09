@@ -144,6 +144,7 @@
     <ClCompile Include="SDK_SOURCES\UTGame_functions.cpp" />
     <ClCompile Include="SDK_SOURCES\WinDrv_functions.cpp" />
     <ClCompile Include="SDK_SOURCES\XAudio2_functions.cpp" />
+    <ClCompile Include="Stats.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Data.cpp" />
   </ItemGroup>
@@ -223,6 +224,7 @@
     <ClInclude Include="SDK_HEADERS\XAudio2_classes.h" />
     <ClInclude Include="SDK_HEADERS\XAudio2_f_structs.h" />
     <ClInclude Include="SDK_HEADERS\XAudio2_structs.h" />
+    <ClInclude Include="Stats.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
