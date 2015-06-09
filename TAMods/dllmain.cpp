@@ -17,6 +17,7 @@ void onDLLProcessAttach()
 
 		// HUD modification
 		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers
+		Hooks::add(&TrScoreboard_Tick, "Function TribesGame.TrScoreboard.Tick", Hooks::POST); // Scoreboard '\n' display bug
 		Hooks::add(&GFxTrScenePS_LoadPlayerMiscData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadPlayerMiscData"); // Level 50 xp bug fix
 		Hooks::add(&TrGO_PostRenderFor, "Function TribesGame.TrGameObjective.PostRenderFor"); // Game objectives (turrets, gen ?, vpad)
 		Hooks::add(&TrCTFBase_PostRenderFor, "Function TribesGame.TrCTFBase.PostRenderFor"); // CTF Base (empty flagstand)
