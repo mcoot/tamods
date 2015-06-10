@@ -129,22 +129,6 @@ namespace TAModConfigurationTool
             numChatColorEnemyG.Value = 111;
             numChatColorEnemyB.Enabled = false;
             numChatColorEnemyB.Value = 111;
-            numChatColorTeamA.Enabled = false;
-            numChatColorTeamA.Value = 255;
-            numChatColorTeamR.Enabled = false;
-            numChatColorTeamR.Value = 199;
-            numChatColorTeamG.Enabled = false;
-            numChatColorTeamG.Value = 254;
-            numChatColorTeamB.Enabled = false;
-            numChatColorTeamB.Value = 218;
-            numChatColorWhisperA.Enabled = false;
-            numChatColorWhisperA.Value = 255;
-            numChatColorWhisperR.Enabled = false;
-            numChatColorWhisperR.Value = 207;
-            numChatColorWhisperG.Enabled = false;
-            numChatColorWhisperG.Value = 165;
-            numChatColorWhisperB.Enabled = false;
-            numChatColorWhisperB.Value = 101;
             // Custom HUD chat colour settings
             radioHUDChatColorDefault.Checked = true;
             numHUDChatColorFriendlyA.Enabled = false;
@@ -243,13 +227,10 @@ namespace TAModConfigurationTool
 
             // Custom Chat Colours
             radioChatColorDefault.Checked = true;
-            if (config.isConfigVarSet("friendlyChatColor") || config.isConfigVarSet("enemyChatColor")
-                || config.isConfigVarSet("teamChatColor") || config.isConfigVarSet("whisperChatColor"))
+            if (config.isConfigVarSet("friendlyChatColor") || config.isConfigVarSet("enemyChatColor"))
             {
                 if (!config.getConfigVar("friendlyChatColor").Equals(config.getConfigVarDefault("friendlyChatColor"))
-                    || !config.getConfigVar("enemyChatColor").Equals(config.getConfigVarDefault("enemyChatColor"))
-                    || !config.getConfigVar("teamChatColor").Equals(config.getConfigVarDefault("teamChatColor"))
-                    || !config.getConfigVar("whisperChatColor").Equals(config.getConfigVarDefault("whisperChatColor")))
+                    || !config.getConfigVar("enemyChatColor").Equals(config.getConfigVarDefault("enemyChatColor")))
                 {
                     radioChatColorCustom.Checked = true;
                 }
@@ -264,16 +245,6 @@ namespace TAModConfigurationTool
             numChatColorEnemyR.Value = c.R;
             numChatColorEnemyG.Value = c.G;
             numChatColorEnemyB.Value = c.B;
-            c = (Color)config.getConfigVar("teamChatColor");
-            numChatColorTeamA.Value = c.A;
-            numChatColorTeamR.Value = c.R;
-            numChatColorTeamG.Value = c.G;
-            numChatColorTeamB.Value = c.B;
-            c = (Color)config.getConfigVar("whisperChatColor");
-            numChatColorWhisperA.Value = c.A;
-            numChatColorWhisperR.Value = c.R;
-            numChatColorWhisperG.Value = c.G;
-            numChatColorWhisperB.Value = c.B;
 
             radioHUDChatColorDefault.Checked = true;
             if (config.isConfigVarSet("friendlyHUDChatColor") || config.isConfigVarSet("enemyHUDChatColor"))
@@ -373,8 +344,6 @@ namespace TAModConfigurationTool
             {
                 config.setConfigVar("friendlyChatColor", Color.FromArgb((byte)numChatColorFriendlyA.Value, (byte)numChatColorFriendlyR.Value, (byte)numChatColorFriendlyG.Value, (byte)numChatColorFriendlyB.Value));
                 config.setConfigVar("enemyChatColor", Color.FromArgb((byte)numChatColorEnemyA.Value, (byte)numChatColorEnemyR.Value, (byte)numChatColorEnemyG.Value, (byte)numChatColorEnemyB.Value));
-                config.setConfigVar("teamChatColor", Color.FromArgb((byte)numChatColorTeamA.Value, (byte)numChatColorTeamR.Value, (byte)numChatColorTeamG.Value, (byte)numChatColorTeamB.Value));
-                config.setConfigVar("whisperChatColor", Color.FromArgb((byte)numChatColorWhisperA.Value, (byte)numChatColorWhisperR.Value, (byte)numChatColorWhisperG.Value, (byte)numChatColorWhisperB.Value));
             }
             else
             {
@@ -433,8 +402,6 @@ namespace TAModConfigurationTool
             boxDamageNumberMinColor.BackColor = Color.FromArgb((int)numDamageNumberMinColorA.Value, (int)numDamageNumberMinColorR.Value, (int)numDamageNumberMinColorG.Value, (int)numDamageNumberMinColorB.Value); //Color.FromArgb((int)numDamageNumberMinColorA.Value, (int)numDamageNumberMinColorR.Value, (int)numDamageNumberMinColorG.Value, (int)numDamageNumberMinColorB.Value);
             boxChatColorFriendly.BackColor = Color.FromArgb((int)numChatColorFriendlyA.Value, (int)numChatColorFriendlyR.Value, (int)numChatColorFriendlyG.Value, (int)numChatColorFriendlyB.Value);
             boxChatColorEnemy.BackColor = Color.FromArgb((int)numChatColorEnemyA.Value, (int)numChatColorEnemyR.Value, (int)numChatColorEnemyG.Value, (int)numChatColorEnemyB.Value);
-            boxChatColorTeam.BackColor = Color.FromArgb((int)numChatColorTeamA.Value, (int)numChatColorTeamR.Value, (int)numChatColorTeamG.Value, (int)numChatColorTeamB.Value);
-            boxChatColorWhisper.BackColor = Color.FromArgb((int)numChatColorWhisperA.Value, (int)numChatColorWhisperR.Value, (int)numChatColorWhisperG.Value, (int)numChatColorWhisperB.Value);
             boxHUDChatColorFriendly.BackColor = Color.FromArgb((int)numHUDChatColorFriendlyA.Value, (int)numHUDChatColorFriendlyR.Value, (int)numHUDChatColorFriendlyG.Value, (int)numHUDChatColorFriendlyB.Value);
             boxHUDChatColorEnemy.BackColor = Color.FromArgb((int)numHUDChatColorEnemyA.Value, (int)numHUDChatColorEnemyR.Value, (int)numHUDChatColorEnemyG.Value, (int)numHUDChatColorEnemyB.Value);
         }
@@ -700,14 +667,6 @@ namespace TAModConfigurationTool
             numChatColorEnemyR.Enabled = radioChatColorCustom.Checked;
             numChatColorEnemyG.Enabled = radioChatColorCustom.Checked;
             numChatColorEnemyB.Enabled = radioChatColorCustom.Checked;
-            numChatColorTeamA.Enabled = radioChatColorCustom.Checked;
-            numChatColorTeamR.Enabled = radioChatColorCustom.Checked;
-            numChatColorTeamG.Enabled = radioChatColorCustom.Checked;
-            numChatColorTeamB.Enabled = radioChatColorCustom.Checked;
-            numChatColorWhisperA.Enabled = radioChatColorCustom.Checked;
-            numChatColorWhisperR.Enabled = radioChatColorCustom.Checked;
-            numChatColorWhisperG.Enabled = radioChatColorCustom.Checked;
-            numChatColorWhisperB.Enabled = radioChatColorCustom.Checked;
         }
 
         private void checkShowCrosshair_CheckedChanged(object sender, EventArgs e)
@@ -922,8 +881,6 @@ namespace TAModConfigurationTool
                 { "damageNumbersColorMax", null },
                 { "friendlyChatColor", null },
                 { "enemyChatColor", null },
-                { "teamChatColor", null },
-                { "whisperChatColor", null },
                 { "friendlyHUDChatColor", null },
                 { "enemyHUDChatColor", null },
             };
@@ -948,8 +905,6 @@ namespace TAModConfigurationTool
                 { "damageNumbersColorMax", rgb(248, 83, 83) },
                 { "friendlyChatColor", rgb(158, 208, 212) },
                 { "enemyChatColor", rgb(255, 111, 111) },
-                { "teamChatColor", rgb(199, 254, 218) },
-                { "whisperChatColor", rgb(207, 165, 101) },
                 { "friendlyHUDChatColor", rgb(158, 208, 211) },
                 { "enemyHUDChatColor", rgb(249, 32, 32) },
             };

@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -87,26 +85,6 @@
             this.radioHUDChatColorDefault = new System.Windows.Forms.RadioButton();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label64 = new System.Windows.Forms.Label();
-            this.boxChatColorWhisper = new System.Windows.Forms.PictureBox();
-            this.numChatColorWhisperR = new System.Windows.Forms.NumericUpDown();
-            this.boxChatColorTeam = new System.Windows.Forms.PictureBox();
-            this.numChatColorTeamR = new System.Windows.Forms.NumericUpDown();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.numChatColorWhisperG = new System.Windows.Forms.NumericUpDown();
-            this.numChatColorTeamG = new System.Windows.Forms.NumericUpDown();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.numChatColorWhisperB = new System.Windows.Forms.NumericUpDown();
-            this.numChatColorTeamB = new System.Windows.Forms.NumericUpDown();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.numChatColorWhisperA = new System.Windows.Forms.NumericUpDown();
-            this.numChatColorTeamA = new System.Windows.Forms.NumericUpDown();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
             this.radioChatColorCustom = new System.Windows.Forms.RadioButton();
             this.radioChatColorDefault = new System.Windows.Forms.RadioButton();
             this.boxChatColorEnemy = new System.Windows.Forms.PictureBox();
@@ -203,8 +181,9 @@
             this.label71 = new System.Windows.Forms.Label();
             this.boxCrosshairScopedPreview = new System.Windows.Forms.PictureBox();
             this.boxCrosshairNormalPreview = new System.Windows.Forms.PictureBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -229,16 +208,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyR)).BeginInit();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxChatColorWhisper)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorWhisperR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxChatColorTeam)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorTeamR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorWhisperG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorTeamG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorWhisperB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorTeamB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorWhisperA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorTeamA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxChatColorEnemy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxChatColorFriendly)).BeginInit();
@@ -270,6 +239,7 @@
             this.panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -287,26 +257,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 501);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
             // tabControlMain
             // 
@@ -957,26 +907,6 @@
             // panel6
             // 
             this.panel6.Controls.Add(this.label64);
-            this.panel6.Controls.Add(this.boxChatColorWhisper);
-            this.panel6.Controls.Add(this.numChatColorWhisperR);
-            this.panel6.Controls.Add(this.boxChatColorTeam);
-            this.panel6.Controls.Add(this.numChatColorTeamR);
-            this.panel6.Controls.Add(this.label42);
-            this.panel6.Controls.Add(this.label37);
-            this.panel6.Controls.Add(this.numChatColorWhisperG);
-            this.panel6.Controls.Add(this.numChatColorTeamG);
-            this.panel6.Controls.Add(this.label41);
-            this.panel6.Controls.Add(this.label36);
-            this.panel6.Controls.Add(this.numChatColorWhisperB);
-            this.panel6.Controls.Add(this.numChatColorTeamB);
-            this.panel6.Controls.Add(this.label40);
-            this.panel6.Controls.Add(this.label35);
-            this.panel6.Controls.Add(this.numChatColorWhisperA);
-            this.panel6.Controls.Add(this.numChatColorTeamA);
-            this.panel6.Controls.Add(this.label39);
-            this.panel6.Controls.Add(this.label34);
-            this.panel6.Controls.Add(this.label38);
-            this.panel6.Controls.Add(this.label33);
             this.panel6.Controls.Add(this.radioChatColorCustom);
             this.panel6.Controls.Add(this.radioChatColorDefault);
             this.panel6.Controls.Add(this.boxChatColorEnemy);
@@ -1014,232 +944,6 @@
             this.label64.Size = new System.Drawing.Size(83, 25);
             this.label64.TabIndex = 72;
             this.label64.Text = "Console";
-            // 
-            // boxChatColorWhisper
-            // 
-            this.boxChatColorWhisper.BackColor = System.Drawing.Color.Black;
-            this.boxChatColorWhisper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.boxChatColorWhisper.Location = new System.Drawing.Point(127, 354);
-            this.boxChatColorWhisper.Name = "boxChatColorWhisper";
-            this.boxChatColorWhisper.Size = new System.Drawing.Size(100, 27);
-            this.boxChatColorWhisper.TabIndex = 69;
-            this.boxChatColorWhisper.TabStop = false;
-            // 
-            // numChatColorWhisperR
-            // 
-            this.numChatColorWhisperR.Location = new System.Drawing.Point(169, 252);
-            this.numChatColorWhisperR.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorWhisperR.Name = "numChatColorWhisperR";
-            this.numChatColorWhisperR.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorWhisperR.TabIndex = 53;
-            this.numChatColorWhisperR.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // boxChatColorTeam
-            // 
-            this.boxChatColorTeam.BackColor = System.Drawing.Color.Black;
-            this.boxChatColorTeam.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.boxChatColorTeam.Location = new System.Drawing.Point(7, 354);
-            this.boxChatColorTeam.Name = "boxChatColorTeam";
-            this.boxChatColorTeam.Size = new System.Drawing.Size(100, 27);
-            this.boxChatColorTeam.TabIndex = 68;
-            this.boxChatColorTeam.TabStop = false;
-            // 
-            // numChatColorTeamR
-            // 
-            this.numChatColorTeamR.Location = new System.Drawing.Point(49, 252);
-            this.numChatColorTeamR.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorTeamR.Name = "numChatColorTeamR";
-            this.numChatColorTeamR.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorTeamR.TabIndex = 52;
-            this.numChatColorTeamR.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(124, 254);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(27, 13);
-            this.label42.TabIndex = 54;
-            this.label42.Text = "Red";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(4, 254);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(27, 13);
-            this.label37.TabIndex = 55;
-            this.label37.Text = "Red";
-            // 
-            // numChatColorWhisperG
-            // 
-            this.numChatColorWhisperG.Location = new System.Drawing.Point(169, 277);
-            this.numChatColorWhisperG.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorWhisperG.Name = "numChatColorWhisperG";
-            this.numChatColorWhisperG.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorWhisperG.TabIndex = 60;
-            this.numChatColorWhisperG.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // numChatColorTeamG
-            // 
-            this.numChatColorTeamG.Location = new System.Drawing.Point(49, 277);
-            this.numChatColorTeamG.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorTeamG.Name = "numChatColorTeamG";
-            this.numChatColorTeamG.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorTeamG.TabIndex = 59;
-            this.numChatColorTeamG.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(124, 279);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(38, 13);
-            this.label41.TabIndex = 67;
-            this.label41.Text = "Green";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(4, 279);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(38, 13);
-            this.label36.TabIndex = 66;
-            this.label36.Text = "Green";
-            // 
-            // numChatColorWhisperB
-            // 
-            this.numChatColorWhisperB.Location = new System.Drawing.Point(169, 302);
-            this.numChatColorWhisperB.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorWhisperB.Name = "numChatColorWhisperB";
-            this.numChatColorWhisperB.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorWhisperB.TabIndex = 57;
-            this.numChatColorWhisperB.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // numChatColorTeamB
-            // 
-            this.numChatColorTeamB.Location = new System.Drawing.Point(49, 302);
-            this.numChatColorTeamB.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorTeamB.Name = "numChatColorTeamB";
-            this.numChatColorTeamB.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorTeamB.TabIndex = 56;
-            this.numChatColorTeamB.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(124, 304);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(30, 13);
-            this.label40.TabIndex = 65;
-            this.label40.Text = "Blue";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(4, 304);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(30, 13);
-            this.label35.TabIndex = 64;
-            this.label35.Text = "Blue";
-            // 
-            // numChatColorWhisperA
-            // 
-            this.numChatColorWhisperA.Location = new System.Drawing.Point(169, 327);
-            this.numChatColorWhisperA.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorWhisperA.Name = "numChatColorWhisperA";
-            this.numChatColorWhisperA.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorWhisperA.TabIndex = 61;
-            this.numChatColorWhisperA.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorWhisperA.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // numChatColorTeamA
-            // 
-            this.numChatColorTeamA.Location = new System.Drawing.Point(49, 327);
-            this.numChatColorTeamA.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorTeamA.Name = "numChatColorTeamA";
-            this.numChatColorTeamA.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorTeamA.TabIndex = 58;
-            this.numChatColorTeamA.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorTeamA.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(127, 232);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(59, 17);
-            this.label39.TabIndex = 70;
-            this.label39.Text = "Whisper";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(7, 232);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(41, 17);
-            this.label34.TabIndex = 71;
-            this.label34.Text = "Team";
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(124, 329);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(37, 13);
-            this.label38.TabIndex = 62;
-            this.label38.Text = "Alpha";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(4, 329);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(37, 13);
-            this.label33.TabIndex = 63;
-            this.label33.Text = "Alpha";
             // 
             // radioChatColorCustom
             // 
@@ -2322,6 +2026,26 @@
             this.boxCrosshairNormalPreview.TabStop = false;
             this.boxCrosshairNormalPreview.Visible = false;
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2337,7 +2061,6 @@
             this.Text = "TAMod Configuration Tool";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -2368,16 +2091,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyR)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxChatColorWhisper)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorWhisperR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxChatColorTeam)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorTeamR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorWhisperG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorTeamG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorWhisperB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorTeamB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorWhisperA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorTeamA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxChatColorEnemy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxChatColorFriendly)).EndInit();
@@ -2416,6 +2129,7 @@
             this.panel11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2566,26 +2280,6 @@
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.PictureBox boxChatColorWhisper;
-        private System.Windows.Forms.NumericUpDown numChatColorWhisperR;
-        private System.Windows.Forms.PictureBox boxChatColorTeam;
-        private System.Windows.Forms.NumericUpDown numChatColorTeamR;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.NumericUpDown numChatColorWhisperG;
-        private System.Windows.Forms.NumericUpDown numChatColorTeamG;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.NumericUpDown numChatColorWhisperB;
-        private System.Windows.Forms.NumericUpDown numChatColorTeamB;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.NumericUpDown numChatColorWhisperA;
-        private System.Windows.Forms.NumericUpDown numChatColorTeamA;
-        private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.Label label67;
