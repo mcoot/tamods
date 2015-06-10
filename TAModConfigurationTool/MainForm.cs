@@ -808,7 +808,7 @@ namespace TAModConfigurationTool
             {
                 if (selectCrosshairWeapon.SelectedItem == null && listCrosshairs.SelectedItem != null)
                 {
-                    if (((CrosshairSetting)listCrosshairs.SelectedItem).gameClass == selectCrosshairClass.SelectedItem && findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.standard) == selectCrosshairNormal.SelectedItem && findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.zoomed) == selectCrosshairScoped.SelectedItem)
+                    if ((string)((CrosshairSetting)listCrosshairs.SelectedItem).gameClass == (string)selectCrosshairClass.SelectedItem && (string)findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.standard) == (string)selectCrosshairNormal.SelectedItem && (string)findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.zoomed) == (string)selectCrosshairScoped.SelectedItem)
                     {
                         selectCrosshairWeapon.SelectedItem = ((CrosshairSetting)listCrosshairs.SelectedItem).weapon;
                     }
