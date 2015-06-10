@@ -255,7 +255,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.02267F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 501);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 502);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tabControlMain
@@ -2033,7 +2033,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 45);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // btnSaveConfig
@@ -2052,12 +2052,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::TAModConfigurationTool.Properties.Resources.background_kata;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(944, 501);
+            this.ClientSize = new System.Drawing.Size(944, 502);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(960, 540);
             this.MinimumSize = new System.Drawing.Size(960, 540);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TAMod Configuration Tool";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
