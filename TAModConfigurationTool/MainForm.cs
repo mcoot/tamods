@@ -736,7 +736,6 @@ namespace TAModConfigurationTool
         {
             
             selectCrosshairWeapon.Items.Clear();
-
             if (selectCrosshairClass.SelectedItem != null)
             {
                 foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["primary"])
@@ -760,18 +759,53 @@ namespace TAModConfigurationTool
             {
                 if (listCrosshairs.SelectedItem != null)
                 {
+                    
                     curClass = ((CrosshairSetting)listCrosshairs.SelectedItem).gameClass;
-                    curWeapon = ((CrosshairSetting)listCrosshairs.SelectedItem).weapon;
-                    selectCrosshairClass.SelectedItem = curClass;
-                    selectCrosshairWeapon.SelectedItem = curWeapon;
 
+                    curWeapon = findMatchingLoadoutItem(curClass, "primary",  ((CrosshairSetting)listCrosshairs.SelectedItem).weapon);
+                    if (curWeapon == null) 
+                    {
+                        curWeapon = findMatchingLoadoutItem(curClass, "secondary", ((CrosshairSetting)listCrosshairs.SelectedItem).weapon);
+
+                        if (curWeapon == null)
+                        {
+                            curWeapon = findMatchingLoadoutItem(curClass, "belt", ((CrosshairSetting)listCrosshairs.SelectedItem).weapon);
+
+                            if (curWeapon == null)
+                            {
+                                curWeapon = findMatchingLoadoutItem(curClass, "pack", ((CrosshairSetting)listCrosshairs.SelectedItem).weapon);
+
+                                if (curWeapon == null)
+                                {
+                                    curWeapon = "";
+                                }
+                            }
+                        }
+                    }
+
+                    selectCrosshairClass.SelectedItem = curClass;
+
+                    selectCrosshairWeapon.Items.Clear();
+                    foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["primary"])
+                    {
+                        selectCrosshairWeapon.Items.Add(weapon);
+                    }
+                    foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["secondary"])
+                    {
+                        selectCrosshairWeapon.Items.Add(weapon);
+                    }
+                    foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["belt"])
+                    {
+                        selectCrosshairWeapon.Items.Add(weapon);
+                    }
+
+                    selectCrosshairWeapon.SelectedItem = curWeapon;
                     selectCrosshairNormal.SelectedItem = findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.standard);
                     selectCrosshairScoped.SelectedItem = findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.zoomed);
                 }
             }
             else
             {
-                // a
                 if (selectCrosshairWeapon.SelectedItem == null && listCrosshairs.SelectedItem != null)
                 {
                     if (((CrosshairSetting)listCrosshairs.SelectedItem).gameClass == selectCrosshairClass.SelectedItem && findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.standard) == selectCrosshairNormal.SelectedItem && findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.zoomed) == selectCrosshairScoped.SelectedItem)
@@ -782,7 +816,7 @@ namespace TAModConfigurationTool
             }
         }
 
-        private void selectCrosshairClass_SelectedIndexChanged(object sender, EventArgs e)
+        private void selectCrosshairClass_SelectionChangeCommitted(object sender, EventArgs e)
         {
             updateCrosshairSelectors(sender);
         }
@@ -818,6 +852,8 @@ namespace TAModConfigurationTool
                 listCrosshairs.Items.Add(csNew);
             }
         }
+
+        
 
     }
 
