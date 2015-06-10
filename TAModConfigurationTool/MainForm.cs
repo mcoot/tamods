@@ -10,8 +10,10 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using NLua;
 
-namespace TAModConfigurationTool {
-    public partial class MainForm : Form {
+namespace TAModConfigurationTool
+{
+    public partial class MainForm : Form
+    {
 
         Dictionary<string, Dictionary<string, List<string>>> loadoutDetails;
         Dictionary<string, Dictionary<string, List<string>>> loadoutRegex;
@@ -19,10 +21,11 @@ namespace TAModConfigurationTool {
         List<string> crosshairRegex;
         Config config;
 
-        public MainForm() {
+        public MainForm()
+        {
             InitializeComponent();
             setupLoadouts();
-            
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -33,7 +36,7 @@ namespace TAModConfigurationTool {
         // Load a config file into the UI (returns true on success
         private bool loadConfigIntoUI()
         {
-            
+
             // Clear the UI Elements
             clearUI();
 
@@ -41,9 +44,12 @@ namespace TAModConfigurationTool {
             string profile = Environment.GetEnvironmentVariable("USERPROFILE");
             string directory;
 
-            if (profile == null) {
+            if (profile == null)
+            {
                 directory = "C:\\";
-            } else {
+            }
+            else
+            {
                 directory = profile + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
             }
 
@@ -57,7 +63,7 @@ namespace TAModConfigurationTool {
 
             // Set the UI elements based on the config
             setUI();
-            
+
 
             return true;
         }
@@ -158,9 +164,9 @@ namespace TAModConfigurationTool {
             numHUDChatColorEnemyB.Enabled = false;
             numHUDChatColorEnemyB.Value = 32;
 
-
-            listLoadouts.ClearSelected();
             listLoadouts.Items.Clear();
+
+            listCrosshairs.Items.Clear();
 
 
         }
@@ -290,11 +296,17 @@ namespace TAModConfigurationTool {
             numHUDChatColorEnemyB.Value = c.B;
 
             // Loadouts
-            listLoadouts.ClearSelected();
             listLoadouts.Items.Clear();
             foreach (Loadout l in config.getConfigLoadouts())
             {
                 listLoadouts.Items.Add(l);
+            }
+
+            // Crosshairs
+            listCrosshairs.Items.Clear();
+            foreach (CrosshairSetting cs in config.getConfigSetCrosshairs())
+            {
+                listCrosshairs.Items.Add(cs);
             }
 
         }
@@ -388,7 +400,14 @@ namespace TAModConfigurationTool {
             config.clearConfigLoadouts();
             foreach (Loadout l in listLoadouts.Items)
             {
-                config.setLoadout(l.gameClass,l.num, l.name, l.equipment);
+                config.setLoadout(l.gameClass, l.num, l.name, l.equipment);
+            }
+
+            // Crosshairs
+            config.clearConfigCrosshairs();
+            foreach (CrosshairSetting cs in listCrosshairs.Items)
+            {
+                config.setCrosshairs(cs.gameClass, cs.weapon, cs.crosshairs);
             }
         }
 
@@ -454,7 +473,7 @@ namespace TAModConfigurationTool {
                     curNumber = Convert.ToInt32(selectLoadoutNumber.SelectedItem);
                 }
             }
-            
+
             selectLoadoutPrimary.Items.Clear();
             selectLoadoutSecondary.Items.Clear();
             selectLoadoutBelt.Items.Clear();
@@ -462,7 +481,7 @@ namespace TAModConfigurationTool {
             selectLoadoutPerk1.Items.Clear();
             selectLoadoutPerk2.Items.Clear();
 
-            if (curClass == "" || curNumber == -1)
+            if (curClass == "")
             {
                 return;
             }
@@ -474,9 +493,14 @@ namespace TAModConfigurationTool {
             selectLoadoutPerk1.Items.AddRange(loadoutDetails["all"]["perk1"].ToArray());
             selectLoadoutPerk2.Items.AddRange(loadoutDetails["all"]["perk2"].ToArray());
 
+            if (curNumber == -1)
+            {
+                return;
+            }
+
             Loadout lCompare = new Loadout(curClass, curNumber, "", null);
 
-            foreach (Loadout l in listLoadouts.Items) 
+            foreach (Loadout l in listLoadouts.Items)
             {
                 if (l.Equals(lCompare))
                 {
@@ -500,7 +524,7 @@ namespace TAModConfigurationTool {
 
             loadoutDetails["Pathfinder"] = new Dictionary<string, List<string>>();
             loadoutRegex["Pathfinder"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Pathfinder"]["primary"] = new List<String> {"Light Spinfusor", "Bolt Launcher", "Dueling Spinfusor", "Light Twinfusor", "Blinksfusor"};
+            loadoutDetails["Pathfinder"]["primary"] = new List<String> { "Light Spinfusor", "Bolt Launcher", "Dueling Spinfusor", "Light Twinfusor", "Blinksfusor" };
             loadoutRegex["Pathfinder"]["primary"] = new List<String> { "^(spin(fusor)?|light(spin)?(fusor)?)$", "^(bolt|boltlauncher)$", "^(duel|dueling|duelingspinfusor)$", "^(twin|twinfusor|lighttwinfusor)$", "^(blinks|blinksfusor)$" };
             loadoutDetails["Pathfinder"]["secondary"] = new List<string> { "Shotgun", "Holdout Shotgun", "Light Assault Rifle", "Shocklance" };
             loadoutRegex["Pathfinder"]["secondary"] = new List<String> { "^(shotgun)$", "^(holdoutshotgun|holdout)$", "^(lightassaultrifle|lar|ar|assaultrifle|rifle)$", "^(shocklance)$" };
@@ -607,13 +631,13 @@ namespace TAModConfigurationTool {
 
             crosshairDetails = new List<string>() { "Spinfusor", "SMG", "Rifle", "Locked On", "Crossbow", "Flamethrower", "Chaingun", "Thumper", "Nanite", "Shotgun", "Unknown", "Laser", "ch_v13", "Scope", "Nova Blaster", "Mortar", "Melee", "Shrike", "Spectator", "Chain", "BXT1", "Phase Rifle", "SAP20", "Plasma Gun" };
             crosshairRegex = new List<string>() { "^(spin(fusor)?)$", "^(smg)$", "^(rifle)$", "^(locked_?on)$", "^(crossbow)$", "^(flamethrower)$", "^(chaingun)$", "^(bolt(launcher)?|thumper|missile)$", "^(nanite)$", "^(shotgun)$", "^(unknown)$", "^(laser)$", "^(ch_?v13)$", "^(scope)$", "^(standard|(nova)?(colt|blaster)?)$", "^(grenadelauncher|mortar)$", "^(melee)$", "^(shrike)$", "^(spectator)$", "^(chain|dot|assaultrifle|ar|red_?dot)$", "^(bxt1?)$", "^(phase(rifle)?)$", "^(sap(20)?)$", "^(plasma(gun)?)$" };
-            
+
             foreach (string xhair in crosshairDetails)
             {
                 selectCrosshairNormal.Items.Add(xhair);
                 selectCrosshairScoped.Items.Add(xhair);
             }
-        
+
         }
 
         private string findMatchingLoadoutItem(string gameClass, string slot, string item)
@@ -623,6 +647,19 @@ namespace TAModConfigurationTool {
                 if (Regex.IsMatch(item.Replace(" ", ""), loadoutRegex[gameClass][slot.ToLower()][i], RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace))
                 {
                     return loadoutDetails[gameClass][slot.ToLower()][i];
+                }
+            }
+
+            return null;
+        }
+
+        private string findMatchingCrosshairName(string cname)
+        {
+            for (int i = 0; i < crosshairDetails.Count; i++)
+            {
+                if (Regex.IsMatch(cname.Replace(" ", ""), crosshairRegex[i], RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace))
+                {
+                    return crosshairDetails[i];
                 }
             }
 
@@ -681,7 +718,15 @@ namespace TAModConfigurationTool {
         private void btnSaveConfig_Click(object sender, EventArgs e)
         {
             writeUIToConfig();
-            config.saveConfig();
+            if (config.saveConfig())
+            {
+                MessageBox.Show("Config successfully saved!", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // Show error if write failed
+                MessageBox.Show("An error occurred saving the config file!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnLoadoutDelete_Click(object sender, EventArgs e)
@@ -712,7 +757,7 @@ namespace TAModConfigurationTool {
 
                 listLoadouts.Items.Add(lNew);
             }
-            
+
         }
 
         private void radioHUDChatColorCustom_CheckedChanged(object sender, EventArgs e)
@@ -727,8 +772,9 @@ namespace TAModConfigurationTool {
             numHUDChatColorEnemyB.Enabled = radioHUDChatColorCustom.Checked;
         }
 
-        private void selectCrosshairClass_SelectedIndexChanged(object sender, EventArgs e)
+        private void updateCrosshairSelectors(object from)
         {
+            
             selectCrosshairWeapon.Items.Clear();
 
             if (selectCrosshairClass.SelectedItem != null)
@@ -746,8 +792,73 @@ namespace TAModConfigurationTool {
                     selectCrosshairWeapon.Items.Add(weapon);
                 }
             }
+
+            string curClass = "";
+            string curWeapon = "";
+
+            if (from.Equals(listCrosshairs))
+            {
+                if (listCrosshairs.SelectedItem != null)
+                {
+                    curClass = ((CrosshairSetting)listCrosshairs.SelectedItem).gameClass;
+                    curWeapon = ((CrosshairSetting)listCrosshairs.SelectedItem).weapon;
+                    selectCrosshairClass.SelectedItem = curClass;
+                    selectCrosshairWeapon.SelectedItem = curWeapon;
+
+                    selectCrosshairNormal.SelectedItem = findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.standard);
+                    selectCrosshairScoped.SelectedItem = findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.zoomed);
+                }
+            }
+            else
+            {
+                // a
+                if (selectCrosshairWeapon.SelectedItem == null && listCrosshairs.SelectedItem != null)
+                {
+                    if (((CrosshairSetting)listCrosshairs.SelectedItem).gameClass == selectCrosshairClass.SelectedItem && findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.standard) == selectCrosshairNormal.SelectedItem && findMatchingCrosshairName(((CrosshairSetting)listCrosshairs.SelectedItem).crosshairs.zoomed) == selectCrosshairScoped.SelectedItem)
+                    {
+                        selectCrosshairWeapon.SelectedItem = ((CrosshairSetting)listCrosshairs.SelectedItem).weapon;
+                    }
+                }
+            }
         }
-        
+
+        private void selectCrosshairClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateCrosshairSelectors(sender);
+        }
+
+        private void listCrosshairs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateCrosshairSelectors(sender);
+        }
+
+        private void btnDeleteCrosshair_Click(object sender, EventArgs e)
+        {
+            if (listCrosshairs.SelectedItem != null)
+            {
+                listCrosshairs.Items.Remove(listCrosshairs.SelectedItem);
+            }
+        }
+
+        private void btnSaveCrosshair_Click(object sender, EventArgs e)
+        {
+            CrosshairSetting csNew = new CrosshairSetting((string)selectCrosshairClass.SelectedItem, (string)selectCrosshairWeapon.SelectedItem,
+                new Crosshairs((string)selectCrosshairNormal.SelectedItem, (string)selectCrosshairScoped.SelectedItem));
+            if (csNew.gameClass.Trim() != "" && csNew.weapon.Trim() != "" && csNew.crosshairs.standard.Trim() != "" && csNew.crosshairs.zoomed.Trim() != "")
+            {
+                for (int i = 0; i < listCrosshairs.Items.Count; i++)
+                {
+                    if (csNew.Equals(listCrosshairs.Items[i]))
+                    {
+                        listCrosshairs.Items.Remove(listCrosshairs.Items[i]);
+                        break;
+                    }
+                }
+
+                listCrosshairs.Items.Add(csNew);
+            }
+        }
+
     }
 
     public class Config
@@ -758,7 +869,7 @@ namespace TAModConfigurationTool {
         private Dictionary<string, Object> configVars;
         private Dictionary<string, Object> configVarsDefault;
         private List<Loadout> configLoadouts;
-        private List<Crosshairs> configCrosshairs;
+        private List<CrosshairSetting> configCrosshairs;
 
         public Config(string configPath, string configFilename)
         {
@@ -771,17 +882,17 @@ namespace TAModConfigurationTool {
             lua.RegisterFunction("equipment", this, this.GetType().GetMethod("equipment"));
             lua.RegisterFunction("setLoadout", this, this.GetType().GetMethod("setLoadout"));
             lua.RegisterFunction("setCrosshairs", this, this.GetType().GetMethod("setCrosshairs"));
-            
+
 
             this.configPath = configPath;
             this.configFile = configFilename;
             setupConfigVarDict();
             configLoadouts = new List<Loadout>();
-            configCrosshairs = new List<Crosshairs>();
+            configCrosshairs = new List<CrosshairSetting>();
         }
 
         // Constructor puts the config path in the root of the C: drive if no path is given
-        public Config() : this("C:\\", "config.lua") {}
+        public Config() : this("C:\\", "config.lua") { }
 
         public void setConfigPath(string configPath)
         {
@@ -858,12 +969,12 @@ namespace TAModConfigurationTool {
             {
                 System.IO.File.WriteAllText(configPath + configFile, "");
             }
-            
+
             try
             {
                 lua.DoFile(configPath + configFile);
             }
-            catch (NLua.Exceptions.LuaException e)
+            catch (NLua.Exceptions.LuaException)
             {
                 return false;
             }
@@ -874,7 +985,7 @@ namespace TAModConfigurationTool {
             {
                 configKeys.Add(key);
             }
-            
+
             foreach (string key in configKeys)
             {
                 loadConfigVar(key);
@@ -908,7 +1019,8 @@ namespace TAModConfigurationTool {
         {
             if (configVars.ContainsKey(variableName))
             {
-                if (configVars[variableName] == null) {
+                if (configVars[variableName] == null)
+                {
                     if (!configVarsDefault.ContainsKey(variableName))
                     {
                         return null;
@@ -931,7 +1043,7 @@ namespace TAModConfigurationTool {
                     return configVarsDefault[variableName];
                 }
             }
-            
+
         }
 
         public object getConfigVarDefault(string variableName)
@@ -952,12 +1064,30 @@ namespace TAModConfigurationTool {
             {
                 cp.Add(l);
             }
+            cp.Sort();
             return cp;
         }
 
         public void clearConfigLoadouts()
         {
             configLoadouts.Clear();
+        }
+
+        public List<CrosshairSetting> getConfigSetCrosshairs()
+        {
+            // Make a deep copy of the config loadouts list
+            List<CrosshairSetting> cp = new List<CrosshairSetting>();
+            foreach (CrosshairSetting xhair in configCrosshairs)
+            {
+                cp.Add(xhair);
+            }
+            cp.Sort();
+            return cp;
+        }
+
+        public void clearConfigCrosshairs()
+        {
+            configCrosshairs.Clear();
         }
 
         // Save the current config to the file, returning success
@@ -1013,6 +1143,11 @@ namespace TAModConfigurationTool {
 
                 flines.Add("");
                 flines.Add("--Custom Crosshair Settings");
+                foreach (CrosshairSetting c in configCrosshairs)
+                {
+                    flines.Add("setCrosshairs(\"" + c.gameClass + "\", \"" + c.weapon + "\", crosshairs(\"" + c.crosshairs.standard + "\", \"" + c.crosshairs.zoomed + "\"))");
+                }
+
 
                 if (System.IO.File.Exists(configPath + configFile))
                 {
@@ -1058,52 +1193,62 @@ namespace TAModConfigurationTool {
 
         public bool setLoadout(string gameClass, int num, string name, Equipment equipment)
         {
-            // Use regex to chack if it's a known class
-            if (Regex.IsMatch(gameClass, "(^(pathfinder|pth|path)$)", RegexOptions.IgnoreCase))
-            {
-                gameClass = "Pathfinder";
-            }
-            else if (Regex.IsMatch(gameClass, "(^(sentinel|sen)$)", RegexOptions.IgnoreCase))
-            {
-                gameClass = "Sentinel";
-            }
-            else if (Regex.IsMatch(gameClass, "(^(infiltrator|inf)$)", RegexOptions.IgnoreCase))
-            {
-                gameClass = "Infiltrator";
-            }
-            else if (Regex.IsMatch(gameClass, "(^(soldier|sld)$)", RegexOptions.IgnoreCase))
-            {
-                gameClass = "Soldier";
-            }
-            else if (Regex.IsMatch(gameClass, "(^(technician|tcn|tech)$)", RegexOptions.IgnoreCase))
-            {
-                gameClass = "Technician";
-            }
-            else if (Regex.IsMatch(gameClass, "(^(raider|rdr)$)", RegexOptions.IgnoreCase))
-            {
-                gameClass = "Raider";
-            }
-            else if (Regex.IsMatch(gameClass, "(^(juggernaut|juggernaught|jug|jugg)$)", RegexOptions.IgnoreCase))
-            {
-                gameClass = "Juggernaut";
-            }
-            else if (Regex.IsMatch(gameClass, "(^(doombringer|doom|dmb)$)", RegexOptions.IgnoreCase))
-            {
-                gameClass = "Doombringer";
-            }
-            else if (Regex.IsMatch(gameClass, "(^(brute|brt)$)", RegexOptions.IgnoreCase))
-            {
-                gameClass = "Brute";
-            }
-            
+
+            gameClass = getGameClassName(gameClass);
+
             configLoadouts.Add(new Loadout(gameClass, num, name, equipment));
             return true;
         }
 
         public bool setCrosshairs(string gameClass, string weapon, Crosshairs xhairs)
         {
-            //configCrosshairs.Add();
+            gameClass = getGameClassName(gameClass);
+            
+            configCrosshairs.Add(new CrosshairSetting(gameClass, weapon, xhairs));
             return true;
+        }
+
+        public string getGameClassName(string gameClass)
+        {
+            // Use regex to check if it's a known class
+            if (Regex.IsMatch(gameClass, "(^(pathfinder|pth|path)$)", RegexOptions.IgnoreCase))
+            {
+                return "Pathfinder";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(sentinel|sen)$)", RegexOptions.IgnoreCase))
+            {
+                return "Sentinel";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(infiltrator|inf)$)", RegexOptions.IgnoreCase))
+            {
+                return "Infiltrator";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(soldier|sld)$)", RegexOptions.IgnoreCase))
+            {
+                return "Soldier";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(technician|tcn|tech)$)", RegexOptions.IgnoreCase))
+            {
+                return "Technician";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(raider|rdr)$)", RegexOptions.IgnoreCase))
+            {
+                return "Raider";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(juggernaut|juggernaught|jug|jugg)$)", RegexOptions.IgnoreCase))
+            {
+                return "Juggernaut";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(doombringer|doom|dmb)$)", RegexOptions.IgnoreCase))
+            {
+                return "Doombringer";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(brute|brt)$)", RegexOptions.IgnoreCase))
+            {
+                return "Brute";
+            }
+
+            return gameClass;
         }
 
     }
@@ -1132,13 +1277,14 @@ namespace TAModConfigurationTool {
         {
             List<string> classOrder = new List<string>() { "pathfinder", "sentinel", "infiltrator", "soldier", "technician", "raider", "juggernaut", "doombringer", "brute" };
             // Sort by class first, then number
-            if (other.gameClass == this.gameClass)
+            if (other.gameClass.Equals(this.gameClass))
             {
                 return this.num.CompareTo(other.num);
             }
-            
+
             // If invalid gameClass, then just sort alphabetically
-            if (!classOrder.Contains(this.gameClass) || !classOrder.Contains(other.gameClass)) {
+            if (!classOrder.Contains(this.gameClass) || !classOrder.Contains(other.gameClass))
+            {
                 return this.gameClass.CompareTo(other.gameClass);
             }
 
@@ -1155,11 +1301,11 @@ namespace TAModConfigurationTool {
                 return false;
             }
 
-            if (this.gameClass == lother.gameClass && this.num == lother.num) 
+            if (this.gameClass == lother.gameClass && this.num == lother.num)
             {
                 return true;
             }
-            
+
             return false;
         }
 
@@ -1167,8 +1313,65 @@ namespace TAModConfigurationTool {
         {
             return gameClass.GetHashCode() ^ num.GetHashCode();
         }
-        
+    }
 
+    public class CrosshairSetting : IComparable<CrosshairSetting>
+    {
+        public readonly string gameClass;
+        public readonly string weapon;
+        public readonly Crosshairs crosshairs;
+
+        public CrosshairSetting(string gameClass, string weapon, Crosshairs crosshairs)
+        {
+            this.gameClass = gameClass;
+            this.weapon = weapon;
+            this.crosshairs = crosshairs;
+        }
+
+        public override string ToString()
+        {
+            return gameClass + ": " + weapon + " (" + crosshairs.standard + ", " + crosshairs.zoomed + ")";
+        }
+
+        public int CompareTo(CrosshairSetting other)
+        {
+            List<string> classOrder = new List<string>() { "pathfinder", "sentinel", "infiltrator", "soldier", "technician", "raider", "juggernaut", "doombringer", "brute" };
+            // Sort by class first, then weapon
+            if (other.gameClass.Equals(this.gameClass))
+            {
+                return this.weapon.CompareTo(other.weapon);
+            }
+
+            // If invalid gameClass, then just sort alphabetically
+            if (!classOrder.Contains(this.gameClass) || !classOrder.Contains(other.gameClass))
+            {
+                return this.gameClass.CompareTo(other.gameClass);
+            }
+
+            return (classOrder.IndexOf(this.gameClass) - classOrder.IndexOf(other.gameClass));
+        }
+
+        public override bool Equals(object other)
+        {
+            // Return false if the other object cannot be cast to CrosshairSetting
+            CrosshairSetting cother = other as CrosshairSetting;
+            if ((object)cother == null)
+            {
+                return false;
+            }
+
+            if (this.gameClass == cother.gameClass && this.weapon == cother.weapon)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return gameClass.GetHashCode() ^ weapon.GetHashCode();
+        }
     }
 
     public class Equipment
@@ -1201,8 +1404,8 @@ namespace TAModConfigurationTool {
     public class Crosshairs
     {
 
-        public string standard;
-        public string zoomed;
+        public readonly string standard;
+        public readonly string zoomed;
 
         public Crosshairs(string standard, string zoomed)
         {
@@ -1223,4 +1426,14 @@ namespace TAModConfigurationTool {
 
     }
 
+    public class TransTabPage : TabPage
+    {
+        protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
+        {
+
+            e.Graphics.DrawImage(this.FindForm().BackgroundImage, -7, -20, 960, 540);
+        }
+    }
+
 }
+
