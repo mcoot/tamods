@@ -91,11 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
-    <None Include="Resources\background2.jpg" />
-    <None Include="Resources\background1.jpg" />
-    <None Include="Resources\background.jpg.bmp" />
-    <None Include="Resources\background.jpg" />
-    <None Include="Resources\Drydock-wide.jpg" />
+    <None Include="Resources\background_kata.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
