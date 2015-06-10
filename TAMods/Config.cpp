@@ -90,6 +90,16 @@ void Config::parseFile()
 		Utils::console("Lua config error: %s", err.c_str());
 		return;
 	}
+	if (FILE *custom = fopen(std::string(directory + "custom.lua").c_str(), "r"))
+	{
+		fclose(custom);
+		std::string err = lua.doFile(directory + "custom.lua");
+		if (err.size())
+		{
+			Utils::console("Custom Lua config error: %s", err.c_str());
+			return;
+		}
+	}
 	setVariables(lua);
 }
 
