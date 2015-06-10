@@ -92,6 +92,14 @@ namespace TAModConfigurationTool
             // Damage Number Streaming
             radioDamageNumberDiscrete.Checked = true;
 
+            // HUD Icons
+            checkHUDIconObjective.Checked = true;
+            checkHUDIconFlagBase.Checked = true;
+            checkHUDIconCTFBase.Checked = true;
+            checkHUDIconNugget.Checked = true;
+            checkHUDIconPlayer.Checked = true;
+            checkHUDIconVehicle.Checked = true;
+
             // Colour Settings
             // Custom Damage Number Colours
             radioDamageNumberColorDefault.Checked = true;
@@ -197,6 +205,14 @@ namespace TAModConfigurationTool
             {
                 radioDamageNumberDiscrete.Checked = true;
             }
+
+            // HUD Icons
+            checkHUDIconObjective.Checked = (bool)config.getConfigVar("showObjectiveIcon");
+            checkHUDIconFlagBase.Checked = (bool)config.getConfigVar("showFlagBaseIcon");
+            checkHUDIconCTFBase.Checked = (bool)config.getConfigVar("showCTFBaseIcon");
+            checkHUDIconNugget.Checked = (bool)config.getConfigVar("showNuggetIcon");
+            checkHUDIconPlayer.Checked = (bool)config.getConfigVar("showPlayerIcon");
+            checkHUDIconVehicle.Checked = (bool)config.getConfigVar("showVehicleIcon");
 
             // Colour Settings
             Color c;
@@ -321,6 +337,15 @@ namespace TAModConfigurationTool
             {
                 config.setConfigVar("showDamageNumberStream", true);
             }
+
+            // HUD Icons
+            config.setConfigVar("showObjectiveIcon", checkHUDIconObjective.Checked);
+            config.setConfigVar("showFlagBaseIcon", checkHUDIconFlagBase.Checked);
+            config.setConfigVar("showCTFBaseIcon", checkHUDIconCTFBase.Checked);
+            config.setConfigVar("showNuggetIcon", checkHUDIconNugget.Checked);
+            config.setConfigVar("showPlayerIcon", checkHUDIconPlayer.Checked);
+            config.setConfigVar("showVehicleIcon", checkHUDIconVehicle.Checked);
+
 
             // Colour Settings
             // Custom Damage Number Colours
@@ -913,6 +938,13 @@ namespace TAModConfigurationTool
                 { "damageNumbersOffsetY", null },
                 { "damageNumbersScale", null },
 
+                { "showObjectiveIcon", null },
+                { "showFlagBaseIcon", null },
+                { "showCTFBaseIcon", null },
+                { "showNuggetIcon", null },
+                { "showPlayerIcon", null },
+                { "showVehicleIcon", null },
+
                 { "showRainbow", null },
                 { "damageNumbersColorMin", null },
                 { "damageNumbersColorMax", null },
@@ -936,6 +968,13 @@ namespace TAModConfigurationTool
                 { "damageNumbersOffsetX", 0 },
                 { "damageNumbersOffsetY", 0 },
                 { "damageNumbersScale", 1 },
+
+                { "showObjectiveIcon", true },
+                { "showFlagBaseIcon", true },
+                { "showCTFBaseIcon", true },
+                { "showNuggetIcon", true },
+                { "showPlayerIcon", true },
+                { "showVehicleIcon", true },
 
                 { "showRainbow", false },
                 { "damageNumbersColorMin", rgb(255, 255, 255) },

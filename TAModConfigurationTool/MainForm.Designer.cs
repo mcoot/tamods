@@ -183,6 +183,14 @@
             this.boxCrosshairNormalPreview = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.label34 = new System.Windows.Forms.Label();
+            this.checkHUDIconObjective = new System.Windows.Forms.CheckBox();
+            this.checkHUDIconFlagBase = new System.Windows.Forms.CheckBox();
+            this.checkHUDIconCTFBase = new System.Windows.Forms.CheckBox();
+            this.checkHUDIconPlayer = new System.Windows.Forms.CheckBox();
+            this.checkHUDIconVehicle = new System.Windows.Forms.CheckBox();
+            this.checkHUDIconNugget = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -240,6 +248,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -255,7 +264,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.02267F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 502);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 501);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tabControlMain
@@ -275,6 +284,7 @@
             // tabGeneral
             // 
             this.tabGeneral.BackColor = System.Drawing.Color.Transparent;
+            this.tabGeneral.Controls.Add(this.panel12);
             this.tabGeneral.Controls.Add(this.panel2);
             this.tabGeneral.Controls.Add(this.panel1);
             this.tabGeneral.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2033,7 +2043,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 45);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // btnSaveConfig
@@ -2046,13 +2056,103 @@
             this.btnSaveConfig.UseVisualStyleBackColor = true;
             this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.checkHUDIconNugget);
+            this.panel12.Controls.Add(this.checkHUDIconVehicle);
+            this.panel12.Controls.Add(this.checkHUDIconPlayer);
+            this.panel12.Controls.Add(this.checkHUDIconCTFBase);
+            this.panel12.Controls.Add(this.checkHUDIconFlagBase);
+            this.panel12.Controls.Add(this.checkHUDIconObjective);
+            this.panel12.Controls.Add(this.label34);
+            this.panel12.Location = new System.Drawing.Point(5, 119);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(200, 200);
+            this.panel12.TabIndex = 4;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(3, 3);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(107, 25);
+            this.label34.TabIndex = 7;
+            this.label34.Text = "HUD Icons";
+            // 
+            // checkHUDIconObjective
+            // 
+            this.checkHUDIconObjective.AutoSize = true;
+            this.checkHUDIconObjective.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkHUDIconObjective.Location = new System.Drawing.Point(10, 31);
+            this.checkHUDIconObjective.Name = "checkHUDIconObjective";
+            this.checkHUDIconObjective.Size = new System.Drawing.Size(136, 17);
+            this.checkHUDIconObjective.TabIndex = 8;
+            this.checkHUDIconObjective.Text = "Show Objective Icons";
+            this.checkHUDIconObjective.UseVisualStyleBackColor = true;
+            // 
+            // checkHUDIconFlagBase
+            // 
+            this.checkHUDIconFlagBase.AutoSize = true;
+            this.checkHUDIconFlagBase.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkHUDIconFlagBase.Location = new System.Drawing.Point(10, 52);
+            this.checkHUDIconFlagBase.Name = "checkHUDIconFlagBase";
+            this.checkHUDIconFlagBase.Size = new System.Drawing.Size(137, 17);
+            this.checkHUDIconFlagBase.TabIndex = 9;
+            this.checkHUDIconFlagBase.Text = "Show Flag Base Icons";
+            this.checkHUDIconFlagBase.UseVisualStyleBackColor = true;
+            // 
+            // checkHUDIconCTFBase
+            // 
+            this.checkHUDIconCTFBase.AutoSize = true;
+            this.checkHUDIconCTFBase.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkHUDIconCTFBase.Location = new System.Drawing.Point(10, 73);
+            this.checkHUDIconCTFBase.Name = "checkHUDIconCTFBase";
+            this.checkHUDIconCTFBase.Size = new System.Drawing.Size(133, 17);
+            this.checkHUDIconCTFBase.TabIndex = 10;
+            this.checkHUDIconCTFBase.Text = "Show CTF Base Icons";
+            this.checkHUDIconCTFBase.UseVisualStyleBackColor = true;
+            // 
+            // checkHUDIconPlayer
+            // 
+            this.checkHUDIconPlayer.AutoSize = true;
+            this.checkHUDIconPlayer.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkHUDIconPlayer.Location = new System.Drawing.Point(10, 96);
+            this.checkHUDIconPlayer.Name = "checkHUDIconPlayer";
+            this.checkHUDIconPlayer.Size = new System.Drawing.Size(118, 17);
+            this.checkHUDIconPlayer.TabIndex = 11;
+            this.checkHUDIconPlayer.Text = "Show Player Icons";
+            this.checkHUDIconPlayer.UseVisualStyleBackColor = true;
+            // 
+            // checkHUDIconVehicle
+            // 
+            this.checkHUDIconVehicle.AutoSize = true;
+            this.checkHUDIconVehicle.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkHUDIconVehicle.Location = new System.Drawing.Point(10, 119);
+            this.checkHUDIconVehicle.Name = "checkHUDIconVehicle";
+            this.checkHUDIconVehicle.Size = new System.Drawing.Size(125, 17);
+            this.checkHUDIconVehicle.TabIndex = 12;
+            this.checkHUDIconVehicle.Text = "Show Vehicle Icons";
+            this.checkHUDIconVehicle.UseVisualStyleBackColor = true;
+            // 
+            // checkHUDIconNugget
+            // 
+            this.checkHUDIconNugget.AutoSize = true;
+            this.checkHUDIconNugget.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkHUDIconNugget.Location = new System.Drawing.Point(10, 142);
+            this.checkHUDIconNugget.Name = "checkHUDIconNugget";
+            this.checkHUDIconNugget.Size = new System.Drawing.Size(127, 17);
+            this.checkHUDIconNugget.TabIndex = 13;
+            this.checkHUDIconNugget.Text = "Show Nugget Icons";
+            this.checkHUDIconNugget.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::TAModConfigurationTool.Properties.Resources.background_kata;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(944, 502);
+            this.ClientSize = new System.Drawing.Size(944, 501);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -2132,6 +2232,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2292,6 +2394,14 @@
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label71;
         private System.Windows.Forms.PictureBox boxCrosshairScopedPreview;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.CheckBox checkHUDIconFlagBase;
+        private System.Windows.Forms.CheckBox checkHUDIconObjective;
+        private System.Windows.Forms.CheckBox checkHUDIconNugget;
+        private System.Windows.Forms.CheckBox checkHUDIconVehicle;
+        private System.Windows.Forms.CheckBox checkHUDIconPlayer;
+        private System.Windows.Forms.CheckBox checkHUDIconCTFBase;
     }
 }
 
