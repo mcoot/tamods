@@ -202,6 +202,7 @@ namespace TAModConfigurationTool
             Color c;
             // Custom Damage Number Colours
             radioDamageNumberColorDefault.Checked = true;
+            radioDamageNumberColorCustom.Checked = false;
             if ((bool)config.getConfigVar("showRainbow"))
             {
                 radioDamageNumberColorRainbow.Checked = true;
@@ -252,7 +253,7 @@ namespace TAModConfigurationTool
                 if (!config.getConfigVar("friendlyHUDChatColor").Equals(config.getConfigVarDefault("friendlyHUDChatColor"))
                     || !config.getConfigVar("enemyHUDChatColor").Equals(config.getConfigVarDefault("enemyHUDChatColor")))
                 {
-                    radioDamageNumberColorCustom.Checked = true;
+                    radioHUDChatColorCustom.Checked = true;
                 }
             }
             c = (Color)config.getConfigVar("friendlyHUDChatColor");
