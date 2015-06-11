@@ -46,6 +46,8 @@ static void TrDev_UpdateReticule(AWeapon *weapon)
 				dev->m_nReticuleIndex = xhairs->second.second;
 			else if (xhairs->second.first)
 				dev->m_nReticuleIndex = xhairs->second.first;
+			if (!dev->Instigator->IsA(ATrPawn::StaticClass()))
+				return;
 			pawn = (ATrPawn *)dev->Instigator;
 		}
 		else
@@ -56,20 +58,19 @@ static void TrDev_UpdateReticule(AWeapon *weapon)
 				vdev->m_nReticuleIndex = xhairs->second.second;
 			else if (xhairs->second.first)
 				vdev->m_nReticuleIndex = xhairs->second.first;
+			if (!vdev->Instigator->IsA(ATrPawn::StaticClass()))
+				return;
 			pawn = (ATrPawn *)vdev->Instigator;
 		}
 		if (pawn)
 		{
-			ATrHUD *hud = (ATrHUD *)pawn->GetTrHud();
-			if (hud)
+			ATrHUD *hud = pawn->GetTrHud();
+			if (hud && (void *) hud != (void *) pawn && hud->HudMovie)
 			{
 				UGfxTrHud *hud_movie = (UGfxTrHud *)hud->HudMovie;
-				if (hud_movie && hud->HudMovie->IsA(UGfxTrHud::StaticClass()))
-				{
-					UGFxTrReticules *reticule = (UGFxTrReticules *)hud_movie->Reticules;
-					if (reticule && reticule->m_nCurrentReticuleIndex != (dev ? dev->m_nReticuleIndex : vdev->m_nReticuleIndex))
-						reticule->UpdateReticule(dev ? dev->Instigator : vdev->Instigator, true);
-				}
+				UGFxTrReticules *reticule = hud_movie->Reticules;
+				if (reticule && reticule->m_nCurrentReticuleIndex != (dev ? dev->m_nReticuleIndex : vdev->m_nReticuleIndex))
+					reticule->UpdateReticule(dev ? dev->Instigator : vdev->Instigator, true);
 			}
 		}
 	}
