@@ -113,13 +113,19 @@ void Utils::console(const char *format, ...)
 	vsprintf(buff, format, args);
 	va_end(args);
 	std::string str(buff);
-	std::wstring wstr = std::wstring(str.begin(), str.end());
-	wchar_t* wch = (wchar_t *)wstr.c_str();
 	FColor col;
 	col.A = 255;
 	col.R = 0;
 	col.G = 255;
 	col.B = 0;
-	tr_gvc->ChatConsole->OutputTextLine(wch, col);
+	printConsole(str, col);
 	Utils::notify(L"Ensis' mod", "Error: see console for details");
+}
+void Utils::printConsole(const std::string &str, FColor col)
+{
+	if (!tr_gvc)
+		return;
+	std::wstring wstr = std::wstring(str.begin(), str.end());
+	wchar_t* wch = (wchar_t *)wstr.c_str();
+	tr_gvc->ChatConsole->OutputTextLine(wch, col);
 }

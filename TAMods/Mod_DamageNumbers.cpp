@@ -8,13 +8,9 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	clock_t curClock = clock();
 
 	//Stats Stuff, TODO this should be hooked onto event TakeDamage instead
-	/*
 	if (g_config.recordStats == true){
 	g_stats.bulletsHit++;
 	}
-	*/
-	
-	
 
 	// If more than half a second has passed since the last hit, the stream has ended
 	bool stream_ended = ((double)(curClock-g_config.lastDamageNumberShowEventTime) > (CLOCKS_PER_SEC*g_config.damageNumberStreamTimeout));

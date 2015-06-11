@@ -17,5 +17,7 @@ void Stats::resetStats(){
 }
 
 void Stats::printStats(){
-	Utils::console("Shots hit: ", bulletsHit);
+	std::string tempstr =  "Shots hit: " + std::to_string(bulletsHit);
+	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
+	resetStats();
 }

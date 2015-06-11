@@ -23,6 +23,7 @@ namespace Utils
 	// UE3 utils
 	void notify(wchar_t *title, const char *format, ...);
 	void console(const char *format, ...);
+	void printConsole(const std::string &str, FColor col);
 
 	extern ATrPlayerController *tr_pc;
 	extern UTrGameViewportClient *tr_gvc;

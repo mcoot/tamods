@@ -42,6 +42,9 @@ void onDLLProcessAttach()
 		Hooks::add(&TrPC_ReleasedZoom, "Function TribesGame.TrPlayerController.ReleasedZoom");
 		Hooks::add(&TrPC_CallUpdateReticule, "Function TribesGame.TrPlayerController.PressedZoom", Hooks::POST);
 		Hooks::add(&TrPC_CallUpdateReticule, "Function TribesGame.TrPlayerController.ReleasedZoom", Hooks::POST);
+
+		// Stats
+		Hooks::add(&TrPC_ClientMatchOver, "Function TribesGame.TrPlayerController.ClientMatchOver");
 	}
 
 	// Pass true to log hookable functions

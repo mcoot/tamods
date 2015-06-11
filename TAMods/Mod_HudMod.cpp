@@ -91,7 +91,7 @@ static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
 
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
-
+	
 	//Friend chat, enemy chat, team chat
 	that->FriendlyChatColor = g_config.friendlyChatColor;
 	that->EnemyChatColor = g_config.enemyChatColor;
@@ -307,4 +307,13 @@ bool TrPawn_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction
 bool TrVehicle_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	return !g_config.showVehicleIcon;
+}
+bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	if (g_config.recordStats == true)
+	{
+		g_stats.printStats();
+		g_stats.resetStats();
+	}
+	return(false);
 }
