@@ -80,7 +80,16 @@ static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 					overhead_number_location.Y += g_config.damageNumbersOffsetY;
 
 					wchar_t buff[16];
-					wsprintf(buff, L"%d", curr.NumberValue);
+
+					// Use custom damage number text if available
+					if (g_config.damageNumberCustomText == std::string(""))
+						wsprintf(buff, L"%d", curr.NumberValue);
+					else {
+						std::wstring wdmgText = std::wstring(g_config.damageNumberCustomText.begin(), g_config.damageNumberCustomText.end());
+						wsprintf(buff, wdmgText.c_str());
+					}
+						
+					
 					that->DrawColoredMarkerText(buff, curr.CurrentColor, overhead_number_location, that->Canvas, curr.CurrentScale, curr.CurrentScale);
 				}
 			}

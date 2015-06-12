@@ -44,6 +44,9 @@ void Config::reset()
 	lastDamageNumberShowEventTime = 0;
 	damageNumberStreamValue = 0;
 	damageNumberStreamCount = 0;
+	// Custom damage number text
+	damageNumberCustomText = std::string("");
+
 
 	//Damage Number color variables
 	rainbowBulletInt = 0;
@@ -121,6 +124,9 @@ void Config::setVariables(Lua &lua)
 	SET_VARIABLE(bool, showDamageNumberStream);
 	SET_VARIABLE(bool, showChainBulletHitCount);
 	SET_VARIABLE(double, damageNumberStreamTimeout);
+
+	// Custom damage number text
+	SET_VARIABLE(std::string, damageNumberCustomText);
 
 	// Damage number colors
 	SET_VARIABLE(bool, showRainbow);

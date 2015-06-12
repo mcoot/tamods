@@ -61,6 +61,9 @@ public:
 	unsigned long lastDamageNumberShowEventTime;
 	int damageNumberStreamValue;
 	int damageNumberStreamCount;
+	bool showStreamTotalOnly;
+	// Custom damage number text
+	std::string damageNumberCustomText;
 
 	// Damage number colors
 	bool showRainbow;
