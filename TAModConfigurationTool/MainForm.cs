@@ -99,6 +99,7 @@ namespace TAModConfigurationTool
             radioDamageNumberDiscrete.Checked = true;
             textDamageNumberCustomText.Text = "";
             textDamageNumberCustomText.Enabled = false;
+            numDamageNumberStreamTimeout.Value = 0.5M;
 
             // HUD Icons
             checkHUDIconObjective.Checked = true;
@@ -201,6 +202,7 @@ namespace TAModConfigurationTool
             numDamageNumberYOffset.Value = Convert.ToInt32(config.getConfigVar("damageNumbersOffsetY"));
 
             // Damage Number Streaming
+            numDamageNumberStreamTimeout.Value = Convert.ToDecimal(config.getConfigVar("damageNumberStreamTimeout"));
             if ((string)config.getConfigVar("damageNumberCustomText") != "")
             {
                 radioDamageNumberCustomText.Checked = true;
@@ -318,7 +320,7 @@ namespace TAModConfigurationTool
             // Display Settings
             config.setConfigVar("showWeapon", checkShowWeapon.Checked);
             config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
-            config.setConfigVar("crosshairScale", (float)numCrosshairScale.Value);
+            config.setConfigVar("crosshairScale", Convert.ToSingle(numCrosshairScale.Value));
 
             // Damage Number Settings
             // Damage Number Display
@@ -335,13 +337,14 @@ namespace TAModConfigurationTool
                 config.setConfigVar("damageNumbersLimit", 100000);
             }
 
-            config.setConfigVar("damageNumbersScale", (float)numDamageNumberScale.Value);
+            config.setConfigVar("damageNumbersScale", Convert.ToSingle(numDamageNumberScale.Value));
             config.setConfigVar("damageNumbersOffsetX", (int)numDamageNumberXOffset.Value);
             config.setConfigVar("damageNumbersOffsetY", (int)numDamageNumberYOffset.Value);
 
             // Damage Number Streaming
             config.setConfigVar("showChainBulletHitCount", false);
             config.setConfigVar("showDamageNumberStream", false);
+            config.setConfigVar("damageNumberStreamTimeout", Convert.ToSingle(numDamageNumberStreamTimeout.Value));
             config.setConfigVar("damageNumberCustomText", "");
             if (radioDamageNumberCustomText.Checked)
             {
@@ -899,6 +902,12 @@ namespace TAModConfigurationTool
         private void radioDamageNumberCustomText_CheckedChanged(object sender, EventArgs e)
         {
             textDamageNumberCustomText.Enabled = radioDamageNumberCustomText.Checked;
+            numDamageNumberStreamTimeout.Enabled = !(radioDamageNumberDiscrete.Checked || radioDamageNumberCustomText.Checked);
+        }
+
+        private void radioDamageNumberDiscrete_CheckedChanged(object sender, EventArgs e)
+        {
+            numDamageNumberStreamTimeout.Enabled = !(radioDamageNumberDiscrete.Checked || radioDamageNumberCustomText.Checked);
         }
 
         

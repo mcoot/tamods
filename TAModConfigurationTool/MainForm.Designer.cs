@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel12 = new System.Windows.Forms.Panel();
@@ -43,6 +45,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label60 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.textDamageNumberCustomText = new System.Windows.Forms.TextBox();
+            this.radioDamageNumberCustomText = new System.Windows.Forms.RadioButton();
             this.label62 = new System.Windows.Forms.Label();
             this.radioDamageNumberCount = new System.Windows.Forms.RadioButton();
             this.radioDamageNumberStream = new System.Windows.Forms.RadioButton();
@@ -189,11 +193,11 @@
             this.label71 = new System.Windows.Forms.Label();
             this.boxCrosshairScopedPreview = new System.Windows.Forms.PictureBox();
             this.boxCrosshairNormalPreview = new System.Windows.Forms.PictureBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.radioDamageNumberCustomText = new System.Windows.Forms.RadioButton();
-            this.textDamageNumberCustomText = new System.Windows.Forms.TextBox();
+            this.numDamageNumberStreamTimeout = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel12.SuspendLayout();
@@ -250,7 +254,7 @@
             this.panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberStreamTimeout)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -268,6 +272,26 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 501);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
             // tabControlMain
             // 
@@ -394,7 +418,7 @@
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Location = new System.Drawing.Point(211, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(325, 321);
+            this.panel2.Size = new System.Drawing.Size(325, 347);
             this.panel2.TabIndex = 3;
             // 
             // label60
@@ -409,6 +433,9 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.label35);
+            this.panel4.Controls.Add(this.label33);
+            this.panel4.Controls.Add(this.numDamageNumberStreamTimeout);
             this.panel4.Controls.Add(this.textDamageNumberCustomText);
             this.panel4.Controls.Add(this.radioDamageNumberCustomText);
             this.panel4.Controls.Add(this.label62);
@@ -417,8 +444,29 @@
             this.panel4.Controls.Add(this.radioDamageNumberDiscrete);
             this.panel4.Location = new System.Drawing.Point(9, 190);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(310, 123);
+            this.panel4.Size = new System.Drawing.Size(310, 145);
             this.panel4.TabIndex = 5;
+            // 
+            // textDamageNumberCustomText
+            // 
+            this.textDamageNumberCustomText.Location = new System.Drawing.Point(127, 87);
+            this.textDamageNumberCustomText.MaxLength = 16;
+            this.textDamageNumberCustomText.Name = "textDamageNumberCustomText";
+            this.textDamageNumberCustomText.Size = new System.Drawing.Size(155, 25);
+            this.textDamageNumberCustomText.TabIndex = 26;
+            // 
+            // radioDamageNumberCustomText
+            // 
+            this.radioDamageNumberCustomText.AutoSize = true;
+            this.radioDamageNumberCustomText.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioDamageNumberCustomText.Location = new System.Drawing.Point(4, 91);
+            this.radioDamageNumberCustomText.Name = "radioDamageNumberCustomText";
+            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(122, 17);
+            this.radioDamageNumberCustomText.TabIndex = 25;
+            this.radioDamageNumberCustomText.TabStop = true;
+            this.radioDamageNumberCustomText.Text = "Show Custom Text:";
+            this.radioDamageNumberCustomText.UseVisualStyleBackColor = true;
+            this.radioDamageNumberCustomText.CheckedChanged += new System.EventHandler(this.radioDamageNumberCustomText_CheckedChanged);
             // 
             // label62
             // 
@@ -465,6 +513,7 @@
             this.radioDamageNumberDiscrete.TabStop = true;
             this.radioDamageNumberDiscrete.Text = "Show Discrete Damage Numbers";
             this.radioDamageNumberDiscrete.UseVisualStyleBackColor = true;
+            this.radioDamageNumberDiscrete.CheckedChanged += new System.EventHandler(this.radioDamageNumberDiscrete_CheckedChanged);
             // 
             // panel3
             // 
@@ -2130,46 +2179,49 @@
             this.boxCrosshairNormalPreview.TabStop = false;
             this.boxCrosshairNormalPreview.Visible = false;
             // 
-            // flowLayoutPanel1
+            // numDamageNumberStreamTimeout
             // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
-            this.flowLayoutPanel1.TabIndex = 1;
+            this.numDamageNumberStreamTimeout.DecimalPlaces = 2;
+            this.numDamageNumberStreamTimeout.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numDamageNumberStreamTimeout.Location = new System.Drawing.Point(116, 119);
+            this.numDamageNumberStreamTimeout.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numDamageNumberStreamTimeout.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numDamageNumberStreamTimeout.Name = "numDamageNumberStreamTimeout";
+            this.numDamageNumberStreamTimeout.Size = new System.Drawing.Size(63, 22);
+            this.numDamageNumberStreamTimeout.TabIndex = 27;
+            this.numDamageNumberStreamTimeout.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
             // 
-            // btnSaveConfig
+            // label33
             // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(4, 122);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(113, 13);
+            this.label33.TabIndex = 28;
+            this.label33.Text = "Stream Timeout after";
             // 
-            // radioDamageNumberCustomText
+            // label35
             // 
-            this.radioDamageNumberCustomText.AutoSize = true;
-            this.radioDamageNumberCustomText.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioDamageNumberCustomText.Location = new System.Drawing.Point(4, 91);
-            this.radioDamageNumberCustomText.Name = "radioDamageNumberCustomText";
-            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(122, 17);
-            this.radioDamageNumberCustomText.TabIndex = 25;
-            this.radioDamageNumberCustomText.TabStop = true;
-            this.radioDamageNumberCustomText.Text = "Show Custom Text:";
-            this.radioDamageNumberCustomText.UseVisualStyleBackColor = true;
-            this.radioDamageNumberCustomText.CheckedChanged += new System.EventHandler(this.radioDamageNumberCustomText_CheckedChanged);
-            // 
-            // textDamageNumberCustomText
-            // 
-            this.textDamageNumberCustomText.Location = new System.Drawing.Point(127, 87);
-            this.textDamageNumberCustomText.MaxLength = 16;
-            this.textDamageNumberCustomText.Name = "textDamageNumberCustomText";
-            this.textDamageNumberCustomText.Size = new System.Drawing.Size(155, 25);
-            this.textDamageNumberCustomText.TabIndex = 26;
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(179, 122);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(49, 13);
+            this.label35.TabIndex = 29;
+            this.label35.Text = "seconds";
             // 
             // MainForm
             // 
@@ -2188,6 +2240,7 @@
             this.Text = "TAMod Configuration Tool";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
@@ -2258,7 +2311,7 @@
             this.panel11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberStreamTimeout)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2429,6 +2482,9 @@
         private System.Windows.Forms.CheckBox checkHUDIconCTFBase;
         private System.Windows.Forms.RadioButton radioDamageNumberCustomText;
         private System.Windows.Forms.TextBox textDamageNumberCustomText;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.NumericUpDown numDamageNumberStreamTimeout;
     }
 }
 
