@@ -26,6 +26,11 @@ namespace TAModConfigurationTool
             InitializeComponent();
             setupLoadouts();
 
+            // Use '.' instead of ',' for floating point numbers
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -58,6 +63,7 @@ namespace TAModConfigurationTool
             // Load in the config file
             if (!config.loadConfig())
             {
+                MessageBox.Show("Error reading configuration file!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
@@ -91,6 +97,8 @@ namespace TAModConfigurationTool
 
             // Damage Number Streaming
             radioDamageNumberDiscrete.Checked = true;
+            textDamageNumberCustomText.Text = "";
+            textDamageNumberCustomText.Enabled = false;
 
             // HUD Icons
             checkHUDIconObjective.Checked = true;
@@ -193,7 +201,12 @@ namespace TAModConfigurationTool
             numDamageNumberYOffset.Value = Convert.ToInt32(config.getConfigVar("damageNumbersOffsetY"));
 
             // Damage Number Streaming
-            if ((bool)config.getConfigVar("showChainBulletHitCount"))
+            if ((string)config.getConfigVar("damageNumberCustomText") != "")
+            {
+                radioDamageNumberCustomText.Checked = true;
+                textDamageNumberCustomText.Text = (string)config.getConfigVar("damageNumberCustomText");
+            }
+            else if ((bool)config.getConfigVar("showChainBulletHitCount"))
             {
                 radioDamageNumberCount.Checked = true;
             }
@@ -329,7 +342,12 @@ namespace TAModConfigurationTool
             // Damage Number Streaming
             config.setConfigVar("showChainBulletHitCount", false);
             config.setConfigVar("showDamageNumberStream", false);
-            if (radioDamageNumberCount.Checked)
+            config.setConfigVar("damageNumberCustomText", "");
+            if (radioDamageNumberCustomText.Checked)
+            {
+                config.setConfigVar("damageNumberCustomText", textDamageNumberCustomText.Text);
+            }
+            else if (radioDamageNumberCount.Checked)
             {
                 config.setConfigVar("showChainBulletHitCount", true);
             }
@@ -878,6 +896,11 @@ namespace TAModConfigurationTool
             }
         }
 
+        private void radioDamageNumberCustomText_CheckedChanged(object sender, EventArgs e)
+        {
+            textDamageNumberCustomText.Enabled = radioDamageNumberCustomText.Checked;
+        }
+
         
 
     }
@@ -937,6 +960,7 @@ namespace TAModConfigurationTool
                 { "damageNumbersOffsetX", null },
                 { "damageNumbersOffsetY", null },
                 { "damageNumbersScale", null },
+                { "damageNumberCustomText", null },
 
                 { "showObjectiveIcon", null },
                 { "showFlagBaseIcon", null },
@@ -968,6 +992,7 @@ namespace TAModConfigurationTool
                 { "damageNumbersOffsetX", 0 },
                 { "damageNumbersOffsetY", 0 },
                 { "damageNumbersScale", 1 },
+                { "damageNumberCustomText", "" },
 
                 { "showObjectiveIcon", true },
                 { "showFlagBaseIcon", true },
@@ -1155,6 +1180,10 @@ namespace TAModConfigurationTool
                                 flines.Add(variable + " = rgba(" + c.R + ", " + c.G + ", " + c.B + ", " + c.A + ")");
                             }
 
+                        }
+                        else if (value is string)
+                        {
+                            flines.Add(variable + " = \"" + value + "\"");
                         }
                         else
                         {
