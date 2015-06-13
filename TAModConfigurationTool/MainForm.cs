@@ -23,14 +23,13 @@ namespace TAModConfigurationTool
 
         public MainForm()
         {
-            InitializeComponent();
-            setupLoadouts();
-
             // Use '.' instead of ',' for floating point numbers
             System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
 
+            InitializeComponent();
+            setupLoadouts();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
