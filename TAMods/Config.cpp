@@ -23,8 +23,6 @@ void Config::reset()
 			loadouts[i][j] = NULL;
 		}
 	}
-
-	crosshairs.clear();
 	
 	showErrorNotifications = true;
 	showWeapon = true;
@@ -194,9 +192,31 @@ static bool config_setCrosshairs(const std::string &pclass, const std::string &w
 	int weapon_id = getWeaponID(pclass, weapon);
 	if (!weapon_id)
 		return false;
+	bool vehicle = (Utils::cleanString(pclass) == "vehicle");
+	auto it = Data::weapon_id_to_name.find(weapon_id);
+	if (it == Data::weapon_id_to_name.end())
+		return false;
 	int xhair1 = Utils::searchMapId(Data::crosshairs, xhairs.standard, "Crosshair");
 	int xhair2 = Utils::searchMapId(Data::crosshairs, xhairs.zoomed, "Crosshair");
-	g_config.crosshairs[weapon_id] = std::pair<int, int>(xhair1, xhair2);
+	std::string device_name = vehicle ? "TrVehicleWeapon" : "TrDevice";
+	std::string default_name = device_name + "_" + it->second + " TribesGame.Default__" + device_name + "_" + it->second;
+	ATrDevice *dev = !vehicle ? UObject::FindObject<ATrDevice>(default_name.c_str()) : NULL;
+	ATrVehicleWeapon *vdev = vehicle ? UObject::FindObject<ATrVehicleWeapon>(default_name.c_str()) : NULL;
+	if (dev)
+	{
+		if (xhair1) dev->m_nReticuleIndex = xhair1;
+		if (xhair2) dev->m_nAltReticuleIndex = xhair2;
+	}
+	else if (vdev)
+	{
+		if (xhair1) vdev->m_nReticuleIndex = xhair1;
+		if (xhair2) vdev->m_nAltReticuleIndex = xhair2;
+	}
+	else
+	{
+		Utils::console("Unable to set stock crosshairs for weapon: %s", it->second.c_str());
+		return false;
+	}
 	return true;
 }
 

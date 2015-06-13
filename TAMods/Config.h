@@ -47,7 +47,6 @@ public:
 	bool showCrosshair;
 	float crosshairScale;
 	Loadout *loadouts[9][9];
-	std::map<int, std::pair<int, int>> crosshairs;
 
 	// Damage number customization
 	float damageNumbersOffsetX;
