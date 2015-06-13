@@ -3,6 +3,7 @@
 bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
+	ATrPlayerController_execClientShowOverheadNumber_Parms *params = (ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams;
 
 	// Store the current clock time to compare with the last hit
 	clock_t curClock = clock();
@@ -25,8 +26,8 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	
 	if (g_config.showDamageNumberStream) {
 		// Set the damage number to the streamed value if damage streaming is on
-		g_config.damageNumberStreamValue += ((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow;
-		((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow = g_config.damageNumberStreamValue;
+		g_config.damageNumberStreamValue += params->NumberToShow;
+		params->NumberToShow = g_config.damageNumberStreamValue;
 	}
 
 	//Count for rainbow int
@@ -35,12 +36,11 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	
 	g_config.damageNumberStreamCount++;
 
-	if (g_config.showChainBulletHitCount) {
-		((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow = g_config.damageNumberStreamCount;
-	}
+	if (g_config.showChainBulletHitCount) 
+		params->NumberToShow = g_config.damageNumberStreamCount;
 
-	if (((ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams)->NumberToShow <= g_config.damageNumbersLimit)
-		return (true);
-	return (false);
+	if (params->NumberToShow <= g_config.damageNumbersLimit)
+		return true;
+	return false;
 }
 
