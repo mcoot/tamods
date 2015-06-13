@@ -30,15 +30,8 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	}
 
 	//Count for rainbow int
-	if (g_config.showRainbow == true){
-		if (g_config.rainbowBulletInt <= 12){
-			g_config.rainbowBulletInt++;
-		}
-		else
-		{
-			g_config.rainbowBulletInt = 0;
-		}
-	}
+	if (g_config.showRainbow == true)
+		g_config.rainbowBulletInt = (g_config.rainbowBulletInt + 1) % 12;
 	
 	g_config.damageNumberStreamCount++;
 

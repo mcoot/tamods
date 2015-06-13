@@ -97,8 +97,13 @@ static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 	}
 }
 
-bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
-
+bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	static FColor rainbow_cols[] = {
+		Utils::rgb(255, 0, 0), Utils::rgb(255, 127, 0), Utils::rgb(255, 255, 0), Utils::rgb(127, 255, 0),
+		Utils::rgb(0, 255, 0), Utils::rgb(0, 255, 127), Utils::rgb(0, 255, 255), Utils::rgb(0, 127, 255),
+		Utils::rgb(0, 0, 255), Utils::rgb(127, 0, 255), Utils::rgb(255, 0, 255), Utils::rgb(255, 0, 127)
+	};
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 	
 	//Friend chat, enemy chat, team chat
@@ -113,56 +118,10 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 		that->m_GFxHud->SetVariableIntArray(L"colorArray", 0, arr);
 	}
 
-	if (g_config.showRainbow == true){
-		static FColor rainbow;
-		//TODO switch statement should be replaced with a while statement
-		switch (g_config.rainbowBulletInt) {
-		case 0:
-			rainbow.R = 255;
-			rainbow.G = 0;
-			rainbow.B = 0;
-			break;
-		case 1:
-			rainbow.G = 125;
-			break;
-		case 2:
-			rainbow.G = 255;
-			break;
-		case 3:
-			rainbow.R = 125;
-			break;
-		case 4:
-			rainbow.R = 0;
-			break;
-		case 5:
-			rainbow.B = 125;
-			break;
-		case 6:
-			rainbow.B = 255;
-			break;
-		case 7:
-			rainbow.G = 125;
-			break;
-		case 8:
-			rainbow.G = 0;
-			break;
-		case 9:
-			rainbow.R = 125;
-			break;
-		case 10:
-			rainbow.R = 255;
-			break;
-		case 11:
-			rainbow.B = 125;
-			break;
-		case 12:
-			rainbow.B = 0;
-			break;
-		}
-		rainbow.A = 255;
-
-		that->m_OverheadNumberColorMin = rainbow;
-		that->m_OverheadNumberColorMax = rainbow;
+	if (g_config.showRainbow == true)
+	{
+		that->m_OverheadNumberColorMin = rainbow_cols[g_config.rainbowBulletInt];
+		that->m_OverheadNumberColorMax = rainbow_cols[g_config.rainbowBulletInt];
 	}
 	else
 	{
