@@ -83,6 +83,15 @@ int Utils::searchMapId(const std::map<std::string, int> map, const std::string &
 	return (0);
 }
 
+void Utils::notify(const std::string &title, const std::string &str)
+{
+	if (!tr_pc)
+		return;
+	wchar_t* wstr = (wchar_t *)std::wstring(str.begin(), str.end()).c_str();
+	wchar_t* wtitle = (wchar_t *)std::wstring(title.begin(), title.end()).c_str();
+	tr_pc->ShowNotification(wstr, wtitle);
+}
+
 // Notify the user (like friend online/offline)
 // TODO: use char instead of wchar_t for the title
 void Utils::notify(wchar_t *title, const char *format, ...)
@@ -113,15 +122,16 @@ void Utils::console(const char *format, ...)
 	vsprintf(buff, format, args);
 	va_end(args);
 	std::string str(buff);
-	FColor col;
-	col.A = 255;
-	col.R = 0;
-	col.G = 255;
-	col.B = 0;
-	printConsole(str, col);
+	printConsole(str, rgb(255, 255, 255));
 	Utils::notify(L"Ensis' mod", "Error: see console for details");
 }
-void Utils::printConsole(const std::string &str, FColor col)
+
+void Utils::printConsole(const std::string &str)
+{
+	Utils::printConsole(str, rgb(255, 255, 255));
+}
+
+void Utils::printConsole(const std::string &str, const FColor &col)
 {
 	if (!tr_gvc)
 		return;

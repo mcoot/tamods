@@ -38,6 +38,9 @@ void onDLLProcessAttach()
 
 		// Stats
 		Hooks::add(&TrPC_ClientMatchOver, "Function TribesGame.TrPlayerController.ClientMatchOver");
+
+		// Console commands (/lua)
+		Hooks::add(&TrChatConsole_InputKey, "Function TrChatConsole.Open.InputKey");
 	}
 
 	// Pass true to log hookable functions

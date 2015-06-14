@@ -41,6 +41,8 @@ public:
 	void setVariables(Lua &lua);
 
 public:
+	Lua lua;
+
 	int damageNumbersLimit;
 	bool showErrorNotifications;
 	bool showWeapon;

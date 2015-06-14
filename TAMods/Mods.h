@@ -38,3 +38,6 @@ bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, vo
 
 // Stats
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
+// Lua console command
+bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

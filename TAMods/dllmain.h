@@ -11,5 +11,3 @@
 #include "Mods.h"
 #include "Lua.h"
 #include "Stats.h"
-
-extern Lua L;

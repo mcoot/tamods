@@ -78,13 +78,13 @@ void Config::parseFile()
 {
 	const char *profile = getenv("USERPROFILE");
 	std::string directory;
-	Lua lua;
 
 	if (profile)
 		directory = std::string(profile) + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
 	else
 		directory = std::string("C:\\");
 	reset();
+	lua = Lua();
 	std::string err = lua.doFile(directory + "config.lua");
 	if (err.size())
 	{
@@ -250,5 +250,10 @@ void Lua::init()
 		addFunction("crosshair", &Crosshairs::create).
 		addFunction("crosshairs", &Crosshairs::create2).
 		addFunction("setCrosshairs", &config_setCrosshairs).
+
+		addFunction("print", (void(*)(const std::string &)) &Utils::printConsole).
+		addFunction("console", (void(*)(const std::string &)) &Utils::printConsole).
+		addFunction("consoleRGB", (void(*)(const std::string &, const FColor &)) &Utils::printConsole).
+		addFunction("notify", (void (*)(const std::string &, const std::string &)) &Utils::notify).
 	endNamespace();
 }
