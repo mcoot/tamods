@@ -5,6 +5,26 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_execClientShowOverheadNumber_Parms *params = (ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams;
 
+	if (that->myHUD && g_config.onDamageNumberCreate && !g_config.onDamageNumberCreate->isNil() && g_config.onDamageNumberCreate->isFunction())
+	{
+		TArray<FOverheadNumber> *overheads = &((ATrHUD *)that->myHUD)->m_OverheadNumbers;
+		FVector4 loc;
+		loc.X = params->WorldLocation.X;
+		loc.Y = params->WorldLocation.Y;
+		loc.Z = params->WorldLocation.Z;
+		if ((loc.W = params->fScreenDepth) == 0.0f)
+			loc.W = params->WorldLocation.Z;
+		try
+		{
+			(*g_config.onDamageNumberCreate)(overheads, params->NumberToShow, loc, (bool) params->bShieldDamage);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+		return true;
+	}
+
 	// Store the current clock time to compare with the last hit
 	clock_t curClock = clock();
 

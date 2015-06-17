@@ -33,7 +33,15 @@ std::string Lua::_error(int ret)
 
 std::string Lua::doFile(const std::string &s)
 {
-	return _error(luaL_dofile(_state, s.c_str()));
+	try
+	{
+		std::string err = _error(luaL_dofile(_state, s.c_str()));
+		return err;
+	}
+	catch (const LuaException &e)
+	{
+		Utils::console("LuaException: %s", e.what());
+	}
 }
 
 void            Lua::_printTop()
@@ -70,21 +78,28 @@ void            Lua::_printTop()
 
 void            Lua::doString(const std::string &s)
 {
-	int           old = lua_gettop(_state);
-	std::string err = _error(luaL_dostring(_state, s.c_str()));
-
-	if (err.size())
-		Utils::console(err.c_str());
-	if (lua_gettop(_state) != old)
+	try
 	{
-		_printTop();
-		lua_pop(_state, 1);
+		int           old = lua_gettop(_state);
+		std::string err = _error(luaL_dostring(_state, s.c_str()));
+
+		if (err.size())
+			Utils::console(err.c_str());
+		if (lua_gettop(_state) != old)
+		{
+			_printTop();
+			lua_pop(_state, 1);
+		}
+	}
+	catch (const LuaException &e)
+	{
+		Utils::console("LuaException: %s", e.what());
 	}
 }
 
 void            Lua::doFunc(const std::string &s)
 {
-	LuaRef        func = getGlobal(_state, s.c_str());
+	LuaRef func = getGlobal(_state, s.c_str());
 
 	if (func.isNil())
 		return;

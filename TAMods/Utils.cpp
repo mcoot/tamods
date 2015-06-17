@@ -87,9 +87,11 @@ void Utils::notify(const std::string &title, const std::string &str)
 {
 	if (!tr_pc)
 		return;
-	wchar_t* wstr = (wchar_t *)std::wstring(str.begin(), str.end()).c_str();
-	wchar_t* wtitle = (wchar_t *)std::wstring(title.begin(), title.end()).c_str();
-	tr_pc->ShowNotification(wstr, wtitle);
+	std::wstring wtitle(title.begin(), title.end());
+	std::wstring wstr(str.begin(), str.end());
+	wchar_t* wchtitle = (wchar_t *)wtitle.c_str();
+	wchar_t* wchstr = (wchar_t *)wstr.c_str();
+	tr_pc->ShowNotification(wchstr, wchtitle);
 }
 
 // Notify the user (like friend online/offline)

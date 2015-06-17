@@ -37,6 +37,11 @@ struct FVector
 	float                                              X;                                                		// 0x0000 (0x0004) [0x0000000000000001]              ( CPF_Edit )
 	float                                              Y;                                                		// 0x0004 (0x0004) [0x0000000000000001]              ( CPF_Edit )
 	float                                              Z;                                                		// 0x0008 (0x0004) [0x0000000000000001]              ( CPF_Edit )
+
+	FVector(float x, float y, float z)
+		: X(x), Y(y), Z(z) {}
+	FVector()
+		: FVector(0, 0, 0) {}
 };
 
 // ScriptStruct Core.Object.Plane
@@ -72,6 +77,11 @@ struct FVector4
 	float                                              Y;                                                		// 0x0004 (0x0004) [0x0000000000000001]              ( CPF_Edit )
 	float                                              Z;                                                		// 0x0008 (0x0004) [0x0000000000000001]              ( CPF_Edit )
 	float                                              W;                                                		// 0x000C (0x0004) [0x0000000000000001]              ( CPF_Edit )
+
+	FVector4(float x, float y, float z, float w)
+		: X(x), Y(y), Z(z), W(w) {}
+	FVector4()
+		: FVector4(0, 0, 0, 0) {}
 };
 
 // ScriptStruct Core.Object.LinearColor

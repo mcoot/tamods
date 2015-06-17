@@ -11,6 +11,7 @@ extern "C" {
 }
 
 #include "Utils.h"
+#include "Logger.h"
 #include "Loadout.h"
 
 using namespace luabridge;
@@ -37,7 +38,7 @@ public:
 	void          doREPL();
 
 	template<typename T>
-	bool		  setVar(T &var, const char *name)
+	bool setVar(T &var, const char *name)
 	{
 		LuaRef ref = getGlobal(_state, name);
 		if (ref.isNil())

@@ -1,10 +1,36 @@
 #include "Mods.h"
 
+bool TrHudWrapper_destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	AUTGFxHudWrapper *that = (AUTGFxHudWrapper *)dwCallingObject;
+
+	if (that->IsA(ATrHUD::StaticClass()))
+	{
+		ATrHUD *hud = (ATrHUD *)that;
+		hud->m_OverheadNumbers.Clear();
+	}
+	return false;
+}
+
 static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 {
 	float accumulated_time, scaling_peak_time, alpha;
 	FVector view_location, overhead_number_location;
 	FRotator view_rotation;
+
+	if (g_config.onDamageNumberUpdate && !g_config.onDamageNumberUpdate->isNil() && g_config.onDamageNumberUpdate->isFunction())
+	{
+		TArray<FOverheadNumber> *overheads = &that->m_OverheadNumbers;
+		try
+		{
+			(*g_config.onDamageNumberUpdate)(overheads, that, DeltaTime);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+		return;
+	}
 
 	for (int i = 0; i < that->m_OverheadNumbers.Count; i++)
 	{
@@ -13,10 +39,7 @@ static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 		curr.RemainingTime -= DeltaTime;
 		if (curr.RemainingTime <= 0.0f)
 		{
-			TArray<FOverheadNumber> &nums = that->m_OverheadNumbers;
-			memmove(nums.Data + i, nums.Data + (i + 1), (nums.Count - (i + 1)) * sizeof(FOverheadNumber));
-			nums.Count--;
-			nums.Max = nums.Count;
+			that->m_OverheadNumbers.Remove(i);
 			i--;
 		}
 		else

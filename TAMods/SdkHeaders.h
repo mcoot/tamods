@@ -52,6 +52,11 @@ public:
 		return this->Count; 
 	}; 
 
+	T *Get(int i)
+	{
+		return this->Data + i;
+	};
+
 	T& operator() ( int i ) 
 	{ 
 		return this->Data[ i ]; 
@@ -62,16 +67,28 @@ public:
 		return this->Data[ i ]; 
 	}; 
 
-	void Add ( T InputData ) 
+	void Add (T InputData ) 
 	{ 
 		Data = (T*) realloc ( Data, sizeof ( T ) * ( Count + 1 ) ); 
 		Data[ Count++ ] = InputData; 
-		Max = Count; 
+		Max = Count;
 	}; 
+
+	void Remove(int i)
+	{
+		memmove(Data + i, Data + (i + 1), (Count - (i + 1)) * sizeof(T));
+		--Count;
+		if (Count == 0)
+		{
+			free(Data);
+			Data = NULL;
+		}
+	};
 
 	void Clear() 
 	{ 
 		free ( Data ); 
+		Data = NULL;
 		Count = Max = 0; 
 	}; 
 }; 

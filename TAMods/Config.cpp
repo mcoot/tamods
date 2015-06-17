@@ -4,6 +4,8 @@ Config g_config;
 
 Config::Config()
 {
+	onDamageNumberCreate = NULL;
+	onDamageNumberUpdate = NULL;
 	reset();
 }
 
@@ -45,6 +47,12 @@ void Config::reset()
 	// Custom damage number text
 	damageNumberCustomText = std::string("");
 
+	if (onDamageNumberCreate)
+		delete onDamageNumberCreate;
+	if (onDamageNumberUpdate)
+		delete onDamageNumberUpdate;
+	onDamageNumberCreate = NULL;
+	onDamageNumberUpdate = NULL;
 
 	//Damage Number color variables
 	rainbowBulletInt = 0;
@@ -101,11 +109,11 @@ void Config::parseFile()
 			return;
 		}
 	}
-	setVariables(lua);
+	setVariables();
 }
 
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
-void Config::setVariables(Lua &lua)
+void Config::setVariables()
 {
 	SET_VARIABLE(int, damageNumbersLimit);
 	SET_VARIABLE(bool, showErrorNotifications);
@@ -114,6 +122,8 @@ void Config::setVariables(Lua &lua)
 	SET_VARIABLE(float, crosshairScale);
 
 	// Damage number customization
+	onDamageNumberCreate = new LuaRef(getGlobal(lua.getState(), "onDamageNumberCreate"));
+	onDamageNumberUpdate = new LuaRef(getGlobal(lua.getState(), "onDamageNumberUpdate"));
 	SET_VARIABLE(float, damageNumbersOffsetX);
 	SET_VARIABLE(float, damageNumbersOffsetY);
 	SET_VARIABLE(float, damageNumbersScale);
@@ -220,6 +230,41 @@ static bool config_setCrosshairs(const std::string &pclass, const std::string &w
 	return true;
 }
 
+static FVector hud_project(ATrHUD *hud, FVector vec)
+{
+	return hud->Canvas->Project(vec);
+}
+
+static void hud_drawDamageNumber(ATrHUD *hud, std::string num, FColor col, FVector loc, float scalex, float scaley)
+{
+	std::wstring wstr(num.begin(), num.end());
+	wchar_t *wchar = (wchar_t *)wstr.c_str();
+	hud->DrawColoredMarkerText(wchar, col, loc, hud->Canvas, scalex, scaley);
+}
+
+static bool hud_isOnScreen(ATrHUD *hud, FVector loc)
+{
+	FVector view_location;
+	FRotator view_rotation;
+
+	if (hud->TrPlayerOwner)
+	{
+		hud->TrPlayerOwner->eventGetPlayerViewPoint(&view_location, &view_rotation);
+		return Geom::dot(Geom::rotationToVector(view_rotation), Geom::normal(Geom::sub(loc, view_location))) >= 0.0f;
+	}
+	return false;
+}
+
+static FVector hud_getPlayerPos(ATrHUD *hud)
+{
+	FVector out;
+	FRotator view_rotation;
+	
+	if (hud->TrPlayerOwner)
+		hud->TrPlayerOwner->eventGetPlayerViewPoint(&out, &view_rotation);
+	return out;
+}
+
 void Lua::init()
 {
 	getGlobalNamespace(_state).
@@ -250,6 +295,46 @@ void Lua::init()
 		addFunction("crosshair", &Crosshairs::create).
 		addFunction("crosshairs", &Crosshairs::create2).
 		addFunction("setCrosshairs", &config_setCrosshairs).
+
+		beginClass<FVector>("Vector").
+			addData("x", &FVector::X).
+			addData("y", &FVector::Y).
+			addData("z", &FVector::Z).
+			addConstructor<void(*)(float, float, float)>().
+		endClass().
+
+		beginClass<FVector4>("Vector4").
+			addData("x", &FVector4::X).
+			addData("y", &FVector4::Y).
+			addData("z", &FVector4::Z).
+			addData("w", &FVector4::W).
+			addConstructor<void(*)(float, float, float, float)>().
+		endClass().
+
+		beginClass<FOverheadNumber>("DamageNumber").
+			addData("number", &FOverheadNumber::NumberValue).
+			addData("time", &FOverheadNumber::RemainingTime).
+			addData("location", &FOverheadNumber::WorldSpaceLocation).
+			addData("color", &FOverheadNumber::CurrentColor).
+			addData("scale", &FOverheadNumber::CurrentScale).
+			addProperty("shieldDamage", &FOverheadNumber::isShieldDamage, &FOverheadNumber::setShieldDamage).
+			addConstructor<void(*)(int, float, FVector4, bool)>().
+		endClass().
+
+		beginClass<TArray<FOverheadNumber>>("DamageNumberArray").
+			addFunction("add", &TArray<FOverheadNumber>::Add).
+			addFunction("remove", &TArray<FOverheadNumber>::Remove).
+			addFunction("clear", &TArray<FOverheadNumber>::Clear).
+			addFunction("size", &TArray<FOverheadNumber>::Num).
+			addFunction("get", &TArray<FOverheadNumber>::Get).
+		endClass().
+
+		beginClass<ATrHUD>("HUD").
+		endClass().
+		addFunction("project", &hud_project).
+		addFunction("drawDamageNumber", &hud_drawDamageNumber).
+		addFunction("isOnScreen", &hud_isOnScreen).
+		addFunction("getPlayerPos", &hud_getPlayerPos).
 
 		addFunction("print", (void(*)(const std::string &)) &Utils::printConsole).
 		addFunction("console", (void(*)(const std::string &)) &Utils::printConsole).

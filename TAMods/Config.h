@@ -8,6 +8,7 @@
 #include "Utils.h"
 #include "Data.h"
 #include "Lua.h"
+#include "Geom.h"
 #include "SdkHeaders.h"
 
 struct Crosshairs
@@ -38,7 +39,7 @@ public:
 
 	void reset();
 	void parseFile();
-	void setVariables(Lua &lua);
+	void setVariables();
 
 public:
 	Lua lua;
@@ -63,6 +64,11 @@ public:
 	int damageNumberStreamValue;
 	int damageNumberStreamCount;
 	bool showStreamTotalOnly;
+
+	// Lua scripting damage numbers
+	LuaRef *onDamageNumberCreate;
+	LuaRef *onDamageNumberUpdate;
+
 	// Custom damage number text
 	std::string damageNumberCustomText;
 
