@@ -28,6 +28,7 @@ void Config::reset()
 	
 	showErrorNotifications = true;
 	showWeapon = true;
+	showFirstPersonAmmo = false;
 	showCrosshair = true;
 	crosshairScale = 1;
 	crosshairColor = Utils::rgb(255, 255, 255);
@@ -119,6 +120,7 @@ void Config::setVariables()
 	SET_VARIABLE(int, damageNumbersLimit);
 	SET_VARIABLE(bool, showErrorNotifications);
 	SET_VARIABLE(bool, showWeapon);
+	SET_VARIABLE(bool, showFirstPersonAmmo);
 	SET_VARIABLE(bool, showCrosshair);
 	SET_VARIABLE(float, crosshairScale);
 	SET_VARIABLE(FColor, crosshairColor);

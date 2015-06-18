@@ -47,6 +47,7 @@ public:
 	int damageNumbersLimit;
 	bool showErrorNotifications;
 	bool showWeapon;
+	bool showFirstPersonAmmo;
 	bool showCrosshair;
 	float crosshairScale;
 	FColor crosshairColor;

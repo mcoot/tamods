@@ -26,6 +26,20 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 			reticule->ActiveReticule->SetFloat(L"_xscale", (1.0f / g_config.crosshairScale) * 100.0f);
 			reticule->ActiveReticule->SetFloat(L"_yscale", (1.0f / g_config.crosshairScale) * 100.0f);
 
+			// Ammo info in 1st person
+			if (g_config.showFirstPersonAmmo)
+			{
+				reticule->EnableVehicleAmmoClip();
+				ATrDevice *dev = (ATrDevice *)reticule->LastWeapon;
+				UGFxObject *obj = hud->m_GFxHud->GetVariableObject(L"_root.reticulesMC.reticules.clipMC.clipTF", NULL);
+				if (obj && dev && reticule->LastWeapon->IsA(ATrDevice::StaticClass()))
+				{
+					wchar_t buff[128];
+					wsprintf(buff, L"%d/%d", dev->m_RemainingAmmoInClip, dev->m_nCarriedAmmo);
+					obj->SetText(buff, NULL);
+				}
+			}
+
 			// Crosshair color
 			FASColorTransform trans = reticule->ReticulesMC->GetColorTransform();
 			trans.Multiply = Utils::linCol(g_config.crosshairColor);
