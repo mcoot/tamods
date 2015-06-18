@@ -33,15 +33,8 @@ std::string Lua::_error(int ret)
 
 std::string Lua::doFile(const std::string &s)
 {
-	try
-	{
-		std::string err = _error(luaL_dofile(_state, s.c_str()));
-		return err;
-	}
-	catch (const LuaException &e)
-	{
-		Utils::console("LuaException: %s", e.what());
-	}
+	std::string err = _error(luaL_dofile(_state, s.c_str()));
+	return err;
 }
 
 void            Lua::_printTop()

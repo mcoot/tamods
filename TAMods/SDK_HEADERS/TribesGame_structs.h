@@ -651,7 +651,7 @@ struct FOverheadNumber
 	bool isShieldDamage() const { return bShieldDamage; }
 	void setShieldDamage(bool b) { bShieldDamage = b; }
 	FOverheadNumber(int pNum, float pTime, FVector4 pLoc, bool pIsShield)
-		: NumberValue(pNum), RemainingTime(pTime), WorldSpaceLocation(pLoc), bShieldDamage(pIsShield)
+		: NumberValue(pNum), RemainingTime(pTime), WorldSpaceLocation(pLoc), CurrentColor({255, 255, 255, 255}), bShieldDamage(pIsShield)
 	{}
 };
 

@@ -1,19 +1,23 @@
 #include "Mods.h"
 
+static void TrHUD_addOverheadNumber(ATrHUD *that, int value, FVector4 loc, bool is_shield)
+{
+	FOverheadNumber overhead(value, that->m_fOverheadNumberTotalTime, loc, is_shield);
+	overhead.CurrentColor = is_shield ? that->m_OverheadNumberColorShieldMin : that->m_OverheadNumberColorMin;
+	that->m_OverheadNumbers.Add(overhead);
+}
+
 bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_execClientShowOverheadNumber_Parms *params = (ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams;
+	FVector4 loc(params->WorldLocation.X, params->WorldLocation.Y, params->WorldLocation.Z, params->fScreenDepth);
+	if (loc.W == 0.0f)
+		loc.W = params->WorldLocation.Z;
 
 	if (that->myHUD && g_config.onDamageNumberCreate && !g_config.onDamageNumberCreate->isNil() && g_config.onDamageNumberCreate->isFunction())
 	{
 		TArray<FOverheadNumber> *overheads = &((ATrHUD *)that->myHUD)->m_OverheadNumbers;
-		FVector4 loc;
-		loc.X = params->WorldLocation.X;
-		loc.Y = params->WorldLocation.Y;
-		loc.Z = params->WorldLocation.Z;
-		if ((loc.W = params->fScreenDepth) == 0.0f)
-			loc.W = params->WorldLocation.Z;
 		try
 		{
 			(*g_config.onDamageNumberCreate)(overheads, params->NumberToShow, loc, (bool) params->bShieldDamage);
@@ -61,6 +65,7 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 
 	if (params->NumberToShow <= g_config.damageNumbersLimit)
 		return true;
-	return false;
+	TrHUD_addOverheadNumber((ATrHUD *)that->myHUD, params->NumberToShow, loc, params->bShieldDamage);
+	return true;
 }
 

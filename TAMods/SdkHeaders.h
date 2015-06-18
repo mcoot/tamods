@@ -78,11 +78,6 @@ public:
 	{
 		memmove(Data + i, Data + (i + 1), (Count - (i + 1)) * sizeof(T));
 		--Count;
-		if (Count == 0)
-		{
-			free(Data);
-			Data = NULL;
-		}
 	};
 
 	void Clear() 
