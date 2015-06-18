@@ -12,6 +12,16 @@ bool TrHudWrapper_destroyed(int ID, UObject *dwCallingObject, UFunction* pFuncti
 	return false;
 }
 
+bool TrChatConsoleCommand_quit(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	UTrChatConsoleCommands *that = (UTrChatConsoleCommands *)dwCallingObject;
+	ATrPlayerController *pc = (ATrPlayerController *)that->Outer;
+
+	if (pc->myHUD)
+		((ATrHUD *)pc->myHUD)->m_OverheadNumbers.Clear();
+	return false;
+}
+
 static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 {
 	float accumulated_time, scaling_peak_time, alpha;
@@ -299,6 +309,17 @@ bool TrVehicle_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunct
 {
 	return !g_config.showVehicleIcon;
 }
+
+bool TrMine_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	return !g_config.showMineIcon;
+}
+
+bool TrSensor_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	return !g_config.showSensorIcon;
+}
+
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	if (g_config.recordStats == true)

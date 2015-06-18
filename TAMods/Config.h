@@ -98,6 +98,8 @@ public:
 	bool showNuggetIcon;
 	bool showPlayerIcon;
 	bool showVehicleIcon;
+	bool showMineIcon;
+	bool showSensorIcon;
 
 	//stats
 	bool recordStats;

@@ -79,6 +79,8 @@ void Config::reset()
 	showNuggetIcon = true;
 	showPlayerIcon = true;
 	showVehicleIcon = true;
+	showMineIcon = true;
+	showSensorIcon = true;
 
 	//Stats
 	recordStats = false;
@@ -164,6 +166,8 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showNuggetIcon);
 	SET_VARIABLE(bool, showPlayerIcon);
 	SET_VARIABLE(bool, showVehicleIcon);
+	SET_VARIABLE(bool, showMineIcon);
+	SET_VARIABLE(bool, showSensorIcon);
 
 	// Toggle Stats
 	SET_VARIABLE(bool, recordStats);
