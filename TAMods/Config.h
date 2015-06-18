@@ -49,6 +49,7 @@ public:
 	bool showWeapon;
 	bool showCrosshair;
 	float crosshairScale;
+	FColor crosshairColor;
 	Loadout *loadouts[9][9];
 
 	// Damage number customization

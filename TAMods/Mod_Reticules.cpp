@@ -25,6 +25,11 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 			reticule->ReticulesMC->SetFloat(L"_yscale", g_config.crosshairScale * 100.0f);
 			reticule->ActiveReticule->SetFloat(L"_xscale", (1.0f / g_config.crosshairScale) * 100.0f);
 			reticule->ActiveReticule->SetFloat(L"_yscale", (1.0f / g_config.crosshairScale) * 100.0f);
+
+			// Crosshair color
+			FASColorTransform trans = reticule->ReticulesMC->GetColorTransform();
+			trans.Multiply = Utils::linCol(g_config.crosshairColor);
+			reticule->ReticulesMC->SetColorTransform(trans);
 		}
 		if (!g_config.showWeapon)
 			that->SetWeaponVisibility(g_config.showWeapon);

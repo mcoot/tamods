@@ -30,6 +30,7 @@ void Config::reset()
 	showWeapon = true;
 	showCrosshair = true;
 	crosshairScale = 1;
+	crosshairColor = Utils::rgb(255, 255, 255);
 
 	// Damage number customization
 	damageNumbersOffsetX = 0.0f;
@@ -120,6 +121,7 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showWeapon);
 	SET_VARIABLE(bool, showCrosshair);
 	SET_VARIABLE(float, crosshairScale);
+	SET_VARIABLE(FColor, crosshairColor);
 
 	// Damage number customization
 	onDamageNumberCreate = new LuaRef(getGlobal(lua.getState(), "onDamageNumberCreate"));
