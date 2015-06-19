@@ -38,6 +38,8 @@ int Utils::rgb2int(const FColor &col)
 // Converts UE3's FString to std::string
 std::string Utils::f2std(FString &fstr)
 {
+	if (fstr.Count == 0 || fstr.Data == NULL)
+		return "";
 	wchar_t *wch = fstr.Data;
 	std::wstring wstr(wch);
 	return (std::string(wstr.begin(), wstr.end()));

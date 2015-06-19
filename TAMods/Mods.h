@@ -39,6 +39,7 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 
 // General (used to print in the console)
 bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool TrPC_InitInputSystem(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 // Stats
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
