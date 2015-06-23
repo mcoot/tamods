@@ -169,6 +169,9 @@ namespace TAModConfigurationTool
             listCrosshairs.Items.Clear();
 
             listMute.Items.Clear();
+            checkMuteVGS.Checked = false;
+            checkMuteText.Checked = false;
+            checkMuteDirectMessages.Checked = false;
 
 
         }
@@ -315,7 +318,7 @@ namespace TAModConfigurationTool
 
             // Muted Players
             listMute.Items.Clear();
-            foreach (string player in config.getConfigMutedPlayers())
+            foreach (MutedPlayer player in config.getConfigMutedPlayers())
             {
                 listMute.Items.Add(player);
             }
@@ -436,7 +439,7 @@ namespace TAModConfigurationTool
 
             // Muted Players
             config.clearConfigMutedPlayers();
-            foreach (string player in listMute.Items)
+            foreach (MutedPlayer player in listMute.Items)
             {
                 config.mutePlayer(player);
             }
@@ -927,9 +930,19 @@ namespace TAModConfigurationTool
 
         private void btnMuteAdd_Click(object sender, EventArgs e)
         {
-            if (textMute.Text.Trim() != "" && !listMute.Items.Contains(textMute.Text.Trim()))
+            foreach (MutedPlayer player in listMute.Items)
             {
-                listMute.Items.Add(textMute.Text.Trim());
+                if (player.username.Trim().ToLower() == textMute.Text.Trim().ToLower())
+                {
+                    listMute.Items.Remove(player);
+                    listMute.Items.Add(MutedPlayer.create_custom(textMute.Text.Trim(), checkMuteVGS.Checked, checkMuteText.Checked, checkMuteDirectMessages.Checked));
+                    return;
+                }
+            }
+            
+            if (textMute.Text.Trim() != "")
+            {
+                listMute.Items.Add(MutedPlayer.create_custom(textMute.Text.Trim(), checkMuteVGS.Checked, checkMuteText.Checked, checkMuteDirectMessages.Checked));
             }
         }
 
@@ -938,6 +951,18 @@ namespace TAModConfigurationTool
             if (listMute.SelectedItem != null)
             {
                 listMute.Items.Remove(listMute.SelectedItem);
+            }
+        }
+
+        private void listMute_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MutedPlayer selPlayer = listMute.SelectedItem as MutedPlayer;
+            if (selPlayer != null)
+            {
+                textMute.Text = selPlayer.username;
+                checkMuteVGS.Checked = selPlayer.muteVGS;
+                checkMuteText.Checked = selPlayer.muteText;
+                checkMuteDirectMessages.Checked = selPlayer.muteDirectMessages;
             }
         }
 
@@ -954,7 +979,7 @@ namespace TAModConfigurationTool
         private Dictionary<string, Object> configVarsDefault;
         private List<Loadout> configLoadouts;
         private List<CrosshairSetting> configCrosshairs;
-        private List<string> configMutedPlayers;
+        private List<MutedPlayer> configMutedPlayers;
 
         public Config(string configPath, string configFilename)
         {
@@ -967,6 +992,8 @@ namespace TAModConfigurationTool
             lua.RegisterFunction("equipment", this, this.GetType().GetMethod("equipment"));
             lua.RegisterFunction("setLoadout", this, this.GetType().GetMethod("setLoadout"));
             lua.RegisterFunction("setCrosshairs", this, this.GetType().GetMethod("setCrosshairs"));
+            lua.RegisterFunction("mplayer", this, typeof(MutedPlayer).GetMethod("create"));
+            lua.RegisterFunction("mplayer_custom", this, typeof(MutedPlayer).GetMethod("create_custom"));
             lua.RegisterFunction("mutePlayer", this, this.GetType().GetMethod("mutePlayer"));
 
 
@@ -975,7 +1002,7 @@ namespace TAModConfigurationTool
             setupConfigVarDict();
             configLoadouts = new List<Loadout>();
             configCrosshairs = new List<CrosshairSetting>();
-            configMutedPlayers = new List<string>();
+            configMutedPlayers = new List<MutedPlayer>();
         }
 
         // Constructor puts the config path in the root of the C: drive if no path is given
@@ -1189,13 +1216,13 @@ namespace TAModConfigurationTool
             configCrosshairs.Clear();
         }
 
-        public List<string> getConfigMutedPlayers()
+        public List<MutedPlayer> getConfigMutedPlayers()
         {
             // Make a deep copy of the config muted players list
-            List<string> cp = new List<string>();
-            foreach (string playerName in configMutedPlayers)
+            List<MutedPlayer> cp = new List<MutedPlayer>();
+            foreach (MutedPlayer player in configMutedPlayers)
             {
-                cp.Add(playerName);
+                cp.Add(player);
             }
             cp.Sort();
             return cp;
@@ -1270,9 +1297,9 @@ namespace TAModConfigurationTool
 
                 flines.Add("");
                 flines.Add("--Globally Muted Players");
-                foreach (string playerName in configMutedPlayers)
+                foreach (MutedPlayer player in configMutedPlayers)
                 {
-                    flines.Add("mutePlayer(\"" + playerName + "\")");
+                    flines.Add("mutePlayer(mplayer_custom(\"" + player.username + "\", " + player.muteVGS.ToString().ToLower() + ", " + player.muteText.ToString().ToLower() + ", " + player.muteDirectMessages.ToString().ToLower() + "))");
                 }
 
 
@@ -1335,9 +1362,9 @@ namespace TAModConfigurationTool
             return true;
         }
 
-        public bool mutePlayer(string playerName)
+        public bool mutePlayer(MutedPlayer player)
         {
-            configMutedPlayers.Add(playerName);
+            configMutedPlayers.Add(player);
             return true;
         }
 
@@ -1557,6 +1584,67 @@ namespace TAModConfigurationTool
             return Crosshairs.create2(xhair, xhair);
         }
 
+    }
+
+    public class MutedPlayer : IComparable<MutedPlayer>
+    {
+        public readonly string username;
+        public readonly bool muteVGS;
+        public readonly bool muteText;
+        public readonly bool muteDirectMessages;
+
+        public MutedPlayer(string username, bool muteVGS, bool muteText, bool muteDirectMessages)
+        {
+            this.username = username;
+            this.muteVGS = muteVGS;
+            this.muteText = muteText;
+            this.muteDirectMessages = muteDirectMessages;
+        }
+
+        public static MutedPlayer create_custom(string username, bool muteVGS, bool muteText, bool muteDirectMessages)
+        {
+            return new MutedPlayer(username, muteVGS, muteText, muteDirectMessages);
+        }
+
+        public static MutedPlayer create(string username)
+        {
+            return create_custom(username, true, true, true);
+        }
+
+        public int CompareTo(MutedPlayer other)
+        {
+            // Sort by username
+            return (username.CompareTo(other.username));
+        }
+
+        public override bool Equals(object other)
+        {
+            // Return false if the other object cannot be cast to MutedPlayer
+            MutedPlayer cother = other as MutedPlayer;
+            if ((object)cother == null)
+            {
+                return false;
+            }
+
+            if (this.username.ToLower() == cother.username.ToLower())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return username.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return username + ": " + ((muteVGS) ? "VGS Muted" : "VGS On") + " / " + ((muteText) ? "Text Muted" : "Text On") + " / " + ((muteDirectMessages) ? "@ Muted" : "@ On");
+        }
+
+        
     }
 
     public class TransTabPage : TabPage

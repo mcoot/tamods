@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel12 = new System.Windows.Forms.Panel();
@@ -195,15 +197,19 @@
             this.boxCrosshairScopedPreview = new System.Windows.Forms.PictureBox();
             this.boxCrosshairNormalPreview = new System.Windows.Forms.PictureBox();
             this.tabMute = new TAModConfigurationTool.TransTabPage();
-            this.btnMuteDelete = new System.Windows.Forms.Button();
-            this.btnMuteAdd = new System.Windows.Forms.Button();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.label38 = new System.Windows.Forms.Label();
+            this.checkMuteDirectMessages = new System.Windows.Forms.CheckBox();
+            this.checkMuteText = new System.Windows.Forms.CheckBox();
+            this.checkMuteVGS = new System.Windows.Forms.CheckBox();
             this.textMute = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
+            this.btnMuteDelete = new System.Windows.Forms.Button();
+            this.btnMuteAdd = new System.Windows.Forms.Button();
             this.label36 = new System.Windows.Forms.Label();
             this.listMute = new System.Windows.Forms.ListBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel12.SuspendLayout();
@@ -262,7 +268,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).BeginInit();
             this.tabMute.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.panel15.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -280,6 +286,26 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 501);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
             // tabControlMain
             // 
@@ -2214,10 +2240,9 @@
             // 
             // tabMute
             // 
+            this.tabMute.Controls.Add(this.panel15);
             this.tabMute.Controls.Add(this.btnMuteDelete);
             this.tabMute.Controls.Add(this.btnMuteAdd);
-            this.tabMute.Controls.Add(this.textMute);
-            this.tabMute.Controls.Add(this.label37);
             this.tabMute.Controls.Add(this.label36);
             this.tabMute.Controls.Add(this.listMute);
             this.tabMute.Location = new System.Drawing.Point(4, 26);
@@ -2228,11 +2253,87 @@
             this.tabMute.Text = "Global Mute";
             this.tabMute.UseVisualStyleBackColor = true;
             // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.label38);
+            this.panel15.Controls.Add(this.checkMuteDirectMessages);
+            this.panel15.Controls.Add(this.checkMuteText);
+            this.panel15.Controls.Add(this.checkMuteVGS);
+            this.panel15.Controls.Add(this.textMute);
+            this.panel15.Controls.Add(this.label37);
+            this.panel15.Location = new System.Drawing.Point(7, 6);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(259, 142);
+            this.panel15.TabIndex = 51;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.label38.Location = new System.Drawing.Point(4, 37);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(36, 13);
+            this.label38.TabIndex = 60;
+            this.label38.Text = "Name";
+            // 
+            // checkMuteDirectMessages
+            // 
+            this.checkMuteDirectMessages.AutoSize = true;
+            this.checkMuteDirectMessages.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.checkMuteDirectMessages.Location = new System.Drawing.Point(7, 105);
+            this.checkMuteDirectMessages.Name = "checkMuteDirectMessages";
+            this.checkMuteDirectMessages.Size = new System.Drawing.Size(120, 17);
+            this.checkMuteDirectMessages.TabIndex = 59;
+            this.checkMuteDirectMessages.Text = "Mute @ Messages";
+            this.checkMuteDirectMessages.UseVisualStyleBackColor = true;
+            // 
+            // checkMuteText
+            // 
+            this.checkMuteText.AutoSize = true;
+            this.checkMuteText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.checkMuteText.Location = new System.Drawing.Point(7, 84);
+            this.checkMuteText.Name = "checkMuteText";
+            this.checkMuteText.Size = new System.Drawing.Size(76, 17);
+            this.checkMuteText.TabIndex = 58;
+            this.checkMuteText.Text = "Mute Text";
+            this.checkMuteText.UseVisualStyleBackColor = true;
+            // 
+            // checkMuteVGS
+            // 
+            this.checkMuteVGS.AutoSize = true;
+            this.checkMuteVGS.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.checkMuteVGS.Location = new System.Drawing.Point(7, 63);
+            this.checkMuteVGS.Name = "checkMuteVGS";
+            this.checkMuteVGS.Size = new System.Drawing.Size(77, 17);
+            this.checkMuteVGS.TabIndex = 57;
+            this.checkMuteVGS.Text = "Mute VGS";
+            this.checkMuteVGS.UseVisualStyleBackColor = true;
+            // 
+            // textMute
+            // 
+            this.textMute.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.textMute.Location = new System.Drawing.Point(46, 35);
+            this.textMute.Name = "textMute";
+            this.textMute.Size = new System.Drawing.Size(205, 22);
+            this.textMute.TabIndex = 56;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(3, 10);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(115, 21);
+            this.label37.TabIndex = 55;
+            this.label37.Text = "Player Details";
+            this.label37.Visible = false;
+            // 
             // btnMuteDelete
             // 
-            this.btnMuteDelete.Location = new System.Drawing.Point(264, 31);
+            this.btnMuteDelete.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.btnMuteDelete.Location = new System.Drawing.Point(426, 35);
             this.btnMuteDelete.Name = "btnMuteDelete";
-            this.btnMuteDelete.Size = new System.Drawing.Size(110, 25);
+            this.btnMuteDelete.Size = new System.Drawing.Size(152, 25);
             this.btnMuteDelete.TabIndex = 50;
             this.btnMuteDelete.Text = "Delete Selected";
             this.btnMuteDelete.UseVisualStyleBackColor = true;
@@ -2240,37 +2341,20 @@
             // 
             // btnMuteAdd
             // 
-            this.btnMuteAdd.Location = new System.Drawing.Point(204, 379);
+            this.btnMuteAdd.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.btnMuteAdd.Location = new System.Drawing.Point(272, 34);
             this.btnMuteAdd.Name = "btnMuteAdd";
-            this.btnMuteAdd.Size = new System.Drawing.Size(54, 25);
+            this.btnMuteAdd.Size = new System.Drawing.Size(148, 26);
             this.btnMuteAdd.TabIndex = 49;
-            this.btnMuteAdd.Text = "Add";
+            this.btnMuteAdd.Text = "Save Edited";
             this.btnMuteAdd.UseVisualStyleBackColor = true;
             this.btnMuteAdd.Click += new System.EventHandler(this.btnMuteAdd_Click);
-            // 
-            // textMute
-            // 
-            this.textMute.Location = new System.Drawing.Point(11, 379);
-            this.textMute.Name = "textMute";
-            this.textMute.Size = new System.Drawing.Size(187, 25);
-            this.textMute.TabIndex = 48;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(264, 141);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(114, 21);
-            this.label37.TabIndex = 47;
-            this.label37.Text = "Mute Options";
-            this.label37.Visible = false;
             // 
             // label36
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(6, 3);
+            this.label36.Location = new System.Drawing.Point(267, 6);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(217, 25);
             this.label36.TabIndex = 46;
@@ -2278,32 +2362,13 @@
             // 
             // listMute
             // 
+            this.listMute.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.listMute.FormattingEnabled = true;
-            this.listMute.ItemHeight = 17;
-            this.listMute.Location = new System.Drawing.Point(11, 31);
+            this.listMute.Location = new System.Drawing.Point(272, 69);
             this.listMute.Name = "listMute";
-            this.listMute.Size = new System.Drawing.Size(247, 344);
+            this.listMute.Size = new System.Drawing.Size(306, 342);
             this.listMute.TabIndex = 8;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            this.listMute.SelectedIndexChanged += new System.EventHandler(this.listMute_SelectedIndexChanged);
             // 
             // MainForm
             // 
@@ -2322,6 +2387,7 @@
             this.Text = "TAMod Configuration Tool";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
@@ -2395,7 +2461,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).EndInit();
             this.tabMute.ResumeLayout(false);
             this.tabMute.PerformLayout();
-            this.flowLayoutPanel1.ResumeLayout(false);
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2572,10 +2639,15 @@
         private TAModConfigurationTool.TransTabPage tabMute;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ListBox listMute;
-        private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Button btnMuteDelete;
         private System.Windows.Forms.Button btnMuteAdd;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.CheckBox checkMuteDirectMessages;
+        private System.Windows.Forms.CheckBox checkMuteText;
+        private System.Windows.Forms.CheckBox checkMuteVGS;
         private System.Windows.Forms.TextBox textMute;
+        private System.Windows.Forms.Label label37;
     }
 }
 
