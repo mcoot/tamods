@@ -244,7 +244,65 @@ bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFun
 	// Search for the sender in the blacklist
 	for (unsigned i = 0; i < g_config.globalMuteList.size(); i++)
 	{
-		if (sender == g_config.globalMuteList.at(i))
+		
+		if (sender == g_config.globalMuteList.at(i).username && g_config.globalMuteList.at(i).muteText)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
+	ATrPlayerController_execClientReceiveVGSCommand_Parms *params = (ATrPlayerController_execClientReceiveVGSCommand_Parms *)pParams;
+
+	std::string sender = Utils::f2std(params->PRI->PlayerName);
+	std::string tempsender = "";
+	bool clantagover = false;
+	// Convert the sender name to lowercase
+	for (unsigned i = 0; i < sender.length(); i++)
+	{
+		if (sender.at(i) >= 'A' && sender.at(i) <= 'Z')
+		{
+			sender.at(i) = sender.at(i) + ('a' - 'A');
+		}
+
+		if (clantagover)
+		{
+			tempsender.push_back(sender.at(i));
+		}
+
+		// Deal with clantags
+		if (sender.at(i) == ']')
+		{
+			clantagover = true;
+		}
+	}
+
+	if (clantagover)
+	{
+		sender = tempsender;
+	}
+
+	tempsender = "";
+	// Remove all spaces from name
+	for (unsigned i = 0; i < sender.length(); i++)
+	{
+		if (sender.at(i) != ' ')
+		{
+			tempsender.push_back(sender.at(i));
+		}
+	}
+
+	sender = tempsender;
+	
+	// Search for the sender in the blacklist
+	for (unsigned i = 0; i < g_config.globalMuteList.size(); i++)
+	{
+		if (sender == g_config.globalMuteList.at(i).username && g_config.globalMuteList.at(i).muteVGS)
 		{
 			return true;
 		}

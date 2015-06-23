@@ -31,6 +31,37 @@ struct Crosshairs
 	std::string zoomed;
 };
 
+struct MutedPlayer
+{
+	MutedPlayer(const std::string &pusername, const bool &pmuteVGS, const bool &pmuteText, const bool &pmuteDirectMessage)
+		: username(pusername), muteVGS(pmuteVGS), muteText(pmuteText), muteDirectMessage(pmuteDirectMessage)
+	{
+		// Convert player name to lowercase (since T:A names are case-insensitive)
+		for (unsigned i = 0; i < username.length(); i++)
+		{
+			if (username.at(i) >= 'A' && username.at(i) <= 'Z')
+			{
+				username.at(i) = username.at(i) + ('a' - 'A');
+			}
+		}
+	}
+
+	static MutedPlayer create_custom(const std::string &pusername, const bool &pmuteVGS, const bool &pmuteText, const bool &pmuteDirectMessage)
+	{
+		return MutedPlayer(pusername, pmuteVGS, pmuteText, pmuteDirectMessage);
+	}
+
+	static MutedPlayer create(const std::string &pusername)
+	{
+		return MutedPlayer(pusername, true, true, true);
+	}
+	
+	std::string username;
+	bool muteVGS;
+	bool muteText;
+	bool muteDirectMessage;
+};
+
 class Config
 {
 public:
@@ -105,5 +136,5 @@ public:
 	bool recordStats;
 
 	//Global Mute
-	std::vector<std::string> globalMuteList;
+	std::vector<MutedPlayer> globalMuteList;
 };

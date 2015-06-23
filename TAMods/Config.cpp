@@ -86,7 +86,7 @@ void Config::reset()
 	recordStats = false;
 
 	//Global mute
-	globalMuteList = std::vector<std::string>();
+	globalMuteList = std::vector<MutedPlayer>();
 }
 
 void Config::parseFile()
@@ -241,19 +241,9 @@ static bool config_setCrosshairs(const std::string &pclass, const std::string &w
 	return true;
 }
 
-static bool config_addMutedPlayer(const std::string &pusername)
+static bool config_addMutedPlayer(MutedPlayer player)
 {
-	// Convert all player names to lowercase (since T:A names are case-insensitive)
-	std::string username = pusername;
-	for (unsigned i = 0; i < username.length(); i++)
-	{
-		if (username.at(i) >= 'A' && username.at(i) <= 'Z')
-		{
-			username.at(i) = username.at(i) + ('a' - 'A');
-		}
-	}
-	
-	g_config.globalMuteList.push_back(username);
+	g_config.globalMuteList.push_back(player);
 	return true;
 }
 
@@ -363,6 +353,14 @@ void Lua::init()
 		addFunction("isOnScreen", &hud_isOnScreen).
 		addFunction("getPlayerPos", &hud_getPlayerPos).
 
+		beginClass<MutedPlayer>("MutedPlayer").
+			addData("username", &MutedPlayer::username).
+			addData("muteText", &MutedPlayer::muteText).
+			addData("muteVGS", &MutedPlayer::muteVGS).
+			addData("muteDirectMessage", &MutedPlayer::muteDirectMessage).
+		endClass().
+		addFunction("mplayer", &MutedPlayer::create).
+		addFunction("mplayer_custom", &MutedPlayer::create_custom).
 		addFunction("mutePlayer", &config_addMutedPlayer).
 
 		addFunction("print", (void(*)(const std::string &)) &Utils::printConsole).

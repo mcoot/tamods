@@ -30,6 +30,7 @@ void onDLLProcessAttach()
 		Hooks::add(&TrSensor_PostRenderFor, "Function TribesGame.TrDeployable_MotionSensor.PostRenderFor"); // Motion Sensors
 
 		Hooks::add(&TrHUD_ChatMessageReceived, "Function TribesGame.TrHUD.ChatMessageReceived");
+		Hooks::add(&TrPlayerController_ClientReceiveVGSCommand, "Function TribesGame.TrPlayerController.ClientReceiveVGSCommand");
 
 		// Damage numbers
 		Hooks::add(&TrPC_ClientShowOverheadNumber, "Function TribesGame.TrPlayerController.ClientShowOverheadNumber");
