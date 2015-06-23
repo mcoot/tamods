@@ -101,6 +101,9 @@ public:
 	bool showMineIcon;
 	bool showSensorIcon;
 
-	//stats
+	//Stats
 	bool recordStats;
+
+	//Global Mute
+	std::vector<std::string> globalMuteList;
 };

@@ -84,6 +84,9 @@ void Config::reset()
 
 	//Stats
 	recordStats = false;
+
+	//Global mute
+	globalMuteList = std::vector<std::string>();
 }
 
 void Config::parseFile()
@@ -238,6 +241,22 @@ static bool config_setCrosshairs(const std::string &pclass, const std::string &w
 	return true;
 }
 
+static bool config_addMutedPlayer(const std::string &pusername)
+{
+	// Convert all player names to lowercase (since T:A names are case-insensitive)
+	std::string username = pusername;
+	for (unsigned i = 0; i < username.length(); i++)
+	{
+		if (username.at(i) >= 'A' && username.at(i) <= 'Z')
+		{
+			username.at(i) = username.at(i) + ('a' - 'A');
+		}
+	}
+	
+	g_config.globalMuteList.push_back(username);
+	return true;
+}
+
 static FVector hud_project(ATrHUD *hud, FVector vec)
 {
 	return hud->Canvas->Project(vec);
@@ -343,6 +362,8 @@ void Lua::init()
 		addFunction("drawDamageNumber", &hud_drawDamageNumber).
 		addFunction("isOnScreen", &hud_isOnScreen).
 		addFunction("getPlayerPos", &hud_getPlayerPos).
+
+		addFunction("mutePlayer", &config_addMutedPlayer).
 
 		addFunction("print", (void(*)(const std::string &)) &Utils::printConsole).
 		addFunction("console", (void(*)(const std::string &)) &Utils::printConsole).

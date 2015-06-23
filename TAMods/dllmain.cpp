@@ -29,6 +29,8 @@ void onDLLProcessAttach()
 		Hooks::add(&TrMine_PostRenderFor, "Function TribesGame.TrProj_Mine.PostRenderFor"); // Mines
 		Hooks::add(&TrSensor_PostRenderFor, "Function TribesGame.TrDeployable_MotionSensor.PostRenderFor"); // Motion Sensors
 
+		Hooks::add(&TrHUD_ChatMessageReceived, "Function TribesGame.TrHUD.ChatMessageReceived");
+
 		// Damage numbers
 		Hooks::add(&TrPC_ClientShowOverheadNumber, "Function TribesGame.TrPlayerController.ClientShowOverheadNumber");
 		Hooks::add(&TrHudWrapper_destroyed, "Function UTGame.UTGFxHudWrapper.Destroyed"); // Clear array Damage numbers

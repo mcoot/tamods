@@ -225,6 +225,34 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	return (true);
 }
 
+bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrHUD *that = (ATrHUD *)dwCallingObject;
+	ATrHUD_execChatMessageReceived_Parms *params = (ATrHUD_execChatMessageReceived_Parms *)pParams;
+
+	std::string sender = Utils::f2std(params->Sender);
+
+	// Convert the sender name to lowercase
+	for (unsigned i = 0; i < sender.length(); i++)
+	{
+		if (sender.at(i) >= 'A' && sender.at(i) <= 'Z')
+		{
+			sender.at(i) = sender.at(i) + ('a' - 'A');
+		}
+	}
+
+	// Search for the sender in the blacklist
+	for (unsigned i = 0; i < g_config.globalMuteList.size(); i++)
+	{
+		if (sender == g_config.globalMuteList.at(i))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 bool GFxTrScenePS_LoadPlayerMiscData(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	UGFxTrScene_PlayerSummary_execLoadPlayerMiscData_Parms *params = (UGFxTrScene_PlayerSummary_execLoadPlayerMiscData_Parms *)pParams;
