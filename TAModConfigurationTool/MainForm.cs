@@ -168,6 +168,8 @@ namespace TAModConfigurationTool
 
             listCrosshairs.Items.Clear();
 
+            listMute.Items.Clear();
+
 
         }
 
@@ -311,6 +313,13 @@ namespace TAModConfigurationTool
                 listCrosshairs.Items.Add(cs);
             }
 
+            // Muted Players
+            listMute.Items.Clear();
+            foreach (string player in config.getConfigMutedPlayers())
+            {
+                listMute.Items.Add(player);
+            }
+
         }
 
         private void writeUIToConfig()
@@ -423,6 +432,13 @@ namespace TAModConfigurationTool
             foreach (CrosshairSetting cs in listCrosshairs.Items)
             {
                 config.setCrosshairs(cs.gameClass, cs.weapon, cs.crosshairs);
+            }
+
+            // Muted Players
+            config.clearConfigMutedPlayers();
+            foreach (string player in listMute.Items)
+            {
+                config.mutePlayer(player);
             }
         }
 
@@ -909,6 +925,22 @@ namespace TAModConfigurationTool
             numDamageNumberStreamTimeout.Enabled = !(radioDamageNumberDiscrete.Checked || radioDamageNumberCustomText.Checked);
         }
 
+        private void btnMuteAdd_Click(object sender, EventArgs e)
+        {
+            if (textMute.Text.Trim() != "" && !listMute.Items.Contains(textMute.Text.Trim()))
+            {
+                listMute.Items.Add(textMute.Text.Trim());
+            }
+        }
+
+        private void btnMuteDelete_Click(object sender, EventArgs e)
+        {
+            if (listMute.SelectedItem != null)
+            {
+                listMute.Items.Remove(listMute.SelectedItem);
+            }
+        }
+
         
 
     }
@@ -922,6 +954,7 @@ namespace TAModConfigurationTool
         private Dictionary<string, Object> configVarsDefault;
         private List<Loadout> configLoadouts;
         private List<CrosshairSetting> configCrosshairs;
+        private List<string> configMutedPlayers;
 
         public Config(string configPath, string configFilename)
         {
@@ -934,6 +967,7 @@ namespace TAModConfigurationTool
             lua.RegisterFunction("equipment", this, this.GetType().GetMethod("equipment"));
             lua.RegisterFunction("setLoadout", this, this.GetType().GetMethod("setLoadout"));
             lua.RegisterFunction("setCrosshairs", this, this.GetType().GetMethod("setCrosshairs"));
+            lua.RegisterFunction("mutePlayer", this, this.GetType().GetMethod("mutePlayer"));
 
 
             this.configPath = configPath;
@@ -941,6 +975,7 @@ namespace TAModConfigurationTool
             setupConfigVarDict();
             configLoadouts = new List<Loadout>();
             configCrosshairs = new List<CrosshairSetting>();
+            configMutedPlayers = new List<string>();
         }
 
         // Constructor puts the config path in the root of the C: drive if no path is given
@@ -1154,6 +1189,23 @@ namespace TAModConfigurationTool
             configCrosshairs.Clear();
         }
 
+        public List<string> getConfigMutedPlayers()
+        {
+            // Make a deep copy of the config muted players list
+            List<string> cp = new List<string>();
+            foreach (string playerName in configMutedPlayers)
+            {
+                cp.Add(playerName);
+            }
+            cp.Sort();
+            return cp;
+        }
+
+        public void clearConfigMutedPlayers()
+        {
+            configMutedPlayers.Clear();
+        }
+
         // Save the current config to the file, returning success
         public bool saveConfig()
         {
@@ -1216,6 +1268,13 @@ namespace TAModConfigurationTool
                     flines.Add("setCrosshairs(\"" + c.gameClass + "\", \"" + c.weapon + "\", crosshairs(\"" + c.crosshairs.standard + "\", \"" + c.crosshairs.zoomed + "\"))");
                 }
 
+                flines.Add("");
+                flines.Add("--Globally Muted Players");
+                foreach (string playerName in configMutedPlayers)
+                {
+                    flines.Add("mutePlayer(\"" + playerName + "\")");
+                }
+
 
                 if (System.IO.File.Exists(configPath + configFile))
                 {
@@ -1273,6 +1332,12 @@ namespace TAModConfigurationTool
             gameClass = getGameClassName(gameClass);
             
             configCrosshairs.Add(new CrosshairSetting(gameClass, weapon, xhairs));
+            return true;
+        }
+
+        public bool mutePlayer(string playerName)
+        {
+            configMutedPlayers.Add(playerName);
             return true;
         }
 

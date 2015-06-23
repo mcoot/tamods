@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel12 = new System.Windows.Forms.Panel();
@@ -45,6 +43,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label60 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.numDamageNumberStreamTimeout = new System.Windows.Forms.NumericUpDown();
             this.textDamageNumberCustomText = new System.Windows.Forms.TextBox();
             this.radioDamageNumberCustomText = new System.Windows.Forms.RadioButton();
             this.label62 = new System.Windows.Forms.Label();
@@ -193,16 +194,22 @@
             this.label71 = new System.Windows.Forms.Label();
             this.boxCrosshairScopedPreview = new System.Windows.Forms.PictureBox();
             this.boxCrosshairNormalPreview = new System.Windows.Forms.PictureBox();
-            this.numDamageNumberStreamTimeout = new System.Windows.Forms.NumericUpDown();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
+            this.tabMute = new TAModConfigurationTool.TransTabPage();
+            this.btnMuteDelete = new System.Windows.Forms.Button();
+            this.btnMuteAdd = new System.Windows.Forms.Button();
+            this.textMute = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.listMute = new System.Windows.Forms.ListBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberStreamTimeout)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberYOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberXOffset)).BeginInit();
@@ -254,7 +261,8 @@
             this.panel11.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberStreamTimeout)).BeginInit();
+            this.tabMute.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -273,32 +281,13 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 501);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
             // tabControlMain
             // 
             this.tabControlMain.Controls.Add(this.tabGeneral);
             this.tabControlMain.Controls.Add(this.tabColor);
             this.tabControlMain.Controls.Add(this.tabLoadout);
             this.tabControlMain.Controls.Add(this.tabCrosshair);
+            this.tabControlMain.Controls.Add(this.tabMute);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlMain.Location = new System.Drawing.Point(3, 3);
@@ -446,6 +435,50 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(310, 145);
             this.panel4.TabIndex = 5;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.Location = new System.Drawing.Point(179, 122);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(49, 13);
+            this.label35.TabIndex = 29;
+            this.label35.Text = "seconds";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Location = new System.Drawing.Point(4, 122);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(113, 13);
+            this.label33.TabIndex = 28;
+            this.label33.Text = "Stream Timeout after";
+            // 
+            // numDamageNumberStreamTimeout
+            // 
+            this.numDamageNumberStreamTimeout.DecimalPlaces = 2;
+            this.numDamageNumberStreamTimeout.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numDamageNumberStreamTimeout.Location = new System.Drawing.Point(116, 119);
+            this.numDamageNumberStreamTimeout.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numDamageNumberStreamTimeout.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numDamageNumberStreamTimeout.Name = "numDamageNumberStreamTimeout";
+            this.numDamageNumberStreamTimeout.Size = new System.Drawing.Size(63, 22);
+            this.numDamageNumberStreamTimeout.TabIndex = 27;
+            this.numDamageNumberStreamTimeout.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
             // 
             // textDamageNumberCustomText
             // 
@@ -2179,49 +2212,98 @@
             this.boxCrosshairNormalPreview.TabStop = false;
             this.boxCrosshairNormalPreview.Visible = false;
             // 
-            // numDamageNumberStreamTimeout
+            // tabMute
             // 
-            this.numDamageNumberStreamTimeout.DecimalPlaces = 2;
-            this.numDamageNumberStreamTimeout.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numDamageNumberStreamTimeout.Location = new System.Drawing.Point(116, 119);
-            this.numDamageNumberStreamTimeout.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.numDamageNumberStreamTimeout.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numDamageNumberStreamTimeout.Name = "numDamageNumberStreamTimeout";
-            this.numDamageNumberStreamTimeout.Size = new System.Drawing.Size(63, 22);
-            this.numDamageNumberStreamTimeout.TabIndex = 27;
-            this.numDamageNumberStreamTimeout.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
+            this.tabMute.Controls.Add(this.btnMuteDelete);
+            this.tabMute.Controls.Add(this.btnMuteAdd);
+            this.tabMute.Controls.Add(this.textMute);
+            this.tabMute.Controls.Add(this.label37);
+            this.tabMute.Controls.Add(this.label36);
+            this.tabMute.Controls.Add(this.listMute);
+            this.tabMute.Location = new System.Drawing.Point(4, 26);
+            this.tabMute.Name = "tabMute";
+            this.tabMute.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMute.Size = new System.Drawing.Size(930, 415);
+            this.tabMute.TabIndex = 4;
+            this.tabMute.Text = "Global Mute";
+            this.tabMute.UseVisualStyleBackColor = true;
             // 
-            // label33
+            // btnMuteDelete
             // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label33.Location = new System.Drawing.Point(4, 122);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(113, 13);
-            this.label33.TabIndex = 28;
-            this.label33.Text = "Stream Timeout after";
+            this.btnMuteDelete.Location = new System.Drawing.Point(264, 31);
+            this.btnMuteDelete.Name = "btnMuteDelete";
+            this.btnMuteDelete.Size = new System.Drawing.Size(110, 25);
+            this.btnMuteDelete.TabIndex = 50;
+            this.btnMuteDelete.Text = "Delete Selected";
+            this.btnMuteDelete.UseVisualStyleBackColor = true;
+            this.btnMuteDelete.Click += new System.EventHandler(this.btnMuteDelete_Click);
             // 
-            // label35
+            // btnMuteAdd
             // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.Location = new System.Drawing.Point(179, 122);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(49, 13);
-            this.label35.TabIndex = 29;
-            this.label35.Text = "seconds";
+            this.btnMuteAdd.Location = new System.Drawing.Point(204, 379);
+            this.btnMuteAdd.Name = "btnMuteAdd";
+            this.btnMuteAdd.Size = new System.Drawing.Size(54, 25);
+            this.btnMuteAdd.TabIndex = 49;
+            this.btnMuteAdd.Text = "Add";
+            this.btnMuteAdd.UseVisualStyleBackColor = true;
+            this.btnMuteAdd.Click += new System.EventHandler(this.btnMuteAdd_Click);
+            // 
+            // textMute
+            // 
+            this.textMute.Location = new System.Drawing.Point(11, 379);
+            this.textMute.Name = "textMute";
+            this.textMute.Size = new System.Drawing.Size(187, 25);
+            this.textMute.TabIndex = 48;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(264, 141);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(114, 21);
+            this.label37.TabIndex = 47;
+            this.label37.Text = "Mute Options";
+            this.label37.Visible = false;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(6, 3);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(217, 25);
+            this.label36.TabIndex = 46;
+            this.label36.Text = "Globally Muted Players";
+            // 
+            // listMute
+            // 
+            this.listMute.FormattingEnabled = true;
+            this.listMute.ItemHeight = 17;
+            this.listMute.Location = new System.Drawing.Point(11, 31);
+            this.listMute.Name = "listMute";
+            this.listMute.Size = new System.Drawing.Size(247, 344);
+            this.listMute.TabIndex = 8;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
             // MainForm
             // 
@@ -2240,7 +2322,6 @@
             this.Text = "TAMod Configuration Tool";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
@@ -2249,6 +2330,7 @@
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberStreamTimeout)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberYOffset)).EndInit();
@@ -2311,7 +2393,9 @@
             this.panel11.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberStreamTimeout)).EndInit();
+            this.tabMute.ResumeLayout(false);
+            this.tabMute.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2485,6 +2569,13 @@
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.NumericUpDown numDamageNumberStreamTimeout;
+        private TAModConfigurationTool.TransTabPage tabMute;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.ListBox listMute;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Button btnMuteDelete;
+        private System.Windows.Forms.Button btnMuteAdd;
+        private System.Windows.Forms.TextBox textMute;
     }
 }
 
