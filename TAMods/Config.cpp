@@ -208,6 +208,63 @@ static bool config_setLoadout(const std::string &pclass, int pnum, const std::st
 	return true;
 }
 
+static void parseModuleArray(TArray<UParticleModule *> &tab, const FColor &col, float intensity)
+{
+	for (int si = 0; si < tab.Count; si++)
+	{
+		UParticleModule *module = tab.Data[si];
+
+		if (module->IsA(UParticleModuleColor::StaticClass()))
+		{
+			UParticleModuleColor *m = (UParticleModuleColor *)module;
+			FRawDistributionVector *vecs = &m->StartColor;
+
+			if (vecs->LookupTable.Count >= 5)
+			{
+				vecs->LookupTable.Data[2] = (float)col.R * intensity / 255.0f;
+				vecs->LookupTable.Data[3] = (float)col.G * intensity / 255.0f;
+				vecs->LookupTable.Data[4] = (float)col.B * intensity / 255.0f;
+			}
+		}
+	}
+}
+
+static void editProjectile(ATrProjectile *proj, const FColor &col, float intensity)
+{
+	if (!proj)
+		return;
+	UParticleSystem *ps = proj->ProjFlightTemplate;
+	if (ps)
+	{
+		for (int ei = 0; ei < ps->Emitters.Count; ei++)
+		{
+			UParticleEmitter *emitter = ps->Emitters.Data[ei];
+			for (int lodi = 0; lodi < emitter->LODLevels.Count; lodi++)
+			{
+				UParticleLODLevel *lod = emitter->LODLevels.Data[lodi];
+
+				parseModuleArray(lod->Modules, col, intensity);
+				parseModuleArray(lod->SpawnModules, col, intensity);
+				parseModuleArray(lod->UpdateModules, col, intensity);
+			}
+		}
+	}
+}
+
+static bool config_setBulletColor(const std::string &pclass, const std::string &weapon, const FColor &col, float intensity)
+{
+	int weapon_id = getWeaponID(pclass, weapon);
+	if (!weapon_id)
+		return false;
+	auto it = Data::weapon_id_to_name.find(weapon_id);
+	if (it == Data::weapon_id_to_name.end())
+		return false;
+	std::string default_name = "TrProj_" + it->second + " TribesGame.Default__TrProj_" + it->second;
+	ATrProjectile *proj = UObject::FindObject<ATrProjectile>(default_name.c_str());
+	editProjectile(proj, col, intensity);
+	return true;
+}
+
 static bool config_setCrosshairs(const std::string &pclass, const std::string &weapon, Crosshairs &xhairs)
 {
 	int weapon_id = getWeaponID(pclass, weapon);
@@ -362,6 +419,8 @@ void Lua::init()
 		addFunction("mplayer", &MutedPlayer::create).
 		addFunction("mplayer_custom", &MutedPlayer::create_custom).
 		addFunction("mutePlayer", &config_addMutedPlayer).
+
+		addFunction("setBulletColor", &config_setBulletColor).
 
 		addFunction("print", (void(*)(const std::string &)) &Utils::printConsole).
 		addFunction("console", (void(*)(const std::string &)) &Utils::printConsole).
