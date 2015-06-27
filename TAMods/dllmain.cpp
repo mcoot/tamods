@@ -47,6 +47,12 @@ void onDLLProcessAttach()
 		// Stats
 		Hooks::add(&TrPC_ClientMatchOver, "Function TribesGame.TrPlayerController.ClientMatchOver");
 
+		// Bullet customization
+		Hooks::add(&TrDev_ConstFire_WeaponConstantFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
+		Hooks::add(&TrDev_ConstFire_WeaponConstantFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
+		Hooks::add(&TrDev_ConstFire_WeaponConstantFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState", Hooks::POST);
+		Hooks::add(&TrDev_ConstFire_WeaponConstantFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer", Hooks::POST);
+
 		// Console commands (/lua)
 		Hooks::add(&TrChatConsole_InputKey, "Function TrChatConsole.Open.InputKey");
 	}

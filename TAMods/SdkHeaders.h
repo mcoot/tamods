@@ -44,9 +44,18 @@ public:
 	{ 
 		Data = NULL; 
 		Count = Max = 0; 
-	}; 
+	};
 
-public: 
+	TArray(const TArray &arr)
+	{
+		Data = (T *) malloc(arr.Count * sizeof(T));
+		if (Data)
+			memcpy(Data, arr.Data, arr.Count * sizeof(T));
+		Count = arr.Count;
+		Max = arr.Max;
+	}
+
+public:
 	int Num() 
 	{ 
 		return this->Count; 

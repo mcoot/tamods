@@ -47,5 +47,9 @@ bool TrPC_InitInputSystem(int ID, UObject *dwCallingObject, UFunction* pFunction
 // Stats
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
+// Player only bullet color
+bool TrDev_ConstFire_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool TrDev_ConstFire_WeaponConstantFiring_POST(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
 // Lua console command
 bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

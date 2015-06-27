@@ -219,6 +219,9 @@
     <ClCompile Include="Mod_Lua.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
+    <ClCompile Include="Mod_Projectiles.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h">

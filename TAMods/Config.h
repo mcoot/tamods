@@ -62,6 +62,106 @@ struct MutedPlayer
 	bool muteDirectMessage;
 };
 
+#define _IF_MODULE_SET_SIZE(x) if (in.Data[i]->IsA(x::StaticClass())) size = sizeof(x)
+#define _ELSEIF_MODULE_SET_SIZE(x) else if (in.Data[i]->IsA(x::StaticClass())) size = sizeof(x)
+struct CustomProjectile
+{
+private:
+	void _cloneModules(TArray<UParticleModule *> &out, TArray<UParticleModule *> &in)
+	{
+		out.Data = (UParticleModule **)malloc(in.Count * sizeof(UParticleModule *));
+		for (int i = 0; i < in.Count; i++)
+		{
+			size_t size = 0;
+
+			_IF_MODULE_SET_SIZE(UParticleModuleColor_Seeded);
+			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColor);
+			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColorByParameter);
+			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColorOverLife);
+			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColorScaleOverDensity);
+			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColorScaleOverLife);
+
+			if (size)
+			{
+				out.Data[i] = (UParticleModule *)malloc(size);
+				memcpy(out.Data[i], in.Data[i], size);
+			}
+			else
+				out.Data[i] = in.Data[i];
+
+			if (in.Data[i]->IsA(UParticleModuleColor::StaticClass()))
+			{
+				((UParticleModuleColor *)out.Data[i])->StartColor.LookupTable.Data = (float *)malloc(((UParticleModuleColor *)in.Data[i])->StartColor.LookupTable.Count * sizeof(float));
+				memcpy(((UParticleModuleColor *)out.Data[i])->StartColor.LookupTable.Data, ((UParticleModuleColor *)in.Data[i])->StartColor.LookupTable.Data, ((UParticleModuleColor *)in.Data[i])->StartColor.LookupTable.Count * sizeof(float));
+			}
+		}
+	}
+
+	UParticleSystem *_cloneParticleSystem(UParticleSystem *ps)
+	{
+		UParticleSystem *out = (UParticleSystem *)malloc(sizeof(UParticleSystem));
+		memcpy(out, ps, sizeof(UParticleSystem));
+		out->Emitters.Data = (UParticleEmitter **)malloc(ps->Emitters.Count * sizeof(UParticleEmitter *));
+
+		for (int em = 0; em < ps->Emitters.Count; em++)
+		{
+			if (ps->Emitters.Data[em]->IsA(UParticleSpriteEmitter::StaticClass()))
+			{
+				out->Emitters.Data[em] = (UParticleSpriteEmitter *)malloc(sizeof(UParticleSpriteEmitter));
+				memcpy(out->Emitters.Data[em], ps->Emitters.Data[em], sizeof(UParticleSpriteEmitter));
+			}
+			else
+			{
+				out->Emitters.Data[em] = (UParticleEmitter *)malloc(sizeof(UParticleEmitter));
+				memcpy(out->Emitters.Data[em], ps->Emitters.Data[em], sizeof(UParticleEmitter));
+			}
+
+			UParticleEmitter *outem = out->Emitters.Data[em];
+			UParticleEmitter *inem = ps->Emitters.Data[em];
+			outem->LODLevels.Data = (UParticleLODLevel **)malloc(inem->LODLevels.Count * sizeof(UParticleLODLevel *));
+
+			for (int lod = 0; lod < inem->LODLevels.Count; lod++)
+			{
+				outem->LODLevels.Data[lod] = (UParticleLODLevel *)malloc(sizeof(UParticleLODLevel));
+				memcpy(outem->LODLevels.Data[lod], inem->LODLevels.Data[lod], sizeof(UParticleLODLevel));
+
+				UParticleLODLevel *outlod = outem->LODLevels.Data[lod];
+				UParticleLODLevel *inlod = inem->LODLevels.Data[lod];
+				_cloneModules(outlod->Modules, inlod->Modules);
+				_cloneModules(outlod->SpawnModules, inlod->SpawnModules);
+				_cloneModules(outlod->UpdateModules, inlod->UpdateModules);
+			}
+		}
+		return out;
+	}
+
+public:
+	CustomProjectile(int pweapon_id)
+		: weapon_id(0)
+	{
+		auto wep = Data::weapon_id_to_name.find(pweapon_id);
+		if (wep == Data::weapon_id_to_name.end())
+			return;
+		std::string def_proj_name = "TrProj_" + wep->second + " TribesGame.Default__TrProj_" + wep->second;
+		default_proj = UObject::FindObject<ATrProjectile>(def_proj_name.c_str());
+		if (!default_proj)
+			return;
+		default_ps = default_proj->ProjFlightTemplate;
+		weapon_id = pweapon_id;
+		custom_ps = _cloneParticleSystem(default_ps);
+	}
+
+	~CustomProjectile()
+	{
+		delete custom_ps;
+	}
+
+	int weapon_id;
+	ATrProjectile *default_proj;
+	UParticleSystem *default_ps;
+	UParticleSystem *custom_ps;
+};
+
 class Config
 {
 public:
@@ -137,4 +237,7 @@ public:
 
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;
+
+	// Custom bullet color
+	std::map<int, CustomProjectile *> wep_id_to_custom_proj;
 };

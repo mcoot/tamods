@@ -214,10 +214,28 @@ static void parseModuleArray(TArray<UParticleModule *> &tab, const FColor &col, 
 	{
 		UParticleModule *module = tab.Data[si];
 
-		if (module->IsA(UParticleModuleColor::StaticClass()))
+		FRawDistributionVector *vecs;
+
+		Logger::log("      Module %d: %s", si, tab.Data[si]->GetFullName());
+		if (module->IsA(UParticleModuleColorOverLife::StaticClass()))
+		{
+			UParticleModuleColorOverLife *m = (UParticleModuleColorOverLife *)module;
+			vecs = &m->ColorOverLife;
+		}
+		else if (module->IsA(UParticleModuleColorScaleOverDensity::StaticClass()))
+		{
+			UParticleModuleColorScaleOverDensity *m = (UParticleModuleColorScaleOverDensity *)module;
+			vecs = &m->ColorScaleOverDensity;
+		}
+		else if (module->IsA(UParticleModuleColorScaleOverLife::StaticClass()))
+		{
+			UParticleModuleColorScaleOverLife *m = (UParticleModuleColorScaleOverLife *)module;
+			vecs = &m->ColorScaleOverLife;
+		}
+		else if (module->IsA(UParticleModuleColor::StaticClass()))
 		{
 			UParticleModuleColor *m = (UParticleModuleColor *)module;
-			FRawDistributionVector *vecs = &m->StartColor;
+			vecs = &m->StartColor;
 
 			if (vecs->LookupTable.Count >= 5)
 			{
@@ -226,25 +244,44 @@ static void parseModuleArray(TArray<UParticleModule *> &tab, const FColor &col, 
 				vecs->LookupTable.Data[4] = (float)col.B * intensity / 255.0f;
 			}
 		}
+		else if (module->IsA(UParticleModuleColorByParameter::StaticClass()))
+		{
+			UParticleModuleColorByParameter *m = (UParticleModuleColorByParameter *)module;
+
+			Logger::log("ColorByParameter");
+			Logger::log("Color: (%d, %d, %d, %d)", m->DefaultColor.R, m->DefaultColor.G, m->DefaultColor.B, m->DefaultColor.A);
+			continue;
+		}
+		else
+			continue;
+
+		TArray<float> &vtable = vecs->LookupTable;
+		Logger::log("        Vector Table size: %d, type:%d, op:%d, StartTime: %f, TimeScale: %f, NumElements: %d, ChunkSize: %d", vtable.Count, vecs->Type, vecs->Op, vecs->LookupTableStartTime, vecs->LookupTableTimeScale, vecs->LookupTableNumElements, vecs->LookupTableChunkSize);
+		for (int i = 0; i < vtable.Count; i++)
+			Logger::log("        VTABLE #%d: %f", i, vtable(i));
 	}
 }
 
-static void editProjectile(ATrProjectile *proj, const FColor &col, float intensity)
+static void editParticleSystem(UParticleSystem *ps, const FColor &col, float intensity)
 {
-	if (!proj)
-		return;
-	UParticleSystem *ps = proj->ProjFlightTemplate;
 	if (ps)
 	{
+		Logger::log("%d Emitters found", ps->Emitters.Count);
 		for (int ei = 0; ei < ps->Emitters.Count; ei++)
 		{
+			Logger::log("  Accessing emitter %d", ei);
 			UParticleEmitter *emitter = ps->Emitters.Data[ei];
+			Logger::log("  %d LODLevels found", emitter->LODLevels.Count);
 			for (int lodi = 0; lodi < emitter->LODLevels.Count; lodi++)
 			{
+				Logger::log("    Accessing LODLevel %d", lodi);
 				UParticleLODLevel *lod = emitter->LODLevels.Data[lodi];
 
+				Logger::log("    %d Modules found", lod->Modules.Count);
 				parseModuleArray(lod->Modules, col, intensity);
+				Logger::log("    %d SpawnModules found", lod->SpawnModules.Count);
 				parseModuleArray(lod->SpawnModules, col, intensity);
+				Logger::log("    %d UpdateModules found", lod->UpdateModules.Count);
 				parseModuleArray(lod->UpdateModules, col, intensity);
 			}
 		}
@@ -256,12 +293,19 @@ static bool config_setBulletColor(const std::string &pclass, const std::string &
 	int weapon_id = getWeaponID(pclass, weapon);
 	if (!weapon_id)
 		return false;
-	auto it = Data::weapon_id_to_name.find(weapon_id);
-	if (it == Data::weapon_id_to_name.end())
+	CustomProjectile *proj = NULL;
+	auto it = g_config.wep_id_to_custom_proj.find(weapon_id);
+	if (it == g_config.wep_id_to_custom_proj.end())
+	{
+		proj = new CustomProjectile(weapon_id);
+		g_config.wep_id_to_custom_proj[weapon_id] = proj;
+	}
+	else
+		proj = it->second;
+	if (!proj)
 		return false;
-	std::string default_name = "TrProj_" + it->second + " TribesGame.Default__TrProj_" + it->second;
-	ATrProjectile *proj = UObject::FindObject<ATrProjectile>(default_name.c_str());
-	editProjectile(proj, col, intensity);
+	Logger::log("Editing bullet: %s", proj->default_proj->GetFullName());
+	editParticleSystem(proj->custom_ps, col, intensity);
 	return true;
 }
 
