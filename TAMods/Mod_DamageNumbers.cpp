@@ -12,6 +12,12 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_execClientShowOverheadNumber_Parms *params = (ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams;
 	FVector4 loc(params->WorldLocation.X, params->WorldLocation.Y, params->WorldLocation.Z, params->fScreenDepth);
+
+	//Stats Stuff, TODO this should be hooked onto event TakeDamage instead
+	if (g_config.recordStats == true){
+		g_stats.bulletsHit++;
+	}
+
 	if (loc.W == 0.0f)
 		loc.W = params->WorldLocation.Z;
 
@@ -31,11 +37,6 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 
 	// Store the current clock time to compare with the last hit
 	clock_t curClock = clock();
-
-	//Stats Stuff, TODO this should be hooked onto event TakeDamage instead
-	if (g_config.recordStats == true){
-	g_stats.bulletsHit++;
-	}
 
 	// If more than half a second has passed since the last hit, the stream has ended
 	bool stream_ended = ((double)(curClock-g_config.lastDamageNumberShowEventTime) > (CLOCKS_PER_SEC*g_config.damageNumberStreamTimeout));
