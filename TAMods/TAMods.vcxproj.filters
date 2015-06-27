@@ -222,6 +222,9 @@
     <ClCompile Include="Mod_Projectiles.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleModuleHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h">
@@ -453,6 +456,9 @@
       <Filter>Source Files\lua_src</Filter>
     </ClInclude>
     <ClInclude Include="Stats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleModuleHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

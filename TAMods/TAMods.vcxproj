@@ -133,6 +133,7 @@
     <ClCompile Include="Mod_Lua.cpp" />
     <ClCompile Include="Mod_Projectiles.cpp" />
     <ClCompile Include="Mod_Reticules.cpp" />
+    <ClCompile Include="ParticleModuleHelper.cpp" />
     <ClCompile Include="SDK_SOURCES\Core_functions.cpp" />
     <ClCompile Include="SDK_SOURCES\Engine_functions.cpp" />
     <ClCompile Include="SDK_SOURCES\GameFramework_functions.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="lua_src\lvm.h" />
     <ClInclude Include="lua_src\lzio.h" />
     <ClInclude Include="Mods.h" />
+    <ClInclude Include="ParticleModuleHelper.h" />
     <ClInclude Include="SdkHeaders.h" />
     <ClInclude Include="SDK_HEADERS\Core_classes.h" />
     <ClInclude Include="SDK_HEADERS\Core_f_structs.h" />

@@ -9,6 +9,7 @@
 #include "Data.h"
 #include "Lua.h"
 #include "Geom.h"
+#include "ParticleModuleHelper.h"
 #include "SdkHeaders.h"
 
 struct Crosshairs
@@ -62,8 +63,6 @@ struct MutedPlayer
 	bool muteDirectMessage;
 };
 
-#define _IF_MODULE_SET_SIZE(x) if (in.Data[i]->IsA(x::StaticClass())) size = sizeof(x)
-#define _ELSEIF_MODULE_SET_SIZE(x) else if (in.Data[i]->IsA(x::StaticClass())) size = sizeof(x)
 struct CustomProjectile
 {
 private:
@@ -71,30 +70,7 @@ private:
 	{
 		out.Data = (UParticleModule **)malloc(in.Count * sizeof(UParticleModule *));
 		for (int i = 0; i < in.Count; i++)
-		{
-			size_t size = 0;
-
-			_IF_MODULE_SET_SIZE(UParticleModuleColor_Seeded);
-			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColor);
-			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColorByParameter);
-			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColorOverLife);
-			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColorScaleOverDensity);
-			_ELSEIF_MODULE_SET_SIZE(UParticleModuleColorScaleOverLife);
-
-			if (size)
-			{
-				out.Data[i] = (UParticleModule *)malloc(size);
-				memcpy(out.Data[i], in.Data[i], size);
-			}
-			else
-				out.Data[i] = in.Data[i];
-
-			if (in.Data[i]->IsA(UParticleModuleColor::StaticClass()))
-			{
-				((UParticleModuleColor *)out.Data[i])->StartColor.LookupTable.Data = (float *)malloc(((UParticleModuleColor *)in.Data[i])->StartColor.LookupTable.Count * sizeof(float));
-				memcpy(((UParticleModuleColor *)out.Data[i])->StartColor.LookupTable.Data, ((UParticleModuleColor *)in.Data[i])->StartColor.LookupTable.Data, ((UParticleModuleColor *)in.Data[i])->StartColor.LookupTable.Count * sizeof(float));
-			}
-		}
+			ParticleModuleHelper::copyModule(out.Data[i], in.Data[i]);
 	}
 
 	UParticleSystem *_cloneParticleSystem(UParticleSystem *ps)
