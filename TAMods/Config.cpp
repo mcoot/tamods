@@ -277,8 +277,6 @@ static void editParticleSystem(UParticleSystem *ps, const FColor &col, float int
 				Logger::log("    Accessing LODLevel %d", lodi);
 				UParticleLODLevel *lod = emitter->LODLevels.Data[lodi];
 
-				Logger::log("    %d Modules found", lod->Modules.Count);
-				parseModuleArray(lod->Modules, col, intensity);
 				Logger::log("    %d SpawnModules found", lod->SpawnModules.Count);
 				parseModuleArray(lod->SpawnModules, col, intensity);
 				Logger::log("    %d UpdateModules found", lod->UpdateModules.Count);

@@ -103,9 +103,13 @@ private:
 
 				UParticleLODLevel *outlod = outem->LODLevels.Data[lod];
 				UParticleLODLevel *inlod = inem->LODLevels.Data[lod];
-				_cloneModules(outlod->Modules, inlod->Modules);
 				_cloneModules(outlod->SpawnModules, inlod->SpawnModules);
 				_cloneModules(outlod->UpdateModules, inlod->UpdateModules);
+
+				// Modules and SpawnModules seem to be the same so it's better to reuse the pointers
+				outlod->Modules.Data = (UParticleModule **)malloc(outlod->SpawnModules.Count * sizeof(UParticleModule *));
+				for (int i = 0; i < outlod->SpawnModules.Count; i++)
+					outlod->Modules.Data[i] = outlod->SpawnModules.Data[i];
 			}
 		}
 		return out;
