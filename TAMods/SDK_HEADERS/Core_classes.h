@@ -15,6 +15,8 @@
 	#pragma pack ( push, 0x4 )
 #endif
 
+#include <string>
+
 /*
 # ========================================================================================= #
 # Constants
@@ -192,6 +194,10 @@ public:
 	char* GetName(); 
 	char* GetNameCPP(); 
 	char* GetFullName(); 
+	
+	std::string GetStringClassName();
+	std::string GetStringName();
+	std::string GetStringFullName();
 
 	template< class T > static T* FindObject(const char* ObjectFullName)
 	{

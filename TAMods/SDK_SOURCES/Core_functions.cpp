@@ -152,6 +152,19 @@ char* UObject::GetFullName()
 	return "(null)"; 
 }
 
+std::string UObject::GetStringClassName()
+{
+	return std::string(Class ? Class->GetName() : "(null)");
+}
+std::string UObject::GetStringName()
+{
+	return std::string(GetName());
+}
+std::string UObject::GetStringFullName()
+{
+	return std::string(GetFullName());
+}
+
 UClass* UObject::FindClass ( char* ClassFullName ) 
 { 
 	while ( ! UObject::GObjObjects() ) 
