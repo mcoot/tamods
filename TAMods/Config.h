@@ -151,6 +151,9 @@ public:
 	void reset();
 	void parseFile();
 	void setVariables();
+	void updateDefaults();
+
+	void reloadSkiBars(UGfxTrHud *currHud, bool updated = true);
 
 public:
 	Lua lua;
@@ -202,6 +205,10 @@ public:
 	FColor friendColor;
 	FColor friendIsFColor;
 
+	// Fix Ski bars' ridiculous values
+	float skiBarMin;
+	float skiBarMax;
+
 	// HUD elements toggle
 	bool showObjectiveIcon;
 	bool showFlagBaseIcon;
@@ -220,4 +227,7 @@ public:
 
 	// Custom bullet color
 	std::map<int, CustomProjectile *> wep_id_to_custom_proj;
+
+	// Bools for reloading
+	bool shouldReloadGfxTrHud;
 };

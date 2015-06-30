@@ -138,6 +138,9 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 		Utils::rgb(0, 0, 255), Utils::rgb(127, 0, 255), Utils::rgb(255, 0, 255), Utils::rgb(255, 0, 127)
 	};
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
+
+	// Reload config if needed
+	g_config.reloadSkiBars(that->m_GFxHud);
 	
 	//Friend chat, enemy chat, team chat
 	that->FriendlyChatColor = g_config.friendlyChatColor;

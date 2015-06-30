@@ -72,6 +72,10 @@ void Config::reset()
 	friendColor = Utils::rgb(0, 125, 255);
 	friendIsFColor = Utils::rgb(0, 255, 0);
 
+	// Ski bars
+	skiBarMin = 30;
+	skiBarMax = 300;
+
 	// Toggle HUD
 	showObjectiveIcon = true;
 	showFlagBaseIcon = true;
@@ -87,6 +91,9 @@ void Config::reset()
 
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();
+
+	// Bools for reloading
+	shouldReloadGfxTrHud = true;
 }
 
 void Config::parseFile()
@@ -117,6 +124,33 @@ void Config::parseFile()
 		}
 	}
 	setVariables();
+	updateDefaults();
+}
+
+void Config::reloadSkiBars(UGfxTrHud *currHud, bool updated)
+{
+	if (g_config.shouldReloadGfxTrHud)
+	{
+		UGfxTrHud *hud = UObject::FindObject<UGfxTrHud>("GfxTrHud TribesGame.Default__GfxTrHud");
+
+		if (!hud || !currHud)
+			return;
+		if (updated)
+			g_config.shouldReloadGfxTrHud = false;
+		for (int i = 0; i < 12; i++)
+		{
+			int val = (int)((g_config.skiBarMin + (i - 1) * (g_config.skiBarMax - g_config.skiBarMin) / 10.0f) / 0.072f);
+			if (currHud)
+				currHud->m_SkiSpeedSteps[i] = val;
+			if (hud)
+				hud->m_SkiSpeedSteps[i] = val;
+		}
+	}
+}
+
+void Config::updateDefaults()
+{
+	reloadSkiBars(NULL, false);
 }
 
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
@@ -161,6 +195,10 @@ void Config::setVariables()
 	SET_VARIABLE(FColor, enemyIsFColor);
 	SET_VARIABLE(FColor, friendColor);
 	SET_VARIABLE(FColor, friendIsFColor);
+
+	// Ski bars
+	SET_VARIABLE(float, skiBarMin);
+	SET_VARIABLE(float, skiBarMax);
 
 	// Toggle HUD
 	SET_VARIABLE(bool, showObjectiveIcon);
