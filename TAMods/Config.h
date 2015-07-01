@@ -231,6 +231,7 @@ public:
 
 	// Custom bullet color
 	std::map<int, CustomProjectile *> wep_id_to_custom_proj;
+	std::map<int, CustomProjectile *> proj_class_to_custom_proj;
 
 	// Bools for reloading
 	bool shouldReloadGfxTrHud;

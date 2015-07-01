@@ -381,6 +381,8 @@ static UParticleSystem *config_getProjectile(const std::string &pclass, const st
 	{
 		proj = new CustomProjectile(weapon_id);
 		g_config.wep_id_to_custom_proj[weapon_id] = proj;
+		g_config.proj_class_to_custom_proj[(int) proj->default_proj->Class] = proj;
+		Logger::log("Created projectile %d: %s", (int)proj->default_proj->Class, proj->default_proj->GetFullName());
 	}
 	else
 		proj = it->second;
