@@ -198,6 +198,17 @@ public:
 	FColor friendColor;
 	FColor friendIsFColor;
 
+	// Custom hit sounds
+	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
+	bool customAirMailSound;
+	bool customBluePlateSound;
+	float hitSoundPitchMin;
+	float hitSoundPitchMax;
+	int hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
+	float volumeHitSound;
+	float volumeBluePlate;
+	float volumeAirMail;
+
 	// HUD elements toggle
 	bool showObjectiveIcon;
 	bool showFlagBaseIcon;

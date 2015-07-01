@@ -44,6 +44,10 @@ void onDLLProcessAttach()
 		// Reticules
 		Hooks::add(&TrPlayerPawn_Tick, "Function TribesGame.TrPlayerPawn.Tick", Hooks::POST);
 
+		// Hit and mid-air sounds
+		Hooks::add(&TrPC_ClientPlayBluePlateImpact, "Function TribesGame.TrPlayerController.ClientPlayBluePlateImpact");
+		Hooks::add(&TrPC_ClientPlayAirMailImpact, "Function TribesGame.TrPlayerController.ClientPlayAirMailImpact");
+
 		// Stats
 		Hooks::add(&TrPC_ClientMatchOver, "Function TribesGame.TrPlayerController.ClientMatchOver");
 
@@ -63,6 +67,9 @@ void onDLLProcessAttach()
 		// Console commands (/lua)
 		Hooks::add(&TrChatConsole_InputKey, "Function TrChatConsole.Open.InputKey");
 	}
+
+	if (XAudio2Init() != 1)
+		Utils::console("error initializing XAudio2 engine");
 
 	// Pass true to log hookable functions
 	Hooks::init(true);

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <sstream>
+#include <xaudio2.h>
+#include "Wave.h"
 #include "Config.h"
 #include "Utils.h"
 #include "Data.h"
@@ -53,3 +55,9 @@ bool TrDev_WeaponFiring_POST(int ID, UObject *dwCallingObject, UFunction* pFunct
 
 // Lua console command
 bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
+// Hit sounds
+int XAudio2Init();
+void playHitSound(clock_t *t, bool bShieldDamage, int *dmg);
+bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

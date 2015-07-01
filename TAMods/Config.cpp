@@ -72,6 +72,17 @@ void Config::reset()
 	friendColor = Utils::rgb(0, 125, 255);
 	friendIsFColor = Utils::rgb(0, 255, 0);
 
+	// Custom hit sounds
+	int hitSoundMode = 0;
+	bool customAirMailSound = false;
+	bool customBluePlateSound = false;
+	float hitSoundPitchMin = 0.4f;
+	float hitSoundPitchMax = 1.6f;
+	int hitSoundDamageRef = 600;
+	float volumeHitSound = 1.0f;
+	float volumeBluePlate = 1.0f;
+	float volumeAirMail = 1.0f;
+
 	// Toggle HUD
 	showObjectiveIcon = true;
 	showFlagBaseIcon = true;
@@ -161,6 +172,17 @@ void Config::setVariables()
 	SET_VARIABLE(FColor, enemyIsFColor);
 	SET_VARIABLE(FColor, friendColor);
 	SET_VARIABLE(FColor, friendIsFColor);
+
+	// Custom hit sounds
+	SET_VARIABLE(int, hitSoundMode);
+	SET_VARIABLE(bool, customAirMailSound);
+	SET_VARIABLE(bool, customBluePlateSound);
+	SET_VARIABLE(float, hitSoundPitchMin);
+	SET_VARIABLE(float, hitSoundPitchMax);
+	SET_VARIABLE(int, hitSoundDamageRef);
+	SET_VARIABLE(float, volumeHitSound);
+	SET_VARIABLE(float, volumeBluePlate);
+	SET_VARIABLE(float, volumeAirMail);
 
 	// Toggle HUD
 	SET_VARIABLE(bool, showObjectiveIcon);

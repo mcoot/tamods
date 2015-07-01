@@ -38,6 +38,9 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	// Store the current clock time to compare with the last hit
 	clock_t curClock = clock();
 
+	// Hit sounds
+	playHitSound(&curClock, (bool)params->bShieldDamage, &params->NumberToShow);
+
 	// If more than half a second has passed since the last hit, the stream has ended
 	bool stream_ended = ((double)(curClock-g_config.lastDamageNumberShowEventTime) > (CLOCKS_PER_SEC*g_config.damageNumberStreamTimeout));
 
