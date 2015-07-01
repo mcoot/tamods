@@ -66,6 +66,21 @@ public:
 		return this->Data + i;
 	};
 
+	T &GetRef(int i)
+	{
+		return this->Data[i];
+	};
+
+	T GetStd(int i)
+	{
+		return this->Data[i];
+	};
+
+	void Set(int i, T val)
+	{
+		this->Data[i] = val;
+	};
+
 	T& operator() ( int i ) 
 	{ 
 		return this->Data[ i ]; 

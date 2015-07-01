@@ -103,9 +103,13 @@ private:
 
 				UParticleLODLevel *outlod = outem->LODLevels.Data[lod];
 				UParticleLODLevel *inlod = inem->LODLevels.Data[lod];
-				_cloneModules(outlod->Modules, inlod->Modules);
 				_cloneModules(outlod->SpawnModules, inlod->SpawnModules);
 				_cloneModules(outlod->UpdateModules, inlod->UpdateModules);
+
+				// Modules and SpawnModules seem to be the same so it's better to reuse the pointers
+				outlod->Modules.Data = (UParticleModule **)malloc(outlod->SpawnModules.Count * sizeof(UParticleModule *));
+				for (int i = 0; i < outlod->SpawnModules.Count; i++)
+					outlod->Modules.Data[i] = outlod->SpawnModules.Data[i];
 			}
 		}
 		return out;
@@ -147,6 +151,9 @@ public:
 	void reset();
 	void parseFile();
 	void setVariables();
+	void updateDefaults();
+
+	void reloadSkiBars(UGfxTrHud *currHud, bool updated = true);
 
 public:
 	Lua lua;
@@ -192,11 +199,19 @@ public:
 	FColor friendlyHUDChatColor;
 	FColor enemyHUDChatColor;
 	//Marker Cols
-	//TODO actual implimentation
+	FColor friendlyColor;
 	FColor enemyColor;
-	FColor enemyIsFColor;
-	FColor friendColor;
-	FColor friendIsFColor;
+	FColor enemyMarkerColor;
+	FColor enemyIsFMarkerColor;
+	FColor friendlyMarkerColor;
+	FColor friendlyIsFMarkerColor;
+
+	// Fix Ski bars' ridiculous values
+	float skiBarMin;
+	float skiBarMax;
+
+	// Sounds
+	bool playHitSound;
 
 	// Custom hit sounds
 	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
@@ -227,4 +242,7 @@ public:
 
 	// Custom bullet color
 	std::map<int, CustomProjectile *> wep_id_to_custom_proj;
+
+	// Bools for reloading
+	bool shouldReloadGfxTrHud;
 };
