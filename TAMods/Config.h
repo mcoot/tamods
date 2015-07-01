@@ -210,10 +210,9 @@ public:
 	float skiBarMin;
 	float skiBarMax;
 
-	// Sounds
 	bool playHitSound;
 
-	// Custom hit sounds
+	// Sounds
 	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
 	bool customAirMailSound;
 	bool customBluePlateSound;
@@ -221,6 +220,7 @@ public:
 	float hitSoundPitchMax;
 	int hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
 	float volumeHitSound;
+	float volumeHeadShot;
 	float volumeBluePlate;
 	float volumeAirMail;
 

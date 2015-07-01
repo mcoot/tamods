@@ -79,18 +79,17 @@ void Config::reset()
 	skiBarMax = 300;
 
 	// Sounds
-	playHitSound = true;
-
-	// Custom hit sounds
 	int hitSoundMode = 0;
 	bool customAirMailSound = false;
 	bool customBluePlateSound = false;
 	float hitSoundPitchMin = 0.4f;
 	float hitSoundPitchMax = 1.6f;
 	int hitSoundDamageRef = 600;
-	float volumeHitSound = 1.0f;
+	float volumeHitSound = 0.55f;
+	float volumeHeadShot = 0.55f;
 	float volumeBluePlate = 1.0f;
 	float volumeAirMail = 1.0f;
+
 
 	// Toggle HUD
 	showObjectiveIcon = true;
@@ -179,7 +178,11 @@ void Config::updateDefaults()
 
 	USoundCue *hitsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Impact__Notify.A_CUE_PC_HitImpactOnPawnNotify");
 	if (hitsound)
-		hitsound->VolumeMultiplier = playHitSound ? 0.55f : 0.0f;
+		hitsound->VolumeMultiplier = hitSoundMode > 0 ? 0.0f : volumeHitSound;
+
+	USoundCue *headshotsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Headshot.A_CUE_PC_ImpactOnPawnNotify_Headshot");
+	if (headshotsound)
+		headshotsound->VolumeMultiplier = volumeHeadShot;
 
 	reloadSkiBars(NULL, false);
 }
@@ -234,9 +237,6 @@ void Config::setVariables()
 	SET_VARIABLE(float, skiBarMax);
 
 	// Sounds
-	SET_VARIABLE(bool, playHitSound);
-
-	// Custom hit sounds
 	SET_VARIABLE(int, hitSoundMode);
 	SET_VARIABLE(bool, customAirMailSound);
 	SET_VARIABLE(bool, customBluePlateSound);
@@ -244,8 +244,10 @@ void Config::setVariables()
 	SET_VARIABLE(float, hitSoundPitchMax);
 	SET_VARIABLE(int, hitSoundDamageRef);
 	SET_VARIABLE(float, volumeHitSound);
+	SET_VARIABLE(float, volumeHeadShot);
 	SET_VARIABLE(float, volumeBluePlate);
 	SET_VARIABLE(float, volumeAirMail);
+
 
 	// Toggle HUD
 	SET_VARIABLE(bool, showObjectiveIcon);
