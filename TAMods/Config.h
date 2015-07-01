@@ -199,11 +199,12 @@ public:
 	FColor friendlyHUDChatColor;
 	FColor enemyHUDChatColor;
 	//Marker Cols
-	//TODO actual implimentation
+	FColor friendlyColor;
 	FColor enemyColor;
-	FColor enemyIsFColor;
-	FColor friendColor;
-	FColor friendIsFColor;
+	FColor enemyMarkerColor;
+	FColor enemyIsFMarkerColor;
+	FColor friendlyMarkerColor;
+	FColor friendlyIsFMarkerColor;
 
 	// Fix Ski bars' ridiculous values
 	float skiBarMin;

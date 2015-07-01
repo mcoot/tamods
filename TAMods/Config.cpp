@@ -67,10 +67,12 @@ void Config::reset()
 	enemyHUDChatColor = Utils::rgb(249, 32, 32);
 
 	//Marker Colors
-	enemyColor = Utils::rgb(255, 0, 255);
-	enemyIsFColor = Utils::rgb(255, 125, 0);
-	friendColor = Utils::rgb(0, 125, 255);
-	friendIsFColor = Utils::rgb(0, 255, 0);
+	friendlyColor = Utils::rgb(119, 186, 255);
+	enemyColor = Utils::rgb(248, 83, 83);
+	enemyMarkerColor = Utils::rgb(255, 23, 23);
+	enemyIsFMarkerColor = Utils::rgb(239, 164, 0);
+	friendlyMarkerColor = Utils::rgb(115, 225, 255);
+	friendlyIsFMarkerColor = Utils::rgb(81, 250, 85);
 
 	// Ski bars
 	skiBarMin = 30;
@@ -150,6 +152,17 @@ void Config::reloadSkiBars(UGfxTrHud *currHud, bool updated)
 
 void Config::updateDefaults()
 {
+	ATrHUD *hud = UObject::FindObject<ATrHUD>("TrHUD TribesGame.Default__TrHUD");
+	if (hud)
+	{
+		hud->ColorEnemy = enemyColor;
+		hud->ColorFriend = friendlyColor;
+		hud->MarkerColorFriendly = Utils::linCol(friendlyMarkerColor);
+		hud->MarkerColorFriendly_IsFriend = Utils::linCol(friendlyIsFMarkerColor);
+		hud->MarkerColorEnemy = Utils::linCol(enemyMarkerColor);
+		hud->MarkerColorEnemy_IsFriend = Utils::linCol(enemyIsFMarkerColor);
+	}
+
 	reloadSkiBars(NULL, false);
 }
 
@@ -191,10 +204,12 @@ void Config::setVariables()
 	SET_VARIABLE(FColor, enemyHUDChatColor);
 
 	//Marker Colors
+	SET_VARIABLE(FColor, friendlyColor);
 	SET_VARIABLE(FColor, enemyColor);
-	SET_VARIABLE(FColor, enemyIsFColor);
-	SET_VARIABLE(FColor, friendColor);
-	SET_VARIABLE(FColor, friendIsFColor);
+	SET_VARIABLE(FColor, enemyMarkerColor);
+	SET_VARIABLE(FColor, enemyIsFMarkerColor);
+	SET_VARIABLE(FColor, friendlyMarkerColor);
+	SET_VARIABLE(FColor, friendlyIsFMarkerColor);
 
 	// Ski bars
 	SET_VARIABLE(float, skiBarMin);
