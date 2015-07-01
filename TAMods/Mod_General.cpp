@@ -7,6 +7,20 @@ bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, vo
 	return false;
 }
 
+bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
+
+	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0
+	{
+		that->m_nRespawnTimeRemaining = 0;
+		that->r_fRespawnTime = 0;
+		that->MinRespawnDelay = 0;
+		that->UpdateRespawnTimer();
+	}
+	return false;
+}
+
 bool TrPC_InitInputSystem(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
