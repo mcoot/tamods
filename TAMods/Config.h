@@ -210,6 +210,9 @@ public:
 	float skiBarMin;
 	float skiBarMax;
 
+	// Sounds
+	bool playHitSound;
+
 	// HUD elements toggle
 	bool showObjectiveIcon;
 	bool showFlagBaseIcon;

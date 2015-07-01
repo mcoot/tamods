@@ -78,6 +78,9 @@ void Config::reset()
 	skiBarMin = 30;
 	skiBarMax = 300;
 
+	// Sounds
+	playHitSound = true;
+
 	// Toggle HUD
 	showObjectiveIcon = true;
 	showFlagBaseIcon = true;
@@ -163,6 +166,10 @@ void Config::updateDefaults()
 		hud->MarkerColorEnemy_IsFriend = Utils::linCol(enemyIsFMarkerColor);
 	}
 
+	USoundCue *hitsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Impact__Notify.A_CUE_PC_HitImpactOnPawnNotify");
+	if (hitsound)
+		hitsound->VolumeMultiplier = playHitSound ? 0.55f : 0.0f;
+
 	reloadSkiBars(NULL, false);
 }
 
@@ -214,6 +221,9 @@ void Config::setVariables()
 	// Ski bars
 	SET_VARIABLE(float, skiBarMin);
 	SET_VARIABLE(float, skiBarMax);
+
+	// Sounds
+	SET_VARIABLE(bool, playHitSound);
 
 	// Toggle HUD
 	SET_VARIABLE(bool, showObjectiveIcon);
