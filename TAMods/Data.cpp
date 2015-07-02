@@ -68,7 +68,7 @@ namespace Data
 			// PRIMARY
 			{
 				{ R"rx(^(rhinosmg|smg|rhino)$)rx", CONST_WEAPON_ID_SMG_RHINO },
-				{ R"rx(^(stealthspinfusor|spinfusor|spin|stealth)$)rx", CONST_WEAPON_ID_STEALTHLIGHTSPINFUSOR },
+				{ R"rx(^(stealthspin(fusor)?|spin(fusor)?|stealth)$)rx", CONST_WEAPON_ID_STEALTHLIGHTSPINFUSOR },
 				{ R"rx(^(jackal)$)rx", CONST_WEAPON_ID_REMOTE_ARX_BUSTER },
 				{ R"rx(^(arcticrhinosmg|arcticrhino|arcticsmg)$)rx", CONST_WEAPON_ID_SMG_RHINO_MKD },
 			},
