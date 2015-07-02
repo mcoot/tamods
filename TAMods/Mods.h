@@ -1,17 +1,22 @@
 #pragma once
 
 #include <sstream>
-#include <xaudio2.h>
-#include "Wave.h"
 #include "Config.h"
 #include "Utils.h"
 #include "Data.h"
 #include "Geom.h"
 #include "Logger.h"
 #include "stats.h"
+#include "Audio.h"
+#include "SoundEffect.h"
 
 extern Config g_config;
 extern Stats g_stats;
+
+extern Audio g_audioEngine;
+extern SoundEffect g_hitSound;
+extern SoundEffect g_bluePlate;
+extern SoundEffect g_airMail;
 
 // Loadouts
 bool GFxTrHUD_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
@@ -58,8 +63,8 @@ bool TrProj_ReplicatedEvent_POST(int ID, UObject *dwCallingObject, UFunction* pF
 // Lua console command
 bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
-// Hit sounds
-int XAudio2Init();
-void playHitSound(clock_t *t, bool bShieldDamage, int *dmg);
+// Sounds
+void AudioInitialize();
+void playHitSound(bool bShieldDamage, int *dmg);
 bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

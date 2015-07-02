@@ -93,6 +93,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Geom.cpp" />
     <ClCompile Include="Lua.cpp" />
@@ -163,15 +164,18 @@
     <ClCompile Include="SDK_SOURCES\UTGame_functions.cpp" />
     <ClCompile Include="SDK_SOURCES\WinDrv_functions.cpp" />
     <ClCompile Include="SDK_SOURCES\XAudio2_functions.cpp" />
+    <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="Stats.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Data.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Geom.h" />
+    <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Wave.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="Loadout.h" />
