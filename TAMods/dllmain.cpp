@@ -9,6 +9,7 @@ void onDLLProcessAttach()
 	// Logger::quiet();
 
 	g_config.parseFile();
+	AudioInitialize();
 	Logger::log("DLL Process Attach");
 
 	{
@@ -68,9 +69,6 @@ void onDLLProcessAttach()
 		// Console commands (/lua)
 		Hooks::add(&TrChatConsole_InputKey, "Function TrChatConsole.Open.InputKey");
 	}
-
-	if (XAudio2Init() != 1)
-		Utils::console("error initializing XAudio2 engine");
 
 	// Pass true to log hookable functions
 	Hooks::init(true);
