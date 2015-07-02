@@ -79,16 +79,16 @@ void Config::reset()
 	skiBarMax = 300;
 
 	// Sounds
-	int hitSoundMode = 0;
-	bool customAirMailSound = false;
-	bool customBluePlateSound = false;
-	float hitSoundPitchMin = 0.4f;
-	float hitSoundPitchMax = 1.6f;
-	int hitSoundDamageRef = 600;
-	float volumeHitSound = 0.55f;
-	float volumeHeadShot = 0.55f;
-	float volumeBluePlate = 1.0f;
-	float volumeAirMail = 1.0f;
+	hitSoundMode = 0;
+	customAirMailSound = false;
+	customBluePlateSound = false;
+	hitSoundPitchMin = 0.4f;
+	hitSoundPitchMax = 1.6f;
+	hitSoundDamageRef = 600;
+	volumeHitSound = 0.55f;
+	volumeHeadShot = 0.55f;
+	volumeBluePlate = 1.0f;
+	volumeAirMail = 1.0f;
 
 
 	// Toggle HUD
