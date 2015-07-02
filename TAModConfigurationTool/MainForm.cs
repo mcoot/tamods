@@ -79,8 +79,13 @@ namespace TAModConfigurationTool
             // Display settings
             checkShowWeapon.Checked = true;
             checkShowCrosshair.Checked = true;
+            checkShowFirstPersonAmmo.Checked = false;
             numCrosshairScale.Enabled = true;
             numCrosshairScale.Value = 1;
+
+            // Ski Bar Settings
+            numSkiBarMin.Value = 7;
+            numSkiBarMax.Value = 180;
 
             // Damage Number Settings
             // Damage Number Display
@@ -107,6 +112,8 @@ namespace TAModConfigurationTool
             checkHUDIconNugget.Checked = true;
             checkHUDIconPlayer.Checked = true;
             checkHUDIconVehicle.Checked = true;
+            checkHUDIconSensor.Checked = true;
+            checkHUDIconMine.Checked = true;
 
             // Colour Settings
             // Custom Damage Number Colours
@@ -181,8 +188,13 @@ namespace TAModConfigurationTool
             // General settings
             // Display settings
             checkShowWeapon.Checked = (bool)config.getConfigVar("showWeapon");
+            checkShowFirstPersonAmmo.Checked = (bool)config.getConfigVar("showFirstPersonAmmo");
             checkShowCrosshair.Checked = (bool)config.getConfigVar("showCrosshair");
             numCrosshairScale.Value = Convert.ToDecimal(config.getConfigVar("crosshairScale"));
+
+            // Ski Bar Settings
+            numSkiBarMin.Value = Convert.ToInt32(config.getConfigVar("skiBarMin"));
+            numSkiBarMax.Value = Convert.ToInt32(config.getConfigVar("skiBarMax"));
 
             // Damage Number Settings
             // Damage Number Display
@@ -232,6 +244,8 @@ namespace TAModConfigurationTool
             checkHUDIconNugget.Checked = (bool)config.getConfigVar("showNuggetIcon");
             checkHUDIconPlayer.Checked = (bool)config.getConfigVar("showPlayerIcon");
             checkHUDIconVehicle.Checked = (bool)config.getConfigVar("showVehicleIcon");
+            checkHUDIconSensor.Checked = (bool)config.getConfigVar("showSensorIcon");
+            checkHUDIconMine.Checked = (bool)config.getConfigVar("showMineIcon");
 
             // Colour Settings
             Color c;
@@ -330,8 +344,13 @@ namespace TAModConfigurationTool
             // General Settings
             // Display Settings
             config.setConfigVar("showWeapon", checkShowWeapon.Checked);
+            config.setConfigVar("showFirstPersonAmmo", checkShowFirstPersonAmmo.Checked);
             config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
             config.setConfigVar("crosshairScale", Convert.ToSingle(numCrosshairScale.Value));
+
+            // Ski Bar Settings
+            config.setConfigVar("skiBarMin", (int)numSkiBarMin.Value);
+            config.setConfigVar("skiBarMax", (int)numSkiBarMax.Value);
 
             // Damage Number Settings
             // Damage Number Display
@@ -377,6 +396,8 @@ namespace TAModConfigurationTool
             config.setConfigVar("showNuggetIcon", checkHUDIconNugget.Checked);
             config.setConfigVar("showPlayerIcon", checkHUDIconPlayer.Checked);
             config.setConfigVar("showVehicleIcon", checkHUDIconVehicle.Checked);
+            config.setConfigVar("showSensorIcon", checkHUDIconSensor.Checked);
+            config.setConfigVar("showMineIcon", checkHUDIconMine.Checked);
 
 
             // Colour Settings
@@ -1022,6 +1043,10 @@ namespace TAModConfigurationTool
                 { "showWeapon", null },
                 { "showCrosshair", null },
                 { "crosshairScale", null },
+                { "showFirstPersonAmmo", null },
+
+                { "skiBarMin", null },
+                { "skiBarMax", null },
 
                 { "damageNumbersLimit", null },
                 { "showDamageNumberStream", null },
@@ -1038,6 +1063,8 @@ namespace TAModConfigurationTool
                 { "showNuggetIcon", null },
                 { "showPlayerIcon", null },
                 { "showVehicleIcon", null },
+                { "showMineIcon", null },
+                { "showSensorIcon", null },
 
                 { "showRainbow", null },
                 { "damageNumbersColorMin", null },
@@ -1054,6 +1081,10 @@ namespace TAModConfigurationTool
                 { "showWeapon", true },
                 { "showCrosshair", true },
                 { "crosshairScale", 1 },
+                { "showFirstPersonAmmo", false },
+
+                { "skiBarMin", 7 },
+                { "skiBarMax", 180 },
 
                 { "damageNumbersLimit", 0 },
                 { "showDamageNumberStream", false },
@@ -1070,6 +1101,8 @@ namespace TAModConfigurationTool
                 { "showNuggetIcon", true },
                 { "showPlayerIcon", true },
                 { "showVehicleIcon", true },
+                { "showSensorIcon", true },
+                { "showMineIcon", true },
 
                 { "showRainbow", false },
                 { "damageNumbersColorMin", rgb(255, 255, 255) },
