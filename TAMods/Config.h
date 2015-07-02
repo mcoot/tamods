@@ -66,14 +66,15 @@ struct MutedPlayer
 struct CustomProjectile
 {
 private:
-	void _cloneModules(TArray<UParticleModule *> &out, TArray<UParticleModule *> &in)
+	static void _cloneModules(TArray<UParticleModule *> &out, TArray<UParticleModule *> &in)
 	{
 		out.Data = (UParticleModule **)malloc(in.Count * sizeof(UParticleModule *));
 		for (int i = 0; i < in.Count; i++)
 			ParticleModuleHelper::copyModule(out.Data[i], in.Data[i]);
 	}
 
-	UParticleSystem *_cloneParticleSystem(UParticleSystem *ps)
+public:
+	static UParticleSystem *cloneParticleSystem(UParticleSystem *ps)
 	{
 		UParticleSystem *out = (UParticleSystem *)malloc(sizeof(UParticleSystem));
 		memcpy(out, ps, sizeof(UParticleSystem));
@@ -115,7 +116,14 @@ private:
 		return out;
 	}
 
-public:
+	CustomProjectile()
+		: weapon_id(0)
+	{
+		default_proj = NULL;
+		default_ps = NULL;
+		custom_ps = NULL;
+	}
+
 	CustomProjectile(int pweapon_id)
 		: weapon_id(0)
 	{
@@ -128,7 +136,7 @@ public:
 			return;
 		default_ps = default_proj->ProjFlightTemplate;
 		weapon_id = pweapon_id;
-		custom_ps = _cloneParticleSystem(default_ps);
+		custom_ps = cloneParticleSystem(default_ps);
 	}
 
 	~CustomProjectile()

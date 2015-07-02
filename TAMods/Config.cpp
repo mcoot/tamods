@@ -374,7 +374,7 @@ static UParticleSystem *config_getProjectile(const std::string &pclass, const st
 {
 	int weapon_id = getWeaponID(pclass, weapon);
 	if (!weapon_id)
-		return false;
+		return NULL;
 	CustomProjectile *proj = NULL;
 	auto it = g_config.wep_id_to_custom_proj.find(weapon_id);
 	if (it == g_config.wep_id_to_custom_proj.end())
@@ -382,13 +382,32 @@ static UParticleSystem *config_getProjectile(const std::string &pclass, const st
 		proj = new CustomProjectile(weapon_id);
 		g_config.wep_id_to_custom_proj[weapon_id] = proj;
 		g_config.proj_class_to_custom_proj[(int) proj->default_proj->Class] = proj;
-		Logger::log("Created projectile %d: %s", (int)proj->default_proj->Class, proj->default_proj->GetFullName());
 	}
 	else
 		proj = it->second;
 	if (!proj)
 		return NULL;
 	return proj->custom_ps;
+}
+
+static void config_setProjectile(const std::string &pclass, const std::string &weapon, UParticleSystem *ps)
+{
+	int weapon_id = getWeaponID(pclass, weapon);
+	if (!weapon_id)
+		return;
+	CustomProjectile *proj = NULL;
+	auto it = g_config.wep_id_to_custom_proj.find(weapon_id);
+	if (it == g_config.wep_id_to_custom_proj.end())
+	{
+		proj = new CustomProjectile(weapon_id);
+		g_config.wep_id_to_custom_proj[weapon_id] = proj;
+		g_config.proj_class_to_custom_proj[(int)proj->default_proj->Class] = proj;
+	}
+	else
+		proj = it->second;
+	if (!proj)
+		return;
+	proj->custom_ps = ps;
 }
 
 static bool config_setCrosshairs(const std::string &pclass, const std::string &weapon, Crosshairs &xhairs)
@@ -1452,7 +1471,10 @@ void Lua::init()
 		deriveClass<UParticleSystem, UObject>("ParticleSystem").
 			addProperty("emitters", &ParticleModuleHelper::ParticleSystem_getEmitters, &ParticleModuleHelper::ParticleSystem_setEmitters).
 		endClass().
+
 		addFunction("getProjectile", &config_getProjectile).
+		addFunction("setProjectile", &config_setProjectile).
+		addFunction("cloneProjectile", &CustomProjectile::cloneParticleSystem).
 		addFunction("setBulletColor", &config_setBulletColor).
 
 		// HUD/Mute
