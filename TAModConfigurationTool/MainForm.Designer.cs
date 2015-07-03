@@ -68,12 +68,21 @@
             this.radioDamageNumberLimit = new System.Windows.Forms.RadioButton();
             this.radioDamageNumberShow = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.numSkiBarMax = new System.Windows.Forms.NumericUpDown();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.numSkiBarMin = new System.Windows.Forms.NumericUpDown();
+            this.label39 = new System.Windows.Forms.Label();
+            this.checkShowFirstPersonAmmo = new System.Windows.Forms.CheckBox();
             this.label59 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numCrosshairScale = new System.Windows.Forms.NumericUpDown();
             this.checkShowCrosshair = new System.Windows.Forms.CheckBox();
             this.checkShowWeapon = new System.Windows.Forms.CheckBox();
             this.tabColor = new TAModConfigurationTool.TransTabPage();
+            this.panelColorSelectorTest = new TAModConfigurationTool.ColorSelector();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label65 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
@@ -210,14 +219,6 @@
             this.listMute = new System.Windows.Forms.ListBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.checkShowFirstPersonAmmo = new System.Windows.Forms.CheckBox();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.numSkiBarMin = new System.Windows.Forms.NumericUpDown();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label73 = new System.Windows.Forms.Label();
-            this.numSkiBarMax = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -231,6 +232,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberLimit)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCrosshairScale)).BeginInit();
             this.tabColor.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -279,8 +282,6 @@
             this.tabMute.SuspendLayout();
             this.panel15.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMax)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -770,6 +771,93 @@
             this.panel1.Size = new System.Drawing.Size(200, 347);
             this.panel1.TabIndex = 2;
             // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(124, 178);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(33, 13);
+            this.label42.TabIndex = 30;
+            this.label42.Text = "km/h";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label73.Location = new System.Drawing.Point(9, 178);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(63, 13);
+            this.label73.TabIndex = 29;
+            this.label73.Text = "Max Speed";
+            // 
+            // numSkiBarMax
+            // 
+            this.numSkiBarMax.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numSkiBarMax.Location = new System.Drawing.Point(74, 174);
+            this.numSkiBarMax.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numSkiBarMax.Name = "numSkiBarMax";
+            this.numSkiBarMax.Size = new System.Drawing.Size(51, 22);
+            this.numSkiBarMax.TabIndex = 28;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(124, 152);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(33, 13);
+            this.label41.TabIndex = 27;
+            this.label41.Text = "km/h";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label40.Location = new System.Drawing.Point(9, 152);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(62, 13);
+            this.label40.TabIndex = 26;
+            this.label40.Text = "Min Speed";
+            // 
+            // numSkiBarMin
+            // 
+            this.numSkiBarMin.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numSkiBarMin.Location = new System.Drawing.Point(74, 148);
+            this.numSkiBarMin.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numSkiBarMin.Name = "numSkiBarMin";
+            this.numSkiBarMin.Size = new System.Drawing.Size(51, 22);
+            this.numSkiBarMin.TabIndex = 25;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label39.Location = new System.Drawing.Point(6, 124);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(120, 21);
+            this.label39.TabIndex = 24;
+            this.label39.Text = "Ski Speed Bars";
+            // 
+            // checkShowFirstPersonAmmo
+            // 
+            this.checkShowFirstPersonAmmo.AutoSize = true;
+            this.checkShowFirstPersonAmmo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkShowFirstPersonAmmo.Location = new System.Drawing.Point(8, 50);
+            this.checkShowFirstPersonAmmo.Name = "checkShowFirstPersonAmmo";
+            this.checkShowFirstPersonAmmo.Size = new System.Drawing.Size(181, 17);
+            this.checkShowFirstPersonAmmo.TabIndex = 8;
+            this.checkShowFirstPersonAmmo.Text = "Show 1st Person Ammo Count";
+            this.checkShowFirstPersonAmmo.UseVisualStyleBackColor = true;
+            // 
             // label59
             // 
             this.label59.AutoSize = true;
@@ -839,6 +927,7 @@
             // 
             // tabColor
             // 
+            this.tabColor.Controls.Add(this.panelColorSelectorTest);
             this.tabColor.Controls.Add(this.panel7);
             this.tabColor.Controls.Add(this.panel6);
             this.tabColor.Controls.Add(this.panel5);
@@ -849,6 +938,13 @@
             this.tabColor.TabIndex = 3;
             this.tabColor.Text = "Colour Settings";
             this.tabColor.UseVisualStyleBackColor = true;
+            // 
+            // panelColorSelectorTest
+            // 
+            this.panelColorSelectorTest.Location = new System.Drawing.Point(560, 223);
+            this.panelColorSelectorTest.Name = "panelColorSelectorTest";
+            this.panelColorSelectorTest.Size = new System.Drawing.Size(120, 160);
+            this.panelColorSelectorTest.TabIndex = 9;
             // 
             // panel7
             // 
@@ -2414,93 +2510,6 @@
             this.btnSaveConfig.UseVisualStyleBackColor = true;
             this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
-            // checkShowFirstPersonAmmo
-            // 
-            this.checkShowFirstPersonAmmo.AutoSize = true;
-            this.checkShowFirstPersonAmmo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkShowFirstPersonAmmo.Location = new System.Drawing.Point(8, 50);
-            this.checkShowFirstPersonAmmo.Name = "checkShowFirstPersonAmmo";
-            this.checkShowFirstPersonAmmo.Size = new System.Drawing.Size(181, 17);
-            this.checkShowFirstPersonAmmo.TabIndex = 8;
-            this.checkShowFirstPersonAmmo.Text = "Show 1st Person Ammo Count";
-            this.checkShowFirstPersonAmmo.UseVisualStyleBackColor = true;
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(6, 124);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(120, 21);
-            this.label39.TabIndex = 24;
-            this.label39.Text = "Ski Speed Bars";
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(9, 152);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(62, 13);
-            this.label40.TabIndex = 26;
-            this.label40.Text = "Min Speed";
-            // 
-            // numSkiBarMin
-            // 
-            this.numSkiBarMin.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numSkiBarMin.Location = new System.Drawing.Point(74, 148);
-            this.numSkiBarMin.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numSkiBarMin.Name = "numSkiBarMin";
-            this.numSkiBarMin.Size = new System.Drawing.Size(51, 22);
-            this.numSkiBarMin.TabIndex = 25;
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(124, 152);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(33, 13);
-            this.label41.TabIndex = 27;
-            this.label41.Text = "km/h";
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(124, 178);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(33, 13);
-            this.label42.TabIndex = 30;
-            this.label42.Text = "km/h";
-            // 
-            // label73
-            // 
-            this.label73.AutoSize = true;
-            this.label73.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(9, 178);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(63, 13);
-            this.label73.TabIndex = 29;
-            this.label73.Text = "Max Speed";
-            // 
-            // numSkiBarMax
-            // 
-            this.numSkiBarMax.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numSkiBarMax.Location = new System.Drawing.Point(74, 174);
-            this.numSkiBarMax.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numSkiBarMax.Name = "numSkiBarMax";
-            this.numSkiBarMax.Size = new System.Drawing.Size(51, 22);
-            this.numSkiBarMax.TabIndex = 28;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2535,6 +2544,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberLimit)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCrosshairScale)).EndInit();
             this.tabColor.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
@@ -2594,8 +2605,6 @@
             this.panel15.ResumeLayout(false);
             this.panel15.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMax)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2791,6 +2800,7 @@
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.NumericUpDown numSkiBarMin;
         private System.Windows.Forms.Label label39;
+        private ColorSelector panelColorSelectorTest;
     }
 }
 
