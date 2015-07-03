@@ -287,56 +287,52 @@ static void parseModuleArray(TArray<UParticleModule *> &tab, const FColor &col, 
 	for (int si = 0; si < tab.Count; si++)
 	{
 		UParticleModule *module = tab.Data[si];
-
 		FRawDistributionVector *vecs;
+		float *table;
 
-		Logger::log("      Module %d: %s", si, tab.Data[si]->GetFullName());
 		if (module->IsA(UParticleModuleColorOverLife::StaticClass()))
 		{
 			UParticleModuleColorOverLife *m = (UParticleModuleColorOverLife *)module;
 			vecs = &m->ColorOverLife;
-		}
-		else if (module->IsA(UParticleModuleColorScaleOverDensity::StaticClass()))
-		{
-			UParticleModuleColorScaleOverDensity *m = (UParticleModuleColorScaleOverDensity *)module;
-			vecs = &m->ColorScaleOverDensity;
-		}
-		else if (module->IsA(UParticleModuleColorScaleOverLife::StaticClass()))
-		{
-			UParticleModuleColorScaleOverLife *m = (UParticleModuleColorScaleOverLife *)module;
-			vecs = &m->ColorScaleOverLife;
+			table = vecs->LookupTable.Data;
+			if (vecs->LookupTable.Count < 5)
+				continue;
+			float original_color[3] = { 0 };
+
+			for (int i = 2; i + 2 < vecs->LookupTable.Count; i += 3)
+			{
+				if (!original_color[0] || !original_color[1] || !original_color[2])
+				{
+					for (int j = 0; j < 3; j++)
+						original_color[j] = table[i + j];
+				}
+				table[i + 0] = ((float)col.R * intensity / 255.0f);
+				table[i + 1] = ((float)col.G * intensity / 255.0f);
+				table[i + 2] = ((float)col.B * intensity / 255.0f);
+				if (original_color[0] && original_color[1] && original_color[2])
+				{
+					for (int j = 0; j < 3; j++)
+						table[i + j] *= table[i + j] / original_color[j];
+				}
+			}
 		}
 		else if (module->IsA(UParticleModuleColor::StaticClass()))
 		{
 			UParticleModuleColor *m = (UParticleModuleColor *)module;
 			vecs = &m->StartColor;
+			table = vecs->LookupTable.Data;
 
 			if (vecs->LookupTable.Count >= 5)
 			{
-				vecs->LookupTable.Data[2] = (float)col.R * intensity / 255.0f;
-				vecs->LookupTable.Data[3] = (float)col.G * intensity / 255.0f;
-				vecs->LookupTable.Data[4] = (float)col.B * intensity / 255.0f;
+				table[2] = (float)col.R * intensity / 255.0f;
+				table[3] = (float)col.G * intensity / 255.0f;
+				table[4] = (float)col.B * intensity / 255.0f;
 			}
 		}
-		else if (module->IsA(UParticleModuleColorByParameter::StaticClass()))
-		{
-			UParticleModuleColorByParameter *m = (UParticleModuleColorByParameter *)module;
-
-			Logger::log("ColorByParameter");
-			Logger::log("Color: (%d, %d, %d, %d)", m->DefaultColor.R, m->DefaultColor.G, m->DefaultColor.B, m->DefaultColor.A);
-			continue;
-		}
-		else
-			continue;
-
-		TArray<float> &vtable = vecs->LookupTable;
-		Logger::log("        Vector Table size: %d, type:%d, op:%d, StartTime: %f, TimeScale: %f, NumElements: %d, ChunkSize: %d", vtable.Count, vecs->Type, vecs->Op, vecs->LookupTableStartTime, vecs->LookupTableTimeScale, vecs->LookupTableNumElements, vecs->LookupTableChunkSize);
-		for (int i = 0; i < vtable.Count; i++)
-			Logger::log("        VTABLE #%d: %f", i, vtable(i));
 	}
 }
 
-static void editParticleSystem(UParticleSystem *ps, const FColor &col, float intensity)
+static void config_setProjectileColor(UParticleSystem *ps, const FColor &col, float intensity)
 {
 	if (ps)
 	{
@@ -358,27 +354,6 @@ static void editParticleSystem(UParticleSystem *ps, const FColor &col, float int
 			}
 		}
 	}
-}
-
-static bool config_setBulletColor(const std::string &pclass, const std::string &weapon, const FColor &col, float intensity)
-{
-	int weapon_id = getWeaponID(pclass, weapon);
-	if (!weapon_id)
-		return false;
-	CustomProjectile *proj = NULL;
-	auto it = g_config.wep_id_to_custom_proj.find(weapon_id);
-	if (it == g_config.wep_id_to_custom_proj.end())
-	{
-		proj = new CustomProjectile(weapon_id);
-		g_config.wep_id_to_custom_proj[weapon_id] = proj;
-	}
-	else
-		proj = it->second;
-	if (!proj)
-		return false;
-	Logger::log("Editing bullet: %s", proj->default_proj->GetFullName());
-	editParticleSystem(proj->custom_ps, col, intensity);
-	return true;
 }
 
 static UParticleSystem *config_getProjectile(const std::string &pclass, const std::string &weapon)
@@ -1496,7 +1471,7 @@ void Lua::init()
 		addFunction("getProjectile", &config_getProjectile).
 		addFunction("setProjectile", &config_setProjectile).
 		addFunction("cloneProjectile", &CustomProjectile::cloneParticleSystem).
-		addFunction("setBulletColor", &config_setBulletColor).
+		addFunction("setProjectileColor", &config_setProjectileColor).
 
 		// HUD/Mute
 
