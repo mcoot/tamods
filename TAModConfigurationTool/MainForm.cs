@@ -559,6 +559,8 @@ namespace TAModConfigurationTool
                 {"Damage Number Colour (Minimum)", "damageNumbersColorMin"},
                 {"Damage Number Colour (Maximum)", "damageNumbersColorMax"},
 
+                {"Crosshair Colour", "crosshairColor"},
+
                 {"Console Chat Colour - Friendly", "friendlyChatColor"},
                 {"Console Chat Colour - Enemy", "enemyChatColor"},
                 {"HUD Chat Colour - Friendly", "friendlyHUDChatColor"},
@@ -971,6 +973,7 @@ namespace TAModConfigurationTool
                 { "showMineIcon", null },
                 { "showSensorIcon", null },
 
+                { "crosshairColor", null },
                 { "damageNumbersColorMin", null },
                 { "damageNumbersColorMax", null },
                 { "friendlyChatColor", null },
@@ -1016,6 +1019,7 @@ namespace TAModConfigurationTool
                 { "showSensorIcon", true },
                 { "showMineIcon", true },
 
+                { "crosshairColor", rgb(255, 255, 255) },
                 { "damageNumbersColorMin", rgb(255, 255, 255) },
                 { "damageNumbersColorMax", rgb(248, 83, 83) },
                 { "friendlyChatColor", rgb(158, 208, 212) },
