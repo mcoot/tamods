@@ -15,11 +15,12 @@ namespace TAModConfigurationTool
     public partial class MainForm : Form
     {
 
-        Dictionary<string, Dictionary<string, List<string>>> loadoutDetails;
-        Dictionary<string, Dictionary<string, List<string>>> loadoutRegex;
-        List<string> crosshairDetails;
-        List<string> crosshairRegex;
-        Config config;
+        public Dictionary<string, Dictionary<string, List<string>>> loadoutDetails;
+        public Dictionary<string, Dictionary<string, List<string>>> loadoutRegex;
+        public Dictionary<string, string> colorSettingVars;
+        public List<string> crosshairDetails;
+        public List<string> crosshairRegex;
+        public Config config;
 
         public MainForm()
         {
@@ -30,11 +31,13 @@ namespace TAModConfigurationTool
 
             InitializeComponent();
             setupLoadouts();
+            setupColorSettingVars();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             loadConfigIntoUI();
+            colorColorSettings.ColorUpdated += new EventHandler(colorColorSettings_ColorUpdated);
         }
 
         // Load a config file into the UI (returns true on success
@@ -89,6 +92,7 @@ namespace TAModConfigurationTool
 
             // Damage Number Settings
             // Damage Number Display
+            checkDamageNumberRainbow.Checked = false;
             radioDamageNumberShow.Checked = true;
             numDamageNumberLimit.Enabled = false;
             numDamageNumberLimit.Value = 0;
@@ -116,60 +120,9 @@ namespace TAModConfigurationTool
             checkHUDIconMine.Checked = true;
 
             // Colour Settings
-            // Custom Damage Number Colours
-            radioDamageNumberColorDefault.Checked = true;
-            numDamageNumberMinColorA.Enabled = false;
-            numDamageNumberMinColorA.Value = 255;
-            numDamageNumberMinColorR.Enabled = false;
-            numDamageNumberMinColorR.Value = 255;
-            numDamageNumberMinColorG.Enabled = false;
-            numDamageNumberMinColorG.Value = 255;
-            numDamageNumberMinColorB.Enabled = false;
-            numDamageNumberMinColorB.Value = 255;
-            numDamageNumberMaxColorA.Enabled = false;
-            numDamageNumberMaxColorA.Value = 255;
-            numDamageNumberMaxColorR.Enabled = false;
-            numDamageNumberMaxColorR.Value = 248;
-            numDamageNumberMaxColorG.Enabled = false;
-            numDamageNumberMaxColorG.Value = 83;
-            numDamageNumberMaxColorB.Enabled = false;
-            numDamageNumberMaxColorB.Value = 83;
-            // Custom chat colour settings
-            radioChatColorDefault.Checked = true;
-            numChatColorFriendlyA.Enabled = false;
-            numChatColorFriendlyA.Value = 255;
-            numChatColorFriendlyR.Enabled = false;
-            numChatColorFriendlyR.Value = 158;
-            numChatColorFriendlyG.Enabled = false;
-            numChatColorFriendlyG.Value = 208;
-            numChatColorFriendlyB.Enabled = false;
-            numChatColorFriendlyB.Value = 212;
-            numChatColorEnemyA.Enabled = false;
-            numChatColorEnemyA.Value = 255;
-            numChatColorEnemyR.Enabled = false;
-            numChatColorEnemyR.Value = 225;
-            numChatColorEnemyG.Enabled = false;
-            numChatColorEnemyG.Value = 111;
-            numChatColorEnemyB.Enabled = false;
-            numChatColorEnemyB.Value = 111;
-            // Custom HUD chat colour settings
-            radioHUDChatColorDefault.Checked = true;
-            numHUDChatColorFriendlyA.Enabled = false;
-            numHUDChatColorFriendlyA.Value = 255;
-            numHUDChatColorFriendlyR.Enabled = false;
-            numHUDChatColorFriendlyR.Value = 158;
-            numHUDChatColorFriendlyG.Enabled = false;
-            numHUDChatColorFriendlyG.Value = 208;
-            numHUDChatColorFriendlyB.Enabled = false;
-            numHUDChatColorFriendlyB.Value = 212;
-            numHUDChatColorEnemyA.Enabled = false;
-            numHUDChatColorEnemyA.Value = 255;
-            numHUDChatColorEnemyR.Enabled = false;
-            numHUDChatColorEnemyR.Value = 249;
-            numHUDChatColorEnemyG.Enabled = false;
-            numHUDChatColorEnemyG.Value = 32;
-            numHUDChatColorEnemyB.Enabled = false;
-            numHUDChatColorEnemyB.Value = 32;
+            listColorSettings.Items.Clear();
+            checkColorSettingOverride.Checked = false;
+            colorColorSettings.setColor(0, 0, 0, 255);
 
             listLoadouts.Items.Clear();
 
@@ -198,6 +151,7 @@ namespace TAModConfigurationTool
 
             // Damage Number Settings
             // Damage Number Display
+            checkDamageNumberRainbow.Checked = (bool)config.getConfigVar("showRainbow");
             numDamageNumberLimit.Value = 0;
             if (Convert.ToInt32(config.getConfigVar("damageNumbersLimit")) <= 0)
             {
@@ -248,73 +202,25 @@ namespace TAModConfigurationTool
             checkHUDIconMine.Checked = (bool)config.getConfigVar("showMineIcon");
 
             // Colour Settings
-            Color c;
-            // Custom Damage Number Colours
-            radioDamageNumberColorDefault.Checked = true;
-            radioDamageNumberColorCustom.Checked = false;
-            if ((bool)config.getConfigVar("showRainbow"))
-            {
-                radioDamageNumberColorRainbow.Checked = true;
-            }
-            else if (config.isConfigVarSet("damageNumbersColorMin") || config.isConfigVarSet("damageNumbersColorMax"))
-            {
-                if (!config.getConfigVar("damageNumbersColorMin").Equals(config.getConfigVarDefault("damageNumbersColorMin"))
-                    || !config.getConfigVar("damageNumbersColorMax").Equals(config.getConfigVarDefault("damageNumbersColorMax")))
-                {
-                    radioDamageNumberColorCustom.Checked = true;
-                }
-            }
-            c = (Color)config.getConfigVar("damageNumbersColorMin");
-            numDamageNumberMinColorA.Value = c.A;
-            numDamageNumberMinColorR.Value = c.R;
-            numDamageNumberMinColorG.Value = c.G;
-            numDamageNumberMinColorB.Value = c.B;
-            c = (Color)config.getConfigVar("damageNumbersColorMax");
-            numDamageNumberMaxColorA.Value = c.A;
-            numDamageNumberMaxColorR.Value = c.R;
-            numDamageNumberMaxColorG.Value = c.G;
-            numDamageNumberMaxColorB.Value = c.B;
+            listColorSettings.Items.Clear();
+            checkColorSettingOverride.Checked = false;
+            colorColorSettings.setColor(0, 0, 0, 255);
 
-            // Custom Chat Colours
-            radioChatColorDefault.Checked = true;
-            if (config.isConfigVarSet("friendlyChatColor") || config.isConfigVarSet("enemyChatColor"))
+            foreach (string key in colorSettingVars.Keys)
             {
-                if (!config.getConfigVar("friendlyChatColor").Equals(config.getConfigVarDefault("friendlyChatColor"))
-                    || !config.getConfigVar("enemyChatColor").Equals(config.getConfigVarDefault("enemyChatColor")))
+                ConfigVarListItem c = new ConfigVarListItem(key, colorSettingVars[key]);
+                if (config.isConfigVarSet(c.var))
                 {
-                    radioChatColorCustom.Checked = true;
+                    c.isOverridden = true;
+                    c.value = config.getConfigVar(c.var);
                 }
-            }
-            c = (Color)config.getConfigVar("friendlyChatColor");
-            numChatColorFriendlyA.Value = c.A;
-            numChatColorFriendlyR.Value = c.R;
-            numChatColorFriendlyG.Value = c.G;
-            numChatColorFriendlyB.Value = c.B;
-            c = (Color)config.getConfigVar("enemyChatColor");
-            numChatColorEnemyA.Value = c.A;
-            numChatColorEnemyR.Value = c.R;
-            numChatColorEnemyG.Value = c.G;
-            numChatColorEnemyB.Value = c.B;
-
-            radioHUDChatColorDefault.Checked = true;
-            if (config.isConfigVarSet("friendlyHUDChatColor") || config.isConfigVarSet("enemyHUDChatColor"))
-            {
-                if (!config.getConfigVar("friendlyHUDChatColor").Equals(config.getConfigVarDefault("friendlyHUDChatColor"))
-                    || !config.getConfigVar("enemyHUDChatColor").Equals(config.getConfigVarDefault("enemyHUDChatColor")))
+                else
                 {
-                    radioHUDChatColorCustom.Checked = true;
+                    c.isOverridden = false;
+                    c.value = null;
                 }
+                listColorSettings.Items.Add(c);
             }
-            c = (Color)config.getConfigVar("friendlyHUDChatColor");
-            numHUDChatColorFriendlyA.Value = c.A;
-            numHUDChatColorFriendlyR.Value = c.R;
-            numHUDChatColorFriendlyG.Value = c.G;
-            numHUDChatColorFriendlyB.Value = c.B;
-            c = (Color)config.getConfigVar("enemyHUDChatColor");
-            numHUDChatColorEnemyA.Value = c.A;
-            numHUDChatColorEnemyR.Value = c.R;
-            numHUDChatColorEnemyG.Value = c.G;
-            numHUDChatColorEnemyB.Value = c.B;
 
             // Loadouts
             listLoadouts.Items.Clear();
@@ -354,6 +260,7 @@ namespace TAModConfigurationTool
 
             // Damage Number Settings
             // Damage Number Display
+            config.setConfigVar("showRainbow", checkDamageNumberRainbow.Checked);
             if (radioDamageNumberShow.Checked)
             {
                 config.setConfigVar("damageNumbersLimit", 0);
@@ -402,46 +309,16 @@ namespace TAModConfigurationTool
 
             // Colour Settings
             // Custom Damage Number Colours
-            config.setConfigVar("showRainbow", false);
-            if (radioDamageNumberColorRainbow.Checked)
+            foreach (ConfigVarListItem c in listColorSettings.Items)
             {
-                config.setConfigVar("showRainbow", true);
-            }
-            else if (radioDamageNumberColorCustom.Checked)
-            {
-                config.setConfigVar("damageNumbersColorMin", Color.FromArgb((byte)numDamageNumberMinColorA.Value, (byte)numDamageNumberMinColorR.Value, (byte)numDamageNumberMinColorG.Value, (byte)numDamageNumberMinColorB.Value));
-                config.setConfigVar("damageNumbersColorMax", Color.FromArgb((byte)numDamageNumberMaxColorA.Value, (byte)numDamageNumberMaxColorR.Value, (byte)numDamageNumberMaxColorG.Value, (byte)numDamageNumberMaxColorB.Value));
-            }
-            else
-            {
-                config.setConfigVar("damageNumbersColorMin", null);
-                config.setConfigVar("damageNumbersColorMax", null);
-            }
-
-            // Custom Chat Colours
-            if (radioChatColorCustom.Checked)
-            {
-                config.setConfigVar("friendlyChatColor", Color.FromArgb((byte)numChatColorFriendlyA.Value, (byte)numChatColorFriendlyR.Value, (byte)numChatColorFriendlyG.Value, (byte)numChatColorFriendlyB.Value));
-                config.setConfigVar("enemyChatColor", Color.FromArgb((byte)numChatColorEnemyA.Value, (byte)numChatColorEnemyR.Value, (byte)numChatColorEnemyG.Value, (byte)numChatColorEnemyB.Value));
-            }
-            else
-            {
-                config.setConfigVar("friendlyChatColor", null);
-                config.setConfigVar("enemyChatColor", null);
-                config.setConfigVar("teamChatColor", null);
-                config.setConfigVar("whisperChatColor", null);
-            }
-
-            // Custom HUD Chat Colours
-            if (radioHUDChatColorCustom.Checked)
-            {
-                config.setConfigVar("friendlyHUDChatColor", Color.FromArgb((byte)numHUDChatColorFriendlyA.Value, (byte)numHUDChatColorFriendlyR.Value, (byte)numHUDChatColorFriendlyG.Value, (byte)numHUDChatColorFriendlyB.Value));
-                config.setConfigVar("enemyHUDChatColor", Color.FromArgb((byte)numHUDChatColorEnemyA.Value, (byte)numHUDChatColorEnemyR.Value, (byte)numHUDChatColorEnemyG.Value, (byte)numHUDChatColorEnemyB.Value));
-            }
-            else
-            {
-                config.setConfigVar("friendlyHUDChatColor", null);
-                config.setConfigVar("enemyHUDChatColor", null);
+                if (c.isOverridden)
+                {
+                    config.setConfigVar(c.var, c.value);
+                }
+                else
+                {
+                    config.setConfigVar(c.var, null);
+                }
             }
 
             // Loadouts
@@ -480,24 +357,6 @@ namespace TAModConfigurationTool
         {
             updateLoadoutSelectors(sender);
         }
-
-        // Set the colour pickers based on the RGBA values
-        private void setColorBoxes()
-        {
-            boxDamageNumberMaxColor.BackColor = Color.FromArgb((int)numDamageNumberMaxColorA.Value, (int)numDamageNumberMaxColorR.Value, (int)numDamageNumberMaxColorG.Value, (int)numDamageNumberMaxColorB.Value);
-            boxDamageNumberMinColor.BackColor = Color.FromArgb((int)numDamageNumberMinColorA.Value, (int)numDamageNumberMinColorR.Value, (int)numDamageNumberMinColorG.Value, (int)numDamageNumberMinColorB.Value); //Color.FromArgb((int)numDamageNumberMinColorA.Value, (int)numDamageNumberMinColorR.Value, (int)numDamageNumberMinColorG.Value, (int)numDamageNumberMinColorB.Value);
-            boxChatColorFriendly.BackColor = Color.FromArgb((int)numChatColorFriendlyA.Value, (int)numChatColorFriendlyR.Value, (int)numChatColorFriendlyG.Value, (int)numChatColorFriendlyB.Value);
-            boxChatColorEnemy.BackColor = Color.FromArgb((int)numChatColorEnemyA.Value, (int)numChatColorEnemyR.Value, (int)numChatColorEnemyG.Value, (int)numChatColorEnemyB.Value);
-            boxHUDChatColorFriendly.BackColor = Color.FromArgb((int)numHUDChatColorFriendlyA.Value, (int)numHUDChatColorFriendlyR.Value, (int)numHUDChatColorFriendlyG.Value, (int)numHUDChatColorFriendlyB.Value);
-            boxHUDChatColorEnemy.BackColor = Color.FromArgb((int)numHUDChatColorEnemyA.Value, (int)numHUDChatColorEnemyR.Value, (int)numHUDChatColorEnemyG.Value, (int)numHUDChatColorEnemyB.Value);
-        }
-
-        // Colour change events
-        private void numColor_changed(object sender, EventArgs e)
-        {
-            setColorBoxes();
-        }
-
 
         // Update the dropdown lists for the equipment selection
         private void updateLoadoutSelectors(object from)
@@ -693,6 +552,27 @@ namespace TAModConfigurationTool
 
         }
 
+        private void setupColorSettingVars()
+        {
+            colorSettingVars = new Dictionary<string, string>()
+            {
+                {"Damage Number Colour (Minimum)", "damageNumbersColorMin"},
+                {"Damage Number Colour (Maximum)", "damageNumbersColorMax"},
+
+                {"Console Chat Colour - Friendly", "friendlyChatColor"},
+                {"Console Chat Colour - Enemy", "enemyChatColor"},
+                {"HUD Chat Colour - Friendly", "friendlyHUDChatColor"},
+                {"HUD Chat Colour - Enemy", "enemyHUDChatColor"},
+                
+                {"Player Name Colour - Friendly", "friendlyColor"},
+                {"Player Name Colour - Enemy", "enemyColor"},
+                {"Player Marker Colour - Friendly", "friendlyMarkerColor"},
+                {"Player Marker Colour - Enemy", "enemyMarkerColor"},
+                {"Friend Marker Colour - Friendly", "friendlyIsFMarkerColor"},
+                {"Friend Marker Colour - Enemy", "enemyIsFMarkerColor"}
+            };
+        }
+
         private string findMatchingLoadoutItem(string gameClass, string slot, string item)
         {
             for (int i = 0; i < loadoutDetails[gameClass][slot.ToLower()].Count; i++)
@@ -729,30 +609,6 @@ namespace TAModConfigurationTool
             numDamageNumberScale.Enabled = !radioDamageNumberHide.Checked;
             numDamageNumberXOffset.Enabled = !radioDamageNumberHide.Checked;
             numDamageNumberYOffset.Enabled = !radioDamageNumberHide.Checked;
-        }
-
-        private void radioDamageNumberColorCustom_CheckedChanged(object sender, EventArgs e)
-        {
-            numDamageNumberMaxColorA.Enabled = radioDamageNumberColorCustom.Checked;
-            numDamageNumberMaxColorR.Enabled = radioDamageNumberColorCustom.Checked;
-            numDamageNumberMaxColorG.Enabled = radioDamageNumberColorCustom.Checked;
-            numDamageNumberMaxColorB.Enabled = radioDamageNumberColorCustom.Checked;
-            numDamageNumberMinColorA.Enabled = radioDamageNumberColorCustom.Checked;
-            numDamageNumberMinColorR.Enabled = radioDamageNumberColorCustom.Checked;
-            numDamageNumberMinColorG.Enabled = radioDamageNumberColorCustom.Checked;
-            numDamageNumberMinColorB.Enabled = radioDamageNumberColorCustom.Checked;
-        }
-
-        private void radioChatColorCustom_CheckedChanged(object sender, EventArgs e)
-        {
-            numChatColorFriendlyA.Enabled = radioChatColorCustom.Checked;
-            numChatColorFriendlyR.Enabled = radioChatColorCustom.Checked;
-            numChatColorFriendlyG.Enabled = radioChatColorCustom.Checked;
-            numChatColorFriendlyB.Enabled = radioChatColorCustom.Checked;
-            numChatColorEnemyA.Enabled = radioChatColorCustom.Checked;
-            numChatColorEnemyR.Enabled = radioChatColorCustom.Checked;
-            numChatColorEnemyG.Enabled = radioChatColorCustom.Checked;
-            numChatColorEnemyB.Enabled = radioChatColorCustom.Checked;
         }
 
         private void checkShowCrosshair_CheckedChanged(object sender, EventArgs e)
@@ -803,18 +659,6 @@ namespace TAModConfigurationTool
                 listLoadouts.Items.Add(lNew);
             }
 
-        }
-
-        private void radioHUDChatColorCustom_CheckedChanged(object sender, EventArgs e)
-        {
-            numHUDChatColorFriendlyA.Enabled = radioHUDChatColorCustom.Checked;
-            numHUDChatColorFriendlyR.Enabled = radioHUDChatColorCustom.Checked;
-            numHUDChatColorFriendlyG.Enabled = radioHUDChatColorCustom.Checked;
-            numHUDChatColorFriendlyB.Enabled = radioHUDChatColorCustom.Checked;
-            numHUDChatColorEnemyA.Enabled = radioHUDChatColorCustom.Checked;
-            numHUDChatColorEnemyR.Enabled = radioHUDChatColorCustom.Checked;
-            numHUDChatColorEnemyG.Enabled = radioHUDChatColorCustom.Checked;
-            numHUDChatColorEnemyB.Enabled = radioHUDChatColorCustom.Checked;
         }
 
         private void updateCrosshairSelectors(object from)
@@ -987,7 +831,66 @@ namespace TAModConfigurationTool
             }
         }
 
-        
+        private void colorColorSettings_ColorUpdated(object sender, EventArgs e)
+        {
+            ConfigVarListItem currentItem = listColorSettings.SelectedItem as ConfigVarListItem;
+
+            if (currentItem != null)
+            {
+                if (currentItem.isOverridden)
+                {
+                    currentItem.value = colorColorSettings.getColor();
+                }
+                else
+                {
+                    currentItem.value = null;
+                }
+                
+            }
+        }
+
+        private void checkColorSettingOverride_CheckedChanged(object sender, EventArgs e)
+        {
+            colorColorSettings.Enabled = checkColorSettingOverride.Checked;
+
+            ConfigVarListItem currentItem = listColorSettings.SelectedItem as ConfigVarListItem;
+
+            if (currentItem != null)
+            {
+                currentItem.isOverridden = checkColorSettingOverride.Checked;
+
+                if (currentItem.isOverridden)
+                {
+                    colorColorSettings.setColor((Color)config.getConfigVarDefault(currentItem.var));
+                    currentItem.value = (Color)config.getConfigVarDefault(currentItem.var);
+                }
+            }
+
+            
+        }
+
+        private void listColorSettings_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            colorColorSettings.ColorUpdated -= new EventHandler(colorColorSettings_ColorUpdated);
+            checkColorSettingOverride.CheckedChanged -= new EventHandler(checkColorSettingOverride_CheckedChanged);
+
+            ConfigVarListItem currentItem = listColorSettings.SelectedItem as ConfigVarListItem;
+
+            if (currentItem != null)
+            {
+                checkColorSettingOverride.Checked = currentItem.isOverridden;
+                if (currentItem.isOverridden && currentItem.value != null)
+                {
+                    Color col = (Color)currentItem.value;
+                    colorColorSettings.setColor(col.R, col.G, col.B, col.A);
+                }
+                
+            }
+            colorColorSettings.Enabled = checkColorSettingOverride.Checked;
+
+            checkColorSettingOverride.CheckedChanged += new EventHandler(checkColorSettingOverride_CheckedChanged);
+            colorColorSettings.ColorUpdated += new EventHandler(colorColorSettings_ColorUpdated);
+        }
 
     }
 
@@ -1001,6 +904,7 @@ namespace TAModConfigurationTool
         private List<Loadout> configLoadouts;
         private List<CrosshairSetting> configCrosshairs;
         private List<MutedPlayer> configMutedPlayers;
+        private string configVersion = "v0.4";
 
         public Config(string configPath, string configFilename)
         {
@@ -1041,6 +945,7 @@ namespace TAModConfigurationTool
             {
                 { "showErrorNotifications", null },
                 { "showWeapon", null },
+                { "showRainbow", null },
                 { "showCrosshair", null },
                 { "crosshairScale", null },
                 { "showFirstPersonAmmo", null },
@@ -1066,19 +971,26 @@ namespace TAModConfigurationTool
                 { "showMineIcon", null },
                 { "showSensorIcon", null },
 
-                { "showRainbow", null },
                 { "damageNumbersColorMin", null },
                 { "damageNumbersColorMax", null },
                 { "friendlyChatColor", null },
                 { "enemyChatColor", null },
                 { "friendlyHUDChatColor", null },
                 { "enemyHUDChatColor", null },
+
+                { "friendlyColor", null },
+                { "enemyColor", null },
+                { "enemyMarkerColor", null },
+                { "enemyIsFMarkerColor", null },
+                { "friendlyMarkerColor", null },
+                { "friendlyIsFMarkerColor", null },
             };
 
             configVarsDefault = new Dictionary<String, Object>()
             {
                 { "showErrorNotifications", true },
                 { "showWeapon", true },
+                { "showRainbow", false },
                 { "showCrosshair", true },
                 { "crosshairScale", 1 },
                 { "showFirstPersonAmmo", false },
@@ -1104,13 +1016,19 @@ namespace TAModConfigurationTool
                 { "showSensorIcon", true },
                 { "showMineIcon", true },
 
-                { "showRainbow", false },
                 { "damageNumbersColorMin", rgb(255, 255, 255) },
                 { "damageNumbersColorMax", rgb(248, 83, 83) },
                 { "friendlyChatColor", rgb(158, 208, 212) },
                 { "enemyChatColor", rgb(255, 111, 111) },
                 { "friendlyHUDChatColor", rgb(158, 208, 211) },
                 { "enemyHUDChatColor", rgb(249, 32, 32) },
+
+                { "friendlyColor", rgb(119, 186, 255) },
+                { "enemyColor", rgb(248, 83, 83) },
+                { "enemyMarkerColor", rgb(255, 23, 23) },
+                { "enemyIsFMarkerColor", rgb(239, 164, 0) },
+                { "friendlyMarkerColor", rgb(115, 225, 255) },
+                { "friendlyIsFMarkerColor", rgb(81, 250, 85) },
             };
         }
 
@@ -1274,9 +1192,9 @@ namespace TAModConfigurationTool
 
                 List<string> flines = new List<string>();
 
-                flines.Add("------TAMod Lua Configuration Script------");
-                flines.Add("--Generated by TAMod Configuration Tool---");
-                flines.Add("------------------------------------------");
+                flines.Add("----------TAMod Lua Configuration Script----------");
+                flines.Add("------Generated by TAMod Configuration Tool " + configVersion + "--");
+                flines.Add("--------------------------------------------------");
                 flines.Add("");
 
 
@@ -1290,16 +1208,18 @@ namespace TAModConfigurationTool
                     {
                         if (value is Color)
                         {
-                            Color c = (Color)value;
-                            if (c.A == 255)
+                            if (configVars[variable] != null)
                             {
-                                flines.Add(variable + " = rgb(" + c.R + ", " + c.G + ", " + c.B + ")");
+                                Color c = (Color)value;
+                                if (c.A == 255)
+                                {
+                                    flines.Add(variable + " = rgb(" + c.R + ", " + c.G + ", " + c.B + ")");
+                                }
+                                else
+                                {
+                                    flines.Add(variable + " = rgba(" + c.R + ", " + c.G + ", " + c.B + ", " + c.A + ")");
+                                }
                             }
-                            else
-                            {
-                                flines.Add(variable + " = rgba(" + c.R + ", " + c.G + ", " + c.B + ", " + c.A + ")");
-                            }
-
                         }
                         else if (value is string)
                         {
@@ -1444,6 +1364,48 @@ namespace TAModConfigurationTool
             return gameClass;
         }
 
+    }
+
+    public class ConfigVarListItem : IComparable<ConfigVarListItem>
+    {
+
+        public readonly string name;
+        public readonly string var;
+        public bool isOverridden;
+        public object value;
+        
+        public ConfigVarListItem(string name, string var)
+        {
+            this.name = name;
+            this.var = var;
+            isOverridden = false;
+        }
+
+        public override string ToString()
+        {
+            return name;
+        }
+
+        public int CompareTo(ConfigVarListItem other)
+        {
+            return name.CompareTo(other.name);
+        }
+
+        public override bool Equals(object other)
+        {
+            ConfigVarListItem cother = other as ConfigVarListItem;
+            if (cother == null)
+            {
+                return false;
+            }
+
+            return (name.Equals(cother.name));
+        }
+
+        public override int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
     }
 
     public class Loadout : IComparable<Loadout>
@@ -1707,6 +1669,9 @@ namespace TAModConfigurationTool
         // The color represented 
         private Color color;
 
+        // Events
+        public event EventHandler ColorUpdated;
+
         public ColorSelector(string title, Color color) : base()
         {
             this.color = color;
@@ -1853,6 +1818,27 @@ namespace TAModConfigurationTool
             colorDisplay.BackColor = color;
             colorPicker.Color = color;
             initEventHandlers();
+
+            if (ColorUpdated != null)
+            {
+                ColorUpdated(this, EventArgs.Empty);
+            }
+        }
+
+        public void setColor(Color color)
+        {
+            this.color = color;
+            updateColorUI();
+        }
+
+        public void setColor(int r, int g, int b, int a)
+        {
+            setColor(Color.FromArgb(a, r, g, b));
+        }
+
+        public Color getColor()
+        {
+            return Color.FromArgb(color.A, color.R, color.G, color.B);
         }
 
         private void numColor_Changed(object sender, System.EventArgs e)

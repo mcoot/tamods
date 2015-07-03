@@ -55,6 +55,7 @@
             this.radioDamageNumberStream = new System.Windows.Forms.RadioButton();
             this.radioDamageNumberDiscrete = new System.Windows.Forms.RadioButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkDamageNumberRainbow = new System.Windows.Forms.CheckBox();
             this.label61 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.numDamageNumberYOffset = new System.Windows.Forms.NumericUpDown();
@@ -82,80 +83,10 @@
             this.checkShowCrosshair = new System.Windows.Forms.CheckBox();
             this.checkShowWeapon = new System.Windows.Forms.CheckBox();
             this.tabColor = new TAModConfigurationTool.TransTabPage();
-            this.panelColorSelectorTest = new TAModConfigurationTool.ColorSelector();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.label65 = new System.Windows.Forms.Label();
-            this.label45 = new System.Windows.Forms.Label();
-            this.boxHUDChatColorEnemy = new System.Windows.Forms.PictureBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.numHUDChatColorEnemyA = new System.Windows.Forms.NumericUpDown();
-            this.label47 = new System.Windows.Forms.Label();
-            this.numHUDChatColorEnemyB = new System.Windows.Forms.NumericUpDown();
-            this.label48 = new System.Windows.Forms.Label();
-            this.numHUDChatColorEnemyG = new System.Windows.Forms.NumericUpDown();
-            this.label49 = new System.Windows.Forms.Label();
-            this.numHUDChatColorEnemyR = new System.Windows.Forms.NumericUpDown();
-            this.label50 = new System.Windows.Forms.Label();
-            this.boxHUDChatColorFriendly = new System.Windows.Forms.PictureBox();
-            this.label51 = new System.Windows.Forms.Label();
-            this.numHUDChatColorFriendlyA = new System.Windows.Forms.NumericUpDown();
-            this.label52 = new System.Windows.Forms.Label();
-            this.numHUDChatColorFriendlyB = new System.Windows.Forms.NumericUpDown();
-            this.label53 = new System.Windows.Forms.Label();
-            this.numHUDChatColorFriendlyG = new System.Windows.Forms.NumericUpDown();
-            this.label54 = new System.Windows.Forms.Label();
-            this.numHUDChatColorFriendlyR = new System.Windows.Forms.NumericUpDown();
-            this.radioHUDChatColorCustom = new System.Windows.Forms.RadioButton();
-            this.radioHUDChatColorDefault = new System.Windows.Forms.RadioButton();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.label64 = new System.Windows.Forms.Label();
-            this.radioChatColorCustom = new System.Windows.Forms.RadioButton();
-            this.radioChatColorDefault = new System.Windows.Forms.RadioButton();
-            this.boxChatColorEnemy = new System.Windows.Forms.PictureBox();
-            this.numChatColorEnemyR = new System.Windows.Forms.NumericUpDown();
-            this.boxChatColorFriendly = new System.Windows.Forms.PictureBox();
-            this.label32 = new System.Windows.Forms.Label();
-            this.numChatColorFriendlyR = new System.Windows.Forms.NumericUpDown();
-            this.numChatColorEnemyG = new System.Windows.Forms.NumericUpDown();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.numChatColorFriendlyG = new System.Windows.Forms.NumericUpDown();
-            this.numChatColorEnemyB = new System.Windows.Forms.NumericUpDown();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.numChatColorFriendlyB = new System.Windows.Forms.NumericUpDown();
-            this.numChatColorEnemyA = new System.Windows.Forms.NumericUpDown();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.numChatColorFriendlyA = new System.Windows.Forms.NumericUpDown();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label63 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.boxDamageNumberMaxColor = new System.Windows.Forms.PictureBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.numDamageNumberMaxColorA = new System.Windows.Forms.NumericUpDown();
-            this.label20 = new System.Windows.Forms.Label();
-            this.numDamageNumberMaxColorB = new System.Windows.Forms.NumericUpDown();
-            this.label21 = new System.Windows.Forms.Label();
-            this.numDamageNumberMaxColorG = new System.Windows.Forms.NumericUpDown();
-            this.label22 = new System.Windows.Forms.Label();
-            this.numDamageNumberMaxColorR = new System.Windows.Forms.NumericUpDown();
-            this.label17 = new System.Windows.Forms.Label();
-            this.boxDamageNumberMinColor = new System.Windows.Forms.PictureBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.numDamageNumberMinColorA = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numDamageNumberMinColorB = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.numDamageNumberMinColorG = new System.Windows.Forms.NumericUpDown();
+            this.checkColorSettingOverride = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.numDamageNumberMinColorR = new System.Windows.Forms.NumericUpDown();
-            this.radioDamageNumberColorCustom = new System.Windows.Forms.RadioButton();
-            this.radioDamageNumberColorRainbow = new System.Windows.Forms.RadioButton();
-            this.radioDamageNumberColorDefault = new System.Windows.Forms.RadioButton();
+            this.listColorSettings = new System.Windows.Forms.ListBox();
+            this.colorColorSettings = new TAModConfigurationTool.ColorSelector();
             this.tabLoadout = new TAModConfigurationTool.TransTabPage();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label67 = new System.Windows.Forms.Label();
@@ -236,39 +167,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCrosshairScale)).BeginInit();
             this.tabColor.SuspendLayout();
-            this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxHUDChatColorEnemy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxHUDChatColorFriendly)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyR)).BeginInit();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxChatColorEnemy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxChatColorFriendly)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorFriendlyR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorFriendlyG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorFriendlyB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorFriendlyA)).BeginInit();
-            this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxDamageNumberMaxColor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMaxColorA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMaxColorB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMaxColorG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMaxColorR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxDamageNumberMinColor)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMinColorA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMinColorB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMinColorG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMinColorR)).BeginInit();
             this.tabLoadout.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -450,7 +348,7 @@
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Location = new System.Drawing.Point(211, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(325, 347);
+            this.panel2.Size = new System.Drawing.Size(325, 377);
             this.panel2.TabIndex = 3;
             // 
             // label60
@@ -474,7 +372,7 @@
             this.panel4.Controls.Add(this.radioDamageNumberCount);
             this.panel4.Controls.Add(this.radioDamageNumberStream);
             this.panel4.Controls.Add(this.radioDamageNumberDiscrete);
-            this.panel4.Location = new System.Drawing.Point(9, 190);
+            this.panel4.Location = new System.Drawing.Point(9, 224);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(310, 145);
             this.panel4.TabIndex = 5;
@@ -593,6 +491,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.checkDamageNumberRainbow);
             this.panel3.Controls.Add(this.label61);
             this.panel3.Controls.Add(this.label44);
             this.panel3.Controls.Add(this.numDamageNumberYOffset);
@@ -607,8 +506,19 @@
             this.panel3.Controls.Add(this.radioDamageNumberShow);
             this.panel3.Location = new System.Drawing.Point(9, 30);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(313, 162);
+            this.panel3.Size = new System.Drawing.Size(313, 188);
             this.panel3.TabIndex = 4;
+            // 
+            // checkDamageNumberRainbow
+            // 
+            this.checkDamageNumberRainbow.AutoSize = true;
+            this.checkDamageNumberRainbow.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkDamageNumberRainbow.Location = new System.Drawing.Point(4, 24);
+            this.checkDamageNumberRainbow.Name = "checkDamageNumberRainbow";
+            this.checkDamageNumberRainbow.Size = new System.Drawing.Size(166, 17);
+            this.checkDamageNumberRainbow.TabIndex = 24;
+            this.checkDamageNumberRainbow.Text = "Rainbow Damage Numbers";
+            this.checkDamageNumberRainbow.UseVisualStyleBackColor = true;
             // 
             // label61
             // 
@@ -624,7 +534,7 @@
             // 
             this.label44.AutoSize = true;
             this.label44.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.Location = new System.Drawing.Point(124, 128);
+            this.label44.Location = new System.Drawing.Point(124, 151);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(47, 13);
             this.label44.TabIndex = 22;
@@ -633,7 +543,7 @@
             // numDamageNumberYOffset
             // 
             this.numDamageNumberYOffset.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numDamageNumberYOffset.Location = new System.Drawing.Point(174, 126);
+            this.numDamageNumberYOffset.Location = new System.Drawing.Point(174, 149);
             this.numDamageNumberYOffset.Name = "numDamageNumberYOffset";
             this.numDamageNumberYOffset.Size = new System.Drawing.Size(66, 22);
             this.numDamageNumberYOffset.TabIndex = 21;
@@ -642,7 +552,7 @@
             // 
             this.label43.AutoSize = true;
             this.label43.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.Location = new System.Drawing.Point(4, 128);
+            this.label43.Location = new System.Drawing.Point(4, 151);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(48, 13);
             this.label43.TabIndex = 20;
@@ -651,7 +561,7 @@
             // numDamageNumberXOffset
             // 
             this.numDamageNumberXOffset.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numDamageNumberXOffset.Location = new System.Drawing.Point(52, 126);
+            this.numDamageNumberXOffset.Location = new System.Drawing.Point(52, 149);
             this.numDamageNumberXOffset.Name = "numDamageNumberXOffset";
             this.numDamageNumberXOffset.Size = new System.Drawing.Size(66, 22);
             this.numDamageNumberXOffset.TabIndex = 19;
@@ -660,7 +570,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(4, 100);
+            this.label16.Location = new System.Drawing.Point(4, 123);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(122, 13);
             this.label16.TabIndex = 18;
@@ -670,7 +580,7 @@
             // 
             this.numDamageNumberScale.DecimalPlaces = 2;
             this.numDamageNumberScale.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numDamageNumberScale.Location = new System.Drawing.Point(127, 98);
+            this.numDamageNumberScale.Location = new System.Drawing.Point(127, 121);
             this.numDamageNumberScale.Maximum = new decimal(new int[] {
             10,
             0,
@@ -694,7 +604,7 @@
             // 
             this.radioDamageNumberHide.AutoSize = true;
             this.radioDamageNumberHide.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioDamageNumberHide.Location = new System.Drawing.Point(4, 72);
+            this.radioDamageNumberHide.Location = new System.Drawing.Point(4, 95);
             this.radioDamageNumberHide.Name = "radioDamageNumberHide";
             this.radioDamageNumberHide.Size = new System.Drawing.Size(181, 17);
             this.radioDamageNumberHide.TabIndex = 16;
@@ -707,7 +617,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(259, 50);
+            this.label2.Location = new System.Drawing.Point(259, 73);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(23, 13);
             this.label2.TabIndex = 15;
@@ -716,7 +626,7 @@
             // numDamageNumberLimit
             // 
             this.numDamageNumberLimit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numDamageNumberLimit.Location = new System.Drawing.Point(187, 46);
+            this.numDamageNumberLimit.Location = new System.Drawing.Point(187, 69);
             this.numDamageNumberLimit.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -730,7 +640,7 @@
             // 
             this.radioDamageNumberLimit.AutoSize = true;
             this.radioDamageNumberLimit.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioDamageNumberLimit.Location = new System.Drawing.Point(4, 48);
+            this.radioDamageNumberLimit.Location = new System.Drawing.Point(4, 71);
             this.radioDamageNumberLimit.Name = "radioDamageNumberLimit";
             this.radioDamageNumberLimit.Size = new System.Drawing.Size(183, 17);
             this.radioDamageNumberLimit.TabIndex = 13;
@@ -743,7 +653,7 @@
             // 
             this.radioDamageNumberShow.AutoSize = true;
             this.radioDamageNumberShow.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioDamageNumberShow.Location = new System.Drawing.Point(4, 25);
+            this.radioDamageNumberShow.Location = new System.Drawing.Point(4, 48);
             this.radioDamageNumberShow.Name = "radioDamageNumberShow";
             this.radioDamageNumberShow.Size = new System.Drawing.Size(186, 17);
             this.radioDamageNumberShow.TabIndex = 12;
@@ -768,7 +678,7 @@
             this.panel1.Controls.Add(this.checkShowWeapon);
             this.panel1.Location = new System.Drawing.Point(5, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 347);
+            this.panel1.Size = new System.Drawing.Size(200, 377);
             this.panel1.TabIndex = 2;
             // 
             // label42
@@ -927,10 +837,10 @@
             // 
             // tabColor
             // 
-            this.tabColor.Controls.Add(this.panelColorSelectorTest);
-            this.tabColor.Controls.Add(this.panel7);
-            this.tabColor.Controls.Add(this.panel6);
-            this.tabColor.Controls.Add(this.panel5);
+            this.tabColor.Controls.Add(this.checkColorSettingOverride);
+            this.tabColor.Controls.Add(this.label3);
+            this.tabColor.Controls.Add(this.listColorSettings);
+            this.tabColor.Controls.Add(this.colorColorSettings);
             this.tabColor.Location = new System.Drawing.Point(4, 26);
             this.tabColor.Name = "tabColor";
             this.tabColor.Padding = new System.Windows.Forms.Padding(3);
@@ -939,894 +849,45 @@
             this.tabColor.Text = "Colour Settings";
             this.tabColor.UseVisualStyleBackColor = true;
             // 
-            // panelColorSelectorTest
-            // 
-            this.panelColorSelectorTest.Location = new System.Drawing.Point(560, 223);
-            this.panelColorSelectorTest.Name = "panelColorSelectorTest";
-            this.panelColorSelectorTest.Size = new System.Drawing.Size(120, 160);
-            this.panelColorSelectorTest.TabIndex = 9;
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.label65);
-            this.panel7.Controls.Add(this.label45);
-            this.panel7.Controls.Add(this.boxHUDChatColorEnemy);
-            this.panel7.Controls.Add(this.label46);
-            this.panel7.Controls.Add(this.numHUDChatColorEnemyA);
-            this.panel7.Controls.Add(this.label47);
-            this.panel7.Controls.Add(this.numHUDChatColorEnemyB);
-            this.panel7.Controls.Add(this.label48);
-            this.panel7.Controls.Add(this.numHUDChatColorEnemyG);
-            this.panel7.Controls.Add(this.label49);
-            this.panel7.Controls.Add(this.numHUDChatColorEnemyR);
-            this.panel7.Controls.Add(this.label50);
-            this.panel7.Controls.Add(this.boxHUDChatColorFriendly);
-            this.panel7.Controls.Add(this.label51);
-            this.panel7.Controls.Add(this.numHUDChatColorFriendlyA);
-            this.panel7.Controls.Add(this.label52);
-            this.panel7.Controls.Add(this.numHUDChatColorFriendlyB);
-            this.panel7.Controls.Add(this.label53);
-            this.panel7.Controls.Add(this.numHUDChatColorFriendlyG);
-            this.panel7.Controls.Add(this.label54);
-            this.panel7.Controls.Add(this.numHUDChatColorFriendlyR);
-            this.panel7.Controls.Add(this.radioHUDChatColorCustom);
-            this.panel7.Controls.Add(this.radioHUDChatColorDefault);
-            this.panel7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel7.Location = new System.Drawing.Point(560, 6);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(230, 211);
-            this.panel7.TabIndex = 8;
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(3, 4);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(100, 25);
-            this.label65.TabIndex = 73;
-            this.label65.Text = "HUD Chat";
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label45.Location = new System.Drawing.Point(125, 58);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(49, 17);
-            this.label45.TabIndex = 41;
-            this.label45.Text = "Enemy";
-            // 
-            // boxHUDChatColorEnemy
-            // 
-            this.boxHUDChatColorEnemy.BackColor = System.Drawing.Color.Black;
-            this.boxHUDChatColorEnemy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.boxHUDChatColorEnemy.Location = new System.Drawing.Point(125, 180);
-            this.boxHUDChatColorEnemy.Name = "boxHUDChatColorEnemy";
-            this.boxHUDChatColorEnemy.Size = new System.Drawing.Size(100, 27);
-            this.boxHUDChatColorEnemy.TabIndex = 40;
-            this.boxHUDChatColorEnemy.TabStop = false;
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(122, 155);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(37, 13);
-            this.label46.TabIndex = 37;
-            this.label46.Text = "Alpha";
-            // 
-            // numHUDChatColorEnemyA
-            // 
-            this.numHUDChatColorEnemyA.Location = new System.Drawing.Point(167, 153);
-            this.numHUDChatColorEnemyA.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorEnemyA.Name = "numHUDChatColorEnemyA";
-            this.numHUDChatColorEnemyA.Size = new System.Drawing.Size(57, 22);
-            this.numHUDChatColorEnemyA.TabIndex = 34;
-            this.numHUDChatColorEnemyA.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorEnemyA.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(122, 130);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(30, 13);
-            this.label47.TabIndex = 38;
-            this.label47.Text = "Blue";
-            // 
-            // numHUDChatColorEnemyB
-            // 
-            this.numHUDChatColorEnemyB.Location = new System.Drawing.Point(167, 128);
-            this.numHUDChatColorEnemyB.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorEnemyB.Name = "numHUDChatColorEnemyB";
-            this.numHUDChatColorEnemyB.Size = new System.Drawing.Size(57, 22);
-            this.numHUDChatColorEnemyB.TabIndex = 35;
-            this.numHUDChatColorEnemyB.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(122, 105);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(38, 13);
-            this.label48.TabIndex = 39;
-            this.label48.Text = "Green";
-            // 
-            // numHUDChatColorEnemyG
-            // 
-            this.numHUDChatColorEnemyG.Location = new System.Drawing.Point(167, 103);
-            this.numHUDChatColorEnemyG.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorEnemyG.Name = "numHUDChatColorEnemyG";
-            this.numHUDChatColorEnemyG.Size = new System.Drawing.Size(57, 22);
-            this.numHUDChatColorEnemyG.TabIndex = 36;
-            this.numHUDChatColorEnemyG.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(122, 80);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(27, 13);
-            this.label49.TabIndex = 33;
-            this.label49.Text = "Red";
-            // 
-            // numHUDChatColorEnemyR
-            // 
-            this.numHUDChatColorEnemyR.Location = new System.Drawing.Point(167, 78);
-            this.numHUDChatColorEnemyR.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorEnemyR.Name = "numHUDChatColorEnemyR";
-            this.numHUDChatColorEnemyR.Size = new System.Drawing.Size(57, 22);
-            this.numHUDChatColorEnemyR.TabIndex = 32;
-            this.numHUDChatColorEnemyR.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label50.Location = new System.Drawing.Point(4, 58);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(58, 17);
-            this.label50.TabIndex = 31;
-            this.label50.Text = "Friendly";
-            // 
-            // boxHUDChatColorFriendly
-            // 
-            this.boxHUDChatColorFriendly.BackColor = System.Drawing.Color.Black;
-            this.boxHUDChatColorFriendly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.boxHUDChatColorFriendly.Location = new System.Drawing.Point(4, 180);
-            this.boxHUDChatColorFriendly.Name = "boxHUDChatColorFriendly";
-            this.boxHUDChatColorFriendly.Size = new System.Drawing.Size(100, 27);
-            this.boxHUDChatColorFriendly.TabIndex = 30;
-            this.boxHUDChatColorFriendly.TabStop = false;
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(1, 155);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(37, 13);
-            this.label51.TabIndex = 29;
-            this.label51.Text = "Alpha";
-            // 
-            // numHUDChatColorFriendlyA
-            // 
-            this.numHUDChatColorFriendlyA.Location = new System.Drawing.Point(46, 153);
-            this.numHUDChatColorFriendlyA.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorFriendlyA.Name = "numHUDChatColorFriendlyA";
-            this.numHUDChatColorFriendlyA.Size = new System.Drawing.Size(57, 22);
-            this.numHUDChatColorFriendlyA.TabIndex = 26;
-            this.numHUDChatColorFriendlyA.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorFriendlyA.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(1, 130);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(30, 13);
-            this.label52.TabIndex = 28;
-            this.label52.Text = "Blue";
-            // 
-            // numHUDChatColorFriendlyB
-            // 
-            this.numHUDChatColorFriendlyB.Location = new System.Drawing.Point(46, 128);
-            this.numHUDChatColorFriendlyB.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorFriendlyB.Name = "numHUDChatColorFriendlyB";
-            this.numHUDChatColorFriendlyB.Size = new System.Drawing.Size(57, 22);
-            this.numHUDChatColorFriendlyB.TabIndex = 25;
-            this.numHUDChatColorFriendlyB.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(1, 105);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(38, 13);
-            this.label53.TabIndex = 27;
-            this.label53.Text = "Green";
-            // 
-            // numHUDChatColorFriendlyG
-            // 
-            this.numHUDChatColorFriendlyG.Location = new System.Drawing.Point(46, 103);
-            this.numHUDChatColorFriendlyG.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorFriendlyG.Name = "numHUDChatColorFriendlyG";
-            this.numHUDChatColorFriendlyG.Size = new System.Drawing.Size(57, 22);
-            this.numHUDChatColorFriendlyG.TabIndex = 24;
-            this.numHUDChatColorFriendlyG.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(1, 80);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(27, 13);
-            this.label54.TabIndex = 23;
-            this.label54.Text = "Red";
-            // 
-            // numHUDChatColorFriendlyR
-            // 
-            this.numHUDChatColorFriendlyR.Location = new System.Drawing.Point(46, 78);
-            this.numHUDChatColorFriendlyR.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numHUDChatColorFriendlyR.Name = "numHUDChatColorFriendlyR";
-            this.numHUDChatColorFriendlyR.Size = new System.Drawing.Size(57, 22);
-            this.numHUDChatColorFriendlyR.TabIndex = 22;
-            this.numHUDChatColorFriendlyR.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // radioHUDChatColorCustom
-            // 
-            this.radioHUDChatColorCustom.AutoSize = true;
-            this.radioHUDChatColorCustom.Location = new System.Drawing.Point(107, 33);
-            this.radioHUDChatColorCustom.Name = "radioHUDChatColorCustom";
-            this.radioHUDChatColorCustom.Size = new System.Drawing.Size(67, 17);
-            this.radioHUDChatColorCustom.TabIndex = 21;
-            this.radioHUDChatColorCustom.TabStop = true;
-            this.radioHUDChatColorCustom.Text = "Custom:";
-            this.radioHUDChatColorCustom.UseVisualStyleBackColor = true;
-            this.radioHUDChatColorCustom.CheckedChanged += new System.EventHandler(this.radioHUDChatColorCustom_CheckedChanged);
-            // 
-            // radioHUDChatColorDefault
-            // 
-            this.radioHUDChatColorDefault.AutoSize = true;
-            this.radioHUDChatColorDefault.Location = new System.Drawing.Point(3, 33);
-            this.radioHUDChatColorDefault.Name = "radioHUDChatColorDefault";
-            this.radioHUDChatColorDefault.Size = new System.Drawing.Size(101, 17);
-            this.radioHUDChatColorDefault.TabIndex = 20;
-            this.radioHUDChatColorDefault.TabStop = true;
-            this.radioHUDChatColorDefault.Text = "Default Colour";
-            this.radioHUDChatColorDefault.UseVisualStyleBackColor = true;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.label64);
-            this.panel6.Controls.Add(this.radioChatColorCustom);
-            this.panel6.Controls.Add(this.radioChatColorDefault);
-            this.panel6.Controls.Add(this.boxChatColorEnemy);
-            this.panel6.Controls.Add(this.numChatColorEnemyR);
-            this.panel6.Controls.Add(this.boxChatColorFriendly);
-            this.panel6.Controls.Add(this.label32);
-            this.panel6.Controls.Add(this.numChatColorFriendlyR);
-            this.panel6.Controls.Add(this.numChatColorEnemyG);
-            this.panel6.Controls.Add(this.label23);
-            this.panel6.Controls.Add(this.label31);
-            this.panel6.Controls.Add(this.numChatColorFriendlyG);
-            this.panel6.Controls.Add(this.numChatColorEnemyB);
-            this.panel6.Controls.Add(this.label24);
-            this.panel6.Controls.Add(this.label30);
-            this.panel6.Controls.Add(this.numChatColorFriendlyB);
-            this.panel6.Controls.Add(this.numChatColorEnemyA);
-            this.panel6.Controls.Add(this.label25);
-            this.panel6.Controls.Add(this.label29);
-            this.panel6.Controls.Add(this.numChatColorFriendlyA);
-            this.panel6.Controls.Add(this.label28);
-            this.panel6.Controls.Add(this.label27);
-            this.panel6.Controls.Add(this.label26);
-            this.panel6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel6.Location = new System.Drawing.Point(274, 6);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(263, 237);
-            this.panel6.TabIndex = 7;
-            // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label64.Location = new System.Drawing.Point(5, 4);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(83, 25);
-            this.label64.TabIndex = 72;
-            this.label64.Text = "Console";
-            // 
-            // radioChatColorCustom
-            // 
-            this.radioChatColorCustom.AutoSize = true;
-            this.radioChatColorCustom.Location = new System.Drawing.Point(6, 55);
-            this.radioChatColorCustom.Name = "radioChatColorCustom";
-            this.radioChatColorCustom.Size = new System.Drawing.Size(149, 17);
-            this.radioChatColorCustom.TabIndex = 11;
-            this.radioChatColorCustom.TabStop = true;
-            this.radioChatColorCustom.Text = "Custom Chat Colouring:";
-            this.radioChatColorCustom.UseVisualStyleBackColor = true;
-            this.radioChatColorCustom.CheckedChanged += new System.EventHandler(this.radioChatColorCustom_CheckedChanged);
-            // 
-            // radioChatColorDefault
-            // 
-            this.radioChatColorDefault.AutoSize = true;
-            this.radioChatColorDefault.Location = new System.Drawing.Point(6, 32);
-            this.radioChatColorDefault.Name = "radioChatColorDefault";
-            this.radioChatColorDefault.Size = new System.Drawing.Size(145, 17);
-            this.radioChatColorDefault.TabIndex = 10;
-            this.radioChatColorDefault.TabStop = true;
-            this.radioChatColorDefault.Text = "Default Chat Colouring";
-            this.radioChatColorDefault.UseVisualStyleBackColor = true;
-            // 
-            // boxChatColorEnemy
-            // 
-            this.boxChatColorEnemy.BackColor = System.Drawing.Color.Black;
-            this.boxChatColorEnemy.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.boxChatColorEnemy.Location = new System.Drawing.Point(126, 197);
-            this.boxChatColorEnemy.Name = "boxChatColorEnemy";
-            this.boxChatColorEnemy.Size = new System.Drawing.Size(100, 27);
-            this.boxChatColorEnemy.TabIndex = 45;
-            this.boxChatColorEnemy.TabStop = false;
-            // 
-            // numChatColorEnemyR
-            // 
-            this.numChatColorEnemyR.Location = new System.Drawing.Point(168, 95);
-            this.numChatColorEnemyR.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorEnemyR.Name = "numChatColorEnemyR";
-            this.numChatColorEnemyR.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorEnemyR.TabIndex = 14;
-            this.numChatColorEnemyR.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // boxChatColorFriendly
-            // 
-            this.boxChatColorFriendly.BackColor = System.Drawing.Color.Black;
-            this.boxChatColorFriendly.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.boxChatColorFriendly.Location = new System.Drawing.Point(7, 197);
-            this.boxChatColorFriendly.Name = "boxChatColorFriendly";
-            this.boxChatColorFriendly.Size = new System.Drawing.Size(100, 27);
-            this.boxChatColorFriendly.TabIndex = 44;
-            this.boxChatColorFriendly.TabStop = false;
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(123, 97);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(27, 13);
-            this.label32.TabIndex = 19;
-            this.label32.Text = "Red";
-            // 
-            // numChatColorFriendlyR
-            // 
-            this.numChatColorFriendlyR.Location = new System.Drawing.Point(49, 95);
-            this.numChatColorFriendlyR.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorFriendlyR.Name = "numChatColorFriendlyR";
-            this.numChatColorFriendlyR.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorFriendlyR.TabIndex = 12;
-            this.numChatColorFriendlyR.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // numChatColorEnemyG
-            // 
-            this.numChatColorEnemyG.Location = new System.Drawing.Point(168, 120);
-            this.numChatColorEnemyG.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorEnemyG.Name = "numChatColorEnemyG";
-            this.numChatColorEnemyG.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorEnemyG.TabIndex = 30;
-            this.numChatColorEnemyG.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(4, 97);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(27, 13);
-            this.label23.TabIndex = 17;
-            this.label23.Text = "Red";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(123, 122);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(38, 13);
-            this.label31.TabIndex = 37;
-            this.label31.Text = "Green";
-            // 
-            // numChatColorFriendlyG
-            // 
-            this.numChatColorFriendlyG.Location = new System.Drawing.Point(49, 120);
-            this.numChatColorFriendlyG.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorFriendlyG.Name = "numChatColorFriendlyG";
-            this.numChatColorFriendlyG.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorFriendlyG.TabIndex = 20;
-            this.numChatColorFriendlyG.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // numChatColorEnemyB
-            // 
-            this.numChatColorEnemyB.Location = new System.Drawing.Point(168, 145);
-            this.numChatColorEnemyB.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorEnemyB.Name = "numChatColorEnemyB";
-            this.numChatColorEnemyB.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorEnemyB.TabIndex = 24;
-            this.numChatColorEnemyB.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(4, 122);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(38, 13);
-            this.label24.TabIndex = 42;
-            this.label24.Text = "Green";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(123, 147);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(30, 13);
-            this.label30.TabIndex = 33;
-            this.label30.Text = "Blue";
-            // 
-            // numChatColorFriendlyB
-            // 
-            this.numChatColorFriendlyB.Location = new System.Drawing.Point(49, 145);
-            this.numChatColorFriendlyB.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorFriendlyB.Name = "numChatColorFriendlyB";
-            this.numChatColorFriendlyB.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorFriendlyB.TabIndex = 22;
-            this.numChatColorFriendlyB.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // numChatColorEnemyA
-            // 
-            this.numChatColorEnemyA.Location = new System.Drawing.Point(168, 170);
-            this.numChatColorEnemyA.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorEnemyA.Name = "numChatColorEnemyA";
-            this.numChatColorEnemyA.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorEnemyA.TabIndex = 26;
-            this.numChatColorEnemyA.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorEnemyA.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(4, 147);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(30, 13);
-            this.label25.TabIndex = 32;
-            this.label25.Text = "Blue";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(126, 75);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(49, 17);
-            this.label29.TabIndex = 51;
-            this.label29.Text = "Enemy";
-            // 
-            // numChatColorFriendlyA
-            // 
-            this.numChatColorFriendlyA.Location = new System.Drawing.Point(49, 170);
-            this.numChatColorFriendlyA.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorFriendlyA.Name = "numChatColorFriendlyA";
-            this.numChatColorFriendlyA.Size = new System.Drawing.Size(57, 22);
-            this.numChatColorFriendlyA.TabIndex = 29;
-            this.numChatColorFriendlyA.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numChatColorFriendlyA.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(123, 172);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(37, 13);
-            this.label28.TabIndex = 36;
-            this.label28.Text = "Alpha";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(7, 75);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(58, 17);
-            this.label27.TabIndex = 48;
-            this.label27.Text = "Friendly";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(4, 172);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(37, 13);
-            this.label26.TabIndex = 43;
-            this.label26.Text = "Alpha";
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.label63);
-            this.panel5.Controls.Add(this.label18);
-            this.panel5.Controls.Add(this.boxDamageNumberMaxColor);
-            this.panel5.Controls.Add(this.label19);
-            this.panel5.Controls.Add(this.numDamageNumberMaxColorA);
-            this.panel5.Controls.Add(this.label20);
-            this.panel5.Controls.Add(this.numDamageNumberMaxColorB);
-            this.panel5.Controls.Add(this.label21);
-            this.panel5.Controls.Add(this.numDamageNumberMaxColorG);
-            this.panel5.Controls.Add(this.label22);
-            this.panel5.Controls.Add(this.numDamageNumberMaxColorR);
-            this.panel5.Controls.Add(this.label17);
-            this.panel5.Controls.Add(this.boxDamageNumberMinColor);
-            this.panel5.Controls.Add(this.label6);
-            this.panel5.Controls.Add(this.numDamageNumberMinColorA);
-            this.panel5.Controls.Add(this.label5);
-            this.panel5.Controls.Add(this.numDamageNumberMinColorB);
-            this.panel5.Controls.Add(this.label4);
-            this.panel5.Controls.Add(this.numDamageNumberMinColorG);
-            this.panel5.Controls.Add(this.label3);
-            this.panel5.Controls.Add(this.numDamageNumberMinColorR);
-            this.panel5.Controls.Add(this.radioDamageNumberColorCustom);
-            this.panel5.Controls.Add(this.radioDamageNumberColorRainbow);
-            this.panel5.Controls.Add(this.radioDamageNumberColorDefault);
-            this.panel5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel5.Location = new System.Drawing.Point(6, 6);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(241, 237);
-            this.panel5.TabIndex = 6;
-            // 
-            // label63
-            // 
-            this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label63.Location = new System.Drawing.Point(4, 4);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(172, 25);
-            this.label63.TabIndex = 43;
-            this.label63.Text = "Damage Numbers";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(130, 75);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(70, 17);
-            this.label18.TabIndex = 42;
-            this.label18.Text = "Maximum";
-            // 
-            // boxDamageNumberMaxColor
-            // 
-            this.boxDamageNumberMaxColor.BackColor = System.Drawing.Color.Black;
-            this.boxDamageNumberMaxColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.boxDamageNumberMaxColor.Location = new System.Drawing.Point(130, 197);
-            this.boxDamageNumberMaxColor.Name = "boxDamageNumberMaxColor";
-            this.boxDamageNumberMaxColor.Size = new System.Drawing.Size(100, 27);
-            this.boxDamageNumberMaxColor.TabIndex = 41;
-            this.boxDamageNumberMaxColor.TabStop = false;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(127, 172);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(37, 13);
-            this.label19.TabIndex = 38;
-            this.label19.Text = "Alpha";
-            // 
-            // numDamageNumberMaxColorA
-            // 
-            this.numDamageNumberMaxColorA.Location = new System.Drawing.Point(172, 170);
-            this.numDamageNumberMaxColorA.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMaxColorA.Name = "numDamageNumberMaxColorA";
-            this.numDamageNumberMaxColorA.Size = new System.Drawing.Size(57, 22);
-            this.numDamageNumberMaxColorA.TabIndex = 35;
-            this.numDamageNumberMaxColorA.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMaxColorA.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(127, 147);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(30, 13);
-            this.label20.TabIndex = 39;
-            this.label20.Text = "Blue";
-            // 
-            // numDamageNumberMaxColorB
-            // 
-            this.numDamageNumberMaxColorB.Location = new System.Drawing.Point(172, 145);
-            this.numDamageNumberMaxColorB.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMaxColorB.Name = "numDamageNumberMaxColorB";
-            this.numDamageNumberMaxColorB.Size = new System.Drawing.Size(57, 22);
-            this.numDamageNumberMaxColorB.TabIndex = 36;
-            this.numDamageNumberMaxColorB.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(127, 122);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(38, 13);
-            this.label21.TabIndex = 40;
-            this.label21.Text = "Green";
-            // 
-            // numDamageNumberMaxColorG
-            // 
-            this.numDamageNumberMaxColorG.Location = new System.Drawing.Point(172, 120);
-            this.numDamageNumberMaxColorG.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMaxColorG.Name = "numDamageNumberMaxColorG";
-            this.numDamageNumberMaxColorG.Size = new System.Drawing.Size(57, 22);
-            this.numDamageNumberMaxColorG.TabIndex = 37;
-            this.numDamageNumberMaxColorG.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(127, 97);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(27, 13);
-            this.label22.TabIndex = 34;
-            this.label22.Text = "Red";
-            // 
-            // numDamageNumberMaxColorR
-            // 
-            this.numDamageNumberMaxColorR.Location = new System.Drawing.Point(172, 95);
-            this.numDamageNumberMaxColorR.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMaxColorR.Name = "numDamageNumberMaxColorR";
-            this.numDamageNumberMaxColorR.Size = new System.Drawing.Size(57, 22);
-            this.numDamageNumberMaxColorR.TabIndex = 33;
-            this.numDamageNumberMaxColorR.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(9, 75);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(68, 17);
-            this.label17.TabIndex = 32;
-            this.label17.Text = "Minimum";
-            // 
-            // boxDamageNumberMinColor
-            // 
-            this.boxDamageNumberMinColor.BackColor = System.Drawing.Color.Black;
-            this.boxDamageNumberMinColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.boxDamageNumberMinColor.Location = new System.Drawing.Point(9, 197);
-            this.boxDamageNumberMinColor.Name = "boxDamageNumberMinColor";
-            this.boxDamageNumberMinColor.Size = new System.Drawing.Size(100, 27);
-            this.boxDamageNumberMinColor.TabIndex = 31;
-            this.boxDamageNumberMinColor.TabStop = false;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 172);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 13);
-            this.label6.TabIndex = 30;
-            this.label6.Text = "Alpha";
-            // 
-            // numDamageNumberMinColorA
-            // 
-            this.numDamageNumberMinColorA.Location = new System.Drawing.Point(51, 170);
-            this.numDamageNumberMinColorA.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMinColorA.Name = "numDamageNumberMinColorA";
-            this.numDamageNumberMinColorA.Size = new System.Drawing.Size(57, 22);
-            this.numDamageNumberMinColorA.TabIndex = 27;
-            this.numDamageNumberMinColorA.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMinColorA.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 147);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 13);
-            this.label5.TabIndex = 29;
-            this.label5.Text = "Blue";
-            // 
-            // numDamageNumberMinColorB
-            // 
-            this.numDamageNumberMinColorB.Location = new System.Drawing.Point(51, 145);
-            this.numDamageNumberMinColorB.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMinColorB.Name = "numDamageNumberMinColorB";
-            this.numDamageNumberMinColorB.Size = new System.Drawing.Size(57, 22);
-            this.numDamageNumberMinColorB.TabIndex = 26;
-            this.numDamageNumberMinColorB.ValueChanged += new System.EventHandler(this.numColor_changed);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 122);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 13);
-            this.label4.TabIndex = 28;
-            this.label4.Text = "Green";
-            // 
-            // numDamageNumberMinColorG
-            // 
-            this.numDamageNumberMinColorG.Location = new System.Drawing.Point(51, 120);
-            this.numDamageNumberMinColorG.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMinColorG.Name = "numDamageNumberMinColorG";
-            this.numDamageNumberMinColorG.Size = new System.Drawing.Size(57, 22);
-            this.numDamageNumberMinColorG.TabIndex = 25;
-            this.numDamageNumberMinColorG.ValueChanged += new System.EventHandler(this.numColor_changed);
+            // checkColorSettingOverride
+            // 
+            this.checkColorSettingOverride.AutoSize = true;
+            this.checkColorSettingOverride.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkColorSettingOverride.Location = new System.Drawing.Point(317, 82);
+            this.checkColorSettingOverride.Name = "checkColorSettingOverride";
+            this.checkColorSettingOverride.Size = new System.Drawing.Size(133, 17);
+            this.checkColorSettingOverride.TabIndex = 12;
+            this.checkColorSettingOverride.Text = "Override This Setting";
+            this.checkColorSettingOverride.UseVisualStyleBackColor = true;
+            this.checkColorSettingOverride.CheckedChanged += new System.EventHandler(this.checkColorSettingOverride_CheckedChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 97);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(6, 3);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(27, 13);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "Red";
+            this.label3.Size = new System.Drawing.Size(150, 25);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Colour Settings";
             // 
-            // numDamageNumberMinColorR
+            // listColorSettings
             // 
-            this.numDamageNumberMinColorR.Location = new System.Drawing.Point(51, 95);
-            this.numDamageNumberMinColorR.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numDamageNumberMinColorR.Name = "numDamageNumberMinColorR";
-            this.numDamageNumberMinColorR.Size = new System.Drawing.Size(57, 22);
-            this.numDamageNumberMinColorR.TabIndex = 23;
-            this.numDamageNumberMinColorR.ValueChanged += new System.EventHandler(this.numColor_changed);
+            this.listColorSettings.FormattingEnabled = true;
+            this.listColorSettings.ItemHeight = 17;
+            this.listColorSettings.Location = new System.Drawing.Point(11, 31);
+            this.listColorSettings.Name = "listColorSettings";
+            this.listColorSettings.Size = new System.Drawing.Size(300, 378);
+            this.listColorSettings.TabIndex = 10;
+            this.listColorSettings.SelectedIndexChanged += new System.EventHandler(this.listColorSettings_SelectedIndexChanged);
             // 
-            // radioDamageNumberColorCustom
+            // colorColorSettings
             // 
-            this.radioDamageNumberColorCustom.AutoSize = true;
-            this.radioDamageNumberColorCustom.Location = new System.Drawing.Point(9, 55);
-            this.radioDamageNumberColorCustom.Name = "radioDamageNumberColorCustom";
-            this.radioDamageNumberColorCustom.Size = new System.Drawing.Size(67, 17);
-            this.radioDamageNumberColorCustom.TabIndex = 22;
-            this.radioDamageNumberColorCustom.TabStop = true;
-            this.radioDamageNumberColorCustom.Text = "Custom:";
-            this.radioDamageNumberColorCustom.UseVisualStyleBackColor = true;
-            this.radioDamageNumberColorCustom.CheckedChanged += new System.EventHandler(this.radioDamageNumberColorCustom_CheckedChanged);
-            // 
-            // radioDamageNumberColorRainbow
-            // 
-            this.radioDamageNumberColorRainbow.AutoSize = true;
-            this.radioDamageNumberColorRainbow.Location = new System.Drawing.Point(122, 33);
-            this.radioDamageNumberColorRainbow.Name = "radioDamageNumberColorRainbow";
-            this.radioDamageNumberColorRainbow.Size = new System.Drawing.Size(108, 17);
-            this.radioDamageNumberColorRainbow.TabIndex = 21;
-            this.radioDamageNumberColorRainbow.TabStop = true;
-            this.radioDamageNumberColorRainbow.Text = "Pretty Rainbows";
-            this.radioDamageNumberColorRainbow.UseVisualStyleBackColor = true;
-            // 
-            // radioDamageNumberColorDefault
-            // 
-            this.radioDamageNumberColorDefault.AutoSize = true;
-            this.radioDamageNumberColorDefault.Location = new System.Drawing.Point(9, 32);
-            this.radioDamageNumberColorDefault.Name = "radioDamageNumberColorDefault";
-            this.radioDamageNumberColorDefault.Size = new System.Drawing.Size(101, 17);
-            this.radioDamageNumberColorDefault.TabIndex = 20;
-            this.radioDamageNumberColorDefault.TabStop = true;
-            this.radioDamageNumberColorDefault.Text = "Default Colour";
-            this.radioDamageNumberColorDefault.UseVisualStyleBackColor = true;
+            this.colorColorSettings.Enabled = false;
+            this.colorColorSettings.Location = new System.Drawing.Point(317, 105);
+            this.colorColorSettings.Name = "colorColorSettings";
+            this.colorColorSettings.Size = new System.Drawing.Size(120, 170);
+            this.colorColorSettings.TabIndex = 9;
             // 
             // tabLoadout
             // 
@@ -2524,7 +1585,7 @@
             this.MinimumSize = new System.Drawing.Size(960, 540);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TAMod Configuration Tool";
+            this.Text = "TAMod Configuration Tool v0.4";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
@@ -2548,42 +1609,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCrosshairScale)).EndInit();
             this.tabColor.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxHUDChatColorEnemy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorEnemyR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxHUDChatColorFriendly)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numHUDChatColorFriendlyR)).EndInit();
-            this.panel6.ResumeLayout(false);
-            this.panel6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxChatColorEnemy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxChatColorFriendly)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorFriendlyR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorFriendlyG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorFriendlyB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorEnemyA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numChatColorFriendlyA)).EndInit();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxDamageNumberMaxColor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMaxColorA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMaxColorB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMaxColorG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMaxColorR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxDamageNumberMinColor)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMinColorA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMinColorB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMinColorG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberMinColorR)).EndInit();
+            this.tabColor.PerformLayout();
             this.tabLoadout.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
@@ -2641,76 +1667,6 @@
         private System.Windows.Forms.NumericUpDown numCrosshairScale;
         private System.Windows.Forms.CheckBox checkShowCrosshair;
         private System.Windows.Forms.CheckBox checkShowWeapon;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.PictureBox boxHUDChatColorEnemy;
-        private System.Windows.Forms.Label label46;
-        private System.Windows.Forms.NumericUpDown numHUDChatColorEnemyA;
-        private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.NumericUpDown numHUDChatColorEnemyB;
-        private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.NumericUpDown numHUDChatColorEnemyG;
-        private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.NumericUpDown numHUDChatColorEnemyR;
-        private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.PictureBox boxHUDChatColorFriendly;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.NumericUpDown numHUDChatColorFriendlyA;
-        private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.NumericUpDown numHUDChatColorFriendlyB;
-        private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.NumericUpDown numHUDChatColorFriendlyG;
-        private System.Windows.Forms.Label label54;
-        private System.Windows.Forms.NumericUpDown numHUDChatColorFriendlyR;
-        private System.Windows.Forms.RadioButton radioHUDChatColorCustom;
-        private System.Windows.Forms.RadioButton radioHUDChatColorDefault;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.RadioButton radioChatColorCustom;
-        private System.Windows.Forms.RadioButton radioChatColorDefault;
-        private System.Windows.Forms.PictureBox boxChatColorEnemy;
-        private System.Windows.Forms.NumericUpDown numChatColorEnemyR;
-        private System.Windows.Forms.PictureBox boxChatColorFriendly;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.NumericUpDown numChatColorFriendlyR;
-        private System.Windows.Forms.NumericUpDown numChatColorEnemyG;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.NumericUpDown numChatColorFriendlyG;
-        private System.Windows.Forms.NumericUpDown numChatColorEnemyB;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.NumericUpDown numChatColorFriendlyB;
-        private System.Windows.Forms.NumericUpDown numChatColorEnemyA;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.NumericUpDown numChatColorFriendlyA;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.PictureBox boxDamageNumberMaxColor;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.NumericUpDown numDamageNumberMaxColorA;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.NumericUpDown numDamageNumberMaxColorB;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.NumericUpDown numDamageNumberMaxColorG;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.NumericUpDown numDamageNumberMaxColorR;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.PictureBox boxDamageNumberMinColor;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numDamageNumberMinColorA;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numDamageNumberMinColorB;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numDamageNumberMinColorG;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown numDamageNumberMinColorR;
-        private System.Windows.Forms.RadioButton radioDamageNumberColorCustom;
-        private System.Windows.Forms.RadioButton radioDamageNumberColorRainbow;
-        private System.Windows.Forms.RadioButton radioDamageNumberColorDefault;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.ComboBox selectLoadoutPerk2;
         private System.Windows.Forms.Label label15;
@@ -2754,9 +1710,6 @@
         private System.Windows.Forms.Label label62;
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.Label label63;
-        private System.Windows.Forms.Label label65;
         private System.Windows.Forms.Label label67;
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.Label label68;
@@ -2800,7 +1753,11 @@
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.NumericUpDown numSkiBarMin;
         private System.Windows.Forms.Label label39;
-        private ColorSelector panelColorSelectorTest;
+        private ColorSelector colorColorSettings;
+        private System.Windows.Forms.CheckBox checkDamageNumberRainbow;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListBox listColorSettings;
+        private System.Windows.Forms.CheckBox checkColorSettingOverride;
     }
 }
 
