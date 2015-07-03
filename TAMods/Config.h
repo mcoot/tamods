@@ -160,13 +160,16 @@ public:
 	CustomProjectile(int pweapon_id)
 		: weapon_id(0)
 	{
-		auto wep = Data::weapon_id_to_name.find(pweapon_id);
-		if (wep == Data::weapon_id_to_name.end())
+		auto wep = Data::weapon_id_to_proj_name.find(pweapon_id);
+		if (wep == Data::weapon_id_to_proj_name.end())
 			return;
 		std::string def_proj_name = "TrProj_" + wep->second + " TribesGame.Default__TrProj_" + wep->second;
 		default_proj = UObject::FindObject<ATrProjectile>(def_proj_name.c_str());
 		if (!default_proj)
+		{
+			Utils::console("ERROR: Projectile could not be found for weapon #%d PLEASE REPORT TO /u/ensiss", pweapon_id);
 			return;
+		}
 		default_ps = default_proj->ProjFlightTemplate;
 		weapon_id = pweapon_id;
 		custom_ps = cloneParticleSystem(default_ps);

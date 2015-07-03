@@ -391,6 +391,11 @@ static UParticleSystem *config_getProjectile(const std::string &pclass, const st
 	if (it == g_config.wep_id_to_custom_proj.end())
 	{
 		proj = new CustomProjectile(weapon_id);
+		if (!proj->weapon_id)
+		{
+			delete proj;
+			return NULL;
+		}
 		g_config.wep_id_to_custom_proj[weapon_id] = proj;
 		g_config.proj_class_to_custom_proj[(int) proj->default_proj->Class] = proj;
 	}
@@ -411,6 +416,11 @@ static void config_setProjectile(const std::string &pclass, const std::string &w
 	if (it == g_config.wep_id_to_custom_proj.end())
 	{
 		proj = new CustomProjectile(weapon_id);
+		if (!proj->weapon_id)
+		{
+			delete proj;
+			return;
+		}
 		g_config.wep_id_to_custom_proj[weapon_id] = proj;
 		g_config.proj_class_to_custom_proj[(int)proj->default_proj->Class] = proj;
 	}
