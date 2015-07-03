@@ -1,5 +1,7 @@
 #include "Config.h"
 
+std::vector<UParticleSystem *> CustomProjectile::clonedPS;
+
 Config g_config;
 
 Config::Config()
@@ -25,6 +27,15 @@ void Config::reset()
 			loadouts[i][j] = NULL;
 		}
 	}
+
+	// Delete custom projectiles
+	for (unsigned int i = 0; i < CustomProjectile::clonedPS.size(); i++)
+		CustomProjectile::freeParticleSystem(CustomProjectile::clonedPS[i]);
+	CustomProjectile::clonedPS.clear();
+	for (auto &it : wep_id_to_custom_proj)
+		delete it.second;
+	wep_id_to_custom_proj.clear();
+	proj_class_to_custom_proj.clear();
 	
 	showErrorNotifications = true;
 	showWeapon = true;

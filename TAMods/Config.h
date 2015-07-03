@@ -66,6 +66,16 @@ struct MutedPlayer
 struct CustomProjectile
 {
 private:
+	static void _freeModules(TArray<UParticleModule *> &mod)
+	{
+		for (int i = 0; i < mod.Count; i++)
+		{
+			ParticleModuleHelper::freeModuleTArrays(mod.Data[i]);
+			free(mod.Data[i]);
+		}
+		free(mod.Data);
+	}
+
 	static void _cloneModules(TArray<UParticleModule *> &out, TArray<UParticleModule *> &in)
 	{
 		out.Data = (UParticleModule **)malloc(in.Count * sizeof(UParticleModule *));
@@ -74,6 +84,28 @@ private:
 	}
 
 public:
+	static void freeParticleSystem(UParticleSystem *ps)
+	{
+		for (int em = 0; em < ps->Emitters.Count; em++)
+		{
+			UParticleEmitter *psem = ps->Emitters.Data[em];
+
+			for (int lod = 0; lod < psem->LODLevels.Count; lod++)
+			{
+				UParticleLODLevel *pslod = psem->LODLevels.Data[lod];
+
+				free(pslod->Modules.Data);
+				_freeModules(pslod->SpawnModules);
+				_freeModules(pslod->UpdateModules);
+				free(psem->LODLevels.Data[lod]);
+			}
+			free(psem->LODLevels.Data);
+			free(ps->Emitters.Data[em]);
+		}
+		free(ps->Emitters.Data);
+		free(ps);
+	}
+
 	static UParticleSystem *cloneParticleSystem(UParticleSystem *ps)
 	{
 		UParticleSystem *out = (UParticleSystem *)malloc(sizeof(UParticleSystem));
@@ -113,6 +145,7 @@ public:
 					outlod->Modules.Data[i] = outlod->SpawnModules.Data[i];
 			}
 		}
+		clonedPS.push_back(out);
 		return out;
 	}
 
@@ -141,13 +174,14 @@ public:
 
 	~CustomProjectile()
 	{
-		delete custom_ps;
 	}
 
 	int weapon_id;
 	ATrProjectile *default_proj;
 	UParticleSystem *default_ps;
 	UParticleSystem *custom_ps;
+
+	static std::vector<UParticleSystem *> clonedPS;
 };
 
 class Config
