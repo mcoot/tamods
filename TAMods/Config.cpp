@@ -1,6 +1,8 @@
 #include "Config.h"
 
-std::vector<UParticleSystem *> CustomProjectile::clonedPS;
+std::queue<UParticleSystem *> CustomProjectile::usedPS;
+std::queue<UParticleSystem *> CustomProjectile::freePS;
+std::queue<int> CustomProjectile::freeTimes;
 
 Config g_config;
 
@@ -28,10 +30,14 @@ void Config::reset()
 		}
 	}
 
-	// Delete custom projectiles
-	for (unsigned int i = 0; i < CustomProjectile::clonedPS.size(); i++)
-		CustomProjectile::freeParticleSystem(CustomProjectile::clonedPS[i]);
-	CustomProjectile::clonedPS.clear();
+	// Mark custom projectiles "free"
+	int timesec = clock() / CLOCKS_PER_SEC;
+	while (CustomProjectile::usedPS.size())
+	{
+		CustomProjectile::freePS.push(CustomProjectile::usedPS.front());
+		CustomProjectile::freeTimes.push(timesec);
+		CustomProjectile::usedPS.pop();
+	}
 	for (auto &it : wep_id_to_custom_proj)
 		delete it.second;
 	wep_id_to_custom_proj.clear();

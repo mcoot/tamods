@@ -27,6 +27,7 @@ namespace Utils
 	void printConsole(const std::string &str);
 	void printConsole(const std::string &str, const FColor &col);
 
+	extern UEngine *engine;
 	extern ATrPlayerController *tr_pc;
 	extern UTrGameViewportClient *tr_gvc;
 };

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <regex>
+#include <queue>
 #include <map>
 #include "Loadout.h"
 #include "Utils.h"
@@ -103,12 +104,23 @@ public:
 			free(ps->Emitters.Data[em]);
 		}
 		free(ps->Emitters.Data);
-		free(ps);
 	}
 
 	static UParticleSystem *cloneParticleSystem(UParticleSystem *ps)
 	{
-		UParticleSystem *out = (UParticleSystem *)malloc(sizeof(UParticleSystem));
+		int timesec = clock() / CLOCKS_PER_SEC;
+		UParticleSystem *out = NULL;
+
+		// 10 secs is the time a static straight up mortar takes to fall down, so 20 should be safe
+		if (freePS.size() && timesec - freeTimes.front() > 20)
+		{
+			out = freePS.front();
+			freeParticleSystem(out);
+			freePS.pop();
+			freeTimes.pop();
+		}
+		else
+			out = (UParticleSystem *)malloc(sizeof(UParticleSystem));
 		memcpy(out, ps, sizeof(UParticleSystem));
 		out->Emitters.Data = (UParticleEmitter **)malloc(ps->Emitters.Count * sizeof(UParticleEmitter *));
 
@@ -145,7 +157,7 @@ public:
 					outlod->Modules.Data[i] = outlod->SpawnModules.Data[i];
 			}
 		}
-		clonedPS.push_back(out);
+		usedPS.push(out);
 		return out;
 	}
 
@@ -184,7 +196,9 @@ public:
 	UParticleSystem *default_ps;
 	UParticleSystem *custom_ps;
 
-	static std::vector<UParticleSystem *> clonedPS;
+	static std::queue<UParticleSystem *> usedPS;
+	static std::queue<UParticleSystem *> freePS;
+	static std::queue<int> freeTimes;
 };
 
 class Config
