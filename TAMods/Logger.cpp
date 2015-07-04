@@ -26,6 +26,11 @@ void Logger::quiet()
 	_quiet = true;
 }
 
+bool Logger::isQuiet()
+{
+	return _quiet;
+}
+
 void Logger::log(const char *format, ...)
 {
 	char buff[256];

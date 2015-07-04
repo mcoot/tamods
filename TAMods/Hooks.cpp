@@ -40,7 +40,7 @@ bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *
 		char *CallingName = pCallObject->GetFullName();
 
 		// Print hookable functions, only once per object/function
-		if (_print_hookable && order == Hooks::PRE)
+		if (_print_hookable && order == Hooks::PRE && !Logger::isQuiet())
 		{
 			std::string str = std::string(CallingName) + "::" + std::string(FunctionName);
 			if (std::find(dispatched_funcs.begin(), dispatched_funcs.end(), str) == dispatched_funcs.end())
