@@ -280,4 +280,5 @@ public:
 
 	// Bools for reloading
 	bool shouldReloadGfxTrHud;
+	bool shouldReloadCrosshairs;
 };

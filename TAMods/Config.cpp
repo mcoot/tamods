@@ -110,6 +110,7 @@ void Config::reset()
 
 	// Bools for reloading
 	shouldReloadGfxTrHud = true;
+	shouldReloadCrosshairs = true;
 }
 
 void Config::parseFile()
