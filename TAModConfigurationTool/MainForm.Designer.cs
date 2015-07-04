@@ -138,16 +138,51 @@
             this.boxCrosshairNormalPreview = new System.Windows.Forms.PictureBox();
             this.tabMute = new TAModConfigurationTool.TransTabPage();
             this.panel15 = new System.Windows.Forms.Panel();
+            this.label23 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.checkMuteDirectMessages = new System.Windows.Forms.CheckBox();
             this.checkMuteText = new System.Windows.Forms.CheckBox();
             this.checkMuteVGS = new System.Windows.Forms.CheckBox();
             this.textMute = new System.Windows.Forms.TextBox();
-            this.label37 = new System.Windows.Forms.Label();
             this.btnMuteDelete = new System.Windows.Forms.Button();
             this.btnMuteAdd = new System.Windows.Forms.Button();
             this.label36 = new System.Windows.Forms.Label();
             this.listMute = new System.Windows.Forms.ListBox();
+            this.tabProjectiles = new TAModConfigurationTool.TransTabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.numProjectileSettingIntensity = new System.Windows.Forms.NumericUpDown();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.colorProjectileSetting = new TAModConfigurationTool.ColorSelector();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.selectProjectileSettingWeapon = new System.Windows.Forms.ComboBox();
+            this.selectProjectileSettingClass = new System.Windows.Forms.ComboBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
+            this.btnProjectileSettingDelete = new System.Windows.Forms.Button();
+            this.btnProjectileSettingSave = new System.Windows.Forms.Button();
+            this.listProjectileSetting = new System.Windows.Forms.ListBox();
+            this.tabProjSwap = new TAModConfigurationTool.TransTabPage();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.selectProjectileSwapWeapon_Swap = new System.Windows.Forms.ComboBox();
+            this.selectProjectileSwapClass_Swap = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.checkProjectileSwapClone = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.selectProjectileSwapWeapon = new System.Windows.Forms.ComboBox();
+            this.selectProjectileSwapClass = new System.Windows.Forms.ComboBox();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.label21 = new System.Windows.Forms.Label();
+            this.btnProjectileSwapDelete = new System.Windows.Forms.Button();
+            this.btnProjectileSwapSave = new System.Windows.Forms.Button();
+            this.listProjectileSwap = new System.Windows.Forms.ListBox();
+            this.tabHitSounds = new TAModConfigurationTool.TransTabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSaveConfig = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
@@ -179,6 +214,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).BeginInit();
             this.tabMute.SuspendLayout();
             this.panel15.SuspendLayout();
+            this.tabProjectiles.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numProjectileSettingIntensity)).BeginInit();
+            this.panel6.SuspendLayout();
+            this.tabProjSwap.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel16.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -205,6 +247,9 @@
             this.tabControlMain.Controls.Add(this.tabLoadout);
             this.tabControlMain.Controls.Add(this.tabCrosshair);
             this.tabControlMain.Controls.Add(this.tabMute);
+            this.tabControlMain.Controls.Add(this.tabProjectiles);
+            this.tabControlMain.Controls.Add(this.tabProjSwap);
+            this.tabControlMain.Controls.Add(this.tabHitSounds);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlMain.Location = new System.Drawing.Point(3, 3);
@@ -1436,22 +1481,32 @@
             // 
             // panel15
             // 
+            this.panel15.Controls.Add(this.label23);
             this.panel15.Controls.Add(this.label38);
             this.panel15.Controls.Add(this.checkMuteDirectMessages);
             this.panel15.Controls.Add(this.checkMuteText);
             this.panel15.Controls.Add(this.checkMuteVGS);
             this.panel15.Controls.Add(this.textMute);
-            this.panel15.Controls.Add(this.label37);
             this.panel15.Location = new System.Drawing.Point(7, 6);
             this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(259, 142);
+            this.panel15.Size = new System.Drawing.Size(259, 133);
             this.panel15.TabIndex = 51;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(3, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(131, 25);
+            this.label23.TabIndex = 61;
+            this.label23.Text = "Player Details";
             // 
             // label38
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.label38.Location = new System.Drawing.Point(4, 37);
+            this.label38.Location = new System.Drawing.Point(4, 36);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(36, 13);
             this.label38.TabIndex = 60;
@@ -1460,19 +1515,21 @@
             // checkMuteDirectMessages
             // 
             this.checkMuteDirectMessages.AutoSize = true;
+            this.checkMuteDirectMessages.Enabled = false;
             this.checkMuteDirectMessages.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.checkMuteDirectMessages.Location = new System.Drawing.Point(7, 105);
+            this.checkMuteDirectMessages.Location = new System.Drawing.Point(7, 104);
             this.checkMuteDirectMessages.Name = "checkMuteDirectMessages";
             this.checkMuteDirectMessages.Size = new System.Drawing.Size(120, 17);
             this.checkMuteDirectMessages.TabIndex = 59;
             this.checkMuteDirectMessages.Text = "Mute @ Messages";
             this.checkMuteDirectMessages.UseVisualStyleBackColor = true;
+            this.checkMuteDirectMessages.Visible = false;
             // 
             // checkMuteText
             // 
             this.checkMuteText.AutoSize = true;
             this.checkMuteText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.checkMuteText.Location = new System.Drawing.Point(7, 84);
+            this.checkMuteText.Location = new System.Drawing.Point(7, 83);
             this.checkMuteText.Name = "checkMuteText";
             this.checkMuteText.Size = new System.Drawing.Size(76, 17);
             this.checkMuteText.TabIndex = 58;
@@ -1483,7 +1540,7 @@
             // 
             this.checkMuteVGS.AutoSize = true;
             this.checkMuteVGS.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.checkMuteVGS.Location = new System.Drawing.Point(7, 63);
+            this.checkMuteVGS.Location = new System.Drawing.Point(7, 62);
             this.checkMuteVGS.Name = "checkMuteVGS";
             this.checkMuteVGS.Size = new System.Drawing.Size(77, 17);
             this.checkMuteVGS.TabIndex = 57;
@@ -1493,21 +1550,10 @@
             // textMute
             // 
             this.textMute.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.textMute.Location = new System.Drawing.Point(46, 35);
+            this.textMute.Location = new System.Drawing.Point(46, 34);
             this.textMute.Name = "textMute";
             this.textMute.Size = new System.Drawing.Size(205, 22);
             this.textMute.TabIndex = 56;
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(3, 10);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(115, 21);
-            this.label37.TabIndex = 55;
-            this.label37.Text = "Player Details";
-            this.label37.Visible = false;
             // 
             // btnMuteDelete
             // 
@@ -1551,6 +1597,406 @@
             this.listMute.TabIndex = 8;
             this.listMute.SelectedIndexChanged += new System.EventHandler(this.listMute_SelectedIndexChanged);
             // 
+            // tabProjectiles
+            // 
+            this.tabProjectiles.Controls.Add(this.panel5);
+            this.tabProjectiles.Controls.Add(this.panel6);
+            this.tabProjectiles.Location = new System.Drawing.Point(4, 26);
+            this.tabProjectiles.Name = "tabProjectiles";
+            this.tabProjectiles.Padding = new System.Windows.Forms.Padding(3);
+            this.tabProjectiles.Size = new System.Drawing.Size(930, 415);
+            this.tabProjectiles.TabIndex = 5;
+            this.tabProjectiles.Text = "Projectile Modification";
+            this.tabProjectiles.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.numProjectileSettingIntensity);
+            this.panel5.Controls.Add(this.label27);
+            this.panel5.Controls.Add(this.label26);
+            this.panel5.Controls.Add(this.colorProjectileSetting);
+            this.panel5.Controls.Add(this.label4);
+            this.panel5.Controls.Add(this.label17);
+            this.panel5.Controls.Add(this.label18);
+            this.panel5.Controls.Add(this.selectProjectileSettingWeapon);
+            this.panel5.Controls.Add(this.selectProjectileSettingClass);
+            this.panel5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(229, 352);
+            this.panel5.TabIndex = 9;
+            // 
+            // numProjectileSettingIntensity
+            // 
+            this.numProjectileSettingIntensity.DecimalPlaces = 2;
+            this.numProjectileSettingIntensity.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numProjectileSettingIntensity.Location = new System.Drawing.Point(136, 144);
+            this.numProjectileSettingIntensity.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numProjectileSettingIntensity.Name = "numProjectileSettingIntensity";
+            this.numProjectileSettingIntensity.Size = new System.Drawing.Size(69, 22);
+            this.numProjectileSettingIntensity.TabIndex = 59;
+            this.numProjectileSettingIntensity.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(137, 124);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(62, 17);
+            this.label27.TabIndex = 58;
+            this.label27.Text = "Intensity";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(6, 100);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(103, 21);
+            this.label26.TabIndex = 57;
+            this.label26.Text = "Recolouring";
+            // 
+            // colorProjectileSetting
+            // 
+            this.colorProjectileSetting.Location = new System.Drawing.Point(10, 124);
+            this.colorProjectileSetting.Name = "colorProjectileSetting";
+            this.colorProjectileSetting.Size = new System.Drawing.Size(120, 170);
+            this.colorProjectileSetting.TabIndex = 46;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(5, 4);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(159, 25);
+            this.label4.TabIndex = 45;
+            this.label4.Text = "Projectile Details";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(14, 65);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(51, 13);
+            this.label17.TabIndex = 13;
+            this.label17.Text = "Weapon";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(14, 38);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(33, 13);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "Class";
+            // 
+            // selectProjectileSettingWeapon
+            // 
+            this.selectProjectileSettingWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSettingWeapon.FormattingEnabled = true;
+            this.selectProjectileSettingWeapon.Location = new System.Drawing.Point(71, 62);
+            this.selectProjectileSettingWeapon.Name = "selectProjectileSettingWeapon";
+            this.selectProjectileSettingWeapon.Size = new System.Drawing.Size(148, 21);
+            this.selectProjectileSettingWeapon.TabIndex = 10;
+            // 
+            // selectProjectileSettingClass
+            // 
+            this.selectProjectileSettingClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSettingClass.FormattingEnabled = true;
+            this.selectProjectileSettingClass.Items.AddRange(new object[] {
+            "Pathfinder",
+            "Sentinel",
+            "Infiltrator",
+            "Soldier",
+            "Raider",
+            "Technician",
+            "Juggernaut",
+            "Doombringer",
+            "Brute"});
+            this.selectProjectileSettingClass.Location = new System.Drawing.Point(71, 35);
+            this.selectProjectileSettingClass.Name = "selectProjectileSettingClass";
+            this.selectProjectileSettingClass.Size = new System.Drawing.Size(148, 21);
+            this.selectProjectileSettingClass.TabIndex = 9;
+            this.selectProjectileSettingClass.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSettingClass_SelectedIndexChanged);
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.label19);
+            this.panel6.Controls.Add(this.btnProjectileSettingDelete);
+            this.panel6.Controls.Add(this.btnProjectileSettingSave);
+            this.panel6.Controls.Add(this.listProjectileSetting);
+            this.panel6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel6.Location = new System.Drawing.Point(238, 3);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(329, 413);
+            this.panel6.TabIndex = 8;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(3, 4);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(189, 25);
+            this.label19.TabIndex = 46;
+            this.label19.Text = "Projectiles Modified";
+            // 
+            // btnProjectileSettingDelete
+            // 
+            this.btnProjectileSettingDelete.Location = new System.Drawing.Point(132, 35);
+            this.btnProjectileSettingDelete.Name = "btnProjectileSettingDelete";
+            this.btnProjectileSettingDelete.Size = new System.Drawing.Size(117, 23);
+            this.btnProjectileSettingDelete.TabIndex = 9;
+            this.btnProjectileSettingDelete.Text = "Delete Selected";
+            this.btnProjectileSettingDelete.UseVisualStyleBackColor = true;
+            this.btnProjectileSettingDelete.Click += new System.EventHandler(this.btnProjectileSettingDelete_Click);
+            // 
+            // btnProjectileSettingSave
+            // 
+            this.btnProjectileSettingSave.Location = new System.Drawing.Point(3, 35);
+            this.btnProjectileSettingSave.Name = "btnProjectileSettingSave";
+            this.btnProjectileSettingSave.Size = new System.Drawing.Size(120, 23);
+            this.btnProjectileSettingSave.TabIndex = 8;
+            this.btnProjectileSettingSave.Text = "Save Edited Crosshair";
+            this.btnProjectileSettingSave.UseVisualStyleBackColor = true;
+            this.btnProjectileSettingSave.Click += new System.EventHandler(this.btnProjectileSettingSave_Click);
+            // 
+            // listProjectileSetting
+            // 
+            this.listProjectileSetting.FormattingEnabled = true;
+            this.listProjectileSetting.Location = new System.Drawing.Point(2, 64);
+            this.listProjectileSetting.Name = "listProjectileSetting";
+            this.listProjectileSetting.Size = new System.Drawing.Size(324, 342);
+            this.listProjectileSetting.TabIndex = 7;
+            this.listProjectileSetting.SelectedIndexChanged += new System.EventHandler(this.listProjectileSetting_SelectedIndexChanged);
+            // 
+            // tabProjSwap
+            // 
+            this.tabProjSwap.Controls.Add(this.panel7);
+            this.tabProjSwap.Controls.Add(this.panel16);
+            this.tabProjSwap.Location = new System.Drawing.Point(4, 26);
+            this.tabProjSwap.Name = "tabProjSwap";
+            this.tabProjSwap.Padding = new System.Windows.Forms.Padding(3);
+            this.tabProjSwap.Size = new System.Drawing.Size(930, 415);
+            this.tabProjSwap.TabIndex = 6;
+            this.tabProjSwap.Text = "Projectile Swap";
+            this.tabProjSwap.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.label24);
+            this.panel7.Controls.Add(this.label25);
+            this.panel7.Controls.Add(this.selectProjectileSwapWeapon_Swap);
+            this.panel7.Controls.Add(this.selectProjectileSwapClass_Swap);
+            this.panel7.Controls.Add(this.label22);
+            this.panel7.Controls.Add(this.checkProjectileSwapClone);
+            this.panel7.Controls.Add(this.label5);
+            this.panel7.Controls.Add(this.label6);
+            this.panel7.Controls.Add(this.label20);
+            this.panel7.Controls.Add(this.selectProjectileSwapWeapon);
+            this.panel7.Controls.Add(this.selectProjectileSwapClass);
+            this.panel7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel7.Location = new System.Drawing.Point(3, 3);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(238, 217);
+            this.panel7.TabIndex = 11;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(14, 151);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(51, 13);
+            this.label24.TabIndex = 60;
+            this.label24.Text = "Weapon";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(14, 124);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(33, 13);
+            this.label25.TabIndex = 59;
+            this.label25.Text = "Class";
+            // 
+            // selectProjectileSwapWeapon_Swap
+            // 
+            this.selectProjectileSwapWeapon_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapWeapon_Swap.FormattingEnabled = true;
+            this.selectProjectileSwapWeapon_Swap.Location = new System.Drawing.Point(71, 148);
+            this.selectProjectileSwapWeapon_Swap.Name = "selectProjectileSwapWeapon_Swap";
+            this.selectProjectileSwapWeapon_Swap.Size = new System.Drawing.Size(159, 21);
+            this.selectProjectileSwapWeapon_Swap.TabIndex = 58;
+            // 
+            // selectProjectileSwapClass_Swap
+            // 
+            this.selectProjectileSwapClass_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapClass_Swap.FormattingEnabled = true;
+            this.selectProjectileSwapClass_Swap.Items.AddRange(new object[] {
+            "Pathfinder",
+            "Sentinel",
+            "Infiltrator",
+            "Soldier",
+            "Raider",
+            "Technician",
+            "Juggernaut",
+            "Doombringer",
+            "Brute"});
+            this.selectProjectileSwapClass_Swap.Location = new System.Drawing.Point(71, 121);
+            this.selectProjectileSwapClass_Swap.Name = "selectProjectileSwapClass_Swap";
+            this.selectProjectileSwapClass_Swap.Size = new System.Drawing.Size(159, 21);
+            this.selectProjectileSwapClass_Swap.TabIndex = 57;
+            this.selectProjectileSwapClass_Swap.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSwapClass_Swap_SelectedIndexChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(6, 97);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(170, 21);
+            this.label22.TabIndex = 56;
+            this.label22.Text = "Swap with projectile:";
+            // 
+            // checkProjectileSwapClone
+            // 
+            this.checkProjectileSwapClone.AutoSize = true;
+            this.checkProjectileSwapClone.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkProjectileSwapClone.Location = new System.Drawing.Point(17, 175);
+            this.checkProjectileSwapClone.Name = "checkProjectileSwapClone";
+            this.checkProjectileSwapClone.Size = new System.Drawing.Size(203, 17);
+            this.checkProjectileSwapClone.TabIndex = 46;
+            this.checkProjectileSwapClone.Text = "Do not apply modifications (clone)";
+            this.checkProjectileSwapClone.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(5, 4);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(159, 25);
+            this.label5.TabIndex = 45;
+            this.label5.Text = "Projectile Details";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 65);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Weapon";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(14, 38);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(33, 13);
+            this.label20.TabIndex = 12;
+            this.label20.Text = "Class";
+            // 
+            // selectProjectileSwapWeapon
+            // 
+            this.selectProjectileSwapWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapWeapon.FormattingEnabled = true;
+            this.selectProjectileSwapWeapon.Location = new System.Drawing.Point(71, 62);
+            this.selectProjectileSwapWeapon.Name = "selectProjectileSwapWeapon";
+            this.selectProjectileSwapWeapon.Size = new System.Drawing.Size(159, 21);
+            this.selectProjectileSwapWeapon.TabIndex = 10;
+            // 
+            // selectProjectileSwapClass
+            // 
+            this.selectProjectileSwapClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapClass.FormattingEnabled = true;
+            this.selectProjectileSwapClass.Items.AddRange(new object[] {
+            "Pathfinder",
+            "Sentinel",
+            "Infiltrator",
+            "Soldier",
+            "Raider",
+            "Technician",
+            "Juggernaut",
+            "Doombringer",
+            "Brute"});
+            this.selectProjectileSwapClass.Location = new System.Drawing.Point(71, 35);
+            this.selectProjectileSwapClass.Name = "selectProjectileSwapClass";
+            this.selectProjectileSwapClass.Size = new System.Drawing.Size(159, 21);
+            this.selectProjectileSwapClass.TabIndex = 9;
+            this.selectProjectileSwapClass.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSwapClass_SelectedIndexChanged);
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.label21);
+            this.panel16.Controls.Add(this.btnProjectileSwapDelete);
+            this.panel16.Controls.Add(this.btnProjectileSwapSave);
+            this.panel16.Controls.Add(this.listProjectileSwap);
+            this.panel16.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel16.Location = new System.Drawing.Point(247, 3);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(489, 413);
+            this.panel16.TabIndex = 10;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(3, 4);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(190, 25);
+            this.label21.TabIndex = 46;
+            this.label21.Text = "Projectiles Swapped";
+            // 
+            // btnProjectileSwapDelete
+            // 
+            this.btnProjectileSwapDelete.Location = new System.Drawing.Point(132, 35);
+            this.btnProjectileSwapDelete.Name = "btnProjectileSwapDelete";
+            this.btnProjectileSwapDelete.Size = new System.Drawing.Size(117, 23);
+            this.btnProjectileSwapDelete.TabIndex = 9;
+            this.btnProjectileSwapDelete.Text = "Delete Selected";
+            this.btnProjectileSwapDelete.UseVisualStyleBackColor = true;
+            this.btnProjectileSwapDelete.Click += new System.EventHandler(this.btnProjectileSwapDelete_Click);
+            // 
+            // btnProjectileSwapSave
+            // 
+            this.btnProjectileSwapSave.Location = new System.Drawing.Point(3, 35);
+            this.btnProjectileSwapSave.Name = "btnProjectileSwapSave";
+            this.btnProjectileSwapSave.Size = new System.Drawing.Size(120, 23);
+            this.btnProjectileSwapSave.TabIndex = 8;
+            this.btnProjectileSwapSave.Text = "Save Edited Crosshair";
+            this.btnProjectileSwapSave.UseVisualStyleBackColor = true;
+            this.btnProjectileSwapSave.Click += new System.EventHandler(this.btnProjectileSwapSave_Click);
+            // 
+            // listProjectileSwap
+            // 
+            this.listProjectileSwap.FormattingEnabled = true;
+            this.listProjectileSwap.Location = new System.Drawing.Point(2, 64);
+            this.listProjectileSwap.Name = "listProjectileSwap";
+            this.listProjectileSwap.Size = new System.Drawing.Size(484, 342);
+            this.listProjectileSwap.TabIndex = 7;
+            this.listProjectileSwap.SelectedIndexChanged += new System.EventHandler(this.listProjectileSwap_SelectedIndexChanged);
+            // 
+            // tabHitSounds
+            // 
+            this.tabHitSounds.Location = new System.Drawing.Point(4, 26);
+            this.tabHitSounds.Name = "tabHitSounds";
+            this.tabHitSounds.Padding = new System.Windows.Forms.Padding(3);
+            this.tabHitSounds.Size = new System.Drawing.Size(930, 415);
+            this.tabHitSounds.TabIndex = 7;
+            this.tabHitSounds.Text = "Hit Sounds";
+            this.tabHitSounds.UseVisualStyleBackColor = true;
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
@@ -1575,7 +2021,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::TAModConfigurationTool.Properties.Resources.background_kata;
+            this.BackgroundImage = global::TAModConfigurationTool.Properties.Resources.background_sulfur31;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(944, 501);
             this.Controls.Add(this.tableLayoutPanel1);
@@ -1585,7 +2031,7 @@
             this.MinimumSize = new System.Drawing.Size(960, 540);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TAMod Configuration Tool v0.4";
+            this.Text = "TAMods Configuration Tool v0.4";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
@@ -1630,6 +2076,17 @@
             this.tabMute.PerformLayout();
             this.panel15.ResumeLayout(false);
             this.panel15.PerformLayout();
+            this.tabProjectiles.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numProjectileSettingIntensity)).EndInit();
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.tabProjSwap.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel16.ResumeLayout(false);
+            this.panel16.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -1742,7 +2199,6 @@
         private System.Windows.Forms.CheckBox checkMuteText;
         private System.Windows.Forms.CheckBox checkMuteVGS;
         private System.Windows.Forms.TextBox textMute;
-        private System.Windows.Forms.Label label37;
         private System.Windows.Forms.CheckBox checkHUDIconSensor;
         private System.Windows.Forms.CheckBox checkHUDIconMine;
         private System.Windows.Forms.CheckBox checkShowFirstPersonAmmo;
@@ -1758,6 +2214,42 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListBox listColorSettings;
         private System.Windows.Forms.CheckBox checkColorSettingOverride;
+        private TransTabPage tabProjectiles;
+        private TransTabPage tabProjSwap;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ComboBox selectProjectileSettingWeapon;
+        private System.Windows.Forms.ComboBox selectProjectileSettingClass;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button btnProjectileSettingDelete;
+        private System.Windows.Forms.ListBox listProjectileSetting;
+        private ColorSelector colorProjectileSetting;
+        private System.Windows.Forms.Button btnProjectileSettingSave;
+        private TransTabPage tabHitSounds;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.CheckBox checkProjectileSwapClone;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ComboBox selectProjectileSwapWeapon;
+        private System.Windows.Forms.ComboBox selectProjectileSwapClass;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button btnProjectileSwapDelete;
+        private System.Windows.Forms.Button btnProjectileSwapSave;
+        private System.Windows.Forms.ListBox listProjectileSwap;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox selectProjectileSwapWeapon_Swap;
+        private System.Windows.Forms.ComboBox selectProjectileSwapClass_Swap;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.NumericUpDown numProjectileSettingIntensity;
     }
 }
 

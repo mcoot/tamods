@@ -91,6 +91,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\background_sulfur31.png" />
+    <None Include="Resources\background_sulfur4.png" />
+    <None Include="Resources\background_sulfur3.png" />
+    <None Include="Resources\background_sulfur2.png" />
+    <None Include="Resources\background_sulfur1.png" />
     <None Include="Resources\background_kata.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

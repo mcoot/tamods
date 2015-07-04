@@ -133,6 +133,12 @@ namespace TAModConfigurationTool
             checkMuteText.Checked = false;
             checkMuteDirectMessages.Checked = false;
 
+            listProjectileSetting.Items.Clear();
+            colorProjectileSetting.setColor(255, 255, 255, 255);
+            numProjectileSettingIntensity.Value = 1M;
+
+            listProjectileSwap.Items.Clear();
+            checkProjectileSwapClone.Checked = false;
 
         }
 
@@ -243,6 +249,20 @@ namespace TAModConfigurationTool
                 listMute.Items.Add(player);
             }
 
+            // Modified Projectiles
+            listProjectileSetting.Items.Clear();
+            foreach (ProjectileSetting setting in config.getConfigProjectileSettings())
+            {
+                listProjectileSetting.Items.Add(setting);
+            }
+
+            // Projectile Swaps
+            listProjectileSwap.Items.Clear();
+            foreach (ProjectileSwap swap in config.getConfigProjectileSwaps())
+            {
+                listProjectileSwap.Items.Add(swap);
+            }
+
         }
 
         private void writeUIToConfig()
@@ -340,6 +360,20 @@ namespace TAModConfigurationTool
             foreach (MutedPlayer player in listMute.Items)
             {
                 config.mutePlayer(player);
+            }
+
+            // Modified Projectiles
+            config.clearConfigProjectileSettings();
+            foreach (ProjectileSetting setting in listProjectileSetting.Items)
+            {
+                config.setProjectileColor(setting.projectile, setting.color, setting.intensity);
+            }
+
+            // Swapped Projectiles
+            config.clearConfigProjectileSwaps();
+            foreach (ProjectileSwap swap in listProjectileSwap.Items)
+            {
+                config.setProjectile(swap.projectile.gameClass, swap.projectile.weapon, swap.swapProjectile);
             }
         }
 
@@ -663,25 +697,30 @@ namespace TAModConfigurationTool
 
         }
 
-        private void updateCrosshairSelectors(object from)
+        private void updateSelectorWeaponListings(ComboBox weaponSelector, ComboBox classSelector)
         {
-            
-            selectCrosshairWeapon.Items.Clear();
-            if (selectCrosshairClass.SelectedItem != null)
+            weaponSelector.Items.Clear();
+            if (classSelector.SelectedItem != null)
             {
-                foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["primary"])
+                foreach (string weapon in loadoutDetails[(string)classSelector.SelectedItem]["primary"])
                 {
-                    selectCrosshairWeapon.Items.Add(weapon);
+                    weaponSelector.Items.Add(weapon);
                 }
-                foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["secondary"])
+                foreach (string weapon in loadoutDetails[(string)classSelector.SelectedItem]["secondary"])
                 {
-                    selectCrosshairWeapon.Items.Add(weapon);
+                    weaponSelector.Items.Add(weapon);
                 }
-                foreach (string weapon in loadoutDetails[(string)selectCrosshairClass.SelectedItem]["belt"])
+                foreach (string weapon in loadoutDetails[(string)classSelector.SelectedItem]["belt"])
                 {
-                    selectCrosshairWeapon.Items.Add(weapon);
+                    weaponSelector.Items.Add(weapon);
                 }
             }
+        }
+
+        private void updateCrosshairSelectors(object from)
+        {
+
+            updateSelectorWeaponListings(selectCrosshairWeapon, selectCrosshairClass);
 
             string curClass = "";
             string curWeapon = "";
@@ -894,6 +933,166 @@ namespace TAModConfigurationTool
             colorColorSettings.ColorUpdated += new EventHandler(colorColorSettings_ColorUpdated);
         }
 
+        private void listProjectileSwap_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listProjectileSwap.SelectedItem == null) return;
+
+            // Select the right classes
+            selectProjectileSwapClass.SelectedItem = config.getGameClassName(((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.gameClass);
+            selectProjectileSwapClass_Swap.SelectedItem = config.getGameClassName(((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.gameClass);
+
+            // Update weapon boxes (disabling events!)
+            selectProjectileSwapClass.SelectedIndexChanged -= new EventHandler(selectProjectileSwapClass_SelectedIndexChanged);
+            selectProjectileSwapClass_Swap.SelectedIndexChanged -= new EventHandler(selectProjectileSwapClass_Swap_SelectedIndexChanged);
+            updateSelectorWeaponListings(selectProjectileSwapWeapon, selectProjectileSwapClass);
+            updateSelectorWeaponListings(selectProjectileSwapWeapon_Swap, selectProjectileSwapClass_Swap);
+            selectProjectileSwapClass.SelectedIndexChanged += new EventHandler(selectProjectileSwapClass_SelectedIndexChanged);
+            selectProjectileSwapClass_Swap.SelectedIndexChanged += new EventHandler(selectProjectileSwapClass_Swap_SelectedIndexChanged);
+
+            // Select the right weapons
+            selectProjectileSwapWeapon.SelectedItem =
+                findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.gameClass, "primary", ((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.weapon);
+            if (selectProjectileSwapWeapon.SelectedItem == null)
+            {
+                selectProjectileSwapWeapon.SelectedItem =
+                    findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.gameClass, "secondary", ((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.weapon);
+                if (selectProjectileSwapWeapon.SelectedItem == null)
+                {
+                    selectProjectileSwapWeapon.SelectedItem =
+                     findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.gameClass, "belt", ((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.weapon);
+                }
+            }
+            selectProjectileSwapWeapon_Swap.SelectedItem =
+                findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.gameClass, "primary", ((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.weapon);
+            if (selectProjectileSwapWeapon_Swap.SelectedItem == null)
+            {
+                selectProjectileSwapWeapon_Swap.SelectedItem =
+                    findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.gameClass, "secondary", ((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.weapon);
+                if (selectProjectileSwapWeapon_Swap.SelectedItem == null)
+                {
+                    selectProjectileSwapWeapon_Swap.SelectedItem =
+                     findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.gameClass, "belt", ((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.weapon);
+                }
+            }
+
+            // Set the clone checkbox
+            checkProjectileSwapClone.Checked = ((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.isClone;
+
+            
+        }
+
+        private void selectProjectileSwapClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateSelectorWeaponListings(selectProjectileSwapWeapon, selectProjectileSwapClass);
+        }
+
+        private void selectProjectileSwapClass_Swap_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateSelectorWeaponListings(selectProjectileSwapWeapon_Swap, selectProjectileSwapClass_Swap);
+        }
+
+        private void listProjectileSetting_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listProjectileSetting.SelectedItem == null) return;
+            
+            updateSelectorWeaponListings(selectProjectileSettingWeapon, selectProjectileSettingClass);
+
+            // Select the right class
+            selectProjectileSettingClass.SelectedItem = config.getGameClassName(((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.gameClass);
+
+            // Update weapon box (disabling events!)
+            selectProjectileSettingClass.SelectedIndexChanged -= new EventHandler(selectProjectileSettingClass_SelectedIndexChanged);
+            updateSelectorWeaponListings(selectProjectileSettingWeapon, selectProjectileSettingClass);
+            selectProjectileSettingClass.SelectedIndexChanged += new EventHandler(selectProjectileSettingClass_SelectedIndexChanged);
+
+            // Select the right weapon
+            selectProjectileSettingWeapon.SelectedItem =
+                findMatchingLoadoutItem(((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.gameClass, "primary", ((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.weapon);
+            if (selectProjectileSettingWeapon.SelectedItem == null)
+            {
+                selectProjectileSettingWeapon.SelectedItem =
+                    findMatchingLoadoutItem(((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.gameClass, "secondary", ((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.weapon);
+                if (selectProjectileSettingWeapon.SelectedItem == null)
+                {
+                    selectProjectileSettingWeapon.SelectedItem =
+                     findMatchingLoadoutItem(((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.gameClass, "belt", ((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.weapon);
+                }
+            }
+
+            // Set the colour/intensity box
+            colorProjectileSetting.setColor(((ProjectileSetting)listProjectileSetting.SelectedItem).color);
+            numProjectileSettingIntensity.Value = Convert.ToDecimal(((ProjectileSetting)listProjectileSetting.SelectedItem).intensity);
+        }
+
+        private void selectProjectileSettingClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateSelectorWeaponListings(selectProjectileSettingWeapon, selectProjectileSettingClass);
+        }
+
+        private void btnProjectileSettingDelete_Click(object sender, EventArgs e)
+        {
+            if (listProjectileSetting.SelectedItem != null)
+            {
+                listProjectileSetting.Items.Remove(listProjectileSetting.SelectedItem);
+            }
+        }
+
+        private void btnProjectileSwapDelete_Click(object sender, EventArgs e)
+        {
+            if (listProjectileSwap.SelectedItem != null)
+            {
+                listProjectileSwap.Items.Remove(listProjectileSwap.SelectedItem);
+            }
+        }
+
+        private void btnProjectileSettingSave_Click(object sender, EventArgs e)
+        {
+            if (selectProjectileSettingClass.SelectedItem == null || selectProjectileSettingWeapon.SelectedItem == null) return;
+            
+            ProjectileSetting pNew = ProjectileSetting.setProjectileColor(Projectile.getProjectile((string)selectProjectileSettingClass.SelectedItem, (string)selectProjectileSettingWeapon.SelectedItem),
+                (Color)colorProjectileSetting.getColor(), Convert.ToSingle(numProjectileSettingIntensity.Value));
+            
+            foreach (ProjectileSetting p in listProjectileSetting.Items)
+            {
+                if (p.projectile.Equals(pNew.projectile))
+                {
+                    listProjectileSetting.Items.Remove(p);
+                    break;
+                }
+            }
+
+            listProjectileSetting.Items.Add(pNew);
+            listProjectileSetting.SelectedItem = pNew;
+        }
+
+        private void btnProjectileSwapSave_Click(object sender, EventArgs e)
+        {
+            if (selectProjectileSwapClass.SelectedItem == null || selectProjectileSwapWeapon.SelectedItem == null
+                || selectProjectileSwapClass_Swap.SelectedItem == null || selectProjectileSwapWeapon_Swap.SelectedItem == null) return;
+
+            ProjectileSwap pNew = ProjectileSwap.setProjectile((string)selectProjectileSwapClass.SelectedItem, (string)selectProjectileSwapWeapon.SelectedItem,
+                                        Projectile.getProjectile((string)selectProjectileSwapClass_Swap.SelectedItem, (string)selectProjectileSwapWeapon_Swap.SelectedItem));
+
+            // Check for clone
+            if (checkProjectileSwapClone.Checked)
+            {
+                pNew.swapProjectile.isClone = true;
+            }
+
+            // Remove existing entries
+            foreach (ProjectileSwap p in listProjectileSwap.Items)
+            {
+                if (p.projectile.Equals(pNew.projectile))
+                {
+                    listProjectileSwap.Items.Remove(p);
+                    break;
+                }
+            }
+
+            listProjectileSwap.Items.Add(pNew);
+            listProjectileSwap.SelectedItem = pNew;
+        }
+
     }
 
     public class Config
@@ -906,6 +1105,8 @@ namespace TAModConfigurationTool
         private List<Loadout> configLoadouts;
         private List<CrosshairSetting> configCrosshairs;
         private List<MutedPlayer> configMutedPlayers;
+        private List<ProjectileSetting> configProjectileSettings;
+        private List<ProjectileSwap> configProjectileSwaps;
         private string configVersion = "v0.4";
 
         public Config(string configPath, string configFilename)
@@ -922,6 +1123,10 @@ namespace TAModConfigurationTool
             lua.RegisterFunction("mplayer", this, typeof(MutedPlayer).GetMethod("create"));
             lua.RegisterFunction("mplayer_custom", this, typeof(MutedPlayer).GetMethod("create_custom"));
             lua.RegisterFunction("mutePlayer", this, this.GetType().GetMethod("mutePlayer"));
+            lua.RegisterFunction("getProjectile", this, this.GetType().GetMethod("getProjectile"));
+            lua.RegisterFunction("cloneProjectile", this, this.GetType().GetMethod("cloneProjectile"));
+            lua.RegisterFunction("setProjectileColor", this, this.GetType().GetMethod("setProjectileColor"));
+            lua.RegisterFunction("setProjectile", this, this.GetType().GetMethod("setProjectile"));
 
 
             this.configPath = configPath;
@@ -930,6 +1135,8 @@ namespace TAModConfigurationTool
             configLoadouts = new List<Loadout>();
             configCrosshairs = new List<CrosshairSetting>();
             configMutedPlayers = new List<MutedPlayer>();
+            configProjectileSettings = new List<ProjectileSetting>();
+            configProjectileSwaps = new List<ProjectileSwap>();
         }
 
         // Constructor puts the config path in the root of the C: drive if no path is given
@@ -943,52 +1150,6 @@ namespace TAModConfigurationTool
         // Setup the keys for all known config variables
         private void setupConfigVarDict()
         {
-            configVars = new Dictionary<String, Object>()
-            {
-                { "showErrorNotifications", null },
-                { "showWeapon", null },
-                { "showRainbow", null },
-                { "showCrosshair", null },
-                { "crosshairScale", null },
-                { "showFirstPersonAmmo", null },
-
-                { "skiBarMin", null },
-                { "skiBarMax", null },
-
-                { "damageNumbersLimit", null },
-                { "showDamageNumberStream", null },
-                { "showChainBulletHitCount", null },
-                { "damageNumberStreamTimeout", null },
-                { "damageNumbersOffsetX", null },
-                { "damageNumbersOffsetY", null },
-                { "damageNumbersScale", null },
-                { "damageNumberCustomText", null },
-
-                { "showObjectiveIcon", null },
-                { "showFlagBaseIcon", null },
-                { "showCTFBaseIcon", null },
-                { "showNuggetIcon", null },
-                { "showPlayerIcon", null },
-                { "showVehicleIcon", null },
-                { "showMineIcon", null },
-                { "showSensorIcon", null },
-
-                { "crosshairColor", null },
-                { "damageNumbersColorMin", null },
-                { "damageNumbersColorMax", null },
-                { "friendlyChatColor", null },
-                { "enemyChatColor", null },
-                { "friendlyHUDChatColor", null },
-                { "enemyHUDChatColor", null },
-
-                { "friendlyColor", null },
-                { "enemyColor", null },
-                { "enemyMarkerColor", null },
-                { "enemyIsFMarkerColor", null },
-                { "friendlyMarkerColor", null },
-                { "friendlyIsFMarkerColor", null },
-            };
-
             configVarsDefault = new Dictionary<String, Object>()
             {
                 { "showErrorNotifications", true },
@@ -1034,6 +1195,12 @@ namespace TAModConfigurationTool
                 { "friendlyMarkerColor", rgb(115, 225, 255) },
                 { "friendlyIsFMarkerColor", rgb(81, 250, 85) },
             };
+
+            configVars = new Dictionary<String, Object>();
+            foreach (string key in configVarsDefault.Keys)
+            {
+                configVars.Add(key, null);
+            }
         }
 
         // Clear all loaded config variables
@@ -1156,7 +1323,7 @@ namespace TAModConfigurationTool
 
         public List<CrosshairSetting> getConfigSetCrosshairs()
         {
-            // Make a deep copy of the config loadouts list
+            // Make a deep copy of the config crosshairs list
             List<CrosshairSetting> cp = new List<CrosshairSetting>();
             foreach (CrosshairSetting xhair in configCrosshairs)
             {
@@ -1188,6 +1355,100 @@ namespace TAModConfigurationTool
             configMutedPlayers.Clear();
         }
 
+        public List<ProjectileSetting> getConfigProjectileSettings()
+        {
+            // Make a deep copy of the config projectiles list
+            List<ProjectileSetting> cp = new List<ProjectileSetting>();
+            foreach (ProjectileSetting proj in configProjectileSettings)
+            {
+                cp.Add(proj);
+            }
+            cp.Sort();
+            return cp;
+        }
+
+        public void clearConfigProjectileSettings()
+        {
+            configProjectileSettings.Clear();
+        }
+
+        public List<ProjectileSwap> getConfigProjectileSwaps()
+        {
+            // Make a deep copy of the config projectiles swap list
+            List<ProjectileSwap> cp = new List<ProjectileSwap>();
+            foreach (ProjectileSwap proj in configProjectileSwaps)
+            {
+                cp.Add(proj);
+            }
+            cp.Sort();
+            return cp;
+        }
+
+        public void clearConfigProjectileSwaps()
+        {
+            configProjectileSwaps.Clear();
+        }
+
+        // Config save formats
+        private string formatColor(Color c)
+        {
+            if (c.A == 255)
+            {
+                return "rgb(" + c.R + ", " + c.G + ", " + c.B + ")";
+            }
+            else
+            {
+                return "rgba(" + c.R + ", " + c.G + ", " + c.B + ", " + c.A + ")";
+            }
+        }
+
+        private string formatEquipment(Equipment e)
+        {
+            return "equipment(\"" + e.primary + "\", \"" + e.secondary + "\", \"" + e.belt + "\", \"" + e.pack + "\", \"" + e.perk1 + "\", \"" + e.perk2 + "\")";
+        }
+
+        private string formatLoadout(Loadout l)
+        {
+           return "setLoadout(\"" + l.gameClass + "\", " + l.num + ", \"" + l.name + "\", " + formatEquipment(l.equipment) + ")";
+        }
+
+        private string formatCrosshairs(Crosshairs x)
+        {
+            return "crosshairs(\"" + x.standard + "\", \"" + x.zoomed + "\")";
+        }
+
+        private string formatCrosshairSetting(CrosshairSetting xs)
+        {
+            return "setCrosshairs(\"" + xs.gameClass + "\", \"" + xs.weapon + "\", " + formatCrosshairs(xs.crosshairs) + ")";
+        }
+
+        private string formatMutePlayer(MutedPlayer m)
+        {
+            return "mutePlayer(mplayer_custom(\"" + m.username + "\", " + m.muteVGS.ToString().ToLower() + ", " + m.muteText.ToString().ToLower() + ", " + m.muteDirectMessages.ToString().ToLower() + "))";
+        }
+
+        private string formatProjectile(Projectile proj)
+        {
+            return "getProjectile(\""  + proj.gameClass + "\", \"" + proj.weapon + "\")";
+        }
+
+        private string formatProjectileSetting(ProjectileSetting setting)
+        {
+            return "setProjectileColor(" + formatProjectile(setting.projectile) + ", " + formatColor(setting.color) + ", " + setting.intensity.ToString().ToLower()  + ")";
+        }
+
+        private string formatProjectileSwap(ProjectileSwap swap)
+        {
+            if (swap.swapProjectile.isClone)
+            {
+                return "setProjectile(\"" + swap.projectile.gameClass + "\", \"" + swap.projectile.weapon + "\", cloneProjectile(" + formatProjectile(swap.swapProjectile) + "))";
+            }
+            else
+            {
+                return "setProjectile(\"" + swap.projectile.gameClass + "\", \"" + swap.projectile.weapon + "\", " + formatProjectile(swap.swapProjectile) + ")";
+            }
+        }
+
         // Save the current config to the file, returning success
         public bool saveConfig()
         {
@@ -1215,14 +1476,7 @@ namespace TAModConfigurationTool
                             if (configVars[variable] != null)
                             {
                                 Color c = (Color)value;
-                                if (c.A == 255)
-                                {
-                                    flines.Add(variable + " = rgb(" + c.R + ", " + c.G + ", " + c.B + ")");
-                                }
-                                else
-                                {
-                                    flines.Add(variable + " = rgba(" + c.R + ", " + c.G + ", " + c.B + ", " + c.A + ")");
-                                }
+                                flines.Add(variable + " = " + formatColor(c));
                             }
                         }
                         else if (value is string)
@@ -1236,30 +1490,48 @@ namespace TAModConfigurationTool
                     }
                 }
 
+                // Custom Loadouts
                 flines.Add("");
                 flines.Add("--Custom Loadouts");
-                // Write Loadouts
+                
                 foreach (Loadout l in configLoadouts)
                 {
-                    flines.Add("setLoadout(\"" + l.gameClass + "\", " + l.num + ", \"" + l.name +
-                        "\", equipment(\"" + l.equipment.primary + "\", \"" + l.equipment.secondary + "\", \"" + l.equipment.belt + "\", \"" + l.equipment.pack + "\", \"" + l.equipment.perk1 + "\", \"" + l.equipment.perk2 + "\"))");
+                    flines.Add(formatLoadout(l));
                 }
 
+                // Custom Crosshairs
                 flines.Add("");
                 flines.Add("--Custom Crosshair Settings");
                 foreach (CrosshairSetting c in configCrosshairs)
                 {
-                    flines.Add("setCrosshairs(\"" + c.gameClass + "\", \"" + c.weapon + "\", crosshairs(\"" + c.crosshairs.standard + "\", \"" + c.crosshairs.zoomed + "\"))");
+                    flines.Add(formatCrosshairSetting(c));
                 }
 
+                // Global Mutes
                 flines.Add("");
                 flines.Add("--Globally Muted Players");
                 foreach (MutedPlayer player in configMutedPlayers)
                 {
-                    flines.Add("mutePlayer(mplayer_custom(\"" + player.username + "\", " + player.muteVGS.ToString().ToLower() + ", " + player.muteText.ToString().ToLower() + ", " + player.muteDirectMessages.ToString().ToLower() + "))");
+                    flines.Add(formatMutePlayer(player));
                 }
 
+                // Projectile Swaps
+                flines.Add("");
+                flines.Add("--Projectile Swaps");
+                foreach (ProjectileSwap swap in configProjectileSwaps)
+                {
+                    flines.Add(formatProjectileSwap(swap));
+                }
+                
+                // Projectile Settings
+                flines.Add("");
+                flines.Add("--Modified Projectiles");
+                foreach (ProjectileSetting setting in configProjectileSettings)
+                {
+                    flines.Add(formatProjectileSetting(setting));
+                }
 
+                // Overwrite if required
                 if (System.IO.File.Exists(configPath + configFile))
                 {
                     System.IO.File.Delete(configPath + configFile);
@@ -1322,6 +1594,31 @@ namespace TAModConfigurationTool
         public bool mutePlayer(MutedPlayer player)
         {
             configMutedPlayers.Add(player);
+            return true;
+        }
+
+        public Projectile getProjectile(string gameClass, string weapon)
+        {
+            gameClass = getGameClassName(gameClass);
+            return Projectile.getProjectile(gameClass, weapon);
+        }
+
+        public Projectile cloneProjectile(Projectile projectile)
+        {
+            return Projectile.cloneProjectile(projectile);
+        }
+
+        public bool setProjectileColor(Projectile projectile, Color color, float intensity)
+        {
+            configProjectileSettings.Add(ProjectileSetting.setProjectileColor(projectile, color, intensity));            
+            return true;
+        }
+
+        public bool setProjectile(string gameClass, string weapon, Projectile swapProjectile)
+        {
+            gameClass = getGameClassName(gameClass);
+
+            configProjectileSwaps.Add(ProjectileSwap.setProjectile(gameClass, weapon, swapProjectile));
             return true;
         }
 
@@ -1646,6 +1943,153 @@ namespace TAModConfigurationTool
         
     }
 
+    public class Projectile : IComparable<Projectile>
+    {
+        public string gameClass;
+        public string weapon;
+        public bool isClone;
+
+        public Projectile(string gameClass, string weapon, bool isClone)
+        {
+            this.gameClass = gameClass;
+            this.weapon = weapon;
+            this.isClone = isClone;
+        }
+
+        public Projectile(string gameClass, string weapon) : this(gameClass, weapon, false) { }
+
+        public static Projectile getProjectile(string gameClass, string weapon)
+        {
+            return new Projectile(gameClass, weapon);
+        }
+
+        public static Projectile cloneProjectile(Projectile projectile)
+        {
+            return new Projectile(projectile.gameClass, projectile.weapon, true);
+        }
+
+        public int CompareTo(Projectile other)
+        {
+            if (gameClass.Equals(other.gameClass))
+            {
+                return weapon.CompareTo(other.weapon);
+            }
+
+            return gameClass.CompareTo(other.gameClass);
+        }
+
+        public override bool Equals(object obj)
+        {
+            Projectile pother = obj as Projectile;
+            if (pother == null)
+            {
+                return false;
+            }
+
+            return (gameClass.Equals(pother.gameClass) && weapon.Equals(pother.weapon) && isClone.Equals(pother.isClone));
+        }
+
+        public override int GetHashCode()
+        {
+            return gameClass.GetHashCode() * 11 + 19*isClone.GetHashCode() + weapon.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return gameClass + ": " + weapon + (isClone ? " (clone)" : "");
+        }
+    }
+
+    public class ProjectileSetting : IComparable<ProjectileSetting>
+    {
+        public readonly Projectile projectile;
+        public Color color;
+        public float intensity;
+
+        public ProjectileSetting(Projectile projectile, Color color, float intensity)
+        {
+            this.projectile = projectile;
+            this.color = color;
+            this.intensity = intensity;
+        }
+
+        public ProjectileSetting(Projectile projectile) : this(projectile, Color.White, 10) { }
+
+        public static ProjectileSetting setProjectileColor(Projectile projectile, Color color, float intensity)
+        {
+            return new ProjectileSetting(projectile, color, intensity);
+        }
+
+        public int CompareTo(ProjectileSetting other)
+        {
+            return projectile.CompareTo(other.projectile);
+        }
+
+        public override bool Equals(object obj)
+        {
+            ProjectileSetting pother = obj as ProjectileSetting;
+            if (pother == null)
+            {
+                return false;
+            }
+
+            return (projectile.Equals(pother.projectile));
+        }
+
+        public override int GetHashCode()
+        {
+            return projectile.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return projectile.ToString();
+        }
+    }
+
+    public class ProjectileSwap : IComparable<ProjectileSwap>
+    {
+        public readonly Projectile projectile;
+        public Projectile swapProjectile;
+
+        public ProjectileSwap(Projectile projectile, Projectile swapProjectile)
+        {
+            this.projectile = projectile;
+            this.swapProjectile = swapProjectile;
+        }
+
+        public static ProjectileSwap setProjectile(string gameClass, string weapon, Projectile swapProjectile)
+        {
+            return new ProjectileSwap(Projectile.getProjectile(gameClass, weapon), swapProjectile);
+        }
+
+        public int CompareTo(ProjectileSwap other)
+        {
+            return projectile.CompareTo(other.projectile);
+        }
+
+        public override bool Equals(object obj)
+        {
+            ProjectileSwap pother = obj as ProjectileSwap;
+            if (pother == null)
+            {
+                return false;
+            }
+
+            return (projectile.Equals(pother.projectile));
+        }
+
+        public override int GetHashCode()
+        {
+            return projectile.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return projectile.ToString() + " -> " + swapProjectile.ToString();
+        }
+    }
+
     public class TransTabPage : TabPage
     {
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
@@ -1845,6 +2289,11 @@ namespace TAModConfigurationTool
             return Color.FromArgb(color.A, color.R, color.G, color.B);
         }
 
+        public void setTitle(string title)
+        {
+            this.title.Text = title;
+        }
+
         private void numColor_Changed(object sender, System.EventArgs e)
         {
             color = Color.FromArgb((int)numA.Value, (int)numR.Value, (int)numG.Value, (int)numB.Value);
@@ -1876,4 +2325,3 @@ namespace TAModConfigurationTool
     }
 
 }
-
