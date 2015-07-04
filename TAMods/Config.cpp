@@ -1,10 +1,22 @@
 #include "Config.h"
 
+Config g_config;
+
+Config::TogglableIcon Config::togglable_icons[] =
+{
+	Config::TogglableIcon(&g_config.showObjectiveIcon, "Function TribesGame.TrGameObjective.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showCTFBaseIcon, "Function TribesGame.TrCTFBase.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showFlagBaseIcon, "Function TribesGame.TrFlagBase.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showNuggetIcon, "Function TribesGame.TrDroppedPickup.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showPlayerIcon, "Function TribesGame.TrPawn.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showVehicleIcon, "Function TribesGame.TrVehicle.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showMineIcon, "Function TribesGame.TrProj_Mine.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showSensorIcon, "Function TribesGame.TrDeployable_MotionSensor.PostRenderFor")
+};
+
 std::queue<UParticleSystem *> CustomProjectile::usedPS;
 std::queue<UParticleSystem *> CustomProjectile::freePS;
 std::queue<int> CustomProjectile::freeTimes;
-
-Config g_config;
 
 Config::Config()
 {
@@ -171,8 +183,14 @@ void Config::reloadSkiBars(UGfxTrHud *currHud, bool updated)
 	}
 }
 
+bool Function_HookBlock(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	return true;
+}
+
 void Config::updateDefaults()
 {
+	// Player name/marker colors
 	ATrHUD *hud = UObject::FindObject<ATrHUD>("TrHUD TribesGame.Default__TrHUD");
 	if (hud)
 	{
@@ -184,10 +202,21 @@ void Config::updateDefaults()
 		hud->MarkerColorEnemy_IsFriend = Utils::linCol(enemyIsFMarkerColor);
 	}
 
+	// Hitsounds
 	USoundCue *hitsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Impact__Notify.A_CUE_PC_HitImpactOnPawnNotify");
 	if (hitsound)
 		hitsound->VolumeMultiplier = playHitSound ? 0.55f : 0.0f;
 
+	// Toggle icons
+	for (int i = 0; i < sizeof(togglable_icons) / sizeof(togglable_icons[0]); i++)
+	{
+		if (*(togglable_icons[i].variable_ptr))
+			Hooks::remove(const_cast<char *>(togglable_icons[i].func_name));
+		else
+			Hooks::add(&Function_HookBlock, const_cast<char *>(togglable_icons[i].func_name));
+	}
+
+	// Ski bars
 	reloadSkiBars(NULL, false);
 }
 

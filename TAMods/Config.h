@@ -12,6 +12,7 @@
 #include "Geom.h"
 #include "ParticleModuleHelper.h"
 #include "SdkHeaders.h"
+#include "Hooks.h"
 
 struct Crosshairs
 {
@@ -204,6 +205,16 @@ public:
 class Config
 {
 public:
+	struct TogglableIcon
+	{
+		bool *variable_ptr;
+		const char *func_name;
+
+		TogglableIcon(bool *pvar, const char *pfunc)
+			: variable_ptr(pvar), func_name(pfunc) {}
+	};
+
+public:
 	Config();
 	~Config();
 
@@ -273,6 +284,7 @@ public:
 	bool playHitSound;
 
 	// HUD elements toggle
+	static TogglableIcon togglable_icons[];
 	bool showObjectiveIcon;
 	bool showFlagBaseIcon;
 	bool showCTFBaseIcon;

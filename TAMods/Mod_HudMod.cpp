@@ -371,46 +371,6 @@ bool TrScoreboard_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 	return true;
 }
 
-bool TrGO_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showObjectiveIcon;
-}
-
-bool TrFlagBase_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showFlagBaseIcon;
-}
-
-bool TrCTFBase_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showCTFBaseIcon;
-}
-
-bool TrNugget_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showNuggetIcon;
-}
-
-bool TrPawn_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showPlayerIcon;
-}
-
-bool TrVehicle_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showVehicleIcon;
-}
-
-bool TrMine_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showMineIcon;
-}
-
-bool TrSensor_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showSensorIcon;
-}
-
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	if (g_config.recordStats == true)
