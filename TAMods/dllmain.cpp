@@ -48,10 +48,6 @@ void onDLLProcessAttach()
 		Hooks::add(&TrDev_WeaponFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer", Hooks::POST);
 
 		// Explosives
-		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice.WeaponFiring.BeginState");
-		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice.WeaponFiring.RefireCheckTimer");
-		Hooks::add(&TrDev_WeaponFiring_POST, "Function TrDevice.WeaponFiring.BeginState", Hooks::POST);
-		Hooks::add(&TrDev_WeaponFiring_POST, "Function TrDevice.WeaponFiring.RefireCheckTimer", Hooks::POST);
 		Hooks::add(&TrProj_ReplicatedEvent_POST, "Function TribesGame.TrProjectile.ReplicatedEvent");
 
 		// Console commands (/lua)
