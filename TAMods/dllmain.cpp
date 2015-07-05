@@ -8,8 +8,8 @@ void onDLLProcessAttach()
 	 */
 	// Logger::quiet();
 
+	g_config.initializeAudio();
 	g_config.parseFile();
-	AudioInitialize();
 	Logger::log("DLL Process Attach");
 
 	{

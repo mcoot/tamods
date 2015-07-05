@@ -90,7 +90,6 @@ void Config::reset()
 	volumeBluePlate = 1.0f;
 	volumeAirMail = 1.0f;
 
-
 	// Toggle HUD
 	showObjectiveIcon = true;
 	showFlagBaseIcon = true;
@@ -140,6 +139,7 @@ void Config::parseFile()
 	}
 	setVariables();
 	updateDefaults();
+	refreshSoundVolumes();
 }
 
 void Config::reloadSkiBars(UGfxTrHud *currHud, bool updated)
@@ -185,6 +185,33 @@ void Config::updateDefaults()
 		headshotsound->VolumeMultiplier = volumeHeadShot;
 
 	reloadSkiBars(NULL, false);
+}
+
+void Config::initializeAudio()
+{
+	audioEngine.Initialize();
+	if (audioEngine.audioAvailable())
+	{
+		s_soundEffects.push_back(s_hitSound.Initialize(audioEngine.SoundEffectEngine, std::string("hit.wav"), &volumeHitSound));
+		s_soundEffects.push_back(s_bluePlate.Initialize(audioEngine.SoundEffectEngine, std::string("blueplate.wav"), &volumeBluePlate));
+		s_soundEffects.push_back(s_airMail.Initialize(audioEngine.SoundEffectEngine, std::string("airmail.wav"), &volumeAirMail));
+	}
+	else
+		Utils::console("Error: could not initialize audio engine");
+}
+
+void Config::refreshSoundVolumes()
+{
+	if (audioEngine.audioAvailable())
+	{
+		for (size_t i = 0; i < s_soundEffects.size(); i++)
+		{
+			if (s_soundEffects[i] && s_soundEffects[i]->audioAvailable())
+				s_soundEffects[i]->RefreshVolume();
+		}
+	}
+	else
+		Utils::console("Error: audio engine unavailable");
 }
 
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))

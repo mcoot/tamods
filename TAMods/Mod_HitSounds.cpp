@@ -3,29 +3,12 @@
 clock_t lastHitSound = 0;
 int totalDamage;
 
-SoundEffect g_hitSound;
-SoundEffect g_bluePlate;
-SoundEffect g_airMail;
-
-void AudioInitialize()
-{
-	g_audioEngine.Initialize();
-	if (g_audioEngine.audioAvailable())
-	{
-		g_hitSound.Initialize(g_audioEngine.SoundEffectEngine, std::string("hit.wav"), g_config.volumeHitSound);
-		g_bluePlate.Initialize(g_audioEngine.SoundEffectEngine, std::string("blueplate.wav"), g_config.volumeBluePlate);
-		g_airMail.Initialize(g_audioEngine.SoundEffectEngine, std::string("airmail.wav"), g_config.volumeAirMail);
-	}
-	else
-		Utils::console("Error initializing audio engine");
-}
-
 void playHitSound(bool bShieldDamage, int *dmg)
 {
 	//Utils::console("%d Hit for %d dmg", *t, *dmg);
 
-	if (!g_audioEngine.audioAvailable()
-		|| !g_hitSound.audioAvailable()
+	if (!g_config.audioEngine.audioAvailable()
+		|| !g_config.s_hitSound.audioAvailable()
 		|| g_config.hitSoundMode < 1
 		|| !dmg 
 		|| *dmg <= 0
@@ -56,14 +39,14 @@ void playHitSound(bool bShieldDamage, int *dmg)
 			pitch = g_config.hitSoundPitchMin;
 	}
 
-	g_hitSound.Play(pitch);
+	g_config.s_hitSound.Play(pitch);
 }
 
 bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (g_config.customBluePlateSound && g_audioEngine.audioAvailable() && g_bluePlate.audioAvailable())
+	if (g_config.customBluePlateSound && g_config.audioEngine.audioAvailable() && g_config.s_bluePlate.audioAvailable())
 	{
-		g_bluePlate.Play();
+		g_config.s_bluePlate.Play();
 		return true;
 	}
 	return false;
@@ -71,9 +54,9 @@ bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction*
 
 bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (g_config.customAirMailSound && g_audioEngine.audioAvailable() && g_airMail.audioAvailable())
+	if (g_config.customAirMailSound && g_config.audioEngine.audioAvailable() && g_config.s_airMail.audioAvailable())
 	{
-		g_airMail.Play();
+		g_config.s_airMail.Play();
 		return true;
 	}
 	return false;

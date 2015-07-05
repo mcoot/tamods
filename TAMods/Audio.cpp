@@ -1,7 +1,5 @@
 #include "Audio.h"
 
-Audio g_audioEngine;
-
 void Audio::Initialize()
 {
 	UINT32 flags = 0;

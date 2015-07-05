@@ -11,6 +11,8 @@
 #include "Geom.h"
 #include "ParticleModuleHelper.h"
 #include "SdkHeaders.h"
+#include "Audio.h"
+#include "SoundEffect.h"
 
 struct Crosshairs
 {
@@ -152,6 +154,8 @@ public:
 	void parseFile();
 	void setVariables();
 	void updateDefaults();
+	void initializeAudio();
+	void refreshSoundVolumes();
 
 	void reloadSkiBars(UGfxTrHud *currHud, bool updated = true);
 
@@ -210,9 +214,12 @@ public:
 	float skiBarMin;
 	float skiBarMax;
 
-	bool playHitSound;
-
 	// Sounds
+	Audio audioEngine;
+	SoundEffect s_hitSound;
+	SoundEffect s_bluePlate;
+	SoundEffect s_airMail;
+	std::vector<SoundEffect*> s_soundEffects;
 	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
 	bool customAirMailSound;
 	bool customBluePlateSound;

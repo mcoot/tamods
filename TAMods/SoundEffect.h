@@ -5,13 +5,15 @@
 class SoundEffect
 {
 public:
-	void Initialize(IXAudio2* masteringEngine, std::string wavFile, float Volume = 1.0f);
+	SoundEffect* Initialize(IXAudio2* masteringEngine, std::string wavFile, float* volume);
 	bool audioAvailable() { return m_audioAvailable; };
 	void Play(float pitch = 1.0f);
 	void Stop();
-	void SetVolume(float Volume);
+	void SetVolume(float volume);
+	void RefreshVolume();
 protected:
 	bool                    m_audioAvailable = false;
 	IXAudio2SourceVoice*    m_sourceVoice;
 	Wave					m_soundData;
+	float*					m_configVolumeVar;
 };

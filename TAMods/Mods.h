@@ -7,16 +7,9 @@
 #include "Geom.h"
 #include "Logger.h"
 #include "stats.h"
-#include "Audio.h"
-#include "SoundEffect.h"
 
 extern Config g_config;
 extern Stats g_stats;
-
-extern Audio g_audioEngine;
-extern SoundEffect g_hitSound;
-extern SoundEffect g_bluePlate;
-extern SoundEffect g_airMail;
 
 // Loadouts
 bool GFxTrHUD_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
@@ -64,7 +57,6 @@ bool TrProj_ReplicatedEvent_POST(int ID, UObject *dwCallingObject, UFunction* pF
 bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 // Sounds
-void AudioInitialize();
 void playHitSound(bool bShieldDamage, int *dmg);
 bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

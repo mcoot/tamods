@@ -1,12 +1,12 @@
 #include "SoundEffect.h"
 
-void SoundEffect::Initialize(IXAudio2* masteringEngine, std::string wavFile, float volume)
+SoundEffect* SoundEffect::Initialize(IXAudio2* masteringEngine, std::string wavFile, float* volume)
 {
 	const char *profile = getenv("USERPROFILE");
 	std::string filePath;
 
 	if (profile)
-		filePath = std::string(profile) + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\" + wavFile;
+		filePath = std::string(profile) + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\sounds\\" + wavFile;
 	else
 		filePath = std::string("C:\\") + wavFile;
 
@@ -15,7 +15,7 @@ void SoundEffect::Initialize(IXAudio2* masteringEngine, std::string wavFile, flo
 	if (!m_soundData.load(filePath.c_str()) || masteringEngine == nullptr)
 	{
 		m_audioAvailable = false;
-		return;
+		return NULL;
 	}
 
 	// create the source voice, based on loaded wave format
@@ -23,12 +23,18 @@ void SoundEffect::Initialize(IXAudio2* masteringEngine, std::string wavFile, flo
 	if (FAILED(hr))
 	{
 		m_audioAvailable = false;
-		return;
+		return NULL;
 	}
 	// set volume
-	m_sourceVoice->SetVolume(volume);
+	if (volume)
+	{
+		m_sourceVoice->SetVolume(*volume);
+		m_configVolumeVar = volume;
+	}
 
 	m_audioAvailable = true;
+
+	return this;
 }
 
 void SoundEffect::Play(float pitch)
@@ -46,8 +52,14 @@ void SoundEffect::Play(float pitch)
 	m_sourceVoice->Start();
 }
 
-void SoundEffect::SetVolume(float Volume)
+void SoundEffect::SetVolume(float volume)
 {
 	if (m_audioAvailable)
-		m_sourceVoice->SetVolume(Volume);
+		m_sourceVoice->SetVolume(volume);
+}
+
+void SoundEffect::RefreshVolume()
+{
+	if (m_audioAvailable && m_configVolumeVar)
+		m_sourceVoice->SetVolume(*m_configVolumeVar);
 }
