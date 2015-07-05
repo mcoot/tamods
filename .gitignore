@@ -205,3 +205,6 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# Doxygen documentation
+documentation/out/
