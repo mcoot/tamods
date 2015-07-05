@@ -128,7 +128,6 @@ void Config::reset()
 
 	// Bools for reloading
 	shouldReloadTrHud = true;
-	shouldReloadCrosshairs = true;
 }
 
 void Config::parseFile()

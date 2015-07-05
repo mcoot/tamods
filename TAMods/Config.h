@@ -306,5 +306,4 @@ public:
 
 	// Bools for reloading
 	bool shouldReloadTrHud;
-	bool shouldReloadCrosshairs;
 };
