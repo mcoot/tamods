@@ -275,7 +275,7 @@ void Config::refreshSoundVolumes()
 	{
 		for (size_t i = 0; i < s_soundEffects.size(); i++)
 		{
-			if (s_soundEffects[i] && s_soundEffects[i]->audioAvailable())
+			if (s_soundEffects[i])
 				s_soundEffects[i]->RefreshVolume();
 		}
 	}
