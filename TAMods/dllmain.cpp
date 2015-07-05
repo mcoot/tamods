@@ -22,14 +22,6 @@ void onDLLProcessAttach()
 		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers
 		Hooks::add(&TrScoreboard_Tick, "Function TribesGame.TrScoreboard.Tick", Hooks::POST); // Scoreboard '\n' display bug
 		Hooks::add(&GFxTrScenePS_LoadPlayerMiscData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadPlayerMiscData"); // Level 50 xp bug fix
-		Hooks::add(&TrGO_PostRenderFor, "Function TribesGame.TrGameObjective.PostRenderFor"); // Game objectives (turrets, gen ?, vpad)
-		Hooks::add(&TrCTFBase_PostRenderFor, "Function TribesGame.TrCTFBase.PostRenderFor"); // CTF Base (empty flagstand)
-		Hooks::add(&TrFlagBase_PostRenderFor, "Function TribesGame.TrFlagBase.PostRenderFor"); // Flag base (on-stand flag icon)
-		Hooks::add(&TrNugget_PostRenderFor, "Function TribesGame.TrDroppedPickup.PostRenderFor"); // Nuggets
-		Hooks::add(&TrPawn_PostRenderFor, "Function TribesGame.TrPawn.PostRenderFor"); // Players (held flag, name, lifebar, icon)
-		Hooks::add(&TrVehicle_PostRenderFor, "Function TribesGame.TrVehicle.PostRenderFor"); // Vehicles
-		Hooks::add(&TrMine_PostRenderFor, "Function TribesGame.TrProj_Mine.PostRenderFor"); // Mines
-		Hooks::add(&TrSensor_PostRenderFor, "Function TribesGame.TrDeployable_MotionSensor.PostRenderFor"); // Motion Sensors
 
 		Hooks::add(&TrHUD_ChatMessageReceived, "Function TribesGame.TrHUD.ChatMessageReceived");
 		Hooks::add(&TrPlayerController_ClientReceiveVGSCommand, "Function TribesGame.TrPlayerController.ClientReceiveVGSCommand");
@@ -55,16 +47,14 @@ void onDLLProcessAttach()
 
 		// Bullet customization
 		// Chain
-		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
-		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
-		Hooks::add(&TrDev_WeaponFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState", Hooks::POST);
-		Hooks::add(&TrDev_WeaponFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer", Hooks::POST);
+		Hooks::add(&TrDev_WeaponConstantFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
+		Hooks::add(&TrDev_WeaponConstantFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
+		Hooks::add(&TrDev_WeaponConstantFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState", Hooks::POST);
+		Hooks::add(&TrDev_WeaponConstantFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer", Hooks::POST);
 
 		// Explosives
 		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice.WeaponFiring.BeginState");
 		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice.WeaponFiring.RefireCheckTimer");
-		Hooks::add(&TrDev_WeaponFiring_POST, "Function TrDevice.WeaponFiring.BeginState", Hooks::POST);
-		Hooks::add(&TrDev_WeaponFiring_POST, "Function TrDevice.WeaponFiring.RefireCheckTimer", Hooks::POST);
 		Hooks::add(&TrProj_ReplicatedEvent_POST, "Function TribesGame.TrProjectile.ReplicatedEvent");
 
 		// Console commands (/lua)

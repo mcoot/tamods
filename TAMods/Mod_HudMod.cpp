@@ -140,29 +140,19 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 
 	// Reload config if needed
-	g_config.reloadSkiBars(that->m_GFxHud);
-	
-	//Friend chat, enemy chat, team chat
-	that->FriendlyChatColor = g_config.friendlyChatColor;
-	that->EnemyChatColor = g_config.enemyChatColor;
+	g_config.reloadTrHUD(that);
 
+	// Flash chat colors
+	TArray<int> arr;
+	arr.Add(Utils::rgb2int(g_config.enemyHUDChatColor));
+	arr.Add(Utils::rgb2int(g_config.friendlyHUDChatColor));
 	if (that->m_GFxHud)
-	{
-		TArray<int> arr;
-		arr.Add(Utils::rgb2int(g_config.enemyHUDChatColor));
-		arr.Add(Utils::rgb2int(g_config.friendlyHUDChatColor));
 		that->m_GFxHud->SetVariableIntArray(L"colorArray", 0, arr);
-	}
 
-	if (g_config.showRainbow == true)
+	if (g_config.showRainbow)
 	{
 		that->m_OverheadNumberColorMin = rainbow_cols[g_config.rainbowBulletInt];
 		that->m_OverheadNumberColorMax = rainbow_cols[g_config.rainbowBulletInt];
-	}
-	else
-	{
-		that->m_OverheadNumberColorMin = g_config.damageNumbersColorMin;
-		that->m_OverheadNumberColorMax = g_config.damageNumbersColorMax;
 	}
 
 	// Original function
@@ -369,46 +359,6 @@ bool TrScoreboard_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 		}
 	}
 	return true;
-}
-
-bool TrGO_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showObjectiveIcon;
-}
-
-bool TrFlagBase_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showFlagBaseIcon;
-}
-
-bool TrCTFBase_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showCTFBaseIcon;
-}
-
-bool TrNugget_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showNuggetIcon;
-}
-
-bool TrPawn_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showPlayerIcon;
-}
-
-bool TrVehicle_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showVehicleIcon;
-}
-
-bool TrMine_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showMineIcon;
-}
-
-bool TrSensor_PostRenderFor(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	return !g_config.showSensorIcon;
 }
 
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)

@@ -9,6 +9,7 @@ namespace Data
 {
 	extern std::map<std::string, int> equipment[9][4];
 	extern std::map<int, std::string> weapon_id_to_name;
+	extern std::map<int, std::string> weapon_id_to_proj_name;
 	extern std::map<std::string, int> perks[2];
 	extern std::map<std::string, int> vehicle_weapons;
 	extern std::map<std::string, int> classes;

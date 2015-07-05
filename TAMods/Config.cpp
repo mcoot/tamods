@@ -2,6 +2,22 @@
 
 Config g_config;
 
+Config::TogglableIcon Config::togglable_icons[] =
+{
+	Config::TogglableIcon(&g_config.showObjectiveIcon, "Function TribesGame.TrGameObjective.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showCTFBaseIcon, "Function TribesGame.TrCTFBase.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showFlagBaseIcon, "Function TribesGame.TrFlagBase.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showNuggetIcon, "Function TribesGame.TrDroppedPickup.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showPlayerIcon, "Function TribesGame.TrPawn.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showVehicleIcon, "Function TribesGame.TrVehicle.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showMineIcon, "Function TribesGame.TrProj_Mine.PostRenderFor"),
+	Config::TogglableIcon(&g_config.showSensorIcon, "Function TribesGame.TrDeployable_MotionSensor.PostRenderFor")
+};
+
+std::queue<UParticleSystem *> CustomProjectile::usedPS;
+std::queue<UParticleSystem *> CustomProjectile::freePS;
+std::queue<int> CustomProjectile::freeTimes;
+
 Config::Config()
 {
 	onDamageNumberCreate = NULL;
@@ -25,6 +41,19 @@ void Config::reset()
 			loadouts[i][j] = NULL;
 		}
 	}
+
+	// Mark custom projectiles "free"
+	int timesec = clock() / CLOCKS_PER_SEC;
+	while (CustomProjectile::usedPS.size())
+	{
+		CustomProjectile::freePS.push(CustomProjectile::usedPS.front());
+		CustomProjectile::freeTimes.push(timesec);
+		CustomProjectile::usedPS.pop();
+	}
+	for (auto &it : wep_id_to_custom_proj)
+		delete it.second;
+	wep_id_to_custom_proj.clear();
+	proj_class_to_custom_proj.clear();
 	
 	showErrorNotifications = true;
 	showWeapon = true;
@@ -107,7 +136,7 @@ void Config::reset()
 	globalMuteList = std::vector<MutedPlayer>();
 
 	// Bools for reloading
-	shouldReloadGfxTrHud = true;
+	shouldReloadTrHud = true;
 }
 
 void Config::parseFile()
@@ -142,29 +171,58 @@ void Config::parseFile()
 	refreshSoundVolumes();
 }
 
-void Config::reloadSkiBars(UGfxTrHud *currHud, bool updated)
+void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 {
-	if (g_config.shouldReloadGfxTrHud)
+	if (g_config.shouldReloadTrHud && currHud)
 	{
-		UGfxTrHud *hud = UObject::FindObject<UGfxTrHud>("GfxTrHud TribesGame.Default__GfxTrHud");
+		// Ski Bars
+		UGfxTrHud *default_gfxhud = UObject::FindObject<UGfxTrHud>("GfxTrHud TribesGame.Default__GfxTrHud");
+		UGfxTrHud *currGfxHud = currHud->m_GFxHud;
 
-		if (!hud || !currHud)
-			return;
-		if (updated)
-			g_config.shouldReloadGfxTrHud = false;
 		for (int i = 0; i < 12; i++)
 		{
 			int val = (int)((g_config.skiBarMin + (i - 1) * (g_config.skiBarMax - g_config.skiBarMin) / 10.0f) / 0.072f);
-			if (currHud)
-				currHud->m_SkiSpeedSteps[i] = val;
-			if (hud)
-				hud->m_SkiSpeedSteps[i] = val;
+			if (currGfxHud)
+				currGfxHud->m_SkiSpeedSteps[i] = val;
+			if (default_gfxhud)
+				default_gfxhud->m_SkiSpeedSteps[i] = val;
 		}
+
+		// Chat color
+		ATrHUD *default_hud = UObject::FindObject<ATrHUD>("TrHUD TribesGame.Default__TrHUD");
+		if (default_hud)
+		{
+			default_hud->FriendlyChatColor = g_config.friendlyChatColor;
+			default_hud->EnemyChatColor = g_config.enemyChatColor;
+		}
+		currHud->FriendlyChatColor = g_config.friendlyChatColor;
+		currHud->EnemyChatColor = g_config.enemyChatColor;
+
+		// Damage numbers
+		if (default_hud)
+		{
+			default_hud->m_OverheadNumberColorMin = g_config.damageNumbersColorMin;
+			default_hud->m_OverheadNumberColorMax = g_config.damageNumbersColorMax;
+		}
+		if (!showRainbow)
+		{
+			currHud->m_OverheadNumberColorMin = g_config.damageNumbersColorMin;
+			currHud->m_OverheadNumberColorMax = g_config.damageNumbersColorMax;
+		}
+
+		if (updated)
+			g_config.shouldReloadTrHud = false;
 	}
+}
+
+bool Function_HookBlock(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	return true;
 }
 
 void Config::updateDefaults()
 {
+	// Player name/marker colors
 	ATrHUD *hud = UObject::FindObject<ATrHUD>("TrHUD TribesGame.Default__TrHUD");
 	if (hud)
 	{
@@ -176,6 +234,7 @@ void Config::updateDefaults()
 		hud->MarkerColorEnemy_IsFriend = Utils::linCol(enemyIsFMarkerColor);
 	}
 
+	// Hitsounds
 	USoundCue *hitsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Impact__Notify.A_CUE_PC_HitImpactOnPawnNotify");
 	if (hitsound)
 		hitsound->VolumeMultiplier = hitSoundMode > 0 ? 0.0f : volumeHitSound;
@@ -184,7 +243,17 @@ void Config::updateDefaults()
 	if (headshotsound)
 		headshotsound->VolumeMultiplier = volumeHeadShot;
 
-	reloadSkiBars(NULL, false);
+	// Toggle icons
+	for (int i = 0; i < sizeof(togglable_icons) / sizeof(togglable_icons[0]); i++)
+	{
+		if (*(togglable_icons[i].variable_ptr))
+			Hooks::remove(const_cast<char *>(togglable_icons[i].func_name));
+		else
+			Hooks::add(&Function_HookBlock, const_cast<char *>(togglable_icons[i].func_name));
+	}
+
+	// HUD variables
+	reloadTrHUD(NULL, false);
 }
 
 void Config::initializeAudio()
@@ -327,56 +396,52 @@ static void parseModuleArray(TArray<UParticleModule *> &tab, const FColor &col, 
 	for (int si = 0; si < tab.Count; si++)
 	{
 		UParticleModule *module = tab.Data[si];
-
 		FRawDistributionVector *vecs;
+		float *table;
 
-		Logger::log("      Module %d: %s", si, tab.Data[si]->GetFullName());
 		if (module->IsA(UParticleModuleColorOverLife::StaticClass()))
 		{
 			UParticleModuleColorOverLife *m = (UParticleModuleColorOverLife *)module;
 			vecs = &m->ColorOverLife;
-		}
-		else if (module->IsA(UParticleModuleColorScaleOverDensity::StaticClass()))
-		{
-			UParticleModuleColorScaleOverDensity *m = (UParticleModuleColorScaleOverDensity *)module;
-			vecs = &m->ColorScaleOverDensity;
-		}
-		else if (module->IsA(UParticleModuleColorScaleOverLife::StaticClass()))
-		{
-			UParticleModuleColorScaleOverLife *m = (UParticleModuleColorScaleOverLife *)module;
-			vecs = &m->ColorScaleOverLife;
+			table = vecs->LookupTable.Data;
+			if (vecs->LookupTable.Count < 5)
+				continue;
+			float original_color[3] = { 0 };
+
+			for (int i = 2; i + 2 < vecs->LookupTable.Count; i += 3)
+			{
+				if (!original_color[0] || !original_color[1] || !original_color[2])
+				{
+					for (int j = 0; j < 3; j++)
+						original_color[j] = table[i + j];
+				}
+				table[i + 0] = ((float)col.R * intensity / 255.0f);
+				table[i + 1] = ((float)col.G * intensity / 255.0f);
+				table[i + 2] = ((float)col.B * intensity / 255.0f);
+				if (original_color[0] && original_color[1] && original_color[2])
+				{
+					for (int j = 0; j < 3; j++)
+						table[i + j] *= table[i + j] / original_color[j];
+				}
+			}
 		}
 		else if (module->IsA(UParticleModuleColor::StaticClass()))
 		{
 			UParticleModuleColor *m = (UParticleModuleColor *)module;
 			vecs = &m->StartColor;
+			table = vecs->LookupTable.Data;
 
 			if (vecs->LookupTable.Count >= 5)
 			{
-				vecs->LookupTable.Data[2] = (float)col.R * intensity / 255.0f;
-				vecs->LookupTable.Data[3] = (float)col.G * intensity / 255.0f;
-				vecs->LookupTable.Data[4] = (float)col.B * intensity / 255.0f;
+				table[2] = (float)col.R * intensity / 255.0f;
+				table[3] = (float)col.G * intensity / 255.0f;
+				table[4] = (float)col.B * intensity / 255.0f;
 			}
 		}
-		else if (module->IsA(UParticleModuleColorByParameter::StaticClass()))
-		{
-			UParticleModuleColorByParameter *m = (UParticleModuleColorByParameter *)module;
-
-			Logger::log("ColorByParameter");
-			Logger::log("Color: (%d, %d, %d, %d)", m->DefaultColor.R, m->DefaultColor.G, m->DefaultColor.B, m->DefaultColor.A);
-			continue;
-		}
-		else
-			continue;
-
-		TArray<float> &vtable = vecs->LookupTable;
-		Logger::log("        Vector Table size: %d, type:%d, op:%d, StartTime: %f, TimeScale: %f, NumElements: %d, ChunkSize: %d", vtable.Count, vecs->Type, vecs->Op, vecs->LookupTableStartTime, vecs->LookupTableTimeScale, vecs->LookupTableNumElements, vecs->LookupTableChunkSize);
-		for (int i = 0; i < vtable.Count; i++)
-			Logger::log("        VTABLE #%d: %f", i, vtable(i));
 	}
 }
 
-static void editParticleSystem(UParticleSystem *ps, const FColor &col, float intensity)
+static void config_setProjectileColor(UParticleSystem *ps, const FColor &col, float intensity)
 {
 	if (ps)
 	{
@@ -400,46 +465,54 @@ static void editParticleSystem(UParticleSystem *ps, const FColor &col, float int
 	}
 }
 
-static bool config_setBulletColor(const std::string &pclass, const std::string &weapon, const FColor &col, float intensity)
-{
-	int weapon_id = getWeaponID(pclass, weapon);
-	if (!weapon_id)
-		return false;
-	CustomProjectile *proj = NULL;
-	auto it = g_config.wep_id_to_custom_proj.find(weapon_id);
-	if (it == g_config.wep_id_to_custom_proj.end())
-	{
-		proj = new CustomProjectile(weapon_id);
-		g_config.wep_id_to_custom_proj[weapon_id] = proj;
-	}
-	else
-		proj = it->second;
-	if (!proj)
-		return false;
-	Logger::log("Editing bullet: %s", proj->default_proj->GetFullName());
-	editParticleSystem(proj->custom_ps, col, intensity);
-	return true;
-}
-
 static UParticleSystem *config_getProjectile(const std::string &pclass, const std::string &weapon)
 {
 	int weapon_id = getWeaponID(pclass, weapon);
 	if (!weapon_id)
-		return false;
+		return NULL;
 	CustomProjectile *proj = NULL;
 	auto it = g_config.wep_id_to_custom_proj.find(weapon_id);
 	if (it == g_config.wep_id_to_custom_proj.end())
 	{
 		proj = new CustomProjectile(weapon_id);
+		if (!proj->weapon_id)
+		{
+			delete proj;
+			return NULL;
+		}
 		g_config.wep_id_to_custom_proj[weapon_id] = proj;
 		g_config.proj_class_to_custom_proj[(int) proj->default_proj->Class] = proj;
-		Logger::log("Created projectile %d: %s", (int)proj->default_proj->Class, proj->default_proj->GetFullName());
 	}
 	else
 		proj = it->second;
 	if (!proj)
 		return NULL;
 	return proj->custom_ps;
+}
+
+static void config_setProjectile(const std::string &pclass, const std::string &weapon, UParticleSystem *ps)
+{
+	int weapon_id = getWeaponID(pclass, weapon);
+	if (!weapon_id)
+		return;
+	CustomProjectile *proj = NULL;
+	auto it = g_config.wep_id_to_custom_proj.find(weapon_id);
+	if (it == g_config.wep_id_to_custom_proj.end())
+	{
+		proj = new CustomProjectile(weapon_id);
+		if (!proj->weapon_id)
+		{
+			delete proj;
+			return;
+		}
+		g_config.wep_id_to_custom_proj[weapon_id] = proj;
+		g_config.proj_class_to_custom_proj[(int)proj->default_proj->Class] = proj;
+	}
+	else
+		proj = it->second;
+	if (!proj)
+		return;
+	proj->custom_ps = ps;
 }
 
 static bool config_setCrosshairs(const std::string &pclass, const std::string &weapon, Crosshairs &xhairs)
@@ -1503,8 +1576,11 @@ void Lua::init()
 		deriveClass<UParticleSystem, UObject>("ParticleSystem").
 			addProperty("emitters", &ParticleModuleHelper::ParticleSystem_getEmitters, &ParticleModuleHelper::ParticleSystem_setEmitters).
 		endClass().
+
 		addFunction("getProjectile", &config_getProjectile).
-		addFunction("setBulletColor", &config_setBulletColor).
+		addFunction("setProjectile", &config_setProjectile).
+		addFunction("cloneProjectile", &CustomProjectile::cloneParticleSystem).
+		addFunction("setProjectileColor", &config_setProjectileColor).
 
 		// HUD/Mute
 

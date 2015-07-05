@@ -9,4 +9,5 @@ namespace Logger
 {
 	void log(const char *format, ...);
 	void quiet();
+	bool isQuiet();
 };

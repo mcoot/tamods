@@ -6,6 +6,324 @@ static void copyTArray(TArray<float> &out, TArray<float> &in)
 	memcpy(out.Data, in.Data, in.Count * sizeof(float));
 }
 
+void ParticleModuleHelper::freeModuleTArrays(UParticleModule *mod)
+{
+	if (mod->IsA(UParticleModuleAcceleration::StaticClass()))
+	{
+		free(((UParticleModuleAcceleration *)mod)->Acceleration.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleAccelerationOverLifetime::StaticClass()))
+	{
+		free(((UParticleModuleAccelerationOverLifetime *)mod)->AccelOverLife.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleAttractorLine::StaticClass()))
+	{
+		free(((UParticleModuleAttractorLine *)mod)->Range.LookupTable.Data);
+		free(((UParticleModuleAttractorLine *)mod)->Strength.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleAttractorParticle::StaticClass()))
+	{
+		free(((UParticleModuleAttractorParticle *)mod)->Range.LookupTable.Data);
+		free(((UParticleModuleAttractorParticle *)mod)->Strength.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleAttractorPoint::StaticClass()))
+	{
+		free(((UParticleModuleAttractorPoint *)mod)->Position.LookupTable.Data);
+		free(((UParticleModuleAttractorPoint *)mod)->Range.LookupTable.Data);
+		free(((UParticleModuleAttractorPoint *)mod)->Strength.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleBeamModifier::StaticClass()))
+	{
+		free(((UParticleModuleBeamModifier *)mod)->Position.LookupTable.Data);
+		free(((UParticleModuleBeamModifier *)mod)->Tangent.LookupTable.Data);
+		free(((UParticleModuleBeamModifier *)mod)->Strength.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleBeamNoise::StaticClass()))
+	{
+		free(((UParticleModuleBeamNoise *)mod)->NoiseRange.LookupTable.Data);
+		free(((UParticleModuleBeamNoise *)mod)->NoiseRangeScale.LookupTable.Data);
+		free(((UParticleModuleBeamNoise *)mod)->NoiseSpeed.LookupTable.Data);
+		free(((UParticleModuleBeamNoise *)mod)->NoiseTangentStrength.LookupTable.Data);
+		free(((UParticleModuleBeamNoise *)mod)->NoiseScale.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleBeamSource::StaticClass()))
+	{
+		free(((UParticleModuleBeamSource *)mod)->Source.LookupTable.Data);
+		free(((UParticleModuleBeamSource *)mod)->SourceTangent.LookupTable.Data);
+		free(((UParticleModuleBeamSource *)mod)->SourceStrength.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleBeamTarget::StaticClass()))
+	{
+		free(((UParticleModuleBeamTarget *)mod)->Target.LookupTable.Data);
+		free(((UParticleModuleBeamTarget *)mod)->TargetTangent.LookupTable.Data);
+		free(((UParticleModuleBeamTarget *)mod)->TargetStrength.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleCameraOffset::StaticClass()))
+	{
+		free(((UParticleModuleCameraOffset *)mod)->CameraOffset.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleCollision::StaticClass()))
+	{
+		free(((UParticleModuleCollision *)mod)->DampingFactor.LookupTable.Data);
+		free(((UParticleModuleCollision *)mod)->DampingFactorRotation.LookupTable.Data);
+		free(((UParticleModuleCollision *)mod)->MaxCollisions.LookupTable.Data);
+		free(((UParticleModuleCollision *)mod)->ParticleMass.LookupTable.Data);
+		free(((UParticleModuleCollision *)mod)->DelayAmount.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleColor::StaticClass()))
+	{
+		free(((UParticleModuleColor *)mod)->StartColor.LookupTable.Data);
+		free(((UParticleModuleColor *)mod)->StartAlpha.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleColorOverLife::StaticClass()))
+	{
+		free(((UParticleModuleColorOverLife *)mod)->ColorOverLife.LookupTable.Data);
+		free(((UParticleModuleColorOverLife *)mod)->AlphaOverLife.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleColorScaleOverDensity::StaticClass()))
+	{
+		free(((UParticleModuleColorScaleOverDensity *)mod)->ColorScaleOverDensity.LookupTable.Data);
+		free(((UParticleModuleColorScaleOverDensity *)mod)->AlphaScaleOverDensity.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleColorScaleOverLife::StaticClass()))
+	{
+		free(((UParticleModuleColorScaleOverLife *)mod)->ColorScaleOverLife.LookupTable.Data);
+		free(((UParticleModuleColorScaleOverLife *)mod)->AlphaScaleOverLife.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleEventReceiverSpawn::StaticClass()))
+	{
+		free(((UParticleModuleEventReceiverSpawn *)mod)->SpawnCount.LookupTable.Data);
+		free(((UParticleModuleEventReceiverSpawn *)mod)->InheritVelocityScale.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleKillBox::StaticClass()))
+	{
+		free(((UParticleModuleKillBox *)mod)->LowerLeftCorner.LookupTable.Data);
+		free(((UParticleModuleKillBox *)mod)->UpperRightCorner.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleKillHeight::StaticClass()))
+	{
+		free(((UParticleModuleKillHeight *)mod)->Height.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleLifetime::StaticClass()))
+	{
+		free(((UParticleModuleLifetime *)mod)->Lifetime.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleLocation::StaticClass()))
+	{
+		free(((UParticleModuleLocation *)mod)->StartLocation.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleLocationDirect::StaticClass()))
+	{
+		free(((UParticleModuleLocationDirect *)mod)->Location.LookupTable.Data);
+		free(((UParticleModuleLocationDirect *)mod)->LocationOffset.LookupTable.Data);
+		free(((UParticleModuleLocationDirect *)mod)->ScaleFactor.LookupTable.Data);
+		free(((UParticleModuleLocationDirect *)mod)->Direction.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleLocationPrimitiveCylinder::StaticClass()))
+	{
+		free(((UParticleModuleLocationPrimitiveCylinder *)mod)->StartRadius.LookupTable.Data);
+		free(((UParticleModuleLocationPrimitiveCylinder *)mod)->StartHeight.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleLocationPrimitiveSphere::StaticClass()))
+	{
+		free(((UParticleModuleLocationPrimitiveSphere *)mod)->StartRadius.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSourceMovement::StaticClass()))
+	{
+		free(((UParticleModuleSourceMovement *)mod)->SourceMovementScale.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleOrbit::StaticClass()))
+	{
+		free(((UParticleModuleOrbit *)mod)->OffsetAmount.LookupTable.Data);
+		free(((UParticleModuleOrbit *)mod)->RotationAmount.LookupTable.Data);
+		free(((UParticleModuleOrbit *)mod)->RotationRateAmount.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleRequired::StaticClass()))
+	{
+		free(((UParticleModuleRequired *)mod)->SpawnRate.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleMeshRotation::StaticClass()))
+	{
+		free(((UParticleModuleMeshRotation *)mod)->StartRotation.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleRotation::StaticClass()))
+	{
+		free(((UParticleModuleRotation *)mod)->StartRotation.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleRotationOverLifetime::StaticClass()))
+	{
+		free(((UParticleModuleRotationOverLifetime *)mod)->RotationOverLife.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleMeshRotationRate::StaticClass()))
+	{
+		free(((UParticleModuleMeshRotationRate *)mod)->StartRotationRate.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleMeshRotationRateMultiplyLife::StaticClass()))
+	{
+		free(((UParticleModuleMeshRotationRateMultiplyLife *)mod)->LifeMultiplier.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleMeshRotationRateOverLife::StaticClass()))
+	{
+		free(((UParticleModuleMeshRotationRateOverLife *)mod)->RotRate.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleRotationRate::StaticClass()))
+	{
+		free(((UParticleModuleRotationRate *)mod)->StartRotationRate.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleRotationRateMultiplyLife::StaticClass()))
+	{
+		free(((UParticleModuleRotationRateMultiplyLife *)mod)->LifeMultiplier.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSize::StaticClass()))
+	{
+		free(((UParticleModuleSize *)mod)->StartSize.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSizeMultiplyLife::StaticClass()))
+	{
+		free(((UParticleModuleSizeMultiplyLife *)mod)->LifeMultiplier.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSizeMultiplyVelocity::StaticClass()))
+	{
+		free(((UParticleModuleSizeMultiplyVelocity *)mod)->VelocityMultiplier.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSizeScale::StaticClass()))
+	{
+		free(((UParticleModuleSizeScale *)mod)->SizeScale.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSizeScaleByTime::StaticClass()))
+	{
+		free(((UParticleModuleSizeScaleByTime *)mod)->SizeScaleByTime.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSpawn::StaticClass()))
+	{
+		free(((UParticleModuleSpawn *)mod)->Rate.LookupTable.Data);
+		free(((UParticleModuleSpawn *)mod)->RateScale.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSpawnPerUnit::StaticClass()))
+	{
+		free(((UParticleModuleSpawnPerUnit *)mod)->SpawnPerUnit.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSubUV::StaticClass()))
+	{
+		free(((UParticleModuleSubUV *)mod)->SubImageIndex.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSubUVMovie::StaticClass()))
+	{
+		free(((UParticleModuleSubUVMovie *)mod)->FrameRate.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSubUVDirect::StaticClass()))
+	{
+		free(((UParticleModuleSubUVDirect *)mod)->SubUVPosition.LookupTable.Data);
+		free(((UParticleModuleSubUVDirect *)mod)->SubUVSize.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleSubUVSelect::StaticClass()))
+	{
+		free(((UParticleModuleSubUVSelect *)mod)->SubImageSelect.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleTrailSource::StaticClass()))
+	{
+		free(((UParticleModuleTrailSource *)mod)->SourceStrength.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleTrailTaper::StaticClass()))
+	{
+		free(((UParticleModuleTrailTaper *)mod)->TaperFactor.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleTypeDataBeam::StaticClass()))
+	{
+		free(((UParticleModuleTypeDataBeam *)mod)->Distance.LookupTable.Data);
+		free(((UParticleModuleTypeDataBeam *)mod)->EndPoint.LookupTable.Data);
+		free(((UParticleModuleTypeDataBeam *)mod)->EmitterStrength.LookupTable.Data);
+		free(((UParticleModuleTypeDataBeam *)mod)->TargetStrength.LookupTable.Data);
+		free(((UParticleModuleTypeDataBeam *)mod)->EndPointDirection.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleTypeDataBeam2::StaticClass()))
+	{
+		free(((UParticleModuleTypeDataBeam2 *)mod)->Distance.LookupTable.Data);
+		free(((UParticleModuleTypeDataBeam2 *)mod)->TaperFactor.LookupTable.Data);
+		free(((UParticleModuleTypeDataBeam2 *)mod)->TaperScale.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleTypeDataTrail::StaticClass()))
+	{
+		free(((UParticleModuleTypeDataTrail *)mod)->Tension.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleUberLTISIVCL::StaticClass()))
+	{
+		free(((UParticleModuleUberLTISIVCL *)mod)->Lifetime.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCL *)mod)->StartSize.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCL *)mod)->StartVelocity.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCL *)mod)->StartVelocityRadial.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCL *)mod)->ColorOverLife.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCL *)mod)->AlphaOverLife.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleUberLTISIVCLIL::StaticClass()))
+	{
+		free(((UParticleModuleUberLTISIVCLIL *)mod)->Lifetime.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLIL *)mod)->StartSize.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLIL *)mod)->StartVelocity.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLIL *)mod)->StartVelocityRadial.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLIL *)mod)->ColorOverLife.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLIL *)mod)->AlphaOverLife.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLIL *)mod)->StartLocation.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleUberLTISIVCLILIRSSBLIRR::StaticClass()))
+	{
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->Lifetime.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->StartSize.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->StartVelocity.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->StartVelocityRadial.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->ColorOverLife.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->AlphaOverLife.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->StartLocation.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->StartRotation.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->SizeLifeMultiplier.LookupTable.Data);
+		free(((UParticleModuleUberLTISIVCLILIRSSBLIRR *)mod)->StartRotationRate.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleUberRainImpacts::StaticClass()))
+	{
+		free(((UParticleModuleUberRainImpacts *)mod)->Lifetime.LookupTable.Data);
+		free(((UParticleModuleUberRainImpacts *)mod)->StartSize.LookupTable.Data);
+		free(((UParticleModuleUberRainImpacts *)mod)->StartRotation.LookupTable.Data);
+		free(((UParticleModuleUberRainImpacts *)mod)->LifeMultiplier.LookupTable.Data);
+		free(((UParticleModuleUberRainImpacts *)mod)->PC_VelocityScale.LookupTable.Data);
+		free(((UParticleModuleUberRainImpacts *)mod)->PC_StartLocation.LookupTable.Data);
+		free(((UParticleModuleUberRainImpacts *)mod)->PC_StartRadius.LookupTable.Data);
+		free(((UParticleModuleUberRainImpacts *)mod)->PC_StartHeight.LookupTable.Data);
+		free(((UParticleModuleUberRainImpacts *)mod)->ColorOverLife.LookupTable.Data);
+		free(((UParticleModuleUberRainImpacts *)mod)->AlphaOverLife.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleUberRainSplashA::StaticClass()))
+	{
+		free(((UParticleModuleUberRainSplashA *)mod)->Lifetime.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashA *)mod)->StartSize.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashA *)mod)->StartRotation.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashA *)mod)->LifeMultiplier.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashA *)mod)->ColorOverLife.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashA *)mod)->AlphaOverLife.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleUberRainSplashB::StaticClass()))
+	{
+		free(((UParticleModuleUberRainSplashB *)mod)->Lifetime.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashB *)mod)->StartSize.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashB *)mod)->ColorOverLife.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashB *)mod)->AlphaOverLife.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashB *)mod)->LifeMultiplier.LookupTable.Data);
+		free(((UParticleModuleUberRainSplashB *)mod)->StartRotationRate.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleVelocity::StaticClass()))
+	{
+		free(((UParticleModuleVelocity *)mod)->StartVelocity.LookupTable.Data);
+		free(((UParticleModuleVelocity *)mod)->StartVelocityRadial.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleVelocityInheritParent::StaticClass()))
+	{
+		free(((UParticleModuleVelocityInheritParent *)mod)->Scale.LookupTable.Data);
+	}
+	if (mod->IsA(UParticleModuleVelocityOverLifetime::StaticClass()))
+	{
+		free(((UParticleModuleVelocityOverLifetime *)mod)->VelOverLife.LookupTable.Data);
+	}
+}
+
 void ParticleModuleHelper::copyModuleTArrays(UParticleModule *&out, UParticleModule *&in)
 {
 	if (in->IsA(UParticleModuleAcceleration::StaticClass()))

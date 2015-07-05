@@ -2,7 +2,8 @@
 
 namespace Utils
 {
-	ATrPlayerController *tr_pc = NULL;
+	UEngine *engine = (UEngine*)(*UObject::GObjObjects())(164042);
+	ATrPlayerController *tr_pc = (ATrPlayerController *) engine->GamePlayers.Data[0]->Actor;
 	UTrGameViewportClient *tr_gvc = NULL;
 }
 

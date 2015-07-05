@@ -25,27 +25,22 @@ private:
 };
 
 int Hook::_total_hooks = 0;
-static std::map<UFunction *, Hook> _pre_hooks;
-static std::map<UFunction *, Hook> _post_hooks;
+static std::map<UFunction *, std::pair<Hook, Hook>> _hooks;
 static bool _print_hookable = true;
 ProcessEventFunction pProcessEvent = NULL;
 
 VOID __stdcall NakedFunction(UFunction*, PVOID, PVOID) { }
 
-bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *pResult, Hooks::Order order)
+bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *pResult, Hook &hook, Hooks::Order order)
 {
-	auto &hook_map = (order == Hooks::PRE ? _pre_hooks : _post_hooks);
 	static std::vector<std::string> dispatched_funcs;
 
 	if (pFunction && pCallObject) {
-		static char FunctionName[128];
-		static char CallingName[128];
-
-		strcpy(FunctionName, pFunction->GetFullName());
-		strcpy(CallingName, pCallObject->GetFullName());
+		char *FunctionName = pFunction->GetFullName();
+		char *CallingName = pCallObject->GetFullName();
 
 		// Print hookable functions, only once per object/function
-		if (_print_hookable && order == Hooks::PRE)
+		if (_print_hookable && order == Hooks::PRE && !Logger::isQuiet())
 		{
 			std::string str = std::string(CallingName) + "::" + std::string(FunctionName);
 			if (std::find(dispatched_funcs.begin(), dispatched_funcs.end(), str) == dispatched_funcs.end())
@@ -55,13 +50,12 @@ bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *
 			}
 		}
 
-		auto it = hook_map.find(pFunction);
-		if (it == hook_map.end())
+		if (!hook.id)
 			return false;
-		if (it->second.calling_class && !pCallObject->IsA(it->second.calling_class))
+		if (hook.calling_class && !pCallObject->IsA(hook.calling_class))
 			return false;
 		// Don't call original if true is returned
-		return it->second.hook_func(it->second.id, pCallObject, pFunction, pParams, pResult);
+		return hook.hook_func(hook.id, pCallObject, pFunction, pParams, pResult);
 	}
 	return false;
 }
@@ -74,16 +68,23 @@ void __stdcall ProxyFunction(UFunction *pFunction, void *pParms, void *pResult)
 
 	if (pFunction)
 	{
-		if (DispatchF(pCallObject, pFunction, pParms, pResult, Hooks::PRE)) {
+		auto it = _hooks.find(pFunction);
+		bool call_original = true;
+		if (it != _hooks.end())
+			call_original = !DispatchF(pCallObject, pFunction, pParms, pResult, it->second.first, Hooks::PRE);
+		if (!call_original)
+		{
 			__asm mov ecx, pCallObject;
 			__asm popad;
 			NakedFunction(pFunction, pParms, pResult);
 		}
-		else {
+		else
+		{
 			__asm mov ecx, pCallObject;
 			__asm popad;
 			pProcessEvent(pFunction, pParms, pResult);
-			DispatchF(pCallObject, pFunction, pParms, pResult, Hooks::POST);
+			if (it != _hooks.end())
+				DispatchF(pCallObject, pFunction, pParms, pResult, it->second.second, Hooks::POST);
 		}
 	}
 	else {
@@ -116,40 +117,41 @@ int Hooks::add(HookFunction hook_function, char *original_name, Order hook_order
 		Logger::log("WARNING: unable hook function: '%s'. Check if you didn't make a typo", original_name);
 		return (false);
 	}
-	auto &hook_map = (hook.order == PRE ? _pre_hooks : _post_hooks);
-	if (hook_map.find(hook.original_func) != hook_map.end())
-		Logger::log("WARNING: overriding hook for function: '%s'", original_name);
-	hook_map[hook.original_func] = hook;
+	auto &it = _hooks[hook.original_func];
+	if (hook_order == PRE)
+		it.first = hook;
+	else
+		it.second = hook;
 	return (hook.id);
 }
 
 bool Hooks::remove(char *original_name, Order order)
 {
-	auto &hook_map = (order == PRE ? _pre_hooks : _post_hooks);
 	UFunction *ufunc = (UFunction *)UObject::FindObject<UFunction>(original_name);
 
 	if (!ufunc)
 		return (false);
-	return (!!hook_map.erase(ufunc));
+	auto &it = _hooks.find(ufunc);
+	if (it == _hooks.end())
+		return false;
+	Hook &hook = order == PRE ? it->second.first : it->second.second;
+	hook.id = 0;
+	if (!it->second.first.id && !it->second.second.id)
+		return !!_hooks.erase(ufunc);
+	return true;
 }
 
 bool Hooks::remove(int id)
 {
-	for (auto it : _pre_hooks)
+	for (auto &it : _hooks)
 	{
-		if (it.second.id == id)
-		{
-			_pre_hooks.erase(it.first);
-			return true;
-		}
-	}
-	for (auto it : _post_hooks)
-	{
-		if (it.second.id == id)
-		{
-			_post_hooks.erase(it.first);
-			return true;
-		}
+		if (it.second.first.id == id)
+			it.second.first.id = 0;
+		else if (it.second.second.id == id)
+			it.second.second.id = 0;
+		if (!it.second.first.id && !it.second.second.id)
+			_hooks.erase(it.first);
+		return true;
 	}
 	return false;
 }

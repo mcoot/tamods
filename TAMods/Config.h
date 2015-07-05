@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <regex>
+#include <queue>
 #include <map>
 #include "Loadout.h"
 #include "Utils.h"
@@ -11,6 +12,7 @@
 #include "Geom.h"
 #include "ParticleModuleHelper.h"
 #include "SdkHeaders.h"
+#include "Hooks.h"
 #include "Audio.h"
 #include "SoundEffect.h"
 
@@ -68,16 +70,60 @@ struct MutedPlayer
 struct CustomProjectile
 {
 private:
-	void _cloneModules(TArray<UParticleModule *> &out, TArray<UParticleModule *> &in)
+	static void _freeModules(TArray<UParticleModule *> &mod)
+	{
+		for (int i = 0; i < mod.Count; i++)
+		{
+			ParticleModuleHelper::freeModuleTArrays(mod.Data[i]);
+			free(mod.Data[i]);
+		}
+		free(mod.Data);
+	}
+
+	static void _cloneModules(TArray<UParticleModule *> &out, TArray<UParticleModule *> &in)
 	{
 		out.Data = (UParticleModule **)malloc(in.Count * sizeof(UParticleModule *));
 		for (int i = 0; i < in.Count; i++)
 			ParticleModuleHelper::copyModule(out.Data[i], in.Data[i]);
 	}
 
-	UParticleSystem *_cloneParticleSystem(UParticleSystem *ps)
+public:
+	static void freeParticleSystem(UParticleSystem *ps)
 	{
-		UParticleSystem *out = (UParticleSystem *)malloc(sizeof(UParticleSystem));
+		for (int em = 0; em < ps->Emitters.Count; em++)
+		{
+			UParticleEmitter *psem = ps->Emitters.Data[em];
+
+			for (int lod = 0; lod < psem->LODLevels.Count; lod++)
+			{
+				UParticleLODLevel *pslod = psem->LODLevels.Data[lod];
+
+				free(pslod->Modules.Data);
+				_freeModules(pslod->SpawnModules);
+				_freeModules(pslod->UpdateModules);
+				free(psem->LODLevels.Data[lod]);
+			}
+			free(psem->LODLevels.Data);
+			free(ps->Emitters.Data[em]);
+		}
+		free(ps->Emitters.Data);
+	}
+
+	static UParticleSystem *cloneParticleSystem(UParticleSystem *ps)
+	{
+		int timesec = clock() / CLOCKS_PER_SEC;
+		UParticleSystem *out = NULL;
+
+		// 10 secs is the time a static straight up mortar takes to fall down, so 20 should be safe
+		if (freePS.size() && timesec - freeTimes.front() > 20)
+		{
+			out = freePS.front();
+			freeParticleSystem(out);
+			freePS.pop();
+			freeTimes.pop();
+		}
+		else
+			out = (UParticleSystem *)malloc(sizeof(UParticleSystem));
 		memcpy(out, ps, sizeof(UParticleSystem));
 		out->Emitters.Data = (UParticleEmitter **)malloc(ps->Emitters.Count * sizeof(UParticleEmitter *));
 
@@ -114,38 +160,62 @@ private:
 					outlod->Modules.Data[i] = outlod->SpawnModules.Data[i];
 			}
 		}
+		usedPS.push(out);
 		return out;
 	}
 
-public:
+	CustomProjectile()
+		: weapon_id(0)
+	{
+		default_proj = NULL;
+		default_ps = NULL;
+		custom_ps = NULL;
+	}
+
 	CustomProjectile(int pweapon_id)
 		: weapon_id(0)
 	{
-		auto wep = Data::weapon_id_to_name.find(pweapon_id);
-		if (wep == Data::weapon_id_to_name.end())
+		auto wep = Data::weapon_id_to_proj_name.find(pweapon_id);
+		if (wep == Data::weapon_id_to_proj_name.end())
 			return;
 		std::string def_proj_name = "TrProj_" + wep->second + " TribesGame.Default__TrProj_" + wep->second;
 		default_proj = UObject::FindObject<ATrProjectile>(def_proj_name.c_str());
 		if (!default_proj)
+		{
+			Utils::console("ERROR: Projectile could not be found for weapon #%d PLEASE REPORT TO /u/ensiss", pweapon_id);
 			return;
+		}
 		default_ps = default_proj->ProjFlightTemplate;
 		weapon_id = pweapon_id;
-		custom_ps = _cloneParticleSystem(default_ps);
+		custom_ps = cloneParticleSystem(default_ps);
 	}
 
 	~CustomProjectile()
 	{
-		delete custom_ps;
 	}
 
 	int weapon_id;
 	ATrProjectile *default_proj;
 	UParticleSystem *default_ps;
 	UParticleSystem *custom_ps;
+
+	static std::queue<UParticleSystem *> usedPS;
+	static std::queue<UParticleSystem *> freePS;
+	static std::queue<int> freeTimes;
 };
 
 class Config
 {
+public:
+	struct TogglableIcon
+	{
+		bool *variable_ptr;
+		const char *func_name;
+
+		TogglableIcon(bool *pvar, const char *pfunc)
+			: variable_ptr(pvar), func_name(pfunc) {}
+	};
+
 public:
 	Config();
 	~Config();
@@ -157,7 +227,7 @@ public:
 	void initializeAudio();
 	void refreshSoundVolumes();
 
-	void reloadSkiBars(UGfxTrHud *currHud, bool updated = true);
+	void reloadTrHUD(ATrHUD *currHud, bool updated = true);
 
 public:
 	Lua lua;
@@ -232,6 +302,7 @@ public:
 	float volumeAirMail;
 
 	// HUD elements toggle
+	static TogglableIcon togglable_icons[];
 	bool showObjectiveIcon;
 	bool showFlagBaseIcon;
 	bool showCTFBaseIcon;
@@ -252,5 +323,5 @@ public:
 	std::map<int, CustomProjectile *> proj_class_to_custom_proj;
 
 	// Bools for reloading
-	bool shouldReloadGfxTrHud;
+	bool shouldReloadTrHud;
 };
