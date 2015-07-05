@@ -42,12 +42,14 @@ void onDLLProcessAttach()
 
 		// Bullet customization
 		// Chain
-		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
-		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
-		Hooks::add(&TrDev_WeaponFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState", Hooks::POST);
-		Hooks::add(&TrDev_WeaponFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer", Hooks::POST);
+		Hooks::add(&TrDev_WeaponConstantFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
+		Hooks::add(&TrDev_WeaponConstantFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
+		Hooks::add(&TrDev_WeaponConstantFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState", Hooks::POST);
+		Hooks::add(&TrDev_WeaponConstantFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer", Hooks::POST);
 
 		// Explosives
+		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice.WeaponFiring.BeginState");
+		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice.WeaponFiring.RefireCheckTimer");
 		Hooks::add(&TrProj_ReplicatedEvent_POST, "Function TribesGame.TrProjectile.ReplicatedEvent");
 
 		// Console commands (/lua)

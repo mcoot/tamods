@@ -127,7 +127,7 @@ void Config::reset()
 	globalMuteList = std::vector<MutedPlayer>();
 
 	// Bools for reloading
-	shouldReloadGfxTrHud = true;
+	shouldReloadTrHud = true;
 	shouldReloadCrosshairs = true;
 }
 
@@ -162,24 +162,47 @@ void Config::parseFile()
 	updateDefaults();
 }
 
-void Config::reloadSkiBars(UGfxTrHud *currHud, bool updated)
+void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 {
-	if (g_config.shouldReloadGfxTrHud)
+	if (g_config.shouldReloadTrHud && currHud)
 	{
-		UGfxTrHud *hud = UObject::FindObject<UGfxTrHud>("GfxTrHud TribesGame.Default__GfxTrHud");
+		// Ski Bars
+		UGfxTrHud *default_gfxhud = UObject::FindObject<UGfxTrHud>("GfxTrHud TribesGame.Default__GfxTrHud");
+		UGfxTrHud *currGfxHud = currHud->m_GFxHud;
 
-		if (!hud || !currHud)
-			return;
-		if (updated)
-			g_config.shouldReloadGfxTrHud = false;
 		for (int i = 0; i < 12; i++)
 		{
 			int val = (int)((g_config.skiBarMin + (i - 1) * (g_config.skiBarMax - g_config.skiBarMin) / 10.0f) / 0.072f);
-			if (currHud)
-				currHud->m_SkiSpeedSteps[i] = val;
-			if (hud)
-				hud->m_SkiSpeedSteps[i] = val;
+			if (currGfxHud)
+				currGfxHud->m_SkiSpeedSteps[i] = val;
+			if (default_gfxhud)
+				default_gfxhud->m_SkiSpeedSteps[i] = val;
 		}
+
+		// Chat color
+		ATrHUD *default_hud = UObject::FindObject<ATrHUD>("TrHUD TribesGame.Default__TrHUD");
+		if (default_hud)
+		{
+			default_hud->FriendlyChatColor = g_config.friendlyChatColor;
+			default_hud->EnemyChatColor = g_config.enemyChatColor;
+		}
+		currHud->FriendlyChatColor = g_config.friendlyChatColor;
+		currHud->EnemyChatColor = g_config.enemyChatColor;
+
+		// Damage numbers
+		if (default_hud)
+		{
+			default_hud->m_OverheadNumberColorMin = g_config.damageNumbersColorMin;
+			default_hud->m_OverheadNumberColorMax = g_config.damageNumbersColorMax;
+		}
+		if (!showRainbow)
+		{
+			currHud->m_OverheadNumberColorMin = g_config.damageNumbersColorMin;
+			currHud->m_OverheadNumberColorMax = g_config.damageNumbersColorMax;
+		}
+
+		if (updated)
+			g_config.shouldReloadTrHud = false;
 	}
 }
 
@@ -216,8 +239,8 @@ void Config::updateDefaults()
 			Hooks::add(&Function_HookBlock, const_cast<char *>(togglable_icons[i].func_name));
 	}
 
-	// Ski bars
-	reloadSkiBars(NULL, false);
+	// HUD variables
+	reloadTrHUD(NULL, false);
 }
 
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))

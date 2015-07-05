@@ -223,7 +223,7 @@ public:
 	void setVariables();
 	void updateDefaults();
 
-	void reloadSkiBars(UGfxTrHud *currHud, bool updated = true);
+	void reloadTrHUD(ATrHUD *currHud, bool updated = true);
 
 public:
 	Lua lua;
@@ -305,6 +305,6 @@ public:
 	std::map<int, CustomProjectile *> proj_class_to_custom_proj;
 
 	// Bools for reloading
-	bool shouldReloadGfxTrHud;
+	bool shouldReloadTrHud;
 	bool shouldReloadCrosshairs;
 };

@@ -41,8 +41,9 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 // Player only bullet color
+bool TrDev_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool TrDev_WeaponConstantFiring_POST(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrDev_WeaponFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool TrDev_WeaponFiring_POST(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrProj_ReplicatedEvent_POST(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 // Lua console command

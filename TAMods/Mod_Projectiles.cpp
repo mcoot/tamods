@@ -31,21 +31,28 @@ bool TrDev_WeaponFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, 
 {
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
 
-	if (that) {
-		if (that->ShouldRefire()) {
-			// Retrieve default object for the projectile that will be fired
-			auto it = g_config.wep_id_to_custom_proj.find(that->DBWeaponId);
-			if (it == g_config.wep_id_to_custom_proj.end() || !it->second)
-				return false;
-			fired_proj = it->second;
-			fired_proj->default_proj->ProjFlightTemplate = fired_proj->custom_ps;
-			proj_instigator = that->Instigator;
-		}
+	if (that->ShouldRefire())
+		proj_instigator = that->Instigator;
+	return false;
+}
+
+bool TrDev_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrDevice *that = (ATrDevice *)dwCallingObject;
+
+	if (that->ShouldRefire()) {
+		// Retrieve default object for the projectile that will be fired
+		auto it = g_config.wep_id_to_custom_proj.find(that->DBWeaponId);
+		if (it == g_config.wep_id_to_custom_proj.end() || !it->second)
+			return false;
+		fired_proj = it->second;
+		fired_proj->default_proj->ProjFlightTemplate = fired_proj->custom_ps;
+		proj_instigator = that->Instigator;
 	}
 	return false;
 }
 
-bool TrDev_WeaponFiring_POST(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+bool TrDev_WeaponConstantFiring_POST(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	if (fired_proj)
 	{
