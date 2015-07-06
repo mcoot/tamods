@@ -445,20 +445,14 @@ static void config_setProjectileColor(UParticleSystem *ps, const FColor &col, fl
 {
 	if (ps)
 	{
-		Logger::log("%d Emitters found", ps->Emitters.Count);
 		for (int ei = 0; ei < ps->Emitters.Count; ei++)
 		{
-			Logger::log("  Accessing emitter %d", ei);
 			UParticleEmitter *emitter = ps->Emitters.Data[ei];
-			Logger::log("  %d LODLevels found", emitter->LODLevels.Count);
 			for (int lodi = 0; lodi < emitter->LODLevels.Count; lodi++)
 			{
-				Logger::log("    Accessing LODLevel %d", lodi);
 				UParticleLODLevel *lod = emitter->LODLevels.Data[lodi];
 
-				Logger::log("    %d SpawnModules found", lod->SpawnModules.Count);
 				parseModuleArray(lod->SpawnModules, col, intensity);
-				Logger::log("    %d UpdateModules found", lod->UpdateModules.Count);
 				parseModuleArray(lod->UpdateModules, col, intensity);
 			}
 		}
