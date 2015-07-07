@@ -98,7 +98,6 @@ public:
 			{
 				UParticleLODLevel *pslod = psem->LODLevels.Data[lod];
 
-				free(pslod->Modules.Data);
 				_freeModules(pslod->SpawnModules);
 				_freeModules(pslod->UpdateModules);
 				_freeModules(pslod->Modules);
