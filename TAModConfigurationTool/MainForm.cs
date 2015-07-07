@@ -1841,6 +1841,21 @@ namespace TAModConfigurationTool
                 // Save custom asset files
                 foreach (string key in assetFiles.Keys)
                 {
+                    // If in a subdirectory, make sure the subdirectory exists
+                    if (key.Contains('\\'))
+                    {
+                        string[] dirpath = key.Split('\\');
+                        string builtpath = "";
+                        for (int i = 0; i < dirpath.Length-1; i++)
+                        {
+                            builtpath += dirpath[i];
+                            if (!Directory.Exists(configPath + builtpath))
+                            {
+                                Directory.CreateDirectory(configPath + builtpath);
+                            }
+                        }
+                    }
+                    
                     // Delete file if not required
                     if (assetFiles[key] == null)
                     {
