@@ -1249,13 +1249,16 @@ namespace TAModConfigurationTool
             }
 
             soundFile.doWrite = checkHitSoundSpecific.Checked;
+            if (cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound")
+            {
+                checkHitSoundSpecific.Checked = true;
+                soundFile.doWrite = true;
+            }
 
         }
 
         private void selectHitSoundFileSpecific_Changed(object sender, EventArgs e)
         {
-            Debug.WriteLine("dood");
-            
             ConfigSet cSet = ((ConfigSetListWrapper)(listHitSound.SelectedItem)).getSet();
             ConfigAssetFileItem soundFile = null;
 
@@ -1278,6 +1281,25 @@ namespace TAModConfigurationTool
 
             soundFile.inputFilename = selectHitSoundFileSpecific.Text;
 
+            if (cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound")
+            {
+                checkHitSoundSpecific.Checked = true;
+                soundFile.doWrite = true;
+            }
+
+        }
+
+        private void btnHitSoundFile_Click(object sender, EventArgs e)
+        {
+            fileHitSound.ShowDialog();
+        }
+
+        private void fileHitSound_FileOk(object sender, CancelEventArgs e)
+        {
+            if (fileHitSound.FileName.Trim() != "")
+            {
+                selectHitSoundFileSpecific.Text = fileHitSound.FileName.Trim();
+            }
         }
 
     }
@@ -1823,7 +1845,7 @@ namespace TAModConfigurationTool
                     }
                     
                     // Only save if the file is needed and isn't already there
-                    if (assetFiles[key] != null && assetFiles[key] != configPath + key)
+                    if (assetFiles[key] != null && assetFiles[key] != configPath + key && assetFiles[key].Trim() != "")
                     {
                         File.Copy(assetFiles[key], configPath + key, true);
                     }

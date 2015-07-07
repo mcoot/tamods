@@ -183,7 +183,7 @@
             this.btnProjectileSwapSave = new System.Windows.Forms.Button();
             this.listProjectileSwap = new System.Windows.Forms.ListBox();
             this.tabHitSounds = new TAModConfigurationTool.TransTabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnHitSoundFile = new System.Windows.Forms.Button();
             this.panel18 = new System.Windows.Forms.Panel();
             this.trackHitSoundVolumeSpecific = new System.Windows.Forms.TrackBar();
             this.label48 = new System.Windows.Forms.Label();
@@ -204,6 +204,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -2014,7 +2015,7 @@
             // 
             // tabHitSounds
             // 
-            this.tabHitSounds.Controls.Add(this.button1);
+            this.tabHitSounds.Controls.Add(this.btnHitSoundFile);
             this.tabHitSounds.Controls.Add(this.panel18);
             this.tabHitSounds.Controls.Add(this.label48);
             this.tabHitSounds.Controls.Add(this.checkHitSoundSpecific);
@@ -2040,15 +2041,16 @@
             this.tabHitSounds.Text = "Hit Sounds";
             this.tabHitSounds.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnHitSoundFile
             // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.button1.Location = new System.Drawing.Point(450, 102);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 21);
-            this.button1.TabIndex = 77;
-            this.button1.Text = "Load External File";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnHitSoundFile.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.btnHitSoundFile.Location = new System.Drawing.Point(450, 102);
+            this.btnHitSoundFile.Name = "btnHitSoundFile";
+            this.btnHitSoundFile.Size = new System.Drawing.Size(112, 21);
+            this.btnHitSoundFile.TabIndex = 77;
+            this.btnHitSoundFile.Text = "Load External File";
+            this.btnHitSoundFile.UseVisualStyleBackColor = true;
+            this.btnHitSoundFile.Click += new System.EventHandler(this.btnHitSoundFile_Click);
             // 
             // panel18
             // 
@@ -2295,6 +2297,11 @@
             this.btnSaveConfig.Text = "Save Config";
             this.btnSaveConfig.UseVisualStyleBackColor = true;
             this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // fileHitSound
+            // 
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // MainForm
             // 
@@ -2555,7 +2562,8 @@
         private System.Windows.Forms.Panel panel18;
         private System.Windows.Forms.TrackBar trackHitSoundVolumeSpecific;
         private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnHitSoundFile;
+        private System.Windows.Forms.OpenFileDialog fileHitSound;
     }
 }
 
