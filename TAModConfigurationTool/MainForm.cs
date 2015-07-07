@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -140,6 +142,36 @@ namespace TAModConfigurationTool
             listProjectileSwap.Items.Clear();
             checkProjectileSwapClone.Checked = false;
 
+            // Hit Sounds
+            selectHitSoundMode.SelectedIndex = 0;
+
+            listHitSound.Items.Clear();
+            ConfigSet c = new ConfigSet("Hit Sound");
+            ConfigItem i = new ConfigAssetFileItem("hit", "sounds\\hit.wav");
+            (i as ConfigAssetFileItem).doWrite = true;
+            c.Add(i);
+            i = new ConfigVarItem("hit_volume", "volumeHitSound", true);
+            c.Add(i);
+            listHitSound.Items.Add(new ConfigSetListWrapper(c));
+            c = new ConfigSet("Blueplate");
+            i = new ConfigAssetFileItem("blueplate", "sounds\\blueplate.wav");
+            c.Add(i);
+            i = new ConfigVarItem("blueplate_volume", "volumeBluePlate", true);
+            c.Add(i);
+            listHitSound.Items.Add(new ConfigSetListWrapper(c));
+            c = new ConfigSet("Air Mail");
+            i = new ConfigAssetFileItem("airmail", "sounds\\airmail.wav");
+            c.Add(i);
+            i = new ConfigVarItem("hit_volume", "volumeAirMail", true);
+            c.Add(i);
+            listHitSound.Items.Add(new ConfigSetListWrapper(c));
+            trackHitSoundVolumeSpecific.Value = 100;
+            checkHitSoundSpecific.Checked = false;
+
+            numHitSoundDamageRef.Value = 600;
+            numHitSoundPitchMin.Value = 0.4M;
+            numHitSoundPitchMax.Value = 1.6M;
+            selectHitSoundFileSpecific.Items.Clear();
         }
 
         private void setUI()
@@ -214,17 +246,8 @@ namespace TAModConfigurationTool
 
             foreach (string key in colorSettingVars.Keys)
             {
-                ConfigVarListItem c = new ConfigVarListItem(key, colorSettingVars[key]);
-                if (config.isConfigVarSet(c.var))
-                {
-                    c.isOverridden = true;
-                    c.value = config.getConfigVar(c.var);
-                }
-                else
-                {
-                    c.isOverridden = false;
-                    c.value = null;
-                }
+                ConfigVarItem c = new ConfigVarItem(key, colorSettingVars[key]);
+                c.ReadFromConfig(config);
                 listColorSettings.Items.Add(c);
             }
 
@@ -263,6 +286,23 @@ namespace TAModConfigurationTool
                 listProjectileSwap.Items.Add(swap);
             }
 
+            // Hit Sounds
+            selectHitSoundMode.SelectedIndex = Math.Max(Math.Min(Convert.ToInt32(config.getConfigVar("hitSoundMode")), 3), 0);
+
+            trackHitSoundVolumeSpecific.Value = 100;
+            checkHitSoundSpecific.Checked = false;
+            selectHitSoundFileSpecific.Items.Clear();
+
+            foreach (ConfigSetListWrapper c in listHitSound.Items)
+            {
+                c.getSet().ReadFromConfig(config);
+            }
+            listHitSound.SelectedIndex = 0;
+
+            numHitSoundDamageRef.Value = Convert.ToInt32(config.getConfigVar("hitSoundDamageRef"));
+            numHitSoundPitchMin.Value = Convert.ToDecimal(config.getConfigVar("hitSoundPitchMin"));
+            numHitSoundPitchMax.Value = Convert.ToDecimal(config.getConfigVar("hitSoundPitchMax"));
+            
         }
 
         private void writeUIToConfig()
@@ -329,16 +369,9 @@ namespace TAModConfigurationTool
 
             // Colour Settings
             // Custom Damage Number Colours
-            foreach (ConfigVarListItem c in listColorSettings.Items)
+            foreach (ConfigVarItem c in listColorSettings.Items)
             {
-                if (c.isOverridden)
-                {
-                    config.setConfigVar(c.var, c.value);
-                }
-                else
-                {
-                    config.setConfigVar(c.var, null);
-                }
+                c.WriteToConfig(config);
             }
 
             // Loadouts
@@ -375,6 +408,18 @@ namespace TAModConfigurationTool
             {
                 config.setProjectile(swap.projectile.gameClass, swap.projectile.weapon, swap.swapProjectile);
             }
+
+            // Hit Sounds
+            config.setConfigVar("hitSoundMode", Math.Max(0, Math.Min(3, selectHitSoundMode.SelectedIndex)));
+
+            foreach (ConfigSetListWrapper c in listHitSound.Items)
+            {
+                c.getSet().WriteToConfig(config);
+            }
+
+            config.setConfigVar("hitSoundDamageRef", Convert.ToInt32(numHitSoundDamageRef.Value));
+            config.setConfigVar("hitSoundPitchMin", Convert.ToSingle(numHitSoundPitchMin.Value));
+            config.setConfigVar("hitSoundPitchMax", Convert.ToSingle(numHitSoundPitchMax.Value));
         }
 
         private void selectLoadoutClass_SelectedIndexChanged(object sender, EventArgs e)
@@ -874,7 +919,7 @@ namespace TAModConfigurationTool
 
         private void colorColorSettings_ColorUpdated(object sender, EventArgs e)
         {
-            ConfigVarListItem currentItem = listColorSettings.SelectedItem as ConfigVarListItem;
+            ConfigVarItem currentItem = listColorSettings.SelectedItem as ConfigVarItem;
 
             if (currentItem != null)
             {
@@ -894,7 +939,7 @@ namespace TAModConfigurationTool
         {
             colorColorSettings.Enabled = checkColorSettingOverride.Checked;
 
-            ConfigVarListItem currentItem = listColorSettings.SelectedItem as ConfigVarListItem;
+            ConfigVarItem currentItem = listColorSettings.SelectedItem as ConfigVarItem;
 
             if (currentItem != null)
             {
@@ -915,7 +960,7 @@ namespace TAModConfigurationTool
             colorColorSettings.ColorUpdated -= new EventHandler(colorColorSettings_ColorUpdated);
             checkColorSettingOverride.CheckedChanged -= new EventHandler(checkColorSettingOverride_CheckedChanged);
 
-            ConfigVarListItem currentItem = listColorSettings.SelectedItem as ConfigVarListItem;
+            ConfigVarItem currentItem = listColorSettings.SelectedItem as ConfigVarItem;
 
             if (currentItem != null)
             {
@@ -1093,6 +1138,176 @@ namespace TAModConfigurationTool
             listProjectileSwap.SelectedItem = pNew;
         }
 
+        private void listHitSound_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ConfigSet cSet = ((ConfigSetListWrapper)(listHitSound.SelectedItem)).getSet();
+            ConfigAssetFileItem soundFile = null;
+            ConfigVarItem volume = null;
+
+            if (listHitSound.SelectedItem == null) return;
+
+            // Find the ConfigItems
+            foreach (ConfigItem c in cSet)
+            {
+                ConfigAssetFileItem cAsset = c as ConfigAssetFileItem;
+                ConfigVarItem cVar = c as ConfigVarItem;
+                if (cAsset != null)
+                {
+                    if (cAsset.name == "hit" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
+                        || cAsset.name == "blueplate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
+                        || cAsset.name == "airmail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    {
+                        soundFile = cAsset;
+                    }
+                }
+                else if (cVar != null)
+                {
+                    if (cVar.var == "volumeHitSound" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
+                        || cVar.var == "volumeBluePlate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
+                        || cVar.var == "volumeAirMail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    {
+                        volume = cVar;
+                    }
+                }
+            }
+
+            if (soundFile == null || volume == null) return;
+            
+            selectHitSoundFileSpecific.Items.Clear();
+
+            if (soundFile.inputFilename != null)
+            {
+                selectHitSoundFileSpecific.Items.Add(soundFile.inputFilename);
+            }
+            selectHitSoundFileSpecific.Text = soundFile.inputFilename;
+
+            string[] inputFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\sounds\\", "*.wav");
+            string relfile;
+
+            foreach (string file in inputFiles)
+            {
+                relfile = file;
+                if (file.StartsWith(AppDomain.CurrentDomain.BaseDirectory))
+                {
+                    relfile = file.Replace(AppDomain.CurrentDomain.BaseDirectory, "");
+                }
+                selectHitSoundFileSpecific.Items.Add(relfile);
+            }
+            
+            trackHitSoundVolumeSpecific.Value = Convert.ToInt32(Convert.ToSingle(volume.value) * 100);
+            checkHitSoundSpecific.Enabled = true;
+            checkHitSoundSpecific.Checked = soundFile.doWrite;
+
+            if (cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound")
+            {
+                checkHitSoundSpecific.Checked = (selectHitSoundFileSpecific.Text.Trim() != "");
+                checkHitSoundSpecific.Enabled = false;
+            }
+
+        }
+
+        private void trackHitSoundVolumeSpecific_Scroll(object sender, EventArgs e)
+        {
+            ConfigSet cSet = ((ConfigSetListWrapper)(listHitSound.SelectedItem)).getSet();
+            ConfigVarItem volume = null;
+
+            if (listHitSound.SelectedItem == null) return;
+
+            // Find the ConfigItems
+            foreach (ConfigItem c in cSet)
+            {
+                ConfigVarItem cVar = c as ConfigVarItem;
+                if (cVar != null)
+                {
+                    if (cVar.var == "volumeHitSound" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
+                        || cVar.var == "volumeBluePlate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
+                        || cVar.var == "volumeAirMail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    {
+                        volume = cVar;
+                    }
+                }
+            }
+
+            volume.value = ((float)trackHitSoundVolumeSpecific.Value) / 100F;
+
+        }
+
+        private void checkHitSoundSpecific_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigSet cSet = ((ConfigSetListWrapper)(listHitSound.SelectedItem)).getSet();
+            ConfigAssetFileItem soundFile = null;
+
+            if (listHitSound.SelectedItem == null) return;
+
+            // Find the ConfigItems
+            foreach (ConfigItem c in cSet)
+            {
+                ConfigAssetFileItem cAsset = c as ConfigAssetFileItem;
+                if (cAsset != null)
+                {
+                    if (cAsset.name == "hit" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
+                        || cAsset.name == "blueplate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
+                        || cAsset.name == "airmail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    {
+                        soundFile = cAsset;
+                    }
+                }
+            }
+
+            soundFile.doWrite = checkHitSoundSpecific.Checked;
+            if (cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound")
+            {
+                checkHitSoundSpecific.Checked = true;
+                soundFile.doWrite = true;
+            }
+
+        }
+
+        private void selectHitSoundFileSpecific_Changed(object sender, EventArgs e)
+        {
+            ConfigSet cSet = ((ConfigSetListWrapper)(listHitSound.SelectedItem)).getSet();
+            ConfigAssetFileItem soundFile = null;
+
+            if (listHitSound.SelectedItem == null) return;
+
+            // Find the ConfigItems
+            foreach (ConfigItem c in cSet)
+            {
+                ConfigAssetFileItem cAsset = c as ConfigAssetFileItem;
+                if (cAsset != null)
+                {
+                    if (cAsset.name == "hit" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
+                        || cAsset.name == "blueplate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
+                        || cAsset.name == "airmail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    {
+                        soundFile = cAsset;
+                    }
+                }
+            }
+
+            soundFile.inputFilename = selectHitSoundFileSpecific.Text;
+
+            if (cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound")
+            {
+                checkHitSoundSpecific.Checked = true;
+                soundFile.doWrite = true;
+            }
+
+        }
+
+        private void btnHitSoundFile_Click(object sender, EventArgs e)
+        {
+            fileHitSound.ShowDialog();
+        }
+
+        private void fileHitSound_FileOk(object sender, CancelEventArgs e)
+        {
+            if (fileHitSound.FileName.Trim() != "")
+            {
+                selectHitSoundFileSpecific.Text = fileHitSound.FileName.Trim();
+            }
+        }
+
     }
 
     public class Config
@@ -1107,6 +1322,8 @@ namespace TAModConfigurationTool
         private List<MutedPlayer> configMutedPlayers;
         private List<ProjectileSetting> configProjectileSettings;
         private List<ProjectileSwap> configProjectileSwaps;
+        private Dictionary<string, string> assetFiles;
+        private Dictionary<string, string> assetFilesDefault;
         private string configVersion = "v0.4";
 
         public Config(string configPath, string configFilename)
@@ -1132,11 +1349,13 @@ namespace TAModConfigurationTool
             this.configPath = configPath;
             this.configFile = configFilename;
             setupConfigVarDict();
+            setupAssetFileDict();
             configLoadouts = new List<Loadout>();
             configCrosshairs = new List<CrosshairSetting>();
             configMutedPlayers = new List<MutedPlayer>();
             configProjectileSettings = new List<ProjectileSetting>();
             configProjectileSwaps = new List<ProjectileSwap>();
+            
         }
 
         // Constructor puts the config path in the root of the C: drive if no path is given
@@ -1194,12 +1413,41 @@ namespace TAModConfigurationTool
                 { "enemyIsFMarkerColor", rgb(239, 164, 0) },
                 { "friendlyMarkerColor", rgb(115, 225, 255) },
                 { "friendlyIsFMarkerColor", rgb(81, 250, 85) },
+
+                { "hitSoundMode", 0 },
+                { "customAirMailSound", false },
+                { "customBluePlateSound", false },
+                { "hitSoundPitchMin", 0.4F },
+                { "hitSoundPitchMax", 1.6F },
+                { "hitSoundDamageRef", 600 },
+
+                { "volumeHitSound", 0.55F },
+                { "volumeHeadShot", 0.55F },
+                { "volumeBluePlate", 1F },
+                { "volumeAirMail", 1F },
+                
             };
 
             configVars = new Dictionary<String, Object>();
             foreach (string key in configVarsDefault.Keys)
             {
                 configVars.Add(key, null);
+            }
+        }
+
+        private void setupAssetFileDict()
+        {
+            assetFilesDefault = new Dictionary<string, string>()
+            {
+                { "sounds\\hit.wav", null },
+                { "sounds\\blueplate.wav", null },
+                { "sounds\\airmail.wav", null },
+            };
+
+            assetFiles = new Dictionary<string, string>();
+            foreach (string key in assetFilesDefault.Keys)
+            {
+                assetFiles.Add(key, null);
             }
         }
 
@@ -1218,6 +1466,7 @@ namespace TAModConfigurationTool
                 System.IO.File.WriteAllText(configPath + configFile, "");
             }
 
+            // Run the lua script
             try
             {
                 lua.DoFile(configPath + configFile);
@@ -1227,8 +1476,8 @@ namespace TAModConfigurationTool
                 return false;
             }
 
+            // Load the variables from the Lua object
             List<string> configKeys = new List<String>();
-
             foreach (string key in configVars.Keys)
             {
                 configKeys.Add(key);
@@ -1237,6 +1486,23 @@ namespace TAModConfigurationTool
             foreach (string key in configKeys)
             {
                 loadConfigVar(key);
+            }
+
+            
+
+            // Load in custom asset files where they exist
+            List<string> assetKeys = new List<String>();
+            foreach (string key in assetFiles.Keys)
+            {
+                assetKeys.Add(key);
+            }
+
+            foreach (string key in assetKeys)
+            {
+                if (System.IO.File.Exists(configPath + key))
+                {
+                    setAssetFile(key, configPath + key);
+                }
             }
 
             return true;
@@ -1250,15 +1516,8 @@ namespace TAModConfigurationTool
         // Checks if a config variable has been set
         public bool isConfigVarSet(string variableName)
         {
-            if (!configVars.ContainsKey(variableName))
-            {
-                return false;
-            }
-
-            if (configVars[variableName] == null)
-            {
-                return false;
-            }
+            if (!configVars.ContainsKey(variableName)) return false;
+            if (configVars[variableName] == null) return false;
 
             return true;
         }
@@ -1302,6 +1561,54 @@ namespace TAModConfigurationTool
         public void setConfigVar(string variableName, object value)
         {
             configVars[variableName] = value;
+        }
+
+        public bool isAssetFileSet(string assetName)
+        {
+            if (!assetFiles.ContainsKey(assetName)) return false;
+            if (assetFiles[assetName] == null) return false;
+
+            return true;
+        }
+
+        public string getAssetFile(string assetName)
+        {
+            if (assetFiles.ContainsKey(assetName))
+            {
+                if (assetFiles[assetName] == null)
+                {
+                    if (!assetFilesDefault.ContainsKey(assetName))
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return assetFilesDefault[assetName];
+                    }
+                }
+                return assetFiles[assetName];
+            }
+            else
+            {
+                if (!assetFilesDefault.ContainsKey(assetName))
+                {
+                    return null;
+                }
+                else
+                {
+                    return assetFilesDefault[assetName];
+                }
+            }
+        }
+
+        public string getAssetFileDefault(string assetName)
+        {
+            return assetFilesDefault[assetName];
+        }
+
+        public void setAssetFile(string assetName, string inputPath)
+        {
+            assetFiles[assetName] = inputPath;
         }
 
         public List<Loadout> getConfigLoadouts()
@@ -1531,15 +1838,34 @@ namespace TAModConfigurationTool
                     flines.Add(formatProjectileSetting(setting));
                 }
 
-                // Overwrite if required
-                if (System.IO.File.Exists(configPath + configFile))
+                // Save custom asset files
+                foreach (string key in assetFiles.Keys)
                 {
-                    System.IO.File.Delete(configPath + configFile);
+                    // Delete file if not required
+                    if (assetFiles[key] == null)
+                    {
+                        if (File.Exists(configPath + key))
+                        {
+                            System.IO.File.Delete(configPath + key);
+                        }
+                    }
+                    
+                    // Only save if the file is needed and isn't already there
+                    if (assetFiles[key] != null && assetFiles[key] != configPath + key && assetFiles[key].Trim() != "")
+                    {
+                        File.Copy(assetFiles[key], configPath + key, true);
+                    }
                 }
 
-                System.IO.File.WriteAllLines(configPath + configFile, flines.ToArray());
+                // Overwrite if required
+                if (File.Exists(configPath + configFile))
+                {
+                    File.Delete(configPath + configFile);
+                }
+
+                File.WriteAllLines(configPath + configFile, flines.ToArray());
             }
-            catch (System.IO.IOException)
+            catch (IOException)
             {
                 return false;
             }
@@ -1667,34 +1993,32 @@ namespace TAModConfigurationTool
 
     }
 
-    public class ConfigVarListItem : IComparable<ConfigVarListItem>
+    public abstract class ConfigItem : IComparable<ConfigItem>
     {
-
         public readonly string name;
-        public readonly string var;
-        public bool isOverridden;
-        public object value;
         
-        public ConfigVarListItem(string name, string var)
+        public ConfigItem(string name)
         {
             this.name = name;
-            this.var = var;
-            isOverridden = false;
         }
+
+        public abstract void ReadFromConfig(Config config);
+
+        public abstract void WriteToConfig(Config config);
 
         public override string ToString()
         {
             return name;
         }
 
-        public int CompareTo(ConfigVarListItem other)
+        public int CompareTo(ConfigItem other)
         {
             return name.CompareTo(other.name);
         }
 
         public override bool Equals(object other)
         {
-            ConfigVarListItem cother = other as ConfigVarListItem;
+            ConfigVarItem cother = other as ConfigVarItem;
             if (cother == null)
             {
                 return false;
@@ -1706,6 +2030,175 @@ namespace TAModConfigurationTool
         public override int GetHashCode()
         {
             return name.GetHashCode();
+        }
+
+    }
+
+    public class ConfigVarItem : ConfigItem
+    {
+
+        public readonly string var;
+        public bool isOverridden;
+        public object value;
+
+        public ConfigVarItem(string name, string var, bool isOverridden)
+            : base(name)
+        {
+            this.var = var;
+            this.isOverridden = isOverridden;
+        }
+
+        public ConfigVarItem(string name, string var) : this(name, var, false) { }
+
+        public override void ReadFromConfig(Config config)
+        {
+            value = config.getConfigVar(var);
+            if (config.isConfigVarSet(var))
+            {
+                isOverridden = true;
+            }
+            else
+            {
+                isOverridden = false;
+            }
+        }
+
+        public override void WriteToConfig(Config config)
+        {
+            if (isOverridden)
+            {
+                config.setConfigVar(var, value);
+            }
+            else
+            {
+                config.setConfigVar(var, null);
+            }
+        }
+    }
+
+    public class ConfigAssetFileItem : ConfigItem
+    {
+        public readonly string asset;
+        public string inputFilename = null;
+        public bool doWrite = false;
+
+        public ConfigAssetFileItem(string name, string asset)
+            : base(name)
+        {
+            this.asset = asset;
+        }
+
+        public override void ReadFromConfig(Config config)
+        {
+            if (config.isAssetFileSet(asset))
+            {
+                doWrite = true;
+                inputFilename = config.getAssetFile(asset);
+            }
+            else
+            {
+                doWrite = false;
+                inputFilename = null;
+            }
+        }
+
+        public override void WriteToConfig(Config config)
+        {
+            if (doWrite)
+            {   
+                // Handle relative paths
+                if (inputFilename[0] == '\\')
+                {
+                    inputFilename = AppDomain.CurrentDomain.BaseDirectory + inputFilename;
+                }
+                
+                config.setAssetFile(asset, inputFilename);
+            }
+            else
+            {
+                config.setAssetFile(asset, null);
+            }
+        }
+        
+    }
+
+    public class ConfigSet : List<ConfigItem>, IComparable<ConfigSet>
+    {
+        public readonly string name;
+        
+        public ConfigSet(string name) : base()
+        {
+            this.name = name;
+        }
+
+        public void ReadFromConfig(Config config)
+        {
+            foreach (ConfigItem c in this)
+            {
+                c.ReadFromConfig(config);
+            }
+        }
+
+        public void WriteToConfig(Config config)
+        {
+            foreach (ConfigItem c in this)
+            {
+                c.WriteToConfig(config);
+            }
+        }
+
+        public ConfigSet() : this("") { }
+
+        public int CompareTo(ConfigSet other)
+        {
+            // If names are equal, compare items
+            if (name.Equals(other.name))
+            {
+                return base.ToString().CompareTo(other.ToString());
+            }
+
+            return name.CompareTo(other.name);
+        }
+
+        public override bool Equals(object obj)
+        {
+            ConfigSet c = obj as ConfigSet;
+            if (c == null) return false;
+            return name.Equals(c) && base.Equals(c);
+        }
+
+        public override int GetHashCode()
+        {
+            return name.GetHashCode()*7 + base.GetHashCode();
+        }
+        public override string ToString()
+        {
+            return name.ToString();
+        }
+    }
+
+    public class ConfigSetListWrapper
+    {
+        private ConfigSet set;
+
+        public ConfigSetListWrapper(ConfigSet set)
+        {
+            this.set = set;
+        }
+
+        public ConfigSet getSet()
+        {
+            return set;
+        }
+
+        public void setSet(ConfigSet set)
+        {
+            this.set = set;
+        }
+
+        public override string ToString()
+        {
+            return set.name;
         }
     }
 

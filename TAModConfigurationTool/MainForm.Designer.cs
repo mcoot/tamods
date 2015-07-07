@@ -183,8 +183,28 @@
             this.btnProjectileSwapSave = new System.Windows.Forms.Button();
             this.listProjectileSwap = new System.Windows.Forms.ListBox();
             this.tabHitSounds = new TAModConfigurationTool.TransTabPage();
+            this.btnHitSoundFile = new System.Windows.Forms.Button();
+            this.panel18 = new System.Windows.Forms.Panel();
+            this.trackHitSoundVolumeSpecific = new System.Windows.Forms.TrackBar();
+            this.label48 = new System.Windows.Forms.Label();
+            this.checkHitSoundSpecific = new System.Windows.Forms.CheckBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.selectHitSoundFileSpecific = new System.Windows.Forms.ComboBox();
+            this.listHitSound = new System.Windows.Forms.ListBox();
+            this.numHitSoundDamageRef = new System.Windows.Forms.NumericUpDown();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.numHitSoundPitchMax = new System.Windows.Forms.NumericUpDown();
+            this.label32 = new System.Windows.Forms.Label();
+            this.numHitSoundPitchMin = new System.Windows.Forms.NumericUpDown();
+            this.label31 = new System.Windows.Forms.Label();
+            this.selectHitSoundMode = new System.Windows.Forms.ComboBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -221,6 +241,12 @@
             this.tabProjSwap.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel16.SuspendLayout();
+            this.tabHitSounds.SuspendLayout();
+            this.panel18.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackHitSoundVolumeSpecific)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -1974,7 +2000,7 @@
             this.btnProjectileSwapSave.Name = "btnProjectileSwapSave";
             this.btnProjectileSwapSave.Size = new System.Drawing.Size(120, 23);
             this.btnProjectileSwapSave.TabIndex = 8;
-            this.btnProjectileSwapSave.Text = "Save Edited Crosshair";
+            this.btnProjectileSwapSave.Text = "Save Edited";
             this.btnProjectileSwapSave.UseVisualStyleBackColor = true;
             this.btnProjectileSwapSave.Click += new System.EventHandler(this.btnProjectileSwapSave_Click);
             // 
@@ -1989,6 +2015,24 @@
             // 
             // tabHitSounds
             // 
+            this.tabHitSounds.Controls.Add(this.btnHitSoundFile);
+            this.tabHitSounds.Controls.Add(this.panel18);
+            this.tabHitSounds.Controls.Add(this.label48);
+            this.tabHitSounds.Controls.Add(this.checkHitSoundSpecific);
+            this.tabHitSounds.Controls.Add(this.label47);
+            this.tabHitSounds.Controls.Add(this.label46);
+            this.tabHitSounds.Controls.Add(this.selectHitSoundFileSpecific);
+            this.tabHitSounds.Controls.Add(this.listHitSound);
+            this.tabHitSounds.Controls.Add(this.numHitSoundDamageRef);
+            this.tabHitSounds.Controls.Add(this.label45);
+            this.tabHitSounds.Controls.Add(this.label37);
+            this.tabHitSounds.Controls.Add(this.numHitSoundPitchMax);
+            this.tabHitSounds.Controls.Add(this.label32);
+            this.tabHitSounds.Controls.Add(this.numHitSoundPitchMin);
+            this.tabHitSounds.Controls.Add(this.label31);
+            this.tabHitSounds.Controls.Add(this.selectHitSoundMode);
+            this.tabHitSounds.Controls.Add(this.label29);
+            this.tabHitSounds.Controls.Add(this.label28);
             this.tabHitSounds.Location = new System.Drawing.Point(4, 26);
             this.tabHitSounds.Name = "tabHitSounds";
             this.tabHitSounds.Padding = new System.Windows.Forms.Padding(3);
@@ -1996,6 +2040,243 @@
             this.tabHitSounds.TabIndex = 7;
             this.tabHitSounds.Text = "Hit Sounds";
             this.tabHitSounds.UseVisualStyleBackColor = true;
+            // 
+            // btnHitSoundFile
+            // 
+            this.btnHitSoundFile.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.btnHitSoundFile.Location = new System.Drawing.Point(450, 102);
+            this.btnHitSoundFile.Name = "btnHitSoundFile";
+            this.btnHitSoundFile.Size = new System.Drawing.Size(112, 21);
+            this.btnHitSoundFile.TabIndex = 77;
+            this.btnHitSoundFile.Text = "Load External File";
+            this.btnHitSoundFile.UseVisualStyleBackColor = true;
+            this.btnHitSoundFile.Click += new System.EventHandler(this.btnHitSoundFile_Click);
+            // 
+            // panel18
+            // 
+            this.panel18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel18.Controls.Add(this.trackHitSoundVolumeSpecific);
+            this.panel18.Location = new System.Drawing.Point(450, 156);
+            this.panel18.Name = "panel18";
+            this.panel18.Size = new System.Drawing.Size(230, 49);
+            this.panel18.TabIndex = 76;
+            // 
+            // trackHitSoundVolumeSpecific
+            // 
+            this.trackHitSoundVolumeSpecific.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackHitSoundVolumeSpecific.Location = new System.Drawing.Point(0, 0);
+            this.trackHitSoundVolumeSpecific.Maximum = 100;
+            this.trackHitSoundVolumeSpecific.Name = "trackHitSoundVolumeSpecific";
+            this.trackHitSoundVolumeSpecific.Size = new System.Drawing.Size(228, 47);
+            this.trackHitSoundVolumeSpecific.TabIndex = 63;
+            this.trackHitSoundVolumeSpecific.TickFrequency = 10;
+            this.trackHitSoundVolumeSpecific.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackHitSoundVolumeSpecific.Value = 100;
+            this.trackHitSoundVolumeSpecific.Scroll += new System.EventHandler(this.trackHitSoundVolumeSpecific_Scroll);
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label48.Location = new System.Drawing.Point(450, 136);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(55, 17);
+            this.label48.TabIndex = 75;
+            this.label48.Text = "Volume";
+            // 
+            // checkHitSoundSpecific
+            // 
+            this.checkHitSoundSpecific.AutoSize = true;
+            this.checkHitSoundSpecific.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkHitSoundSpecific.Location = new System.Drawing.Point(453, 33);
+            this.checkHitSoundSpecific.Name = "checkHitSoundSpecific";
+            this.checkHitSoundSpecific.Size = new System.Drawing.Size(128, 17);
+            this.checkHitSoundSpecific.TabIndex = 74;
+            this.checkHitSoundSpecific.Text = "Use separate sound";
+            this.checkHitSoundSpecific.UseVisualStyleBackColor = true;
+            this.checkHitSoundSpecific.CheckedChanged += new System.EventHandler(this.checkHitSoundSpecific_CheckedChanged);
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label47.Location = new System.Drawing.Point(256, 5);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(235, 25);
+            this.label47.TabIndex = 73;
+            this.label47.Text = "Hit Sound Customisation";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label46.Location = new System.Drawing.Point(450, 55);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(73, 17);
+            this.label46.TabIndex = 72;
+            this.label46.Text = "Sound File";
+            // 
+            // selectHitSoundFileSpecific
+            // 
+            this.selectHitSoundFileSpecific.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.selectHitSoundFileSpecific.FormattingEnabled = true;
+            this.selectHitSoundFileSpecific.Location = new System.Drawing.Point(450, 75);
+            this.selectHitSoundFileSpecific.Name = "selectHitSoundFileSpecific";
+            this.selectHitSoundFileSpecific.Size = new System.Drawing.Size(474, 21);
+            this.selectHitSoundFileSpecific.TabIndex = 71;
+            this.selectHitSoundFileSpecific.SelectedIndexChanged += new System.EventHandler(this.selectHitSoundFileSpecific_Changed);
+            this.selectHitSoundFileSpecific.TextUpdate += new System.EventHandler(this.selectHitSoundFileSpecific_Changed);
+            // 
+            // listHitSound
+            // 
+            this.listHitSound.FormattingEnabled = true;
+            this.listHitSound.ItemHeight = 17;
+            this.listHitSound.Location = new System.Drawing.Point(260, 31);
+            this.listHitSound.Name = "listHitSound";
+            this.listHitSound.Size = new System.Drawing.Size(184, 378);
+            this.listHitSound.TabIndex = 70;
+            this.listHitSound.SelectedIndexChanged += new System.EventHandler(this.listHitSound_SelectedIndexChanged);
+            // 
+            // numHitSoundDamageRef
+            // 
+            this.numHitSoundDamageRef.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numHitSoundDamageRef.Location = new System.Drawing.Point(116, 149);
+            this.numHitSoundDamageRef.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numHitSoundDamageRef.Name = "numHitSoundDamageRef";
+            this.numHitSoundDamageRef.Size = new System.Drawing.Size(69, 22);
+            this.numHitSoundDamageRef.TabIndex = 69;
+            this.numHitSoundDamageRef.Value = new decimal(new int[] {
+            600,
+            0,
+            0,
+            0});
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label45.Location = new System.Drawing.Point(9, 152);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(103, 13);
+            this.label45.TabIndex = 68;
+            this.label45.Text = "Reference Damage";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Location = new System.Drawing.Point(129, 119);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(56, 13);
+            this.label37.TabIndex = 67;
+            this.label37.Text = "Max Pitch";
+            // 
+            // numHitSoundPitchMax
+            // 
+            this.numHitSoundPitchMax.DecimalPlaces = 2;
+            this.numHitSoundPitchMax.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numHitSoundPitchMax.Location = new System.Drawing.Point(185, 116);
+            this.numHitSoundPitchMax.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numHitSoundPitchMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numHitSoundPitchMax.Name = "numHitSoundPitchMax";
+            this.numHitSoundPitchMax.Size = new System.Drawing.Size(56, 22);
+            this.numHitSoundPitchMax.TabIndex = 66;
+            this.numHitSoundPitchMax.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(9, 119);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(55, 13);
+            this.label32.TabIndex = 65;
+            this.label32.Text = "Min Pitch";
+            // 
+            // numHitSoundPitchMin
+            // 
+            this.numHitSoundPitchMin.DecimalPlaces = 2;
+            this.numHitSoundPitchMin.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numHitSoundPitchMin.Location = new System.Drawing.Point(67, 116);
+            this.numHitSoundPitchMin.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numHitSoundPitchMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numHitSoundPitchMin.Name = "numHitSoundPitchMin";
+            this.numHitSoundPitchMin.Size = new System.Drawing.Size(56, 22);
+            this.numHitSoundPitchMin.TabIndex = 64;
+            this.numHitSoundPitchMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(8, 89);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(97, 17);
+            this.label31.TabIndex = 63;
+            this.label31.Text = "Dynamic Pitch";
+            // 
+            // selectHitSoundMode
+            // 
+            this.selectHitSoundMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectHitSoundMode.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.selectHitSoundMode.FormattingEnabled = true;
+            this.selectHitSoundMode.Items.AddRange(new object[] {
+            "Default Sounds",
+            "Custom - Static Pitch",
+            "Custom - Decrease Pitch With Damage",
+            "Custom - Increase Pitch With Damage"});
+            this.selectHitSoundMode.Location = new System.Drawing.Point(11, 56);
+            this.selectHitSoundMode.Name = "selectHitSoundMode";
+            this.selectHitSoundMode.Size = new System.Drawing.Size(230, 21);
+            this.selectHitSoundMode.TabIndex = 60;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(8, 36);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(43, 17);
+            this.label29.TabIndex = 59;
+            this.label29.Text = "Mode";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(6, 5);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(180, 25);
+            this.label28.TabIndex = 46;
+            this.label28.Text = "Hit Sound Settings";
             // 
             // flowLayoutPanel1
             // 
@@ -2016,6 +2297,11 @@
             this.btnSaveConfig.Text = "Save Config";
             this.btnSaveConfig.UseVisualStyleBackColor = true;
             this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // fileHitSound
+            // 
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // MainForm
             // 
@@ -2087,6 +2373,14 @@
             this.panel7.PerformLayout();
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
+            this.tabHitSounds.ResumeLayout(false);
+            this.tabHitSounds.PerformLayout();
+            this.panel18.ResumeLayout(false);
+            this.panel18.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackHitSoundVolumeSpecific)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -2250,6 +2544,26 @@
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.NumericUpDown numProjectileSettingIntensity;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox selectHitSoundMode;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.NumericUpDown numHitSoundPitchMax;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.NumericUpDown numHitSoundPitchMin;
+        private System.Windows.Forms.NumericUpDown numHitSoundDamageRef;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.ComboBox selectHitSoundFileSpecific;
+        private System.Windows.Forms.ListBox listHitSound;
+        private System.Windows.Forms.CheckBox checkHitSoundSpecific;
+        private System.Windows.Forms.Panel panel18;
+        private System.Windows.Forms.TrackBar trackHitSoundVolumeSpecific;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Button btnHitSoundFile;
+        private System.Windows.Forms.OpenFileDialog fileHitSound;
     }
 }
 
