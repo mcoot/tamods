@@ -747,10 +747,10 @@ void ParticleModuleHelper::copyModule(UParticleModule *&out, UParticleModule *&i
 	{
 		out = (UParticleModule *)malloc(size);
 		memcpy(out, in, size);
+		copyModuleTArrays(out, in);
 	}
 	else
 		out = in;
-	copyModuleTArrays(out, in);
 }
 
 int ParticleModuleHelper::ParticleModule_getbSpawnModule(const UParticleModule *mod) { return mod->bSpawnModule; }
