@@ -1182,10 +1182,16 @@ namespace TAModConfigurationTool
             selectHitSoundFileSpecific.Text = soundFile.inputFilename;
 
             string[] inputFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\sounds\\", "*.wav");
+            string relfile;
 
             foreach (string file in inputFiles)
             {
-                selectHitSoundFileSpecific.Items.Add(file);
+                relfile = file;
+                if (file.StartsWith(AppDomain.CurrentDomain.BaseDirectory))
+                {
+                    relfile = file.Replace(AppDomain.CurrentDomain.BaseDirectory, "");
+                }
+                selectHitSoundFileSpecific.Items.Add(relfile);
             }
             
             trackHitSoundVolumeSpecific.Value = Convert.ToInt32(Convert.ToSingle(volume.value) * 100);
@@ -2099,7 +2105,13 @@ namespace TAModConfigurationTool
         public override void WriteToConfig(Config config)
         {
             if (doWrite)
-            {
+            {   
+                // Handle relative paths
+                if (inputFilename[0] == '\\')
+                {
+                    inputFilename = AppDomain.CurrentDomain.BaseDirectory + inputFilename;
+                }
+                
                 config.setAssetFile(asset, inputFilename);
             }
             else
