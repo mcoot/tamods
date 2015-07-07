@@ -1305,6 +1305,7 @@ namespace TAModConfigurationTool
             if (fileHitSound.FileName.Trim() != "")
             {
                 selectHitSoundFileSpecific.Text = fileHitSound.FileName.Trim();
+                selectHitSoundFileSpecific_Changed(fileHitSound, EventArgs.Empty);
             }
         }
 
