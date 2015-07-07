@@ -13,6 +13,8 @@ bool TrProj_ReplicatedEvent_POST(int ID, UObject *dwCallingObject, UFunction* pF
 		auto it = g_config.proj_class_to_custom_proj.find((int) that->Class);
 		if (it == g_config.proj_class_to_custom_proj.end() || !it->second)
 			return false;
+		if (!it->second->custom_ps)
+			return false;
 		that->ProjFlightTemplate = it->second->custom_ps;
 		for (int i = that->Components.Count - 1; i >= 0; i--)
 		{

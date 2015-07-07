@@ -101,6 +101,7 @@ public:
 				free(pslod->Modules.Data);
 				_freeModules(pslod->SpawnModules);
 				_freeModules(pslod->UpdateModules);
+				_freeModules(pslod->Modules);
 				free(psem->LODLevels.Data[lod]);
 			}
 			free(psem->LODLevels.Data);
@@ -113,6 +114,9 @@ public:
 	{
 		int timesec = clock() / CLOCKS_PER_SEC;
 		UParticleSystem *out = NULL;
+
+		if (!ps)
+			return NULL;
 
 		// 10 secs is the time a static straight up mortar takes to fall down, so 20 should be safe
 		if (freePS.size() && timesec - freeTimes.front() > 20)
@@ -151,13 +155,9 @@ public:
 
 				UParticleLODLevel *outlod = outem->LODLevels.Data[lod];
 				UParticleLODLevel *inlod = inem->LODLevels.Data[lod];
+				_cloneModules(outlod->Modules, inlod->Modules);
 				_cloneModules(outlod->SpawnModules, inlod->SpawnModules);
 				_cloneModules(outlod->UpdateModules, inlod->UpdateModules);
-
-				// Modules and SpawnModules seem to be the same so it's better to reuse the pointers
-				outlod->Modules.Data = (UParticleModule **)malloc(outlod->SpawnModules.Count * sizeof(UParticleModule *));
-				for (int i = 0; i < outlod->SpawnModules.Count; i++)
-					outlod->Modules.Data[i] = outlod->SpawnModules.Data[i];
 			}
 		}
 		usedPS.push(out);
@@ -176,7 +176,7 @@ public:
 		: weapon_id(0)
 	{
 		auto wep = Data::weapon_id_to_proj_name.find(pweapon_id);
-		if (wep == Data::weapon_id_to_proj_name.end())
+		if (wep == Data::weapon_id_to_proj_name.end() || wep->second.size() == 0)
 			return;
 		std::string def_proj_name = "TrProj_" + wep->second + " TribesGame.Default__TrProj_" + wep->second;
 		default_proj = UObject::FindObject<ATrProjectile>(def_proj_name.c_str());

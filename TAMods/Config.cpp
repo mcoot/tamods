@@ -487,7 +487,7 @@ static UParticleSystem *config_getProjectile(const std::string &pclass, const st
 static void config_setProjectile(const std::string &pclass, const std::string &weapon, UParticleSystem *ps)
 {
 	int weapon_id = getWeaponID(pclass, weapon);
-	if (!weapon_id)
+	if (!weapon_id || !ps)
 		return;
 	CustomProjectile *proj = NULL;
 	auto it = g_config.wep_id_to_custom_proj.find(weapon_id);

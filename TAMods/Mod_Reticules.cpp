@@ -5,6 +5,9 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 	ATrPawn *that = (ATrPawn *)dwCallingObject;
 	ATrHUD *hud = that->GetTrHud();
 
+	if (hud && hud->PlayerOwner)
+		Utils::tr_pc = (ATrPlayerController *)hud->PlayerOwner;
+
 	if (hud && hud->m_GFxHud && hud->m_GFxHud->Reticules)
 	{
 		UGFxTrReticules *reticule = hud->m_GFxHud->Reticules;

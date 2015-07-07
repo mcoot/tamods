@@ -5,6 +5,9 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
 	UTrChatConsole_execInputKey_Parms *params = (UTrChatConsole_execInputKey_Parms *)pParams;
 
+	if (that->m_TrPC)
+		Utils::tr_pc = that->m_TrPC;
+
 	params->AmountDepressed = 1.0f;
 	params->bGamepad = false;
 	if (params->Key == FName("Enter") && params->Event == 1)
