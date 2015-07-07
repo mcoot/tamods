@@ -57,6 +57,9 @@ void onDLLProcessAttach()
 		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice.WeaponFiring.RefireCheckTimer");
 		Hooks::add(&TrProj_ReplicatedEvent_POST, "Function TribesGame.TrProjectile.ReplicatedEvent");
 
+		// Magic chain
+		Hooks::add(&TrPC_PlayerTick, "Function TribesGame.TrPlayerController.PlayerTick");
+
 		// Console commands (/lua)
 		Hooks::add(&TrChatConsole_InputKey, "Function TrChatConsole.Open.InputKey");
 	}
