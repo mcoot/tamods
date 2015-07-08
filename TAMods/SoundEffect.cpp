@@ -37,7 +37,7 @@ bool SoundEffect::CreateVoice()
 		return false;
 
 	// set volume
-	if (m_configVolumeVar && *m_configVolumeVar)
+	if (m_configVolumeVar)
 		m_sourceVoice->SetVolume(*m_configVolumeVar);
 
 	return true;
@@ -66,6 +66,6 @@ void SoundEffect::SetVolume(float volume)
 
 void SoundEffect::RefreshVolume()
 {
-	if (m_audioAvailable && m_configVolumeVar && *m_configVolumeVar)
+	if (m_audioAvailable && m_configVolumeVar)
 		m_sourceVoice->SetVolume(*m_configVolumeVar);
 }
