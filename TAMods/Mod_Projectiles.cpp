@@ -78,7 +78,6 @@ bool TrDev_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFu
 		{
 			if (MyDelayedProjectiles[i].delaytime <= 0.0)
 			{
-				Utils::console("Creating projectile with ping %f", pingtime);
 				MyDelayedProjectiles[i].delaytime = pingtime;
 				MyDelayedProjectiles[i].SpawnClass = ATrProj_NJ4SMG::StaticClass(); //mydevice->WeaponProjectiles.Data[0];
 				MyDelayedProjectiles[i].direction = Mydir;
@@ -89,7 +88,7 @@ bool TrDev_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFu
 
 				MyDelayedProjectiles[i].device = that;
 
-				return false;
+				return true;
 			}
 		}
 	}
@@ -110,11 +109,10 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 			{
 				MyDelayedProjectiles[i].delaytime = 0;
 
-				Utils::console("Spawning projectile");
 				ATrDevice *mydevice = (ATrDevice *)MyDelayedProjectiles[i].device;
 				const FVector &dir = MyDelayedProjectiles[i].direction;
 				FVector loc = MyDelayedProjectiles[i].SpawnLocation;
-				float speed = 21000.0f * that->PlayerReplicationInfo->ExactPing * 0.5f;
+				float speed = 21000.0f * that->PlayerReplicationInfo->ExactPing;
 				FVector spawnloc(loc.X + dir.X * speed, loc.Y + dir.Y * speed, loc.Z + dir.Z * speed);
 				ATrProjectile *myproj = (ATrProjectile *)mydevice->Spawn(MyDelayedProjectiles[i].SpawnClass, MyDelayedProjectiles[i].SpawnOwner, MyDelayedProjectiles[i].SpawnTag, spawnloc, MyDelayedProjectiles[i].SpawnRotation, 0, 0);
 				if (myproj) {
