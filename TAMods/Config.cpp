@@ -111,6 +111,7 @@ void Config::reset()
 	hitSoundMode = 0;
 	customAirMailSound = false;
 	customBluePlateSound = false;
+	disableCreditsSound = false;
 	hitSoundPitchMin = 0.4f;
 	hitSoundPitchMax = 1.6f;
 	hitSoundDamageRef = 600;
@@ -243,6 +244,11 @@ void Config::updateDefaults()
 	if (headshotsound)
 		headshotsound->VolumeMultiplier = volumeHeadShot;
 
+	// Credit gained sound
+	UAudioComponent *creditssound = UObject::FindObject<UAudioComponent>("AudioComponent TribesGame.Default__TrPlayerController.CreditsSound");
+	if (creditssound)
+		creditssound->VolumeMultiplier = disableCreditsSound ? 0.0f : 1.0f;
+
 	// Toggle icons
 	for (int i = 0; i < sizeof(togglable_icons) / sizeof(togglable_icons[0]); i++)
 	{
@@ -356,6 +362,7 @@ void Config::setVariables()
 	SET_VARIABLE(int, hitSoundMode);
 	SET_VARIABLE(bool, customAirMailSound);
 	SET_VARIABLE(bool, customBluePlateSound);
+	SET_VARIABLE(bool, disableCreditsSound);
 	SET_VARIABLE(float, hitSoundPitchMin);
 	SET_VARIABLE(float, hitSoundPitchMax);
 	SET_VARIABLE(int, hitSoundDamageRef);
