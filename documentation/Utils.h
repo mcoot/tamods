@@ -34,7 +34,7 @@
 *
 * - <a href="http://pastebin.com/rqLqEJuu">Basic damage numbers</a>, with a lot of comments. If you remove all the comments you'll see that the code is very short and readable
 * - <a href="http://pastebin.com/QFm7R8Pu">Static damage numbers</a>, this source code is not optimized so you will encounter performance issues after some time. As training, you can try to optimize it a bit (instead of drawing everything with some numbers at 0 scale, try to draw only those visible)
-* - <a href="http://pastebin.com/tZNRpCk0">Custom fancy damage numbers</a>, just to show off what's possible with scripting. There's a "lol" message in rainbow color, smoothly following where you hit with added "lol" for each hit. Also, damage numbers are still present and go in a random direction when they spawn.
+* - <a href="http://pastebin.com/76QyeUwW">Custom fancy damage numbers</a>, just to show off what's possible with scripting. There's a "lol" message in rainbow color, smoothly following where you hit with added "lol" for each hit. Also, damage numbers are still present and go in a random direction when they spawn.
 * 
 * \subsection projectiles Custom Projectiles
 *
