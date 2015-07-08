@@ -26,6 +26,20 @@
 *
 * If you managed to do something useful, interesting or even just funny with the mods, please share it with the community. The game is still alive, we as developers are doing our best to bring new content and updates, but now it's time for the community to step up and show what you can do.
 *
+* \section examples Examples
+*
+* These examples must be copy/pasted in custom.lua in your config folder to work.
+*
+* \subsection damage_numbers Damage Numbers
+*
+* - <a href="http://pastebin.com/rqLqEJuu">Basic damage numbers</a>, with a lot of comments. If you remove all the comments you'll see that the code is very short and readable
+* - <a href="http://pastebin.com/QFm7R8Pu">Static damage numbers</a>, this source code is not optimized so you will encounter performance issues after some time. As training, you can try to optimize it a bit (instead of drawing everything with some numbers at 0 scale, try to draw only those visible)
+* - <a href="http://pastebin.com/76QyeUwW">Custom fancy damage numbers</a>, just to show off what's possible with scripting. There's a "lol" message in rainbow color, smoothly following where you hit with added "lol" for each hit. Also, damage numbers are still present and go in a random direction when they spawn.
+* 
+* \subsection projectiles Custom Projectiles
+*
+* - <a href="http://pastebin.com/iufQEdsJ">Example function</a>, these prints a lot of info about the projectiles that you give to them, and can change the projectile color to check if it's working
+*
 */
 
 /**

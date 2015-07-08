@@ -31,24 +31,9 @@ ProcessEventFunction pProcessEvent = NULL;
 
 VOID __stdcall NakedFunction(UFunction*, PVOID, PVOID) { }
 
-bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *pResult, Hook &hook, Hooks::Order order)
+bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *pResult, Hook &hook)
 {
-	static std::vector<std::string> dispatched_funcs;
-
 	if (pFunction && pCallObject) {
-		char *FunctionName = pFunction->GetFullName();
-		char *CallingName = pCallObject->GetFullName();
-
-		// Print hookable functions, only once per object/function
-		if (_print_hookable && order == Hooks::PRE && !Logger::isQuiet())
-		{
-			std::string str = std::string(CallingName) + "::" + std::string(FunctionName);
-			if (std::find(dispatched_funcs.begin(), dispatched_funcs.end(), str) == dispatched_funcs.end())
-			{
-				dispatched_funcs.push_back(str);
-				Logger::log("%s :: %s()", CallingName, FunctionName);
-			}
-		}
 
 		if (!hook.id)
 			return false;
@@ -68,10 +53,28 @@ void __stdcall ProxyFunction(UFunction *pFunction, void *pParms, void *pResult)
 
 	if (pFunction)
 	{
+		static std::vector<std::string> dispatched_funcs;
+
+		// Print hookable functions, only once per object/function
+		if (_print_hookable && !Logger::isQuiet())
+		{
+			char FunctionName[128];
+			char CallingName[128];
+			
+			strcpy(FunctionName, pFunction->GetFullName());
+			strcpy(CallingName, pCallObject->GetFullName());
+			std::string str = std::string(CallingName) + "::" + std::string(FunctionName);
+			if (std::find(dispatched_funcs.begin(), dispatched_funcs.end(), str) == dispatched_funcs.end())
+			{
+				dispatched_funcs.push_back(str);
+				Logger::log("%s :: %s()", CallingName, FunctionName);
+			}
+		}
+
 		auto it = _hooks.find(pFunction);
 		bool call_original = true;
 		if (it != _hooks.end())
-			call_original = !DispatchF(pCallObject, pFunction, pParms, pResult, it->second.first, Hooks::PRE);
+			call_original = !DispatchF(pCallObject, pFunction, pParms, pResult, it->second.first);
 		if (!call_original)
 		{
 			__asm mov ecx, pCallObject;
@@ -84,7 +87,7 @@ void __stdcall ProxyFunction(UFunction *pFunction, void *pParms, void *pResult)
 			__asm popad;
 			pProcessEvent(pFunction, pParms, pResult);
 			if (it != _hooks.end())
-				DispatchF(pCallObject, pFunction, pParms, pResult, it->second.second, Hooks::POST);
+				DispatchF(pCallObject, pFunction, pParms, pResult, it->second.second);
 		}
 	}
 	else {
