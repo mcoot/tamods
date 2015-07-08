@@ -32,6 +32,15 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 					pResult = (void *)true;
 					return true;
 				}
+				else if (line.size() >= 13 && line.substr(0, 13) == L"/reloadsounds")
+				{
+					g_config.reloadSounds();
+					that->SetInputText(FString(L""));
+					that->SetCursorPos(0);
+					that->UpdateCompleteIndices();
+					pResult = (void *)true;
+					return true;
+				}
 			}
 		}
 	}

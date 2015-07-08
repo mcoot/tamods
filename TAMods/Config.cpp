@@ -269,6 +269,26 @@ void Config::initializeAudio()
 		Utils::console("Error: could not initialize audio engine");
 }
 
+void Config::reloadSounds()
+{
+	if (audioEngine.audioAvailable())
+	{
+		for (size_t i = 0; i < s_soundEffects.size(); i++)
+		{
+			if (s_soundEffects[i])
+			{
+				s_soundEffects[i]->Reload();
+				if (s_soundEffects[i]->audioAvailable())
+					Utils::printConsole("Reloaded " + s_soundEffects[i]->m_filePath);
+				else
+					Utils::printConsole("Failed to reload " + s_soundEffects[i]->m_filePath);
+			}
+		}
+	}
+	else
+		Utils::printConsole("Error: audio engine unavailable");
+}
+
 void Config::refreshSoundVolumes()
 {
 	if (audioEngine.audioAvailable())

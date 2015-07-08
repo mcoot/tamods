@@ -224,6 +224,7 @@ public:
 	void setVariables();
 	void updateDefaults();
 	void initializeAudio();
+	void reloadSounds();
 	void refreshSoundVolumes();
 
 	void reloadTrHUD(ATrHUD *currHud, bool updated = true);
