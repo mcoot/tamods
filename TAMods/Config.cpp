@@ -20,6 +20,8 @@ std::queue<int> CustomProjectile::freeTimes;
 
 Config::Config()
 {
+	hitsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Impact__Notify.A_CUE_PC_HitImpactOnPawnNotify");
+	headshotsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Headshot.A_CUE_PC_ImpactOnPawnNotify_Headshot");
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 	reset();
@@ -111,7 +113,6 @@ void Config::reset()
 	hitSoundMode = 0;
 	customAirMailSound = false;
 	customBluePlateSound = false;
-	disableCreditsSound = false;
 	hitSoundPitchMin = 0.4f;
 	hitSoundPitchMax = 1.6f;
 	hitSoundDamageRef = 600;
@@ -236,18 +237,11 @@ void Config::updateDefaults()
 	}
 
 	// Hitsounds
-	USoundCue *hitsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Impact__Notify.A_CUE_PC_HitImpactOnPawnNotify");
 	if (hitsound)
 		hitsound->VolumeMultiplier = hitSoundMode > 0 ? 0.0f : volumeHitSound;
 
-	USoundCue *headshotsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Headshot.A_CUE_PC_ImpactOnPawnNotify_Headshot");
 	if (headshotsound)
 		headshotsound->VolumeMultiplier = volumeHeadShot;
-
-	// Credit gained sound
-	UAudioComponent *creditssound = UObject::FindObject<UAudioComponent>("AudioComponent TribesGame.Default__TrPlayerController.CreditsSound");
-	if (creditssound)
-		creditssound->VolumeMultiplier = disableCreditsSound ? 0.0f : 1.0f;
 
 	// Toggle icons
 	for (int i = 0; i < sizeof(togglable_icons) / sizeof(togglable_icons[0]); i++)
@@ -362,7 +356,6 @@ void Config::setVariables()
 	SET_VARIABLE(int, hitSoundMode);
 	SET_VARIABLE(bool, customAirMailSound);
 	SET_VARIABLE(bool, customBluePlateSound);
-	SET_VARIABLE(bool, disableCreditsSound);
 	SET_VARIABLE(float, hitSoundPitchMin);
 	SET_VARIABLE(float, hitSoundPitchMax);
 	SET_VARIABLE(int, hitSoundDamageRef);
@@ -575,46 +568,74 @@ static bool config_addMutedPlayer(MutedPlayer player)
 	return true;
 }
 
-static void config_setSoundVolume(const std::string &name, float volume)
+static void config_modifySound(const std::string &name, float pitch, float volume)
 {
 	if (name[0] == 'A' || name[0] == 'a')
 	{
 		UAudioComponent *sound = UObject::FindObject<UAudioComponent>(name.c_str());
 		if (sound)
+		{
+			sound->PitchMultiplier = pitch;
 			sound->VolumeMultiplier = volume;
+		}
 		else
-			Utils::printConsole("Error: an AudioComponent with that name could not be found");
+			Utils::printConsole("No AudioComponent found with that name");
 	}
 	else
 	{
 		USoundCue *sound = UObject::FindObject<USoundCue>(name.c_str());
 		if (sound)
+		{
+			sound->PitchMultiplier = pitch;
 			sound->VolumeMultiplier = volume;
+		}
 		else
-			Utils::printConsole("Error: a SoundCue with that name could not be found");
+			Utils::printConsole("No SoundCue found with that name");
 	}
 
 }
 
-static void config_setSoundPitch(const std::string &name, float pitch)
+static void config_modifySoundRe(const std::string &needle, float pitch, float volume)
 {
-	if (name[0] == 'A' || name[0] == 'a')
-	{
-		UAudioComponent *sound = UObject::FindObject<UAudioComponent>(name.c_str());
-		if (sound)
-			sound->PitchMultiplier = pitch;
-		else
-			Utils::printConsole("Error: an AudioComponent with that name could not be found");
-	}
-	else
-	{
-		USoundCue *sound = UObject::FindObject<USoundCue>(name.c_str());
-		if (sound)
-			sound->PitchMultiplier = pitch;
-		else
-			Utils::printConsole("Error: a SoundCue with that name could not be found");
-	}
+	while (!UObject::GObjObjects())
+		Sleep(100);
 
+	while (!FName::Names())
+		Sleep(100);
+
+	std::regex r(needle, std::regex_constants::icase);
+
+	int matches = 0;
+
+	for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
+	{
+		UObject* Object = UObject::GObjObjects()->Data[i];
+
+		// skip everything but matched SoundCues and AudioComponents
+		if (Object
+			&& (Object->IsA(USoundCue::StaticClass())
+			|| Object->IsA(UAudioComponent::StaticClass()))
+			&& std::regex_search(Object->GetFullName(), r))
+		{
+			matches++;
+
+			if (Object->IsA(USoundCue::StaticClass()))
+			{
+				USoundCue *sound = (USoundCue*)Object;
+
+				sound->PitchMultiplier = pitch;
+				sound->VolumeMultiplier = volume;
+			}
+			else
+			{
+				UAudioComponent *sound = (UAudioComponent*)Object;
+
+				sound->PitchMultiplier = pitch;
+				sound->VolumeMultiplier = volume;
+			}
+		}
+	}
+	Utils::printConsole(matches == 1 ? std::to_string(matches) + " sound matched" : std::to_string(matches) + " sounds matched");
 }
 
 static FVector hud_project(ATrHUD *hud, FVector vec)
@@ -1670,7 +1691,7 @@ void Lua::init()
 		addFunction("notify", (void (*)(const std::string &, const std::string &)) &Utils::notify).
 
 		// Sounds
-		addFunction("setSoundVolume", &config_setSoundVolume).
-		addFunction("setSoundPitch", &config_setSoundPitch).
+		addFunction("modifySound", &config_modifySound).
+		addFunction("modifySoundRe", &config_modifySoundRe).
 	endNamespace();
 }
