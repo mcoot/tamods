@@ -638,6 +638,36 @@ static void config_modifySoundRe(const std::string &needle, float pitch, float v
 	Utils::printConsole(matches == 1 ? std::to_string(matches) + " sound matched" : std::to_string(matches) + " sounds matched");
 }
 
+static void config_searchSound(const std::string &needle)
+{
+	while (!UObject::GObjObjects())
+		Sleep(100);
+
+	while (!FName::Names())
+		Sleep(100);
+
+	std::regex r(needle, std::regex_constants::icase);
+
+	int matches = 0;
+
+	for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
+	{
+		UObject* Object = UObject::GObjObjects()->Data[i];
+
+		// skip everything but matched SoundCues and AudioComponents
+		if (Object
+			&& (Object->IsA(USoundCue::StaticClass())
+			|| Object->IsA(UAudioComponent::StaticClass()))
+			&& std::regex_search(Object->GetFullName(), r))
+		{
+			matches++;
+
+			Utils::printConsole(std::string(Object->GetFullName()));
+		}
+	}
+	Utils::printConsole("Total: " + std::to_string(matches));
+}
+
 static FVector hud_project(ATrHUD *hud, FVector vec)
 {
 	return hud->Canvas->Project(vec);
@@ -1693,5 +1723,6 @@ void Lua::init()
 		// Sounds
 		addFunction("modifySound", &config_modifySound).
 		addFunction("modifySoundRe", &config_modifySoundRe).
+		addFunction("searchSound", &config_searchSound).
 	endNamespace();
 }
