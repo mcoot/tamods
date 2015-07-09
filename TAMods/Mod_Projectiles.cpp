@@ -51,9 +51,43 @@ struct DelayedProjectile {
 
 DelayedProjectile MyDelayedProjectiles[50] = { 0 };
 
+void TrDev_FireAmmunition(ATrDevice *that)
+{
+	ATrPawn *P;
+	ATrPlayerController *PC;
+	FVector StartTrace, EndTrace, AimVector;
+	bool bKickedBack;
+
+	if (!that->ReplicateAmmoOnWeaponFire())
+		that->r_bReadyToFire = false;
+	if (!that->m_bAllowHoldDownFire)
+		that->m_bWantsToFire = false;
+	that->AUTWeapon::FireAmmunition();
+	that->PlayFireAnimation(0);
+	that->eventCauseMuzzleFlash();
+	that->ShakeView();
+	that->PayAccuracyForShot();
+	that->eventUpdateShotsFired(0);
+	bKickedBack = that->AddKickback();
+	if ((P = (ATrPawn *)that->Instigator))
+	{
+		PC = (ATrPlayerController *)P->Controller;
+		if (bKickedBack && PC && that == P->Weapon)
+		{
+			StartTrace = P->GetWeaponStartTraceLocation(that);
+			AimVector = Geom::rotationToVector(that->GetAimForCamera(StartTrace));
+			EndTrace = Geom::add(StartTrace, Geom::scale(AimVector, that->GetWeaponRange()));
+			
+			FRotator rot = Geom::sub(Geom::vectorToRotation(Geom::normal(Geom::sub(EndTrace, P->GetPawnViewLocation()))), P->eventGetViewRotation());
+			PC->OnKickback(rot, that->m_fKickbackBlendOutTime);
+		}
+	}
+}
+
 bool TrDev_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	ATrDevice *that = (ATrDevice *)dwCallingObject;
+	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
+	AUTPlayerController *pc;
 
 	if (that->ShouldRefire()) {
 		// Retrieve default object for the projectile that will be fired
@@ -65,8 +99,16 @@ bool TrDev_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFu
 			proj_instigator = that->Instigator;
 		}
 
+		TrDev_FireAmmunition(that);
+		that->OnTickConstantFire();
+		pc = (AUTPlayerController *)that->Instigator->Controller;
+		if (pc && pc->Player && pc->Player->IsA(ULocalPlayer::StaticClass()) && that->CurrentFireMode < that->FireCameraAnim.Count && that->FireCameraAnim.Data[that->CurrentFireMode])
+			pc->PlayCameraAnim(that->FireCameraAnim.Data[that->CurrentFireMode], that->GetZoomedState() > 1 ? pc->eventGetFOVAngle() / pc->DefaultFOV : 1.0f, 0.0f, 0.0f, 0.0f, 0, 0);
+
+		/*
 		FVector a; a.X = 0; a.Y = 0; a.Z = 0;
-		FVector StartLoc = that->GetClientSideProjectileFireStartLoc(a);
+		//FVector StartLoc = that->GetClientSideProjectileFireStartLoc(a);
+		FVector StartLoc = that->GetPhysicalFireStartLoc(a);
 		FRotator adjusted = that->GetAdjustedAim(StartLoc);
 		APawn *myinstigator = that->Instigator;
 
@@ -91,15 +133,19 @@ bool TrDev_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFu
 				return true;
 			}
 		}
+		*/
+		return true;
 	}
 	return false;
 }
 
 bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	static int count = 0;
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_eventPlayerTick_Parms *Tick_Params = (ATrPlayerController_eventPlayerTick_Parms *) pParams;
 
+	Utils::tr_pc = that;
 	for (int i = 0; i < 50; i++)
 	{
 		if (MyDelayedProjectiles[i].delaytime > 0.0)
@@ -113,7 +159,8 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 				const FVector &dir = MyDelayedProjectiles[i].direction;
 				FVector loc = MyDelayedProjectiles[i].SpawnLocation;
 				float speed = 21000.0f * that->PlayerReplicationInfo->ExactPing;
-				FVector spawnloc(loc.X + dir.X * speed, loc.Y + dir.Y * speed, loc.Z + dir.Z * speed);
+				//FVector spawnloc(loc.X + dir.X * speed, loc.Y + dir.Y * speed, loc.Z + dir.Z * speed);
+				FVector spawnloc(loc.X, loc.Y, loc.Z);
 				ATrProjectile *myproj = (ATrProjectile *)mydevice->Spawn(MyDelayedProjectiles[i].SpawnClass, MyDelayedProjectiles[i].SpawnOwner, MyDelayedProjectiles[i].SpawnTag, spawnloc, MyDelayedProjectiles[i].SpawnRotation, 0, 0);
 				if (myproj) {
 					//MyDelayedProjectiles[i].proj->InitProjectile(MyDelayedProjectiles[i].direction, MyDelayedProjectiles[i].projclass);

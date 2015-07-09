@@ -4,7 +4,8 @@
 #define URotation180		32768.0f
 #define URotationToRadians	UCONST_Pi / URotation180
 
-FVector Geom::scale(FVector vec1, float s) {
+FVector Geom::scale(const FVector &vec1, float s)
+{
 	FVector result;
 	result.X = vec1.X * s;
 	result.Y = vec1.Y * s;
@@ -12,7 +13,8 @@ FVector Geom::scale(FVector vec1, float s) {
 	return result;
 }
 
-FRotator Geom::sub(FRotator rot1, FRotator rot2) {
+FRotator Geom::sub(const FRotator &rot1, const FRotator &rot2)
+{
 	FRotator result;
 	result.Pitch = rot1.Pitch - rot2.Pitch;
 	result.Yaw = rot1.Yaw - rot2.Yaw;
@@ -20,7 +22,8 @@ FRotator Geom::sub(FRotator rot1, FRotator rot2) {
 	return result;
 }
 
-FVector Geom::sub(FVector vec1, FVector vec2) {
+FVector Geom::sub(const FVector &vec1, const FVector &vec2)
+{
 	FVector result;
 	result.X = vec1.X - vec2.X;
 	result.Y = vec1.Y - vec2.Y;
@@ -28,7 +31,8 @@ FVector Geom::sub(FVector vec1, FVector vec2) {
 	return result;
 }
 
-FVector Geom::add(FVector vec1, FVector vec2) {
+FVector Geom::add(const FVector &vec1, const FVector &vec2)
+{
 	FVector result;
 	result.X = vec1.X + vec2.X;
 	result.Y = vec1.Y + vec2.Y;
@@ -36,25 +40,28 @@ FVector Geom::add(FVector vec1, FVector vec2) {
 	return result;
 }
 
-float Geom::dot(FVector vec1, FVector vec2) {
+float Geom::dot(const FVector &vec1, const FVector &vec2)
+{
 	return (vec1.X * vec2.X) + (vec1.Y * vec2.Y) + (vec1.Z * vec2.Z);
 }
 
-float Geom::scalar(FVector vec1, FVector vec2) {
+float Geom::scalar(const FVector &vec1, const FVector &vec2)
+{
 	return (vec1.X * vec2.X) + (vec1.Y * vec2.Y) + (vec1.Z * vec2.Z);
 }
 
-float Geom::distance3D(FVector vec1, FVector vec2){
+float Geom::distance3D(const FVector &vec1, const FVector &vec2)
+{
 	float distance = sqrt(((vec1.X - vec2.X)*(vec1.X - vec2.X) + (vec1.Y - vec2.Y)*(vec1.Y - vec2.Y) + (vec1.Z - vec2.Z)*(vec1.Z - vec2.Z)));
 	return distance;
 }
 
-float Geom::vSize(FVector &v)
+float Geom::vSize(const FVector &v)
 {
 	return sqrt(v.X*v.X + v.Y*v.Y + v.Z*v.Z);
 }
 
-float Geom::vSize2D(FVector &v)
+float Geom::vSize2D(const FVector &v)
 {
 	return sqrt(v.X*v.X + v.Y*v.Y);
 }
@@ -75,7 +82,7 @@ void Geom::normalize(FVector &v)
 	}
 }
 
-FVector Geom::normal(FVector v)
+FVector Geom::normal(const FVector &v)
 {
 	FVector Ret;
 	Ret.X = v.X;
@@ -85,7 +92,7 @@ FVector Geom::normal(FVector v)
 	return Ret;
 }
 
-FVector Geom::rotationToVector(FRotator R)
+FVector Geom::rotationToVector(const FRotator &R)
 {
 	FVector Vec;
 	float fYaw = R.Yaw * URotationToRadians;
@@ -96,6 +103,19 @@ FVector Geom::rotationToVector(FRotator R)
 	Vec.Z = sin(fPitch);
 
 	return Vec;
+}
+
+FRotator Geom::vectorToRotation(const FVector &Vec)
+{
+	FRotator rot;
+
+	float pitch = asin(Vec.Z);
+	float yaw = asin(Vec.Y / cos(pitch));
+
+	rot.Roll = 0;
+	rot.Pitch = (int) (pitch / URotationToRadians);
+	rot.Yaw = (int) (yaw / URotationToRadians);
+	return rot;
 }
 
 void inline Geom::getAxes(FRotator R, FVector &X, FVector &Y, FVector &Z)
