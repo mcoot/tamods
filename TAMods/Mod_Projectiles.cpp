@@ -51,6 +51,71 @@ struct DelayedProjectile {
 
 DelayedProjectile MyDelayedProjectiles[50] = { 0 };
 
+ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
+{
+	static UClass *TrProj_ClientTracer = UObject::FindClass("Class TribesGame.TrProj_ClientTracer");
+	FVector RealStartLoc, TraceStart, HitLocation, HitNormal;
+	ATrProjectile *SpawnedProjectile;
+	UClass *ProjectileClass;
+	bool bTether, bSpawnedSimProjectile;
+	ATrPlayerController *TrPC;
+
+	that->IncrementFlashCount();
+	ProjectileClass = that->GetProjectileClass();
+	if (ProjectileClass)
+		bTether = false;// ProjectileClass;
+	if (that->Instigator)
+		TrPC = (ATrPlayerController *)that->Instigator->Controller;
+	if (that->WorldInfo->NetMode != 1 /* NM_DedicatedServer */ && TrPC)
+	{
+		if (TrPC->m_bAllowSimulatedProjectiles || that->WorldInfo->NetMode == 0 /* NM_Standalone */)
+		{
+			RealStartLoc = that->GetClientSideProjectileFireStartLoc(FVector(0, 0, 0));
+
+			FRotator rot = that->GetAdjustedAim(RealStartLoc);
+			SpawnedProjectile = (ATrProjectile *)that->Spawn(TrProj_ClientTracer, that->Instigator, that->Name, RealStartLoc, rot, NULL, 0);
+			SpawnedProjectile->InitProjectile(Geom::rotationToVector(rot), ProjectileClass);
+			bSpawnedSimProjectile = true;
+			return SpawnedProjectile;
+		}
+	}
+	return NULL;
+}
+
+void Weapon_FireAmmunition(ATrDevice *that)
+{
+	that->ConsumeAmmo(that->CurrentFireMode);
+	that->PlayFiringSound();
+
+	switch (that->WeaponFireTypes.Data[that->CurrentFireMode])
+	{
+	case 0: // EWFT_InstantHit
+		that->InstantFire();
+		break;
+	case 1: // EWFT_Projectile
+		TrDev_ProjectileFire(that);
+		break;
+	case 2: // EWFT_Custom
+		that->CustomFire();
+		break;
+	}
+	if (that->Instigator && that->Instigator->Controller->IsA(AAIController::StaticClass()))
+		((AAIController *)that->Instigator->Controller)->NotifyWeaponFired(that, that->CurrentFireMode);
+}
+
+void UTWeapon_FireAmmunition(ATrDevice *that)
+{
+	static FName firedWeapon("FiredWeapon");
+
+	if (that->CurrentFireMode >= that->bZoomedFireMode.Count || that->bZoomedFireMode.Data[that->CurrentFireMode] == 0)
+	{
+		Weapon_FireAmmunition(that);
+		if (that->Instigator && that->Instigator->IsA(AUTPawn::StaticClass()))
+			((AUTPawn *)that->Instigator)->DeactivateSpawnProtection();
+		((AUTInventoryManager *)that->InvManager)->OwnerEvent(firedWeapon);
+	}
+}
+
 void TrDev_FireAmmunition(ATrDevice *that)
 {
 	ATrPawn *P;
@@ -62,7 +127,7 @@ void TrDev_FireAmmunition(ATrDevice *that)
 		that->r_bReadyToFire = false;
 	if (!that->m_bAllowHoldDownFire)
 		that->m_bWantsToFire = false;
-	that->AUTWeapon::FireAmmunition();
+	UTWeapon_FireAmmunition(that);
 	that->PlayFireAnimation(0);
 	that->eventCauseMuzzleFlash();
 	that->ShakeView();
@@ -84,7 +149,48 @@ void TrDev_FireAmmunition(ATrDevice *that)
 	}
 }
 
-bool TrDev_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+
+/*
+FVector a; a.X = 0; a.Y = 0; a.Z = 0;
+//FVector StartLoc = that->GetClientSideProjectileFireStartLoc(a);
+FVector StartLoc = that->GetPhysicalFireStartLoc(a);
+FRotator adjusted = that->GetAdjustedAim(StartLoc);
+APawn *myinstigator = that->Instigator;
+
+float pingtime = myinstigator->PlayerReplicationInfo->ExactPing;
+if (pingtime <= 0.0)
+pingtime = (float) 0.001;
+FVector Mydir = Geom::rotationToVector(adjusted);
+for (int i = 0; i < 50; i++)
+{
+if (MyDelayedProjectiles[i].delaytime <= 0.0)
+{
+MyDelayedProjectiles[i].delaytime = pingtime;
+MyDelayedProjectiles[i].SpawnClass = ATrProj_NJ4SMG::StaticClass(); //mydevice->WeaponProjectiles.Data[0];
+MyDelayedProjectiles[i].direction = Mydir;
+MyDelayedProjectiles[i].SpawnLocation = StartLoc;
+MyDelayedProjectiles[i].SpawnOwner = myinstigator;
+MyDelayedProjectiles[i].SpawnRotation = adjusted;
+MyDelayedProjectiles[i].SpawnTag = that->Name;
+
+MyDelayedProjectiles[i].device = that;
+
+return true;
+}
+}
+*/
+
+bool TrDev_WeaponConstantFiring_RefireCheckTimer_POST()
+{
+	if (fired_proj)
+	{
+		fired_proj->default_proj->ProjFlightTemplate = fired_proj->default_ps;
+		fired_proj = NULL;
+	}
+	return false;
+}
+
+bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
 	AUTPlayerController *pc;
@@ -104,39 +210,30 @@ bool TrDev_WeaponConstantFiring(int ID, UObject *dwCallingObject, UFunction* pFu
 		pc = (AUTPlayerController *)that->Instigator->Controller;
 		if (pc && pc->Player && pc->Player->IsA(ULocalPlayer::StaticClass()) && that->CurrentFireMode < that->FireCameraAnim.Count && that->FireCameraAnim.Data[that->CurrentFireMode])
 			pc->PlayCameraAnim(that->FireCameraAnim.Data[that->CurrentFireMode], that->GetZoomedState() > 1 ? pc->eventGetFOVAngle() / pc->DefaultFOV : 1.0f, 0.0f, 0.0f, 0.0f, 0, 0);
-
-		/*
-		FVector a; a.X = 0; a.Y = 0; a.Z = 0;
-		//FVector StartLoc = that->GetClientSideProjectileFireStartLoc(a);
-		FVector StartLoc = that->GetPhysicalFireStartLoc(a);
-		FRotator adjusted = that->GetAdjustedAim(StartLoc);
-		APawn *myinstigator = that->Instigator;
-
-		float pingtime = myinstigator->PlayerReplicationInfo->ExactPing;
-		if (pingtime <= 0.0)
-			pingtime = (float) 0.001;
-		FVector Mydir = Geom::rotationToVector(adjusted);
-		for (int i = 0; i < 50; i++)
-		{
-			if (MyDelayedProjectiles[i].delaytime <= 0.0)
-			{
-				MyDelayedProjectiles[i].delaytime = pingtime;
-				MyDelayedProjectiles[i].SpawnClass = ATrProj_NJ4SMG::StaticClass(); //mydevice->WeaponProjectiles.Data[0];
-				MyDelayedProjectiles[i].direction = Mydir;
-				MyDelayedProjectiles[i].SpawnLocation = StartLoc;
-				MyDelayedProjectiles[i].SpawnOwner = myinstigator;
-				MyDelayedProjectiles[i].SpawnRotation = adjusted;
-				MyDelayedProjectiles[i].SpawnTag = that->Name;
-
-				MyDelayedProjectiles[i].device = that;
-
-				return true;
-			}
-		}
-		*/
+		TrDev_WeaponConstantFiring_RefireCheckTimer_POST();
 		return true;
 	}
-	return false;
+	that->GotoState(that->m_PostFireState, FName(), 0, 0);
+	if (!that->HasAnyAmmo())
+	{
+		if (that->WorldInfo->NetMode == 1 /* NM_DedicatedServer */ || that->WorldInfo->NetMode == 0 /* NM_Standalone */)
+			that->WeaponPlaySound(that->m_DryFireSoundCue, 0.0f, false);
+		if (that->m_DeviceAnimNode)
+			that->m_DeviceAnimNode->PlayDryFire();
+	}
+	return true;
+}
+
+bool TrDev_WeaponConstantFiring_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
+
+	TrDev_WeaponConstantFiring_RefireCheckTimer(0, dwCallingObject, NULL, NULL, NULL);
+	that->TimeWeaponFiring(that->CurrentFireMode);
+	that->OnStartConstantFire();
+	if (that->m_bSoundLinkedWithState && !that->m_AudioComponentWeaponLoop->IsPlaying() && that->m_AudioComponentWeaponLoop->FadeOutTargetVolume != 0.0f)
+		that->m_AudioComponentWeaponLoop->FadeIn(that->WeaponFireFadeTime, 1.0f);
+	return true;
 }
 
 bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
@@ -169,16 +266,6 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 				}
 			}
 		}
-	}
-	return false;
-}
-
-bool TrDev_WeaponConstantFiring_POST(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	if (fired_proj)
-	{
-		fired_proj->default_proj->ProjFlightTemplate = fired_proj->default_ps;
-		fired_proj = NULL;
 	}
 	return false;
 }

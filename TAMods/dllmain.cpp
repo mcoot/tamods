@@ -47,10 +47,8 @@ void onDLLProcessAttach()
 
 		// Bullet customization
 		// Chain
-		Hooks::add(&TrDev_WeaponConstantFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
-		Hooks::add(&TrDev_WeaponConstantFiring, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
-		Hooks::add(&TrDev_WeaponConstantFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState", Hooks::POST);
-		Hooks::add(&TrDev_WeaponConstantFiring_POST, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer", Hooks::POST);
+		Hooks::add(&TrDev_WeaponConstantFiring_BeginState, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
+		Hooks::add(&TrDev_WeaponConstantFiring_RefireCheckTimer, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
 
 		// Explosives
 		Hooks::add(&TrDev_WeaponFiring, "Function TrDevice.WeaponFiring.BeginState");

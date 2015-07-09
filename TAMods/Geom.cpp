@@ -105,12 +105,13 @@ FVector Geom::rotationToVector(const FRotator &R)
 	return Vec;
 }
 
-FRotator Geom::vectorToRotation(const FVector &Vec)
+FRotator Geom::vectorToRotation(const FVector &vec)
 {
 	FRotator rot;
 
-	float pitch = asin(Vec.Z);
-	float yaw = asin(Vec.Y / cos(pitch));
+	float d = sqrt(vec.X * vec.X + vec.Y * vec.Y);
+	float yaw = atan2(vec.Y, vec.X);
+	float pitch = atan2(vec.Z, d);
 
 	rot.Roll = 0;
 	rot.Pitch = (int) (pitch / URotationToRadians);
