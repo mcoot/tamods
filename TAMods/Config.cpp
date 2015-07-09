@@ -575,6 +575,48 @@ static bool config_addMutedPlayer(MutedPlayer player)
 	return true;
 }
 
+static void config_setSoundVolume(const std::string &name, float volume)
+{
+	if (name[0] == 'A' || name[0] == 'a')
+	{
+		UAudioComponent *sound = UObject::FindObject<UAudioComponent>(name.c_str());
+		if (sound)
+			sound->VolumeMultiplier = volume;
+		else
+			Utils::printConsole("Error: an AudioComponent with that name could not be found");
+	}
+	else
+	{
+		USoundCue *sound = UObject::FindObject<USoundCue>(name.c_str());
+		if (sound)
+			sound->VolumeMultiplier = volume;
+		else
+			Utils::printConsole("Error: a SoundCue with that name could not be found");
+	}
+
+}
+
+static void config_setSoundPitch(const std::string &name, float pitch)
+{
+	if (name[0] == 'A' || name[0] == 'a')
+	{
+		UAudioComponent *sound = UObject::FindObject<UAudioComponent>(name.c_str());
+		if (sound)
+			sound->PitchMultiplier = pitch;
+		else
+			Utils::printConsole("Error: an AudioComponent with that name could not be found");
+	}
+	else
+	{
+		USoundCue *sound = UObject::FindObject<USoundCue>(name.c_str());
+		if (sound)
+			sound->PitchMultiplier = pitch;
+		else
+			Utils::printConsole("Error: a SoundCue with that name could not be found");
+	}
+
+}
+
 static FVector hud_project(ATrHUD *hud, FVector vec)
 {
 	return hud->Canvas->Project(vec);
@@ -1626,5 +1668,9 @@ void Lua::init()
 		addFunction("console", (void(*)(const std::string &)) &Utils::printConsole).
 		addFunction("consoleRGB", (void(*)(const std::string &, const FColor &)) &Utils::printConsole).
 		addFunction("notify", (void (*)(const std::string &, const std::string &)) &Utils::notify).
+
+		// Sounds
+		addFunction("setSoundVolume", &config_setSoundVolume).
+		addFunction("setSoundPitch", &config_setSoundPitch).
 	endNamespace();
 }
