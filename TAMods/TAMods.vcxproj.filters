@@ -216,9 +216,6 @@
     <ClCompile Include="Stats.cpp">
       <Filter>Source Files\Additions</Filter>
     </ClCompile>
-    <ClCompile Include="Mod_Lua.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
     <ClCompile Include="Mod_Projectiles.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
@@ -233,6 +230,9 @@
     </ClCompile>
     <ClCompile Include="SoundEffect.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_ConsoleCommands.cpp">
+      <Filter>Source Files\Mods</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,9 +6,9 @@ void Audio::Initialize()
 
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
 
-	XAudio2Create(&MusicEngine, flags);
+	XAudio2Create(&SoundEffectEngine, flags);
 
-	HRESULT hr = MusicEngine->CreateMasteringVoice(&m_musicMasteringVoice);
+	HRESULT hr = SoundEffectEngine->CreateMasteringVoice(&m_soundEffectMasteringVoice);
 	if (FAILED(hr))
 	{
 		// Unable to create an audio device
@@ -17,9 +17,9 @@ void Audio::Initialize()
 		return;
 	}
 
-	XAudio2Create(&SoundEffectEngine, flags);
+	//XAudio2Create(&MusicEngine, flags);
 
-	SoundEffectEngine->CreateMasteringVoice(&m_soundEffectMasteringVoice);
+	//MusicEngine->CreateMasteringVoice(&m_musicMasteringVoice);
 
 	m_audioAvailable = true;
 }
@@ -28,7 +28,7 @@ void Audio::SuspendAudio()
 {
 	if (m_audioAvailable)
 	{
-		MusicEngine->StopEngine();
+		//MusicEngine->StopEngine();
 		SoundEffectEngine->StopEngine();
 	}
 }
@@ -37,7 +37,7 @@ void Audio::ResumeAudio()
 {
 	if (m_audioAvailable)
 	{
-		MusicEngine->StartEngine();
+		//MusicEngine->StartEngine();
 		SoundEffectEngine->StartEngine();
 	}
 }

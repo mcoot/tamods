@@ -224,6 +224,7 @@ public:
 	void setVariables();
 	void updateDefaults();
 	void initializeAudio();
+	void reloadSounds();
 	void refreshSoundVolumes();
 
 	void reloadTrHUD(ATrHUD *currHud, bool updated = true);
@@ -292,6 +293,7 @@ public:
 	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
 	bool customAirMailSound;
 	bool customBluePlateSound;
+	bool disableCreditsSound;
 	float hitSoundPitchMin;
 	float hitSoundPitchMax;
 	int hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
