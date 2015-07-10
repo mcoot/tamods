@@ -1624,7 +1624,9 @@ public:
 class UClass : public UState
 {
 public:
-	unsigned char                                      UnknownData00[ 0xFC ];                            		// 0x00D8 (0x00FC) MISSED OFFSET
+	unsigned char                                      UnknownData00[0x88];                                     // 0x00D8 (0x0088)
+	UObject                                            *Default;                                                // 0x0160 (0x0004)
+	unsigned char                                      UnknownData01[0x70];                                     // 0x0164 (0x0070)
 
 private:
 	static UClass* pClassPointer;

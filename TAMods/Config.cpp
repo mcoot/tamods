@@ -20,6 +20,8 @@ std::queue<int> CustomProjectile::freeTimes;
 
 Config::Config()
 {
+	hitsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Impact__Notify.A_CUE_PC_HitImpactOnPawnNotify");
+	headshotsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Headshot.A_CUE_PC_ImpactOnPawnNotify_Headshot");
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 	reset();
@@ -111,7 +113,6 @@ void Config::reset()
 	hitSoundMode = 0;
 	customAirMailSound = false;
 	customBluePlateSound = false;
-	disableCreditsSound = false;
 	hitSoundPitchMin = 0.4f;
 	hitSoundPitchMax = 1.6f;
 	hitSoundDamageRef = 600;
@@ -177,7 +178,7 @@ void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 	if (g_config.shouldReloadTrHud && currHud)
 	{
 		// Ski Bars
-		UGfxTrHud *default_gfxhud = UObject::FindObject<UGfxTrHud>("GfxTrHud TribesGame.Default__GfxTrHud");
+		UGfxTrHud *default_gfxhud = (UGfxTrHud *) UGfxTrHud::StaticClass()->Default;
 		UGfxTrHud *currGfxHud = currHud->m_GFxHud;
 
 		for (int i = 0; i < 12; i++)
@@ -190,7 +191,7 @@ void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 		}
 
 		// Chat color
-		ATrHUD *default_hud = UObject::FindObject<ATrHUD>("TrHUD TribesGame.Default__TrHUD");
+		ATrHUD *default_hud = (ATrHUD *)ATrHUD::StaticClass()->Default;
 		if (default_hud)
 		{
 			default_hud->FriendlyChatColor = g_config.friendlyChatColor;
@@ -224,7 +225,7 @@ bool Function_HookBlock(int ID, UObject *dwCallingObject, UFunction* pFunction, 
 void Config::updateDefaults()
 {
 	// Player name/marker colors
-	ATrHUD *hud = UObject::FindObject<ATrHUD>("TrHUD TribesGame.Default__TrHUD");
+	ATrHUD *hud = (ATrHUD *)ATrHUD::StaticClass()->Default;
 	if (hud)
 	{
 		hud->ColorEnemy = enemyColor;
@@ -236,18 +237,11 @@ void Config::updateDefaults()
 	}
 
 	// Hitsounds
-	USoundCue *hitsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Impact__Notify.A_CUE_PC_HitImpactOnPawnNotify");
 	if (hitsound)
 		hitsound->VolumeMultiplier = hitSoundMode > 0 ? 0.0f : volumeHitSound;
 
-	USoundCue *headshotsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Headshot.A_CUE_PC_ImpactOnPawnNotify_Headshot");
 	if (headshotsound)
 		headshotsound->VolumeMultiplier = volumeHeadShot;
-
-	// Credit gained sound
-	UAudioComponent *creditssound = UObject::FindObject<UAudioComponent>("AudioComponent TribesGame.Default__TrPlayerController.CreditsSound");
-	if (creditssound)
-		creditssound->VolumeMultiplier = disableCreditsSound ? 0.0f : 1.0f;
 
 	// Toggle icons
 	for (int i = 0; i < sizeof(togglable_icons) / sizeof(togglable_icons[0]); i++)
@@ -362,7 +356,6 @@ void Config::setVariables()
 	SET_VARIABLE(int, hitSoundMode);
 	SET_VARIABLE(bool, customAirMailSound);
 	SET_VARIABLE(bool, customBluePlateSound);
-	SET_VARIABLE(bool, disableCreditsSound);
 	SET_VARIABLE(float, hitSoundPitchMin);
 	SET_VARIABLE(float, hitSoundPitchMax);
 	SET_VARIABLE(int, hitSoundDamageRef);
@@ -573,6 +566,106 @@ static bool config_addMutedPlayer(MutedPlayer player)
 {
 	g_config.globalMuteList.push_back(player);
 	return true;
+}
+
+static void config_modifySound(const std::string &name, float pitch, float volume)
+{
+	if (name[0] == 'A' || name[0] == 'a')
+	{
+		UAudioComponent *sound = UObject::FindObject<UAudioComponent>(name.c_str());
+		if (sound)
+		{
+			sound->PitchMultiplier = pitch;
+			sound->VolumeMultiplier = volume;
+		}
+		else
+			Utils::printConsole("No AudioComponent found with that name");
+	}
+	else
+	{
+		USoundCue *sound = UObject::FindObject<USoundCue>(name.c_str());
+		if (sound)
+		{
+			sound->PitchMultiplier = pitch;
+			sound->VolumeMultiplier = volume;
+		}
+		else
+			Utils::printConsole("No SoundCue found with that name");
+	}
+
+}
+
+static void config_modifySoundRe(const std::string &needle, float pitch, float volume)
+{
+	while (!UObject::GObjObjects())
+		Sleep(100);
+
+	while (!FName::Names())
+		Sleep(100);
+
+	std::regex r(needle, std::regex_constants::icase);
+
+	int matches = 0;
+
+	for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
+	{
+		UObject* Object = UObject::GObjObjects()->Data[i];
+
+		// skip everything but matched SoundCues and AudioComponents
+		if (Object
+			&& (Object->IsA(USoundCue::StaticClass())
+			|| Object->IsA(UAudioComponent::StaticClass()))
+			&& std::regex_search(Object->GetFullName(), r))
+		{
+			matches++;
+
+			if (Object->IsA(USoundCue::StaticClass()))
+			{
+				USoundCue *sound = (USoundCue*)Object;
+
+				sound->PitchMultiplier = pitch;
+				sound->VolumeMultiplier = volume;
+			}
+			else
+			{
+				UAudioComponent *sound = (UAudioComponent*)Object;
+
+				sound->PitchMultiplier = pitch;
+				sound->VolumeMultiplier = volume;
+			}
+		}
+	}
+	Utils::printConsole(matches == 1 ? std::to_string(matches) + " sound matched" : std::to_string(matches) + " sounds matched");
+}
+
+static void config_searchSound(const std::string &needle)
+{
+	while (!UObject::GObjObjects())
+		Sleep(100);
+
+	while (!FName::Names())
+		Sleep(100);
+
+	std::regex r(needle, std::regex_constants::icase);
+
+	int matches = 0;
+
+	for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
+	{
+		UObject* Object = UObject::GObjObjects()->Data[i];
+
+		// skip everything but matched SoundCues and AudioComponents
+		if (Object
+			&& (Object->IsA(USoundCue::StaticClass())
+			|| Object->IsA(UAudioComponent::StaticClass()))
+			&& std::regex_search(Object->GetFullName(), r))
+		{
+			matches++;
+
+			Utils::printConsole(std::string(Object->GetFullName()));
+		}
+	}
+	Utils::printConsole("Total: " + std::to_string(matches));
 }
 
 static FVector hud_project(ATrHUD *hud, FVector vec)
@@ -1626,5 +1719,10 @@ void Lua::init()
 		addFunction("console", (void(*)(const std::string &)) &Utils::printConsole).
 		addFunction("consoleRGB", (void(*)(const std::string &, const FColor &)) &Utils::printConsole).
 		addFunction("notify", (void (*)(const std::string &, const std::string &)) &Utils::notify).
+
+		// Sounds
+		addFunction("modifySound", &config_modifySound).
+		addFunction("modifySoundRe", &config_modifySoundRe).
+		addFunction("searchSound", &config_searchSound).
 	endNamespace();
 }
