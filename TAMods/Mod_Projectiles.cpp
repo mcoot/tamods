@@ -38,24 +38,25 @@ bool TrDev_WeaponFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, 
 	return false;
 }
 
-struct DelayedProjectile {
+struct DelayedProjectile
+{
 	ATrDevice *device;
-	float delaytime;
-	FVector direction;
-	UClass* SpawnClass;
-	AActor* SpawnOwner;
-	FName SpawnTag;
-	FVector SpawnLocation;
-	FRotator SpawnRotation;
+	UClass *spawn_class;
+	UClass *proj_class;
+	APawn *instigator;
+	FVector location;
+	FRotator rotation;
+	FName spawn_tag;
+	float delay;
 };
 
-DelayedProjectile MyDelayedProjectiles[50] = { 0 };
+DelayedProjectile delayed_projs[50] = { 0 };
 
 ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 {
 	static UClass *TrProj_ClientTracer = UObject::FindClass("Class TribesGame.TrProj_ClientTracer");
 	FVector RealStartLoc, TraceStart, HitLocation, HitNormal;
-	ATrProjectile *SpawnedProjectile;
+	// ATrProjectile *SpawnedProjectile;
 	UClass *ProjectileClass;
 	bool bTether, bSpawnedSimProjectile;
 	ATrPlayerController *TrPC;
@@ -63,20 +64,33 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 	that->IncrementFlashCount();
 	ProjectileClass = that->GetProjectileClass();
 	if (ProjectileClass)
-		bTether = false;// ProjectileClass;
+		bTether = false;// ProjectileClass.default.bTether...
 	if (that->Instigator)
 		TrPC = (ATrPlayerController *)that->Instigator->Controller;
 	if (that->WorldInfo->NetMode != 1 /* NM_DedicatedServer */ && TrPC)
 	{
 		if (TrPC->m_bAllowSimulatedProjectiles || that->WorldInfo->NetMode == 0 /* NM_Standalone */)
 		{
-			RealStartLoc = that->GetClientSideProjectileFireStartLoc(FVector(0, 0, 0));
-
-			FRotator rot = that->GetAdjustedAim(RealStartLoc);
-			SpawnedProjectile = (ATrProjectile *)that->Spawn(TrProj_ClientTracer, that->Instigator, that->Name, RealStartLoc, rot, NULL, 0);
-			SpawnedProjectile->InitProjectile(Geom::rotationToVector(rot), ProjectileClass);
+			float ping = that->Instigator->PlayerReplicationInfo->ExactPing;
+			if (ping <= 0.0)
+				ping = (float) 0.001;
+			for (int i = 0; i < 50; i++)
+			{
+				if (delayed_projs[i].delay <= 0.0)
+				{
+					delayed_projs[i].device = that;
+					delayed_projs[i].spawn_class = ProjectileClass;
+					delayed_projs[i].proj_class = ProjectileClass;
+					delayed_projs[i].instigator = that->Instigator;
+					delayed_projs[i].location = that->GetClientSideProjectileFireStartLoc(FVector(0, 0, 0));
+					delayed_projs[i].rotation = that->GetAdjustedAim(delayed_projs[i].location);
+					delayed_projs[i].spawn_tag = that->Name;
+					delayed_projs[i].delay = ping;
+					break;
+				}
+			}
 			bSpawnedSimProjectile = true;
-			return SpawnedProjectile;
+			return NULL;
 		}
 	}
 	return NULL;
@@ -238,31 +252,25 @@ bool TrDev_WeaponConstantFiring_BeginState(int ID, UObject *dwCallingObject, UFu
 
 bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	static int count = 0;
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
-	ATrPlayerController_eventPlayerTick_Parms *Tick_Params = (ATrPlayerController_eventPlayerTick_Parms *) pParams;
+	ATrPlayerController_eventPlayerTick_Parms *params = (ATrPlayerController_eventPlayerTick_Parms *) pParams;
 
 	Utils::tr_pc = that;
 	for (int i = 0; i < 50; i++)
 	{
-		if (MyDelayedProjectiles[i].delaytime > 0.0)
-		{
-			MyDelayedProjectiles[i].delaytime -= Tick_Params->DeltaTime;
-			if (MyDelayedProjectiles[i].delaytime <= 0.0)
-			{
-				MyDelayedProjectiles[i].delaytime = 0;
+		DelayedProjectile &curr_proj = delayed_projs[i];
 
-				ATrDevice *mydevice = (ATrDevice *)MyDelayedProjectiles[i].device;
-				const FVector &dir = MyDelayedProjectiles[i].direction;
-				FVector loc = MyDelayedProjectiles[i].SpawnLocation;
-				float speed = 21000.0f * that->PlayerReplicationInfo->ExactPing;
-				//FVector spawnloc(loc.X + dir.X * speed, loc.Y + dir.Y * speed, loc.Z + dir.Z * speed);
-				FVector spawnloc(loc.X, loc.Y, loc.Z);
-				ATrProjectile *myproj = (ATrProjectile *)mydevice->Spawn(MyDelayedProjectiles[i].SpawnClass, MyDelayedProjectiles[i].SpawnOwner, MyDelayedProjectiles[i].SpawnTag, spawnloc, MyDelayedProjectiles[i].SpawnRotation, 0, 0);
-				if (myproj) {
-					//MyDelayedProjectiles[i].proj->InitProjectile(MyDelayedProjectiles[i].direction, MyDelayedProjectiles[i].projclass);
-					myproj->m_bTether = 0;
-					myproj->InitProjectile(MyDelayedProjectiles[i].direction, 0);
+		if (curr_proj.delay > 0.0)
+		{
+			curr_proj.delay -= params->DeltaTime;
+			if (curr_proj.delay <= 0.0)
+			{
+				ATrDevice *device = curr_proj.device;
+				ATrProjectile *proj = (ATrProjectile *)that->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, curr_proj.location, curr_proj.rotation, NULL, 0);
+				if (proj)
+				{
+					proj->m_bTether = false;
+					proj->InitProjectile(Geom::rotationToVector(curr_proj.rotation), 0);
 				}
 			}
 		}
