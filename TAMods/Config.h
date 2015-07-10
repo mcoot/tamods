@@ -317,6 +317,9 @@ public:
 	//Stats
 	bool recordStats;
 
+	// Magic chain
+	bool useSmallBullets;
+
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;
 

@@ -54,7 +54,6 @@ DelayedProjectile delayed_projs[50] = { 0 };
 
 ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 {
-	static UClass *TrProj_ClientTracer = UObject::FindClass("Class TribesGame.TrProj_ClientTracer");
 	FVector RealStartLoc, TraceStart, HitLocation, HitNormal;
 	// ATrProjectile *SpawnedProjectile;
 	UClass *ProjectileClass;
@@ -79,8 +78,8 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 				if (delayed_projs[i].delay <= 0.0)
 				{
 					delayed_projs[i].device = that;
-					delayed_projs[i].spawn_class = ProjectileClass;
-					delayed_projs[i].proj_class = ProjectileClass;
+					delayed_projs[i].spawn_class = g_config.useSmallBullets ? ProjectileClass : ATrProj_ClientTracer::StaticClass();
+					delayed_projs[i].proj_class = g_config.useSmallBullets ? NULL : ProjectileClass;
 					delayed_projs[i].instigator = that->Instigator;
 					delayed_projs[i].location = that->GetClientSideProjectileFireStartLoc(FVector(0, 0, 0));
 					delayed_projs[i].rotation = that->GetAdjustedAim(delayed_projs[i].location);
@@ -163,37 +162,6 @@ void TrDev_FireAmmunition(ATrDevice *that)
 	}
 }
 
-
-/*
-FVector a; a.X = 0; a.Y = 0; a.Z = 0;
-//FVector StartLoc = that->GetClientSideProjectileFireStartLoc(a);
-FVector StartLoc = that->GetPhysicalFireStartLoc(a);
-FRotator adjusted = that->GetAdjustedAim(StartLoc);
-APawn *myinstigator = that->Instigator;
-
-float pingtime = myinstigator->PlayerReplicationInfo->ExactPing;
-if (pingtime <= 0.0)
-pingtime = (float) 0.001;
-FVector Mydir = Geom::rotationToVector(adjusted);
-for (int i = 0; i < 50; i++)
-{
-if (MyDelayedProjectiles[i].delaytime <= 0.0)
-{
-MyDelayedProjectiles[i].delaytime = pingtime;
-MyDelayedProjectiles[i].SpawnClass = ATrProj_NJ4SMG::StaticClass(); //mydevice->WeaponProjectiles.Data[0];
-MyDelayedProjectiles[i].direction = Mydir;
-MyDelayedProjectiles[i].SpawnLocation = StartLoc;
-MyDelayedProjectiles[i].SpawnOwner = myinstigator;
-MyDelayedProjectiles[i].SpawnRotation = adjusted;
-MyDelayedProjectiles[i].SpawnTag = that->Name;
-
-MyDelayedProjectiles[i].device = that;
-
-return true;
-}
-}
-*/
-
 bool TrDev_WeaponConstantFiring_RefireCheckTimer_POST()
 {
 	if (fired_proj)
@@ -270,7 +238,7 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 				if (proj)
 				{
 					proj->m_bTether = false;
-					proj->InitProjectile(Geom::rotationToVector(curr_proj.rotation), 0);
+					proj->InitProjectile(Geom::rotationToVector(curr_proj.rotation), curr_proj.proj_class);
 				}
 			}
 		}
