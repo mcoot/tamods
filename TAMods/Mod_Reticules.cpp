@@ -39,8 +39,13 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 				reticule->EnableVehicleAmmoClip();
 				ATrDevice *dev = (ATrDevice *)reticule->LastWeapon;
 				static UGFxObject *obj = NULL;
-				if (!obj)
+				static UGfxTrHud *lasthud = NULL;
+				
+				if (!obj || lasthud != hud->m_GFxHud)
+				{
 					obj = hud->m_GFxHud->GetVariableObject(L"_root.reticulesMC.reticules.clipMC.clipTF", NULL);
+					lasthud = hud->m_GFxHud;
+				}
 				if (obj && dev && reticule->LastWeapon->IsA(ATrDevice::StaticClass()))
 				{
 					wsprintf(buff, L"%d/%d", dev->m_RemainingAmmoInClip, dev->m_nCarriedAmmo);
