@@ -178,7 +178,7 @@ void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 	if (g_config.shouldReloadTrHud && currHud)
 	{
 		// Ski Bars
-		UGfxTrHud *default_gfxhud = UObject::FindObject<UGfxTrHud>("GfxTrHud TribesGame.Default__GfxTrHud");
+		UGfxTrHud *default_gfxhud = (UGfxTrHud *) UGfxTrHud::StaticClass()->Default;
 		UGfxTrHud *currGfxHud = currHud->m_GFxHud;
 
 		for (int i = 0; i < 12; i++)
@@ -191,7 +191,7 @@ void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 		}
 
 		// Chat color
-		ATrHUD *default_hud = UObject::FindObject<ATrHUD>("TrHUD TribesGame.Default__TrHUD");
+		ATrHUD *default_hud = (ATrHUD *)ATrHUD::StaticClass()->Default;
 		if (default_hud)
 		{
 			default_hud->FriendlyChatColor = g_config.friendlyChatColor;
@@ -225,7 +225,7 @@ bool Function_HookBlock(int ID, UObject *dwCallingObject, UFunction* pFunction, 
 void Config::updateDefaults()
 {
 	// Player name/marker colors
-	ATrHUD *hud = UObject::FindObject<ATrHUD>("TrHUD TribesGame.Default__TrHUD");
+	ATrHUD *hud = (ATrHUD *)ATrHUD::StaticClass()->Default;
 	if (hud)
 	{
 		hud->ColorEnemy = enemyColor;
