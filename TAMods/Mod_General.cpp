@@ -36,3 +36,26 @@ bool TrPC_InitInputSystem(int ID, UObject *dwCallingObject, UFunction* pFunction
 	}
 	return false;
 }
+
+// Base turrets
+bool TrDeployable_FinalizeDeployment(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	if (!g_config.disableBaseTurrets)
+		return true;
+
+	ATrBaseTurret_BloodEagle *that = (ATrBaseTurret_BloodEagle *)dwCallingObject;
+
+	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0
+	{
+		if (dwCallingObject->IsA(ATrBaseTurret_BloodEagle::StaticClass()))
+		{
+			that->m_bEnabled = 0;
+		}
+		else if (dwCallingObject->IsA(ATrBaseTurret_DiamondSword::StaticClass()))
+		{
+			ATrBaseTurret_DiamondSword *that = (ATrBaseTurret_DiamondSword *)dwCallingObject;
+			that->m_bEnabled = 0;
+		}
+	}
+	return true;
+}

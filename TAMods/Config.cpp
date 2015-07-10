@@ -57,6 +57,8 @@ void Config::reset()
 	wep_id_to_custom_proj.clear();
 	proj_class_to_custom_proj.clear();
 	
+	// General stuff
+	disableBaseTurrets = false;
 	showErrorNotifications = true;
 	showWeapon = true;
 	showFirstPersonAmmo = false;
@@ -306,6 +308,8 @@ void Config::refreshSoundVolumes()
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
 void Config::setVariables()
 {
+	// General stuff
+	SET_VARIABLE(bool, disableBaseTurrets);
 	SET_VARIABLE(int, damageNumbersLimit);
 	SET_VARIABLE(bool, showErrorNotifications);
 	SET_VARIABLE(bool, showWeapon);
@@ -638,7 +642,7 @@ static void config_modifySoundRe(const std::string &needle, float pitch, float v
 	Utils::printConsole(matches == 1 ? std::to_string(matches) + " sound matched" : std::to_string(matches) + " sounds matched");
 }
 
-static void config_searchSound(const std::string &needle)
+static void config_searchSoundRe(const std::string &needle)
 {
 	while (!UObject::GObjObjects())
 		Sleep(100);
@@ -1723,6 +1727,7 @@ void Lua::init()
 		// Sounds
 		addFunction("modifySound", &config_modifySound).
 		addFunction("modifySoundRe", &config_modifySoundRe).
-		addFunction("searchSound", &config_searchSound).
+		addFunction("searchSound", &config_searchSoundRe).
+		addFunction("searchSoundRe", &config_searchSoundRe).
 	endNamespace();
 }

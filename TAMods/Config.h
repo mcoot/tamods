@@ -233,6 +233,7 @@ public:
 	Lua lua;
 
 	int damageNumbersLimit;
+	bool disableBaseTurrets;
 	bool showErrorNotifications;
 	bool showWeapon;
 	bool showFirstPersonAmmo;

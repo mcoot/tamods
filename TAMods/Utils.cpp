@@ -144,3 +144,26 @@ void Utils::printConsole(const std::string &str, const FColor &col)
 	wchar_t* wch = (wchar_t *)wstr.c_str();
 	tr_gvc->ChatConsole->OutputTextLine(wch, col);
 }
+
+void Utils::FindObjects(const std::string &needle, CallbackType callback)
+{
+	while (!UObject::GObjObjects())
+		Sleep(100);
+
+	while (!FName::Names())
+		Sleep(100);
+
+	std::regex r(needle, std::regex_constants::icase);
+
+	for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
+	{
+		UObject* Object = UObject::GObjObjects()->Data[i];
+
+		if (Object && std::regex_search(Object->GetFullName(), r))
+		{
+			// if the callback function returns true, we stop searching
+			if (callback(Object))
+				return;
+		}
+	}
+}
