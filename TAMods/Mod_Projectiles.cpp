@@ -42,7 +42,7 @@ struct DelayedProjectile
 {
 	ATrDevice *device;
 	UClass *spawn_class;
-	UClass *proj_class;
+	UClass *init_class;
 	APawn *instigator;
 	FVector location;
 	FRotator rotation;
@@ -54,43 +54,81 @@ DelayedProjectile delayed_projs[50] = { 0 };
 
 ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 {
-	FVector RealStartLoc, TraceStart, HitLocation, HitNormal;
-	// ATrProjectile *SpawnedProjectile;
-	UClass *ProjectileClass;
-	bool bTether, bSpawnedSimProjectile;
+	FVector RealStartLoc;
+	FRotator SpawnRotation;
+	ATrProjectile *SpawnedProjectile;
+	UClass *ProjectileClass, *SpawnClass, *InitClass;
+	bool bTether = false;
+	bool bSpawnedSimProjectile = false;
 	ATrPlayerController *TrPC;
 
 	that->IncrementFlashCount();
 	ProjectileClass = that->GetProjectileClass();
+	SpawnClass = g_config.useSmallBullets ? ProjectileClass : ATrProj_ClientTracer::StaticClass();
+	InitClass = g_config.useSmallBullets ? NULL : ProjectileClass;
 	if (ProjectileClass)
-		bTether = false;// ProjectileClass.default.bTether...
+		bTether = ((ATrProjectile *)ProjectileClass->Default)->m_bTether;
 	if (that->Instigator)
 		TrPC = (ATrPlayerController *)that->Instigator->Controller;
-	if (that->WorldInfo->NetMode != 1 /* NM_DedicatedServer */ && TrPC)
+	if (that->WorldInfo->NetMode != 1 /* NM_DedicatedServer */ && ((ATrProjectile *) ProjectileClass->Default)->m_bSimulateAutonomousProjectiles && TrPC)
 	{
-		if (TrPC->m_bAllowSimulatedProjectiles || that->WorldInfo->NetMode == 0 /* NM_Standalone */)
+		if (g_config.useMagicChain || TrPC->m_bAllowSimulatedProjectiles || that->WorldInfo->NetMode == 0 /* NM_Standalone */)
 		{
-			float ping = that->Instigator->PlayerReplicationInfo->ExactPing;
-			if (ping <= 0.0)
-				ping = (float) 0.001;
-			for (int i = 0; i < 50; i++)
+			RealStartLoc = that->GetClientSideProjectileFireStartLoc(FVector());
+			SpawnRotation = that->GetAdjustedAim(RealStartLoc);
+
+			if (g_config.useMagicChain)
 			{
-				if (delayed_projs[i].delay <= 0.0)
+				float ping = that->Instigator->PlayerReplicationInfo->ExactPing;
+				if (ping <= 0.0)
+					ping = (float) 0.001;
+				for (int i = 0; i < 50; i++)
 				{
-					delayed_projs[i].device = that;
-					delayed_projs[i].spawn_class = g_config.useSmallBullets ? ProjectileClass : ATrProj_ClientTracer::StaticClass();
-					delayed_projs[i].proj_class = g_config.useSmallBullets ? NULL : ProjectileClass;
-					delayed_projs[i].instigator = that->Instigator;
-					delayed_projs[i].location = that->GetClientSideProjectileFireStartLoc(FVector(0, 0, 0));
-					delayed_projs[i].rotation = that->GetAdjustedAim(delayed_projs[i].location);
-					delayed_projs[i].spawn_tag = that->Name;
-					delayed_projs[i].delay = ping;
-					break;
+					if (delayed_projs[i].delay <= 0.0)
+					{
+						delayed_projs[i].device = that;
+						delayed_projs[i].spawn_class = SpawnClass;
+						delayed_projs[i].init_class = InitClass;
+						delayed_projs[i].instigator = that->Instigator;
+						delayed_projs[i].location = RealStartLoc;
+						delayed_projs[i].rotation = SpawnRotation;
+						delayed_projs[i].spawn_tag = that->Name;
+						delayed_projs[i].delay = ping;
+						break;
+					}
 				}
 			}
+			else
+			{
+				SpawnedProjectile = (ATrProjectile *)that->Spawn(SpawnClass, that->Instigator, that->Name, RealStartLoc, SpawnRotation, NULL, 0);
+				SpawnedProjectile->InitProjectile(Geom::rotationToVector(SpawnRotation), InitClass);
+			}
 			bSpawnedSimProjectile = true;
-			return NULL;
 		}
+	}
+	if (that->Role == 3 /* ROLE_Authority */ || bTether)
+	{
+		RealStartLoc = that->GetPhysicalFireStartLoc(FVector());
+		SpawnedProjectile = (ATrProjectile *) that->Spawn(SpawnClass, that->Instigator, that->Name, RealStartLoc, FRotator(), NULL, 0);
+		if (SpawnedProjectile && !SpawnedProjectile->bDeleteMe)
+		{
+			SpawnedProjectile->InitProjectile(Geom::rotationToVector(that->GetAdjustedAim(RealStartLoc)), InitClass);
+			SpawnedProjectile->m_SpawnedEquipPoint = that->r_eEquipAt;
+			if (that->WorldInfo->NetMode != 1 /* NM_DedicatedServer */ && ((ATrProjectile *)ProjectileClass->Default)->m_bSimulateAutonomousProjectiles && bSpawnedSimProjectile)
+				SpawnedProjectile->SetHidden(true);
+			if (bTether && that->Instigator)
+			{
+				SpawnedProjectile->r_nTetherId = (that->DBWeaponId << 4) + that->m_nTetherCounter;
+				that->m_nTetherCounter = (that->m_nTetherCounter + 1) % 100;
+				if (that->WorldInfo->NetMode == 3 /* NM_Client */ && SpawnedProjectile->Role == 3 /* ROLE_Authority */ && TrPC)
+				{
+					TrPC->AddProjectileToTetherList(SpawnedProjectile);
+					SpawnedProjectile->SetTickGroup(2);
+				}
+			}
+			that->DestroyOldestProjectileOverLimit(SpawnedProjectile);
+		}
+		return SpawnedProjectile;
 	}
 	return NULL;
 }
@@ -98,7 +136,13 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 void Weapon_FireAmmunition(ATrDevice *that)
 {
 	that->ConsumeAmmo(that->CurrentFireMode);
-	that->PlayFiringSound();
+	if (that->IsA(ATrDevice_LightAssaultRifle::StaticClass()))
+	{
+		if (((ATrDevice_LightAssaultRifle *)that)->m_nShotsSoFar == 0)
+			that->PlayFiringSound();
+	}
+	else
+		that->PlayFiringSound();
 
 	switch (that->WeaponFireTypes.Data[that->CurrentFireMode])
 	{
@@ -162,6 +206,17 @@ void TrDev_FireAmmunition(ATrDevice *that)
 	}
 }
 
+void TrDev_LAR_FireAmmunition(ATrDevice_LightAssaultRifle *that)
+{
+	if (that->m_nShotsSoFar < that->m_nShotBurstCount)
+	{
+		TrDev_FireAmmunition(that);
+		++that->m_nShotsSoFar;
+	}
+	else
+		that->FireAmmunition();
+}
+
 bool TrDev_WeaponConstantFiring_RefireCheckTimer_POST()
 {
 	if (fired_proj)
@@ -187,7 +242,10 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObjec
 			proj_instigator = that->Instigator;
 		}
 
-		TrDev_FireAmmunition(that);
+		if (that->IsA(ATrDevice_LightAssaultRifle::StaticClass()))
+			TrDev_LAR_FireAmmunition((ATrDevice_LightAssaultRifle *) that);
+		else
+			TrDev_FireAmmunition(that);
 		that->OnTickConstantFire();
 		pc = (AUTPlayerController *)that->Instigator->Controller;
 		if (pc && pc->Player && pc->Player->IsA(ULocalPlayer::StaticClass()) && that->CurrentFireMode < that->FireCameraAnim.Count && that->FireCameraAnim.Data[that->CurrentFireMode])
@@ -224,6 +282,8 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	ATrPlayerController_eventPlayerTick_Parms *params = (ATrPlayerController_eventPlayerTick_Parms *) pParams;
 
 	Utils::tr_pc = that;
+	if (g_config.useMagicChain)
+		that->m_bAllowSimulatedProjectiles = true;
 	for (int i = 0; i < 50; i++)
 	{
 		DelayedProjectile &curr_proj = delayed_projs[i];
@@ -236,10 +296,7 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 				ATrDevice *device = curr_proj.device;
 				ATrProjectile *proj = (ATrProjectile *)that->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, curr_proj.location, curr_proj.rotation, NULL, 0);
 				if (proj)
-				{
-					proj->m_bTether = false;
-					proj->InitProjectile(Geom::rotationToVector(curr_proj.rotation), curr_proj.proj_class);
-				}
+					proj->InitProjectile(Geom::rotationToVector(curr_proj.rotation), curr_proj.init_class);
 			}
 		}
 	}
