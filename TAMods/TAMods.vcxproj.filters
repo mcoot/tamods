@@ -93,9 +93,6 @@
     <ClCompile Include="Mod_Reticules.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
-    <ClCompile Include="Mod_DamageNumbers.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
     <ClCompile Include="Mod_Loadouts.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
@@ -232,6 +229,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mod_ConsoleCommands.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_DamageNumbers.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_Accolade_Sounds.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
   </ItemGroup>
