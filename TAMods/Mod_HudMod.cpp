@@ -169,7 +169,9 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 		that->InitializeGameHUD();
 	}
 
+	Hooks::unlock();
 	that->AUTGFxHudWrapper::eventPostRender();
+	Hooks::lock();
 
 	if (that->Scoreboard && that->Scoreboard->bIsActive)
 		that->Scoreboard->Tick(that->RenderDelta);
