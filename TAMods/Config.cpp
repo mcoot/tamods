@@ -113,6 +113,7 @@ void Config::reset()
 
 	// Sounds
 	hitSoundMode = 0;
+	customHeadShotSound = false;
 	customAirMailSound = false;
 	customBluePlateSound = false;
 	hitSoundPitchMin = 0.4f;
@@ -247,7 +248,7 @@ void Config::updateDefaults()
 		hitsound->VolumeMultiplier = hitSoundMode > 0 ? 0.0f : volumeHitSound;
 
 	if (headshotsound)
-		headshotsound->VolumeMultiplier = volumeHeadShot;
+		headshotsound->VolumeMultiplier = customHeadShotSound ? 0.0f : volumeHeadShot;
 
 	// Toggle icons
 	for (int i = 0; i < sizeof(togglable_icons) / sizeof(togglable_icons[0]); i++)
@@ -268,6 +269,7 @@ void Config::initializeAudio()
 	if (audioEngine.audioAvailable())
 	{
 		s_soundEffects.push_back(s_hitSound.Initialize(audioEngine.SoundEffectEngine, std::string("hit.wav"), &volumeHitSound));
+		s_soundEffects.push_back(s_headShot.Initialize(audioEngine.SoundEffectEngine, std::string("headshot.wav"), &volumeHeadShot));
 		s_soundEffects.push_back(s_bluePlate.Initialize(audioEngine.SoundEffectEngine, std::string("blueplate.wav"), &volumeBluePlate));
 		s_soundEffects.push_back(s_airMail.Initialize(audioEngine.SoundEffectEngine, std::string("airmail.wav"), &volumeAirMail));
 	}
@@ -362,6 +364,7 @@ void Config::setVariables()
 
 	// Sounds
 	SET_VARIABLE(int, hitSoundMode);
+	SET_VARIABLE(bool, customHeadShotSound);
 	SET_VARIABLE(bool, customAirMailSound);
 	SET_VARIABLE(bool, customBluePlateSound);
 	SET_VARIABLE(float, hitSoundPitchMin);

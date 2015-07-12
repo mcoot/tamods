@@ -58,6 +58,17 @@ void SoundEffect::Play(float pitch)
 	m_sourceVoice->Start();
 }
 
+void SoundEffect::Stop()
+{
+	if (!m_audioAvailable)
+	{
+		// Audio is not available so just return
+		return;
+	}
+	m_sourceVoice->Stop();
+	m_sourceVoice->FlushSourceBuffers();
+}
+
 void SoundEffect::SetVolume(float volume)
 {
 	if (m_audioAvailable)

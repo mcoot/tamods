@@ -234,7 +234,7 @@
     <ClCompile Include="Mod_DamageNumbers.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
-    <ClCompile Include="Mod_Accolade_Sounds.cpp">
+    <ClCompile Include="Mod_AccoladeSounds.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
   </ItemGroup>
