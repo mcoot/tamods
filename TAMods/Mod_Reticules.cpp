@@ -2,6 +2,8 @@
 
 bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	Hooks::lock();
+
 	ATrPawn *that = (ATrPawn *)dwCallingObject;
 	ATrHUD *hud = that->GetTrHud();
 
@@ -56,5 +58,6 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 		if (!g_config.showWeapon)
 			that->SetWeaponVisibility(g_config.showWeapon);
 	}
-	return (false);
+	Hooks::unlock();
+	return false;
 }
