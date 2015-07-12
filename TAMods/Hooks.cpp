@@ -27,6 +27,7 @@ private:
 int Hook::_total_hooks = 0;
 static std::map<UFunction *, std::pair<Hook, Hook>> _hooks;
 static bool _print_hookable = true;
+static bool _lock = false;
 ProcessEventFunction pProcessEvent = NULL;
 
 VOID __stdcall NakedFunction(UFunction*, PVOID, PVOID) { }
@@ -51,7 +52,7 @@ void __stdcall ProxyFunction(UFunction *pFunction, void *pParms, void *pResult)
 	__asm pushad;
 	__asm mov pCallObject, ecx;
 
-	if (pFunction)
+	if (pFunction && !_lock)
 	{
 		static std::vector<std::string> dispatched_funcs;
 
@@ -157,4 +158,16 @@ bool Hooks::remove(int id)
 		return true;
 	}
 	return false;
+}
+
+// "locks" the hook system, use this to speed up portions of code where you call native functions and don't need to hook them
+// Don't forget to unlock the system when you're done
+void Hooks::lock()
+{
+	_lock = true;
+}
+
+void Hooks::unlock()
+{
+	_lock = false;
 }

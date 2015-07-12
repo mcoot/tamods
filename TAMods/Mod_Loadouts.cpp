@@ -8,6 +8,7 @@ bool GFxTrHUD_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction
 		return (false);
 	UTrPlayerInput *tr_pi = (UTrPlayerInput *)that->m_TrPC->PlayerInput;
 
+	Hooks::lock();
 	if (tr_pi->InVGSClassMode())
 		g_config.parseFile();
 	else if (tr_pi->InVGSLoadoutMode())
@@ -40,7 +41,8 @@ bool GFxTrHUD_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction
 				that->AddVGSEntry(wch, true);
 		}
 	}
-	return (false);
+	Hooks::unlock();
+	return false;
 }
 
 static void applyLoadoutToSlot(UTrEquipInterface *equip, int slot, Loadout *loadout)
@@ -67,15 +69,18 @@ bool TrPI_OnVGSNumKeyPressed(int ID, UObject *dwCallingObject, UFunction* pFunct
 	UTrPlayerInput *that = (UTrPlayerInput *)dwCallingObject;
 	UTrPlayerInput_eventOnVGSNumKeyPressed_Parms *params = (UTrPlayerInput_eventOnVGSNumKeyPressed_Parms *)pParams;
 
+	Hooks::lock();
 	if (that->m_bInVGSLoadoutMode)
 	{
 		int class_type = Data::class_id_to_nb[that->GetVGSClassId()];
 		Loadout *loadout = g_config.loadouts[class_type][params->Index];
 		ATrPlayerController *tr_pc = (ATrPlayerController *)that->Outer;
-		if (!loadout)
-			return (false);
-		if (loadout->loadout_nb < 6 && !tr_pc->m_TrEquipInterface->IsLoadoutOwned(loadout->class_id, loadout->loadout_nb))
-			return (false);
+		if (!loadout ||
+			(loadout->loadout_nb < 6 && !tr_pc->m_TrEquipInterface->IsLoadoutOwned(loadout->class_id, loadout->loadout_nb)))
+		{
+			Hooks::unlock();
+			return false;
+		}
 		if (loadout->loadout_nb < 6)
 		{
 			applyLoadoutToSlot(tr_pc->m_TrEquipInterface, loadout->loadout_nb, loadout);
@@ -86,5 +91,6 @@ bool TrPI_OnVGSNumKeyPressed(int ID, UObject *dwCallingObject, UFunction* pFunct
 			params->Index = 0;
 		}
 	}
+	Hooks::unlock();
 	return (false);
 }

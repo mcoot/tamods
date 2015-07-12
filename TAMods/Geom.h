@@ -5,17 +5,18 @@
 
 namespace Geom
 {
-	FVector scale(FVector vec1, float s);
-	FRotator sub(FRotator rot1, FRotator rot2);
-	FVector sub(FVector vec1, FVector vec2);
-	FVector add(FVector vec1, FVector vec2);
-	float dot(FVector vec1, FVector vec2);
-	float scalar(FVector vec1, FVector vec2);
-	float distance3D(FVector vec1, FVector vec2);
-	float vSize(FVector &v);
-	float vSize2D(FVector &v);
+	FVector scale(const FVector &vec1, float s);
+	FRotator sub(const FRotator &rot1, const FRotator &rot2);
+	FVector sub(const FVector &vec1, const FVector &vec2);
+	FVector add(const FVector &vec1, const FVector &vec2);
+	float dot(const FVector &vec1, const FVector &vec2);
+	float scalar(const FVector &vec1, const FVector &vec2);
+	float distance3D(const FVector &vec1, const FVector &vec2);
+	float vSize(const FVector &v);
+	float vSize2D(const FVector &v);
 	void normalize(FVector &v);
-	FVector normal(FVector v);
-	FVector rotationToVector(FRotator R);
+	FVector normal(const FVector &v);
+	FVector rotationToVector(const FRotator &R);
+	FRotator vectorToRotation(const FVector &Vec);
 	void inline getAxes(FRotator R, FVector &X, FVector &Y, FVector &Z);
 };

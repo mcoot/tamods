@@ -21,4 +21,6 @@ namespace Hooks
 	int add(HookFunction hook_function, char *original_name, Order hook_order = PRE, UClass *thisclassonly = NULL);
 	bool remove(char *original_name, Order order = PRE);
 	bool remove(int id);
+	void lock();
+	void unlock();
 };

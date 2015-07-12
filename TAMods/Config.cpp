@@ -136,6 +136,10 @@ void Config::reset()
 	//Stats
 	recordStats = false;
 
+	// Magic chain
+	useSmallBullets = false;
+	useMagicChain = false;
+
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();
 
@@ -381,6 +385,10 @@ void Config::setVariables()
 
 	// Toggle Stats
 	SET_VARIABLE(bool, recordStats);
+
+	// Magic chain
+	SET_VARIABLE(bool, useSmallBullets);
+	SET_VARIABLE(bool, useMagicChain);
 }
 
 static int getWeaponID(const std::string &class_name, const std::string &str)

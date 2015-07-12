@@ -139,6 +139,9 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	};
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 
+	// Lock the hook system for performance
+	Hooks::lock();
+
 	// Reload config if needed
 	g_config.reloadTrHUD(that);
 
@@ -159,7 +162,10 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	if (!that->m_GameClass)
 	{
 		if (!that->WorldInfo->GRI || !that->WorldInfo->GRI->GameClass)
+		{
+			Hooks::unlock();
 			return true;
+		}
 		that->InitializeGameHUD();
 	}
 
@@ -215,7 +221,8 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 			that->LastChangeResCheckTime = (int)that->WorldInfo->TimeSeconds;
 		}
 	}
-	return (true);
+	Hooks::unlock();
+	return true;
 }
 
 bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)

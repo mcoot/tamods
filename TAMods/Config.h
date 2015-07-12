@@ -320,6 +320,10 @@ public:
 	//Stats
 	bool recordStats;
 
+	// Magic chain
+	bool useSmallBullets;
+	bool useMagicChain;
+
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;
 
