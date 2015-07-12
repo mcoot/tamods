@@ -15,6 +15,12 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 
 	// Hit sounds
 	playHitSound((bool)params->bShieldDamage, &params->NumberToShow);
+	// Headshots
+	if (g_config.nHitEnemyHeadshot != that->r_nHitEnemyHeadshot)
+	{
+		//playHeadShotSound();
+		g_config.nHitEnemyHeadshot = that->r_nHitEnemyHeadshot;
+	}
 
 	//Stats Stuff, TODO this should be hooked onto event TakeDamage instead
 	if (g_config.recordStats == true){

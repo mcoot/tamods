@@ -293,6 +293,8 @@ public:
 	std::vector<SoundEffect*> s_soundEffects;
 	USoundCue *hitsound;
 	USoundCue *headshotsound;
+	unsigned char nHitEnemyHeadshot;
+	// Sound user variables
 	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
 	bool customAirMailSound;
 	bool customBluePlateSound;

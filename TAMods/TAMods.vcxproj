@@ -146,6 +146,7 @@
     <ClCompile Include="Mod_General.cpp" />
     <ClCompile Include="Mod_HitSounds.cpp" />
     <ClCompile Include="Mod_HudMod.cpp" />
+    <ClCompile Include="Mod_Accolade_Sounds.cpp" />
     <ClCompile Include="Mod_Loadouts.cpp" />
     <ClCompile Include="Mod_ConsoleCommands.cpp" />
     <ClCompile Include="Mod_Projectiles.cpp" />
