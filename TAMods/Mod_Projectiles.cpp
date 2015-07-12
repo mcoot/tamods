@@ -15,6 +15,7 @@ bool TrProj_ReplicatedEvent_POST(int ID, UObject *dwCallingObject, UFunction* pF
 			return false;
 		if (!it->second->custom_ps)
 			return false;
+		Hooks::lock();
 		that->ProjFlightTemplate = it->second->custom_ps;
 		for (int i = that->Components.Count - 1; i >= 0; i--)
 		{
@@ -25,6 +26,7 @@ bool TrProj_ReplicatedEvent_POST(int ID, UObject *dwCallingObject, UFunction* pF
 			}
 		}
 		that->SpawnFlightEffects();
+		Hooks::unlock();
 	}
 	return false;
 }
@@ -33,8 +35,10 @@ bool TrDev_WeaponFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, 
 {
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
 
+	Hooks::lock();
 	if (that->ShouldRefire())
 		proj_instigator = that->Instigator;
+	Hooks::unlock();
 	return false;
 }
 
@@ -232,6 +236,7 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObjec
 	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
 	AUTPlayerController *pc;
 
+	Hooks::lock();
 	if (that->ShouldRefire()) {
 		// Retrieve default object for the projectile that will be fired
 		auto it = g_config.wep_id_to_custom_proj.find(that->DBWeaponId);
@@ -251,6 +256,7 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObjec
 		if (pc && pc->Player && pc->Player->IsA(ULocalPlayer::StaticClass()) && that->CurrentFireMode < that->FireCameraAnim.Count && that->FireCameraAnim.Data[that->CurrentFireMode])
 			pc->PlayCameraAnim(that->FireCameraAnim.Data[that->CurrentFireMode], that->GetZoomedState() > 1 ? pc->eventGetFOVAngle() / pc->DefaultFOV : 1.0f, 0.0f, 0.0f, 0.0f, 0, 0);
 		TrDev_WeaponConstantFiring_RefireCheckTimer_POST();
+		Hooks::unlock();
 		return true;
 	}
 	that->GotoState(that->m_PostFireState, FName(), 0, 0);
@@ -261,6 +267,7 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObjec
 		if (that->m_DeviceAnimNode)
 			that->m_DeviceAnimNode->PlayDryFire();
 	}
+	Hooks::unlock();
 	return true;
 }
 
@@ -269,10 +276,12 @@ bool TrDev_WeaponConstantFiring_BeginState(int ID, UObject *dwCallingObject, UFu
 	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
 
 	TrDev_WeaponConstantFiring_RefireCheckTimer(0, dwCallingObject, NULL, NULL, NULL);
+	Hooks::lock();
 	that->TimeWeaponFiring(that->CurrentFireMode);
 	that->OnStartConstantFire();
 	if (that->m_bSoundLinkedWithState && !that->m_AudioComponentWeaponLoop->IsPlaying() && that->m_AudioComponentWeaponLoop->FadeOutTargetVolume != 0.0f)
 		that->m_AudioComponentWeaponLoop->FadeIn(that->WeaponFireFadeTime, 1.0f);
+	Hooks::unlock();
 	return true;
 }
 
@@ -281,6 +290,7 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_eventPlayerTick_Parms *params = (ATrPlayerController_eventPlayerTick_Parms *) pParams;
 
+	Hooks::lock();
 	Utils::tr_pc = that;
 	if (g_config.useMagicChain)
 		that->m_bAllowSimulatedProjectiles = true;
@@ -300,5 +310,6 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 			}
 		}
 	}
+	Hooks::unlock();
 	return false;
 }
