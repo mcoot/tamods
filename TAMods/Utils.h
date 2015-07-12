@@ -5,6 +5,8 @@
 #include <map>
 #include "SdkHeaders.h"
 
+typedef bool(*CallbackType)(UObject*);
+
 namespace Utils
 {
 	FColor rgba(byte r, byte g, byte b, byte alpha);
@@ -26,6 +28,8 @@ namespace Utils
 	void console(const char *format, ...);
 	void printConsole(const std::string &str);
 	void printConsole(const std::string &str, const FColor &col);
+
+	void FindObjects(const std::string &needle, CallbackType callback);
 
 	extern UEngine *engine;
 	extern ATrPlayerController *tr_pc;
