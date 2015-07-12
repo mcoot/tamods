@@ -97,7 +97,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 						delayed_projs[i].location = RealStartLoc;
 						delayed_projs[i].rotation = SpawnRotation;
 						delayed_projs[i].spawn_tag = that->Name;
-						delayed_projs[i].delay = ping * 0.5f;
+						delayed_projs[i].delay = ping * 0.5f * g_config.bulletDelayMultiplier;
 						break;
 					}
 				}

@@ -325,6 +325,7 @@ public:
 	// Magic chain
 	bool useSmallBullets;
 	bool useMagicChain;
+	float bulletDelayMultiplier;
 
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;
