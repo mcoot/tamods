@@ -97,7 +97,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 						delayed_projs[i].location = RealStartLoc;
 						delayed_projs[i].rotation = SpawnRotation;
 						delayed_projs[i].spawn_tag = that->Name;
-						delayed_projs[i].delay = ping;
+						delayed_projs[i].delay = ping * 0.5f;
 						break;
 					}
 				}
@@ -303,10 +303,15 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 			curr_proj.delay -= params->DeltaTime;
 			if (curr_proj.delay <= 0.0)
 			{
-				ATrDevice *device = curr_proj.device;
-				ATrProjectile *proj = (ATrProjectile *)that->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, curr_proj.location, curr_proj.rotation, NULL, 0);
+				FVector &loc = curr_proj.location;
+				FVector dir = Geom::rotationToVector(curr_proj.rotation);
+				float speed = ((ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default)->Speed * (-curr_proj.delay);
+				loc.X += dir.X * speed;
+				loc.Y += dir.Y * speed;
+				loc.Z += dir.Z * speed;
+				ATrProjectile *proj = (ATrProjectile *)that->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, loc, curr_proj.rotation, NULL, 0);
 				if (proj)
-					proj->InitProjectile(Geom::rotationToVector(curr_proj.rotation), curr_proj.init_class);
+					proj->InitProjectile(dir, curr_proj.init_class);
 			}
 		}
 	}
