@@ -291,15 +291,31 @@ public:
 	SoundEffect s_headShot;
 	SoundEffect s_bluePlate;
 	SoundEffect s_airMail;
+	SoundEffect s_streak1;
+	SoundEffect s_streak2;
+	SoundEffect s_streak3;
+	SoundEffect s_streak4;
+	SoundEffect s_streak5;
+	SoundEffect s_multiKill1;
+	SoundEffect s_multiKill2;
+	SoundEffect s_multiKill3;
+	SoundEffect s_multiKill4;
+	SoundEffect s_multiKill5;
+	SoundEffect s_firstBlood;
+	SoundEffect s_headShotKill;
+	SoundEffect s_artilleryShot;
+	SoundEffect s_meleeKill;
+	SoundEffect s_roadKill;
+	SoundEffect s_fastGrab;
 	std::vector<SoundEffect*> s_soundEffects;
 	USoundCue *hitsound;
 	USoundCue *headshotsound;
-	unsigned char nHitEnemyHeadshot;
 	// Sound user variables
 	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
 	bool customHeadShotSound;
 	bool customAirMailSound;
 	bool customBluePlateSound;
+	bool customAccoladeSounds;
 	float hitSoundPitchMin;
 	float hitSoundPitchMax;
 	int hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
@@ -307,6 +323,7 @@ public:
 	float volumeHeadShot;
 	float volumeBluePlate;
 	float volumeAirMail;
+	float volumeAccoladeSounds;
 
 	// HUD elements toggle
 	static TogglableIcon togglable_icons[];

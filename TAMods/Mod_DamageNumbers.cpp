@@ -1,5 +1,7 @@
 #include "Mods.h"
 
+unsigned char nHitEnemyHeadshot = 0;
+
 static void TrHUD_addOverheadNumber(ATrHUD *that, int value, FVector4 loc, bool is_shield)
 {
 	FOverheadNumber overhead(value, that->m_fOverheadNumberTotalTime, loc, is_shield);
@@ -17,12 +19,15 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	playHitSound((bool)params->bShieldDamage, &params->NumberToShow);
 
 	// Headshots
-	if (g_config.nHitEnemyHeadshot != that->r_nHitEnemyHeadshot)
+	if (nHitEnemyHeadshot != that->r_nHitEnemyHeadshot)
 	{
-		if (g_config.nHitEnemyHeadshot != NULL) // needed so the first hit we do doesn't trigger the sound
-			playHeadShotSound();
-		g_config.nHitEnemyHeadshot = that->r_nHitEnemyHeadshot;
+		playHeadShotSound();
+		nHitEnemyHeadshot = that->r_nHitEnemyHeadshot;
 	}
+	// Doesn't work here because a kill happens after the damange number was drawn
+	//ATrPlayerReplicationInfo *aTrPRI = (ATrPlayerReplicationInfo*)that->PlayerReplicationInfo;
+	//if (aTrPRI)
+	//	Utils::console("Kills: %d", aTrPRI->m_nKills);
 
 	//Stats Stuff, TODO this should be hooked onto event TakeDamage instead
 	if (g_config.recordStats == true){

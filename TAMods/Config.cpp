@@ -116,13 +116,15 @@ void Config::reset()
 	customHeadShotSound = false;
 	customAirMailSound = false;
 	customBluePlateSound = false;
+	customAccoladeSounds = false;
 	hitSoundPitchMin = 0.4f;
 	hitSoundPitchMax = 1.6f;
 	hitSoundDamageRef = 600;
 	volumeHitSound = 0.55f;
 	volumeHeadShot = 0.55f;
-	volumeBluePlate = 1.0f;
-	volumeAirMail = 1.0f;
+	volumeBluePlate = 0.55f;
+	volumeAirMail = 0.55f;
+	volumeAccoladeSounds = 0.55f;
 
 	// Toggle HUD
 	showObjectiveIcon = true;
@@ -272,7 +274,22 @@ void Config::initializeAudio()
 		s_soundEffects.push_back(s_hitSound.Initialize(audioEngine.SoundEffectEngine, std::string("hit.wav"), &volumeHitSound));
 		s_soundEffects.push_back(s_headShot.Initialize(audioEngine.SoundEffectEngine, std::string("headshot.wav"), &volumeHeadShot));
 		s_soundEffects.push_back(s_bluePlate.Initialize(audioEngine.SoundEffectEngine, std::string("blueplate.wav"), &volumeBluePlate));
-		s_soundEffects.push_back(s_airMail.Initialize(audioEngine.SoundEffectEngine, std::string("airmail.wav"), &volumeAirMail));
+		s_soundEffects.push_back(s_streak1.Initialize(audioEngine.SoundEffectEngine, std::string("streak1.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_streak2.Initialize(audioEngine.SoundEffectEngine, std::string("streak2.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_streak3.Initialize(audioEngine.SoundEffectEngine, std::string("streak3.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_streak4.Initialize(audioEngine.SoundEffectEngine, std::string("streak4.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_streak5.Initialize(audioEngine.SoundEffectEngine, std::string("streak5.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_multiKill1.Initialize(audioEngine.SoundEffectEngine, std::string("multikill1.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_multiKill2.Initialize(audioEngine.SoundEffectEngine, std::string("multikill2.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_multiKill3.Initialize(audioEngine.SoundEffectEngine, std::string("multikill3.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_multiKill4.Initialize(audioEngine.SoundEffectEngine, std::string("multikill4.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_multiKill5.Initialize(audioEngine.SoundEffectEngine, std::string("multikill5.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_firstBlood.Initialize(audioEngine.SoundEffectEngine, std::string("firstblood.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_headShotKill.Initialize(audioEngine.SoundEffectEngine, std::string("headshotkill.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_artilleryShot.Initialize(audioEngine.SoundEffectEngine, std::string("artilleryshot.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_meleeKill.Initialize(audioEngine.SoundEffectEngine, std::string("meleekill.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_roadKill.Initialize(audioEngine.SoundEffectEngine, std::string("roadkill.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_fastGrab.Initialize(audioEngine.SoundEffectEngine, std::string("fastgrab.wav"), &volumeAccoladeSounds));
 	}
 	else
 		Utils::console("Error: could not initialize audio engine");
@@ -368,6 +385,7 @@ void Config::setVariables()
 	SET_VARIABLE(bool, customHeadShotSound);
 	SET_VARIABLE(bool, customAirMailSound);
 	SET_VARIABLE(bool, customBluePlateSound);
+	SET_VARIABLE(bool, customAccoladeSounds);
 	SET_VARIABLE(float, hitSoundPitchMin);
 	SET_VARIABLE(float, hitSoundPitchMax);
 	SET_VARIABLE(int, hitSoundDamageRef);
@@ -375,6 +393,7 @@ void Config::setVariables()
 	SET_VARIABLE(float, volumeHeadShot);
 	SET_VARIABLE(float, volumeBluePlate);
 	SET_VARIABLE(float, volumeAirMail);
+	SET_VARIABLE(float, volumeAccoladeSounds);
 
 
 	// Toggle HUD
