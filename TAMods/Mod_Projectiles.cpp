@@ -59,13 +59,14 @@ DelayedProjectile delayed_projs[50] = { 0 };
 
 ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 {
-	FVector RealStartLoc;
+	FVector RealStartLoc, TraceStart, HitLocation, HitNormal;
 	FRotator SpawnRotation;
 	ATrProjectile *SpawnedProjectile;
 	UClass *ProjectileClass, *SpawnClass, *InitClass;
 	bool bTether = false;
 	bool bSpawnedSimProjectile = false;
 	ATrPlayerController *TrPC;
+	FTraceHitInfo HitInfo;
 
 	that->IncrementFlashCount();
 	ProjectileClass = that->GetProjectileClass();
@@ -80,6 +81,11 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 		if (g_config.useMagicChain || TrPC->m_bAllowSimulatedProjectiles || that->WorldInfo->NetMode == 0 /* NM_Standalone */)
 		{
 			RealStartLoc = that->GetClientSideProjectileFireStartLoc(FVector());
+			TraceStart = that->GetPhysicalFireStartLoc(FVector());
+
+			if (that->Trace(RealStartLoc, TraceStart, true, FVector(1.0f, 0.0f, 0.0f), 0, &HitLocation, &HitNormal, &HitInfo))
+				RealStartLoc = TraceStart;
+
 			SpawnRotation = that->GetAdjustedAim(RealStartLoc);
 
 			if (g_config.useMagicChain)
