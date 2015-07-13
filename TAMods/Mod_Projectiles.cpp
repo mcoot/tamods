@@ -52,6 +52,7 @@ struct DelayedProjectile
 	FRotator rotation;
 	FName spawn_tag;
 	float delay;
+	UParticleSystem *proj_flight_template;
 };
 
 DelayedProjectile delayed_projs[50] = { 0 };
@@ -98,6 +99,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 						delayed_projs[i].rotation = SpawnRotation;
 						delayed_projs[i].spawn_tag = that->Name;
 						delayed_projs[i].delay = ping * 0.5f * g_config.bulletDelayMultiplier;
+						delayed_projs[i].proj_flight_template = fired_proj ? fired_proj->custom_ps : NULL;
 						break;
 					}
 				}
@@ -303,15 +305,34 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 			curr_proj.delay -= params->DeltaTime;
 			if (curr_proj.delay <= 0.0)
 			{
+				UParticleSystem *spawn_ps, *init_ps;
 				FVector &loc = curr_proj.location;
 				FVector dir = Geom::rotationToVector(curr_proj.rotation);
 				float speed = ((ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default)->Speed * (-curr_proj.delay);
 				loc.X += dir.X * speed;
 				loc.Y += dir.Y * speed;
 				loc.Z += dir.Z * speed;
+				if (curr_proj.proj_flight_template)
+				{
+					spawn_ps = ((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate;
+					((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate = curr_proj.proj_flight_template;
+					if (curr_proj.init_class)
+					{
+						init_ps = ((ATrProjectile *)curr_proj.init_class->Default)->ProjFlightTemplate;
+						((ATrProjectile *)curr_proj.init_class->Default)->ProjFlightTemplate = curr_proj.proj_flight_template;
+					}
+					else
+						init_ps = NULL;
+				}
 				ATrProjectile *proj = (ATrProjectile *)that->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, loc, curr_proj.rotation, NULL, 0);
 				if (proj)
 					proj->InitProjectile(dir, curr_proj.init_class);
+				if (curr_proj.proj_flight_template)
+				{
+					((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate = spawn_ps;
+					if (curr_proj.init_class)
+						((ATrProjectile *)curr_proj.init_class->Default)->ProjFlightTemplate = init_ps;
+				}
 			}
 		}
 	}
