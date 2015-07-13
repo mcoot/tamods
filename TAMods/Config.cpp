@@ -274,6 +274,7 @@ void Config::initializeAudio()
 		s_soundEffects.push_back(s_hitSound.Initialize(audioEngine.SoundEffectEngine, std::string("hit.wav"), &volumeHitSound));
 		s_soundEffects.push_back(s_headShot.Initialize(audioEngine.SoundEffectEngine, std::string("headshot.wav"), &volumeHeadShot));
 		s_soundEffects.push_back(s_bluePlate.Initialize(audioEngine.SoundEffectEngine, std::string("blueplate.wav"), &volumeBluePlate));
+		s_soundEffects.push_back(s_airMail.Initialize(audioEngine.SoundEffectEngine, std::string("airmail.wav"), &volumeAirMail));
 		s_soundEffects.push_back(s_streak1.Initialize(audioEngine.SoundEffectEngine, std::string("streak1.wav"), &volumeAccoladeSounds));
 		s_soundEffects.push_back(s_streak2.Initialize(audioEngine.SoundEffectEngine, std::string("streak2.wav"), &volumeAccoladeSounds));
 		s_soundEffects.push_back(s_streak3.Initialize(audioEngine.SoundEffectEngine, std::string("streak3.wav"), &volumeAccoladeSounds));
