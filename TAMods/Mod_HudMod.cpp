@@ -130,6 +130,41 @@ static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 	}
 }
 
+static void Scoreboard_Fix(UTrScoreboard *that)
+{
+	for (int i = 0; i < 32; i++)
+	{
+		FTrScoreSlot &slot = that->ScoreboardSlots[i];
+		FString fname = slot.PlayerName;
+		if (!fname.Count)
+			continue;
+		std::wstring name(fname.Data);
+
+		if (name.size() == 0)
+			continue;
+		unsigned int pos = name.find(L"\\");
+		if (pos != std::wstring::npos)
+		{
+			FString clean;
+			for (int c = 0; c < slot.PlayerName.Count; c++)
+			{
+				if (slot.PlayerName.Data[c] == L'\\')
+					clean.Add(L'/');
+				else
+					clean.Add(slot.PlayerName.Data[c]);
+			}
+			if (that->bTeamGame)
+			{
+				UGfxTrHud *mp = that->m_MoviePlayer;
+				if (i < 16 && mp->TeamScoreboard_Red_PlayerNameTF[i])
+					mp->TeamScoreboard_Red_PlayerNameTF[i]->SetText(clean, NULL);
+				else if (i >= 16 && mp->TeamScoreboard_Blue_PlayerNameTF[i - 16])
+					mp->TeamScoreboard_Blue_PlayerNameTF[i - 16]->SetText(clean, NULL);
+			}
+		}
+	}
+}
+
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	static FColor rainbow_cols[] = {
@@ -174,7 +209,10 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	Hooks::lock();
 
 	if (that->Scoreboard && that->Scoreboard->bIsActive)
+	{
 		that->Scoreboard->Tick(that->RenderDelta);
+		Scoreboard_Fix(that->Scoreboard);
+	}
 	if (that->HUDTeamCTFStats && that->HUDTeamCTFStats->bIsActive)
 		that->HUDTeamCTFStats->Tick();
 	if (that->RabbitLeaderboard && that->RabbitLeaderboard->bIsActive)
@@ -328,44 +366,6 @@ bool GFxTrScenePS_LoadPlayerMiscData(int ID, UObject *dwCallingObject, UFunction
 	{
 		that->MiscDataList->SetElementMemberString(0, L"rankPercentStart", L"1.0");
 		that->MiscDataList->SetElementMemberString(0, L"rankPercentEnd", L"1.0");
-	}
-	return true;
-}
-
-bool TrScoreboard_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	UTrScoreboard *that = (UTrScoreboard *)dwCallingObject;
-
-	for (int i = 0; i < 32; i++)
-	{
-		FTrScoreSlot &slot = that->ScoreboardSlots[i];
-		FString fname = slot.PlayerName;
-		if (!fname.Count)
-			continue;
-		std::wstring name(fname.Data);
-
-		if (name.size() == 0)
-			continue;
-		unsigned int pos = name.find(L"\\");
-		if (pos != std::wstring::npos)
-		{
-			FString clean;
-			for (int c = 0; c < slot.PlayerName.Count; c++)
-			{
-				if (slot.PlayerName.Data[c] == L'\\')
-					clean.Add(L'/');
-				else
-					clean.Add(slot.PlayerName.Data[c]);
-			}
-			if (that->bTeamGame)
-			{
-				UGfxTrHud *mp = that->m_MoviePlayer;
-				if (i < 16 && mp->TeamScoreboard_Red_PlayerNameTF[i])
-					mp->TeamScoreboard_Red_PlayerNameTF[i]->SetText(clean, NULL);
-				else if (i >= 16 && mp->TeamScoreboard_Blue_PlayerNameTF[i - 16])
-					mp->TeamScoreboard_Blue_PlayerNameTF[i - 16]->SetText(clean, NULL);
-			}
-		}
 	}
 	return true;
 }

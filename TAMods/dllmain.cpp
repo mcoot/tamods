@@ -21,7 +21,6 @@ void onDLLProcessAttach()
 
 		// HUD modification
 		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers
-		Hooks::add(&TrScoreboard_Tick, "Function TribesGame.TrScoreboard.Tick", Hooks::POST); // Scoreboard '\n' display bug
 		Hooks::add(&GFxTrScenePS_LoadPlayerMiscData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadPlayerMiscData"); // Level 50 xp bug fix
 
 		Hooks::add(&TrHUD_ChatMessageReceived, "Function TribesGame.TrHUD.ChatMessageReceived");
