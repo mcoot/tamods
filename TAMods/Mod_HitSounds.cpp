@@ -42,6 +42,16 @@ void playHitSound(bool bShieldDamage, int *dmg)
 	g_config.s_hitSound.Play(pitch);
 }
 
+void playHeadShotSound()
+{
+	if (!g_config.audioEngine.audioAvailable()
+		|| !g_config.s_headShot.audioAvailable()
+		|| !g_config.customHeadShotSound)
+		return;
+
+	g_config.s_headShot.Play();
+}
+
 bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	if (g_config.customBluePlateSound && g_config.audioEngine.audioAvailable() && g_config.s_bluePlate.audioAvailable())

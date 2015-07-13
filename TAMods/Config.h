@@ -288,6 +288,7 @@ public:
 	// Sounds
 	Audio audioEngine;
 	SoundEffect s_hitSound;
+	SoundEffect s_headShot;
 	SoundEffect s_bluePlate;
 	SoundEffect s_airMail;
 	std::vector<SoundEffect*> s_soundEffects;
@@ -296,6 +297,7 @@ public:
 	unsigned char nHitEnemyHeadshot;
 	// Sound user variables
 	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
+	bool customHeadShotSound;
 	bool customAirMailSound;
 	bool customBluePlateSound;
 	float hitSoundPitchMin;

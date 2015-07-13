@@ -15,10 +15,12 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 
 	// Hit sounds
 	playHitSound((bool)params->bShieldDamage, &params->NumberToShow);
+
 	// Headshots
 	if (g_config.nHitEnemyHeadshot != that->r_nHitEnemyHeadshot)
 	{
-		//playHeadShotSound();
+		if (g_config.nHitEnemyHeadshot != NULL) // needed so the first hit we do doesn't trigger the sound
+			playHeadShotSound();
 		g_config.nHitEnemyHeadshot = that->r_nHitEnemyHeadshot;
 	}
 
