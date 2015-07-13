@@ -83,7 +83,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 			RealStartLoc = that->GetClientSideProjectileFireStartLoc(FVector());
 			TraceStart = that->GetPhysicalFireStartLoc(FVector());
 
-			if (that->Trace(RealStartLoc, TraceStart, true, FVector(1.0f, 0.0f, 0.0f), 0, &HitLocation, &HitNormal, &HitInfo))
+			if (g_config.realBulletLocation || that->Trace(RealStartLoc, TraceStart, true, FVector(1.0f, 0.0f, 0.0f), 0, &HitLocation, &HitNormal, &HitInfo))
 				RealStartLoc = TraceStart;
 
 			SpawnRotation = that->GetAdjustedAim(RealStartLoc);
@@ -104,7 +104,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 						delayed_projs[i].location = RealStartLoc;
 						delayed_projs[i].rotation = SpawnRotation;
 						delayed_projs[i].spawn_tag = that->Name;
-						delayed_projs[i].delay = ping * 0.5f * g_config.bulletDelayMultiplier;
+						delayed_projs[i].delay = ping * 0.5f * g_config.bulletPingMultiplier + g_config.bulletSpawnDelay;
 						delayed_projs[i].proj_flight_template = fired_proj ? fired_proj->custom_ps : NULL;
 						break;
 					}
@@ -113,7 +113,13 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 			else
 			{
 				SpawnedProjectile = (ATrProjectile *)that->Spawn(SpawnClass, that->Instigator, that->Name, RealStartLoc, SpawnRotation, NULL, 0);
-				SpawnedProjectile->InitProjectile(Geom::rotationToVector(SpawnRotation), InitClass);
+				if (SpawnedProjectile)
+				{
+					if (SpawnClass == ATrProj_ClientTracer::StaticClass())
+						((ATrProj_ClientTracer *)SpawnedProjectile)->InitProjectile(Geom::rotationToVector(SpawnRotation), InitClass);
+					else
+						SpawnedProjectile->InitProjectile(Geom::rotationToVector(SpawnRotation), InitClass);
+				}
 			}
 			bSpawnedSimProjectile = true;
 		}
@@ -314,7 +320,7 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 				UParticleSystem *spawn_ps, *init_ps;
 				FVector &loc = curr_proj.location;
 				FVector dir = Geom::rotationToVector(curr_proj.rotation);
-				float speed = ((ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default)->Speed * (-curr_proj.delay);
+				float speed = ((ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default)->Speed * (-curr_proj.delay + g_config.bulletSpawnDelay);
 				loc.X += dir.X * speed;
 				loc.Y += dir.Y * speed;
 				loc.Z += dir.Z * speed;
@@ -332,7 +338,12 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 				}
 				ATrProjectile *proj = (ATrProjectile *)that->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, loc, curr_proj.rotation, NULL, 0);
 				if (proj)
-					proj->InitProjectile(dir, curr_proj.init_class);
+				{
+					if (curr_proj.spawn_class == ATrProj_ClientTracer::StaticClass())
+						((ATrProj_ClientTracer *)proj)->InitProjectile(dir, curr_proj.init_class);
+					else
+						proj->InitProjectile(dir, curr_proj.init_class);
+				}
 				if (curr_proj.proj_flight_template)
 				{
 					((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate = spawn_ps;

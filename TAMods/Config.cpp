@@ -142,7 +142,9 @@ void Config::reset()
 	// Magic chain
 	useSmallBullets = false;
 	useMagicChain = false;
-	bulletDelayMultiplier = 1.0f;
+	realBulletLocation = false;
+	bulletPingMultiplier = 1.0f;
+	bulletSpawnDelay = 0.0f;
 
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();
@@ -413,7 +415,9 @@ void Config::setVariables()
 	// Magic chain
 	SET_VARIABLE(bool, useSmallBullets);
 	SET_VARIABLE(bool, useMagicChain);
-	SET_VARIABLE(float, bulletDelayMultiplier);
+	SET_VARIABLE(bool, realBulletLocation);
+	SET_VARIABLE(float, bulletPingMultiplier);
+	SET_VARIABLE(float, bulletSpawnDelay);
 }
 
 static int getWeaponID(const std::string &class_name, const std::string &str)
