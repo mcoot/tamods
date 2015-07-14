@@ -57,6 +57,21 @@ struct DelayedProjectile
 
 DelayedProjectile delayed_projs[50] = { 0 };
 
+static void PostInitProjectile(ATrProjectile *that, const FVector &direction, float speed = 0.0f)
+{
+	if (speed == 0.0f)
+		that->Speed = that->MaxSpeed;
+	else
+		that->Speed = speed;
+	that->Velocity = Geom::scale(direction, that->Speed);
+	that->Velocity.Z += that->TossZ;
+	if (that->m_bTether && that->Role == 3 /* ROLE_Authority */ && that->WorldInfo->NetMode == 3 /* NM_Client */)
+		that->Velocity = Geom::scale(Geom::normal(that->Velocity), that->m_fClientSimulatedSpeed);
+	that->m_vAccelDirection = Geom::normal(that->Velocity);
+	that->ApplyInheritance(direction);
+	that->Acceleration = Geom::scale(that->m_vAccelDirection, that->AccelRate);
+}
+
 ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 {
 	FVector RealStartLoc, TraceStart, HitLocation, HitNormal;
@@ -115,10 +130,11 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 				SpawnedProjectile = (ATrProjectile *)that->Spawn(SpawnClass, that->Instigator, that->Name, RealStartLoc, SpawnRotation, NULL, 0);
 				if (SpawnedProjectile)
 				{
+					FVector rotation = Geom::rotationToVector(SpawnRotation);
 					if (SpawnClass == ATrProj_ClientTracer::StaticClass())
-						((ATrProj_ClientTracer *)SpawnedProjectile)->InitProjectile(Geom::rotationToVector(SpawnRotation), InitClass);
+						((ATrProj_ClientTracer *)SpawnedProjectile)->InitProjectile(rotation, InitClass);
 					else
-						SpawnedProjectile->InitProjectile(Geom::rotationToVector(SpawnRotation), InitClass);
+						SpawnedProjectile->InitProjectile(rotation, InitClass);
 				}
 			}
 			bSpawnedSimProjectile = true;
@@ -317,13 +333,33 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 			curr_proj.delay -= params->DeltaTime;
 			if (curr_proj.delay <= 0.0)
 			{
+				ATrProjectile *default_proj = (ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default;
 				UParticleSystem *spawn_ps, *init_ps;
 				FVector &loc = curr_proj.location;
 				FVector dir = Geom::rotationToVector(curr_proj.rotation);
-				float speed = ((ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default)->Speed * (-curr_proj.delay + g_config.bulletSpawnDelay);
-				loc.X += dir.X * speed;
-				loc.Y += dir.Y * speed;
-				loc.Z += dir.Z * speed;
+				float delay = -curr_proj.delay + g_config.bulletSpawnDelay;
+				float v0 = 1.0f;
+				float vmax = default_proj->MaxSpeed;
+				float a = 100000.0f; // default_proj->AccelRate
+				float tmax = (vmax - v0) / a;
+				float dist = 0;
+				float speed = 0;
+
+				if (delay < tmax)
+				{
+					// d(x) = v0*x + (a/2)x²
+					dist = v0 * delay + a * 0.5f * delay * delay;
+					speed = v0 + delay * a;
+				}
+				else
+				{
+					dist = v0 * tmax + a * 0.5f * tmax * tmax;
+					dist += (delay - tmax) * vmax;
+					speed = vmax;
+				}
+				loc.X += dir.X * dist;
+				loc.Y += dir.Y * dist;
+				loc.Z += dir.Z * dist;
 				if (curr_proj.proj_flight_template)
 				{
 					spawn_ps = ((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate;
@@ -343,6 +379,11 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 						((ATrProj_ClientTracer *)proj)->InitProjectile(dir, curr_proj.init_class);
 					else
 						proj->InitProjectile(dir, curr_proj.init_class);
+					PostInitProjectile(proj, dir, speed);
+
+					proj->Speed += proj->AccelRate * delay;
+					if (proj->Speed > proj->MaxSpeed)
+						proj->Speed = proj->MaxSpeed;
 				}
 				if (curr_proj.proj_flight_template)
 				{
