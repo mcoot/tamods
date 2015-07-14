@@ -143,6 +143,7 @@
     <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="Loadout.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="Mod_FlagEventSounds.cpp" />
     <ClCompile Include="Mod_General.cpp" />
     <ClCompile Include="Mod_HitSounds.cpp" />
     <ClCompile Include="Mod_HudMod.cpp" />

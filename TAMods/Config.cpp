@@ -22,6 +22,9 @@ Config::Config()
 {
 	hitsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Impact__Notify.A_CUE_PC_HitImpactOnPawnNotify");
 	headshotsound = UObject::FindObject<USoundCue>("SoundCue AUD_PC_Notifications.Headshot.A_CUE_PC_ImpactOnPawnNotify_Headshot");
+	flagpickedup = UObject::FindObject<USoundCue>("SoundCue AUD_MUS_CTF.Stingers.A_CUE_UI_CTF_FlagPickedUp");
+	flagcaptured = UObject::FindObject<USoundCue>("SoundCue AUD_MUS_CTF.Stingers.A_CUE_UI_CTF_FlagCaptured");
+	flagreturned = UObject::FindObject<USoundCue>("SoundCue AUD_MUS_CTF.Stingers.A_CUE_UI_CTF_FlagReturned");
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 	reset();
@@ -117,6 +120,7 @@ void Config::reset()
 	customAirMailSound = false;
 	customBluePlateSound = false;
 	customAccoladeSounds = false;
+	customFlagEventSounds = false;
 	hitSoundPitchMin = 0.4f;
 	hitSoundPitchMax = 1.6f;
 	hitSoundDamageRef = 600;
@@ -125,6 +129,7 @@ void Config::reset()
 	volumeBluePlate = 0.55f;
 	volumeAirMail = 0.55f;
 	volumeAccoladeSounds = 0.55f;
+	volumeFlagEvents = 0.55f;
 
 	// Toggle HUD
 	showObjectiveIcon = true;
@@ -246,12 +251,21 @@ void Config::updateDefaults()
 		hud->MarkerColorEnemy_IsFriend = Utils::linCol(enemyIsFMarkerColor);
 	}
 
-	// Hitsounds
+	// Toggle default sounds
 	if (hitsound)
 		hitsound->VolumeMultiplier = hitSoundMode > 0 ? 0.0f : volumeHitSound;
 
 	if (headshotsound)
 		headshotsound->VolumeMultiplier = customHeadShotSound ? 0.0f : volumeHeadShot;
+
+	if (flagpickedup)
+		flagpickedup->VolumeMultiplier = customFlagEventSounds ? 0.0f : 0.55f;
+
+	if (flagcaptured)
+		flagcaptured->VolumeMultiplier = customFlagEventSounds ? 0.0f : 0.55f;
+
+	if (flagreturned)
+		flagreturned->VolumeMultiplier = customFlagEventSounds ? 0.0f : 0.55f;
 
 	// Toggle icons
 	for (int i = 0; i < sizeof(togglable_icons) / sizeof(togglable_icons[0]); i++)
@@ -291,6 +305,17 @@ void Config::initializeAudio()
 		s_soundEffects.push_back(s_meleeKill.Initialize(audioEngine.SoundEffectEngine, std::string("meleekill.wav"), &volumeAccoladeSounds));
 		s_soundEffects.push_back(s_roadKill.Initialize(audioEngine.SoundEffectEngine, std::string("roadkill.wav"), &volumeAccoladeSounds));
 		s_soundEffects.push_back(s_fastGrab.Initialize(audioEngine.SoundEffectEngine, std::string("fastgrab.wav"), &volumeAccoladeSounds));
+		// Flag events
+		s_soundEffects.push_back(s_flagGrabTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flaggrab_team.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagGrabEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flaggrab_enemy.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagPickupTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagpickup_team.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagPickupEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagpickup_enemy.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagCaptureTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagcapture_team.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagCaptureEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagcapture_enemy.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagReturnTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagreturn_team.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagReturnEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagreturn_enemy.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagDroppedTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagdropped_team.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagDroppedEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagdropped_enemy.wav"), &volumeFlagEvents));
 	}
 	else
 		Utils::console("Error: could not initialize audio engine");
@@ -387,6 +412,7 @@ void Config::setVariables()
 	SET_VARIABLE(bool, customAirMailSound);
 	SET_VARIABLE(bool, customBluePlateSound);
 	SET_VARIABLE(bool, customAccoladeSounds);
+	SET_VARIABLE(bool, customFlagEventSounds);
 	SET_VARIABLE(float, hitSoundPitchMin);
 	SET_VARIABLE(float, hitSoundPitchMax);
 	SET_VARIABLE(int, hitSoundDamageRef);
@@ -395,7 +421,7 @@ void Config::setVariables()
 	SET_VARIABLE(float, volumeBluePlate);
 	SET_VARIABLE(float, volumeAirMail);
 	SET_VARIABLE(float, volumeAccoladeSounds);
-
+	SET_VARIABLE(float, volumeFlagEvents);
 
 	// Toggle HUD
 	SET_VARIABLE(bool, showObjectiveIcon);
@@ -650,8 +676,7 @@ static void config_modifySoundRe(const std::string &needle, float pitch, float v
 
 		// skip everything but matched SoundCues and AudioComponents
 		if (Object
-			&& (Object->IsA(USoundCue::StaticClass())
-			|| Object->IsA(UAudioComponent::StaticClass()))
+			&& (Object->IsA(USoundCue::StaticClass()) || Object->IsA(UAudioComponent::StaticClass()))
 			&& std::regex_search(Object->GetFullName(), r))
 		{
 			matches++;
@@ -693,8 +718,7 @@ static void config_searchSoundRe(const std::string &needle)
 
 		// skip everything but matched SoundCues and AudioComponents
 		if (Object
-			&& (Object->IsA(USoundCue::StaticClass())
-			|| Object->IsA(UAudioComponent::StaticClass()))
+			&& (Object->IsA(USoundCue::StaticClass()) || Object->IsA(UAudioComponent::StaticClass()))
 			&& std::regex_search(Object->GetFullName(), r))
 		{
 			matches++;
