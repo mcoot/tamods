@@ -285,37 +285,43 @@ public:
 	float skiBarMin;
 	float skiBarMax;
 
+	// Flag drag in roam map
+	int maxSpeedWithFlag;
+	int decelerationRateWithFlag;
+
 	// Sounds
 	Audio audioEngine;
 	SoundEffect s_hitSound;
 	SoundEffect s_headShot;
-	SoundEffect s_bluePlate;
-	SoundEffect s_airMail;
-	SoundEffect s_streak1;
-	SoundEffect s_streak2;
-	SoundEffect s_streak3;
-	SoundEffect s_streak4;
-	SoundEffect s_streak5;
-	SoundEffect s_multiKill1;
-	SoundEffect s_multiKill2;
-	SoundEffect s_multiKill3;
-	SoundEffect s_multiKill4;
-	SoundEffect s_multiKill5;
+	SoundEffect s_bluePlate, s_airMail;
+	SoundEffect s_streak1, s_streak2, s_streak3, s_streak4, s_streak5;
+	SoundEffect s_multiKill1, s_multiKill2, s_multiKill3, s_multiKill4, s_multiKill5;
 	SoundEffect s_firstBlood;
 	SoundEffect s_headShotKill;
 	SoundEffect s_artilleryShot;
 	SoundEffect s_meleeKill;
 	SoundEffect s_roadKill;
 	SoundEffect s_fastGrab;
+	// Flag events
+	SoundEffect s_flagGrabTeam,		s_flagGrabEnemy;
+	SoundEffect s_flagPickupTeam,	s_flagPickupEnemy;
+	SoundEffect s_flagCaptureTeam,	s_flagCaptureEnemy;
+	SoundEffect s_flagReturnTeam,	s_flagReturnEnemy;
+	SoundEffect s_flagDroppedTeam,	s_flagDroppedEnemy;
 	std::vector<SoundEffect*> s_soundEffects;
+	// Pointers to vanilla sounds so we can enable/disable them without searching every time
 	USoundCue *hitsound;
 	USoundCue *headshotsound;
+	USoundCue *flagpickedup;
+	USoundCue *flagcaptured;
+	USoundCue *flagreturned;
 	// Sound user variables
 	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
 	bool customHeadShotSound;
 	bool customAirMailSound;
 	bool customBluePlateSound;
 	bool customAccoladeSounds;
+	bool customFlagEventSounds;
 	float hitSoundPitchMin;
 	float hitSoundPitchMax;
 	int hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
@@ -324,6 +330,7 @@ public:
 	float volumeBluePlate;
 	float volumeAirMail;
 	float volumeAccoladeSounds;
+	float volumeFlagEvents;
 
 	// HUD elements toggle
 	static TogglableIcon togglable_icons[];
