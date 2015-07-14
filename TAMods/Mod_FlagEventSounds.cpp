@@ -22,7 +22,7 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 	AUTTeamInfo *teamInfo = (AUTTeamInfo *)params->OptionalObject;
 
 	bool myTeam;
-
+	// TODO: team index check so both teams still have separat sounds when spectating
 	if (msgClass == "TrCTFHUDMessage")
 		myTeam = true;
 	else if (relatedPRI)

@@ -285,6 +285,10 @@ public:
 	float skiBarMin;
 	float skiBarMax;
 
+	// Flag drag in roam map
+	int maxSpeedWithFlag;
+	int decelerationRateWithFlag;
+
 	// Sounds
 	Audio audioEngine;
 	SoundEffect s_hitSound;

@@ -114,6 +114,10 @@ void Config::reset()
 	skiBarMin = 30;
 	skiBarMax = 300;
 
+	// Flag drag in roam map
+	maxSpeedWithFlag = 0;
+	decelerationRateWithFlag = 10;
+
 	// Sounds
 	hitSoundMode = 0;
 	customHeadShotSound = false;
@@ -407,6 +411,10 @@ void Config::setVariables()
 	// Ski bars
 	SET_VARIABLE(float, skiBarMin);
 	SET_VARIABLE(float, skiBarMax);
+
+	// Flag drag in roam map
+	SET_VARIABLE(int, maxSpeedWithFlag);
+	SET_VARIABLE(int, decelerationRateWithFlag);
 
 	// Sounds
 	SET_VARIABLE(int, hitSoundMode);
