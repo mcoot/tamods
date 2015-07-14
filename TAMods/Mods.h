@@ -22,7 +22,6 @@ bool TrChatConsoleCommand_quit(int ID, UObject *dwCallingObject, UFunction* pFun
 
 // HUD Modification
 bool TrHUD_eventPostRender(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool TrScoreboard_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool GFxTrScenePS_LoadPlayerMiscData(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
