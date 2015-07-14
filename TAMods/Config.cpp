@@ -151,7 +151,7 @@ void Config::reset()
 	// Magic chain
 	useSmallBullets = false;
 	useMagicChain = false;
-	realBulletLocation = false;
+	centerBulletSpawn = false;
 	bulletPingMultiplier = 1.0f;
 	bulletSpawnDelay = 0.0f;
 
@@ -449,7 +449,7 @@ void Config::setVariables()
 	// Magic chain
 	SET_VARIABLE(bool, useSmallBullets);
 	SET_VARIABLE(bool, useMagicChain);
-	SET_VARIABLE(bool, realBulletLocation);
+	SET_VARIABLE(bool, centerBulletSpawn);
 	SET_VARIABLE(float, bulletPingMultiplier);
 	SET_VARIABLE(float, bulletSpawnDelay);
 }

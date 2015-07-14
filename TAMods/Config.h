@@ -349,7 +349,7 @@ public:
 	// Magic chain
 	bool useSmallBullets;
 	bool useMagicChain;
-	bool realBulletLocation;
+	bool centerBulletSpawn;
 	float bulletPingMultiplier;
 	float bulletSpawnDelay;
 

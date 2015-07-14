@@ -98,7 +98,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 			RealStartLoc = that->GetClientSideProjectileFireStartLoc(FVector());
 			TraceStart = that->GetPhysicalFireStartLoc(FVector());
 
-			if (g_config.realBulletLocation || that->Trace(RealStartLoc, TraceStart, true, FVector(1.0f, 0.0f, 0.0f), 0, &HitLocation, &HitNormal, &HitInfo))
+			if (g_config.centerBulletSpawn || that->Trace(RealStartLoc, TraceStart, true, FVector(1.0f, 0.0f, 0.0f), 0, &HitLocation, &HitNormal, &HitInfo))
 				RealStartLoc = TraceStart;
 
 			SpawnRotation = that->GetAdjustedAim(RealStartLoc);
