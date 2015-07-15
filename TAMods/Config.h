@@ -233,7 +233,6 @@ public:
 	Lua lua;
 
 	int damageNumbersLimit;
-	bool disableBaseTurrets;
 	bool showErrorNotifications;
 	bool showWeapon;
 	bool showFirstPersonAmmo;
@@ -285,7 +284,9 @@ public:
 	float skiBarMin;
 	float skiBarMax;
 
-	// Flag drag in roam map
+	// Roam map variables
+	bool disableBaseTurrets;
+	bool disablePower;
 	int maxSpeedWithFlag;
 	int decelerationRateWithFlag;
 

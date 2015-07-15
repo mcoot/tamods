@@ -60,6 +60,31 @@ bool TrDeployable_FinalizeDeployment(int ID, UObject *dwCallingObject, UFunction
 	return true;
 }
 
+// Generators
+bool TrPowerGenerator_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	if (!g_config.disablePower)
+		return true;
+
+	ATrPowerGenerator *gen = (ATrPowerGenerator *)dwCallingObject;
+
+	if (gen->WorldInfo && gen->WorldInfo->NetMode == 0) // NM_Standalone == 0
+	{
+		gen->UpdateGeneratorPower(0);
+
+		// Restore power for all stations and turrets
+		for (int i = 0; i < gen->m_PoweredObjectives.Count; i++)
+		{
+			if (gen->m_PoweredObjectives.Data[i]->IsA(ATrStation::StaticClass()))
+				((ATrStation *)gen->m_PoweredObjectives.Data[i])->SetPowered(1);
+			else if (gen->m_PoweredObjectives.Data[i]->IsA(ATrDeployable_BaseTurret::StaticClass()))
+				((ATrDeployable_BaseTurret *)gen->m_PoweredObjectives.Data[i])->SetPowered(1);
+		}
+	}
+
+	return true;
+}
+
 // Flag drag in roam map
 bool TrPC_PressedSki(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {

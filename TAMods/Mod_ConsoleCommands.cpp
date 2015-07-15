@@ -15,6 +15,40 @@ bool toggleBaseTurret(UObject *Object)
 	return false;
 }
 
+bool togglePower(UObject *Object)
+{
+	if (Object && Object->IsA(ATrPowerGenerator::StaticClass()))
+	{
+		ATrPowerGenerator *gen = (ATrPowerGenerator *)Object;
+
+		bool isPowered = gen->r_bIsPowered != 0;
+		gen->UpdateGeneratorPower(isPowered ? 0 : 1);
+
+		// Restore power for all stations and turrets
+		if (isPowered)
+		{
+			for (int i = 0; i < gen->m_PoweredObjectives.Count; i++)
+			{
+				if (gen->m_PoweredObjectives.Data[i]->IsA(ATrStation::StaticClass()))
+					((ATrStation *)gen->m_PoweredObjectives.Data[i])->SetPowered(1);
+				else if (gen->m_PoweredObjectives.Data[i]->IsA(ATrDeployable_BaseTurret::StaticClass()))
+					((ATrDeployable_BaseTurret *)gen->m_PoweredObjectives.Data[i])->SetPowered(1);
+			}
+		}
+	}
+	return false;
+}
+
+int matched;
+
+bool printObjectName(UObject *Object)
+{
+	Utils::printConsole(Object->GetFullName());
+	matched++;
+
+	return false;
+}
+
 bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
@@ -57,6 +91,22 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 
 					customcommand = true;
 				}
+				else if (line.size() == 12 && line == L"/togglepower")
+				{
+					Utils::FindObjects("^TrPowerGenerator_(BloodEagle|DiamondSword) TheWorld.PersistentLevel.TrPowerGenerator_", &togglePower);
+
+					customcommand = true;
+				}
+				if (line.size() > 13 && line.substr(0, 13) == L"/findobjects ")
+				{
+					matched = 0;
+					std::string needle = std::string(line.begin() + 13, line.end());
+					Utils::FindObjects(needle, &printObjectName);
+					Utils::console("%d objects matched", matched);
+
+					customcommand = true;
+				}
+
 				if (customcommand)
 				{
 					that->SetInputText(FString(L""));

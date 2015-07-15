@@ -61,7 +61,6 @@ void Config::reset()
 	proj_class_to_custom_proj.clear();
 	
 	// General stuff
-	disableBaseTurrets = false;
 	showErrorNotifications = true;
 	showWeapon = true;
 	showFirstPersonAmmo = false;
@@ -114,7 +113,9 @@ void Config::reset()
 	skiBarMin = 30;
 	skiBarMax = 300;
 
-	// Flag drag in roam map
+	// Roam map variables
+	disableBaseTurrets = false;
+	disablePower = false;
 	maxSpeedWithFlag = 0;
 	decelerationRateWithFlag = 10;
 
@@ -365,7 +366,6 @@ void Config::refreshSoundVolumes()
 void Config::setVariables()
 {
 	// General stuff
-	SET_VARIABLE(bool, disableBaseTurrets);
 	SET_VARIABLE(int, damageNumbersLimit);
 	SET_VARIABLE(bool, showErrorNotifications);
 	SET_VARIABLE(bool, showWeapon);
@@ -412,7 +412,9 @@ void Config::setVariables()
 	SET_VARIABLE(float, skiBarMin);
 	SET_VARIABLE(float, skiBarMax);
 
-	// Flag drag in roam map
+	// Roam map variables
+	SET_VARIABLE(bool, disableBaseTurrets);
+	SET_VARIABLE(bool, disablePower);
 	SET_VARIABLE(int, maxSpeedWithFlag);
 	SET_VARIABLE(int, decelerationRateWithFlag);
 
