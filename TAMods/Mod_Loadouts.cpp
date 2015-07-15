@@ -9,12 +9,9 @@ bool GFxTrHUD_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction
 	UTrPlayerInput *tr_pi = (UTrPlayerInput *)that->m_TrPC->PlayerInput;
 
 	Hooks::lock();
-	if (tr_pi->InVGSClassMode())
-		g_config.parseFile();
-	else if (tr_pi->InVGSLoadoutMode())
+	if (tr_pi->InVGSLoadoutMode())
 	{
 		int class_type = Data::class_id_to_nb[tr_pi->GetVGSClassId()];
-		g_config.parseFile();
 		for (int i = 0; i < 9; i++)
 		{
 			Loadout *loadout = g_config.loadouts[class_type][i];

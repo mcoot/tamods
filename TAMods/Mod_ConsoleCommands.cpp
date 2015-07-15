@@ -57,6 +57,12 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 
 					customcommand = true;
 				}
+				else if ((line.size() == 13 && line == L"/reloadconfig") || (line.size() == 3 && line == L"/rc"))
+				{
+					g_config.parseFile();
+
+					customcommand = true;
+				}
 				if (customcommand)
 				{
 					that->SetInputText(FString(L""));
