@@ -30,8 +30,22 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
+            this.panel19 = new System.Windows.Forms.Panel();
+            this.checkMagicChainCenter = new System.Windows.Forms.CheckBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.numMagicChainSpawnDelay = new System.Windows.Forms.NumericUpDown();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.numMagicChainPingMultiplier = new System.Windows.Forms.NumericUpDown();
+            this.checkMagicChainSmallBullets = new System.Windows.Forms.CheckBox();
+            this.checkMagicChainEnable = new System.Windows.Forms.CheckBox();
+            this.label53 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
             this.label52 = new System.Windows.Forms.Label();
             this.numRoamFlagDecel = new System.Windows.Forms.NumericUpDown();
@@ -194,6 +208,7 @@
             this.btnProjectileSwapSave = new System.Windows.Forms.Button();
             this.listProjectileSwap = new System.Windows.Forms.ListBox();
             this.tabHitSounds = new TAModConfigurationTool.TransTabPage();
+            this.labelHitSoundVolumeTied = new System.Windows.Forms.Label();
             this.btnHitSoundFile = new System.Windows.Forms.Button();
             this.panel18 = new System.Windows.Forms.Panel();
             this.trackHitSoundVolumeSpecific = new System.Windows.Forms.TrackBar();
@@ -213,23 +228,13 @@
             this.selectHitSoundMode = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
-            this.panel19 = new System.Windows.Forms.Panel();
-            this.label53 = new System.Windows.Forms.Label();
-            this.checkMagicChainEnable = new System.Windows.Forms.CheckBox();
-            this.checkMagicChainSmallBullets = new System.Windows.Forms.CheckBox();
-            this.numMagicChainPingMultiplier = new System.Windows.Forms.NumericUpDown();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label63 = new System.Windows.Forms.Label();
-            this.label64 = new System.Windows.Forms.Label();
-            this.label65 = new System.Windows.Forms.Label();
-            this.numMagicChainSpawnDelay = new System.Windows.Forms.NumericUpDown();
-            this.checkMagicChainCenter = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
+            this.panel19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainSpawnDelay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainPingMultiplier)).BeginInit();
             this.panel17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).BeginInit();
@@ -272,10 +277,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.panel19.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainPingMultiplier)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainSpawnDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -293,6 +294,31 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 501);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // fileHitSound
+            // 
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // tabControlMain
             // 
@@ -327,6 +353,129 @@
             this.tabGeneral.Size = new System.Drawing.Size(930, 415);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General Settings";
+            // 
+            // panel19
+            // 
+            this.panel19.Controls.Add(this.checkMagicChainCenter);
+            this.panel19.Controls.Add(this.label64);
+            this.panel19.Controls.Add(this.label65);
+            this.panel19.Controls.Add(this.numMagicChainSpawnDelay);
+            this.panel19.Controls.Add(this.label63);
+            this.panel19.Controls.Add(this.label54);
+            this.panel19.Controls.Add(this.numMagicChainPingMultiplier);
+            this.panel19.Controls.Add(this.checkMagicChainSmallBullets);
+            this.panel19.Controls.Add(this.checkMagicChainEnable);
+            this.panel19.Controls.Add(this.label53);
+            this.panel19.Location = new System.Drawing.Point(570, 6);
+            this.panel19.Name = "panel19";
+            this.panel19.Size = new System.Drawing.Size(208, 185);
+            this.panel19.TabIndex = 6;
+            // 
+            // checkMagicChainCenter
+            // 
+            this.checkMagicChainCenter.AutoSize = true;
+            this.checkMagicChainCenter.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkMagicChainCenter.Location = new System.Drawing.Point(10, 137);
+            this.checkMagicChainCenter.Name = "checkMagicChainCenter";
+            this.checkMagicChainCenter.Size = new System.Drawing.Size(186, 17);
+            this.checkMagicChainCenter.TabIndex = 35;
+            this.checkMagicChainCenter.Text = "Center Bullets On Player Model";
+            this.checkMagicChainCenter.UseVisualStyleBackColor = true;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label64.Location = new System.Drawing.Point(149, 90);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(49, 13);
+            this.label64.TabIndex = 34;
+            this.label64.Text = "seconds";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label65.Location = new System.Drawing.Point(15, 91);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(73, 13);
+            this.label65.TabIndex = 33;
+            this.label65.Text = "Spawn Delay";
+            // 
+            // numMagicChainSpawnDelay
+            // 
+            this.numMagicChainSpawnDelay.DecimalPlaces = 2;
+            this.numMagicChainSpawnDelay.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMagicChainSpawnDelay.Location = new System.Drawing.Point(93, 87);
+            this.numMagicChainSpawnDelay.Name = "numMagicChainSpawnDelay";
+            this.numMagicChainSpawnDelay.Size = new System.Drawing.Size(56, 22);
+            this.numMagicChainSpawnDelay.TabIndex = 32;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label63.Location = new System.Drawing.Point(150, 62);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(12, 13);
+            this.label63.TabIndex = 31;
+            this.label63.Text = "x";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.Location = new System.Drawing.Point(7, 63);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(83, 13);
+            this.label54.TabIndex = 21;
+            this.label54.Text = "Ping Multiplier";
+            // 
+            // numMagicChainPingMultiplier
+            // 
+            this.numMagicChainPingMultiplier.DecimalPlaces = 2;
+            this.numMagicChainPingMultiplier.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMagicChainPingMultiplier.Location = new System.Drawing.Point(94, 59);
+            this.numMagicChainPingMultiplier.Name = "numMagicChainPingMultiplier";
+            this.numMagicChainPingMultiplier.Size = new System.Drawing.Size(56, 22);
+            this.numMagicChainPingMultiplier.TabIndex = 18;
+            this.numMagicChainPingMultiplier.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // checkMagicChainSmallBullets
+            // 
+            this.checkMagicChainSmallBullets.AutoSize = true;
+            this.checkMagicChainSmallBullets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkMagicChainSmallBullets.Location = new System.Drawing.Point(10, 117);
+            this.checkMagicChainSmallBullets.Name = "checkMagicChainSmallBullets";
+            this.checkMagicChainSmallBullets.Size = new System.Drawing.Size(188, 17);
+            this.checkMagicChainSmallBullets.TabIndex = 9;
+            this.checkMagicChainSmallBullets.Text = "Use Small Bullets (\'Red version\')";
+            this.checkMagicChainSmallBullets.UseVisualStyleBackColor = true;
+            // 
+            // checkMagicChainEnable
+            // 
+            this.checkMagicChainEnable.AutoSize = true;
+            this.checkMagicChainEnable.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkMagicChainEnable.Location = new System.Drawing.Point(10, 33);
+            this.checkMagicChainEnable.Name = "checkMagicChainEnable";
+            this.checkMagicChainEnable.Size = new System.Drawing.Size(128, 17);
+            this.checkMagicChainEnable.TabIndex = 8;
+            this.checkMagicChainEnable.Text = "Enable Magic Chain";
+            this.checkMagicChainEnable.UseVisualStyleBackColor = true;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.Location = new System.Drawing.Point(3, 3);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(121, 25);
+            this.label53.TabIndex = 7;
+            this.label53.Text = "Magic Chain";
             // 
             // panel17
             // 
@@ -2176,6 +2325,7 @@
             // 
             // tabHitSounds
             // 
+            this.tabHitSounds.Controls.Add(this.labelHitSoundVolumeTied);
             this.tabHitSounds.Controls.Add(this.btnHitSoundFile);
             this.tabHitSounds.Controls.Add(this.panel18);
             this.tabHitSounds.Controls.Add(this.label48);
@@ -2199,8 +2349,20 @@
             this.tabHitSounds.Padding = new System.Windows.Forms.Padding(3);
             this.tabHitSounds.Size = new System.Drawing.Size(930, 415);
             this.tabHitSounds.TabIndex = 7;
-            this.tabHitSounds.Text = "Hit Sounds";
+            this.tabHitSounds.Text = "Custom Sounds";
             this.tabHitSounds.UseVisualStyleBackColor = true;
+            // 
+            // labelHitSoundVolumeTied
+            // 
+            this.labelHitSoundVolumeTied.AutoSize = true;
+            this.labelHitSoundVolumeTied.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelHitSoundVolumeTied.Location = new System.Drawing.Point(544, 207);
+            this.labelHitSoundVolumeTied.Name = "labelHitSoundVolumeTied";
+            this.labelHitSoundVolumeTied.Size = new System.Drawing.Size(136, 13);
+            this.labelHitSoundVolumeTied.TabIndex = 78;
+            this.labelHitSoundVolumeTied.Text = "(Tied to accolade volume)";
+            this.labelHitSoundVolumeTied.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelHitSoundVolumeTied.Visible = false;
             // 
             // btnHitSoundFile
             // 
@@ -2263,9 +2425,9 @@
             this.label47.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label47.Location = new System.Drawing.Point(256, 5);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(235, 25);
+            this.label47.Size = new System.Drawing.Size(203, 25);
             this.label47.TabIndex = 73;
-            this.label47.Text = "Hit Sound Customisation";
+            this.label47.Text = "Sound Customisation";
             // 
             // label46
             // 
@@ -2400,9 +2562,9 @@
             this.label31.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label31.Location = new System.Drawing.Point(8, 89);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(97, 17);
+            this.label31.Size = new System.Drawing.Size(163, 17);
             this.label31.TabIndex = 63;
-            this.label31.Text = "Dynamic Pitch";
+            this.label31.Text = "Dynamic Hit Sound Pitch";
             // 
             // selectHitSoundMode
             // 
@@ -2425,9 +2587,9 @@
             this.label29.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.Location = new System.Drawing.Point(8, 36);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(43, 17);
+            this.label29.Size = new System.Drawing.Size(109, 17);
             this.label29.TabIndex = 59;
-            this.label29.Text = "Mode";
+            this.label29.Text = "Hit Sound Mode";
             // 
             // label28
             // 
@@ -2435,157 +2597,9 @@
             this.label28.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.Location = new System.Drawing.Point(6, 5);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(180, 25);
+            this.label28.Size = new System.Drawing.Size(148, 25);
             this.label28.TabIndex = 46;
-            this.label28.Text = "Hit Sound Settings";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
-            // fileHitSound
-            // 
-            this.fileHitSound.Filter = "Wave files|*.wav";
-            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
-            // 
-            // panel19
-            // 
-            this.panel19.Controls.Add(this.checkMagicChainCenter);
-            this.panel19.Controls.Add(this.label64);
-            this.panel19.Controls.Add(this.label65);
-            this.panel19.Controls.Add(this.numMagicChainSpawnDelay);
-            this.panel19.Controls.Add(this.label63);
-            this.panel19.Controls.Add(this.label54);
-            this.panel19.Controls.Add(this.numMagicChainPingMultiplier);
-            this.panel19.Controls.Add(this.checkMagicChainSmallBullets);
-            this.panel19.Controls.Add(this.checkMagicChainEnable);
-            this.panel19.Controls.Add(this.label53);
-            this.panel19.Location = new System.Drawing.Point(570, 6);
-            this.panel19.Name = "panel19";
-            this.panel19.Size = new System.Drawing.Size(208, 185);
-            this.panel19.TabIndex = 6;
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.Location = new System.Drawing.Point(3, 3);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(121, 25);
-            this.label53.TabIndex = 7;
-            this.label53.Text = "Magic Chain";
-            // 
-            // checkMagicChainEnable
-            // 
-            this.checkMagicChainEnable.AutoSize = true;
-            this.checkMagicChainEnable.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkMagicChainEnable.Location = new System.Drawing.Point(10, 33);
-            this.checkMagicChainEnable.Name = "checkMagicChainEnable";
-            this.checkMagicChainEnable.Size = new System.Drawing.Size(128, 17);
-            this.checkMagicChainEnable.TabIndex = 8;
-            this.checkMagicChainEnable.Text = "Enable Magic Chain";
-            this.checkMagicChainEnable.UseVisualStyleBackColor = true;
-            // 
-            // checkMagicChainSmallBullets
-            // 
-            this.checkMagicChainSmallBullets.AutoSize = true;
-            this.checkMagicChainSmallBullets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkMagicChainSmallBullets.Location = new System.Drawing.Point(10, 117);
-            this.checkMagicChainSmallBullets.Name = "checkMagicChainSmallBullets";
-            this.checkMagicChainSmallBullets.Size = new System.Drawing.Size(188, 17);
-            this.checkMagicChainSmallBullets.TabIndex = 9;
-            this.checkMagicChainSmallBullets.Text = "Use Small Bullets (\'Red version\')";
-            this.checkMagicChainSmallBullets.UseVisualStyleBackColor = true;
-            // 
-            // numMagicChainPingMultiplier
-            // 
-            this.numMagicChainPingMultiplier.DecimalPlaces = 2;
-            this.numMagicChainPingMultiplier.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numMagicChainPingMultiplier.Location = new System.Drawing.Point(94, 59);
-            this.numMagicChainPingMultiplier.Name = "numMagicChainPingMultiplier";
-            this.numMagicChainPingMultiplier.Size = new System.Drawing.Size(56, 22);
-            this.numMagicChainPingMultiplier.TabIndex = 18;
-            this.numMagicChainPingMultiplier.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.Location = new System.Drawing.Point(7, 63);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(83, 13);
-            this.label54.TabIndex = 21;
-            this.label54.Text = "Ping Multiplier";
-            // 
-            // label63
-            // 
-            this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label63.Location = new System.Drawing.Point(150, 62);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(12, 13);
-            this.label63.TabIndex = 31;
-            this.label63.Text = "x";
-            // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label64.Location = new System.Drawing.Point(149, 90);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(49, 13);
-            this.label64.TabIndex = 34;
-            this.label64.Text = "seconds";
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(15, 91);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(73, 13);
-            this.label65.TabIndex = 33;
-            this.label65.Text = "Spawn Delay";
-            // 
-            // numMagicChainSpawnDelay
-            // 
-            this.numMagicChainSpawnDelay.DecimalPlaces = 2;
-            this.numMagicChainSpawnDelay.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numMagicChainSpawnDelay.Location = new System.Drawing.Point(93, 87);
-            this.numMagicChainSpawnDelay.Name = "numMagicChainSpawnDelay";
-            this.numMagicChainSpawnDelay.Size = new System.Drawing.Size(56, 22);
-            this.numMagicChainSpawnDelay.TabIndex = 32;
-            // 
-            // checkMagicChainCenter
-            // 
-            this.checkMagicChainCenter.AutoSize = true;
-            this.checkMagicChainCenter.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkMagicChainCenter.Location = new System.Drawing.Point(10, 137);
-            this.checkMagicChainCenter.Name = "checkMagicChainCenter";
-            this.checkMagicChainCenter.Size = new System.Drawing.Size(186, 17);
-            this.checkMagicChainCenter.TabIndex = 35;
-            this.checkMagicChainCenter.Text = "Center Bullets On Player Model";
-            this.checkMagicChainCenter.UseVisualStyleBackColor = true;
+            this.label28.Text = "Sound Settings";
             // 
             // MainForm
             // 
@@ -2604,8 +2618,13 @@
             this.Text = "TAMods Configuration Tool v0.4";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
+            this.panel19.ResumeLayout(false);
+            this.panel19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainSpawnDelay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainPingMultiplier)).EndInit();
             this.panel17.ResumeLayout(false);
             this.panel17.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).EndInit();
@@ -2669,11 +2688,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel19.ResumeLayout(false);
-            this.panel19.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainPingMultiplier)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainSpawnDelay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2878,6 +2892,7 @@
         private System.Windows.Forms.NumericUpDown numMagicChainSpawnDelay;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.CheckBox checkMagicChainCenter;
+        private System.Windows.Forms.Label labelHitSoundVolumeTied;
     }
 }
 

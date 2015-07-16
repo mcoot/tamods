@@ -158,27 +158,35 @@ namespace TAModConfigurationTool
 
             // Hit Sounds
             selectHitSoundMode.SelectedIndex = 0;
-
             listHitSound.Items.Clear();
+
             ConfigSet c = new ConfigSet("Hit Sound");
-            ConfigItem i = new ConfigAssetFileItem("hit", "sounds\\hit.wav");
+            ConfigItem i = new ConfigAssetFileItem("hitsound", "sounds\\hit.wav");
             (i as ConfigAssetFileItem).doWrite = true;
             c.Add(i);
-            i = new ConfigVarItem("hit_volume", "volumeHitSound", true);
+            i = new ConfigVarItem("hitsound_volume", "volumeHitSound", true);
             c.Add(i);
             listHitSound.Items.Add(new ConfigSetListWrapper(c));
             c = new ConfigSet("Blueplate");
-            i = new ConfigAssetFileItem("blueplate", "sounds\\blueplate.wav");
+            i = new ConfigAssetFileItem("blueplate", "sounds\\blueplate.wav", "customBluePlateSound");
             c.Add(i);
             i = new ConfigVarItem("blueplate_volume", "volumeBluePlate", true);
             c.Add(i);
             listHitSound.Items.Add(new ConfigSetListWrapper(c));
             c = new ConfigSet("Air Mail");
-            i = new ConfigAssetFileItem("airmail", "sounds\\airmail.wav");
+            i = new ConfigAssetFileItem("airmail", "sounds\\airmail.wav", "customAirMailSound");
             c.Add(i);
-            i = new ConfigVarItem("hit_volume", "volumeAirMail", true);
+            i = new ConfigVarItem("airmail_volume", "volumeAirMail", true);
             c.Add(i);
             listHitSound.Items.Add(new ConfigSetListWrapper(c));
+            c = new ConfigSet("Head Shot");
+            i = new ConfigAssetFileItem("headshot", "sounds\\headshot.wav", "customHeadShotSound");
+            c.Add(i);
+            i = new ConfigVarItem("headshot_volume", "volumeHeadShot", true);
+            c.Add(i);
+            listHitSound.Items.Add(new ConfigSetListWrapper(c));
+
+
             trackHitSoundVolumeSpecific.Value = 100;
             checkHitSoundSpecific.Checked = false;
 
@@ -1194,18 +1202,14 @@ namespace TAModConfigurationTool
                 ConfigVarItem cVar = c as ConfigVarItem;
                 if (cAsset != null)
                 {
-                    if (cAsset.name == "hit" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cAsset.name == "blueplate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cAsset.name == "airmail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cAsset.name == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         soundFile = cAsset;
                     }
                 }
                 else if (cVar != null)
                 {
-                    if (cVar.var == "volumeHitSound" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cVar.var == "volumeBluePlate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cVar.var == "volumeAirMail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cVar.var.StartsWith("volume") && cVar.var.Replace("volume", "").Replace(" ", "").Trim().ToLower() == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         volume = cVar;
                     }
@@ -1265,9 +1269,7 @@ namespace TAModConfigurationTool
                 ConfigVarItem cVar = c as ConfigVarItem;
                 if (cVar != null)
                 {
-                    if (cVar.var == "volumeHitSound" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cVar.var == "volumeBluePlate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cVar.var == "volumeAirMail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cVar.var.StartsWith("volume") && cVar.var.Replace("volume", "").Replace(" ", "").Trim().ToLower() == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         volume = cVar;
                     }
@@ -1291,9 +1293,7 @@ namespace TAModConfigurationTool
                 ConfigAssetFileItem cAsset = c as ConfigAssetFileItem;
                 if (cAsset != null)
                 {
-                    if (cAsset.name == "hit" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cAsset.name == "blueplate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cAsset.name == "airmail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cAsset.name == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         soundFile = cAsset;
                     }
@@ -1322,9 +1322,7 @@ namespace TAModConfigurationTool
                 ConfigAssetFileItem cAsset = c as ConfigAssetFileItem;
                 if (cAsset != null)
                 {
-                    if (cAsset.name == "hit" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cAsset.name == "blueplate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cAsset.name == "airmail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cAsset.name == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         soundFile = cAsset;
                     }
@@ -1463,16 +1461,22 @@ namespace TAModConfigurationTool
                 { "friendlyIsFMarkerColor", rgb(81, 250, 85) },
 
                 { "hitSoundMode", 0 },
-                { "customAirMailSound", false },
-                { "customBluePlateSound", false },
                 { "hitSoundPitchMin", 0.4F },
                 { "hitSoundPitchMax", 1.6F },
                 { "hitSoundDamageRef", 600 },
 
+                { "customAirMailSound", false },
+                { "customBluePlateSound", false },
+                { "customHeadShotSound", false },
+                { "customAccoladeSounds", false },
+                { "customFlagEventSounds", false },
+
                 { "volumeHitSound", 0.55F },
-                { "volumeHeadShot", 0.55F },
                 { "volumeBluePlate", 1F },
                 { "volumeAirMail", 1F },
+                { "volumeHeadShot", 0.55F },
+                { "volumeAccoladeSounds", 0.55F },
+                { "volumeFlagEvents", 0.55F },
 
                 { "disableBaseTurrets", false },
                 { "disablePower", false },
@@ -1501,6 +1505,35 @@ namespace TAModConfigurationTool
                 { "sounds\\hit.wav", null },
                 { "sounds\\blueplate.wav", null },
                 { "sounds\\airmail.wav", null },
+                { "sounds\\headshot.wav", null },
+
+                { "sounds\\streak1.wav", null },
+                { "sounds\\streak2.wav", null },
+                { "sounds\\streak3.wav", null },
+                { "sounds\\streak4.wav", null },
+                { "sounds\\streak5.wav", null },
+                { "sounds\\multikill1.wav", null },
+                { "sounds\\multikill2.wav", null },
+                { "sounds\\multikill3.wav", null },
+                { "sounds\\multikill4.wav", null },
+                { "sounds\\multikill5.wav", null },
+                { "sounds\\firstblood.wav", null },
+                { "sounds\\headshotkill.wav", null },
+                { "sounds\\artilleryshot.wav", null },
+                { "sounds\\meleekill.wav", null },
+                { "sounds\\roadkill.wav", null },
+                { "sounds\\fastgrab.wav", null },
+
+                { "sounds\\flaggrab_team.wav", null },
+                { "sounds\\flaggrab_enemy.wav", null },
+                { "sounds\\flagpickup_team.wav", null },
+                { "sounds\\flagpickup_enemy.wav", null },
+                { "sounds\\flagcapture_team.wav", null },
+                { "sounds\\flagcapture_enemy.wav", null },
+                { "sounds\\flagreturn_team.wav", null },
+                { "sounds\\flagreturn_enemy.wav", null },
+                { "sounds\\flagdropped_team.wav", null },
+                { "sounds\\flagdropped_enemy.wav", null },
             };
 
             assetFiles = new Dictionary<string, string>();
@@ -2155,9 +2188,17 @@ namespace TAModConfigurationTool
         public readonly string asset;
         public string inputFilename = null;
         public bool doWrite = false;
+        public string enableVar = null;
+
+        public ConfigAssetFileItem(string name, string asset, string enableVar)
+            : base(name)
+        {
+            this.asset = asset;
+            this.enableVar = enableVar;
+        }
 
         public ConfigAssetFileItem(string name, string asset)
-            : base(name)
+            : this(name, asset, null)
         {
             this.asset = asset;
         }
@@ -2178,8 +2219,25 @@ namespace TAModConfigurationTool
 
         public override void WriteToConfig(Config config)
         {
+            if (inputFilename == null)
+            {
+                doWrite = false;
+            }
+            
+            // If an 'enable' variable for this asset exists in the config, write its value
+            if (enableVar != null)
+            {
+                config.setConfigVar(enableVar, doWrite);
+            }
+
             if (doWrite)
-            {   
+            {
+                if (inputFilename == null)
+                {
+                    inputFilename = "";
+                }
+
+
                 // Handle relative paths
                 if (inputFilename[0] == '\\')
                 {
