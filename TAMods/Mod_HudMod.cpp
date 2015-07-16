@@ -4,6 +4,12 @@ bool TrHudWrapper_destroyed(int ID, UObject *dwCallingObject, UFunction* pFuncti
 {
 	AUTGFxHudWrapper *that = (AUTGFxHudWrapper *)dwCallingObject;
 
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo->NetMode == 0 /* NM_Standalone */)
+	{
+		Logger::log("Not cleaning up, roam map");
+		return false;
+	}
+
 	if (that->IsA(ATrHUD::StaticClass()))
 	{
 		ATrHUD *hud = (ATrHUD *)that;
