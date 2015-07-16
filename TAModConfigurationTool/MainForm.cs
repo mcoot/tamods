@@ -82,6 +82,7 @@ namespace TAModConfigurationTool
         {
             // General settings
             // Display settings
+            checkStatsRecord.Checked = false;
             checkShowWeapon.Checked = true;
             checkShowCrosshair.Checked = true;
             checkShowFirstPersonAmmo.Checked = false;
@@ -91,6 +92,12 @@ namespace TAModConfigurationTool
             // Ski Bar Settings
             numSkiBarMin.Value = 7;
             numSkiBarMax.Value = 180;
+
+            // Roam Map Settings
+            checkRoamTurrets.Checked = false;
+            checkRoamPower.Checked = false;
+            numRoamFlagSpeed.Value = 0;
+            numRoamFlagDecel.Value = 10;
 
             // Damage Number Settings
             // Damage Number Display
@@ -121,6 +128,13 @@ namespace TAModConfigurationTool
             checkHUDIconSensor.Checked = true;
             checkHUDIconMine.Checked = true;
 
+            // Magic Chain
+            checkMagicChainEnable.Checked = false;
+            checkMagicChainSmallBullets.Checked = false;
+            checkMagicChainCenter.Checked = false;
+            numMagicChainPingMultiplier.Value = 1.0M;
+            numMagicChainSpawnDelay.Value = 0.0M;
+
             // Colour Settings
             listColorSettings.Items.Clear();
             checkColorSettingOverride.Checked = false;
@@ -144,27 +158,35 @@ namespace TAModConfigurationTool
 
             // Hit Sounds
             selectHitSoundMode.SelectedIndex = 0;
-
             listHitSound.Items.Clear();
+
             ConfigSet c = new ConfigSet("Hit Sound");
-            ConfigItem i = new ConfigAssetFileItem("hit", "sounds\\hit.wav");
+            ConfigItem i = new ConfigAssetFileItem("hitsound", "sounds\\hit.wav");
             (i as ConfigAssetFileItem).doWrite = true;
             c.Add(i);
-            i = new ConfigVarItem("hit_volume", "volumeHitSound", true);
+            i = new ConfigVarItem("hitsound_volume", "volumeHitSound", true);
             c.Add(i);
             listHitSound.Items.Add(new ConfigSetListWrapper(c));
             c = new ConfigSet("Blueplate");
-            i = new ConfigAssetFileItem("blueplate", "sounds\\blueplate.wav");
+            i = new ConfigAssetFileItem("blueplate", "sounds\\blueplate.wav", "customBluePlateSound");
             c.Add(i);
             i = new ConfigVarItem("blueplate_volume", "volumeBluePlate", true);
             c.Add(i);
             listHitSound.Items.Add(new ConfigSetListWrapper(c));
             c = new ConfigSet("Air Mail");
-            i = new ConfigAssetFileItem("airmail", "sounds\\airmail.wav");
+            i = new ConfigAssetFileItem("airmail", "sounds\\airmail.wav", "customAirMailSound");
             c.Add(i);
-            i = new ConfigVarItem("hit_volume", "volumeAirMail", true);
+            i = new ConfigVarItem("airmail_volume", "volumeAirMail", true);
             c.Add(i);
             listHitSound.Items.Add(new ConfigSetListWrapper(c));
+            c = new ConfigSet("Head Shot");
+            i = new ConfigAssetFileItem("headshot", "sounds\\headshot.wav", "customHeadShotSound");
+            c.Add(i);
+            i = new ConfigVarItem("headshot_volume", "volumeHeadShot", true);
+            c.Add(i);
+            listHitSound.Items.Add(new ConfigSetListWrapper(c));
+
+
             trackHitSoundVolumeSpecific.Value = 100;
             checkHitSoundSpecific.Checked = false;
 
@@ -178,6 +200,7 @@ namespace TAModConfigurationTool
         {
             // General settings
             // Display settings
+            checkStatsRecord.Checked = (bool)config.getConfigVar("recordStats");
             checkShowWeapon.Checked = (bool)config.getConfigVar("showWeapon");
             checkShowFirstPersonAmmo.Checked = (bool)config.getConfigVar("showFirstPersonAmmo");
             checkShowCrosshair.Checked = (bool)config.getConfigVar("showCrosshair");
@@ -186,6 +209,12 @@ namespace TAModConfigurationTool
             // Ski Bar Settings
             numSkiBarMin.Value = Convert.ToInt32(config.getConfigVar("skiBarMin"));
             numSkiBarMax.Value = Convert.ToInt32(config.getConfigVar("skiBarMax"));
+
+            // Roam Map Settings
+            checkRoamTurrets.Checked = (bool)config.getConfigVar("disableBaseTurrets");
+            checkRoamPower.Checked = (bool)config.getConfigVar("disablePower");
+            numRoamFlagSpeed.Value = Convert.ToDecimal(config.getConfigVar("maxSpeedWithFlag"));
+            numRoamFlagDecel.Value = Convert.ToDecimal(config.getConfigVar("decelerationRateWithFlag"));
 
             // Damage Number Settings
             // Damage Number Display
@@ -238,6 +267,13 @@ namespace TAModConfigurationTool
             checkHUDIconVehicle.Checked = (bool)config.getConfigVar("showVehicleIcon");
             checkHUDIconSensor.Checked = (bool)config.getConfigVar("showSensorIcon");
             checkHUDIconMine.Checked = (bool)config.getConfigVar("showMineIcon");
+
+            // Magic Chain
+            checkMagicChainEnable.Checked = (bool)config.getConfigVar("useMagicChain");
+            checkMagicChainSmallBullets.Checked = (bool)config.getConfigVar("useSmallBullets");
+            checkMagicChainCenter.Checked = (bool)config.getConfigVar("centerBulletSpawn");
+            numMagicChainPingMultiplier.Value = Convert.ToDecimal(config.getConfigVar("bulletPingMultiplier"));
+            numMagicChainSpawnDelay.Value = Convert.ToDecimal(config.getConfigVar("bulletSpawnDelay"));
 
             // Colour Settings
             listColorSettings.Items.Clear();
@@ -309,6 +345,7 @@ namespace TAModConfigurationTool
         {
             // General Settings
             // Display Settings
+            config.setConfigVar("recordStats", checkStatsRecord.Checked);
             config.setConfigVar("showWeapon", checkShowWeapon.Checked);
             config.setConfigVar("showFirstPersonAmmo", checkShowFirstPersonAmmo.Checked);
             config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
@@ -317,6 +354,12 @@ namespace TAModConfigurationTool
             // Ski Bar Settings
             config.setConfigVar("skiBarMin", (int)numSkiBarMin.Value);
             config.setConfigVar("skiBarMax", (int)numSkiBarMax.Value);
+
+            // Roam Map Settings
+            config.setConfigVar("disableBaseTurrets", checkRoamTurrets.Checked);
+            config.setConfigVar("disablePower", checkRoamPower.Checked);
+            config.setConfigVar("maxSpeedWithFlag", Convert.ToSingle(numRoamFlagSpeed.Value));
+            config.setConfigVar("decelerationRateWithFlag", Convert.ToSingle(numRoamFlagDecel.Value));
 
             // Damage Number Settings
             // Damage Number Display
@@ -366,6 +409,12 @@ namespace TAModConfigurationTool
             config.setConfigVar("showSensorIcon", checkHUDIconSensor.Checked);
             config.setConfigVar("showMineIcon", checkHUDIconMine.Checked);
 
+            // Magic Chain
+            config.setConfigVar("useMagicChain", checkMagicChainEnable.Checked);
+            config.setConfigVar("useSmallBullets", checkMagicChainSmallBullets.Checked);
+            config.setConfigVar("centerBulletSpawn", checkMagicChainCenter.Checked);
+            config.setConfigVar("bulletPingMultiplier", Convert.ToSingle(numMagicChainPingMultiplier.Value));
+            config.setConfigVar("bulletSpawnDelay", Convert.ToSingle(numMagicChainSpawnDelay.Value));
 
             // Colour Settings
             // Custom Damage Number Colours
@@ -1153,18 +1202,14 @@ namespace TAModConfigurationTool
                 ConfigVarItem cVar = c as ConfigVarItem;
                 if (cAsset != null)
                 {
-                    if (cAsset.name == "hit" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cAsset.name == "blueplate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cAsset.name == "airmail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cAsset.name == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         soundFile = cAsset;
                     }
                 }
                 else if (cVar != null)
                 {
-                    if (cVar.var == "volumeHitSound" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cVar.var == "volumeBluePlate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cVar.var == "volumeAirMail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cVar.var.StartsWith("volume") && cVar.var.Replace("volume", "").Replace(" ", "").Trim().ToLower() == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         volume = cVar;
                     }
@@ -1181,8 +1226,13 @@ namespace TAModConfigurationTool
             }
             selectHitSoundFileSpecific.Text = soundFile.inputFilename;
 
-            string[] inputFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\sounds\\", "*.wav");
+            
+            string[] inputFiles = {};
             string relfile;
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\sounds\\"))
+            {
+                inputFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\sounds\\", "*.wav");
+            }
 
             foreach (string file in inputFiles)
             {
@@ -1219,9 +1269,7 @@ namespace TAModConfigurationTool
                 ConfigVarItem cVar = c as ConfigVarItem;
                 if (cVar != null)
                 {
-                    if (cVar.var == "volumeHitSound" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cVar.var == "volumeBluePlate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cVar.var == "volumeAirMail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cVar.var.StartsWith("volume") && cVar.var.Replace("volume", "").Replace(" ", "").Trim().ToLower() == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         volume = cVar;
                     }
@@ -1245,9 +1293,7 @@ namespace TAModConfigurationTool
                 ConfigAssetFileItem cAsset = c as ConfigAssetFileItem;
                 if (cAsset != null)
                 {
-                    if (cAsset.name == "hit" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cAsset.name == "blueplate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cAsset.name == "airmail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cAsset.name == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         soundFile = cAsset;
                     }
@@ -1276,9 +1322,7 @@ namespace TAModConfigurationTool
                 ConfigAssetFileItem cAsset = c as ConfigAssetFileItem;
                 if (cAsset != null)
                 {
-                    if (cAsset.name == "hit" && cSet.name.Replace(" ", "").Trim().ToLower() == "hitsound"
-                        || cAsset.name == "blueplate" && cSet.name.Replace(" ", "").Trim().ToLower() == "blueplate"
-                        || cAsset.name == "airmail" && cSet.name.Replace(" ", "").Trim().ToLower() == "airmail")
+                    if (cAsset.name == cSet.name.Replace(" ", "").Trim().ToLower())
                     {
                         soundFile = cAsset;
                     }
@@ -1373,6 +1417,7 @@ namespace TAModConfigurationTool
             configVarsDefault = new Dictionary<String, Object>()
             {
                 { "showErrorNotifications", true },
+                { "recordStats", false },
                 { "showWeapon", true },
                 { "showRainbow", false },
                 { "showCrosshair", true },
@@ -1416,16 +1461,33 @@ namespace TAModConfigurationTool
                 { "friendlyIsFMarkerColor", rgb(81, 250, 85) },
 
                 { "hitSoundMode", 0 },
-                { "customAirMailSound", false },
-                { "customBluePlateSound", false },
                 { "hitSoundPitchMin", 0.4F },
                 { "hitSoundPitchMax", 1.6F },
                 { "hitSoundDamageRef", 600 },
 
+                { "customAirMailSound", false },
+                { "customBluePlateSound", false },
+                { "customHeadShotSound", false },
+                { "customAccoladeSounds", false },
+                { "customFlagEventSounds", false },
+
                 { "volumeHitSound", 0.55F },
-                { "volumeHeadShot", 0.55F },
                 { "volumeBluePlate", 1F },
                 { "volumeAirMail", 1F },
+                { "volumeHeadShot", 0.55F },
+                { "volumeAccoladeSounds", 0.55F },
+                { "volumeFlagEvents", 0.55F },
+
+                { "disableBaseTurrets", false },
+                { "disablePower", false },
+                { "maxSpeedWithFlag", 0 },
+                { "decelerationRateWithFlag", 10 },
+
+                { "useMagicChain", false },
+                { "useSmallBullets", false },
+                { "centerBulletSpawn", false },
+                { "bulletPingMultiplier", 1.0F },
+                { "bulletSpawnDelay", 0.0F },
                 
             };
 
@@ -1443,6 +1505,35 @@ namespace TAModConfigurationTool
                 { "sounds\\hit.wav", null },
                 { "sounds\\blueplate.wav", null },
                 { "sounds\\airmail.wav", null },
+                { "sounds\\headshot.wav", null },
+
+                { "sounds\\streak1.wav", null },
+                { "sounds\\streak2.wav", null },
+                { "sounds\\streak3.wav", null },
+                { "sounds\\streak4.wav", null },
+                { "sounds\\streak5.wav", null },
+                { "sounds\\multikill1.wav", null },
+                { "sounds\\multikill2.wav", null },
+                { "sounds\\multikill3.wav", null },
+                { "sounds\\multikill4.wav", null },
+                { "sounds\\multikill5.wav", null },
+                { "sounds\\firstblood.wav", null },
+                { "sounds\\headshotkill.wav", null },
+                { "sounds\\artilleryshot.wav", null },
+                { "sounds\\meleekill.wav", null },
+                { "sounds\\roadkill.wav", null },
+                { "sounds\\fastgrab.wav", null },
+
+                { "sounds\\flaggrab_team.wav", null },
+                { "sounds\\flaggrab_enemy.wav", null },
+                { "sounds\\flagpickup_team.wav", null },
+                { "sounds\\flagpickup_enemy.wav", null },
+                { "sounds\\flagcapture_team.wav", null },
+                { "sounds\\flagcapture_enemy.wav", null },
+                { "sounds\\flagreturn_team.wav", null },
+                { "sounds\\flagreturn_enemy.wav", null },
+                { "sounds\\flagdropped_team.wav", null },
+                { "sounds\\flagdropped_enemy.wav", null },
             };
 
             assetFiles = new Dictionary<string, string>();
@@ -2097,9 +2188,17 @@ namespace TAModConfigurationTool
         public readonly string asset;
         public string inputFilename = null;
         public bool doWrite = false;
+        public string enableVar = null;
+
+        public ConfigAssetFileItem(string name, string asset, string enableVar)
+            : base(name)
+        {
+            this.asset = asset;
+            this.enableVar = enableVar;
+        }
 
         public ConfigAssetFileItem(string name, string asset)
-            : base(name)
+            : this(name, asset, null)
         {
             this.asset = asset;
         }
@@ -2120,8 +2219,25 @@ namespace TAModConfigurationTool
 
         public override void WriteToConfig(Config config)
         {
+            if (inputFilename == null)
+            {
+                doWrite = false;
+            }
+            
+            // If an 'enable' variable for this asset exists in the config, write its value
+            if (enableVar != null)
+            {
+                config.setConfigVar(enableVar, doWrite);
+            }
+
             if (doWrite)
-            {   
+            {
+                if (inputFilename == null)
+                {
+                    inputFilename = "";
+                }
+
+
                 // Handle relative paths
                 if (inputFilename[0] == '\\')
                 {

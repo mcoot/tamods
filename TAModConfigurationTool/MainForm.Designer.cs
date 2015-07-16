@@ -30,8 +30,32 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
+            this.panel19 = new System.Windows.Forms.Panel();
+            this.checkMagicChainCenter = new System.Windows.Forms.CheckBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.numMagicChainSpawnDelay = new System.Windows.Forms.NumericUpDown();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.numMagicChainPingMultiplier = new System.Windows.Forms.NumericUpDown();
+            this.checkMagicChainSmallBullets = new System.Windows.Forms.CheckBox();
+            this.checkMagicChainEnable = new System.Windows.Forms.CheckBox();
+            this.label53 = new System.Windows.Forms.Label();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.label52 = new System.Windows.Forms.Label();
+            this.numRoamFlagDecel = new System.Windows.Forms.NumericUpDown();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.numRoamFlagSpeed = new System.Windows.Forms.NumericUpDown();
+            this.checkRoamPower = new System.Windows.Forms.CheckBox();
+            this.checkRoamTurrets = new System.Windows.Forms.CheckBox();
+            this.label30 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.checkHUDIconSensor = new System.Windows.Forms.CheckBox();
             this.checkHUDIconMine = new System.Windows.Forms.CheckBox();
@@ -69,6 +93,7 @@
             this.radioDamageNumberLimit = new System.Windows.Forms.RadioButton();
             this.radioDamageNumberShow = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkStatsRecord = new System.Windows.Forms.CheckBox();
             this.label42 = new System.Windows.Forms.Label();
             this.label73 = new System.Windows.Forms.Label();
             this.numSkiBarMax = new System.Windows.Forms.NumericUpDown();
@@ -183,6 +208,7 @@
             this.btnProjectileSwapSave = new System.Windows.Forms.Button();
             this.listProjectileSwap = new System.Windows.Forms.ListBox();
             this.tabHitSounds = new TAModConfigurationTool.TransTabPage();
+            this.labelHitSoundVolumeTied = new System.Windows.Forms.Label();
             this.btnHitSoundFile = new System.Windows.Forms.Button();
             this.panel18 = new System.Windows.Forms.Panel();
             this.trackHitSoundVolumeSpecific = new System.Windows.Forms.TrackBar();
@@ -202,12 +228,16 @@
             this.selectHitSoundMode = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
+            this.panel19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainSpawnDelay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainPingMultiplier)).BeginInit();
+            this.panel17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).BeginInit();
             this.panel12.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -247,7 +277,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -265,6 +294,31 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 501);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // fileHitSound
+            // 
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // tabControlMain
             // 
@@ -287,6 +341,8 @@
             // tabGeneral
             // 
             this.tabGeneral.BackColor = System.Drawing.Color.Transparent;
+            this.tabGeneral.Controls.Add(this.panel19);
+            this.tabGeneral.Controls.Add(this.panel17);
             this.tabGeneral.Controls.Add(this.panel12);
             this.tabGeneral.Controls.Add(this.panel2);
             this.tabGeneral.Controls.Add(this.panel1);
@@ -297,6 +353,248 @@
             this.tabGeneral.Size = new System.Drawing.Size(930, 415);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General Settings";
+            // 
+            // panel19
+            // 
+            this.panel19.Controls.Add(this.checkMagicChainCenter);
+            this.panel19.Controls.Add(this.label64);
+            this.panel19.Controls.Add(this.label65);
+            this.panel19.Controls.Add(this.numMagicChainSpawnDelay);
+            this.panel19.Controls.Add(this.label63);
+            this.panel19.Controls.Add(this.label54);
+            this.panel19.Controls.Add(this.numMagicChainPingMultiplier);
+            this.panel19.Controls.Add(this.checkMagicChainSmallBullets);
+            this.panel19.Controls.Add(this.checkMagicChainEnable);
+            this.panel19.Controls.Add(this.label53);
+            this.panel19.Location = new System.Drawing.Point(570, 6);
+            this.panel19.Name = "panel19";
+            this.panel19.Size = new System.Drawing.Size(208, 185);
+            this.panel19.TabIndex = 6;
+            // 
+            // checkMagicChainCenter
+            // 
+            this.checkMagicChainCenter.AutoSize = true;
+            this.checkMagicChainCenter.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkMagicChainCenter.Location = new System.Drawing.Point(10, 137);
+            this.checkMagicChainCenter.Name = "checkMagicChainCenter";
+            this.checkMagicChainCenter.Size = new System.Drawing.Size(186, 17);
+            this.checkMagicChainCenter.TabIndex = 35;
+            this.checkMagicChainCenter.Text = "Center Bullets On Player Model";
+            this.checkMagicChainCenter.UseVisualStyleBackColor = true;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label64.Location = new System.Drawing.Point(149, 90);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(49, 13);
+            this.label64.TabIndex = 34;
+            this.label64.Text = "seconds";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label65.Location = new System.Drawing.Point(15, 91);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(73, 13);
+            this.label65.TabIndex = 33;
+            this.label65.Text = "Spawn Delay";
+            // 
+            // numMagicChainSpawnDelay
+            // 
+            this.numMagicChainSpawnDelay.DecimalPlaces = 2;
+            this.numMagicChainSpawnDelay.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMagicChainSpawnDelay.Location = new System.Drawing.Point(93, 87);
+            this.numMagicChainSpawnDelay.Name = "numMagicChainSpawnDelay";
+            this.numMagicChainSpawnDelay.Size = new System.Drawing.Size(56, 22);
+            this.numMagicChainSpawnDelay.TabIndex = 32;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label63.Location = new System.Drawing.Point(150, 62);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(12, 13);
+            this.label63.TabIndex = 31;
+            this.label63.Text = "x";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.Location = new System.Drawing.Point(7, 63);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(83, 13);
+            this.label54.TabIndex = 21;
+            this.label54.Text = "Ping Multiplier";
+            // 
+            // numMagicChainPingMultiplier
+            // 
+            this.numMagicChainPingMultiplier.DecimalPlaces = 2;
+            this.numMagicChainPingMultiplier.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numMagicChainPingMultiplier.Location = new System.Drawing.Point(94, 59);
+            this.numMagicChainPingMultiplier.Name = "numMagicChainPingMultiplier";
+            this.numMagicChainPingMultiplier.Size = new System.Drawing.Size(56, 22);
+            this.numMagicChainPingMultiplier.TabIndex = 18;
+            this.numMagicChainPingMultiplier.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // checkMagicChainSmallBullets
+            // 
+            this.checkMagicChainSmallBullets.AutoSize = true;
+            this.checkMagicChainSmallBullets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkMagicChainSmallBullets.Location = new System.Drawing.Point(10, 117);
+            this.checkMagicChainSmallBullets.Name = "checkMagicChainSmallBullets";
+            this.checkMagicChainSmallBullets.Size = new System.Drawing.Size(188, 17);
+            this.checkMagicChainSmallBullets.TabIndex = 9;
+            this.checkMagicChainSmallBullets.Text = "Use Small Bullets (\'Red version\')";
+            this.checkMagicChainSmallBullets.UseVisualStyleBackColor = true;
+            // 
+            // checkMagicChainEnable
+            // 
+            this.checkMagicChainEnable.AutoSize = true;
+            this.checkMagicChainEnable.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkMagicChainEnable.Location = new System.Drawing.Point(10, 33);
+            this.checkMagicChainEnable.Name = "checkMagicChainEnable";
+            this.checkMagicChainEnable.Size = new System.Drawing.Size(128, 17);
+            this.checkMagicChainEnable.TabIndex = 8;
+            this.checkMagicChainEnable.Text = "Enable Magic Chain";
+            this.checkMagicChainEnable.UseVisualStyleBackColor = true;
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.Location = new System.Drawing.Point(3, 3);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(121, 25);
+            this.label53.TabIndex = 7;
+            this.label53.Text = "Magic Chain";
+            // 
+            // panel17
+            // 
+            this.panel17.Controls.Add(this.label52);
+            this.panel17.Controls.Add(this.numRoamFlagDecel);
+            this.panel17.Controls.Add(this.label51);
+            this.panel17.Controls.Add(this.label49);
+            this.panel17.Controls.Add(this.label50);
+            this.panel17.Controls.Add(this.numRoamFlagSpeed);
+            this.panel17.Controls.Add(this.checkRoamPower);
+            this.panel17.Controls.Add(this.checkRoamTurrets);
+            this.panel17.Controls.Add(this.label30);
+            this.panel17.Location = new System.Drawing.Point(6, 224);
+            this.panel17.Name = "panel17";
+            this.panel17.Size = new System.Drawing.Size(228, 185);
+            this.panel17.TabIndex = 5;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label52.Location = new System.Drawing.Point(25, 128);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(95, 13);
+            this.label52.TabIndex = 33;
+            this.label52.Text = "Deceleration rate";
+            // 
+            // numRoamFlagDecel
+            // 
+            this.numRoamFlagDecel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRoamFlagDecel.Location = new System.Drawing.Point(126, 125);
+            this.numRoamFlagDecel.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numRoamFlagDecel.Name = "numRoamFlagDecel";
+            this.numRoamFlagDecel.Size = new System.Drawing.Size(51, 22);
+            this.numRoamFlagDecel.TabIndex = 32;
+            this.numRoamFlagDecel.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label51.Location = new System.Drawing.Point(7, 74);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(83, 21);
+            this.label51.TabIndex = 31;
+            this.label51.Text = "Flag Drag";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(179, 99);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(33, 13);
+            this.label49.TabIndex = 30;
+            this.label49.Text = "km/h";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label50.Location = new System.Drawing.Point(8, 101);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(112, 13);
+            this.label50.TabIndex = 29;
+            this.label50.Text = "Max Speed with flag";
+            // 
+            // numRoamFlagSpeed
+            // 
+            this.numRoamFlagSpeed.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRoamFlagSpeed.Location = new System.Drawing.Point(126, 97);
+            this.numRoamFlagSpeed.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numRoamFlagSpeed.Name = "numRoamFlagSpeed";
+            this.numRoamFlagSpeed.Size = new System.Drawing.Size(51, 22);
+            this.numRoamFlagSpeed.TabIndex = 28;
+            // 
+            // checkRoamPower
+            // 
+            this.checkRoamPower.AutoSize = true;
+            this.checkRoamPower.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRoamPower.Location = new System.Drawing.Point(11, 54);
+            this.checkRoamPower.Name = "checkRoamPower";
+            this.checkRoamPower.Size = new System.Drawing.Size(99, 17);
+            this.checkRoamPower.TabIndex = 7;
+            this.checkRoamPower.Text = "Disable Power";
+            this.checkRoamPower.UseVisualStyleBackColor = true;
+            // 
+            // checkRoamTurrets
+            // 
+            this.checkRoamTurrets.AutoSize = true;
+            this.checkRoamTurrets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRoamTurrets.Location = new System.Drawing.Point(11, 34);
+            this.checkRoamTurrets.Name = "checkRoamTurrets";
+            this.checkRoamTurrets.Size = new System.Drawing.Size(129, 17);
+            this.checkRoamTurrets.TabIndex = 6;
+            this.checkRoamTurrets.Text = "Disable Base Turrets";
+            this.checkRoamTurrets.UseVisualStyleBackColor = true;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(6, 6);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(108, 25);
+            this.label30.TabIndex = 5;
+            this.label30.Text = "Roam Map";
             // 
             // panel12
             // 
@@ -309,9 +607,9 @@
             this.panel12.Controls.Add(this.checkHUDIconFlagBase);
             this.panel12.Controls.Add(this.checkHUDIconObjective);
             this.panel12.Controls.Add(this.label34);
-            this.panel12.Location = new System.Drawing.Point(542, 6);
+            this.panel12.Location = new System.Drawing.Point(570, 197);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(200, 212);
+            this.panel12.Size = new System.Drawing.Size(208, 212);
             this.panel12.TabIndex = 4;
             // 
             // checkHUDIconSensor
@@ -417,7 +715,7 @@
             this.panel2.Controls.Add(this.label60);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
-            this.panel2.Location = new System.Drawing.Point(211, 6);
+            this.panel2.Location = new System.Drawing.Point(242, 6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(325, 377);
             this.panel2.TabIndex = 3;
@@ -734,6 +1032,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.checkStatsRecord);
             this.panel1.Controls.Add(this.label42);
             this.panel1.Controls.Add(this.label73);
             this.panel1.Controls.Add(this.numSkiBarMax);
@@ -749,14 +1048,25 @@
             this.panel1.Controls.Add(this.checkShowWeapon);
             this.panel1.Location = new System.Drawing.Point(5, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 377);
+            this.panel1.Size = new System.Drawing.Size(229, 212);
             this.panel1.TabIndex = 2;
+            // 
+            // checkStatsRecord
+            // 
+            this.checkStatsRecord.AutoSize = true;
+            this.checkStatsRecord.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStatsRecord.Location = new System.Drawing.Point(8, 29);
+            this.checkStatsRecord.Name = "checkStatsRecord";
+            this.checkStatsRecord.Size = new System.Drawing.Size(122, 17);
+            this.checkStatsRecord.TabIndex = 31;
+            this.checkStatsRecord.Text = "Record Stats (beta)";
+            this.checkStatsRecord.UseVisualStyleBackColor = true;
             // 
             // label42
             // 
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(124, 178);
+            this.label42.Location = new System.Drawing.Point(124, 183);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(33, 13);
             this.label42.TabIndex = 30;
@@ -766,7 +1076,7 @@
             // 
             this.label73.AutoSize = true;
             this.label73.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(9, 178);
+            this.label73.Location = new System.Drawing.Point(9, 183);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(63, 13);
             this.label73.TabIndex = 29;
@@ -775,7 +1085,7 @@
             // numSkiBarMax
             // 
             this.numSkiBarMax.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numSkiBarMax.Location = new System.Drawing.Point(74, 174);
+            this.numSkiBarMax.Location = new System.Drawing.Point(74, 179);
             this.numSkiBarMax.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -789,7 +1099,7 @@
             // 
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(124, 152);
+            this.label41.Location = new System.Drawing.Point(124, 157);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(33, 13);
             this.label41.TabIndex = 27;
@@ -799,7 +1109,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(9, 152);
+            this.label40.Location = new System.Drawing.Point(9, 157);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(62, 13);
             this.label40.TabIndex = 26;
@@ -808,7 +1118,7 @@
             // numSkiBarMin
             // 
             this.numSkiBarMin.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numSkiBarMin.Location = new System.Drawing.Point(74, 148);
+            this.numSkiBarMin.Location = new System.Drawing.Point(74, 153);
             this.numSkiBarMin.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -822,7 +1132,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(6, 124);
+            this.label39.Location = new System.Drawing.Point(6, 129);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(120, 21);
             this.label39.TabIndex = 24;
@@ -832,7 +1142,7 @@
             // 
             this.checkShowFirstPersonAmmo.AutoSize = true;
             this.checkShowFirstPersonAmmo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkShowFirstPersonAmmo.Location = new System.Drawing.Point(8, 50);
+            this.checkShowFirstPersonAmmo.Location = new System.Drawing.Point(8, 67);
             this.checkShowFirstPersonAmmo.Name = "checkShowFirstPersonAmmo";
             this.checkShowFirstPersonAmmo.Size = new System.Drawing.Size(181, 17);
             this.checkShowFirstPersonAmmo.TabIndex = 8;
@@ -853,7 +1163,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 94);
+            this.label1.Location = new System.Drawing.Point(7, 111);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 13);
             this.label1.TabIndex = 7;
@@ -863,7 +1173,7 @@
             // 
             this.numCrosshairScale.DecimalPlaces = 2;
             this.numCrosshairScale.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numCrosshairScale.Location = new System.Drawing.Point(93, 91);
+            this.numCrosshairScale.Location = new System.Drawing.Point(93, 108);
             this.numCrosshairScale.Maximum = new decimal(new int[] {
             10,
             0,
@@ -887,7 +1197,7 @@
             // 
             this.checkShowCrosshair.AutoSize = true;
             this.checkShowCrosshair.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkShowCrosshair.Location = new System.Drawing.Point(8, 70);
+            this.checkShowCrosshair.Location = new System.Drawing.Point(8, 87);
             this.checkShowCrosshair.Name = "checkShowCrosshair";
             this.checkShowCrosshair.Size = new System.Drawing.Size(106, 17);
             this.checkShowCrosshair.TabIndex = 5;
@@ -899,7 +1209,7 @@
             // 
             this.checkShowWeapon.AutoSize = true;
             this.checkShowWeapon.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkShowWeapon.Location = new System.Drawing.Point(8, 31);
+            this.checkShowWeapon.Location = new System.Drawing.Point(8, 48);
             this.checkShowWeapon.Name = "checkShowWeapon";
             this.checkShowWeapon.Size = new System.Drawing.Size(138, 17);
             this.checkShowWeapon.TabIndex = 4;
@@ -2015,6 +2325,7 @@
             // 
             // tabHitSounds
             // 
+            this.tabHitSounds.Controls.Add(this.labelHitSoundVolumeTied);
             this.tabHitSounds.Controls.Add(this.btnHitSoundFile);
             this.tabHitSounds.Controls.Add(this.panel18);
             this.tabHitSounds.Controls.Add(this.label48);
@@ -2038,8 +2349,20 @@
             this.tabHitSounds.Padding = new System.Windows.Forms.Padding(3);
             this.tabHitSounds.Size = new System.Drawing.Size(930, 415);
             this.tabHitSounds.TabIndex = 7;
-            this.tabHitSounds.Text = "Hit Sounds";
+            this.tabHitSounds.Text = "Custom Sounds";
             this.tabHitSounds.UseVisualStyleBackColor = true;
+            // 
+            // labelHitSoundVolumeTied
+            // 
+            this.labelHitSoundVolumeTied.AutoSize = true;
+            this.labelHitSoundVolumeTied.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelHitSoundVolumeTied.Location = new System.Drawing.Point(544, 207);
+            this.labelHitSoundVolumeTied.Name = "labelHitSoundVolumeTied";
+            this.labelHitSoundVolumeTied.Size = new System.Drawing.Size(136, 13);
+            this.labelHitSoundVolumeTied.TabIndex = 78;
+            this.labelHitSoundVolumeTied.Text = "(Tied to accolade volume)";
+            this.labelHitSoundVolumeTied.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelHitSoundVolumeTied.Visible = false;
             // 
             // btnHitSoundFile
             // 
@@ -2102,9 +2425,9 @@
             this.label47.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label47.Location = new System.Drawing.Point(256, 5);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(235, 25);
+            this.label47.Size = new System.Drawing.Size(203, 25);
             this.label47.TabIndex = 73;
-            this.label47.Text = "Hit Sound Customisation";
+            this.label47.Text = "Sound Customisation";
             // 
             // label46
             // 
@@ -2239,9 +2562,9 @@
             this.label31.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label31.Location = new System.Drawing.Point(8, 89);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(97, 17);
+            this.label31.Size = new System.Drawing.Size(163, 17);
             this.label31.TabIndex = 63;
-            this.label31.Text = "Dynamic Pitch";
+            this.label31.Text = "Dynamic Hit Sound Pitch";
             // 
             // selectHitSoundMode
             // 
@@ -2264,9 +2587,9 @@
             this.label29.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label29.Location = new System.Drawing.Point(8, 36);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(43, 17);
+            this.label29.Size = new System.Drawing.Size(109, 17);
             this.label29.TabIndex = 59;
-            this.label29.Text = "Mode";
+            this.label29.Text = "Hit Sound Mode";
             // 
             // label28
             // 
@@ -2274,34 +2597,9 @@
             this.label28.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label28.Location = new System.Drawing.Point(6, 5);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(180, 25);
+            this.label28.Size = new System.Drawing.Size(148, 25);
             this.label28.TabIndex = 46;
-            this.label28.Text = "Hit Sound Settings";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
-            // fileHitSound
-            // 
-            this.fileHitSound.Filter = "Wave files|*.wav";
-            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
+            this.label28.Text = "Sound Settings";
             // 
             // MainForm
             // 
@@ -2320,8 +2618,17 @@
             this.Text = "TAMods Configuration Tool v0.4";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
+            this.panel19.ResumeLayout(false);
+            this.panel19.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainSpawnDelay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMagicChainPingMultiplier)).EndInit();
+            this.panel17.ResumeLayout(false);
+            this.panel17.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).EndInit();
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -2381,7 +2688,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2389,19 +2695,36 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TabControl tabControlMain;
-        private TransTabPage tabGeneral;
-        private TransTabPage tabLoadout;
-        private TransTabPage tabCrosshair;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button btnSaveConfig;
-        private TransTabPage tabColor;
+        private System.Windows.Forms.OpenFileDialog fileHitSound;
+        private System.Windows.Forms.TabControl tabControlMain;
+        private TransTabPage tabGeneral;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.CheckBox checkHUDIconSensor;
+        private System.Windows.Forms.CheckBox checkHUDIconMine;
+        private System.Windows.Forms.CheckBox checkHUDIconNugget;
+        private System.Windows.Forms.CheckBox checkHUDIconVehicle;
+        private System.Windows.Forms.CheckBox checkHUDIconPlayer;
+        private System.Windows.Forms.CheckBox checkHUDIconCTFBase;
+        private System.Windows.Forms.CheckBox checkHUDIconFlagBase;
+        private System.Windows.Forms.CheckBox checkHUDIconObjective;
+        private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label60;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.NumericUpDown numDamageNumberStreamTimeout;
+        private System.Windows.Forms.TextBox textDamageNumberCustomText;
+        private System.Windows.Forms.RadioButton radioDamageNumberCustomText;
+        private System.Windows.Forms.Label label62;
         private System.Windows.Forms.RadioButton radioDamageNumberCount;
         private System.Windows.Forms.RadioButton radioDamageNumberStream;
         private System.Windows.Forms.RadioButton radioDamageNumberDiscrete;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.CheckBox checkDamageNumberRainbow;
+        private System.Windows.Forms.Label label61;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.NumericUpDown numDamageNumberYOffset;
         private System.Windows.Forms.Label label43;
@@ -2414,11 +2737,40 @@
         private System.Windows.Forms.RadioButton radioDamageNumberLimit;
         private System.Windows.Forms.RadioButton radioDamageNumberShow;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label73;
+        private System.Windows.Forms.NumericUpDown numSkiBarMax;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.NumericUpDown numSkiBarMin;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.CheckBox checkShowFirstPersonAmmo;
+        private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numCrosshairScale;
         private System.Windows.Forms.CheckBox checkShowCrosshair;
         private System.Windows.Forms.CheckBox checkShowWeapon;
+        private TransTabPage tabColor;
+        private System.Windows.Forms.CheckBox checkColorSettingOverride;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ListBox listColorSettings;
+        private ColorSelector colorColorSettings;
+        private TransTabPage tabLoadout;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label label67;
+        private System.Windows.Forms.Button btnLoadoutDelete;
+        private System.Windows.Forms.Button btnLoadoutSave;
+        private System.Windows.Forms.ListBox listLoadouts;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.TextBox textLoadoutName;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox selectLoadoutNumber;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox selectLoadoutClass;
         private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label label68;
         private System.Windows.Forms.ComboBox selectLoadoutPerk2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox selectLoadoutPerk1;
@@ -2431,20 +2783,9 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox selectLoadoutPrimary;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Button btnLoadoutDelete;
-        private System.Windows.Forms.Button btnLoadoutSave;
-        private System.Windows.Forms.ListBox listLoadouts;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.TextBox textLoadoutName;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox selectLoadoutNumber;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox selectLoadoutClass;
-        private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.PictureBox boxCrosshairNormalPreview;
+        private TransTabPage tabCrosshair;
         private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Label label69;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.ComboBox selectCrosshairScoped;
         private System.Windows.Forms.Label label57;
@@ -2454,63 +2795,33 @@
         private System.Windows.Forms.ComboBox selectCrosshairWeapon;
         private System.Windows.Forms.ComboBox selectCrosshairClass;
         private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Label label70;
         private System.Windows.Forms.Button btnDeleteCrosshair;
         private System.Windows.Forms.Button btnSaveCrosshair;
         private System.Windows.Forms.ListBox listCrosshairs;
-        private System.Windows.Forms.Label label60;
-        private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.Label label61;
-        private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.Label label67;
-        private System.Windows.Forms.Label label66;
-        private System.Windows.Forms.Label label68;
-        private System.Windows.Forms.Label label69;
-        private System.Windows.Forms.Label label70;
+        private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label71;
         private System.Windows.Forms.PictureBox boxCrosshairScopedPreview;
-        private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.CheckBox checkHUDIconFlagBase;
-        private System.Windows.Forms.CheckBox checkHUDIconObjective;
-        private System.Windows.Forms.CheckBox checkHUDIconNugget;
-        private System.Windows.Forms.CheckBox checkHUDIconVehicle;
-        private System.Windows.Forms.CheckBox checkHUDIconPlayer;
-        private System.Windows.Forms.CheckBox checkHUDIconCTFBase;
-        private System.Windows.Forms.RadioButton radioDamageNumberCustomText;
-        private System.Windows.Forms.TextBox textDamageNumberCustomText;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.NumericUpDown numDamageNumberStreamTimeout;
-        private TAModConfigurationTool.TransTabPage tabMute;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.ListBox listMute;
-        private System.Windows.Forms.Button btnMuteDelete;
-        private System.Windows.Forms.Button btnMuteAdd;
+        private System.Windows.Forms.PictureBox boxCrosshairNormalPreview;
+        private TransTabPage tabMute;
         private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.CheckBox checkMuteDirectMessages;
         private System.Windows.Forms.CheckBox checkMuteText;
         private System.Windows.Forms.CheckBox checkMuteVGS;
         private System.Windows.Forms.TextBox textMute;
-        private System.Windows.Forms.CheckBox checkHUDIconSensor;
-        private System.Windows.Forms.CheckBox checkHUDIconMine;
-        private System.Windows.Forms.CheckBox checkShowFirstPersonAmmo;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.Label label73;
-        private System.Windows.Forms.NumericUpDown numSkiBarMax;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.NumericUpDown numSkiBarMin;
-        private System.Windows.Forms.Label label39;
-        private ColorSelector colorColorSettings;
-        private System.Windows.Forms.CheckBox checkDamageNumberRainbow;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListBox listColorSettings;
-        private System.Windows.Forms.CheckBox checkColorSettingOverride;
+        private System.Windows.Forms.Button btnMuteDelete;
+        private System.Windows.Forms.Button btnMuteAdd;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.ListBox listMute;
         private TransTabPage tabProjectiles;
-        private TransTabPage tabProjSwap;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.NumericUpDown numProjectileSettingIntensity;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private ColorSelector colorProjectileSetting;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
@@ -2519,12 +2830,14 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button btnProjectileSettingDelete;
-        private System.Windows.Forms.ListBox listProjectileSetting;
-        private ColorSelector colorProjectileSetting;
         private System.Windows.Forms.Button btnProjectileSettingSave;
-        private TransTabPage tabHitSounds;
-        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ListBox listProjectileSetting;
+        private TransTabPage tabProjSwap;
         private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox selectProjectileSwapWeapon_Swap;
+        private System.Windows.Forms.ComboBox selectProjectileSwapClass_Swap;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.CheckBox checkProjectileSwapClone;
         private System.Windows.Forms.Label label5;
@@ -2537,33 +2850,49 @@
         private System.Windows.Forms.Button btnProjectileSwapDelete;
         private System.Windows.Forms.Button btnProjectileSwapSave;
         private System.Windows.Forms.ListBox listProjectileSwap;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.ComboBox selectProjectileSwapWeapon_Swap;
-        private System.Windows.Forms.ComboBox selectProjectileSwapClass_Swap;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.NumericUpDown numProjectileSettingIntensity;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.ComboBox selectHitSoundMode;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.NumericUpDown numHitSoundPitchMax;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.NumericUpDown numHitSoundPitchMin;
-        private System.Windows.Forms.NumericUpDown numHitSoundDamageRef;
-        private System.Windows.Forms.Label label45;
+        private TransTabPage tabHitSounds;
+        private System.Windows.Forms.Button btnHitSoundFile;
+        private System.Windows.Forms.Panel panel18;
+        private System.Windows.Forms.TrackBar trackHitSoundVolumeSpecific;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.CheckBox checkHitSoundSpecific;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.ComboBox selectHitSoundFileSpecific;
         private System.Windows.Forms.ListBox listHitSound;
-        private System.Windows.Forms.CheckBox checkHitSoundSpecific;
-        private System.Windows.Forms.Panel panel18;
-        private System.Windows.Forms.TrackBar trackHitSoundVolumeSpecific;
-        private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.Button btnHitSoundFile;
-        private System.Windows.Forms.OpenFileDialog fileHitSound;
+        private System.Windows.Forms.NumericUpDown numHitSoundDamageRef;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.NumericUpDown numHitSoundPitchMax;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.NumericUpDown numHitSoundPitchMin;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.ComboBox selectHitSoundMode;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Panel panel17;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.NumericUpDown numRoamFlagDecel;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.NumericUpDown numRoamFlagSpeed;
+        private System.Windows.Forms.CheckBox checkRoamPower;
+        private System.Windows.Forms.CheckBox checkRoamTurrets;
+        private System.Windows.Forms.CheckBox checkStatsRecord;
+        private System.Windows.Forms.Panel panel19;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.NumericUpDown numMagicChainPingMultiplier;
+        private System.Windows.Forms.CheckBox checkMagicChainSmallBullets;
+        private System.Windows.Forms.CheckBox checkMagicChainEnable;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.Label label65;
+        private System.Windows.Forms.NumericUpDown numMagicChainSpawnDelay;
+        private System.Windows.Forms.Label label63;
+        private System.Windows.Forms.CheckBox checkMagicChainCenter;
+        private System.Windows.Forms.Label labelHitSoundVolumeTied;
     }
 }
 

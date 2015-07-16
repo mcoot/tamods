@@ -128,7 +128,7 @@ void Utils::console(const char *format, ...)
 	va_end(args);
 	std::string str(buff);
 	printConsole(str, rgb(255, 255, 255));
-	Utils::notify(L"Ensis' mod", "Error: see console for details");
+	Utils::notify(L"TAMods", "Error: see console for details");
 }
 
 void Utils::printConsole(const std::string &str)

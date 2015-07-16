@@ -264,7 +264,10 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer_POST()
 bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
-	AUTPlayerController *pc;
+	AUTPlayerController *pc = (AUTPlayerController *)that->Instigator->Controller;
+
+	if (pc && pc->WorldInfo->NetMode == 0 /* NM_Standalone */)
+		return false;
 
 	Hooks::lock();
 	if (that->ShouldRefire()) {
@@ -282,7 +285,6 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObjec
 		else
 			TrDev_FireAmmunition(that);
 		that->OnTickConstantFire();
-		pc = (AUTPlayerController *)that->Instigator->Controller;
 		if (pc && pc->Player && pc->Player->IsA(ULocalPlayer::StaticClass()) && that->CurrentFireMode < that->FireCameraAnim.Count && that->FireCameraAnim.Data[that->CurrentFireMode])
 			pc->PlayCameraAnim(that->FireCameraAnim.Data[that->CurrentFireMode], that->GetZoomedState() > 1 ? pc->eventGetFOVAngle() / pc->DefaultFOV : 1.0f, 0.0f, 0.0f, 0.0f, 0, 0);
 		TrDev_WeaponConstantFiring_RefireCheckTimer_POST();
@@ -304,6 +306,10 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObjec
 bool TrDev_WeaponConstantFiring_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
+	AUTPlayerController *pc = (AUTPlayerController *)that->Instigator->Controller;
+
+	if (pc && pc->WorldInfo->NetMode == 0 /* NM_Standalone */)
+		return false;
 
 	TrDev_WeaponConstantFiring_RefireCheckTimer(0, dwCallingObject, NULL, NULL, NULL);
 	Hooks::lock();

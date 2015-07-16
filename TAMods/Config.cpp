@@ -217,6 +217,10 @@ void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 		UGfxTrHud *default_gfxhud = (UGfxTrHud *) UGfxTrHud::StaticClass()->Default;
 		UGfxTrHud *currGfxHud = currHud->m_GFxHud;
 
+		if (g_config.skiBarMin < 1)
+			g_config.skiBarMin = 1.0f;
+		if (g_config.skiBarMax < g_config.skiBarMin + 1)
+			g_config.skiBarMax = g_config.skiBarMin + 1;
 		for (int i = 0; i < 12; i++)
 		{
 			int val = (int)((g_config.skiBarMin + (i - 1) * (g_config.skiBarMax - g_config.skiBarMin) / 10.0f) / 0.072f);
