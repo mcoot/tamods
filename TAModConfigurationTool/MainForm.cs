@@ -92,6 +92,12 @@ namespace TAModConfigurationTool
             numSkiBarMin.Value = 7;
             numSkiBarMax.Value = 180;
 
+            // Roam Map Settings
+            checkRoamTurrets.Checked = false;
+            checkRoamPower.Checked = false;
+            numRoamFlagSpeed.Value = 0;
+            numRoamFlagDecel.Value = 10;
+
             // Damage Number Settings
             // Damage Number Display
             checkDamageNumberRainbow.Checked = false;
@@ -186,6 +192,12 @@ namespace TAModConfigurationTool
             // Ski Bar Settings
             numSkiBarMin.Value = Convert.ToInt32(config.getConfigVar("skiBarMin"));
             numSkiBarMax.Value = Convert.ToInt32(config.getConfigVar("skiBarMax"));
+
+            // Roam Map Settings
+            checkRoamTurrets.Checked = (bool)config.getConfigVar("disableBaseTurrets");
+            checkRoamPower.Checked = (bool)config.getConfigVar("disablePower");
+            numRoamFlagSpeed.Value = Convert.ToDecimal(config.getConfigVar("maxSpeedWithFlag"));
+            numRoamFlagDecel.Value = Convert.ToDecimal(config.getConfigVar("decelerationRateWithFlag"));
 
             // Damage Number Settings
             // Damage Number Display
@@ -317,6 +329,12 @@ namespace TAModConfigurationTool
             // Ski Bar Settings
             config.setConfigVar("skiBarMin", (int)numSkiBarMin.Value);
             config.setConfigVar("skiBarMax", (int)numSkiBarMax.Value);
+
+            // Roam Map Settings
+            config.setConfigVar("disableBaseTurrets", checkRoamTurrets.Checked);
+            config.setConfigVar("disablePower", checkRoamPower.Checked);
+            config.setConfigVar("maxSpeedWithFlag", Convert.ToSingle(numRoamFlagSpeed.Value));
+            config.setConfigVar("decelerationRateWithFlag", Convert.ToSingle(numRoamFlagDecel.Value));
 
             // Damage Number Settings
             // Damage Number Display
@@ -1181,8 +1199,13 @@ namespace TAModConfigurationTool
             }
             selectHitSoundFileSpecific.Text = soundFile.inputFilename;
 
-            string[] inputFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\sounds\\", "*.wav");
+            
+            string[] inputFiles = {};
             string relfile;
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\sounds\\"))
+            {
+                inputFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory + "\\sounds\\", "*.wav");
+            }
 
             foreach (string file in inputFiles)
             {
@@ -1426,6 +1449,11 @@ namespace TAModConfigurationTool
                 { "volumeHeadShot", 0.55F },
                 { "volumeBluePlate", 1F },
                 { "volumeAirMail", 1F },
+
+                { "disableBaseTurrets", false },
+                { "disablePower", false },
+                { "maxSpeedWithFlag", 0 },
+                { "decelerationRateWithFlag", 10 },
                 
             };
 
