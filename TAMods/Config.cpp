@@ -62,25 +62,25 @@ void Config::reset()
 	
 	// General stuff
 	showErrorNotifications = true;
-	showWeapon = true;
-	showFirstPersonAmmo = false;
-	showCrosshair = true;
-	crosshairScale = 1;
-	crosshairColor = Utils::rgb(255, 255, 255);
+	showWeapon             = true;
+	showFirstPersonAmmo    = false;
+	showCrosshair          = true;
+	crosshairScale         = 1;
+	crosshairColor         = Utils::rgb(255, 255, 255);
 
 	// Damage number customization
 	damageNumbersOffsetX = 0.0f;
 	damageNumbersOffsetY = 0.0f;
-	damageNumbersScale = 1.0f;
+	damageNumbersScale   = 1.0f;
 
 	// Damage number stream
 	showDamageNumberStream = false;
-	showRainbow = false;
+	showRainbow            = false;
 	// Default damage stream reset time is 1/2 second
-	damageNumberStreamTimeout = 0.5;
+	damageNumberStreamTimeout     = 0.5;
 	lastDamageNumberShowEventTime = 0;
-	damageNumberStreamValue = 0;
-	damageNumberStreamCount = 0;
+	damageNumberStreamValue       = 0;
+	damageNumberStreamCount       = 0;
 	// Custom damage number text
 	damageNumberCustomText = std::string("");
 
@@ -92,21 +92,21 @@ void Config::reset()
 	onDamageNumberUpdate = NULL;
 
 	//Damage Number color variables
-	rainbowBulletInt = 0;
-	damageNumbersLimit = 0;
+	rainbowBulletInt      = 0;
+	damageNumbersLimit    = 0;
 	damageNumbersColorMin = Utils::rgb(255, 255, 255);
 	damageNumbersColorMax = Utils::rgb(248, 83, 83);
-	friendlyChatColor = Utils::rgb(158, 208, 212);
-	enemyChatColor = Utils::rgb(255, 111, 111);
-	friendlyHUDChatColor = Utils::rgb(158, 208, 211);
-	enemyHUDChatColor = Utils::rgb(249, 32, 32);
+	friendlyChatColor     = Utils::rgb(158, 208, 212);
+	enemyChatColor        = Utils::rgb(255, 111, 111);
+	friendlyHUDChatColor  = Utils::rgb(158, 208, 211);
+	enemyHUDChatColor     = Utils::rgb(249, 32, 32);
 
 	//Marker Colors
-	friendlyColor = Utils::rgb(119, 186, 255);
-	enemyColor = Utils::rgb(248, 83, 83);
-	enemyMarkerColor = Utils::rgb(255, 23, 23);
-	enemyIsFMarkerColor = Utils::rgb(239, 164, 0);
-	friendlyMarkerColor = Utils::rgb(115, 225, 255);
+	friendlyColor          = Utils::rgb(119, 186, 255);
+	enemyColor             = Utils::rgb(248, 83, 83);
+	enemyMarkerColor       = Utils::rgb(255, 23, 23);
+	enemyIsFMarkerColor    = Utils::rgb(239, 164, 0);
+	friendlyMarkerColor    = Utils::rgb(115, 225, 255);
 	friendlyIsFMarkerColor = Utils::rgb(81, 250, 85);
 
 	// Ski bars
@@ -114,9 +114,9 @@ void Config::reset()
 	skiBarMax = 300;
 
 	// Roam map variables
-	disableBaseTurrets = false;
-	disablePower = false;
-	maxSpeedWithFlag = 0;
+	disableBaseTurrets       = false;
+	disablePower             = false;
+	maxSpeedWithFlag         = 0;
 	decelerationRateWithFlag = 10;
 
 	// Sounds
@@ -124,18 +124,18 @@ void Config::reset()
 	customHeadShotSound  = false;
 	customAirMailSound   = false;
 	customBluePlateSound = false;
-	hitSoundPitchMin  = 0.4f;
-	hitSoundPitchMax  = 1.6f;
-	hitSoundDamageRef = 600;
-	volumeHitSound    = 0.55f;
-	volumeHeadShot    = 0.55f;
-	volumeBluePlate   = 0.55f;
-	volumeAirMail     = 0.55f;
+	hitSoundPitchMin     = 0.4f;
+	hitSoundPitchMax     = 1.6f;
+	hitSoundDamageRef    = 600;
+	volumeHitSound       = 0.55f;
+	volumeHeadShot       = 0.55f;
+	volumeBluePlate      = 0.55f;
+	volumeAirMail        = 0.55f;
 	// Accolades
 	customStreak1    = false; customStreak2      = false; customStreak3       = false; customStreak4    = false; customStreak5    = false;
 	customMultiKill1 = false; customMultiKill2   = false; customMultiKill3    = false; customMultiKill4 = false; customMultiKill5 = false;
 	customFirstBlood = false; customHeadShotKill = false; customArtilleryShot = false; customMeleeKill  = false; customRoadKill   = false; customFastGrab = false;
-	volumeStreak1    = 0.5f; volumeStreak2       = 0.5f; volumeStreak3        = 0.5f; volumeStreak4     = 0.5f; volumeStreak5     = 0.5f;
+	volumeStreak1    = 0.5f;  volumeStreak2      = 0.5f;  volumeStreak3       = 0.5f;  volumeStreak4    = 0.5f;  volumeStreak5    = 0.5f;
 	volumeMultiKill1 = 0.5f;  volumeMultiKill2   = 0.5f;  volumeMultiKill3    = 0.5f;  volumeMultiKill4 = 0.5f;  volumeMultiKill5 = 0.5f;
 	volumeFirstBlood = 0.5f;  volumeHeadShotKill = 0.5f;  volumeArtilleryShot = 0.5f;  volumeMeleeKill  = 0.5f;  volumeRoadKill   = 0.5f;  volumeFastGrab = 0.5f;
 	// Flag events
@@ -144,31 +144,31 @@ void Config::reset()
 	customFlagCaptureTeam = false; customFlagCaptureEnemy = false;
 	customFlagReturnTeam  = false; customFlagReturnEnemy  = false;
 	customFlagDroppedTeam = false; customFlagDroppedEnemy = false;
-	volumeFlagGrabTeam    = 0.5f; volumeFlagGrabEnemy    = 0.5f;
-	volumeFlagPickupTeam  = 0.5f; volumeFlagPickupEnemy  = 0.5f;
-	volumeFlagCaptureTeam = 0.5f; volumeFlagCaptureEnemy = 0.5f;
-	volumeFlagReturnTeam  = 0.5f; volumeFlagReturnEnemy  = 0.5f;
-	volumeFlagDroppedTeam = 0.5f; volumeFlagDroppedEnemy = 0.5f;
+	volumeFlagGrabTeam    = 0.5f;  volumeFlagGrabEnemy    = 0.5f;
+	volumeFlagPickupTeam  = 0.5f;  volumeFlagPickupEnemy  = 0.5f;
+	volumeFlagCaptureTeam = 0.5f;  volumeFlagCaptureEnemy = 0.5f;
+	volumeFlagReturnTeam  = 0.5f;  volumeFlagReturnEnemy  = 0.5f;
+	volumeFlagDroppedTeam = 0.5f;  volumeFlagDroppedEnemy = 0.5f;
 
 	// Toggle HUD
 	showObjectiveIcon = true;
-	showFlagBaseIcon = true;
-	showCTFBaseIcon = true;
-	showNuggetIcon = true;
-	showPlayerIcon = true;
-	showVehicleIcon = true;
-	showMineIcon = true;
-	showSensorIcon = true;
+	showFlagBaseIcon  = true;
+	showCTFBaseIcon   = true;
+	showNuggetIcon    = true;
+	showPlayerIcon    = true;
+	showVehicleIcon   = true;
+	showMineIcon      = true;
+	showSensorIcon    = true;
 
 	//Stats
 	recordStats = false;
 
 	// Magic chain
-	useSmallBullets = false;
-	useMagicChain = false;
-	centerBulletSpawn = false;
+	useSmallBullets      = false;
+	useMagicChain        = false;
+	centerBulletSpawn    = false;
 	bulletPingMultiplier = 1.0f;
-	bulletSpawnDelay = 0.0f;
+	bulletSpawnDelay     = 0.0f;
 
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();

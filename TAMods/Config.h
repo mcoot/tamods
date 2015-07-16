@@ -232,28 +232,28 @@ public:
 public:
 	Lua lua;
 
-	int damageNumbersLimit;
-	bool showErrorNotifications;
-	bool showWeapon;
-	bool showFirstPersonAmmo;
-	bool showCrosshair;
-	float crosshairScale;
-	FColor crosshairColor;
+	int     damageNumbersLimit;
+	bool    showErrorNotifications;
+	bool    showWeapon;
+	bool    showFirstPersonAmmo;
+	bool    showCrosshair;
+	float   crosshairScale;
+	FColor  crosshairColor;
 	Loadout *loadouts[9][9];
 
 	// Damage number customization
-	float damageNumbersOffsetX;
-	float damageNumbersOffsetY;
-	float damageNumbersScale;
+	float  damageNumbersOffsetX;
+	float  damageNumbersOffsetY;
+	float  damageNumbersScale;
 
 	// Damage number / chain count streaming
-	bool showDamageNumberStream;
-	bool showChainBulletHitCount;
+	bool   showDamageNumberStream;
+	bool   showChainBulletHitCount;
 	double damageNumberStreamTimeout;
 	unsigned long lastDamageNumberShowEventTime;
-	int damageNumberStreamValue;
-	int damageNumberStreamCount;
-	bool showStreamTotalOnly;
+	int    damageNumberStreamValue;
+	int    damageNumberStreamCount;
+	bool   showStreamTotalOnly;
 
 	// Lua scripting damage numbers
 	LuaRef *onDamageNumberCreate;
@@ -263,8 +263,8 @@ public:
 	std::string damageNumberCustomText;
 
 	// Damage number colors
-	bool showRainbow;
-	int rainbowBulletInt;
+	bool   showRainbow;
+	int    rainbowBulletInt;
 	FColor damageNumbersColorMin;
 	FColor damageNumbersColorMax;
 	//Chat Cols
@@ -287,8 +287,8 @@ public:
 	// Roam map variables
 	bool disableBaseTurrets;
 	bool disablePower;
-	int maxSpeedWithFlag;
-	int decelerationRateWithFlag;
+	int  maxSpeedWithFlag;
+	int  decelerationRateWithFlag;
 
 	// Sounds
 	Audio audioEngine;
@@ -298,7 +298,7 @@ public:
 	SoundEffect s_multiKill1, s_multiKill2,   s_multiKill3,    s_multiKill4, s_multiKill5;
 	SoundEffect s_firstBlood, s_headShotKill, s_artilleryShot, s_meleeKill,  s_roadKill, s_fastGrab;
 	// Flag events
-	SoundEffect s_flagGrabTeam,	s_flagGrabEnemy;
+	SoundEffect s_flagGrabTeam,	    s_flagGrabEnemy;
 	SoundEffect s_flagPickupTeam,	s_flagPickupEnemy;
 	SoundEffect s_flagCaptureTeam,	s_flagCaptureEnemy;
 	SoundEffect s_flagReturnTeam,	s_flagReturnEnemy;
@@ -311,13 +311,13 @@ public:
 	USoundCue *flagcaptured;
 	USoundCue *flagreturned;
 	// Sound user variables
-	int hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
-	bool customHeadShotSound;
-	bool customAirMailSound;
-	bool customBluePlateSound;
+	int   hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
+	bool  customHeadShotSound;
+	bool  customAirMailSound;
+	bool  customBluePlateSound;
 	float hitSoundPitchMin;
 	float hitSoundPitchMax;
-	int hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
+	int   hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
 	float volumeHitSound;
 	float volumeHeadShot;
 	float volumeBluePlate;
@@ -356,9 +356,9 @@ public:
 	bool recordStats;
 
 	// Magic chain
-	bool useSmallBullets;
-	bool useMagicChain;
-	bool centerBulletSpawn;
+	bool  useSmallBullets;
+	bool  useMagicChain;
+	bool  centerBulletSpawn;
 	float bulletPingMultiplier;
 	float bulletSpawnDelay;
 
