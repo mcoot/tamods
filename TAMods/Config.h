@@ -292,19 +292,13 @@ public:
 
 	// Sounds
 	Audio audioEngine;
-	SoundEffect s_hitSound;
-	SoundEffect s_headShot;
-	SoundEffect s_bluePlate, s_airMail;
-	SoundEffect s_streak1, s_streak2, s_streak3, s_streak4, s_streak5;
-	SoundEffect s_multiKill1, s_multiKill2, s_multiKill3, s_multiKill4, s_multiKill5;
-	SoundEffect s_firstBlood;
-	SoundEffect s_headShotKill;
-	SoundEffect s_artilleryShot;
-	SoundEffect s_meleeKill;
-	SoundEffect s_roadKill;
-	SoundEffect s_fastGrab;
+	SoundEffect s_hitSound,   s_headShot;
+	SoundEffect s_bluePlate,  s_airMail;
+	SoundEffect s_streak1,    s_streak2,      s_streak3,       s_streak4,    s_streak5;
+	SoundEffect s_multiKill1, s_multiKill2,   s_multiKill3,    s_multiKill4, s_multiKill5;
+	SoundEffect s_firstBlood, s_headShotKill, s_artilleryShot, s_meleeKill,  s_roadKill, s_fastGrab;
 	// Flag events
-	SoundEffect s_flagGrabTeam,		s_flagGrabEnemy;
+	SoundEffect s_flagGrabTeam,	s_flagGrabEnemy;
 	SoundEffect s_flagPickupTeam,	s_flagPickupEnemy;
 	SoundEffect s_flagCaptureTeam,	s_flagCaptureEnemy;
 	SoundEffect s_flagReturnTeam,	s_flagReturnEnemy;
@@ -321,8 +315,6 @@ public:
 	bool customHeadShotSound;
 	bool customAirMailSound;
 	bool customBluePlateSound;
-	bool customAccoladeSounds;
-	bool customFlagEventSounds;
 	float hitSoundPitchMin;
 	float hitSoundPitchMax;
 	int hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
@@ -330,8 +322,24 @@ public:
 	float volumeHeadShot;
 	float volumeBluePlate;
 	float volumeAirMail;
-	float volumeAccoladeSounds;
-	float volumeFlagEvents;
+	// Accolades
+	bool  customStreak1,    customStreak2,      customStreak3,       customStreak4,    customStreak5;
+	bool  customMultiKill1, customMultiKill2,   customMultiKill3,    customMultiKill4, customMultiKill5;
+	bool  customFirstBlood, customHeadShotKill, customArtilleryShot, customMeleeKill,  customRoadKill, customFastGrab;
+	float volumeStreak1,    volumeStreak2,      volumeStreak3,       volumeStreak4,    volumeStreak5;
+	float volumeMultiKill1, volumeMultiKill2,   volumeMultiKill3,    volumeMultiKill4, volumeMultiKill5;
+	float volumeFirstBlood, volumeHeadShotKill, volumeArtilleryShot, volumeMeleeKill,  volumeRoadKill, volumeFastGrab;
+	// Flag events
+	bool  customFlagGrabTeam,    customFlagGrabEnemy;
+	bool  customFlagPickupTeam,  customFlagPickupEnemy;
+	bool  customFlagCaptureTeam, customFlagCaptureEnemy;
+	bool  customFlagReturnTeam,  customFlagReturnEnemy;
+	bool  customFlagDroppedTeam, customFlagDroppedEnemy;
+	float volumeFlagGrabTeam,    volumeFlagGrabEnemy;
+	float volumeFlagPickupTeam,  volumeFlagPickupEnemy;
+	float volumeFlagCaptureTeam, volumeFlagCaptureEnemy;
+	float volumeFlagReturnTeam,  volumeFlagReturnEnemy;
+	float volumeFlagDroppedTeam, volumeFlagDroppedEnemy;
 
 	// HUD elements toggle
 	static TogglableIcon togglable_icons[];

@@ -2,7 +2,7 @@
 
 bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (!g_config.customFlagEventSounds || !g_config.audioEngine.audioAvailable())
+	if (!g_config.audioEngine.audioAvailable())
 		return false;
 
 	ATrPlayerController_eventReceiveLocalizedMessage_Parms *params = (ATrPlayerController_eventReceiveLocalizedMessage_Parms *)pParams;
@@ -34,33 +34,33 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 	{
 	case 0: // Grab
 		if (myTeam)
-			g_config.s_flagGrabTeam.Play();
+			if (g_config.customFlagGrabTeam) g_config.s_flagGrabTeam.Play();
 		else
-			g_config.s_flagGrabEnemy.Play();
+			if (g_config.customFlagGrabEnemy) g_config.s_flagGrabEnemy.Play();
 		break;
 	case 1: // Pickup
 		if (myTeam)
-			g_config.s_flagPickupTeam.Play();
+			if (g_config.customFlagPickupTeam) g_config.s_flagPickupTeam.Play();
 		else
-			g_config.s_flagPickupEnemy.Play();
+			if (g_config.customFlagPickupEnemy) g_config.s_flagPickupEnemy.Play();
 		break;
 	case 2: // Cap
 		if (myTeam)
-			g_config.s_flagCaptureTeam.Play();
+			if (g_config.customFlagCaptureTeam) g_config.s_flagCaptureTeam.Play();
 		else
-			g_config.s_flagCaptureEnemy.Play();
+			if (g_config.customFlagCaptureEnemy) g_config.s_flagCaptureEnemy.Play();
 		break;
 	case 3: // Return (includes automatic return)
 		if (myTeam)
-			g_config.s_flagReturnTeam.Play();
+			if (g_config.customFlagReturnTeam) g_config.s_flagReturnTeam.Play();
 		else
-			g_config.s_flagReturnEnemy.Play();
+			if (g_config.customFlagReturnEnemy) g_config.s_flagReturnEnemy.Play();
 		break;
 	case 4: // Dropped
 		if (myTeam)
-			g_config.s_flagDroppedTeam.Play();
+			if (g_config.customFlagDroppedTeam) g_config.s_flagDroppedTeam.Play();
 		else
-			g_config.s_flagDroppedEnemy.Play();
+			if (g_config.customFlagDroppedEnemy) g_config.s_flagDroppedEnemy.Play();
 		break;
 	case 5: // ???
 		if (myTeam)

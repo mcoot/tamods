@@ -121,20 +121,34 @@ void Config::reset()
 
 	// Sounds
 	hitSoundMode = 0;
-	customHeadShotSound = false;
-	customAirMailSound = false;
+	customHeadShotSound  = false;
+	customAirMailSound   = false;
 	customBluePlateSound = false;
-	customAccoladeSounds = false;
-	customFlagEventSounds = false;
-	hitSoundPitchMin = 0.4f;
-	hitSoundPitchMax = 1.6f;
+	hitSoundPitchMin  = 0.4f;
+	hitSoundPitchMax  = 1.6f;
 	hitSoundDamageRef = 600;
-	volumeHitSound = 0.55f;
-	volumeHeadShot = 0.55f;
-	volumeBluePlate = 0.55f;
-	volumeAirMail = 0.55f;
-	volumeAccoladeSounds = 0.55f;
-	volumeFlagEvents = 0.55f;
+	volumeHitSound    = 0.55f;
+	volumeHeadShot    = 0.55f;
+	volumeBluePlate   = 0.55f;
+	volumeAirMail     = 0.55f;
+	// Accolades
+	customStreak1    = false; customStreak2      = false; customStreak3       = false; customStreak4    = false; customStreak5    = false;
+	customMultiKill1 = false; customMultiKill2   = false; customMultiKill3    = false; customMultiKill4 = false; customMultiKill5 = false;
+	customFirstBlood = false; customHeadShotKill = false; customArtilleryShot = false; customMeleeKill  = false; customRoadKill   = false; customFastGrab = false;
+	volumeStreak1    = 0.5f; volumeStreak2       = 0.5f; volumeStreak3        = 0.5f; volumeStreak4     = 0.5f; volumeStreak5     = 0.5f;
+	volumeMultiKill1 = 0.5f;  volumeMultiKill2   = 0.5f;  volumeMultiKill3    = 0.5f;  volumeMultiKill4 = 0.5f;  volumeMultiKill5 = 0.5f;
+	volumeFirstBlood = 0.5f;  volumeHeadShotKill = 0.5f;  volumeArtilleryShot = 0.5f;  volumeMeleeKill  = 0.5f;  volumeRoadKill   = 0.5f;  volumeFastGrab = 0.5f;
+	// Flag events
+	customFlagGrabTeam    = false; customFlagGrabEnemy    = false;
+	customFlagPickupTeam  = false; customFlagPickupEnemy  = false;
+	customFlagCaptureTeam = false; customFlagCaptureEnemy = false;
+	customFlagReturnTeam  = false; customFlagReturnEnemy  = false;
+	customFlagDroppedTeam = false; customFlagDroppedEnemy = false;
+	volumeFlagGrabTeam    = 0.5f; volumeFlagGrabEnemy    = 0.5f;
+	volumeFlagPickupTeam  = 0.5f; volumeFlagPickupEnemy  = 0.5f;
+	volumeFlagCaptureTeam = 0.5f; volumeFlagCaptureEnemy = 0.5f;
+	volumeFlagReturnTeam  = 0.5f; volumeFlagReturnEnemy  = 0.5f;
+	volumeFlagDroppedTeam = 0.5f; volumeFlagDroppedEnemy = 0.5f;
 
 	// Toggle HUD
 	showObjectiveIcon = true;
@@ -266,13 +280,13 @@ void Config::updateDefaults()
 		headshotsound->VolumeMultiplier = customHeadShotSound ? 0.0f : volumeHeadShot;
 
 	if (flagpickedup)
-		flagpickedup->VolumeMultiplier = customFlagEventSounds ? 0.0f : 0.55f;
+		flagpickedup->VolumeMultiplier = customFlagPickupTeam || customFlagPickupEnemy || customFlagGrabTeam || customFlagGrabEnemy ? 0.0f : 0.55f;
 
 	if (flagcaptured)
-		flagcaptured->VolumeMultiplier = customFlagEventSounds ? 0.0f : 0.55f;
+		flagcaptured->VolumeMultiplier = customFlagCaptureTeam || customFlagCaptureEnemy ? 0.0f : 0.55f;
 
 	if (flagreturned)
-		flagreturned->VolumeMultiplier = customFlagEventSounds ? 0.0f : 0.55f;
+		flagreturned->VolumeMultiplier = customFlagReturnTeam || customFlagReturnEnemy ? 0.0f : 0.55f;
 
 	// Toggle icons
 	for (int i = 0; i < sizeof(togglable_icons) / sizeof(togglable_icons[0]); i++)
@@ -296,33 +310,33 @@ void Config::initializeAudio()
 		s_soundEffects.push_back(s_headShot.Initialize(audioEngine.SoundEffectEngine, std::string("headshot.wav"), &volumeHeadShot));
 		s_soundEffects.push_back(s_bluePlate.Initialize(audioEngine.SoundEffectEngine, std::string("blueplate.wav"), &volumeBluePlate));
 		s_soundEffects.push_back(s_airMail.Initialize(audioEngine.SoundEffectEngine, std::string("airmail.wav"), &volumeAirMail));
-		s_soundEffects.push_back(s_streak1.Initialize(audioEngine.SoundEffectEngine, std::string("streak1.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_streak2.Initialize(audioEngine.SoundEffectEngine, std::string("streak2.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_streak3.Initialize(audioEngine.SoundEffectEngine, std::string("streak3.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_streak4.Initialize(audioEngine.SoundEffectEngine, std::string("streak4.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_streak5.Initialize(audioEngine.SoundEffectEngine, std::string("streak5.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_multiKill1.Initialize(audioEngine.SoundEffectEngine, std::string("multikill1.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_multiKill2.Initialize(audioEngine.SoundEffectEngine, std::string("multikill2.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_multiKill3.Initialize(audioEngine.SoundEffectEngine, std::string("multikill3.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_multiKill4.Initialize(audioEngine.SoundEffectEngine, std::string("multikill4.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_multiKill5.Initialize(audioEngine.SoundEffectEngine, std::string("multikill5.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_firstBlood.Initialize(audioEngine.SoundEffectEngine, std::string("firstblood.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_headShotKill.Initialize(audioEngine.SoundEffectEngine, std::string("headshotkill.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_artilleryShot.Initialize(audioEngine.SoundEffectEngine, std::string("artilleryshot.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_meleeKill.Initialize(audioEngine.SoundEffectEngine, std::string("meleekill.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_roadKill.Initialize(audioEngine.SoundEffectEngine, std::string("roadkill.wav"), &volumeAccoladeSounds));
-		s_soundEffects.push_back(s_fastGrab.Initialize(audioEngine.SoundEffectEngine, std::string("fastgrab.wav"), &volumeAccoladeSounds));
+		s_soundEffects.push_back(s_streak1.Initialize(audioEngine.SoundEffectEngine, std::string("streak1.wav"), &volumeStreak1));
+		s_soundEffects.push_back(s_streak2.Initialize(audioEngine.SoundEffectEngine, std::string("streak2.wav"), &volumeStreak2));
+		s_soundEffects.push_back(s_streak3.Initialize(audioEngine.SoundEffectEngine, std::string("streak3.wav"), &volumeStreak3));
+		s_soundEffects.push_back(s_streak4.Initialize(audioEngine.SoundEffectEngine, std::string("streak4.wav"), &volumeStreak4));
+		s_soundEffects.push_back(s_streak5.Initialize(audioEngine.SoundEffectEngine, std::string("streak5.wav"), &volumeStreak5));
+		s_soundEffects.push_back(s_multiKill1.Initialize(audioEngine.SoundEffectEngine, std::string("multikill1.wav"), &volumeMultiKill1));
+		s_soundEffects.push_back(s_multiKill2.Initialize(audioEngine.SoundEffectEngine, std::string("multikill2.wav"), &volumeMultiKill2));
+		s_soundEffects.push_back(s_multiKill3.Initialize(audioEngine.SoundEffectEngine, std::string("multikill3.wav"), &volumeMultiKill3));
+		s_soundEffects.push_back(s_multiKill4.Initialize(audioEngine.SoundEffectEngine, std::string("multikill4.wav"), &volumeMultiKill4));
+		s_soundEffects.push_back(s_multiKill5.Initialize(audioEngine.SoundEffectEngine, std::string("multikill5.wav"), &volumeMultiKill5));
+		s_soundEffects.push_back(s_firstBlood.Initialize(audioEngine.SoundEffectEngine, std::string("firstblood.wav"), &volumeFirstBlood));
+		s_soundEffects.push_back(s_headShotKill.Initialize(audioEngine.SoundEffectEngine, std::string("headshotkill.wav"), &volumeHeadShotKill));
+		s_soundEffects.push_back(s_artilleryShot.Initialize(audioEngine.SoundEffectEngine, std::string("artilleryshot.wav"), &volumeArtilleryShot));
+		s_soundEffects.push_back(s_meleeKill.Initialize(audioEngine.SoundEffectEngine, std::string("meleekill.wav"), &volumeMeleeKill));
+		s_soundEffects.push_back(s_roadKill.Initialize(audioEngine.SoundEffectEngine, std::string("roadkill.wav"), &volumeRoadKill));
+		s_soundEffects.push_back(s_fastGrab.Initialize(audioEngine.SoundEffectEngine, std::string("fastgrab.wav"), &volumeFastGrab));
 		// Flag events
-		s_soundEffects.push_back(s_flagGrabTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flaggrab_team.wav"), &volumeFlagEvents));
-		s_soundEffects.push_back(s_flagGrabEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flaggrab_enemy.wav"), &volumeFlagEvents));
-		s_soundEffects.push_back(s_flagPickupTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagpickup_team.wav"), &volumeFlagEvents));
-		s_soundEffects.push_back(s_flagPickupEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagpickup_enemy.wav"), &volumeFlagEvents));
-		s_soundEffects.push_back(s_flagCaptureTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagcapture_team.wav"), &volumeFlagEvents));
-		s_soundEffects.push_back(s_flagCaptureEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagcapture_enemy.wav"), &volumeFlagEvents));
-		s_soundEffects.push_back(s_flagReturnTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagreturn_team.wav"), &volumeFlagEvents));
-		s_soundEffects.push_back(s_flagReturnEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagreturn_enemy.wav"), &volumeFlagEvents));
-		s_soundEffects.push_back(s_flagDroppedTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagdropped_team.wav"), &volumeFlagEvents));
-		s_soundEffects.push_back(s_flagDroppedEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagdropped_enemy.wav"), &volumeFlagEvents));
+		s_soundEffects.push_back(s_flagGrabTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flaggrab_team.wav"), &volumeFlagGrabTeam));
+		s_soundEffects.push_back(s_flagGrabEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flaggrab_enemy.wav"), &volumeFlagGrabEnemy));
+		s_soundEffects.push_back(s_flagPickupTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagpickup_team.wav"), &volumeFlagPickupTeam));
+		s_soundEffects.push_back(s_flagPickupEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagpickup_enemy.wav"), &volumeFlagPickupEnemy));
+		s_soundEffects.push_back(s_flagCaptureTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagcapture_team.wav"), &volumeFlagCaptureTeam));
+		s_soundEffects.push_back(s_flagCaptureEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagcapture_enemy.wav"), &volumeFlagCaptureEnemy));
+		s_soundEffects.push_back(s_flagReturnTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagreturn_team.wav"), &volumeFlagReturnTeam));
+		s_soundEffects.push_back(s_flagReturnEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagreturn_enemy.wav"), &volumeFlagReturnEnemy));
+		s_soundEffects.push_back(s_flagDroppedTeam.Initialize(audioEngine.SoundEffectEngine, std::string("flagdropped_team.wav"), &volumeFlagDroppedTeam));
+		s_soundEffects.push_back(s_flagDroppedEnemy.Initialize(audioEngine.SoundEffectEngine, std::string("flagdropped_enemy.wav"), &volumeFlagDroppedEnemy));
 	}
 	else
 		Utils::console("Error: could not initialize audio engine");
@@ -423,8 +437,6 @@ void Config::setVariables()
 	SET_VARIABLE(bool, customHeadShotSound);
 	SET_VARIABLE(bool, customAirMailSound);
 	SET_VARIABLE(bool, customBluePlateSound);
-	SET_VARIABLE(bool, customAccoladeSounds);
-	SET_VARIABLE(bool, customFlagEventSounds);
 	SET_VARIABLE(float, hitSoundPitchMin);
 	SET_VARIABLE(float, hitSoundPitchMax);
 	SET_VARIABLE(int, hitSoundDamageRef);
@@ -432,8 +444,60 @@ void Config::setVariables()
 	SET_VARIABLE(float, volumeHeadShot);
 	SET_VARIABLE(float, volumeBluePlate);
 	SET_VARIABLE(float, volumeAirMail);
-	SET_VARIABLE(float, volumeAccoladeSounds);
-	SET_VARIABLE(float, volumeFlagEvents);
+	// Accolades
+	SET_VARIABLE(bool, customStreak1);
+	SET_VARIABLE(bool, customStreak2);
+	SET_VARIABLE(bool, customStreak3);
+	SET_VARIABLE(bool, customStreak4);
+	SET_VARIABLE(bool, customStreak5);
+	SET_VARIABLE(bool, customMultiKill1); 
+	SET_VARIABLE(bool, customMultiKill2); 
+	SET_VARIABLE(bool, customMultiKill3); 
+	SET_VARIABLE(bool, customMultiKill4); 
+	SET_VARIABLE(bool, customMultiKill5); 
+	SET_VARIABLE(bool, customFirstBlood);
+	SET_VARIABLE(bool, customHeadShotKill);
+	SET_VARIABLE(bool, customArtilleryShot);
+	SET_VARIABLE(bool, customMeleeKill);
+	SET_VARIABLE(bool, customRoadKill);
+	SET_VARIABLE(bool, customFastGrab);
+	SET_VARIABLE(float, volumeStreak1);
+	SET_VARIABLE(float, volumeStreak2);
+	SET_VARIABLE(float, volumeStreak3);
+	SET_VARIABLE(float, volumeStreak4);
+	SET_VARIABLE(float, volumeStreak5);
+ 	SET_VARIABLE(float, volumeMultiKill1);
+	SET_VARIABLE(float, volumeMultiKill2);
+	SET_VARIABLE(float, volumeMultiKill3);
+	SET_VARIABLE(float, volumeMultiKill4);
+	SET_VARIABLE(float, volumeMultiKill5);
+	SET_VARIABLE(float, volumeFirstBlood);
+	SET_VARIABLE(float, volumeHeadShotKill);
+	SET_VARIABLE(float, volumeArtilleryShot);
+	SET_VARIABLE(float, volumeMeleeKill);
+	SET_VARIABLE(float, volumeRoadKill);
+	SET_VARIABLE(float, volumeFastGrab);
+	// Flag events
+	SET_VARIABLE(bool, customFlagGrabTeam);
+	SET_VARIABLE(bool, customFlagGrabEnemy);
+	SET_VARIABLE(bool, customFlagPickupTeam);
+	SET_VARIABLE(bool, customFlagPickupEnemy);
+	SET_VARIABLE(bool, customFlagCaptureTeam);
+	SET_VARIABLE(bool, customFlagCaptureEnemy);
+	SET_VARIABLE(bool, customFlagReturnTeam);
+	SET_VARIABLE(bool, customFlagReturnEnemy);
+	SET_VARIABLE(bool, customFlagDroppedTeam);
+	SET_VARIABLE(bool, customFlagDroppedEnemy);
+	SET_VARIABLE(float, volumeFlagGrabTeam);
+	SET_VARIABLE(float, volumeFlagGrabEnemy);
+	SET_VARIABLE(float, volumeFlagPickupTeam);
+	SET_VARIABLE(float, volumeFlagPickupEnemy);
+	SET_VARIABLE(float, volumeFlagCaptureTeam);
+	SET_VARIABLE(float, volumeFlagCaptureEnemy);
+	SET_VARIABLE(float, volumeFlagReturnTeam);
+	SET_VARIABLE(float, volumeFlagReturnEnemy);
+	SET_VARIABLE(float, volumeFlagDroppedTeam);
+	SET_VARIABLE(float, volumeFlagDroppedEnemy);
 
 	// Toggle HUD
 	SET_VARIABLE(bool, showObjectiveIcon);
