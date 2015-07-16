@@ -82,6 +82,7 @@ namespace TAModConfigurationTool
         {
             // General settings
             // Display settings
+            checkStatsRecord.Checked = false;
             checkShowWeapon.Checked = true;
             checkShowCrosshair.Checked = true;
             checkShowFirstPersonAmmo.Checked = false;
@@ -126,6 +127,13 @@ namespace TAModConfigurationTool
             checkHUDIconVehicle.Checked = true;
             checkHUDIconSensor.Checked = true;
             checkHUDIconMine.Checked = true;
+
+            // Magic Chain
+            checkMagicChainEnable.Checked = false;
+            checkMagicChainSmallBullets.Checked = false;
+            checkMagicChainCenter.Checked = false;
+            numMagicChainPingMultiplier.Value = 1.0M;
+            numMagicChainSpawnDelay.Value = 0.0M;
 
             // Colour Settings
             listColorSettings.Items.Clear();
@@ -184,6 +192,7 @@ namespace TAModConfigurationTool
         {
             // General settings
             // Display settings
+            checkStatsRecord.Checked = (bool)config.getConfigVar("recordStats");
             checkShowWeapon.Checked = (bool)config.getConfigVar("showWeapon");
             checkShowFirstPersonAmmo.Checked = (bool)config.getConfigVar("showFirstPersonAmmo");
             checkShowCrosshair.Checked = (bool)config.getConfigVar("showCrosshair");
@@ -250,6 +259,13 @@ namespace TAModConfigurationTool
             checkHUDIconVehicle.Checked = (bool)config.getConfigVar("showVehicleIcon");
             checkHUDIconSensor.Checked = (bool)config.getConfigVar("showSensorIcon");
             checkHUDIconMine.Checked = (bool)config.getConfigVar("showMineIcon");
+
+            // Magic Chain
+            checkMagicChainEnable.Checked = (bool)config.getConfigVar("useMagicChain");
+            checkMagicChainSmallBullets.Checked = (bool)config.getConfigVar("useSmallBullets");
+            checkMagicChainCenter.Checked = (bool)config.getConfigVar("centerBulletSpawn");
+            numMagicChainPingMultiplier.Value = Convert.ToDecimal(config.getConfigVar("bulletPingMultiplier"));
+            numMagicChainSpawnDelay.Value = Convert.ToDecimal(config.getConfigVar("bulletSpawnDelay"));
 
             // Colour Settings
             listColorSettings.Items.Clear();
@@ -321,6 +337,7 @@ namespace TAModConfigurationTool
         {
             // General Settings
             // Display Settings
+            config.setConfigVar("recordStats", checkStatsRecord.Checked);
             config.setConfigVar("showWeapon", checkShowWeapon.Checked);
             config.setConfigVar("showFirstPersonAmmo", checkShowFirstPersonAmmo.Checked);
             config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
@@ -384,6 +401,12 @@ namespace TAModConfigurationTool
             config.setConfigVar("showSensorIcon", checkHUDIconSensor.Checked);
             config.setConfigVar("showMineIcon", checkHUDIconMine.Checked);
 
+            // Magic Chain
+            config.setConfigVar("useMagicChain", checkMagicChainEnable.Checked);
+            config.setConfigVar("useSmallBullets", checkMagicChainSmallBullets.Checked);
+            config.setConfigVar("centerBulletSpawn", checkMagicChainCenter.Checked);
+            config.setConfigVar("bulletPingMultiplier", Convert.ToSingle(numMagicChainPingMultiplier.Value));
+            config.setConfigVar("bulletSpawnDelay", Convert.ToSingle(numMagicChainSpawnDelay.Value));
 
             // Colour Settings
             // Custom Damage Number Colours
@@ -1396,6 +1419,7 @@ namespace TAModConfigurationTool
             configVarsDefault = new Dictionary<String, Object>()
             {
                 { "showErrorNotifications", true },
+                { "recordStats", false },
                 { "showWeapon", true },
                 { "showRainbow", false },
                 { "showCrosshair", true },
@@ -1454,6 +1478,12 @@ namespace TAModConfigurationTool
                 { "disablePower", false },
                 { "maxSpeedWithFlag", 0 },
                 { "decelerationRateWithFlag", 10 },
+
+                { "useMagicChain", false },
+                { "useSmallBullets", false },
+                { "centerBulletSpawn", false },
+                { "bulletPingMultiplier", 1.0F },
+                { "bulletSpawnDelay", 0.0F },
                 
             };
 
