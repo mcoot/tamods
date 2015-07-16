@@ -62,18 +62,6 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 		else
 			if (g_config.customFlagDroppedEnemy) g_config.s_flagDroppedEnemy.Play();
 		break;
-	case 5: // ???
-		if (myTeam)
-			Utils::printConsole("TrCTFMessage switch 5 triggered by team");
-		else
-			Utils::printConsole("TrCTFMessage switch 5 triggered by enemy");
-		break;
-	case 6: // ???
-		if (myTeam)
-			Utils::printConsole("TrCTFMessage switch 6 triggered by team");
-		else
-			Utils::printConsole("TrCTFMessage switch 6 triggered by enemy");
-		break;
 	}
 
 	return false;
