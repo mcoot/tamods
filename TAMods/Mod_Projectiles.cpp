@@ -329,7 +329,7 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	// Mouse sensitivity
 	if (!g_config.useFOVScaling)
 	{
-		that->PlayerInput->bEnableFOVScaling = false;
+		that->PlayerInput->bEnableFOVScaling = 0;
 		if (that->FOVAngle > 40)
 			that->PlayerInput->MouseSensitivity = g_config.sens;
 		else if (that->FOVAngle == 40)
@@ -338,7 +338,7 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 			that->PlayerInput->MouseSensitivity = g_config.sensZoooom;
 	}
 	else
-		that->PlayerInput->bEnableFOVScaling = true;
+		that->PlayerInput->bEnableFOVScaling = 1;
 
 	Hooks::lock();
 	Utils::tr_pc = that;
