@@ -298,11 +298,11 @@ public:
 	SoundEffect s_multiKill1, s_multiKill2,   s_multiKill3,    s_multiKill4, s_multiKill5;
 	SoundEffect s_firstBlood, s_headShotKill, s_artilleryShot, s_meleeKill,  s_roadKill, s_fastGrab;
 	// Flag events
-	SoundEffect s_flagGrabTeam,	    s_flagGrabEnemy;
-	SoundEffect s_flagPickupTeam,	s_flagPickupEnemy;
-	SoundEffect s_flagCaptureTeam,	s_flagCaptureEnemy;
-	SoundEffect s_flagReturnTeam,	s_flagReturnEnemy;
-	SoundEffect s_flagDroppedTeam,	s_flagDroppedEnemy;
+	SoundEffect s_flagBlueGrab,    s_flagRedGrab;
+	SoundEffect s_flagBluePickup,  s_flagRedPickup;
+	SoundEffect s_flagBlueCapture, s_flagRedCapture;
+	SoundEffect s_flagBlueReturn,  s_flagRedReturn;
+	SoundEffect s_flagBlueDrop,	   s_flagRedDrop;
 	std::vector<SoundEffect*> s_soundEffects;
 	// Pointers to vanilla sounds so we can enable/disable them without searching every time
 	USoundCue *hitsound;
@@ -330,16 +330,16 @@ public:
 	float volumeMultiKill1, volumeMultiKill2,   volumeMultiKill3,    volumeMultiKill4, volumeMultiKill5;
 	float volumeFirstBlood, volumeHeadShotKill, volumeArtilleryShot, volumeMeleeKill,  volumeRoadKill, volumeFastGrab;
 	// Flag events
-	bool  customFlagGrabTeam,    customFlagGrabEnemy;
-	bool  customFlagPickupTeam,  customFlagPickupEnemy;
-	bool  customFlagCaptureTeam, customFlagCaptureEnemy;
-	bool  customFlagReturnTeam,  customFlagReturnEnemy;
-	bool  customFlagDroppedTeam, customFlagDroppedEnemy;
-	float volumeFlagGrabTeam,    volumeFlagGrabEnemy;
-	float volumeFlagPickupTeam,  volumeFlagPickupEnemy;
-	float volumeFlagCaptureTeam, volumeFlagCaptureEnemy;
-	float volumeFlagReturnTeam,  volumeFlagReturnEnemy;
-	float volumeFlagDroppedTeam, volumeFlagDroppedEnemy;
+	bool  customFlagBlueGrab,    customFlagRedGrab;
+	bool  customFlagBluePickup,  customFlagRedPickup;
+	bool  customFlagBlueCapture, customFlagRedCapture;
+	bool  customFlagBlueReturn,  customFlagRedReturn;
+	bool  customFlagBlueDrop,    customFlagRedDrop;
+	float volumeFlagBlueGrab,    volumeFlagRedGrab;
+	float volumeFlagBluePickup,  volumeFlagRedPickup;
+	float volumeFlagBlueCapture, volumeFlagRedCapture;
+	float volumeFlagBlueReturn,  volumeFlagRedReturn;
+	float volumeFlagBlueDrop,    volumeFlagRedDrop;
 
 	// HUD elements toggle
 	static TogglableIcon togglable_icons[];
