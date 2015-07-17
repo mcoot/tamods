@@ -362,6 +362,12 @@ public:
 	float bulletPingMultiplier;
 	float bulletSpawnDelay;
 
+	// Mouse sensitivity
+	bool useFOVScaling;
+	float sens;
+	float sensZoom;
+	float sensZoooom;
+
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;
 

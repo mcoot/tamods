@@ -170,6 +170,12 @@ void Config::reset()
 	bulletPingMultiplier = 1.0f;
 	bulletSpawnDelay     = 0.0f;
 
+	// Mouse sensitivity
+	useFOVScaling        = true;
+	sens                 = 10.0f;
+	sensZoom             = 5.0f;
+	sensZoooom           = 2.0f;
+
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();
 
@@ -527,6 +533,12 @@ void Config::setVariables()
 	SET_VARIABLE(bool, centerBulletSpawn);
 	SET_VARIABLE(float, bulletPingMultiplier);
 	SET_VARIABLE(float, bulletSpawnDelay);
+
+	// Mouse sensitivity
+	SET_VARIABLE(bool, useFOVScaling);
+	SET_VARIABLE(float, sens);
+	SET_VARIABLE(float, sensZoom);
+	SET_VARIABLE(float, sensZoooom);
 }
 
 static int getWeaponID(const std::string &class_name, const std::string &str)
