@@ -188,11 +188,16 @@ void Config::parseFile()
 		directory = std::string("C:\\");
 	reset();
 	lua = Lua();
-	std::string err = lua.doFile(directory + "config.lua");
-	if (err.size())
+
+	if (FILE *config = fopen(std::string(directory + "config.lua").c_str(), "r"))
 	{
-		Utils::console("Lua config error: %s", err.c_str());
-		return;
+		fclose(config);
+		std::string err = lua.doFile(directory + "config.lua");
+		if (err.size())
+		{
+			Utils::console("Lua config error: %s", err.c_str());
+			return;
+		}
 	}
 	if (FILE *custom = fopen(std::string(directory + "custom.lua").c_str(), "r"))
 	{
