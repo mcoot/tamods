@@ -64,6 +64,9 @@ namespace TAModConfigurationTool
 
             config = new Config(directory, "config.lua");
 
+            // Set title text to current config version
+            this.Text = "TAMods Configuration Tool " + config.configVersion;
+
             // Load in the config file
             if (!config.loadConfig())
             {
@@ -160,31 +163,40 @@ namespace TAModConfigurationTool
             selectHitSoundMode.SelectedIndex = 0;
             listHitSound.Items.Clear();
 
-            ConfigSet c = new ConfigSet("Hit Sound");
-            ConfigItem i = new ConfigAssetFileItem("hitsound", "sounds\\hit.wav");
-            (i as ConfigAssetFileItem).doWrite = true;
-            c.Add(i);
-            i = new ConfigVarItem("hitsound_volume", "volumeHitSound", true);
-            c.Add(i);
-            listHitSound.Items.Add(new ConfigSetListWrapper(c));
-            c = new ConfigSet("Blueplate");
-            i = new ConfigAssetFileItem("blueplate", "sounds\\blueplate.wav", "customBluePlateSound");
-            c.Add(i);
-            i = new ConfigVarItem("blueplate_volume", "volumeBluePlate", true);
-            c.Add(i);
-            listHitSound.Items.Add(new ConfigSetListWrapper(c));
-            c = new ConfigSet("Air Mail");
-            i = new ConfigAssetFileItem("airmail", "sounds\\airmail.wav", "customAirMailSound");
-            c.Add(i);
-            i = new ConfigVarItem("airmail_volume", "volumeAirMail", true);
-            c.Add(i);
-            listHitSound.Items.Add(new ConfigSetListWrapper(c));
-            c = new ConfigSet("Head Shot");
-            i = new ConfigAssetFileItem("headshot", "sounds\\headshot.wav", "customHeadShotSound");
-            c.Add(i);
-            i = new ConfigVarItem("headshot_volume", "volumeHeadShot", true);
-            c.Add(i);
-            listHitSound.Items.Add(new ConfigSetListWrapper(c));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Hit Sound", "sounds\\hit.wav", "volumeHitSound", null));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Blueplate", "sounds\\blueplate.wav", "volumeBluePlate", "customBluePlateSound"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Air Mail", "sounds\\airmail.wav", "volumeAirMail", "customAirMailSound"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Head Shot", "sounds\\headshot.wav", "volumeHeadShot", "customHeadShotSound"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Artillery Shot", "sounds\\artilleryshot.wav", "volumeArtilleryShot", "customArtilleryShot"));
+            
+            listHitSound.Items.Add(createCustomSoundListWrapper("Head Shot Kill", "sounds\\headshotkill.wav", "volumeHeadShotKill", "customHeadShotKill"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Melee Kill", "sounds\\meleekill.wav", "volumeMeleeKill", "customMeleeKill"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Road Kill", "sounds\\roadkill.wav", "volumeRoadKill", "customRoadKill"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Fast Grab", "sounds\\fastgrab.wav", "volumeFastGrab", "customFastGrab"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("First Blood", "sounds\\firstblood.wav", "volumeFirstBlood", "customFirstBlood"));
+
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Grab Team", "sounds\\flaggrab_team.wav", "volumeFlagGrabTeam", "customFlagGrabTeam"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Grab Enemy", "sounds\\flaggrab_enemy.wav", "volumeFlagGrabEnemy", "customFlagGrabEnemy"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Pickup Team", "sounds\\flagpickup_team.wav", "volumeFlagPickupTeam", "customFlagPickupTeam"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Pickup Enemy", "sounds\\flagpickup_enemy.wav", "volumeFlagPickupEnemy", "customFlagPickupEnemy"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Capture Team", "sounds\\flagcapture_team.wav", "volumeFlagCaptureTeam", "customFlagCaptureTeam"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Capture Enemy", "sounds\\flagcapture_enemy.wav", "volumeFlagCaptureEnemy", "customFlagCaptureEnemy"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Return Team", "sounds\\flagreturn_team.wav", "volumeFlagReturnTeam", "customFlagReturnTeam"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Return Enemy", "sounds\\flagreturn_enemy.wav", "volumeFlagReturnEnemy", "customFlagReturnEnemy"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Dropped Team", "sounds\\flagdropped_team.wav", "volumeFlagDroppedTeam", "customFlagDroppedTeam"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Dropped Enemy", "sounds\\flagdropped_enemy.wav", "volumeFlagDroppedEnemy", "customFlagDroppedEnemy"));
+
+            listHitSound.Items.Add(createCustomSoundListWrapper("Streak 1", "sounds\\streak1.wav", "volumeStreak1", "customStreak1"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Streak 2", "sounds\\streak2.wav", "volumeStreak2", "customStreak2"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Streak 3", "sounds\\streak3.wav", "volumeStreak3", "customStreak3"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Streak 4", "sounds\\streak4.wav", "volumeStreak4", "customStreak4"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Streak 5", "sounds\\streak5.wav", "volumeStreak5", "customStreak5"));
+
+            listHitSound.Items.Add(createCustomSoundListWrapper("Multi Kill 1", "sounds\\multikill1.wav", "volumeMultiKill1", "customMultiKill1"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Multi Kill 2", "sounds\\multikill2.wav", "volumeMultiKill2", "customMultiKill2"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Multi Kill 3", "sounds\\multikill3.wav", "volumeMultiKill3", "customMultiKill3"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Multi Kill 4", "sounds\\multikill4.wav", "volumeMultiKill4", "customMultiKill4"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Multi Kill 5", "sounds\\multikill5.wav", "volumeMultiKill5", "customMultiKill5"));
 
 
             trackHitSoundVolumeSpecific.Value = 100;
@@ -469,6 +481,17 @@ namespace TAModConfigurationTool
             config.setConfigVar("hitSoundDamageRef", Convert.ToInt32(numHitSoundDamageRef.Value));
             config.setConfigVar("hitSoundPitchMin", Convert.ToSingle(numHitSoundPitchMin.Value));
             config.setConfigVar("hitSoundPitchMax", Convert.ToSingle(numHitSoundPitchMax.Value));
+        }
+
+        private ConfigSetListWrapper createCustomSoundListWrapper(string soundName, string asset, string volumeVar, string enableVar)
+        {
+            ConfigSet c = new ConfigSet(soundName);
+            ConfigItem i = new ConfigAssetFileItem(soundName.Replace(" ", "").Trim().ToLower(), asset, enableVar);
+            (i as ConfigAssetFileItem).doWrite = true;
+            c.Add(i);
+            i = new ConfigVarItem(soundName.Replace(" ", "").Trim().ToLower() + "_volume", volumeVar, true);
+            c.Add(i);
+            return new ConfigSetListWrapper(c);
         }
 
         private void selectLoadoutClass_SelectedIndexChanged(object sender, EventArgs e)
@@ -1360,6 +1383,7 @@ namespace TAModConfigurationTool
         private Lua lua;
         private string configPath;
         private string configFile;
+        private Dictionary<string, List<string>> configVarSections;
         private Dictionary<string, Object> configVars;
         private Dictionary<string, Object> configVarsDefault;
         private List<Loadout> configLoadouts;
@@ -1369,7 +1393,7 @@ namespace TAModConfigurationTool
         private List<ProjectileSwap> configProjectileSwaps;
         private Dictionary<string, string> assetFiles;
         private Dictionary<string, string> assetFilesDefault;
-        private string configVersion = "v0.4";
+        public string configVersion = "v0.4+";
 
         public Config(string configPath, string configFilename)
         {
@@ -1414,6 +1438,72 @@ namespace TAModConfigurationTool
         // Setup the keys for all known config variables
         private void setupConfigVarDict()
         {
+            configVarSections = new Dictionary<string, List<string>>()
+            {
+                { "General", new List<string>()
+                    {
+                        "showErrorNotifications", "recordStats"
+                    }
+                },
+
+                { "Display", new List<string>()
+                    {
+                        "showWeapon", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax"
+                    }
+                },
+
+                { "HUD Icons", new List<string>()
+                    {
+                        "showObjectiveIcon", "showFlagBaseIcon", "showCTFBaseIcon", "showNuggetIcon", "showPlayerIcon", "showVehicleIcon", "showSensorIcon", "showMineIcon"
+                    }
+                },
+
+                { "HUD Colours", new List<string>()
+                    {
+                        "friendlyChatColor", "enemyChatColor", "friendlyHUDChatColor", "enemyHUDChatColor", "friendlyColor", "enemyColor", "friendlyMarkerColor", "friendlyIsFMarkerColor", "enemyMarkerColor", "enemyIsFMarkerColor"
+                    }
+                },
+
+                { "Damage Numbers", new List<string>()
+                    {
+                        "damageNumbersLimit", "showDamageNumberStream", "showChainBulletHitCount", "damageNumberStreamTimeout", "damageNumbersOffsetX", "damageNumbersOffsetY",
+                        "damageNumbersScale", "damageNumberCustomText", "damageNumbersColorMin", "damageNumbersColorMax"
+                    }
+                },
+
+                { "Magic Chain", new List<string>()
+                    {
+                        "useMagicChain", "useSmallBullets", "centerBulletSpawn", "bulletPingMultiplier", "bulletSpawnDelay"
+                    }
+                },
+
+                { "Roam Map", new List<string>()
+                    {
+                        "disableBaseTurrets", "disablePower", "maxSpeedWithFlag", "decelerationRateWithFlag"
+                    }
+                },
+
+                { "Sounds", new List<string>()
+                    {
+                        "hitSoundMode", "hitSoundPitchMin", "hitSoundPitchMax", "hitSoundDamageRef", "volumeHitSound",
+
+                        "customBluePlateSound", "customAirMailSound", "customHeadShotSound", "customArtilleryShot", "customHeadShotKill", "customMeleeKill",
+                        "customRoadKill", "customFastGrab", "customFirstBlood", "customFlagGrabTeam", "customFlagGrabEnemy", "customFlagPickupTeam", "customFlagPickupEnemy",
+                        "customFlagCaptureTeam", "customFlagCaptureEnemy", "customFlagReturnTeam", "customFlagReturnEnemy", "customFlagDroppedTeam", "customFlagDroppedEnemy",
+                        "customStreak1", "customStreak2", "customStreak3", "customStreak4", "customStreak5", "customMultiKill1", "customMultiKill2", "customMultiKill3",
+                        "customMultiKill4", "customMultiKill5",
+
+                        "volumeBluePlate", "volumeAirMail", "volumeHeadShot", "volumeArtilleryShot", "volumeHeadShotKill", "volumeMeleeKill",
+                        "volumeRoadKill", "volumeFastGrab", "volumeFirstBlood", "volumeFlagGrabTeam", "volumeFlagGrabEnemy", "volumeFlagPickupTeam", "volumeFlagPickupEnemy",
+                        "volumeFlagCaptureTeam", "volumeFlagCaptureEnemy", "volumeFlagReturnTeam", "volumeFlagReturnEnemy", "volumeFlagDroppedTeam", "volumeFlagDroppedEnemy",
+                        "volumeStreak1", "volumeStreak2", "volumeStreak3", "volumeStreak4", "volumeStreak5", "volumeMultiKill1", "volumeMultiKill2", "volumeMultiKill3",
+                        "volumeMultiKill4", "volumeMultiKill5"
+                    }
+                },
+
+                
+            };
+            
             configVarsDefault = new Dictionary<String, Object>()
             {
                 { "showErrorNotifications", true },
@@ -1423,7 +1513,6 @@ namespace TAModConfigurationTool
                 { "showCrosshair", true },
                 { "crosshairScale", 1 },
                 { "showFirstPersonAmmo", false },
-
                 { "skiBarMin", 7 },
                 { "skiBarMax", 180 },
 
@@ -1468,15 +1557,33 @@ namespace TAModConfigurationTool
                 { "customAirMailSound", false },
                 { "customBluePlateSound", false },
                 { "customHeadShotSound", false },
-                { "customAccoladeSounds", false },
-                { "customFlagEventSounds", false },
+                
+                { "customStreak1", false }, { "customStreak2", false }, { "customStreak3", false }, { "customStreak4", false }, { "customStreak5", false },
+                { "customMultiKill1", false }, { "customMultiKill2", false }, { "customMultiKill3", false }, { "customMultiKill4", false }, { "customMultiKill5", false },
+                { "customFirstBlood", false }, { "customHeadShotKill", false }, { "customArtilleryShot", false }, { "customMeleeKill", false },
+                { "customRoadKill", false }, { "customFastGrab", false },
+
+                { "customFlagGrabTeam", false }, { "customFlagGrabEnemy", false },
+                { "customFlagPickupTeam", false }, { "customFlagPickupEnemy", false },
+                { "customFlagCaptureTeam", false }, { "customFlagCaptureEnemy", false },
+                { "customFlagReturnTeam", false }, { "customFlagReturnEnemy", false },
+                { "customFlagDroppedTeam", false }, { "customFlagDroppedEnemy", false },
 
                 { "volumeHitSound", 0.55F },
                 { "volumeBluePlate", 1F },
                 { "volumeAirMail", 1F },
                 { "volumeHeadShot", 0.55F },
-                { "volumeAccoladeSounds", 0.55F },
-                { "volumeFlagEvents", 0.55F },
+                
+                { "volumeStreak1", 0.5F }, { "volumeStreak2", 0.5F }, { "volumeStreak3", 0.5F }, { "volumeStreak4", 0.5F }, { "volumeStreak5", 0.5F },
+                { "volumeMultiKill1", 0.5F }, { "volumeMultiKill2", 0.5F }, { "volumeMultiKill3", 0.5F }, { "volumeMultiKill4", 0.5F }, { "volumeMultiKill5", 0.5F },
+                { "volumeFirstBlood", 0.5F }, { "volumeHeadShotKill", 0.5F }, { "volumeArtilleryShot", 0.5F }, { "volumeMeleeKill", 0.5F },
+                { "volumeRoadKill", 0.5F }, { "volumeFastGrab", 0.5F },
+
+                { "volumeFlagGrabTeam", 0.5F }, { "volumeFlagGrabEnemy", 0.5F },
+                { "volumeFlagPickupTeam", 0.5F }, { "volumeFlagPickupEnemy", 0.5F },
+                { "volumeFlagCaptureTeam", 0.5F }, { "volumeFlagCaptureEnemy", 0.5F },
+                { "volumeFlagReturnTeam", 0.5F }, { "volumeFlagReturnEnemy", 0.5F },
+                { "volumeFlagDroppedTeam", 0.5F }, { "volumeFlagDroppedEnemy", 0.5F },
 
                 { "disableBaseTurrets", false },
                 { "disablePower", false },
@@ -1789,6 +1896,162 @@ namespace TAModConfigurationTool
         }
 
         // Config save formats
+        private string[] formatGetStringLines(string s)
+        {
+            return Regex.Split(s, "\r\n|\r|\n");
+        }
+
+        private string formatConfigHeading1(string[] headings, int lineLength, int numBordersTop, int numBordersBottom)
+        {
+            string s = "";
+            string border = "";
+            List<string> msgLines = new List<string>();
+            int curStart = 0;
+            string curLine = "";
+
+            // Create the border lines
+            for (int i = 0; i < lineLength; i++)
+            {
+                border += "-";
+            }
+
+            // Create the message lines
+            for (int i = 0; i<headings.Length; i++)
+            {
+                curLine = "";
+                // Determine where the message should be placed
+                curStart = lineLength / 2 - headings[i].Length / 2;
+
+                // Add preceding dashes
+                for (int j = 0; j < curStart; j++)
+                {
+                    curLine += "-";
+                }
+
+                // Add message
+                curLine += headings[i];
+
+                // Add suffix dashes
+                while (curLine.Length < lineLength)
+                {
+                    curLine += "-";
+                }
+
+                msgLines.Add(curLine);
+            }
+
+            // Construct the final string
+            for (int i = 0; i<numBordersTop; i++)
+            {
+                if (s != "")
+                {
+                    s += System.Environment.NewLine;
+                }
+
+                s += border;
+            }
+            for (int i = 0; i < msgLines.Count; i++)
+            {
+                if (s != "")
+                {
+                    s += System.Environment.NewLine;
+                }
+
+                s += msgLines[i];
+            }
+            for (int i = 0; i < numBordersBottom; i++)
+            {
+                if (s != "")
+                {
+                    s += System.Environment.NewLine;
+                }
+
+                s += border;
+            }
+
+            return s;
+        }
+
+        private string formatConfigHeading2(string heading, int lineLength)
+        {
+            string s = "";
+            string border = "";
+            string msgLine = "";
+            int msgStart = 0;
+
+            // Create the border lines
+            for (int i = 0; i < lineLength; i++)
+            {
+                border += "-";
+            }
+
+            // Determine where the message should be placed
+            msgStart = lineLength / 2 - heading.Length / 2;
+
+            // Add preceding dashes
+            for (int i = 0; i < msgStart; i++)
+            {
+                msgLine += "-";
+            }
+
+            // Add message
+            msgLine += heading;
+
+            // Add suffix dashes
+            while (msgLine.Length < lineLength)
+            {
+                msgLine += "-";
+            }
+
+            s = border + System.Environment.NewLine + msgLine + System.Environment.NewLine + border;
+
+            return s;
+        }
+
+        private string formatConfigHeading3(string heading, int numDashes)
+        {
+            string s = "";
+            string b = "";
+
+            for (int i = 0; i<numDashes; i++)
+            {
+                b += "-";
+            }
+
+            s = b + heading + b;
+
+            return s;
+        }
+
+        private string formatVariable(string variable, object value)
+        {
+            string s = null;
+
+            if (value == null)
+            {
+                return null;
+            }
+
+            if (value is Color)
+            {
+                if (configVars[variable] != null)
+                {
+                    Color c = (Color)value;
+                    s = variable + " = " + formatColor(c);
+                }
+            }
+            else if (value is string)
+            {
+                s = variable + " = \"" + value + "\"";
+            }
+            else
+            {
+                s = variable + " = " + value.ToString().ToLower();
+            }
+
+            return s;
+        }
+
         private string formatColor(Color c)
         {
             if (c.A == 255)
@@ -1856,6 +2119,156 @@ namespace TAModConfigurationTool
 
                 List<string> flines = new List<string>();
 
+                flines.AddRange(formatGetStringLines(formatConfigHeading1(new string[] { "TAMods Lua Configuration Script",
+                                                                                          "Generated by TAMods Configuration Tool "+ configVersion }, 60, 0, 2)));
+                flines.Add("");
+                flines.Add("");
+
+                // Write ConfigVars
+                flines.AddRange(formatGetStringLines(formatConfigHeading2("Config Variables", 40)));
+
+                // Get checklist of vars to write
+                Dictionary<string, bool> configVarHasBeenDone = new Dictionary<string, bool>();
+                foreach (string variable in configVars.Keys)
+                {
+                    configVarHasBeenDone[variable] = false;
+                }
+
+                // Write out each variable section
+                foreach (string section in configVarSections.Keys)
+                {
+                    flines.Add("");
+                    flines.Add(formatConfigHeading3(section, 3));
+                    foreach (string variable in configVarSections[section])
+                    {
+                        if (!configVarHasBeenDone[variable])
+                        {
+                            object value = getConfigVar(variable);
+                            string tmp = formatVariable(variable, value);
+                            if (tmp != null) flines.Add(tmp);
+
+                            configVarHasBeenDone[variable] = true;
+                        }
+                    }
+                }
+
+                // Write out any leftover (non-sectioned) variables
+
+                flines.Add("");
+                flines.Add(formatConfigHeading3("Miscellaneous", 3));
+                foreach (string variable in configVars.Keys)
+                {
+                    if (!configVarHasBeenDone[variable])
+                    {
+                        object value = getConfigVar(variable);
+                        string tmp = formatVariable(variable, value);
+                        if (tmp != null) flines.Add(tmp);
+                    }
+                    
+                    
+                }
+
+                // Custom Loadouts
+                flines.Add("");
+                flines.AddRange(formatGetStringLines(formatConfigHeading2("Custom Loadouts", 40)));
+                flines.Add("");
+                
+                foreach (Loadout l in configLoadouts)
+                {
+                    flines.Add(formatLoadout(l));
+                }
+
+                // Custom Crosshairs
+                flines.Add("");
+                flines.AddRange(formatGetStringLines(formatConfigHeading2("Global Crosshair Settings", 40)));
+                flines.Add("");
+                foreach (CrosshairSetting c in configCrosshairs)
+                {
+                    flines.Add(formatCrosshairSetting(c));
+                }
+
+                // Global Mutes
+                flines.Add("");
+                flines.AddRange(formatGetStringLines(formatConfigHeading2("Globally Muted Players", 40)));
+                flines.Add("");
+                foreach (MutedPlayer player in configMutedPlayers)
+                {
+                    flines.Add(formatMutePlayer(player));
+                }
+
+                // Projectile Swaps
+                flines.Add("");
+                flines.AddRange(formatGetStringLines(formatConfigHeading2("Projectile Swaps", 40)));
+                foreach (ProjectileSwap swap in configProjectileSwaps)
+                {
+                    flines.Add(formatProjectileSwap(swap));
+                }
+                
+                // Projectile Settings
+                flines.Add("");
+                flines.AddRange(formatGetStringLines(formatConfigHeading2("Modified Projectiles", 40)));
+                foreach (ProjectileSetting setting in configProjectileSettings)
+                {
+                    flines.Add(formatProjectileSetting(setting));
+                }
+
+                // Save custom asset files
+                foreach (string key in assetFiles.Keys)
+                {
+                    // If in a subdirectory, make sure the subdirectory exists
+                    if (key.Contains('\\'))
+                    {
+                        string[] dirpath = key.Split('\\');
+                        string builtpath = "";
+                        for (int i = 0; i < dirpath.Length-1; i++)
+                        {
+                            builtpath += dirpath[i];
+                            if (!Directory.Exists(configPath + builtpath))
+                            {
+                                Directory.CreateDirectory(configPath + builtpath);
+                            }
+                        }
+                    }
+                    
+                    // Delete file if not required
+                    if (assetFiles[key] == null)
+                    {
+                        if (File.Exists(configPath + key))
+                        {
+                            System.IO.File.Delete(configPath + key);
+                        }
+                    }
+                    
+                    // Only save if the file is needed and isn't already there
+                    if (assetFiles[key] != null && assetFiles[key] != configPath + key && assetFiles[key].Trim() != "")
+                    {
+                        File.Copy(assetFiles[key], configPath + key, true);
+                    }
+                }
+
+                // Overwrite if required
+                if (File.Exists(configPath + configFile))
+                {
+                    File.Delete(configPath + configFile);
+                }
+
+                File.WriteAllLines(configPath + configFile, flines.ToArray());
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool saveConfig_NoSections()
+        {
+            try
+            {
+
+                List<string> flines = new List<string>();
+
                 flines.Add("----------TAMod Lua Configuration Script----------");
                 flines.Add("------Generated by TAMod Configuration Tool " + configVersion + "--");
                 flines.Add("--------------------------------------------------");
@@ -1892,7 +2305,7 @@ namespace TAModConfigurationTool
                 // Custom Loadouts
                 flines.Add("");
                 flines.Add("--Custom Loadouts");
-                
+
                 foreach (Loadout l in configLoadouts)
                 {
                     flines.Add(formatLoadout(l));
@@ -1921,7 +2334,7 @@ namespace TAModConfigurationTool
                 {
                     flines.Add(formatProjectileSwap(swap));
                 }
-                
+
                 // Projectile Settings
                 flines.Add("");
                 flines.Add("--Modified Projectiles");
@@ -1938,7 +2351,7 @@ namespace TAModConfigurationTool
                     {
                         string[] dirpath = key.Split('\\');
                         string builtpath = "";
-                        for (int i = 0; i < dirpath.Length-1; i++)
+                        for (int i = 0; i < dirpath.Length - 1; i++)
                         {
                             builtpath += dirpath[i];
                             if (!Directory.Exists(configPath + builtpath))
@@ -1947,7 +2360,7 @@ namespace TAModConfigurationTool
                             }
                         }
                     }
-                    
+
                     // Delete file if not required
                     if (assetFiles[key] == null)
                     {
@@ -1956,7 +2369,7 @@ namespace TAModConfigurationTool
                             System.IO.File.Delete(configPath + key);
                         }
                     }
-                    
+
                     // Only save if the file is needed and isn't already there
                     if (assetFiles[key] != null && assetFiles[key] != configPath + key && assetFiles[key].Trim() != "")
                     {
