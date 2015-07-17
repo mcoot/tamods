@@ -30,9 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel19 = new System.Windows.Forms.Panel();
@@ -208,7 +205,6 @@
             this.btnProjectileSwapSave = new System.Windows.Forms.Button();
             this.listProjectileSwap = new System.Windows.Forms.ListBox();
             this.tabHitSounds = new TAModConfigurationTool.TransTabPage();
-            this.labelHitSoundVolumeTied = new System.Windows.Forms.Label();
             this.btnHitSoundFile = new System.Windows.Forms.Button();
             this.panel18 = new System.Windows.Forms.Panel();
             this.trackHitSoundVolumeSpecific = new System.Windows.Forms.TrackBar();
@@ -228,8 +224,10 @@
             this.selectHitSoundMode = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel19.SuspendLayout();
@@ -277,6 +275,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -294,31 +293,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(944, 501);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
-            // fileHitSound
-            // 
-            this.fileHitSound.Filter = "Wave files|*.wav";
-            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // tabControlMain
             // 
@@ -2325,7 +2299,6 @@
             // 
             // tabHitSounds
             // 
-            this.tabHitSounds.Controls.Add(this.labelHitSoundVolumeTied);
             this.tabHitSounds.Controls.Add(this.btnHitSoundFile);
             this.tabHitSounds.Controls.Add(this.panel18);
             this.tabHitSounds.Controls.Add(this.label48);
@@ -2351,18 +2324,6 @@
             this.tabHitSounds.TabIndex = 7;
             this.tabHitSounds.Text = "Custom Sounds";
             this.tabHitSounds.UseVisualStyleBackColor = true;
-            // 
-            // labelHitSoundVolumeTied
-            // 
-            this.labelHitSoundVolumeTied.AutoSize = true;
-            this.labelHitSoundVolumeTied.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHitSoundVolumeTied.Location = new System.Drawing.Point(544, 207);
-            this.labelHitSoundVolumeTied.Name = "labelHitSoundVolumeTied";
-            this.labelHitSoundVolumeTied.Size = new System.Drawing.Size(136, 13);
-            this.labelHitSoundVolumeTied.TabIndex = 78;
-            this.labelHitSoundVolumeTied.Text = "(Tied to accolade volume)";
-            this.labelHitSoundVolumeTied.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.labelHitSoundVolumeTied.Visible = false;
             // 
             // btnHitSoundFile
             // 
@@ -2413,9 +2374,9 @@
             this.checkHitSoundSpecific.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHitSoundSpecific.Location = new System.Drawing.Point(453, 33);
             this.checkHitSoundSpecific.Name = "checkHitSoundSpecific";
-            this.checkHitSoundSpecific.Size = new System.Drawing.Size(128, 17);
+            this.checkHitSoundSpecific.Size = new System.Drawing.Size(124, 17);
             this.checkHitSoundSpecific.TabIndex = 74;
-            this.checkHitSoundSpecific.Text = "Use separate sound";
+            this.checkHitSoundSpecific.Text = "Use Custom Sound";
             this.checkHitSoundSpecific.UseVisualStyleBackColor = true;
             this.checkHitSoundSpecific.CheckedChanged += new System.EventHandler(this.checkHitSoundSpecific_CheckedChanged);
             // 
@@ -2601,6 +2562,31 @@
             this.label28.TabIndex = 46;
             this.label28.Text = "Sound Settings";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(938, 44);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // fileHitSound
+            // 
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2615,10 +2601,9 @@
             this.MinimumSize = new System.Drawing.Size(960, 540);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TAMods Configuration Tool v0.4";
+            this.Text = "TAMods Configuration Tool vX.X";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel19.ResumeLayout(false);
@@ -2688,6 +2673,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2892,7 +2878,6 @@
         private System.Windows.Forms.NumericUpDown numMagicChainSpawnDelay;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.CheckBox checkMagicChainCenter;
-        private System.Windows.Forms.Label labelHitSoundVolumeTied;
     }
 }
 
