@@ -175,16 +175,16 @@ namespace TAModConfigurationTool
             listHitSound.Items.Add(createCustomSoundListWrapper("Fast Grab", "sounds\\fastgrab.wav", "volumeFastGrab", "customFastGrab"));
             listHitSound.Items.Add(createCustomSoundListWrapper("First Blood", "sounds\\firstblood.wav", "volumeFirstBlood", "customFirstBlood"));
 
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Grab Team", "sounds\\flaggrab_team.wav", "volumeFlagGrabTeam", "customFlagGrabTeam"));
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Grab Enemy", "sounds\\flaggrab_enemy.wav", "volumeFlagGrabEnemy", "customFlagGrabEnemy"));
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Pickup Team", "sounds\\flagpickup_team.wav", "volumeFlagPickupTeam", "customFlagPickupTeam"));
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Pickup Enemy", "sounds\\flagpickup_enemy.wav", "volumeFlagPickupEnemy", "customFlagPickupEnemy"));
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Capture Team", "sounds\\flagcapture_team.wav", "volumeFlagCaptureTeam", "customFlagCaptureTeam"));
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Capture Enemy", "sounds\\flagcapture_enemy.wav", "volumeFlagCaptureEnemy", "customFlagCaptureEnemy"));
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Return Team", "sounds\\flagreturn_team.wav", "volumeFlagReturnTeam", "customFlagReturnTeam"));
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Return Enemy", "sounds\\flagreturn_enemy.wav", "volumeFlagReturnEnemy", "customFlagReturnEnemy"));
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Dropped Team", "sounds\\flagdropped_team.wav", "volumeFlagDroppedTeam", "customFlagDroppedTeam"));
-            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Dropped Enemy", "sounds\\flagdropped_enemy.wav", "volumeFlagDroppedEnemy", "customFlagDroppedEnemy"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Blue Grab", "sounds\\flagblue_grab.wav", "volumeFlagBlueGrab", "customFlagBlueGrab"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Red Grab", "sounds\\flagred_grab.wav", "volumeFlagRedGrab", "customFlagRedGrab"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Blue Pickup", "sounds\\flagblue_pickup.wav", "volumeFlagBluePickup", "customFlagBluePickup"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Red Pickup", "sounds\\flagred_pickup.wav", "volumeFlagRedPickup", "customFlagRedPickup"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Blue Capture", "sounds\\flagblue_capture.wav", "volumeFlagBlueCapture", "customFlagBlueCapture"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Red Capture", "sounds\\flagred_capture.wav", "volumeFlagRedCapture", "customFlagRedCapture"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Blue Return", "sounds\\flagblue_return.wav", "volumeFlagBlueReturn", "customFlagBlueReturn"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Red Return", "sounds\\flagred_return.wav", "volumeFlagRedReturn", "customFlagRedReturn"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Blue Drop", "sounds\\flagblue_drop.wav", "volumeFlagBlueDrop", "customFlagBlueDrop"));
+            listHitSound.Items.Add(createCustomSoundListWrapper("Flag Red Drop", "sounds\\flagred_drop.wav", "volumeFlagRedDrop", "customFlagRedDrop"));
 
             listHitSound.Items.Add(createCustomSoundListWrapper("Streak 1", "sounds\\streak1.wav", "volumeStreak1", "customStreak1"));
             listHitSound.Items.Add(createCustomSoundListWrapper("Streak 2", "sounds\\streak2.wav", "volumeStreak2", "customStreak2"));
@@ -1488,14 +1488,14 @@ namespace TAModConfigurationTool
                         "hitSoundMode", "hitSoundPitchMin", "hitSoundPitchMax", "hitSoundDamageRef", "volumeHitSound",
 
                         "customBluePlateSound", "customAirMailSound", "customHeadShotSound", "customArtilleryShot", "customHeadShotKill", "customMeleeKill",
-                        "customRoadKill", "customFastGrab", "customFirstBlood", "customFlagGrabTeam", "customFlagGrabEnemy", "customFlagPickupTeam", "customFlagPickupEnemy",
-                        "customFlagCaptureTeam", "customFlagCaptureEnemy", "customFlagReturnTeam", "customFlagReturnEnemy", "customFlagDroppedTeam", "customFlagDroppedEnemy",
+                        "customRoadKill", "customFastGrab", "customFirstBlood", "customFlagBlueGrab", "customFlagRedGrab", "customFlagBluePickup", "customFlagRedPickup",
+                        "customFlagBlueCapture", "customFlagRedCapture", "customFlagBlueReturn", "customFlagRedReturn", "customFlagBlueDrop", "customFlagRedDrop",
                         "customStreak1", "customStreak2", "customStreak3", "customStreak4", "customStreak5", "customMultiKill1", "customMultiKill2", "customMultiKill3",
                         "customMultiKill4", "customMultiKill5",
 
                         "volumeBluePlate", "volumeAirMail", "volumeHeadShot", "volumeArtilleryShot", "volumeHeadShotKill", "volumeMeleeKill",
-                        "volumeRoadKill", "volumeFastGrab", "volumeFirstBlood", "volumeFlagGrabTeam", "volumeFlagGrabEnemy", "volumeFlagPickupTeam", "volumeFlagPickupEnemy",
-                        "volumeFlagCaptureTeam", "volumeFlagCaptureEnemy", "volumeFlagReturnTeam", "volumeFlagReturnEnemy", "volumeFlagDroppedTeam", "volumeFlagDroppedEnemy",
+                        "volumeRoadKill", "volumeFastGrab", "volumeFirstBlood", "volumeFlagBlueGrab", "volumeFlagRedGrab", "volumeFlagBluePickup", "volumeFlagRedPickup",
+                        "volumeFlagBlueCapture", "volumeFlagRedCapture", "volumeFlagBlueReturn", "volumeFlagRedReturn", "volumeFlagBlueDrop", "volumeFlagRedDrop",
                         "volumeStreak1", "volumeStreak2", "volumeStreak3", "volumeStreak4", "volumeStreak5", "volumeMultiKill1", "volumeMultiKill2", "volumeMultiKill3",
                         "volumeMultiKill4", "volumeMultiKill5"
                     }
@@ -1563,11 +1563,11 @@ namespace TAModConfigurationTool
                 { "customFirstBlood", false }, { "customHeadShotKill", false }, { "customArtilleryShot", false }, { "customMeleeKill", false },
                 { "customRoadKill", false }, { "customFastGrab", false },
 
-                { "customFlagGrabTeam", false }, { "customFlagGrabEnemy", false },
-                { "customFlagPickupTeam", false }, { "customFlagPickupEnemy", false },
-                { "customFlagCaptureTeam", false }, { "customFlagCaptureEnemy", false },
-                { "customFlagReturnTeam", false }, { "customFlagReturnEnemy", false },
-                { "customFlagDroppedTeam", false }, { "customFlagDroppedEnemy", false },
+                { "customFlagBlueGrab", false }, { "customFlagRedGrab", false },
+                { "customFlagBluePickup", false }, { "customFlagRedPickup", false },
+                { "customFlagBlueCapture", false }, { "customFlagRedCapture", false },
+                { "customFlagBlueReturn", false }, { "customFlagRedReturn", false },
+                { "customFlagBlueDrop", false }, { "customFlagRedDrop", false },
 
                 { "volumeHitSound", 0.55F },
                 { "volumeBluePlate", 1F },
@@ -1579,11 +1579,11 @@ namespace TAModConfigurationTool
                 { "volumeFirstBlood", 0.5F }, { "volumeHeadShotKill", 0.5F }, { "volumeArtilleryShot", 0.5F }, { "volumeMeleeKill", 0.5F },
                 { "volumeRoadKill", 0.5F }, { "volumeFastGrab", 0.5F },
 
-                { "volumeFlagGrabTeam", 0.5F }, { "volumeFlagGrabEnemy", 0.5F },
-                { "volumeFlagPickupTeam", 0.5F }, { "volumeFlagPickupEnemy", 0.5F },
-                { "volumeFlagCaptureTeam", 0.5F }, { "volumeFlagCaptureEnemy", 0.5F },
-                { "volumeFlagReturnTeam", 0.5F }, { "volumeFlagReturnEnemy", 0.5F },
-                { "volumeFlagDroppedTeam", 0.5F }, { "volumeFlagDroppedEnemy", 0.5F },
+                { "volumeFlagBlueGrab", 0.5F }, { "volumeFlagRedGrab", 0.5F },
+                { "volumeFlagBluePickup", 0.5F }, { "volumeFlagRedPickup", 0.5F },
+                { "volumeFlagBlueCapture", 0.5F }, { "volumeFlagRedCapture", 0.5F },
+                { "volumeFlagBlueReturn", 0.5F }, { "volumeFlagRedReturn", 0.5F },
+                { "volumeFlagBlueDrop", 0.5F }, { "volumeFlagRedDrop", 0.5F },
 
                 { "disableBaseTurrets", false },
                 { "disablePower", false },
@@ -1631,16 +1631,16 @@ namespace TAModConfigurationTool
                 { "sounds\\roadkill.wav", null },
                 { "sounds\\fastgrab.wav", null },
 
-                { "sounds\\flaggrab_team.wav", null },
-                { "sounds\\flaggrab_enemy.wav", null },
-                { "sounds\\flagpickup_team.wav", null },
-                { "sounds\\flagpickup_enemy.wav", null },
-                { "sounds\\flagcapture_team.wav", null },
-                { "sounds\\flagcapture_enemy.wav", null },
-                { "sounds\\flagreturn_team.wav", null },
-                { "sounds\\flagreturn_enemy.wav", null },
-                { "sounds\\flagdropped_team.wav", null },
-                { "sounds\\flagdropped_enemy.wav", null },
+                { "sounds\\flagblue_grab.wav", null },
+                { "sounds\\flagred_grab.wav", null },
+                { "sounds\\flagblue_pickup.wav", null },
+                { "sounds\\flagred_pickup.wav", null },
+                { "sounds\\flagblue_capture.wav", null },
+                { "sounds\\flagred_capture.wav", null },
+                { "sounds\\flagblue_return.wav", null },
+                { "sounds\\flagred_return.wav", null },
+                { "sounds\\flagblue_drop.wav", null },
+                { "sounds\\flagred_drop.wav", null },
             };
 
             assetFiles = new Dictionary<string, string>();
