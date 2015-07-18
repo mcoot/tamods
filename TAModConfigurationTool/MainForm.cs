@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ServiceProcess;
 using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -1375,6 +1376,23 @@ namespace TAModConfigurationTool
                 selectHitSoundFileSpecific_Changed(fileHitSound, EventArgs.Empty);
             }
         }
+
+        private void btnInject_Click(object sender, EventArgs e)
+        {
+            //Init Injector process
+            Process wJect = new Process();
+            wJect.StartInfo.FileName = Path.Combine(Directory.GetCurrentDirectory(), "Resources\\ACDontop.exe");
+
+            //Admin rights()
+            wJect.StartInfo.Verb = "runas";
+
+            wJect.StartInfo.Arguments = "/dllname:TAMods.dll" + " /exename:TribesAscend.exe";         
+
+            //Execute injection
+            //TODO MUCH TESTING, POSSIBLE ISSUES, PROBABLY SHOULD LOCK MAIN APP
+            wJect.Start();
+        }
+
 
     }
 
