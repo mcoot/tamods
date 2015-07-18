@@ -93,8 +93,11 @@ bool TrPC_PressedSki(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0
 	{
 		ATrPawn *pawn = (ATrPawn *)that->Pawn;
-		pawn->m_fMaxSpeedWithFlag = (float)g_config.maxSpeedWithFlag / 0.072f;
-		pawn->m_fDecelerationRateWithFlag = (float)g_config.decelerationRateWithFlag / 0.072f;
+		if (pawn)
+		{
+			pawn->m_fMaxSpeedWithFlag = (float)g_config.maxSpeedWithFlag / 0.072f;
+			pawn->m_fDecelerationRateWithFlag = (float)g_config.decelerationRateWithFlag / 0.072f;
+		}
 	}
 	return false;
 }
