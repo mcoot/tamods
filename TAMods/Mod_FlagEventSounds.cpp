@@ -21,46 +21,128 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 	ATrPlayerReplicationInfo *relatedPRI = (ATrPlayerReplicationInfo *)params->RelatedPRI;
 	AUTTeamInfo *teamInfo = (AUTTeamInfo *)params->OptionalObject;
 
-	bool myTeam;
-	// TODO: team index check so both teams still have separat sounds when spectating
+	// If we are spectating, DS is considered our team (blue).
+	unsigned char myTeam = that->GetTeamNum() == 255 ? 1 : that->GetTeamNum();
+	bool isOurFlag;
+
 	if (msgClass == "TrCTFHUDMessage")
-		myTeam = true;
+		isOurFlag = false;
 	else if (relatedPRI)
-		myTeam = that->GetTeamNum() == relatedPRI->GetTeamNum();
+		isOurFlag = myTeam != relatedPRI->GetTeamNum();
 	else if (teamInfo)
-		myTeam = (int)that->GetTeamNum() == teamInfo->TeamIndex;
+		isOurFlag = (int)myTeam == teamInfo->TeamIndex;
 
 	switch (params->Switch)
 	{
 	case 0: // Grab
-		if (myTeam)
-			if (g_config.customFlagGrabTeam) g_config.s_flagGrabTeam.Play();
+		if (isOurFlag)
+		{
+			//Utils::notify(L"Flag event", "Blue flag taken from stand");
+			//Utils::printConsole("Blue flag taken from stand");
+			if (g_config.customFlagBlueGrab)
+			{
+				g_config.s_flagBlueReturn.Stop();
+				g_config.s_flagBlueDrop.Stop();
+				g_config.s_flagBlueGrab.Play();
+			}
+		}
 		else
-			if (g_config.customFlagGrabEnemy) g_config.s_flagGrabEnemy.Play();
+		{
+			//Utils::notify(L"Flag event", "Red flag taken from stand");
+			//Utils::printConsole("Red flag taken from stand");
+			if (g_config.customFlagRedGrab)
+			{
+				g_config.s_flagRedReturn.Stop();
+				g_config.s_flagRedDrop.Stop();
+				g_config.s_flagRedGrab.Play();
+			}
+		}
 		break;
 	case 1: // Pickup
-		if (myTeam)
-			if (g_config.customFlagPickupTeam) g_config.s_flagPickupTeam.Play();
+		if (isOurFlag)
+		{
+			//Utils::notify(L"Flag event", "Blue flag picked up");
+			//Utils::printConsole("Blue flag picked up");
+			if (g_config.customFlagBluePickup)
+			{
+				g_config.s_flagBlueDrop.Stop();
+				g_config.s_flagBluePickup.Play();
+			}
+		}
 		else
-			if (g_config.customFlagPickupEnemy) g_config.s_flagPickupEnemy.Play();
+		{
+			//Utils::notify(L"Flag event", "Red flag picked up");
+			//Utils::printConsole("Red flag picked up");
+			if (g_config.customFlagRedPickup)
+			{
+				g_config.s_flagRedDrop.Stop();
+				g_config.s_flagRedPickup.Play();
+			}
+		}
 		break;
 	case 2: // Cap
-		if (myTeam)
-			if (g_config.customFlagCaptureTeam) g_config.s_flagCaptureTeam.Play();
+		if (isOurFlag)
+		{
+			//Utils::notify(L"Flag event", "Blue flag captured");
+			//Utils::printConsole("Blue flag captured");
+			if (g_config.customFlagBlueCapture)
+			{
+				g_config.s_flagBlueDrop.Stop();
+				g_config.s_flagBluePickup.Stop();
+				g_config.s_flagBlueCapture.Play();
+			}
+		}
 		else
-			if (g_config.customFlagCaptureEnemy) g_config.s_flagCaptureEnemy.Play();
+		{
+			//Utils::notify(L"Flag event", "Red flag captured");
+			//Utils::printConsole("Red flag captured");
+			if (g_config.customFlagRedCapture)
+			{
+				g_config.s_flagRedDrop.Stop();
+				g_config.s_flagRedPickup.Stop();
+				g_config.s_flagRedCapture.Play();
+			}
+		}
 		break;
 	case 3: // Return (includes automatic return)
-		if (myTeam)
-			if (g_config.customFlagReturnTeam) g_config.s_flagReturnTeam.Play();
+		if (isOurFlag)
+		{
+			//Utils::notify(L"Flag event", "Blue flag returned");
+			//Utils::printConsole("Blue flag returned");
+			if (g_config.customFlagBlueReturn)
+			{
+				g_config.s_flagBluePickup.Stop();
+				g_config.s_flagBlueDrop.Stop();
+				g_config.s_flagBlueReturn.Play();
+			}
+		}
 		else
-			if (g_config.customFlagReturnEnemy) g_config.s_flagReturnEnemy.Play();
+		{
+			//Utils::notify(L"Flag event", "Red flag returned");
+			//Utils::printConsole("Red flag returned");
+			if (g_config.customFlagRedReturn)
+			{
+				g_config.s_flagRedPickup.Stop();
+				g_config.s_flagRedDrop.Stop();
+				g_config.s_flagRedReturn.Play();
+			}
+		}
 		break;
 	case 4: // Dropped
-		if (myTeam)
-			if (g_config.customFlagDroppedTeam) g_config.s_flagDroppedTeam.Play();
+		if (isOurFlag)
+		{
+			//Utils::notify(L"Flag event", "Blue flag dropped");
+			//Utils::printConsole("Blue flag dropped");
+			if (g_config.customFlagBlueDrop)
+				g_config.s_flagBlueDrop.Play();
+		}
 		else
-			if (g_config.customFlagDroppedEnemy) g_config.s_flagDroppedEnemy.Play();
+		{
+			//Utils::notify(L"Flag event", "Red flag dropped");
+			//Utils::printConsole("Red flag dropped");
+			if (g_config.customFlagRedDrop)
+				g_config.s_flagRedDrop.Play();
+		}
 		break;
 	}
 

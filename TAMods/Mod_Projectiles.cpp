@@ -326,6 +326,20 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_eventPlayerTick_Parms *params = (ATrPlayerController_eventPlayerTick_Parms *) pParams;
 
+	// Mouse sensitivity
+	if (!g_config.useFOVScaling)
+	{
+		that->PlayerInput->bEnableFOVScaling = 0;
+		if (that->FOVAngle > 40)
+			that->PlayerInput->MouseSensitivity = g_config.sens;
+		else if (that->FOVAngle == 40)
+			that->PlayerInput->MouseSensitivity = g_config.sensZoom;
+		else
+			that->PlayerInput->MouseSensitivity = g_config.sensZoooom;
+	}
+	else
+		that->PlayerInput->bEnableFOVScaling = 1;
+
 	Hooks::lock();
 	Utils::tr_pc = that;
 	if (g_config.useMagicChain)
@@ -344,24 +358,33 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 				FVector &loc = curr_proj.location;
 				FVector dir = Geom::rotationToVector(curr_proj.rotation);
 				float delay = -curr_proj.delay + g_config.bulletSpawnDelay;
-				float v0 = 1.0f;
-				float vmax = default_proj->MaxSpeed;
-				float a = 100000.0f; // default_proj->AccelRate
-				float tmax = (vmax - v0) / a;
 				float dist = 0;
 				float speed = 0;
 
-				if (delay < tmax)
+				if (g_config.useSmallBullets)
 				{
-					// d(x) = v0*x + (a/2)x²
-					dist = v0 * delay + a * 0.5f * delay * delay;
-					speed = v0 + delay * a;
+					dist = default_proj->MaxSpeed * delay;
+					speed = default_proj->MaxSpeed;
 				}
 				else
 				{
-					dist = v0 * tmax + a * 0.5f * tmax * tmax;
-					dist += (delay - tmax) * vmax;
-					speed = vmax;
+					float v0 = 1.0f;
+					float vmax = default_proj->MaxSpeed;
+					float a = 100000.0f; // default_proj->AccelRate
+					float tmax = (vmax - v0) / a;
+
+					if (delay < tmax)
+					{
+						// d(x) = v0*x + (a/2)x²
+						dist = v0 * delay + a * 0.5f * delay * delay;
+						speed = v0 + delay * a;
+					}
+					else
+					{
+						dist = v0 * tmax + a * 0.5f * tmax * tmax;
+						dist += (delay - tmax) * vmax;
+						speed = vmax;
+					}
 				}
 				loc.X += dir.X * dist;
 				loc.Y += dir.Y * dist;
@@ -387,7 +410,6 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 						proj->InitProjectile(dir, curr_proj.init_class);
 					PostInitProjectile(proj, dir, speed);
 
-					proj->Speed += proj->AccelRate * delay;
 					if (proj->Speed > proj->MaxSpeed)
 						proj->Speed = proj->MaxSpeed;
 				}
