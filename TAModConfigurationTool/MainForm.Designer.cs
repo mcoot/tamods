@@ -226,6 +226,7 @@
             this.label28 = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.btnInject = new System.Windows.Forms.Button();
             this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -625,7 +626,7 @@
             this.checkHUDIconVehicle.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDIconVehicle.Location = new System.Drawing.Point(10, 119);
             this.checkHUDIconVehicle.Name = "checkHUDIconVehicle";
-            this.checkHUDIconVehicle.Size = new System.Drawing.Size(125, 17);
+            this.checkHUDIconVehicle.Size = new System.Drawing.Size(124, 17);
             this.checkHUDIconVehicle.TabIndex = 12;
             this.checkHUDIconVehicle.Text = "Show Vehicle Icons";
             this.checkHUDIconVehicle.UseVisualStyleBackColor = true;
@@ -778,7 +779,7 @@
             this.radioDamageNumberCustomText.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioDamageNumberCustomText.Location = new System.Drawing.Point(4, 91);
             this.radioDamageNumberCustomText.Name = "radioDamageNumberCustomText";
-            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(122, 17);
+            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(121, 17);
             this.radioDamageNumberCustomText.TabIndex = 25;
             this.radioDamageNumberCustomText.TabStop = true;
             this.radioDamageNumberCustomText.Text = "Show Custom Text:";
@@ -1841,7 +1842,7 @@
             this.checkMuteText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.checkMuteText.Location = new System.Drawing.Point(7, 83);
             this.checkMuteText.Name = "checkMuteText";
-            this.checkMuteText.Size = new System.Drawing.Size(76, 17);
+            this.checkMuteText.Size = new System.Drawing.Size(75, 17);
             this.checkMuteText.TabIndex = 58;
             this.checkMuteText.Text = "Mute Text";
             this.checkMuteText.UseVisualStyleBackColor = true;
@@ -2566,6 +2567,7 @@
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
             this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Controls.Add(this.btnInject);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 454);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -2581,6 +2583,17 @@
             this.btnSaveConfig.Text = "Save Config";
             this.btnSaveConfig.UseVisualStyleBackColor = true;
             this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // btnInject
+            // 
+            this.btnInject.Enabled = false;
+            this.btnInject.Location = new System.Drawing.Point(101, 3);
+            this.btnInject.Name = "btnInject";
+            this.btnInject.Size = new System.Drawing.Size(92, 31);
+            this.btnInject.TabIndex = 2;
+            this.btnInject.Text = "Inject";
+            this.btnInject.UseVisualStyleBackColor = true;
+            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
             // 
             // fileHitSound
             // 
@@ -2878,6 +2891,7 @@
         private System.Windows.Forms.NumericUpDown numMagicChainSpawnDelay;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.CheckBox checkMagicChainCenter;
+        private System.Windows.Forms.Button btnInject;
     }
 }
 
