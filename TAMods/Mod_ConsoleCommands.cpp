@@ -262,14 +262,6 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 									((ATrGame_TRCTF *)gi)->m_Flags[i]->SendHome(that->m_TrPC);
 							}
 						}
-						else if (gi->IsA(ATrGame_TrCTFBlitz::StaticClass()))
-						{
-							for (int i = 0; i < 2; i++)
-							{
-								if (((ATrGame_TrCTFBlitz *)gi)->m_Flags[i]->GetStateName() == FName("Dropped"))
-									((ATrGame_TrCTFBlitz *)gi)->m_Flags[i]->SendHome(that->m_TrPC);
-							}
-						}
 					}
 				}
 
