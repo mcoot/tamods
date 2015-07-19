@@ -32,6 +32,7 @@
             this.btnLaunchTribes = new System.Windows.Forms.Button();
             this.progressUpdate = new System.Windows.Forms.ProgressBar();
             this.checkAutoUpdate = new System.Windows.Forms.CheckBox();
+            this.labelCurrentDownload = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnUpdateInject
@@ -42,6 +43,7 @@
             this.btnUpdateInject.TabIndex = 0;
             this.btnUpdateInject.Text = "Update / Inject";
             this.btnUpdateInject.UseVisualStyleBackColor = true;
+            this.btnUpdateInject.Click += new System.EventHandler(this.btnUpdateInject_Click);
             // 
             // btnLaunchTribes
             // 
@@ -71,11 +73,22 @@
             this.checkAutoUpdate.Text = "Automatically Check For Updates";
             this.checkAutoUpdate.UseVisualStyleBackColor = true;
             // 
+            // labelCurrentDownload
+            // 
+            this.labelCurrentDownload.AutoSize = true;
+            this.labelCurrentDownload.Location = new System.Drawing.Point(12, 340);
+            this.labelCurrentDownload.Name = "labelCurrentDownload";
+            this.labelCurrentDownload.Size = new System.Drawing.Size(119, 13);
+            this.labelCurrentDownload.TabIndex = 4;
+            this.labelCurrentDownload.Text = "Currently Downloading: ";
+            this.labelCurrentDownload.Visible = false;
+            // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 349);
+            this.ClientSize = new System.Drawing.Size(698, 367);
+            this.Controls.Add(this.labelCurrentDownload);
             this.Controls.Add(this.checkAutoUpdate);
             this.Controls.Add(this.progressUpdate);
             this.Controls.Add(this.btnLaunchTribes);
@@ -94,6 +107,7 @@
         private System.Windows.Forms.Button btnLaunchTribes;
         private System.Windows.Forms.ProgressBar progressUpdate;
         private System.Windows.Forms.CheckBox checkAutoUpdate;
+        private System.Windows.Forms.Label labelCurrentDownload;
     }
 }
 
