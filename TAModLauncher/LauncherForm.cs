@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace TAModLauncher
 {
@@ -15,6 +16,14 @@ namespace TAModLauncher
         public LauncherForm()
         {
             InitializeComponent();
+        }
+
+        private void LauncherForm_Load(object sender, EventArgs e)
+        {
+            TAModUpdater updater = new TAModUpdater();
+
+            updater.loadLocalManifest();
+            updater.loadServerManifest();
         }
     }
 }
