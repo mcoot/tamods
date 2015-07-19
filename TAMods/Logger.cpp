@@ -48,3 +48,20 @@ void Logger::log(const char *format, ...)
 	fprintf(_file, "%s\n", buff);
 	fflush(_file);
 }
+
+void Logger::noln(const char *format, ...)
+{
+	char buff[256];
+	va_list args;
+
+	if (_quiet)
+		return;
+
+	if (!openFile())
+		return;
+
+	va_start(args, format);
+	vsprintf(buff, format, args);
+	va_end(args);
+	fprintf(_file, buff);
+}

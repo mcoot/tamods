@@ -171,6 +171,165 @@ static void Scoreboard_Fix(UTrScoreboard *that)
 	}
 }
 
+void printUntypedBulkData(FUntypedBulkData_Mirror &bulk, const char *name)
+{
+	static UTexture2D *def = UObject::FindObject<UTexture2D>("Texture2D TribesMenu.LoadingScene.LoadingScene_I2");
+	int *intdata = (int *)bulk.VfTable.Dummy;
+
+	Logger::log("%s: (VfTable:%x, BulkData:%x, AttachedAr:%x)", name, bulk.VfTable, bulk.BulkData, bulk.AttachedAr);
+	Logger::log("%s NormalElements: (Flags:%d, ElementCount:%d, Offset:%x, SizeOnDisk:%d)", name, bulk.BulkDataFlags, bulk.ElementCount, bulk.BulkDataOffsetInFile, bulk.BulkDataSizeOnDisk);
+	Logger::log("%s SavedElements: (Flags:%d, ElementCount:%d, Offset:%x, SizeOnDisk:%d)", name, bulk.SavedBulkDataFlags, bulk.SavedElementCount, bulk.SavedBulkDataOffsetInFile, bulk.SavedBulkDataSizeOnDisk);
+	//bulk.BulkDataOffsetInFile = ((FTexture2DMipMap *)((int *)def->Mips.Data.Dummy)[0])->Data.BulkDataOffsetInFile;
+	if (bulk.VfTable.Dummy && bulk.BulkDataSizeOnDisk)
+	{
+		return;
+		unsigned char *data = ((unsigned char *)bulk.VfTable.Dummy) + bulk.BulkDataOffsetInFile;
+		int linesz = 40;
+		for (int y = 0; y * linesz < bulk.BulkDataSizeOnDisk; y++)
+		{
+			Logger::noln("Data[%08x]:", y * linesz);
+			for (int i = 0; i < linesz && linesz * y + i < bulk.BulkDataSizeOnDisk; i++)
+			{
+				Logger::noln(" %02x", data[linesz * y + i]);
+				//if ((linesz * y + i) / 2048 < 1024)
+				//	data[linesz * y + i] = 0;
+			}
+			Logger::log("");
+		}
+	}
+}
+
+void printMips(int mip_ptr, int i)
+{
+	FTexture2DMipMap *mip = (FTexture2DMipMap *)((int *)mip_ptr)[10 * i + i];
+
+	Logger::log("\tMip#%d Size: (%d, %d)", i, mip->SizeX, mip->SizeY);
+	printUntypedBulkData(mip->Data, "\tMip UntypedBulkData");
+}
+
+struct FUnknownStruct1
+{
+	int format;
+	unsigned int flags;
+	unsigned char zeroes[12];
+	int *common_ptr;
+	int more_flags;
+	int *ptr;
+};
+
+struct FUnknownStruct2
+{
+	unsigned char data[0x30];
+};
+
+struct FTextureResource
+{
+	unsigned char *unknown_ptr1; // Common to all structs
+	FTextureResource *self; // Pointer to this struct
+	int *prev_self; // Pointer to the self field of the previous FTextureResource
+	int *next_prev; // Pointer to the prev field of the next FTextureResource
+	int flags; // 1 or something that looks like an address
+	FUnknownStruct1 *unknown_struct1; // Struct of size 20
+	FUnknownStruct2 *unknown_struct2;
+	int unknown_int1; // 0xe0000000
+	int unknown_int2; // 0xc7efffff
+	int unknown_int3; // 0x3f800000
+	unsigned char unknown_data1[0x1C]; // 00
+	UTexture2D *texture; // Texture containing this Resource
+	unsigned char unknown_data2[0xC0];
+	FUnknownStruct1 *unknown_struct1_bis; // Same as unknown_struct1
+	unsigned char unknown_data3[0x34];
+};
+
+void printResource(FTextureResource *res)
+{
+	static UTexture2D *def = UObject::FindObject<UTexture2D>("Texture2D TribesMenu.LoadingScene.LoadingScene_I2");
+	
+	Logger::log("Resource: %x, Common Pointer: %x, Flags: %d", res, res->unknown_ptr1, res->flags);
+	Logger::log("Unknown Structure 1 @ %p: format:%x, flags:%x, ptr:%p", res->unknown_struct1, res->unknown_struct1->format, res->unknown_struct1->flags, res->unknown_struct1->ptr);
+	for (int x = 0; x < 4; x++)
+	{
+		Logger::noln("%04x:", x * 0x10 * 4);
+		for (int i = 0; i < 0x10; i++)
+			Logger::noln(" %08x", ((int *)res->unknown_struct1)[x * 0x10 + i]);
+		Logger::log("");
+	}
+	for (int x = 0; x < 40; x++)
+	{
+		Logger::log("%08x:", ((int *)res->unknown_struct1->ptr)[x]);
+	}
+
+	res->unknown_struct1 = ((FTextureResource *)def->Resource.Dummy)->unknown_struct1;
+
+}
+
+void printTexture(UTexture *that, bool inherited = false)
+{
+	Logger::log("--------------------------------------------------------------------------------");
+	if (!inherited)
+		Logger::log("Texture: %s @ %p", that->GetFullName(), that);
+	else
+		Logger::log("Texture Base");
+	Logger::log("SRGB:%d, RGBE:%d", that->SRGB, that->RGBE);
+	Logger::log("IsSourceArtUncompressed: %d", that->bIsSourceArtUncompressed);
+	Logger::log("Compression: (NoAlpha:%d, None:%d, NoMipmaps:%d, FullDynamicRange:%d, Defer:%d)", that->CompressionNoAlpha, that->CompressionNone, that->CompressionNoMipmaps, that->CompressionFullDynamicRange, that->DeferCompression);
+	Logger::log("NeverStream:%d, DitherMipmapAlpha: %d", that->NeverStream, that->bDitherMipMapAlpha);
+	Logger::log("PreserveBorder: (r:%d, g:%d, b:%d, a:%d)", that->bPreserveBorderR, that->bPreserveBorderG, that->bPreserveBorderB, that->bPreserveBorderA);
+	Logger::log("NoTiling:%d, ForcePVRTC4:%d, AsyncResourceReleaseHasBeenStarted:%d, UseCinematicMipLevels:%d", that->bNoTiling, that->bForcePVRTC4, that->bAsyncResourceReleaseHasBeenStarted, that->bUseCinematicMipLevels);
+	Logger::log("UnpackMin: (%.3f, %.3f, %.3f, %.3f), UnpackMax: (%.3f, %.3f, %.3f, %.3f)", that->UnpackMin[0], that->UnpackMin[1], that->UnpackMin[2], that->UnpackMin[3], that->UnpackMax[0], that->UnpackMax[1], that->UnpackMax[2], that->UnpackMax[3]);
+	printUntypedBulkData(that->SourceArt, "SourceArt");
+	Logger::log("SourceFilePath: %s", Utils::f2std(that->SourceFilePath).c_str());
+	Logger::log("SourceFileTimestamp: %s", Utils::f2std(that->SourceFileTimestamp).c_str());
+	Logger::log("Resource: %x", that->Resource);
+	printResource((FTextureResource *) that->Resource.Dummy);
+
+	Logger::log("");
+}
+
+void printTexture2D(UTexture2D *that, bool inherited = false)
+{
+	Logger::log("--------------------------------------------------------------------------------");
+	if (!inherited)
+		Logger::log("Texture2D: %s @ %p", that->GetFullName(), that);
+	else
+		Logger::log("Texture2D Base");
+	Logger::log("Mips: (data=%08x, num=%d, max=%d)", that->Mips.Data, that->Mips.ArrayNum, that->Mips.ArrayMax);
+	for (int i = 0; i < that->Mips.ArrayNum; i++)
+		printMips(that->Mips.Data.Dummy, i);
+	Logger::log("CachedPVRTCMips: (data=%08x, num=%d, max=%d)", that->CachedPVRTCMips.Data, that->CachedPVRTCMips.ArrayNum, that->CachedPVRTCMips.ArrayMax);
+	Logger::log("Size: (%d, %d)", that->SizeX, that->SizeY);
+	Logger::log("OriginalSize: (%d, %d)", that->OriginalSizeX, that->OriginalSizeY);
+	Logger::log("Format: %d", that->Format);
+	Logger::log("Address: (%d, %d)", that->AddressX, that->AddressY);
+	Logger::log("IsStreamable:%d, HasCancelationPending:%d, HasBeenLoadedFromPersistentArchive:%d, ForceMipLevelsToBeResident:%d, GlobalForceMipLevelsToBeResident:%d", that->bIsStreamable, that->bHasCancelationPending, that->bHasBeenLoadedFromPersistentArchive, that->bForceMiplevelsToBeResident, that->bGlobalForceMipLevelsToBeResident);
+	Logger::log("ForceMipLevelsToBeResidentTimestamp: %f", that->ForceMipLevelsToBeResidentTimestamp);
+	Logger::log("CacheName: %s", that->TextureFileCacheName.GetName());
+	Logger::log("CacheGUID: %x-%x-%x-%x", that->TextureFileCacheGuid.A, that->TextureFileCacheGuid.B, that->TextureFileCacheGuid.C, that->TextureFileCacheGuid.D);
+	Logger::log("RequestedMips:%d, ResidentMips:%d", that->RequestedMips, that->ResidentMips);
+	Logger::log("SystemMemoryData: (data=%d, size=%d)", that->SystemMemoryData.Data, that->SystemMemoryData.Count);
+	Logger::log("StreamableTexturesLink: (elm:%x, next=%x, prev=%x)", that->StreamableTexturesLink.Element, that->StreamableTexturesLink.Next, that->StreamableTexturesLink.PrevLink);
+	Logger::log("StreamingIndex: %d, MipTailBaseIdx: %d", that->StreamingIndex, that->MipTailBaseIdx);
+	Logger::log("ResourceMem: %x", that->ResourceMem);
+	Logger::log("FirstResourceMemMip:%d, Timer: %f", that->FirstResourceMemMip, that->Timer);
+	printTexture(that, true);
+	//Logger::log("");
+}
+
+void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale = 1.0f)
+{
+	canvas->CurX = x;
+	canvas->CurY = y;
+	canvas->DrawTile(tex, (float) tex->SizeX * scale, (float) tex->SizeY * scale, 0, 0, (float) tex->SizeX, (float) tex->SizeY, {1.0f, 1.0f, 1.0f, 1.0f}, 0, 0);
+}
+
+void myDraw(UCanvas *canvas)
+{
+	static UTexture2D *tex = UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I40");
+	printTexture2D(tex);
+
+	drawTexture(canvas, tex, 5.0f, 5.0f, 0.5f);
+}
+
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	static FColor rainbow_cols[] = {
@@ -255,6 +414,8 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	that->UpdateFumbledFlagEffect();
 	my_UpdateOverheadNumbers(that, that->RenderDelta);
 	that->UpdateOwnedItems();
+
+	myDraw(that->Canvas);
 
 	if (that->bRestoreHUDState)
 	{
