@@ -254,6 +254,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	that->UpdateWhiteoutEffect();
 	that->UpdateFumbledFlagEffect();
 	my_UpdateOverheadNumbers(that, that->RenderDelta);
+	UpdateLocationOverheadNumbers(that);
 	that->UpdateOwnedItems();
 
 	if (that->bRestoreHUDState)

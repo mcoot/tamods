@@ -2,9 +2,6 @@
 
 struct playerState
 {
-	/*
-	TODO: Reset playerState array on map load?!
-	*/
 	int health;
 	float energy;
 	float relativeLastDamaged;
@@ -79,6 +76,43 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 	}
 	else
 		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(savedPlayerStates.size()));
+}
+
+void UpdateLocationOverheadNumbers(ATrHUD *that)
+{
+	if (!g_config.showSavedLocations)
+		return;
+
+	FVector view_location, overhead_number_location;
+	FRotator view_rotation;
+
+	for (size_t i = 0; i < savedPlayerStates.size(); i++)
+	{
+		playerState &curr = savedPlayerStates.at(i);
+
+		if (!savedPlayerStates.at(i).loc.X)
+			continue;
+
+		if (that->TrPlayerOwner)
+		{
+			overhead_number_location.X = curr.loc.X;
+			overhead_number_location.Y = curr.loc.Y;
+			overhead_number_location.Z = curr.loc.Z + 30.0f;
+			that->TrPlayerOwner->eventGetPlayerViewPoint(&view_location, &view_rotation);
+
+			// vector(ViewRotation) Dot Normal(OverheadNumberLocation - ViewLocation)
+			if (Geom::dot(Geom::rotationToVector(view_rotation), Geom::normal(Geom::sub(overhead_number_location, view_location))) >= 0.0f)
+			{
+				overhead_number_location = that->Canvas->Project(overhead_number_location);
+
+				wchar_t buff[16];
+				wsprintf(buff, L"%d", i + 1);
+				FColor col = { 255, 255, 255, 110 };
+				
+				that->DrawColoredMarkerText(buff, col, overhead_number_location, that->Canvas, 0.8f, 0.8f);
+			}
+		}
+	}
 }
 
 bool toggleBaseTurret(UObject *Object)
@@ -198,7 +232,7 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 				// Command to save the current player state (location, velocity etc.)
 				else if (line.substr(0, 5) == L"/save")
 				{
-					if (TrPC && TrPC->WorldInfo->NetMode == 0) // NM_Standalone == 0
+					if (TrPC)
 					{
 						// Without a slot number we just use slot 1
 						savePlayerState(TrPC, line.size() > 6 ? line[6] - '0' : 1);

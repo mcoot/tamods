@@ -287,6 +287,7 @@ public:
 	// Roam map variables
 	bool disableBaseTurrets;
 	bool disablePower;
+	bool showSavedLocations;
 	int  maxSpeedWithFlag;
 	int  decelerationRateWithFlag;
 

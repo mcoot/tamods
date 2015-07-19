@@ -116,6 +116,7 @@ void Config::reset()
 	// Roam map variables
 	disableBaseTurrets       = false;
 	disablePower             = false;
+	showSavedLocations       = true;
 	maxSpeedWithFlag         = 0;
 	decelerationRateWithFlag = 10;
 
@@ -444,6 +445,7 @@ void Config::setVariables()
 	// Roam map variables
 	SET_VARIABLE(bool, disableBaseTurrets);
 	SET_VARIABLE(bool, disablePower);
+	SET_VARIABLE(bool, showSavedLocations);
 	SET_VARIABLE(int, maxSpeedWithFlag);
 	SET_VARIABLE(int, decelerationRateWithFlag);
 
