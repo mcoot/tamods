@@ -13,6 +13,8 @@ namespace TAModLauncher
 {
     public partial class LauncherForm : Form
     {
+        private TAModUpdater updater;
+
         public LauncherForm()
         {
             InitializeComponent();
@@ -20,14 +22,35 @@ namespace TAModLauncher
 
         private void LauncherForm_Load(object sender, EventArgs e)
         {
-            TAModUpdater updater = new TAModUpdater();
+            updater = new TAModUpdater();
 
+            // Event handlers
+            updater.DownloadProgressChanged += new EventHandler(updateProgressChange);
+            updater.DownloadCompleted += new EventHandler(updateFinished);
+
+            // Load manifests
             updater.loadLocalManifest();
             updater.loadServerManifest();
 
-            foreach (VersionedFile f in updater.localFiles) {
-                Debug.WriteLine(f);
-            }
+
+        }
+
+        private void updateProgressChange(object sender, EventArgs e)
+        {
+            labelCurrentDownload.Text = "Downloading: " + updater.getDownloadListCurrentFile();
+            progressUpdate.Value = Math.Max(0, Math.Min(100, updater.getDownloadListProgressPercentage()));
+        }
+
+        private void updateFinished(object sender, EventArgs e)
+        {
+            labelCurrentDownload.Visible = false;
+            MessageBox.Show("Update complete!");
+        }
+
+        private void btnUpdateInject_Click(object sender, EventArgs e)
+        {
+            labelCurrentDownload.Visible = true;
+            updater.beginUpdate();
         }
     }
 }

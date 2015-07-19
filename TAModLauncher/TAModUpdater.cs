@@ -1,10 +1,13 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Net;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Xml;
+using System.IO;
 
 namespace TAModLauncher
 {
@@ -12,36 +15,57 @@ namespace TAModLauncher
     {
         // The application folder
         private readonly string appPath = AppDomain.CurrentDomain.BaseDirectory;
-        
+
         // Whether update checks should occur automatically
         public bool doAutoUpdateCheck = true;
 
-        // The URL of the XML version / file manifest
-        public string manifestUrl = "C:\\Tribes Mods\\modCurrent\\version.xml";
+        // The URL of the download server
+        public string serverUrl = "http://localhost/tamods";
 
-        // The filename of the local versioning manifest
-        public string manifestLocalFilename = "version.xml";
+        // The filename of the local and server versioning manifest
+        public string localManifestFilename = "version.xml";
+        public string serverManifestFilename = "version.xml";
 
         // Versioning channel to update from
         public string updateChannel = "stable";
 
         // The local and server version manifest XML files
-        private XmlDocument localManifest = null;
-        private XmlDocument serverManifest = null;
+        private XmlDocument localManifest;
+        private XmlDocument serverManifest;
 
+        // The local and server file lists
         public List<VersionedFile> localFiles;
         public List<VersionedFile> serverFiles;
 
-        // The local and server fileLists
+        // The downloader object and associated versioned file listings
+        private WebClient downloader = null;
+        private Queue<VersionedFile> downloadQueue;
+        private VersionedFile currentDownload = null;
+        private int currentDownloadProgressPercentage = 0;
+        private int totalFilesInCurrentDownloadList = 0;
 
-        public TAModUpdater() { }
+        // Download events 
+        public event EventHandler DownloadCompleted;
+        public event EventHandler DownloadProgressChanged;
+
+        public TAModUpdater()
+        {
+            downloadQueue = new Queue<VersionedFile>();
+            localManifest = new XmlDocument();
+            serverManifest = new XmlDocument();
+        }
 
         public void loadLocalManifest()
         {
-            localManifest = new XmlDocument();
+            // If local manifest does not exist, create empty filelist structure
+            if (!File.Exists(appPath + localManifestFilename))
+            {
+                localFiles = new List<VersionedFile>();
+                return;
+            }
 
-            // Load xml document; may throw exceptions - Reflected up to app.
-            localManifest.Load(appPath + "\\" + manifestLocalFilename);
+            // Load xml document; may throw exceptions
+            localManifest.Load(appPath + localManifestFilename);
 
             // Load files into list; also may throw exceptions
             localFiles = getManifestFileList(localManifest);
@@ -49,10 +73,8 @@ namespace TAModLauncher
 
         public void loadServerManifest()
         {
-            serverManifest = new XmlDocument();
-
-            // Load xml document; may throw exceptions - Reflected up to app.
-            serverManifest.Load(manifestUrl);
+            // Load xml document; may throw exceptions
+            serverManifest.Load(serverUrl + "\\" + serverManifestFilename);
 
             // Load files into list; also may throw exceptions
             serverFiles = getManifestFileList(serverManifest);
@@ -71,7 +93,7 @@ namespace TAModLauncher
 
                 // Update is required if the local file does not exist or has a version < server version
                 if (matchingLocalFile == null) filesNeedingUpdate.Add(file);
-                if (matchingLocalFile.version < file.version) filesNeedingUpdate.Add(file); 
+                else if (matchingLocalFile.version < file.version) filesNeedingUpdate.Add(file);
             }
 
             return filesNeedingUpdate;
@@ -79,7 +101,7 @@ namespace TAModLauncher
 
         public List<VersionedFile> getManifestFileList(XmlDocument manifest)
         {
-            XmlNode fileRoot = manifest.SelectSingleNode("//TAMods/files[@channel='"+updateChannel+"']");
+            XmlNode fileRoot = manifest.SelectSingleNode("//TAMods/files[@channel='" + updateChannel + "']");
 
             // Add all listed files
             List<VersionedFile> fileList = new List<VersionedFile>();
@@ -106,6 +128,194 @@ namespace TAModLauncher
             }
 
             return fileList;
+        }
+
+        public bool isUriAccessible(Uri uri)
+        {
+            var ret = true;
+
+            HttpWebResponse response = null;
+            var request = (HttpWebRequest)WebRequest.Create(uri);
+            request.Method = "HEAD";
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException)
+            {
+                ret = false;
+            }
+            finally
+            {
+                if (response != null) response.Close();
+            }
+
+            return ret;
+        }
+
+        public void createNecessaryRelativeDirectories(string fileName, string absPath)
+        {
+            if (fileName.Contains('\\'))
+            {
+                string[] dirpath = fileName.Split('\\');
+                string builtpath = "";
+                for (int i = 0; i < dirpath.Length - 1; i++)
+                {
+                    builtpath += "\\" + dirpath[i];
+                    if (!Directory.Exists(absPath + builtpath))
+                    {
+                        Debug.WriteLine("CREATING " + absPath + builtpath);
+                        Directory.CreateDirectory(absPath + builtpath);
+                    }
+                }
+            }
+
+        }
+
+        public int getDownloadListProgressPercentage()
+        {
+            if (totalFilesInCurrentDownloadList <= 0 || downloader == null)
+            {
+                return 100;
+            }
+
+            float pcScale = 1F / ((float)totalFilesInCurrentDownloadList);
+
+            return (int)(pcScale * (float)currentDownloadProgressPercentage + 100 * pcScale * (float)(totalFilesInCurrentDownloadList - downloadQueue.Count));
+        }
+
+        public string getDownloadListCurrentFile()
+        {
+            if (currentDownload == null) return "";
+
+            return currentDownload.fileName;
+        }
+
+        public void beginUpdate()
+        {
+            beginFileListDownload(getFilesNeedingUpdate());
+        }
+
+        public void backupCurrentLocalFiles()
+        {
+            foreach (VersionedFile file in localFiles)
+            {
+                if (File.Exists(appPath + file.fileName))
+                {
+
+                    createNecessaryRelativeDirectories("backup\\" + file.fileName, appPath);
+                    File.Copy(appPath + file.fileName, appPath + "backup\\" + file.fileName, true);
+                }
+            }
+        }
+
+        public void finaliseLocalFileUpdate()
+        {
+            foreach (VersionedFile file in serverFiles)
+            {
+                if (File.Exists(appPath + "inprogress\\" + file.fileName))
+                {
+                    createNecessaryRelativeDirectories(file.fileName, appPath);
+                    File.Copy(appPath + "inprogress\\" + file.fileName, appPath + file.fileName, true);
+                }
+            }
+        }
+
+        public void finishUpdate()
+        {
+            // Backup old version, then copy over new one
+            backupCurrentLocalFiles();
+            finaliseLocalFileUpdate();
+            // Get the new version manifest
+            if (File.Exists(appPath + localManifestFilename))
+            {
+                File.Delete(appPath + localManifestFilename);
+            }
+            serverManifest.Save(appPath + localManifestFilename);
+            loadLocalManifest();
+        }
+
+        public void beginFileListDownload(List<VersionedFile> fileList)
+        {
+            if (currentDownload != null || downloadQueue.Count != 0)
+            {
+                throw new Exception("Cannot begin a file list download while one is in progress.");
+            }
+
+            totalFilesInCurrentDownloadList = 0;
+            currentDownloadProgressPercentage = 0;
+
+            foreach (VersionedFile file in fileList)
+            {
+                createNecessaryRelativeDirectories("inprogress\\" + file.fileName, appPath);
+                totalFilesInCurrentDownloadList++;
+                addFileToDownloadQueue(file);
+            }
+
+        }
+
+        public void addFileToDownloadQueue(VersionedFile file)
+        {
+            // If queue is empty, start downloading immediately, otherwise add to the end of the queue
+            if (currentDownload == null && downloadQueue.Count == 0)
+            {
+                if (!Directory.Exists(appPath + "\\inprogress")) Directory.CreateDirectory(appPath + "\\inprogress");
+                download(new Uri(serverUrl + "\\" + file.fileName), appPath + "\\inprogress\\" + file.fileName);
+                currentDownload = file;
+                return;
+            }
+            else
+            {
+                downloadQueue.Enqueue(file);
+            }
+        }
+
+        public void download(Uri uri, string filepath)
+        {
+            // Do not allow download to start if one is already happening
+            if (downloader != null)
+            {
+                throw new IOException("A file download is already in progress");
+            }
+
+            // Check that the uri to download from actually exists
+            if (!isUriAccessible(uri))
+            {
+                throw new WebException("The URI given was not accessible");
+            }
+
+            // Download the file and add event handlers
+            downloader = new WebClient();
+            downloader.DownloadFileCompleted += new AsyncCompletedEventHandler(webClientDownloadCompleted);
+            downloader.DownloadProgressChanged += new DownloadProgressChangedEventHandler(webClientDownloadProgressChanged);
+            downloader.DownloadFileAsync(uri, filepath);
+        }
+
+        private void webClientDownloadCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            downloader.Dispose();
+            downloader = null;
+
+            // Trigger completed event if queue is finished, otherwise move on to next download in the queue
+            if (downloadQueue.Count == 0)
+            {
+                finishUpdate();
+                DownloadCompleted(this, EventArgs.Empty);
+            }
+            else
+            {
+                VersionedFile nextFile = downloadQueue.Dequeue();
+                if (!Directory.Exists(appPath + "\\inprogress")) Directory.CreateDirectory(appPath + "\\inprogress");
+                download(new Uri(serverUrl + "\\" + nextFile.fileName), appPath + "\\inprogress\\" + nextFile.fileName);
+                currentDownload = nextFile;
+            }
+        }
+
+        private void webClientDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            currentDownloadProgressPercentage = e.ProgressPercentage;
+            DownloadProgressChanged(this, EventArgs.Empty);
         }
 
     }
