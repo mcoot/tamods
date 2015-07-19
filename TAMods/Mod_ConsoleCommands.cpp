@@ -193,25 +193,11 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 					if (luastr[0] == '=')
 						luastr.replace(0, 1, "return ");
 					g_config.lua.doString(luastr);
-
 					customcommand = true;
 				}
 				else if (line.size() == 13 && line == L"/reloadsounds")
 				{
 					g_config.reloadSounds();
-
-					customcommand = true;
-				}
-				else if (line.size() == 14 && line == L"/toggleturrets")
-				{
-					Utils::FindObjects("^TrBaseTurret_(BloodEagle|DiamondSword)", &toggleBaseTurret);
-
-					customcommand = true;
-				}
-				else if (line.size() == 12 && line == L"/togglepower")
-				{
-					Utils::FindObjects("^TrPowerGenerator_(BloodEagle|DiamondSword) TheWorld.PersistentLevel.TrPowerGenerator_", &togglePower);
-
 					customcommand = true;
 				}
 				else if (line.size() > 13 && line.substr(0, 13) == L"/findobjects ")
@@ -220,13 +206,11 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 					std::string needle = std::string(line.begin() + 13, line.end());
 					Utils::FindObjects(needle, &printObjectName);
 					Utils::console("%d objects matched", matched);
-
 					customcommand = true;
 				}
 				else if ((line.size() == 13 && line == L"/reloadconfig") || (line.size() == 3 && line == L"/rc"))
 				{
 					g_config.parseFile();
-
 					customcommand = true;
 				}
 				// Command to save the current player state (location, velocity etc.)
@@ -239,25 +223,54 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 					}
 					customcommand = true;
 				}
-				// Command to teleport to a saved location
-				else if (line.substr(0, 3) == L"/tp")
+				// Roam map only commands
+				else if (TrPC && TrPC->WorldInfo->NetMode == 0)
 				{
-					if (TrPC && TrPC->WorldInfo->NetMode == 0) // NM_Standalone == 0
+					// Command to teleport to a saved location
+					if (line.substr(0, 3) == L"/tp")
 					{
 						// Without a slot number we just use slot 1
 						recallPlayerState(TrPC, line.size() > 4 ? line[4] - '0' : 1, true);
+						customcommand = true;
 					}
-					customcommand = true;
-				}
-				// Command to recall a full player state
-				else if (line.substr(0, 7) == L"/recall")
-				{
-					if (TrPC && TrPC->WorldInfo->NetMode == 0) // NM_Standalone == 0
+					// Command to recall a full player state
+					else if (line.substr(0, 7) == L"/recall")
 					{
 						// Without a slot number we just use slot 1
 						recallPlayerState(TrPC, line.size() > 8 ? line[8] - '0' : 1, false);
+						customcommand = true;
 					}
-					customcommand = true;
+					else if (line.size() == 14 && line == L"/toggleturrets")
+					{
+						Utils::FindObjects("^TrBaseTurret_(BloodEagle|DiamondSword)", &toggleBaseTurret);
+						customcommand = true;
+					}
+					else if (line.size() == 12 && line == L"/togglepower")
+					{
+						Utils::FindObjects("^TrPowerGenerator_(BloodEagle|DiamondSword) TheWorld.PersistentLevel.TrPowerGenerator_", &togglePower);
+						customcommand = true;
+					}
+					else if (line.size() == 12 && line == L"/returnflags")
+					{
+						AGameInfo *gi = that->m_TrPC->WorldInfo->Game;
+						// is there a better way get the current gametype?
+						if (gi->IsA(ATrGame_TRCTF::StaticClass()))
+						{
+							for (int i = 0; i < 2; i++)
+							{
+								if (((ATrGame_TRCTF *)gi)->m_Flags[i]->GetStateName() == FName("Dropped"))
+									((ATrGame_TRCTF *)gi)->m_Flags[i]->SendHome(that->m_TrPC);
+							}
+						}
+						else if (gi->IsA(ATrGame_TrCTFBlitz::StaticClass()))
+						{
+							for (int i = 0; i < 2; i++)
+							{
+								if (((ATrGame_TrCTFBlitz *)gi)->m_Flags[i]->GetStateName() == FName("Dropped"))
+									((ATrGame_TrCTFBlitz *)gi)->m_Flags[i]->SendHome(that->m_TrPC);
+							}
+						}
+					}
 				}
 
 				if (customcommand)
