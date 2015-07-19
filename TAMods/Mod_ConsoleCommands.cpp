@@ -1,5 +1,85 @@
 #include "Mods.h"
 
+struct playerState
+{
+	/*
+	TODO: Reset playerState array on map load
+	Need to also save a timestamp of when the state has
+	been saved so we can calculate next regen properly
+	Abort current regen before recalling state
+	*/
+	int health;
+	float energy;
+	float nextRegen;
+	FVector loc;
+	FVector vel;
+	FRotator rot;
+};
+std::vector<playerState> savedPlayerStates(9);
+
+static void savePlayerState(ATrPlayerController *TrPC, int n)
+{
+	// Is the specified slot in range?
+	if (n > 0 && (size_t)n <= savedPlayerStates.size())
+	{
+		ACameraActor *Cam = (ACameraActor *)TrPC->ViewTarget;
+		ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
+		playerState *state = &savedPlayerStates.at(n - 1);
+
+		state->loc = Cam->Location;
+		state->vel = Cam->Velocity;
+		state->rot = TrPC->Rotation;
+
+		state->energy = TrPawn && TrPawn->m_fCurrentPowerPool ? TrPawn->m_fCurrentPowerPool : 150.0f;
+		state->health = TrPawn && TrPawn->Health > 0 ? TrPawn->Health : 0;
+		//state->nextRegen = TrPC->r_fViewTargetNextRegenTimestamp;
+
+		Utils::printConsole("Saved current state to slot #" + std::to_string(n));
+	}
+	else
+		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(savedPlayerStates.size()));
+}
+
+static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
+{
+	// Is the specified slot in range?
+	if (n > 0 && (size_t)n <= savedPlayerStates.size())
+	{
+		// Is data stored at that slot?
+		if (savedPlayerStates.at(n - 1).loc.X)
+		{
+			ACameraActor *Cam = (ACameraActor *)TrPC->ViewTarget;
+			ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
+			playerState *state = &savedPlayerStates.at(n - 1);
+
+			if (!Cam || !TrPawn)
+				return;
+
+			Cam->SetLocation(state->loc);
+			TrPC->SetRotation(state->rot);
+
+			if (tpOnly)
+			{
+				TrPawn->m_fCurrentPowerPool = TrPawn->GetMaxPowerPool();
+				TrPawn->Health = TrPawn->HealthMax;
+				Cam->Velocity = { 0.0f, 0.0f, 0.0f };
+				Utils::printConsole("Teleported to saved state #" + std::to_string(n));
+			}
+			else
+			{
+				TrPawn->m_fCurrentPowerPool = state->energy;
+				TrPawn->Health = state->health > 0 ? state->health : TrPawn->HealthMax;
+				Cam->Velocity = state->vel;
+				Utils::printConsole("Restored saved state #" + std::to_string(n));
+			}
+		}
+		else
+			Utils::printConsole("Nothing stored in slot #" + std::to_string(n));
+	}
+	else
+		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(savedPlayerStates.size()));
+}
+
 bool toggleBaseTurret(UObject *Object)
 {
 	if (Object->IsA(ATrBaseTurret_BloodEagle::StaticClass()))
@@ -54,6 +134,8 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
 	UTrChatConsole_execInputKey_Parms *params = (UTrChatConsole_execInputKey_Parms *)pParams;
 
+	ATrPlayerController *TrPC = that->m_TrPC;
+
 	if (that->m_TrPC)
 		Utils::tr_pc = that->m_TrPC;
 
@@ -97,7 +179,7 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 
 					customcommand = true;
 				}
-				if (line.size() > 13 && line.substr(0, 13) == L"/findobjects ")
+				else if (line.size() > 13 && line.substr(0, 13) == L"/findobjects ")
 				{
 					matched = 0;
 					std::string needle = std::string(line.begin() + 13, line.end());
@@ -110,6 +192,36 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 				{
 					g_config.parseFile();
 
+					customcommand = true;
+				}
+				// Command to save the current player state (location, velocity etc.)
+				else if (line.substr(0, 5) == L"/save")
+				{
+					if (TrPC && TrPC->WorldInfo->NetMode == 0) // NM_Standalone == 0
+					{
+						// Without a slot number we just use slot 1
+						savePlayerState(TrPC, line.size() > 6 ? line[6] - '0' : 1);
+					}
+					customcommand = true;
+				}
+				// Command to teleport to a saved location
+				else if (line.substr(0, 3) == L"/tp")
+				{
+					if (TrPC && TrPC->WorldInfo->NetMode == 0) // NM_Standalone == 0
+					{
+						// Without a slot number we just use slot 1
+						recallPlayerState(TrPC, line.size() > 4 ? line[4] - '0' : 1, true);
+					}
+					customcommand = true;
+				}
+				// Command to recall a full player state
+				else if (line.substr(0, 7) == L"/recall")
+				{
+					if (TrPC && TrPC->WorldInfo->NetMode == 0) // NM_Standalone == 0
+					{
+						// Without a slot number we just use slot 1
+						recallPlayerState(TrPC, line.size() > 8 ? line[8] - '0' : 1, false);
+					}
 					customcommand = true;
 				}
 
