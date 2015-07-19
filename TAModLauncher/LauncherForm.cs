@@ -24,6 +24,10 @@ namespace TAModLauncher
 
             updater.loadLocalManifest();
             updater.loadServerManifest();
+
+            foreach (VersionedFile f in updater.localFiles) {
+                Debug.WriteLine(f);
+            }
         }
     }
 }

@@ -22,6 +22,9 @@ namespace TAModLauncher
         // The filename of the local versioning manifest
         public string manifestLocalFilename = "version.xml";
 
+        // Versioning channel to update from
+        public string updateChannel = "stable";
+
         // The local and server version manifest XML files
         private XmlDocument localManifest = null;
         private XmlDocument serverManifest = null;
@@ -76,7 +79,7 @@ namespace TAModLauncher
 
         public List<VersionedFile> getManifestFileList(XmlDocument manifest)
         {
-            XmlNode fileRoot = manifest.SelectSingleNode("//TAMods/files");
+            XmlNode fileRoot = manifest.SelectSingleNode("//TAMods/files[@channel='"+updateChannel+"']");
 
             // Add all listed files
             List<VersionedFile> fileList = new List<VersionedFile>();
