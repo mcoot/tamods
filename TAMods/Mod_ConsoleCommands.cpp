@@ -3,14 +3,11 @@
 struct playerState
 {
 	/*
-	TODO: Reset playerState array on map load
-	Need to also save a timestamp of when the state has
-	been saved so we can calculate next regen properly
-	Abort current regen before recalling state
+	TODO: Reset playerState array on map load?!
 	*/
 	int health;
 	float energy;
-	float nextRegen;
+	float relativeLastDamaged;
 	FVector loc;
 	FVector vel;
 	FRotator rot;
@@ -30,9 +27,9 @@ static void savePlayerState(ATrPlayerController *TrPC, int n)
 		state->vel = Cam->Velocity;
 		state->rot = TrPC->Rotation;
 
+		state->relativeLastDamaged = TrPawn ? TrPC->WorldInfo->TimeSeconds - TrPawn->m_fLastDamagerTimeStamp : 0.0f;
 		state->energy = TrPawn && TrPawn->m_fCurrentPowerPool ? TrPawn->m_fCurrentPowerPool : 150.0f;
 		state->health = TrPawn && TrPawn->Health > 0 ? TrPawn->Health : 0;
-		//state->nextRegen = TrPC->r_fViewTargetNextRegenTimestamp;
 
 		Utils::printConsole("Saved current state to slot #" + std::to_string(n));
 	}
@@ -63,14 +60,18 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 				TrPawn->m_fCurrentPowerPool = TrPawn->GetMaxPowerPool();
 				TrPawn->Health = TrPawn->HealthMax;
 				Cam->Velocity = { 0.0f, 0.0f, 0.0f };
-				Utils::printConsole("Teleported to saved state #" + std::to_string(n));
+				Utils::printConsole("Teleported to state #" + std::to_string(n));
 			}
 			else
 			{
-				TrPawn->m_fCurrentPowerPool = state->energy;
-				TrPawn->Health = state->health > 0 ? state->health : TrPawn->HealthMax;
+				TrPawn->m_fLastDamagerTimeStamp = TrPC->WorldInfo->TimeSeconds - state->relativeLastDamaged;
+				TrPawn->m_fCurrentPowerPool = state->energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state->energy;
+				if (state->health <= 0)
+					TrPawn->Health = TrPawn->HealthMax;
+				else
+					TrPawn->Health = state->health > TrPawn->HealthMax ? TrPawn->HealthMax : state->health;
 				Cam->Velocity = state->vel;
-				Utils::printConsole("Restored saved state #" + std::to_string(n));
+				Utils::printConsole("Restored state #" + std::to_string(n));
 			}
 		}
 		else
