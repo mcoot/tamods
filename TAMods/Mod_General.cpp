@@ -23,6 +23,19 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 		that->r_fRespawnTime = 0;
 		that->MinRespawnDelay = 0;
 		that->UpdateRespawnTimer();
+		that->ClearTimer(FName("PlayRespawnSoonSound"), that);
+	}
+	return false;
+}
+
+bool TrPC_Suicide(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
+	
+	if (that->WorldInfo && that->WorldInfo->NetMode == 0)
+	{
+		that->m_bLastDeathWasUserSuicide = 0;
+		that->m_fLastSuicideTimestamp = 0.0f;
 	}
 	return false;
 }
