@@ -394,18 +394,18 @@ void Config::refreshSoundVolumes()
 
 void Config::stopwatchDisplayTime(float cur_time)
 {
-	// Display the stopped time
 	if (stopwatchRunning)
 	{
 		float time = cur_time - stopwatchStartTime;
 
 		int minutes = (int)time / 60;
 		int seconds = (int)time % 60;
-		int milliseconds = ((time - (int)time) * 1000);
+		int milliseconds = (int)((time - (int)time) * 1000);
 
 		char buff[11];
-		sprintf(buff, "%01d:%02d:%03d", minutes, seconds, milliseconds);
+		sprintf(buff, "%01d:%02d.%03d", minutes, seconds, milliseconds);
 
+		Utils::printConsole("Stopwatch: " + std::string(buff), Utils::rgba(15, 255, 135, 255));
 		Utils::notify(std::string("Stopwatch"), std::string(buff));
 	}
 }

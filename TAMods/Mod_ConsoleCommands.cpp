@@ -60,6 +60,11 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 
 			if (tpOnly)
 			{
+				if (g_config.stopwatchRunning)
+				{
+					g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
+					g_config.stopwatchRunning = false;
+				}
 				TrPawn->m_fCurrentPowerPool = TrPawn->GetMaxPowerPool();
 				TrPawn->Health = TrPawn->HealthMax;
 				Cam->Velocity = { 0.0f, 0.0f, 0.0f };
@@ -74,7 +79,10 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 					g_config.stopwatchRunning = true;
 				}
 				else if (g_config.stopwatchRunning)
-						Utils::notify(std::string("Stopwatch"), std::string("Warning: This location has no stopwatch data. Stopwatch will be incorrect"));
+				{
+					g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
+					g_config.stopwatchRunning = false;
+				}
 
 				TrPawn->m_fLastDamagerTimeStamp = TrPC->WorldInfo->TimeSeconds - state->relativeLastDamaged;
 				TrPawn->m_fCurrentPowerPool = state->energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state->energy;
@@ -122,8 +130,12 @@ void UpdateLocationOverheadNumbers(ATrHUD *that)
 
 				wchar_t buff[16];
 				wsprintf(buff, L"%d", i + 1);
-				// TODO: location slots have unique colors
-				FColor col = { 255, 255, 255, 180 };
+				
+				FColor col;
+				if (savedPlayerStates.at(i).stopwatchTime)
+					col = { 135, 255, 15, 180 };
+				else
+					col = { 255, 255, 255, 180 };
 				
 				that->DrawColoredMarkerText(buff, col, overhead_number_location, that->Canvas, 0.8f, 0.8f);
 			}

@@ -390,9 +390,10 @@ bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction
 bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
+	UGFxObject *timer = that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer;
 
-	// if worldseconds - grabtime < ~4 seconds, show grabtime instead of stopwatch time
-	// if worldseconds - captime < ~4 seconds, show captime instead of stopwatch time
+	// if worldseconds - grabtime < ~4 seconds, show grabtime instead of stopwatch time in red
+	// if worldseconds - captime < ~4 seconds, show captime instead of stopwatch time in red
 
 	// while playing online, only show the stopwatch, don't replace the normal game time
 	if (g_config.stopwatchRunning || that->WorldInfo->NetMode == 0)
@@ -407,18 +408,19 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 
 		int minutes = (int)worldseconds / 60;
 		int seconds = (int)worldseconds % 60;
-		int tenths = ((worldseconds - (int)worldseconds) * 10);
+		int tenths = (int)((worldseconds - (int)worldseconds) * 10);
 
 		wchar_t buff[9];
 
 		if (g_config.stopwatchRunning)
-			wsprintf(buff, L"%01d:%02d:%d", minutes, seconds, tenths);
+			wsprintf(buff, L"%01d:%02d.%d", minutes, seconds, tenths);
 		else // fix for static roam map time
 			wsprintf(buff, L"%02d:%02d", minutes, seconds);
 
 		that->HUDTeamCTFStats->m_MoviePlayer->TeamCTFStatsUpdateTime(FString(buff));
-		// Set timer color to pure red
-		that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer->SetFloat(L"textColor", (float) 0xFF0000);
+
+		if (timer)
+			timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float) 0x0FFF87 : (float)0xDDFFDD);
 	}
 	return false;
 }
