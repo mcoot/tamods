@@ -80,6 +80,12 @@ namespace TAModLauncher
             serverFiles = getManifestFileList(serverManifest);
         }
 
+        public VersionedFile getLocalFile(string filename)
+        {
+            VersionedFile matchingLocalFile = localFiles.Find((VersionedFile localFile) => { return localFile.fileName == filename; });
+            return matchingLocalFile;
+        }
+
         public List<VersionedFile> getFilesNeedingUpdate()
         {
             List<VersionedFile> filesNeedingUpdate = new List<VersionedFile>();
@@ -87,9 +93,7 @@ namespace TAModLauncher
             // Iterate through server manifest, comparing with local manifest
             foreach (VersionedFile file in serverFiles)
             {
-                VersionedFile matchingLocalFile;
-                // Find a local file with the server's file name
-                matchingLocalFile = localFiles.Find((VersionedFile localFile) => { return localFile.fileName == file.fileName; });
+                VersionedFile matchingLocalFile = getLocalFile(file.fileName);
 
                 // Update is required if the local file does not exist or has a version < server version
                 if (matchingLocalFile == null) filesNeedingUpdate.Add(file);
@@ -102,6 +106,11 @@ namespace TAModLauncher
         public List<VersionedFile> getManifestFileList(XmlDocument manifest)
         {
             XmlNode fileRoot = manifest.SelectSingleNode("//TAMods/files[@channel='" + updateChannel + "']");
+
+            if (manifest.DocumentElement == null)
+            {
+                throw new XmlException("Manifest contains no XML document root node.");
+            }
 
             // Add all listed files
             List<VersionedFile> fileList = new List<VersionedFile>();
@@ -192,6 +201,13 @@ namespace TAModLauncher
             return currentDownload.fileName;
         }
 
+        public void beginFullDownload()
+        {
+            if (serverFiles == null) throw new XmlException("Files to download could not be retrieved");
+            
+            beginFileListDownload(serverFiles);
+        }
+
         public void beginUpdate()
         {
             beginFileListDownload(getFilesNeedingUpdate());
@@ -222,7 +238,7 @@ namespace TAModLauncher
             }
         }
 
-        public void finishUpdate()
+        public void finishDownload()
         {
             // Backup old version, then copy over new one
             backupCurrentLocalFiles();
@@ -300,7 +316,7 @@ namespace TAModLauncher
             // Trigger completed event if queue is finished, otherwise move on to next download in the queue
             if (downloadQueue.Count == 0)
             {
-                finishUpdate();
+                finishDownload();
                 DownloadCompleted(this, EventArgs.Empty);
             }
             else
