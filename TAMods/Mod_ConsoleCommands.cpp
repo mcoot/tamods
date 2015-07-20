@@ -233,18 +233,7 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 				{
 					// Display the stopped time
 					if (g_config.stopwatchRunning)
-					{
-						float time = TrPC->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
-
-						int minutes = (int)time / 60;
-						int seconds = (int)time - minutes * 60;
-						int milliseconds = (int)((time - (int)time) * 1000);
-
-						char buff[11];
-						sprintf(buff, "%01d:%02d:%03d", minutes, seconds, milliseconds);
-
-						Utils::notify(std::string("Stopwatch"), std::string(buff));
-					}
+						g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
 					// Just start the stopwatch
 					else
 						g_config.stopwatchStartTime = TrPC->WorldInfo->RealTimeSeconds;

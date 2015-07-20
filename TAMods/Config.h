@@ -226,6 +226,7 @@ public:
 	void initializeAudio();
 	void reloadSounds();
 	void refreshSoundVolumes();
+	void stopwatchDisplayTime(float cur_time);
 
 	void reloadTrHUD(ATrHUD *currHud, bool updated = true);
 
