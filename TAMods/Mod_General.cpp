@@ -11,6 +11,12 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 
+	if (g_config.stopwatchRunning && that->WorldInfo)
+	{
+		g_config.stopwatchDisplayTime(that->WorldInfo->RealTimeSeconds);
+		g_config.stopwatchRunning = false;
+	}
+
 	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0
 	{
 		that->m_nRespawnTimeRemaining = 0;
