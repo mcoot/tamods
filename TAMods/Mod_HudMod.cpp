@@ -171,6 +171,70 @@ static void Scoreboard_Fix(UTrScoreboard *that)
 	}
 }
 
+struct FUnknownStruct3
+{
+	unsigned char *common_ptr1;
+	unsigned char *unknown_ptr1;
+	unsigned char *common_ptr3;
+	unsigned int unknown_int1; // 0x03
+	unsigned int unknown_int2; // 0x0c000000
+	unsigned int unknown_int3; // 0x02
+	unsigned int zeroes[2];
+	int SizeX;
+	int SizeY;
+	unsigned int zeroes2[24];
+	int format; // Sometimes 0
+	int data_size;
+	unsigned char *pixel_data;
+	unsigned char unknown_data[172];
+};
+
+struct FUnknownStruct1
+{
+	FUnknownStruct3 *ptr;
+	int format;
+	unsigned int data_size;
+	unsigned char zeroes[12];
+	int *common_ptr;
+	int flags;
+};
+
+struct FUnknownStruct2
+{
+	unsigned char data[0x30];
+};
+
+struct FTextureResource
+{
+	unsigned char *unknown_ptr1; // Common to all structs
+	FTextureResource *self; // Pointer to this struct
+	int *prev_self; // Pointer to the self field of the previous FTextureResource
+	int *next_prev; // Pointer to the prev field of the next FTextureResource
+	int flags; // 1 or something that looks like an address
+	unsigned char *unknown_struct1; // FUnknownStruct1 + 4 (wtf)
+	unsigned char *unknown_struct2;
+	int unknown_int1; // 0xe0000000
+	int unknown_int2; // 0xc7efffff
+	int unknown_int3; // 0x3f800000
+	unsigned char unknown_data1[0x1C]; // 00
+	UTexture2D *texture; // Texture containing this Resource
+	unsigned char unknown_data2[0xC0];
+	unsigned char *unknown_struct1_bis; // Same as unknown_struct1
+	unsigned char unknown_data3[0x34];
+};
+
+void printDump(unsigned int *data, int count, const char *name)
+{
+	Logger::log("%s @ %p", name, data);
+	for (int x = 0; x * 0x10 < count; x++)
+	{
+		Logger::noln("%08x:", (char *) data + x * 0x10 * 4);
+		for (int i = 0; i < 0x10 && x * 0x10 + i < count; i++)
+			Logger::noln(" %08x", data[x * 0x10 + i]);
+		Logger::log("");
+	}
+}
+
 void printUntypedBulkData(FUntypedBulkData_Mirror &bulk, const char *name)
 {
 	static UTexture2D *def = UObject::FindObject<UTexture2D>("Texture2D TribesMenu.LoadingScene.LoadingScene_I2");
@@ -179,6 +243,11 @@ void printUntypedBulkData(FUntypedBulkData_Mirror &bulk, const char *name)
 	Logger::log("%s: (VfTable:%x, BulkData:%x, AttachedAr:%x)", name, bulk.VfTable, bulk.BulkData, bulk.AttachedAr);
 	Logger::log("%s NormalElements: (Flags:%d, ElementCount:%d, Offset:%x, SizeOnDisk:%d)", name, bulk.BulkDataFlags, bulk.ElementCount, bulk.BulkDataOffsetInFile, bulk.BulkDataSizeOnDisk);
 	Logger::log("%s SavedElements: (Flags:%d, ElementCount:%d, Offset:%x, SizeOnDisk:%d)", name, bulk.SavedBulkDataFlags, bulk.SavedElementCount, bulk.SavedBulkDataOffsetInFile, bulk.SavedBulkDataSizeOnDisk);
+
+	if (bulk.BulkData.Dummy)
+	{
+		printDump((unsigned int *)bulk.BulkData.Dummy, 10 * 0x10, "Bulk Data");
+	}
 	//bulk.BulkDataOffsetInFile = ((FTexture2DMipMap *)((int *)def->Mips.Data.Dummy)[0])->Data.BulkDataOffsetInFile;
 	if (bulk.VfTable.Dummy && bulk.BulkDataSizeOnDisk)
 	{
@@ -207,60 +276,23 @@ void printMips(int mip_ptr, int i)
 	printUntypedBulkData(mip->Data, "\tMip UntypedBulkData");
 }
 
-struct FUnknownStruct1
-{
-	int format;
-	unsigned int flags;
-	unsigned char zeroes[12];
-	int *common_ptr;
-	int more_flags;
-	int *ptr;
-};
-
-struct FUnknownStruct2
-{
-	unsigned char data[0x30];
-};
-
-struct FTextureResource
-{
-	unsigned char *unknown_ptr1; // Common to all structs
-	FTextureResource *self; // Pointer to this struct
-	int *prev_self; // Pointer to the self field of the previous FTextureResource
-	int *next_prev; // Pointer to the prev field of the next FTextureResource
-	int flags; // 1 or something that looks like an address
-	FUnknownStruct1 *unknown_struct1; // Struct of size 20
-	FUnknownStruct2 *unknown_struct2;
-	int unknown_int1; // 0xe0000000
-	int unknown_int2; // 0xc7efffff
-	int unknown_int3; // 0x3f800000
-	unsigned char unknown_data1[0x1C]; // 00
-	UTexture2D *texture; // Texture containing this Resource
-	unsigned char unknown_data2[0xC0];
-	FUnknownStruct1 *unknown_struct1_bis; // Same as unknown_struct1
-	unsigned char unknown_data3[0x34];
-};
-
 void printResource(FTextureResource *res)
 {
 	static UTexture2D *def = UObject::FindObject<UTexture2D>("Texture2D TribesMenu.LoadingScene.LoadingScene_I2");
-	
-	Logger::log("Resource: %x, Common Pointer: %x, Flags: %d", res, res->unknown_ptr1, res->flags);
-	Logger::log("Unknown Structure 1 @ %p: format:%x, flags:%x, ptr:%p", res->unknown_struct1, res->unknown_struct1->format, res->unknown_struct1->flags, res->unknown_struct1->ptr);
-	for (int x = 0; x < 4; x++)
-	{
-		Logger::noln("%04x:", x * 0x10 * 4);
-		for (int i = 0; i < 0x10; i++)
-			Logger::noln(" %08x", ((int *)res->unknown_struct1)[x * 0x10 + i]);
-		Logger::log("");
-	}
-	for (int x = 0; x < 40; x++)
-	{
-		Logger::log("%08x:", ((int *)res->unknown_struct1->ptr)[x]);
-	}
+	FUnknownStruct1 *struct1 = (FUnknownStruct1 *)(res->unknown_struct1 - 4);
+	FUnknownStruct1 *def_struct = (FUnknownStruct1 *) (((FTextureResource *)def->Resource.Dummy)->unknown_struct1 - 4);
 
-	res->unknown_struct1 = ((FTextureResource *)def->Resource.Dummy)->unknown_struct1;
+	Logger::log("Resource: %x, Unknown Pointer: %x, Flags: %d", res, res->unknown_ptr1, res->flags);
+	Logger::log("Unknown Structure 1 @ %p: format:%x, data_size:%x, ptr:%p", struct1, struct1->format, struct1->data_size, struct1->ptr);
 
+	printDump((unsigned int *)struct1->ptr - 100, 12 * 0x10, "Main pointer memory");
+	printDump(((unsigned int **)struct1->ptr)[-6] - 0x20, 12 * 0x10, "-6");
+	printDump(((unsigned int **)struct1->ptr)[-7] - 0x20, 12 * 0x10, "-7");
+	printDump(((unsigned int **)struct1->ptr)[-14] - 0x20, 12 * 0x10, "-14");
+	printDump(((unsigned int **)struct1->ptr)[-17] - 0x20, 12 * 0x10, "-17");
+	printDump((unsigned int *)struct1->ptr->pixel_data, 10 * 0x10, "Pixel Data");
+
+	//memcpy(struct1->ptr->pixel_data, def_struct->ptr->pixel_data, struct1->ptr->data_size);
 }
 
 void printTexture(UTexture *that, bool inherited = false)
@@ -281,7 +313,8 @@ void printTexture(UTexture *that, bool inherited = false)
 	Logger::log("SourceFilePath: %s", Utils::f2std(that->SourceFilePath).c_str());
 	Logger::log("SourceFileTimestamp: %s", Utils::f2std(that->SourceFileTimestamp).c_str());
 	Logger::log("Resource: %x", that->Resource);
-	printResource((FTextureResource *) that->Resource.Dummy);
+	if (that->Resource.Dummy)
+		printResource((FTextureResource *) that->Resource.Dummy);
 
 	Logger::log("");
 }
@@ -294,8 +327,8 @@ void printTexture2D(UTexture2D *that, bool inherited = false)
 	else
 		Logger::log("Texture2D Base");
 	Logger::log("Mips: (data=%08x, num=%d, max=%d)", that->Mips.Data, that->Mips.ArrayNum, that->Mips.ArrayMax);
-	for (int i = 0; i < that->Mips.ArrayNum; i++)
-		printMips(that->Mips.Data.Dummy, i);
+	if (that->Mips.ArrayNum)
+		printMips(that->Mips.Data.Dummy, 0);
 	Logger::log("CachedPVRTCMips: (data=%08x, num=%d, max=%d)", that->CachedPVRTCMips.Data, that->CachedPVRTCMips.ArrayNum, that->CachedPVRTCMips.ArrayMax);
 	Logger::log("Size: (%d, %d)", that->SizeX, that->SizeY);
 	Logger::log("OriginalSize: (%d, %d)", that->OriginalSizeX, that->OriginalSizeY);
@@ -312,7 +345,59 @@ void printTexture2D(UTexture2D *that, bool inherited = false)
 	Logger::log("ResourceMem: %x", that->ResourceMem);
 	Logger::log("FirstResourceMemMip:%d, Timer: %f", that->FirstResourceMemMip, that->Timer);
 	printTexture(that, true);
-	//Logger::log("");
+}
+
+UTexture2D *cloneTexture2D(UTexture2D *tex)
+{
+	UTexture2D *ntex = (UTexture2D *) malloc(sizeof(*tex));
+
+	memcpy(ntex, tex, sizeof(*tex));
+	if (tex->Resource.Dummy)
+	{
+		ntex->Resource.Dummy = (int) malloc(sizeof(FTextureResource));
+		FTextureResource *nres = (FTextureResource *)ntex->Resource.Dummy;
+		FTextureResource *res = (FTextureResource *)tex->Resource.Dummy;
+		memcpy(nres, res, sizeof(FTextureResource));
+		nres->self = nres;
+		
+		FUnknownStruct1 *nstruct1 = (FUnknownStruct1 *)malloc(sizeof(FUnknownStruct1));
+		FUnknownStruct1 *struct1 = (FUnknownStruct1 *)(res->unknown_struct1 - 4);
+		nres->unknown_struct1 = ((unsigned char *) nstruct1) + 4;
+		nres->unknown_struct1_bis = nres->unknown_struct1;
+		memcpy(nstruct1, struct1, sizeof(FUnknownStruct1));
+
+		// Cloning pixel data
+		unsigned char *data = (unsigned char *)malloc(nstruct1->data_size);
+		nstruct1->ptr->pixel_data = data;
+		for (unsigned int i = 0; i < nstruct1->data_size; i++)
+			nstruct1->ptr->pixel_data[i] = i % 255;
+		
+		// Cloning struct3
+		nstruct1->ptr = (FUnknownStruct3 *)((char *)malloc(3000) + 800);
+		memcpy(((char *) nstruct1->ptr) - 800, ((char *) struct1->ptr) - 800, 3000);
+
+		/*
+		// -14 references
+		((int **)nstruct1->ptr)[-14] = ((int *) malloc(64 * 4)) + 32;
+		memcpy(((int **)nstruct1->ptr)[-14] - 32, ((int **)struct1->ptr)[-14] - 32, 64 * 4);
+		((int **)nstruct1->ptr)[-14][7] = (int) nstruct1->ptr - 88;
+		
+		// -6 && -7 references
+		((int *)nstruct1->ptr)[-6] = (int)nstruct1->ptr - 696;//((int *)malloc(4 * 16 * 10) + 32);
+		//memcpy(((int **)nstruct1->ptr)[-6] - 32, ((int **)struct1->ptr)[-6] - 32, 4 * 16 * 10);
+		((int **)nstruct1->ptr)[-7] = ((int *)malloc(4 * 16 * 8) + 32);
+		memcpy(((int **)nstruct1->ptr)[-7] - 32, ((int **)struct1->ptr)[-7] - 32, 4 * 16 * 8);
+		((int **)nstruct1->ptr)[-6][15] = (int)nstruct1->ptr - 88;
+		((int **)nstruct1->ptr)[-7][16] = (int)nstruct1->ptr - 88;
+
+		// -17
+		((int **)nstruct1->ptr)[-17] = ((int *)malloc(4 * 16 * 6) + 32);
+		memcpy(((int **)nstruct1->ptr)[-17] - 32, ((int **)struct1->ptr)[-17] - 32, 4 * 16 * 6);
+		((int **)nstruct1->ptr)[-17][26] = (int)nstruct1->ptr - 88;
+		((int **)nstruct1->ptr)[-17][20] = (int)data;
+		*/
+	}
+	return ntex;
 }
 
 void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale = 1.0f)
@@ -325,9 +410,27 @@ void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale
 void myDraw(UCanvas *canvas)
 {
 	static UTexture2D *tex = UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I40");
-	printTexture2D(tex);
+	static UTexture2D *I4A = UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I4A");
+	static UTexture2D *newtex = cloneTexture2D(tex);
 
-	drawTexture(canvas, tex, 5.0f, 5.0f, 0.5f);
+	printTexture2D(tex);
+	printTexture2D(newtex);
+	FUnknownStruct3 *dest = ((FUnknownStruct1 *)(((FTextureResource *)newtex->Resource.Dummy)->unknown_struct1 - 4))->ptr;
+	FUnknownStruct3 *src = ((FUnknownStruct1 *)(((FTextureResource *)I4A->Resource.Dummy)->unknown_struct1 - 4))->ptr;
+	//((int **)dest)[-14][7] = ((int **)src)[-14][7];
+	/*int oldptr = ((int **)dest)[-14][7];
+	int old14 = ((int *)dest)[-14];*/
+	//memcpy(((char *)dest) - 100, ((char *)src) - 100, 30);
+	//dest->pixel_data = src->pixel_data;
+	/*dest->SizeX = src->SizeX;
+	dest->SizeY = src->SizeY;
+	dest->format = src->format;
+	dest->data_size = src->data_size;
+	((int *)dest)[-14] = old14;
+	((int **)dest)[-14][7] = oldptr;*/
+
+	drawTexture(canvas, tex, 5.0f, 5.0f, 1.0f);
+	drawTexture(canvas, newtex, 5.0f, 10.0f + tex->SizeY, 1.0f);
 }
 
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
