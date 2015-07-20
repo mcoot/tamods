@@ -291,6 +291,12 @@ public:
 	int  maxSpeedWithFlag;
 	int  decelerationRateWithFlag;
 
+	// Route timer
+	bool stopwatchRunning = false;
+	float stopwatchStartTime = 0.0f;
+	float stopwatchGrabTime = 0.0f;
+	float stopwatchCapTime = 0.0f;
+
 	// Sounds
 	Audio audioEngine;
 	SoundEffect s_hitSound,   s_headShot;

@@ -5,6 +5,7 @@ struct playerState
 	int health;
 	float energy;
 	float relativeLastDamaged;
+	float stopwatchTime;
 	FVector loc;
 	FVector vel;
 	FRotator rot;
@@ -20,13 +21,18 @@ static void savePlayerState(ATrPlayerController *TrPC, int n)
 		ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
 		playerState *state = &savedPlayerStates.at(n - 1);
 
+		if (g_config.stopwatchRunning)
+			state->stopwatchTime = TrPawn->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
+		else
+			state->stopwatchTime = NULL;
+
 		state->loc = Cam->Location;
 		state->vel = Cam->Velocity;
 		state->rot = TrPC->Rotation;
 
 		state->relativeLastDamaged = TrPawn ? TrPC->WorldInfo->TimeSeconds - TrPawn->m_fLastDamagerTimeStamp : 0.0f;
-		state->energy = TrPawn && TrPawn->m_fCurrentPowerPool ? TrPawn->m_fCurrentPowerPool : 150.0f;
-		state->health = TrPawn && TrPawn->Health > 0 ? TrPawn->Health : 0;
+		state->energy = TrPawn->m_fCurrentPowerPool ? TrPawn->m_fCurrentPowerPool : 150.0f;
+		state->health = TrPawn->Health > 0 ? TrPawn->Health : 0;
 
 		Utils::printConsole("Saved current state to slot #" + std::to_string(n));
 	}
@@ -61,6 +67,15 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 			}
 			else
 			{
+				// Restore stopwatch state
+				if (state->stopwatchTime)
+				{
+					g_config.stopwatchStartTime = TrPawn->WorldInfo->RealTimeSeconds - state->stopwatchTime;
+					g_config.stopwatchRunning = true;
+				}
+				else if (g_config.stopwatchRunning)
+						Utils::notify(std::string("Stopwatch"), std::string("Warning: This location has no stopwatch data. Stopwatch will be incorrect"));
+
 				TrPawn->m_fLastDamagerTimeStamp = TrPC->WorldInfo->TimeSeconds - state->relativeLastDamaged;
 				TrPawn->m_fCurrentPowerPool = state->energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state->energy;
 				if (state->health <= 0)
@@ -100,14 +115,15 @@ void UpdateLocationOverheadNumbers(ATrHUD *that)
 			overhead_number_location.Z = curr.loc.Z + 30.0f;
 			that->TrPlayerOwner->eventGetPlayerViewPoint(&view_location, &view_rotation);
 
-			// vector(ViewRotation) Dot Normal(OverheadNumberLocation - ViewLocation)
+			// Only draw if visible
 			if (Geom::dot(Geom::rotationToVector(view_rotation), Geom::normal(Geom::sub(overhead_number_location, view_location))) >= 0.0f)
 			{
 				overhead_number_location = that->Canvas->Project(overhead_number_location);
 
 				wchar_t buff[16];
 				wsprintf(buff, L"%d", i + 1);
-				FColor col = { 255, 255, 255, 110 };
+				// TODO: location slots have unique colors
+				FColor col = { 255, 255, 255, 180 };
 				
 				that->DrawColoredMarkerText(buff, col, overhead_number_location, that->Canvas, 0.8f, 0.8f);
 			}
@@ -212,6 +228,28 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 				{
 					g_config.parseFile();
 					customcommand = true;
+				}
+				else if ((line.size() == 10 && line == L"/stopwatch"))
+				{
+					// Display the stopped time
+					if (g_config.stopwatchRunning)
+					{
+						float time = TrPC->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
+
+						int minutes = (int)time / 60;
+						int seconds = (int)time - minutes * 60;
+						int milliseconds = (int)((time - (int)time) * 1000);
+
+						char buff[11];
+						sprintf(buff, "%01d:%02d:%03d", minutes, seconds, milliseconds);
+
+						Utils::notify(std::string("Stopwatch"), std::string(buff));
+					}
+					// Just start the stopwatch
+					else
+						g_config.stopwatchStartTime = TrPC->WorldInfo->RealTimeSeconds;
+
+					g_config.stopwatchRunning = !g_config.stopwatchRunning;
 				}
 				// Command to save the current player state (location, velocity etc.)
 				else if (line.substr(0, 5) == L"/save")

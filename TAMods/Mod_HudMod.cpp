@@ -386,3 +386,37 @@ bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction
 	}
 	return(false);
 }
+
+bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrHUD *that = (ATrHUD *)dwCallingObject;
+
+	// if worldseconds - grabtime < ~4 seconds, show grabtime instead of stopwatch time
+	// if worldseconds - captime < ~4 seconds, show captime instead of stopwatch time
+
+	// while playing online, only show the stopwatch, don't replace the normal game time
+	if (g_config.stopwatchRunning || that->WorldInfo->NetMode == 0)
+	{
+		float worldseconds = that->WorldInfo->RealTimeSeconds;
+
+		if (g_config.stopwatchRunning)
+			worldseconds -= g_config.stopwatchStartTime;
+
+		if (worldseconds < 0.0f)
+			g_config.stopwatchRunning = false;
+
+		int minutes = (int)worldseconds / 60;
+		int seconds = (int)worldseconds % 60;
+		int tenths = ((worldseconds - (int)worldseconds) * 10);
+
+		wchar_t buff[9];
+
+		if (g_config.stopwatchRunning)
+			wsprintf(buff, L"%01d:%02d:%d", minutes, seconds, tenths);
+		else // fix for static roam map time
+			wsprintf(buff, L"%02d:%02d", minutes, seconds);
+
+		that->HUDTeamCTFStats->m_MoviePlayer->TeamCTFStatsUpdateTime(FString(buff));
+	}
+	return false;
+}
