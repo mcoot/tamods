@@ -2,13 +2,14 @@
 
 struct playerState
 {
-	int health;
-	float energy;
-	float relativeLastDamaged;
+	int health = 9999;
+	float energy = 9999.0f;
+	float relativeLastDamaged = 300.0f;
 	float stopwatchTime;
 	FVector loc;
 	FVector vel;
 	FRotator rot;
+	unsigned char phys;
 };
 std::vector<playerState> savedPlayerStates(9);
 
@@ -22,18 +23,29 @@ static void savePlayerState(ATrPlayerController *TrPC, int n)
 		playerState *state = &savedPlayerStates.at(n - 1);
 
 		if (g_config.stopwatchRunning)
-			state->stopwatchTime = TrPawn->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
+			state->stopwatchTime = TrPC->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
 		else
 			state->stopwatchTime = NULL;
 
 		state->loc = Cam->Location;
 		state->vel = Cam->Velocity;
+		state->phys = Cam->Physics;
 		state->rot = TrPC->Rotation;
 
-		state->relativeLastDamaged = TrPawn ? TrPC->WorldInfo->TimeSeconds - TrPawn->m_fLastDamagerTimeStamp : 0.0f;
-		state->energy = TrPawn->m_fCurrentPowerPool ? TrPawn->m_fCurrentPowerPool : 150.0f;
-		state->health = TrPawn->Health > 0 ? TrPawn->Health : 0;
-
+		if (!TrPawn) // Without a pawn we must be spectating or are not on a server
+		{
+			state->relativeLastDamaged = 300.0f;
+			state->energy = 9999.0f;
+			state->health = 9999;
+		}
+		else
+		{
+			state->relativeLastDamaged = TrPC->WorldInfo->TimeSeconds - TrPawn->m_fLastDamagerTimeStamp;
+			state->energy = TrPawn->m_fCurrentPowerPool ? TrPawn->m_fCurrentPowerPool : 9999.0f;
+			state->health = TrPawn->Health > 0 ? TrPawn->Health : 9999;
+			
+		}
+		// display stop watch time as well
 		Utils::printConsole("Saved current state to slot #" + std::to_string(n));
 	}
 	else
@@ -52,14 +64,19 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 			ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
 			playerState *state = &savedPlayerStates.at(n - 1);
 
-			if (!Cam || !TrPawn)
-				return;
+			if (!Cam) return;
 
 			Cam->SetLocation(state->loc);
 			TrPC->SetRotation(state->rot);
 
-			if (tpOnly)
+			if (!TrPawn) return;
+
+			Cam->SetPhysics(state->phys);
+
+			if (tpOnly) // teleportation only
 			{
+				TrPawn->Velocity = { 0.0f, 0.0f, 0.0f };
+
 				if (g_config.stopwatchRunning)
 				{
 					g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
@@ -67,18 +84,18 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 				}
 				TrPawn->m_fCurrentPowerPool = TrPawn->GetMaxPowerPool();
 				TrPawn->Health = TrPawn->HealthMax;
-				Cam->Velocity = { 0.0f, 0.0f, 0.0f };
-				Utils::printConsole("Teleported to state #" + std::to_string(n));
+				//Utils::printConsole("Teleported to state #" + std::to_string(n));
 			}
-			else
+			else // full recall
 			{
-				// Restore stopwatch state
-				if (state->stopwatchTime)
+				TrPawn->Velocity = state->vel;
+
+				if (state->stopwatchTime) // Restore stopwatch state
 				{
 					g_config.stopwatchStartTime = TrPawn->WorldInfo->RealTimeSeconds - state->stopwatchTime;
 					g_config.stopwatchRunning = true;
 				}
-				else if (g_config.stopwatchRunning)
+				else if (g_config.stopwatchRunning) // This state has no stopwatch data, just stop it then
 				{
 					g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
 					g_config.stopwatchRunning = false;
@@ -86,12 +103,13 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 
 				TrPawn->m_fLastDamagerTimeStamp = TrPC->WorldInfo->TimeSeconds - state->relativeLastDamaged;
 				TrPawn->m_fCurrentPowerPool = state->energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state->energy;
-				if (state->health <= 0)
+
+				if (state->health <= 0 || state->health > TrPawn->HealthMax)
 					TrPawn->Health = TrPawn->HealthMax;
 				else
-					TrPawn->Health = state->health > TrPawn->HealthMax ? TrPawn->HealthMax : state->health;
-				Cam->Velocity = state->vel;
-				Utils::printConsole("Restored state #" + std::to_string(n));
+					TrPawn->Health = state->health;
+
+				//Utils::printConsole("Restored state #" + std::to_string(n));
 			}
 		}
 		else

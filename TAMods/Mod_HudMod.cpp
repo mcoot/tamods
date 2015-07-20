@@ -420,7 +420,7 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 		that->HUDTeamCTFStats->m_MoviePlayer->TeamCTFStatsUpdateTime(FString(buff));
 
 		if (timer)
-			timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float) 0x0FFF87 : (float)0xDDFFDD);
+			timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float)0x0FFF87 : (float)0xDDFFDD);
 	}
 	return false;
 }
