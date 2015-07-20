@@ -417,6 +417,8 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 			wsprintf(buff, L"%02d:%02d", minutes, seconds);
 
 		that->HUDTeamCTFStats->m_MoviePlayer->TeamCTFStatsUpdateTime(FString(buff));
+		// Set timer color to pure red
+		that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer->SetFloat(L"textColor", (float) 0xFF0000);
 	}
 	return false;
 }
