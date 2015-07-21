@@ -1,69 +1,5 @@
 #include "Texture.h"
 
-struct TextureData
-{
-	int SizeX;
-	int SizeY;
-	int zero;
-	unsigned char *pixel_data;
-	int unknown1;
-	int unknown2;
-	int ptr1;
-	int ptr2;
-};
-
-struct FUnknownStruct3
-{
-	unsigned char *common_ptr1;
-	unsigned char *unknown_ptr1;
-	unsigned char *common_ptr3;
-	unsigned int unknown_int1; // 0x03
-	unsigned int unknown_int2; // 0x0c000000
-	unsigned int unknown_int3; // 0x02
-	unsigned int zeroes[2];
-	int SizeX;
-	int SizeY;
-	unsigned int zeroes2[24];
-	int format; // Sometimes 0
-	int data_size;
-	unsigned char *pixel_data;
-	unsigned char unknown_data[172];
-};
-
-struct FUnknownStruct1
-{
-	FUnknownStruct3 *ptr;
-	int format;
-	unsigned int data_size;
-	unsigned char zeroes[12];
-	int *common_ptr;
-	int flags;
-};
-
-struct FUnknownStruct2
-{
-	unsigned char data[0x30];
-};
-
-struct FTextureResource
-{
-	unsigned char *unknown_ptr1; // Common to all structs
-	FTextureResource *self; // Pointer to this struct
-	int *prev_self; // Pointer to the self field of the previous FTextureResource
-	int *next_prev; // Pointer to the prev field of the next FTextureResource
-	int flags; // 1 or something that looks like an address
-	unsigned char *unknown_struct1; // FUnknownStruct1 + 4 (wtf)
-	unsigned char *unknown_struct2;
-	int unknown_int1; // 0xe0000000
-	int unknown_int2; // 0xc7efffff
-	int unknown_int3; // 0x3f800000
-	unsigned char unknown_data1[0x1C]; // 00
-	UTexture2D *texture; // Texture containing this Resource
-	unsigned char unknown_data2[0xC0];
-	unsigned char *unknown_struct1_bis; // Same as unknown_struct1
-	unsigned char unknown_data3[0x34];
-};
-
 static void printDump(unsigned int *data, int count, const char *name)
 {
 	Logger::log("%s @ %p", name, data);
@@ -119,23 +55,17 @@ static void printMips(int mip_ptr, int i)
 
 static void printResource(FTextureResource *res)
 {
-	static UTexture2D *def = UObject::FindObject<UTexture2D>("Texture2D TribesMenu.LoadingScene.LoadingScene_I2");
 	FUnknownStruct1 *struct1 = (FUnknownStruct1 *)(res->unknown_struct1 - 4);
-	FUnknownStruct1 *def_struct = (FUnknownStruct1 *)(((FTextureResource *)def->Resource.Dummy)->unknown_struct1 - 4);
+	TextureData *texdata = (TextureData *)((int ****)struct1->ptr)[-17][0][10];
 
 	Logger::log("Resource: %x, Unknown Pointer: %x, Flags: %d", res, res->unknown_ptr1, res->flags);
 	Logger::log("Unknown Structure 1 @ %p: format:%x, data_size:%x, ptr:%p", struct1, struct1->format, struct1->data_size, struct1->ptr);
 
 	printDump((unsigned int *)struct1->ptr - 100, 12 * 0x10, "Main pointer memory");
-	printDump(((unsigned int **)struct1->ptr)[-6] - 0x20, 12 * 0x10, "-6");
-	printDump(((unsigned int **)struct1->ptr)[-7] - 0x20, 12 * 0x10, "-7");
-	printDump(((unsigned int **)struct1->ptr)[-14] - 0x20, 12 * 0x10, "-14");
 	printDump(((unsigned int **)struct1->ptr)[-17] - 0x20, 12 * 0x10, "-17");
 	printDump(((unsigned int ***)struct1->ptr)[-17][0] - 0x20, 12 * 0x10, "-17[0]");
 	printDump(((unsigned int ****)struct1->ptr)[-17][0][10] - 0x20, 12 * 0x10, "-17[0][10]");
 	printDump((unsigned int *)struct1->ptr->pixel_data, 10 * 0x10, "Pixel Data");
-
-	//memcpy(struct1->ptr->pixel_data, def_struct->ptr->pixel_data, struct1->ptr->data_size);
 }
 
 void Texture::printTexture(UTexture *that, bool inherited)
@@ -216,8 +146,7 @@ UTexture2D *Texture::clone(UTexture2D *tex)
 		// Cloning pixel data
 		unsigned char *data = (unsigned char *)malloc(nstruct1->data_size);
 		nstruct1->ptr->pixel_data = data;
-		for (unsigned int i = 0; i < nstruct1->data_size; i++)
-			nstruct1->ptr->pixel_data[i] = i % 255;
+		memcpy(data, struct1->ptr->pixel_data, struct1->data_size);
 
 		// -14 references
 		((int **)nstruct1->ptr)[-14] = ((int *)malloc(64 * 4)) + 32;
@@ -248,4 +177,47 @@ UTexture2D *Texture::clone(UTexture2D *tex)
 		texdata->pixel_data = data;
 	}
 	return ntex;
+}
+
+bool Texture::load(UTexture2D *that)
+{
+	if (!that->Resource.Dummy)
+		return false;
+	FTextureResource *res = (FTextureResource *)that->Resource.Dummy;
+	FUnknownStruct1 *struct1 = (FUnknownStruct1 *)(res->unknown_struct1 - 4);
+	TextureData *texdata = (TextureData *)((int ****)struct1->ptr)[-17][0][10];
+
+	that->SizeX = that->OriginalSizeX = struct1->ptr->SizeX = 90;
+	that->SizeY = that->OriginalSizeY = struct1->ptr->SizeY = 30;
+	//that->Format = struct1->format = struct1->ptr->format = 2; // PF_A8R8G8B8
+	//struct1->ptr->common_ptr3 = (unsigned char *)0x15;
+	struct1->data_size = struct1->ptr->data_size = that->SizeX * that->SizeY * 4;
+
+	// TODO: free memory
+	unsigned char *data = (unsigned char *)malloc(struct1->data_size);
+	struct1->ptr->pixel_data = texdata->pixel_data = data;
+	texdata->SizeX = that->SizeX;
+	texdata->SizeY = that->SizeY;
+	texdata->line_size = texdata->SizeX * 4;
+	texdata->data_size = struct1->data_size;
+
+	for (int y = 0; y < that->SizeY; y++)
+	{
+		for (int x = 0; x < that->SizeX; x++)
+		{
+			int i = y * (that->SizeX) + x;
+			unsigned int col = 0;
+			int alpha = ((y * 255) / that->SizeY);
+
+			if (x < 30)
+				col = 0x1000001;
+			else if (x < 60)
+				col = 0x1010101;
+			else
+				col = 0x1010000;
+			((unsigned int *)data)[i] = (col * alpha);
+		}
+	}
+
+	return true;
 }

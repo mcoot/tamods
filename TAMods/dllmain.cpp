@@ -10,11 +10,17 @@ void onDLLProcessAttach()
 	 */
 	// Logger::quiet();
 
-	//printTexture2D(UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I40"));
-	//printTexture2D(UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I44"));
-	//printTexture2D(UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I4A"));
-	// printTexture2D(UObject::FindObject<UTexture2D>("Texture2D EngineResources.WhiteSquareTexture"));
-	//printTexture2D(UObject::FindObject<UTexture2D>("Texture2D TribesMenu.LoadingScene.LoadingScene_I2"));
+	/*Utils::FindObjects("^Texture2D", [](UObject *obj) -> bool
+	{
+		UTexture2D *tex = (UTexture2D *)obj;
+		if (tex->Format == 2)
+		{
+			Logger::log("###############(%d, %d): %s", tex->SizeX, tex->SizeY, obj->GetFullName());
+			Texture::printTexture2D(tex);
+			return false;
+		}
+		return false;
+	});*/
 
 	g_config.initializeAudio();
 	g_config.parseFile();
