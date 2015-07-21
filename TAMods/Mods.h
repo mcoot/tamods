@@ -7,6 +7,7 @@
 #include "Geom.h"
 #include "Logger.h"
 #include "stats.h"
+#include "Texture.h"
 
 extern Config g_config;
 extern Stats g_stats;
