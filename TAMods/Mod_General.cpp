@@ -120,3 +120,42 @@ bool TrPC_PressedSki(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	}
 	return false;
 }
+
+static void updateLoadingSceneImage(const std::string &map)
+{
+	static UTexture2D *loadingscreen = UObject::FindObject<UTexture2D>("Texture2D TribesMenu.LoadingScene.LoadingScene_I2");
+	static UTexture2D *cloned = NULL;
+
+	std::string directory = Utils::getConfigDir();
+	std::string path = directory + "maps\\" + map + ".png";
+
+	if (Utils::fileExists(path))
+	{
+		cloned = Texture::clone(loadingscreen);
+		Texture::update(loadingscreen, path.c_str());
+	}
+	else if (cloned)
+		Texture::clone(cloned, loadingscreen);
+}
+
+bool GFxTrMenuMoviePlayer_SetPlayerLoading(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	UGFxTrMenuMoviePlayer *that = (UGFxTrMenuMoviePlayer *)dwCallingObject;
+
+	Hooks::lock();
+	that->eventGetPC()->ClientSetHUD(NULL);
+	that->ASC_GotoState(L"ALL_OFF");
+	that->ClosePopup();
+	that->CloseServerPopup();
+	that->bInGame = false;
+	that->bLoading = true;
+	that->bEndOfMatch = false;
+	that->bViewingSummary = false;
+	that->LoadingData->SetDataFields();
+	updateLoadingSceneImage(Utils::cleanString(Utils::f2std(that->LoadingData->MapName)));
+	that->ASC_GotoState(L"LOADING");
+	that->PlayerSummaryScene->ClearEarnedBadgeValue();
+	that->eventShowMovie(0);
+	Hooks::unlock();
+	return true;
+}

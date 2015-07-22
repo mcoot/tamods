@@ -299,7 +299,7 @@ bool Texture::readPNG(const char *path, Texture::PNGImage *out)
 	{
 		png_bytep buffer;
 
-		image.format = PNG_FORMAT_RGBA;
+		image.format = PNG_FORMAT_BGRA;
 		buffer = (png_byte *)malloc(PNG_IMAGE_SIZE(image));
 
 		if (buffer != NULL)

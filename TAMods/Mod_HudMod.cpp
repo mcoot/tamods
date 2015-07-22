@@ -185,10 +185,12 @@ void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale
 
 void myDraw(UCanvas *canvas)
 {
-	static UTexture2D *tex = Texture::create("C:\\Users\\Pierre\\Downloads\\bear.png");
+	/*
+	static UTexture2D *tex = Texture::create("C:\\Users\\Username\\Downloads\\image.png");
 	
 	if (tex)
 		drawTexture(canvas, tex, 5.0f, 5.0f, 1.0f);
+	*/
 }
 
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
@@ -277,6 +279,8 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	UpdateLocationOverheadNumbers(that);
 	that->UpdateOwnedItems();
 
+	myDraw(that->Canvas);
+
 	if (that->bRestoreHUDState)
 	{
 		if (that->LastChangeResCheckTime != (int)that->WorldInfo->TimeSeconds)
@@ -288,8 +292,6 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 			that->LastChangeResCheckTime = (int)that->WorldInfo->TimeSeconds;
 		}
 	}
-
-	myDraw(that->Canvas);
 	Hooks::unlock();
 	return true;
 }
