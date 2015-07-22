@@ -1,7 +1,5 @@
 #include "dllmain.h"
 
-void printTexture2D(UTexture2D *that, bool inherited = false);
-
 void onDLLProcessAttach()
 {
 	/*
@@ -9,18 +7,6 @@ void onDLLProcessAttach()
 	 * I wanted to use _DEBUG but the dll crashes in debug mode
 	 */
 	// Logger::quiet();
-
-	/*Utils::FindObjects("^Texture2D", [](UObject *obj) -> bool
-	{
-		UTexture2D *tex = (UTexture2D *)obj;
-		if (tex->Format == 2)
-		{
-			Logger::log("###############(%d, %d): %s", tex->SizeX, tex->SizeY, obj->GetFullName());
-			Texture::printTexture2D(tex);
-			return false;
-		}
-		return false;
-	});*/
 
 	g_config.initializeAudio();
 	g_config.parseFile();

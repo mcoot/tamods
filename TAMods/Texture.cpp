@@ -1,5 +1,71 @@
 #include "Texture.h"
 
+struct TextureData
+{
+	int SizeX;
+	int SizeY;
+	int zero;
+	unsigned char *pixel_data;
+	int line_size;
+	int data_size;
+	unsigned int *ptr1;
+	unsigned int *ptr2;
+};
+
+struct FUnknownStruct3
+{
+	unsigned char *common_ptr1;
+	unsigned char *unknown_ptr1;
+	unsigned char *common_ptr3;
+	unsigned int unknown_int1; // 0x03
+	unsigned int unknown_int2; // 0x0c000000
+	unsigned int unknown_int3; // 0x02
+	unsigned int zeroes[2];
+	int SizeX;
+	int SizeY;
+	unsigned int zeroes2[24];
+	int format; // Sometimes 0
+	int data_size;
+	unsigned char *pixel_data;
+	unsigned char unknown_data[172];
+};
+
+struct FUnknownStruct1
+{
+	FUnknownStruct3 *ptr;
+	int format;
+	unsigned int data_size;
+	unsigned char zeroes[12];
+	int *common_ptr;
+	int flags;
+};
+
+struct FUnknownStruct2
+{
+	unsigned char data[0x30];
+};
+
+struct FTextureResource
+{
+	unsigned char *unknown_ptr1; // Common to all structs
+	FTextureResource *self; // Pointer to this struct
+	int *prev_self; // Pointer to the self field of the previous FTextureResource
+	int *next_prev; // Pointer to the prev field of the next FTextureResource
+	int flags; // 1 or something that looks like an address
+	unsigned char *unknown_struct1; // FUnknownStruct1 + 4 (wtf)
+	unsigned char *unknown_struct2;
+	int unknown_int1; // 0xe0000000
+	int unknown_int2; // 0xc7efffff
+	int unknown_int3; // 0x3f800000
+	unsigned char unknown_data1[0x1C]; // 00
+	UTexture2D *texture; // Texture containing this Resource
+	unsigned char unknown_data2[0xC0];
+	unsigned char *unknown_struct1_bis; // Same as unknown_struct1
+	unsigned char unknown_data3[0x34];
+};
+
+static UTexture2D *default_argb_clone = Texture::clone(UObject::FindObject<UTexture2D>("Texture2D EngineMaterials.WeightMapPlaceholderTexture"));
+
 static void printDump(unsigned int *data, int count, const char *name)
 {
 	Logger::log("%s @ %p", name, data);
@@ -120,15 +186,17 @@ void Texture::printTexture2D(UTexture2D *that, bool inherited)
 	printTexture(that, true);
 }
 
-UTexture2D *Texture::clone(UTexture2D *tex)
+UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 {
-	UTexture2D *ntex = (UTexture2D *)malloc(sizeof(*tex));
-
-	memcpy(ntex, tex, sizeof(*tex));
+	if (!out)
+	{
+		out = (UTexture2D *)malloc(sizeof(*tex));
+		memcpy(out, tex, sizeof(UTexture2D));
+	}
 	if (tex->Resource.Dummy)
 	{
-		ntex->Resource.Dummy = (int)malloc(sizeof(FTextureResource));
-		FTextureResource *nres = (FTextureResource *)ntex->Resource.Dummy;
+		out->Resource.Dummy = (int)malloc(sizeof(FTextureResource));
+		FTextureResource *nres = (FTextureResource *)out->Resource.Dummy;
 		FTextureResource *res = (FTextureResource *)tex->Resource.Dummy;
 		memcpy(nres, res, sizeof(FTextureResource));
 		nres->self = nres;
@@ -176,48 +244,89 @@ UTexture2D *Texture::clone(UTexture2D *tex)
 		memcpy(texdata, ((int ****)struct1->ptr)[-17][0][10], sizeof(TextureData));
 		texdata->pixel_data = data;
 	}
-	return ntex;
+	return out;
 }
 
-bool Texture::load(UTexture2D *that)
+bool Texture::update(UTexture2D *that, const char *path)
 {
 	if (!that->Resource.Dummy)
 		return false;
+
+	Texture::PNGImage image;
+	if (!readPNG(path, &image))
+		return false;
+
+	// If the texture is not in the ARGB format (usually DXT1 or DXT5), convert it by cloning an ARGB texture
+	if (that->Format != 2 /* PF_A8R8G8B8 */)
+		clone(default_argb_clone, that);
+
 	FTextureResource *res = (FTextureResource *)that->Resource.Dummy;
 	FUnknownStruct1 *struct1 = (FUnknownStruct1 *)(res->unknown_struct1 - 4);
 	TextureData *texdata = (TextureData *)((int ****)struct1->ptr)[-17][0][10];
 
-	that->SizeX = that->OriginalSizeX = struct1->ptr->SizeX = 90;
-	that->SizeY = that->OriginalSizeY = struct1->ptr->SizeY = 30;
-	//that->Format = struct1->format = struct1->ptr->format = 2; // PF_A8R8G8B8
-	//struct1->ptr->common_ptr3 = (unsigned char *)0x15;
+	that->SizeX = that->OriginalSizeX = struct1->ptr->SizeX = image.width;
+	that->SizeY = that->OriginalSizeY = struct1->ptr->SizeY = image.height;
 	struct1->data_size = struct1->ptr->data_size = that->SizeX * that->SizeY * 4;
 
 	// TODO: free memory
-	unsigned char *data = (unsigned char *)malloc(struct1->data_size);
-	struct1->ptr->pixel_data = texdata->pixel_data = data;
+	struct1->ptr->pixel_data = texdata->pixel_data = (unsigned char *)image.data;
 	texdata->SizeX = that->SizeX;
 	texdata->SizeY = that->SizeY;
 	texdata->line_size = texdata->SizeX * 4;
 	texdata->data_size = struct1->data_size;
+	return true;
+}
 
-	for (int y = 0; y < that->SizeY; y++)
+UTexture2D *Texture::create(const char *path)
+{
+	UTexture2D *cloned = clone(default_argb_clone);
+	if (!update(cloned, path))
 	{
-		for (int x = 0; x < that->SizeX; x++)
-		{
-			int i = y * (that->SizeX) + x;
-			unsigned int col = 0;
-			int alpha = ((y * 255) / that->SizeY);
+		// TODO: free(cloned);
+		return NULL;
+	}
+	return cloned;
+}
 
-			if (x < 30)
-				col = 0x1000001;
-			else if (x < 60)
-				col = 0x1010101;
+bool Texture::readPNG(const char *path, Texture::PNGImage *out)
+{
+	png_image image;
+
+	memset(&image, 0, sizeof(image));
+	image.version = PNG_IMAGE_VERSION;
+
+	if (png_image_begin_read_from_file(&image, path))
+	{
+		png_bytep buffer;
+
+		image.format = PNG_FORMAT_RGBA;
+		buffer = (png_byte *)malloc(PNG_IMAGE_SIZE(image));
+
+		if (buffer != NULL)
+		{
+			if (png_image_finish_read(&image, NULL, buffer, 0, NULL))
+			{
+				out->data = (int *)buffer;
+				out->width = image.width;
+				out->height = image.height;
+			}
 			else
-				col = 0x1010000;
-			((unsigned int *)data)[i] = (col * alpha);
+			{
+				Utils::console("PNG error: failed to read %s: %s\n", path, image.message);
+				png_image_free(&image);
+				return false;
+			}
+		}
+		else
+		{
+			Utils::console("PNG error: out of memory: %lu bytes\n", (unsigned long)PNG_IMAGE_SIZE(image));
+			return false;
 		}
 	}
-
+	else
+	{
+		Utils::console("PNG error: couldn't read png %s", path);
+		return false;
+	}
 	return true;
 }

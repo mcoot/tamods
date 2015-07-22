@@ -173,35 +173,22 @@ static void Scoreboard_Fix(UTrScoreboard *that)
 
 void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale = 1.0f)
 {
+	float old_curx = canvas->CurX;
+	float old_cury = canvas->CurY;
+
 	canvas->CurX = x;
 	canvas->CurY = y;
 	canvas->DrawTile(tex, (float) tex->SizeX * scale, (float) tex->SizeY * scale, 0, 0, (float) tex->SizeX, (float) tex->SizeY, {1.0f, 1.0f, 1.0f, 1.0f}, 0, 0);
+	canvas->CurX = old_curx;
+	canvas->CurY = old_cury;
 }
 
 void myDraw(UCanvas *canvas)
 {
-	static UTexture2D *loadingscreen = UObject::FindObject<UTexture2D>("Texture2D TribesMenu.LoadingScene.LoadingScene_I2");
-	//static UTexture2D *I4A = UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I4A");
-	//static UTexture2D *orig = UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I40");
-	//static UTexture2D *orig = UObject::FindObject<UTexture2D>("Texture2D FX_GeneralUse.Gradients.T_PFX_Gradient_Frame");
-	static UTexture2D *orig = UObject::FindObject<UTexture2D>("Texture2D EngineMaterials.WeightMapPlaceholderTexture");
-	static UTexture2D *cloned = Texture::clone(orig);
-	static UTexture2D *cloned_loaded = NULL;
-
-	if (!cloned_loaded)
-	{
-		cloned_loaded = Texture::clone(orig);
-		Texture::load(cloned_loaded);
-	}
-
-	Texture::printTexture2D(orig);
-	Texture::printTexture2D(loadingscreen);
-	//FUnknownStruct3 *dest = ((FUnknownStruct1 *)(((FTextureResource *)newtex->Resource.Dummy)->unknown_struct1 - 4))->ptr;
-	//FUnknownStruct3 *src = ((FUnknownStruct1 *)(((FTextureResource *)I4A->Resource.Dummy)->unknown_struct1 - 4))->ptr;
-
-	drawTexture(canvas, orig, 5.0f, 5.0f, 1.0f);
-	drawTexture(canvas, cloned, 5.0f, 10.0f + orig->SizeY, 1.0f);
-	drawTexture(canvas, cloned_loaded, 10.0f + orig->SizeX, 5.0f, 1.0f);
+	static UTexture2D *tex = Texture::create("C:\\Users\\Pierre\\Downloads\\bear.png");
+	
+	if (tex)
+		drawTexture(canvas, tex, 5.0f, 5.0f, 1.0f);
 }
 
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
@@ -289,8 +276,6 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	my_UpdateOverheadNumbers(that, that->RenderDelta);
 	that->UpdateOwnedItems();
 
-	myDraw(that->Canvas);
-
 	if (that->bRestoreHUDState)
 	{
 		if (that->LastChangeResCheckTime != (int)that->WorldInfo->TimeSeconds)
@@ -302,6 +287,8 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 			that->LastChangeResCheckTime = (int)that->WorldInfo->TimeSeconds;
 		}
 	}
+
+	myDraw(that->Canvas);
 	Hooks::unlock();
 	return true;
 }
