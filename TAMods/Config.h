@@ -226,6 +226,7 @@ public:
 	void initializeAudio();
 	void reloadSounds();
 	void refreshSoundVolumes();
+	void stopwatchDisplayTime(float cur_time);
 
 	void reloadTrHUD(ATrHUD *currHud, bool updated = true);
 
@@ -287,8 +288,15 @@ public:
 	// Roam map variables
 	bool disableBaseTurrets;
 	bool disablePower;
+	bool showSavedLocations;
 	int  maxSpeedWithFlag;
 	int  decelerationRateWithFlag;
+
+	// Route timer
+	bool stopwatchRunning = false;
+	float stopwatchStartTime = 0.0f;
+	float stopwatchGrabTime = 0.0f;
+	float stopwatchCapTime = 0.0f;
 
 	// Sounds
 	Audio audioEngine;
@@ -361,6 +369,12 @@ public:
 	bool  centerBulletSpawn;
 	float bulletPingMultiplier;
 	float bulletSpawnDelay;
+
+	// Mouse sensitivity
+	bool useFOVScaling;
+	float sens;
+	float sensZoom;
+	float sensZoooom;
 
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;

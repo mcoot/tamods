@@ -11,12 +11,31 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 
+	if (g_config.stopwatchRunning && that->WorldInfo)
+	{
+		g_config.stopwatchDisplayTime(that->WorldInfo->RealTimeSeconds);
+		g_config.stopwatchRunning = false;
+	}
+
 	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0
 	{
 		that->m_nRespawnTimeRemaining = 0;
 		that->r_fRespawnTime = 0;
 		that->MinRespawnDelay = 0;
 		that->UpdateRespawnTimer();
+		that->ClearTimer(FName("PlayRespawnSoonSound"), that);
+	}
+	return false;
+}
+
+bool TrPC_Suicide(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
+	
+	if (that->WorldInfo && that->WorldInfo->NetMode == 0)
+	{
+		that->m_bLastDeathWasUserSuicide = 0;
+		that->m_fLastSuicideTimestamp = 0.0f;
 	}
 	return false;
 }
@@ -93,8 +112,11 @@ bool TrPC_PressedSki(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0
 	{
 		ATrPawn *pawn = (ATrPawn *)that->Pawn;
-		pawn->m_fMaxSpeedWithFlag = (float)g_config.maxSpeedWithFlag / 0.072f;
-		pawn->m_fDecelerationRateWithFlag = (float)g_config.decelerationRateWithFlag / 0.072f;
+		if (pawn)
+		{
+			pawn->m_fMaxSpeedWithFlag = (float)g_config.maxSpeedWithFlag / 0.072f;
+			pawn->m_fDecelerationRateWithFlag = (float)g_config.decelerationRateWithFlag / 0.072f;
+		}
 	}
 	return false;
 }

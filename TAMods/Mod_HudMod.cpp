@@ -274,6 +274,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	that->UpdateWhiteoutEffect();
 	that->UpdateFumbledFlagEffect();
 	my_UpdateOverheadNumbers(that, that->RenderDelta);
+	UpdateLocationOverheadNumbers(that);
 	that->UpdateOwnedItems();
 
 	if (that->bRestoreHUDState)
@@ -406,4 +407,42 @@ bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction
 		g_stats.resetStats();
 	}
 	return(false);
+}
+
+bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrHUD *that = (ATrHUD *)dwCallingObject;
+	UGFxObject *timer = that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer;
+
+	// if worldseconds - grabtime < ~4 seconds, show grabtime instead of stopwatch time in red
+	// if worldseconds - captime < ~4 seconds, show captime instead of stopwatch time in red
+
+	// while playing online, only show the stopwatch, don't replace the normal game time
+	if (g_config.stopwatchRunning || that->WorldInfo->NetMode == 0)
+	{
+		float worldseconds = that->WorldInfo->RealTimeSeconds;
+
+		if (g_config.stopwatchRunning)
+			worldseconds -= g_config.stopwatchStartTime;
+
+		if (worldseconds < 0.0f)
+			g_config.stopwatchRunning = false;
+
+		int minutes = (int)worldseconds / 60;
+		int seconds = (int)worldseconds % 60;
+		int tenths = (int)((worldseconds - (int)worldseconds) * 10);
+
+		wchar_t buff[9];
+
+		if (g_config.stopwatchRunning)
+			wsprintf(buff, L"%01d:%02d.%d", minutes, seconds, tenths);
+		else // fix for static roam map time
+			wsprintf(buff, L"%02d:%02d", minutes, seconds);
+
+		that->HUDTeamCTFStats->m_MoviePlayer->TeamCTFStatsUpdateTime(FString(buff));
+
+		if (timer)
+			timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float)0x0FFF87 : (float)0xDDFFDD);
+	}
+	return false;
 }

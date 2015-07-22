@@ -326,6 +326,20 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_eventPlayerTick_Parms *params = (ATrPlayerController_eventPlayerTick_Parms *) pParams;
 
+	// Mouse sensitivity
+	if (!g_config.useFOVScaling)
+	{
+		that->PlayerInput->bEnableFOVScaling = 0;
+		if (that->FOVAngle > 40)
+			that->PlayerInput->MouseSensitivity = g_config.sens;
+		else if (that->FOVAngle == 40)
+			that->PlayerInput->MouseSensitivity = g_config.sensZoom;
+		else
+			that->PlayerInput->MouseSensitivity = g_config.sensZoooom;
+	}
+	else
+		that->PlayerInput->bEnableFOVScaling = 1;
+
 	Hooks::lock();
 	Utils::tr_pc = that;
 	if (g_config.useMagicChain)

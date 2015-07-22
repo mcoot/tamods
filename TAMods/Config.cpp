@@ -116,6 +116,7 @@ void Config::reset()
 	// Roam map variables
 	disableBaseTurrets       = false;
 	disablePower             = false;
+	showSavedLocations       = true;
 	maxSpeedWithFlag         = 0;
 	decelerationRateWithFlag = 10;
 
@@ -170,6 +171,12 @@ void Config::reset()
 	bulletPingMultiplier = 1.0f;
 	bulletSpawnDelay     = 0.0f;
 
+	// Mouse sensitivity
+	useFOVScaling        = true;
+	sens                 = 10.0f;
+	sensZoom             = 5.0f;
+	sensZoooom           = 2.0f;
+
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();
 
@@ -188,11 +195,16 @@ void Config::parseFile()
 		directory = std::string("C:\\");
 	reset();
 	lua = Lua();
-	std::string err = lua.doFile(directory + "config.lua");
-	if (err.size())
+
+	if (FILE *config = fopen(std::string(directory + "config.lua").c_str(), "r"))
 	{
-		Utils::console("Lua config error: %s", err.c_str());
-		return;
+		fclose(config);
+		std::string err = lua.doFile(directory + "config.lua");
+		if (err.size())
+		{
+			Utils::console("Lua config error: %s", err.c_str());
+			return;
+		}
 	}
 	if (FILE *custom = fopen(std::string(directory + "custom.lua").c_str(), "r"))
 	{
@@ -380,6 +392,24 @@ void Config::refreshSoundVolumes()
 		Utils::console("Error: audio engine unavailable");
 }
 
+void Config::stopwatchDisplayTime(float cur_time)
+{
+	if (stopwatchRunning)
+	{
+		float time = cur_time - stopwatchStartTime;
+
+		int minutes = (int)time / 60;
+		int seconds = (int)time % 60;
+		int milliseconds = (int)((time - (int)time) * 1000);
+
+		char buff[11];
+		sprintf(buff, "%01d:%02d.%03d", minutes, seconds, milliseconds);
+
+		Utils::printConsole("Stopwatch: " + std::string(buff), Utils::rgba(15, 255, 135, 255));
+		Utils::notify(std::string("Stopwatch"), std::string(buff));
+	}
+}
+
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
 void Config::setVariables()
 {
@@ -433,6 +463,7 @@ void Config::setVariables()
 	// Roam map variables
 	SET_VARIABLE(bool, disableBaseTurrets);
 	SET_VARIABLE(bool, disablePower);
+	SET_VARIABLE(bool, showSavedLocations);
 	SET_VARIABLE(int, maxSpeedWithFlag);
 	SET_VARIABLE(int, decelerationRateWithFlag);
 
@@ -522,6 +553,12 @@ void Config::setVariables()
 	SET_VARIABLE(bool, centerBulletSpawn);
 	SET_VARIABLE(float, bulletPingMultiplier);
 	SET_VARIABLE(float, bulletSpawnDelay);
+
+	// Mouse sensitivity
+	SET_VARIABLE(bool, useFOVScaling);
+	SET_VARIABLE(float, sens);
+	SET_VARIABLE(float, sensZoom);
+	SET_VARIABLE(float, sensZoooom);
 }
 
 static int getWeaponID(const std::string &class_name, const std::string &str)
