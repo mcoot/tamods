@@ -186,19 +186,12 @@ void Config::reset()
 
 void Config::parseFile()
 {
-	const char *profile = getenv("USERPROFILE");
-	std::string directory;
-
-	if (profile)
-		directory = std::string(profile) + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
-	else
-		directory = std::string("C:\\");
+	std::string directory = Utils::getConfigDir();
 	reset();
 	lua = Lua();
 
-	if (FILE *config = fopen(std::string(directory + "config.lua").c_str(), "r"))
+	if (Utils::fileExists(directory + "config.lua"))
 	{
-		fclose(config);
 		std::string err = lua.doFile(directory + "config.lua");
 		if (err.size())
 		{
@@ -206,9 +199,8 @@ void Config::parseFile()
 			return;
 		}
 	}
-	if (FILE *custom = fopen(std::string(directory + "custom.lua").c_str(), "r"))
+	if (Utils::fileExists(directory + "custom.lua"))
 	{
-		fclose(custom);
 		std::string err = lua.doFile(directory + "custom.lua");
 		if (err.size())
 		{

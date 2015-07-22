@@ -19,6 +19,10 @@ namespace Utils
 	std::string cleanString(const std::string &str);
 	std::string trim(const std::string &str);
 
+	// Files
+	std::string getConfigDir();
+	bool fileExists(const std::string &path, const std::string &mode = "r");
+
 	// Map
 	int searchMapId(const std::map<std::string, int> map, const std::string &str, const std::string &location = "", bool print_on_fail = true);
 

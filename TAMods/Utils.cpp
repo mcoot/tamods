@@ -67,6 +67,26 @@ std::string Utils::trim(const std::string &str)
 	return (str.substr(begin, end - begin + 1));
 };
 
+// Returns the config directory path
+std::string Utils::getConfigDir()
+{
+	const char *profile = getenv("USERPROFILE");
+
+	if (profile)
+		return std::string(profile) + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
+	return "C:\\";
+}
+
+bool Utils::fileExists(const std::string &path, const std::string &mode)
+{
+	if (FILE *file = fopen(path.c_str(), mode.c_str()))
+	{
+		fclose(file);
+		return true;
+	}
+	return false;
+}
+
 // Regex search in a map of type <string, int> where the string are regexes
 // location and print_on_fail are only used for error messages
 int Utils::searchMapId(const std::map<std::string, int> map, const std::string &str, const std::string &location, bool print_on_fail)
