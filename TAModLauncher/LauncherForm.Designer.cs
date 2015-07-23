@@ -34,6 +34,7 @@
             this.labelDownload = new System.Windows.Forms.Label();
             this.btnUpdateCheck = new System.Windows.Forms.Button();
             this.btnReinstall = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUpdateLaunch
@@ -70,9 +71,9 @@
             this.labelDownload.AutoSize = true;
             this.labelDownload.Location = new System.Drawing.Point(12, 173);
             this.labelDownload.Name = "labelDownload";
-            this.labelDownload.Size = new System.Drawing.Size(119, 13);
+            this.labelDownload.Size = new System.Drawing.Size(83, 13);
             this.labelDownload.TabIndex = 4;
-            this.labelDownload.Text = "Currently Downloading: ";
+            this.labelDownload.Text = "Ready To Play! ";
             this.labelDownload.Visible = false;
             // 
             // btnUpdateCheck
@@ -87,19 +88,30 @@
             // 
             // btnReinstall
             // 
-            this.btnReinstall.Location = new System.Drawing.Point(437, 37);
+            this.btnReinstall.Location = new System.Drawing.Point(279, 105);
             this.btnReinstall.Name = "btnReinstall";
-            this.btnReinstall.Size = new System.Drawing.Size(75, 42);
+            this.btnReinstall.Size = new System.Drawing.Size(96, 21);
             this.btnReinstall.TabIndex = 6;
             this.btnReinstall.Text = "Reinstall Mod";
             this.btnReinstall.UseVisualStyleBackColor = true;
             this.btnReinstall.Click += new System.EventHandler(this.btnReinstall_Click);
+            // 
+            // btnSettings
+            // 
+            this.btnSettings.Location = new System.Drawing.Point(611, 12);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSettings.TabIndex = 9;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 195);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnReinstall);
             this.Controls.Add(this.btnUpdateCheck);
             this.Controls.Add(this.labelDownload);
@@ -109,6 +121,7 @@
             this.Name = "LauncherForm";
             this.Text = "TAMods Launcher";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LauncherForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LauncherForm_FormClosed);
             this.Load += new System.EventHandler(this.LauncherForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -123,6 +136,7 @@
         private System.Windows.Forms.Label labelDownload;
         private System.Windows.Forms.Button btnUpdateCheck;
         private System.Windows.Forms.Button btnReinstall;
+        private System.Windows.Forms.Button btnSettings;
     }
 }
 

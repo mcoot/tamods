@@ -171,6 +171,30 @@ static void Scoreboard_Fix(UTrScoreboard *that)
 	}
 }
 
+void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale = 1.0f)
+{
+	float old_curx = canvas->CurX;
+	float old_cury = canvas->CurY;
+
+	canvas->CurX = x;
+	canvas->CurY = y;
+	canvas->DrawTile(tex, (float) tex->SizeX * scale, (float) tex->SizeY * scale, 0, 0, (float) tex->SizeX, (float) tex->SizeY, {1.0f, 1.0f, 1.0f, 1.0f}, 0, 2);
+	canvas->CurX = old_curx;
+	canvas->CurY = old_cury;
+}
+
+void myDraw(ATrHUD *that)
+{
+	UCanvas *canvas = that->Canvas;
+	int reticule_id = that->m_GFxHud->Reticules->m_nCurrentReticuleIndex;
+
+	if (g_config.customCrosshairs[reticule_id])
+	{
+		UTexture2D *tex = g_config.customCrosshairs[reticule_id];
+		drawTexture(canvas, tex, (canvas->SizeX * .5f) - (tex->SizeX * .5f), (canvas->SizeY * .5f) - (tex->SizeY * .5f), 1.0f);
+	}
+}
+
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	static FColor rainbow_cols[] = {
@@ -256,6 +280,8 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	my_UpdateOverheadNumbers(that, that->RenderDelta);
 	UpdateLocationOverheadNumbers(that);
 	that->UpdateOwnedItems();
+
+	myDraw(that);
 
 	if (that->bRestoreHUDState)
 	{

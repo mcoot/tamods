@@ -7,6 +7,7 @@
 #include "Geom.h"
 #include "Logger.h"
 #include "stats.h"
+#include "Texture.h"
 
 extern Config g_config;
 extern Stats g_stats;
@@ -26,6 +27,9 @@ bool GFxTrScenePS_LoadPlayerMiscData(int ID, UObject *dwCallingObject, UFunction
 
 bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
+// Loading images
+bool GFxTrMenuMoviePlayer_SetPlayerLoading(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 // Show/hide/scale reticule, show/hide weapons
 bool TrVehicle_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

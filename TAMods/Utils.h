@@ -21,6 +21,10 @@ namespace Utils
 	std::string fTime2string(float time);
 	std::string fTime2stopwatch(float time);
 
+	// Files
+	std::string getConfigDir();
+	bool fileExists(const std::string &path, const std::string &mode = "r");
+
 	// Map
 	int searchMapId(const std::map<std::string, int> map, const std::string &str, const std::string &location = "", bool print_on_fail = true);
 

@@ -14,6 +14,7 @@
 #include "SdkHeaders.h"
 #include "Hooks.h"
 #include "Audio.h"
+#include "Texture.h"
 #include "SoundEffect.h"
 
 struct Crosshairs
@@ -243,6 +244,9 @@ public:
 	float   crosshairScale;
 	FColor  crosshairColor;
 	Loadout *loadouts[9][9];
+
+	// One possible custom crosshair per stock crosshair
+	UTexture2D *customCrosshairs[25];
 
 	// Damage number customization
 	float  damageNumbersOffsetX;

@@ -11,7 +11,7 @@ using System.IO;
 
 namespace TAModLauncher
 {
-    class TAModUpdater
+    public class TAModUpdater
     {
         // The application folder
         private readonly string appPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -20,11 +20,11 @@ namespace TAModLauncher
         public bool doAutoUpdateCheck = true;
 
         // The URL of the download server
-        public string serverUrl = "http://localhost/tamods";
+        public string updateUrl = "http://localhost/tamods/version.xml";
+        public string downloadUrl = "http://localhost/tamods";
 
         // The filename of the local and server versioning manifest
         public string localManifestFilename = "version.xml";
-        public string serverManifestFilename = "version.xml";
 
         // Versioning channel to update from
         public string updateChannel = "stable";
@@ -74,7 +74,7 @@ namespace TAModLauncher
         public void loadServerManifest()
         {
             // Load xml document; may throw exceptions
-            serverManifest.Load(serverUrl + "\\" + serverManifestFilename);
+            serverManifest.Load(updateUrl);
 
             // Load files into list; also may throw exceptions
             serverFiles = getManifestFileList(serverManifest);
@@ -137,6 +137,55 @@ namespace TAModLauncher
             }
 
             return fileList;
+        }
+
+        public List<string> getAvailableUpdateChannels()
+        {
+            XmlNode root = serverManifest.SelectSingleNode("//TAMods");
+
+            if (serverManifest.DocumentElement == null)
+            {
+                throw new XmlException("Manifest contains no XML document root node.");
+            }
+
+            // Find all update channels
+            List<string> channels = new List<string>();
+
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                if (node.Name == "files")
+                {
+                    channels.Add(node.Attributes["channel"].Value.ToString().ToLower());
+                }
+            }
+
+            return channels;
+        }
+
+        public void setUpdateChannel(string channel)
+        {
+            XmlNode root = serverManifest.SelectSingleNode("//TAMods");
+
+            if (serverManifest.DocumentElement == null)
+            {
+                throw new XmlException("Manifest contains no XML document root node.");
+            }
+
+            // Find given update channel
+
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                if (node.Name == "files")
+                {
+                    if (node.Attributes["channel"].Value.ToString().ToLower() == channel.ToLower())
+                    {
+                        updateChannel = channel.ToLower();
+                        return;
+                    }
+                }
+            }
+
+            throw new XmlException("Given update channel does not exist.");
         }
 
         public bool isUriAccessible(Uri uri)
@@ -277,7 +326,7 @@ namespace TAModLauncher
             if (currentDownload == null && downloadQueue.Count == 0)
             {
                 if (!Directory.Exists(appPath + "\\inprogress")) Directory.CreateDirectory(appPath + "\\inprogress");
-                download(new Uri(serverUrl + "\\" + file.fileName), appPath + "\\inprogress\\" + file.fileName);
+                download(new Uri(downloadUrl + "\\" + file.fileName), appPath + "\\inprogress\\" + file.fileName);
                 currentDownload = file;
                 return;
             }
@@ -323,7 +372,7 @@ namespace TAModLauncher
             {
                 VersionedFile nextFile = downloadQueue.Dequeue();
                 if (!Directory.Exists(appPath + "\\inprogress")) Directory.CreateDirectory(appPath + "\\inprogress");
-                download(new Uri(serverUrl + "\\" + nextFile.fileName), appPath + "\\inprogress\\" + nextFile.fileName);
+                download(new Uri(downloadUrl + "\\" + nextFile.fileName), appPath + "\\inprogress\\" + nextFile.fileName);
                 currentDownload = nextFile;
             }
         }
@@ -336,7 +385,7 @@ namespace TAModLauncher
 
     }
 
-    class VersionedFile : IComparable<VersionedFile>
+    public class VersionedFile : IComparable<VersionedFile>
     {
         public readonly string fileName;
         public readonly float version;
