@@ -47,6 +47,13 @@ void Config::reset()
 		}
 	}
 
+	// Clear custom crosshairs
+	for (int i = 0; i < 25; i++)
+	{
+		// TODO: free Textures or recycle them
+		customCrosshairs[i] = NULL;
+	}
+
 	// Mark custom projectiles "free"
 	int timesec = clock() / CLOCKS_PER_SEC;
 	while (CustomProjectile::usedPS.size())
@@ -736,6 +743,19 @@ static bool config_setCrosshairs(const std::string &pclass, const std::string &w
 	return true;
 }
 
+static void config_bindCustomCrosshair(const std::string &pxhair, UTexture2D *texture)
+{
+	int xhair = Utils::searchMapId(Data::crosshairs, pxhair, "Crosshair");
+
+	if (xhair > 0 && xhair < 25)
+		g_config.customCrosshairs[xhair] = texture;
+}
+
+static UTexture2D *config_createTexture(const std::string &path)
+{
+	return Texture::create((Utils::getConfigDir() + path).c_str());
+}
+
 static bool config_addMutedPlayer(MutedPlayer player)
 {
 	g_config.globalMuteList.push_back(player);
@@ -898,6 +918,7 @@ void Lua::init()
 		addFunction("equipment", &Equipment::create).
 		addFunction("setLoadout", &config_setLoadout).
 
+		// Crosshairs
 		beginClass<Crosshairs>("Crosshairs").
 			addData("standard", &Crosshairs::standard).
 			addData("zoomed", &Crosshairs::zoomed).
@@ -906,6 +927,14 @@ void Lua::init()
 		addFunction("crosshairs", &Crosshairs::create2).
 		addFunction("setCrosshairs", &config_setCrosshairs).
 
+		beginClass<UTexture2D>("Texture").
+			addData("width", &UTexture2D::SizeX).
+			addData("height", &UTexture2D::SizeY).
+		endClass().
+		addFunction("createTexture", &config_createTexture).
+		addFunction("bindCustomCrosshair", &config_bindCustomCrosshair).
+
+		// Damage Numbers
 		beginClass<FVector>("Vector").
 			addData("x", &FVector::X).
 			addData("y", &FVector::Y).
