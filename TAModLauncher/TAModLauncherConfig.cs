@@ -9,7 +9,7 @@ using System.IO;
 
 namespace TAModLauncher
 {
-    class TAModLauncherConfig
+    public class TAModLauncherConfig
     {
         private XmlDocument config;
         private XmlElement root;
