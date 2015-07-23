@@ -16,10 +16,11 @@ namespace TAModLauncher
 {
     public partial class LauncherForm : Form
     {
-        private TAModUpdater updater;
-        private TAModLauncherConfig config;
+        public TAModUpdater updater;
+        public TAModLauncherConfig config;
+        public SettingsForm settingsform;
 
-        private bool updateRequired;
+        public bool updateRequired;
 
         public LauncherForm()
         {
@@ -30,6 +31,7 @@ namespace TAModLauncher
         {
             updater = new TAModUpdater();
             config = new TAModLauncherConfig("launcher.xml");
+            settingsform = new SettingsForm(this);
 
             // Event handlers
             updater.DownloadProgressChanged += new EventHandler(updateProgressChange);
@@ -50,7 +52,7 @@ namespace TAModLauncher
         private void LauncherForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             config.setProperty("//LauncherConfig/AutoUpdateCheck", checkAutoUpdate.Checked.ToString().ToLower());
-            if (selectUpdateChannel.SelectedItem != null) config.setProperty("//LauncherConfig/UpdateChannel", selectUpdateChannel.SelectedItem.ToString().ToLower());
+            if (settingsform.selectUpdateChannel.SelectedItem != null) config.setProperty("//LauncherConfig/UpdateChannel", settingsform.selectUpdateChannel.SelectedItem.ToString().ToLower());
             config.saveConfig("launcher.xml");
         }
 
@@ -130,18 +132,24 @@ namespace TAModLauncher
             }
 
             // Get release channels
-            selectUpdateChannel.Items.Clear();
+            settingsform.selectUpdateChannel.Items.Clear();
             foreach (string channel in updater.getAvailableUpdateChannels())
             {
-                selectUpdateChannel.Items.Add(channel);
+                settingsform.selectUpdateChannel.Items.Add(channel);
             }
 
             // Try to get the user's channel from the launcher config
             string userUpdateChannel = config.getProperty("//LauncherConfig/UpdateChannel");
 
-            if (userUpdateChannel != null && selectUpdateChannel.Items.Contains(userUpdateChannel))
+            if (userUpdateChannel != null && settingsform.selectUpdateChannel.Items.Contains(userUpdateChannel))
             {
-                selectUpdateChannel.SelectedItem = userUpdateChannel;
+                settingsform.selectUpdateChannel.SelectedItem = userUpdateChannel;
+            }
+
+            // If no update channel is set, choose stable channel if available
+            if (userUpdateChannel == null && settingsform.selectUpdateChannel.Items.Contains("stable"))
+            {
+                settingsform.selectUpdateChannel.SelectedItem = "stable";
             }
 
             // Determine whether update is required
@@ -189,8 +197,6 @@ namespace TAModLauncher
             checkForUpdates();
         }
 
-        
-
         private void btnReinstall_Click(object sender, EventArgs e)
         {
             labelDownload.Visible = true;
@@ -205,20 +211,14 @@ namespace TAModLauncher
             }
         }
 
-        private void selectUpdateChannel_SelectedIndexChanged(object sender, EventArgs e)
+        private void LauncherForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (selectUpdateChannel.SelectedItem != null)
-            {
-                try
-                {
-                    updater.setUpdateChannel(selectUpdateChannel.SelectedItem.ToString().ToLower());
-                }
-                catch (XmlException ex)
-                {
-                    MessageBox.Show("ERROR: The updater could not set the requested update channel.\n Message: " + ex,
-                    "Error Setting Update Channel", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            Application.Exit();
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            settingsform.Show();
         }
     }
 }
