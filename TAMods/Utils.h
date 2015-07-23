@@ -18,6 +18,8 @@ namespace Utils
 	std::string f2std(FString &fstr);
 	std::string cleanString(const std::string &str);
 	std::string trim(const std::string &str);
+	std::string fTime2string(float time);
+	std::string fTime2stopwatch(float time);
 
 	// Map
 	int searchMapId(const std::map<std::string, int> map, const std::string &str, const std::string &location = "", bool print_on_fail = true);

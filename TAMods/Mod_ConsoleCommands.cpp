@@ -78,7 +78,7 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 
 				if (g_config.stopwatchRunning)
 				{
-					g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
+					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
 					g_config.stopwatchRunning = false;
 				}
 				TrPawn->m_fCurrentPowerPool = TrPawn->GetMaxPowerPool();
@@ -91,12 +91,11 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 
 				if (state.stopwatchTime) // Restore stopwatch state
 				{
-					g_config.stopwatchStartTime = TrPawn->WorldInfo->RealTimeSeconds - state.stopwatchTime;
-					g_config.stopwatchRunning = true;
+					g_config.stopwatchStart(TrPawn->WorldInfo->RealTimeSeconds - state.stopwatchTime);
 				}
 				else if (g_config.stopwatchRunning) // This state has no stopwatch data, just stop it then
 				{
-					g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
+					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
 					g_config.stopwatchRunning = false;
 				}
 
@@ -260,14 +259,13 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 				}
 				else if ((line.size() == 10 && line == L"/stopwatch"))
 				{
-					// Display the stopped time
 					if (g_config.stopwatchRunning)
-						g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
-					// Just start the stopwatch
+					{
+						g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+						g_config.stopwatchReset();
+					}
 					else
-						g_config.stopwatchStartTime = TrPC->WorldInfo->RealTimeSeconds;
-
-					g_config.stopwatchRunning = !g_config.stopwatchRunning;
+						g_config.stopwatchStart(TrPC->WorldInfo->RealTimeSeconds);
 				}
 				// Command to save the current player state (location, velocity etc.)
 				else if (line.substr(0, 5) == L"/save")

@@ -120,6 +120,10 @@ void Config::reset()
 	maxSpeedWithFlag         = 0;
 	decelerationRateWithFlag = 10;
 
+	// Stopwatch
+	stopwatchStopOnCap = false;
+	stopwatchNotifications = true;
+
 	// Sounds
 	hitSoundMode = 0;
 	customHeadShotSound  = false;
@@ -392,22 +396,33 @@ void Config::refreshSoundVolumes()
 		Utils::console("Error: audio engine unavailable");
 }
 
-void Config::stopwatchDisplayTime(float cur_time)
+void Config::stopwatchDisplayTime(const std::string &prestr, float cur_time)
 {
 	if (stopwatchRunning)
 	{
 		float time = cur_time - stopwatchStartTime;
 
-		int minutes = (int)time / 60;
-		int seconds = (int)time % 60;
-		int milliseconds = (int)((time - (int)time) * 1000);
-
-		char buff[11];
-		sprintf(buff, "%01d:%02d.%03d", minutes, seconds, milliseconds);
-
-		Utils::printConsole("Stopwatch: " + std::string(buff), Utils::rgba(15, 255, 135, 255));
-		Utils::notify(std::string("Stopwatch"), std::string(buff));
+		std::string s = Utils::fTime2stopwatch(time);
+		Utils::printConsole("Stopwatch: " + prestr + s, Utils::rgba(15, 255, 135, 255));
+		if (stopwatchNotifications)
+			Utils::notify(std::string("Stopwatch"), prestr + s);
 	}
+}
+
+void Config::stopwatchStart(float cur_time)
+{
+	stopwatchStartTime = cur_time;
+	stopwatchRunning = true;
+}
+
+void Config::stopwatchReset()
+{
+	stopwatchRunning =    false;
+	stopwatchStartTime =  0.0f;
+	stopwatchGrabTime =   0.0f;
+	stopwatchCapTime =    0.0f;
+	stopwatchGrabHealth = 0;
+	stopwatchGrabSpeed =  -1;
 }
 
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
@@ -466,6 +481,10 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showSavedLocations);
 	SET_VARIABLE(int, maxSpeedWithFlag);
 	SET_VARIABLE(int, decelerationRateWithFlag);
+
+	// Stopwatch
+	SET_VARIABLE(bool, stopwatchStopOnCap);
+	SET_VARIABLE(bool, stopwatchNotifications);
 
 	// Sounds
 	SET_VARIABLE(int, hitSoundMode);
