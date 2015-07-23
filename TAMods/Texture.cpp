@@ -58,8 +58,8 @@ struct FTextureResource
 	int unknown_int3; // 0x3f800000
 	unsigned char unknown_data1[0x1C]; // 00
 	UTexture2D *texture; // Texture containing this Resource
-	//unsigned char unknown_data2[0xC0];
-	//unsigned char *unknown_struct1_bis; // Same as unknown_struct1
+	unsigned char unknown_data2[0xC0];
+	unsigned char *unknown_struct1_bis; // Same as unknown_struct1
 	//unsigned char unknown_data3[0x34];
 };
 
@@ -189,7 +189,7 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 {
 	if (!out)
 	{
-		out = (UTexture2D *)malloc(sizeof(*tex));
+		out = (UTexture2D *)malloc(sizeof(UTexture2D));
 		memcpy(out, tex, sizeof(UTexture2D));
 	}
 	if (tex->Resource.Dummy)
@@ -203,7 +203,7 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		FUnknownStruct1 *nstruct1 = (FUnknownStruct1 *)malloc(sizeof(FUnknownStruct1));
 		FUnknownStruct1 *struct1 = (FUnknownStruct1 *)(res->unknown_struct1 - 4);
 		nres->unknown_struct1 = ((unsigned char *)nstruct1) + 4;
-		//nres->unknown_struct1_bis = nres->unknown_struct1;
+		nres->unknown_struct1_bis = nres->unknown_struct1;
 		memcpy(nstruct1, struct1, sizeof(FUnknownStruct1));
 
 		// Cloning struct3
@@ -238,9 +238,17 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		((int **)nstruct1->ptr)[-17][20] = (int)data;
 		((int ***)nstruct1->ptr)[-17][0] = ((int *)malloc(32 * 4));
 		memcpy(((int ***)nstruct1->ptr)[-17][0], ((int ***)struct1->ptr)[-17][0], 32 * 4);
+		
+		TextureData *texdata = (TextureData *) ((char *)malloc(sizeof(TextureData) + 8) - 8);
+		((int ****)nstruct1->ptr)[-17][0][10] = (int *)texdata;
+		memcpy((char *)texdata - 8, ((char *)(((int ****)struct1->ptr)[-17][0][10])) - 8, sizeof(TextureData) + 8);
+
+		/*
 		TextureData *texdata = (TextureData *)malloc(sizeof(TextureData));
 		((int ****)nstruct1->ptr)[-17][0][10] = (int *)texdata;
 		memcpy(texdata, ((int ****)struct1->ptr)[-17][0][10], sizeof(TextureData));
+		*/
+
 		texdata->pixel_data = data;
 	}
 	return out;
