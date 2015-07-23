@@ -187,6 +187,9 @@ void Texture::printTexture2D(UTexture2D *that, bool inherited)
 
 UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 {
+	// Temporary bug patch
+	return NULL;
+
 	if (!out)
 	{
 		out = (UTexture2D *)malloc(sizeof(UTexture2D));
@@ -241,6 +244,7 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		
 		TextureData *texdata = (TextureData *)malloc(sizeof(TextureData));
 		((int ****)nstruct1->ptr)[-17][0][10] = (int *)texdata;
+		// This is the line that makes the thing bug
 		memcpy(texdata, ((int ****)struct1->ptr)[-17][0][10], sizeof(TextureData));
 
 		texdata->pixel_data = data;
@@ -250,6 +254,9 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 
 bool Texture::update(UTexture2D *that, const char *path)
 {
+	// Temporary bug patch
+	return false;
+
 	if (!that->Resource.Dummy)
 		return false;
 
@@ -280,6 +287,9 @@ bool Texture::update(UTexture2D *that, const char *path)
 
 UTexture2D *Texture::create(const char *path)
 {
+	// Temporary bug patch
+	return NULL;
+
 	UTexture2D *cloned = clone(default_argb_clone);
 	if (!update(cloned, path))
 	{
