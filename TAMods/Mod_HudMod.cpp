@@ -178,19 +178,21 @@ void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale
 
 	canvas->CurX = x;
 	canvas->CurY = y;
-	canvas->DrawTile(tex, (float) tex->SizeX * scale, (float) tex->SizeY * scale, 0, 0, (float) tex->SizeX, (float) tex->SizeY, {1.0f, 1.0f, 1.0f, 1.0f}, 0, 0);
+	canvas->DrawTile(tex, (float) tex->SizeX * scale, (float) tex->SizeY * scale, 0, 0, (float) tex->SizeX, (float) tex->SizeY, {1.0f, 1.0f, 1.0f, 1.0f}, 0, 2);
 	canvas->CurX = old_curx;
 	canvas->CurY = old_cury;
 }
 
-void myDraw(UCanvas *canvas)
+void myDraw(ATrHUD *that)
 {
-	/*
-	static UTexture2D *tex = Texture::create("C:\\Users\\Username\\Downloads\\image.png");
-	
-	if (tex)
-		drawTexture(canvas, tex, 5.0f, 5.0f, 1.0f);
-	*/
+	UCanvas *canvas = that->Canvas;
+	int reticule_id = that->m_GFxHud->Reticules->m_nCurrentReticuleIndex;
+
+	if (g_config.customCrosshairs[reticule_id])
+	{
+		UTexture2D *tex = g_config.customCrosshairs[reticule_id];
+		drawTexture(canvas, tex, (canvas->SizeX * .5f) - (tex->SizeX * .5f), (canvas->SizeY * .5f) - (tex->SizeY * .5f), 1.0f);
+	}
 }
 
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
@@ -279,7 +281,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	UpdateLocationOverheadNumbers(that);
 	that->UpdateOwnedItems();
 
-	myDraw(that->Canvas);
+	myDraw(that);
 
 	if (that->bRestoreHUDState)
 	{

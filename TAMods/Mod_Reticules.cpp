@@ -18,7 +18,7 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 		{
 			wchar_t buff[128];
 
-			float offset = g_config.showCrosshair ? 0.0f : 9999.0f;
+			float offset = g_config.showCrosshair && !g_config.customCrosshairs[reticule->m_nCurrentReticuleIndex] ? 0.0f : 9999.0f;
 
 			// Hide/show crosshair
 			reticule->ReticulesMC->SetFloat(L"_y", -offset);
