@@ -47,6 +47,13 @@ namespace TAModLauncher
 
         }
 
+        private void LauncherForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            config.setProperty("//LauncherConfig/AutoUpdateCheck", checkAutoUpdate.Checked.ToString().ToLower());
+            if (selectUpdateChannel.SelectedItem != null) config.setProperty("//LauncherConfig/UpdateChannel", selectUpdateChannel.SelectedItem.ToString().ToLower());
+            config.saveConfig("launcher.xml");
+        }
+
         private bool checkForUpdates()
         {
             // Returns true on successful check, false on failure
@@ -122,6 +129,22 @@ namespace TAModLauncher
                 return false;
             }
 
+            // Get release channels
+            selectUpdateChannel.Items.Clear();
+            foreach (string channel in updater.getAvailableUpdateChannels())
+            {
+                selectUpdateChannel.Items.Add(channel);
+            }
+
+            // Try to get the user's channel from the launcher config
+            string userUpdateChannel = config.getProperty("//LauncherConfig/UpdateChannel");
+
+            if (userUpdateChannel != null && selectUpdateChannel.Items.Contains(userUpdateChannel))
+            {
+                selectUpdateChannel.SelectedItem = userUpdateChannel;
+            }
+
+            // Determine whether update is required
             updateRequired = (updater.getFilesNeedingUpdate().Count > 0);
 
             if (updateRequired)
@@ -149,6 +172,7 @@ namespace TAModLauncher
 
         private void updateFinished(object sender, EventArgs e)
         {
+            checkForUpdates();
             labelDownload.Visible = true;
             labelDownload.Text = "Ready to Play!";
             //MessageBox.Show("Download complete!");
@@ -165,11 +189,7 @@ namespace TAModLauncher
             checkForUpdates();
         }
 
-        private void LauncherForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            config.setProperty("//LauncherConfig/AutoUpdateCheck", checkAutoUpdate.Checked.ToString().ToLower());
-            config.saveConfig("launcher.xml");
-        }
+        
 
         private void btnReinstall_Click(object sender, EventArgs e)
         {
@@ -182,6 +202,22 @@ namespace TAModLauncher
             {
                 MessageBox.Show("ERROR: The updater could not find files in the server manifest for download.",
                     "Error Retrieving Files", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void selectUpdateChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (selectUpdateChannel.SelectedItem != null)
+            {
+                try
+                {
+                    updater.setUpdateChannel(selectUpdateChannel.SelectedItem.ToString().ToLower());
+                }
+                catch (XmlException ex)
+                {
+                    MessageBox.Show("ERROR: The updater could not set the requested update channel.\n Message: " + ex,
+                    "Error Setting Update Channel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
