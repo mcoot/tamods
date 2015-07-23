@@ -421,23 +421,23 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 	// while playing online, only show the stopwatch, don't replace the normal game time
 	if (g_config.stopwatchRunning || that->WorldInfo->NetMode == 0)
 	{
-		float worldseconds;
+		float worldseconds = that->WorldInfo->RealTimeSeconds;
 
-		if (g_config.stopwatchRunning && that->WorldInfo->RealTimeSeconds - g_config.stopwatchCapTime < 4.0f)
+		if (g_config.stopwatchRunning // Show stopwatch time at the moment of a cap
+			&& worldseconds - g_config.stopwatchCapTime < 4.0f // Show for only 4 seconds
+			&& g_config.stopwatchStartTime < g_config.stopwatchCapTime) // Only when stopwatch was started pre-cap
 		{
 			if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);
 			worldseconds = g_config.stopwatchCapTime;
 		}
-		else if (g_config.stopwatchRunning && that->WorldInfo->RealTimeSeconds - g_config.stopwatchGrabTime < 4.0f)
+		else if (g_config.stopwatchRunning // Show stopwatch time at the moment of a grab
+			&& worldseconds - g_config.stopwatchGrabTime < 4.0f // Show for only 4 seconds
+			&& g_config.stopwatchStartTime < g_config.stopwatchGrabTime) // Only when stopwatch was started pre-grab
 		{
 			if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);
 			worldseconds = g_config.stopwatchGrabTime;
 		}
-		else
-		{
-			if (timer) timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float)0x0FFF87 : (float)0xDDFFDD);
-			worldseconds = that->WorldInfo->RealTimeSeconds;
-		}
+		else if (timer) timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float)0x0FFF87 : (float)0xDDFFDD);
 
 		if (g_config.stopwatchRunning)
 			worldseconds -= g_config.stopwatchStartTime;
