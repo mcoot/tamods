@@ -27,7 +27,6 @@ struct FUnknownStruct3
 	int format; // Sometimes 0
 	int data_size;
 	unsigned char *pixel_data;
-	unsigned char unknown_data[172];
 };
 
 struct FUnknownStruct1
@@ -208,8 +207,8 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		memcpy(nstruct1, struct1, sizeof(FUnknownStruct1));
 
 		// Cloning struct3
-		nstruct1->ptr = (FUnknownStruct3 *)((char *)malloc(300) + 100);
-		memcpy(((char *)nstruct1->ptr) - 100, ((char *)struct1->ptr) - 100, 300);
+		nstruct1->ptr = (FUnknownStruct3 *)((char *)malloc(22 * 4 + sizeof(FUnknownStruct3)) + 22 * 4);
+		memcpy(((char *)nstruct1->ptr) - 22 * 4, ((char *)struct1->ptr) - 22 * 4, 22 * 4 + sizeof(FUnknownStruct3));
 
 		// Cloning pixel data
 		unsigned char *data = (unsigned char *)malloc(nstruct1->data_size);
@@ -217,8 +216,8 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		memcpy(data, struct1->ptr->pixel_data, struct1->data_size);
 
 		// -14 references
-		((int **)nstruct1->ptr)[-14] = ((int *)malloc(64 * 4)) + 32;
-		memcpy(((int **)nstruct1->ptr)[-14] - 32, ((int **)struct1->ptr)[-14] - 32, 64 * 4);
+		((int **)nstruct1->ptr)[-14] = ((int *)malloc(7 * 4));
+		memcpy(((int **)nstruct1->ptr)[-14], ((int **)struct1->ptr)[-14], 7 * 4);
 		((int **)nstruct1->ptr)[-14][7] = (int)nstruct1->ptr - 88;
 
 		// -6 && -7 references
@@ -233,12 +232,12 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		*/
 
 		// -17
-		((int **)nstruct1->ptr)[-17] = ((int *)malloc(4 * 16 * 6)) + 32;
-		memcpy(((int **)nstruct1->ptr)[-17] - 32, ((int **)struct1->ptr)[-17] - 32, 4 * 16 * 6);
+		((int **)nstruct1->ptr)[-17] = ((int *)malloc(27 * 4));
+		memcpy(((int **)nstruct1->ptr)[-17], ((int **)struct1->ptr)[-17], 27 * 4);
 		((int **)nstruct1->ptr)[-17][26] = (int)nstruct1->ptr - 88;
 		((int **)nstruct1->ptr)[-17][20] = (int)data;
-		((int ***)nstruct1->ptr)[-17][0] = ((int *)malloc(4 * 16 * 6)) + 32;
-		memcpy(((int ***)nstruct1->ptr)[-17][0] - 32, ((int ***)struct1->ptr)[-17][0] - 32, 4 * 16 * 6);
+		((int ***)nstruct1->ptr)[-17][0] = ((int *)malloc(32 * 4));
+		memcpy(((int ***)nstruct1->ptr)[-17][0], ((int ***)struct1->ptr)[-17][0], 32 * 4);
 		TextureData *texdata = (TextureData *)malloc(sizeof(TextureData));
 		((int ****)nstruct1->ptr)[-17][0][10] = (int *)texdata;
 		memcpy(texdata, ((int ****)struct1->ptr)[-17][0][10], sizeof(TextureData));
