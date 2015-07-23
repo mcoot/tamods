@@ -408,6 +408,30 @@ void Config::stopwatchDisplayTime(const std::string &prestr, float cur_time)
 	}
 }
 
+void Config::stopwatchPrintSummary()
+{
+	// Speed and health if available (should always be available unless /tp was used or stopwatch was manually reset post-grab)
+	if (g_config.stopwatchGrabHealth > 0 && g_config.stopwatchGrabSpeed >= 0)
+		Utils::printConsole("\nSummary\n\n Flag taken at " + std::to_string(g_config.stopwatchGrabSpeed) + " km/h - " + std::to_string(g_config.stopwatchGrabHealth) + " hp");
+
+	if (g_config.stopwatchGrabTime != 0.0f)
+	{
+		// Time from stopwatch start until grab, only when the stopwatch was not started post-grab
+		if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
+			Utils::printConsole(" Grabbed in:  " + Utils::fTime2string(g_config.stopwatchGrabTime - g_config.stopwatchStartTime));
+
+		// Capture time, only when a grab time is available
+		Utils::printConsole(" Captured in: " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchGrabTime));
+	}
+	// Total time, only when the stopwatch is running and was not started post-grab
+	if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
+	{
+		Utils::printConsole("--------------------------------");
+		Utils::printConsole(" Total:         " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchStartTime));
+		Utils::printConsole("=========================");
+	}
+}
+
 void Config::stopwatchStart(float cur_time)
 {
 	stopwatchStartTime = cur_time;
@@ -416,12 +440,12 @@ void Config::stopwatchStart(float cur_time)
 
 void Config::stopwatchReset()
 {
-	stopwatchRunning =    false;
-	stopwatchStartTime =  0.0f;
-	stopwatchGrabTime =   0.0f;
-	stopwatchCapTime =    0.0f;
+	stopwatchRunning    = false;
+	stopwatchStartTime  = 0.0f;
+	stopwatchGrabTime   = 0.0f;
+	stopwatchCapTime    = 0.0f;
 	stopwatchGrabHealth = 0;
-	stopwatchGrabSpeed =  -1;
+	stopwatchGrabSpeed  = -1;
 }
 
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))

@@ -77,10 +77,10 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 				TrPawn->Velocity = { 0.0f, 0.0f, 0.0f };
 
 				if (g_config.stopwatchRunning)
-				{
 					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
-					g_config.stopwatchRunning = false;
-				}
+
+				g_config.stopwatchReset(); // /tp always resets the stopwatch
+
 				TrPawn->m_fCurrentPowerPool = TrPawn->GetMaxPowerPool();
 				TrPawn->Health = TrPawn->HealthMax;
 				//Utils::printConsole("Teleported to state #" + std::to_string(n));
@@ -93,10 +93,12 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 				{
 					g_config.stopwatchStart(TrPawn->WorldInfo->RealTimeSeconds - state.stopwatchTime);
 				}
-				else if (g_config.stopwatchRunning) // This state has no stopwatch data, just stop it then
+				else // This state has no stopwatch data, just stop it then
 				{
-					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
-					g_config.stopwatchRunning = false;
+					if (g_config.stopwatchRunning)
+						g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+
+					g_config.stopwatchReset();
 				}
 
 				TrPawn->m_fLastDamagerTimeStamp = TrPC->WorldInfo->TimeSeconds - state.relativeLastDamaged;
@@ -262,6 +264,7 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 					if (g_config.stopwatchRunning)
 					{
 						g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+						g_config.stopwatchPrintSummary();
 						g_config.stopwatchReset();
 					}
 					else

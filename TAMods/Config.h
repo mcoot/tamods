@@ -228,6 +228,7 @@ public:
 	void reloadSounds();
 	void refreshSoundVolumes();
 	void stopwatchDisplayTime(const std::string &prestr, float cur_time);
+	void stopwatchPrintSummary();
 	void stopwatchStart(float cur_time);
 	void stopwatchReset();
 
@@ -302,12 +303,12 @@ public:
 	bool stopwatchStopOnCap;
 	bool stopwatchNotifications;
 	// Non-user variables
-	bool stopwatchRunning = false;
+	bool stopwatchRunning    = false;
 	float stopwatchStartTime = 0.0f;
-	float stopwatchGrabTime = 0.0f;
-	float stopwatchCapTime = 0.0f;
-	int stopwatchGrabHealth = 0;
-	int stopwatchGrabSpeed = -1;
+	float stopwatchGrabTime  = 0.0f;
+	float stopwatchCapTime   = 0.0f;
+	int stopwatchGrabHealth  = 0;
+	int stopwatchGrabSpeed   = -1;
 
 	// Sounds
 	Audio audioEngine;

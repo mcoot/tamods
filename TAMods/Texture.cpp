@@ -239,6 +239,9 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		((int ***)nstruct1->ptr)[-17][0] = ((int *)malloc(32 * 4));
 		memcpy(((int ***)nstruct1->ptr)[-17][0], ((int ***)struct1->ptr)[-17][0], 32 * 4);
 		
+		//Logger::log("Pixel data pointer: %x", struct1->ptr->pixel_data);
+		//printTexture2D(tex);
+
 		TextureData *texdata = (TextureData *)malloc(sizeof(TextureData));
 		((int ****)nstruct1->ptr)[-17][0][10] = (int *)texdata;
 		memcpy(texdata, ((int ****)struct1->ptr)[-17][0][10], sizeof(TextureData));
