@@ -58,9 +58,9 @@ struct FTextureResource
 	int unknown_int3; // 0x3f800000
 	unsigned char unknown_data1[0x1C]; // 00
 	UTexture2D *texture; // Texture containing this Resource
-	unsigned char unknown_data2[0xC0];
-	unsigned char *unknown_struct1_bis; // Same as unknown_struct1
-	unsigned char unknown_data3[0x34];
+	//unsigned char unknown_data2[0xC0];
+	//unsigned char *unknown_struct1_bis; // Same as unknown_struct1
+	//unsigned char unknown_data3[0x34];
 };
 
 static UTexture2D *default_argb_clone = Texture::clone(UObject::FindObject<UTexture2D>("Texture2D EngineMaterials.WeightMapPlaceholderTexture"));
@@ -203,7 +203,7 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		FUnknownStruct1 *nstruct1 = (FUnknownStruct1 *)malloc(sizeof(FUnknownStruct1));
 		FUnknownStruct1 *struct1 = (FUnknownStruct1 *)(res->unknown_struct1 - 4);
 		nres->unknown_struct1 = ((unsigned char *)nstruct1) + 4;
-		nres->unknown_struct1_bis = nres->unknown_struct1;
+		//nres->unknown_struct1_bis = nres->unknown_struct1;
 		memcpy(nstruct1, struct1, sizeof(FUnknownStruct1));
 
 		// Cloning struct3
