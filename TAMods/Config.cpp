@@ -129,6 +129,7 @@ void Config::reset()
 
 	// Stopwatch
 	stopwatchStopOnCap = false;
+	stopwatchStopOnDeath = true;
 	stopwatchNotifications = true;
 
 	// Sounds
@@ -423,11 +424,13 @@ void Config::stopwatchPrintSummary()
 		{
 			// Capture time, only when cap time is available
 			Utils::printConsole(" Captured in: " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchGrabTime));
-			Utils::printConsole("----------------------------------------");
 
 			// Total time, only when the stopwatch was started post-grab
 			if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
+			{
+				Utils::printConsole("----------------------------------------");
 				Utils::printConsole(" Total:          " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchStartTime));
+			}
 		}
 		Utils::printConsole("===============================");
 	}
@@ -508,6 +511,7 @@ void Config::setVariables()
 
 	// Stopwatch
 	SET_VARIABLE(bool, stopwatchStopOnCap);
+	SET_VARIABLE(bool, stopwatchStopOnDeath);
 	SET_VARIABLE(bool, stopwatchNotifications);
 
 	// Sounds
