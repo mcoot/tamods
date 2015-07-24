@@ -44,7 +44,6 @@ static void savePlayerState(ATrPlayerController *TrPC, int n)
 			state.energy = TrPawn->m_fCurrentPowerPool ? TrPawn->m_fCurrentPowerPool : 9999.0f;
 			state.health = TrPawn->Health > 0 ? TrPawn->Health : 9999;
 		}
-		// display stop watch time as well
 		Utils::printConsole("Saved current state to slot #" + std::to_string(n));
 	}
 	else
@@ -81,8 +80,9 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 
 				g_config.stopwatchReset(); // /tp always resets the stopwatch
 
-				TrPawn->m_fCurrentPowerPool = TrPawn->GetMaxPowerPool();
-				TrPawn->Health = TrPawn->HealthMax;
+				// Restore health, energy and ammo
+				UTrSeqAct_RefreshInventory *seq;
+				TrPC->OnRefreshInventory(seq);
 				//Utils::printConsole("Teleported to state #" + std::to_string(n));
 			}
 			else // full recall
