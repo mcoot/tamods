@@ -395,6 +395,10 @@ public:
 	std::map<int, CustomProjectile *> wep_id_to_custom_proj;
 	std::map<int, CustomProjectile *> proj_class_to_custom_proj;
 
+	// Custom lua keybinds
+	std::map<int, LuaRef **> lua_keybinds;
+	LuaRef                   *onInputEvent;
+
 	// Bools for reloading
 	bool shouldReloadTrHud;
 };

@@ -29,6 +29,30 @@ void onDLLProcessAttach()
 			UTrChatConsole_execInputKey_Parms *params = (UTrChatConsole_execInputKey_Parms *)pParams;
 
 			Logger::log("Key %s: event %d", params->Key.GetName(), params->Event);
+			if (g_config.onInputEvent)
+			{
+				try
+				{
+					(*g_config.onInputEvent)(std::string(params->Key.GetName()), (int)params->Event);
+				}
+				catch (const LuaException &e)
+				{
+					Utils::console("LuaException: %s", e.what());
+				}
+			}
+			auto &it = g_config.lua_keybinds.find(params->Key.Index);
+			if (it == g_config.lua_keybinds.end())
+				return false;
+			if (it->second[params->Event] == NULL)
+				return false;
+			try
+			{
+				(*it->second[params->Event])(std::string(params->Key.GetName()), (int)params->Event);
+			}
+			catch (const LuaException &e)
+			{
+				Utils::console("LuaException: %s", e.what());
+			}
 			return false;
 		}, "Function TribesGame.TrChatConsole.InputKey");
 
