@@ -31,6 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.selectUpdateChannel = new System.Windows.Forms.ComboBox();
             this.btnOK = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.fileSelectLauncherDirectory = new TAModLauncher.FormFileSelector();
             this.SuspendLayout();
             // 
             // label1
@@ -61,11 +63,32 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 50);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(109, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Tribes Launcher Path";
+            // 
+            // fileSelectLauncherDirectory
+            // 
+            this.fileSelectLauncherDirectory.FilePath = "";
+            this.fileSelectLauncherDirectory.Location = new System.Drawing.Point(12, 65);
+            this.fileSelectLauncherDirectory.MaximumSize = new System.Drawing.Size(0, 20);
+            this.fileSelectLauncherDirectory.MinimumSize = new System.Drawing.Size(420, 20);
+            this.fileSelectLauncherDirectory.Name = "fileSelectLauncherDirectory";
+            this.fileSelectLauncherDirectory.Size = new System.Drawing.Size(420, 20);
+            this.fileSelectLauncherDirectory.TabIndex = 12;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 261);
+            this.ClientSize = new System.Drawing.Size(444, 261);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.fileSelectLauncherDirectory);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.selectUpdateChannel);
@@ -73,6 +96,7 @@
             this.Name = "SettingsForm";
             this.Text = "SettingsForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -83,5 +107,7 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.ComboBox selectUpdateChannel;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Label label2;
+        private FormFileSelector fileSelectLauncherDirectory;
     }
 }

@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormFileSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormFileSelector.Designer.cs">
+      <DependentUpon>FormFileSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="LauncherForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     </Compile>
     <Compile Include="TAModLauncherConfig.cs" />
     <Compile Include="TAModUpdater.cs" />
+    <EmbeddedResource Include="FormFileSelector.resx">
+      <DependentUpon>FormFileSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LauncherForm.resx">
       <DependentUpon>LauncherForm.cs</DependentUpon>
     </EmbeddedResource>
