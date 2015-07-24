@@ -26,6 +26,7 @@ private:
 	std::string   _error(int ret);
 	void          _pushvar(const char *name, unsigned char val);
 	void          _printTop();
+	void		  _initInputEvents();
 
 public:
 	// Located in Config.cpp. Because include hell.

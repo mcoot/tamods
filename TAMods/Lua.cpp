@@ -5,10 +5,29 @@ Lua::Lua()
 	_state = luaL_newstate();
 	luaL_openlibs(_state);
 	init();
+	_initInputEvents();
 }
 
 Lua::~Lua()
 {
+}
+
+void			Lua::_initInputEvents()
+{
+	// Get global namespace
+	lua_getglobal(_state, "_G");
+	// Create "Input" namespace
+	lua_pushstring(_state, "Input");
+	lua_newtable(_state);
+
+	// Push variables
+	_pushvar("PRESSED", IE_Pressed);
+	_pushvar("RELEASED", IE_Released);
+	_pushvar("REPEAT", IE_Repeat);
+	_pushvar("DOUBLECLICK", IE_DoubleClick);
+	_pushvar("AXIS", IE_Axis);
+
+	lua_settable(_state, -3);
 }
 
 void            Lua::_pushvar(const char *name, unsigned char val)

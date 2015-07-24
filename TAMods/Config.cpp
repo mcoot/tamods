@@ -27,6 +27,7 @@ Config::Config()
 	flagreturned = UObject::FindObject<USoundCue>("SoundCue AUD_MUS_CTF.Stingers.A_CUE_UI_CTF_FlagReturned");
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
+	onInputEvent = NULL;
 	reset();
 }
 
@@ -91,9 +92,7 @@ void Config::reset()
 	// Custom damage number text
 	damageNumberCustomText = std::string("");
 
-	if (onDamageNumberCreate)
 		delete onDamageNumberCreate;
-	if (onDamageNumberUpdate)
 		delete onDamageNumberUpdate;
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
@@ -191,6 +190,20 @@ void Config::reset()
 
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();
+
+	// Lua keybinds
+	for (auto &it : lua_keybinds)
+	{
+		for (int i = 0; i < IE_MAX; i++)
+		{
+			if (it.second[i])
+				delete it.second[i];
+		}
+		delete it.second;
+	}
+	lua_keybinds.clear();
+	delete onInputEvent;
+	onInputEvent = NULL;
 
 	// Bools for reloading
 	shouldReloadTrHud = true;
@@ -453,6 +466,14 @@ void Config::stopwatchReset()
 }
 
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
+#define SET_FUNCTION(var) do {\
+	var = new LuaRef(getGlobal(lua.getState(), #var));\
+	if (var && (var->isNil() || !var->isFunction())) {\
+		delete var;\
+		var = NULL;\
+	}\
+} while (0)
+
 void Config::setVariables()
 {
 	// General stuff
@@ -465,8 +486,8 @@ void Config::setVariables()
 	SET_VARIABLE(FColor, crosshairColor);
 
 	// Damage number customization
-	onDamageNumberCreate = new LuaRef(getGlobal(lua.getState(), "onDamageNumberCreate"));
-	onDamageNumberUpdate = new LuaRef(getGlobal(lua.getState(), "onDamageNumberUpdate"));
+	SET_FUNCTION(onDamageNumberCreate);
+	SET_FUNCTION(onDamageNumberUpdate);
 	SET_VARIABLE(float, damageNumbersOffsetX);
 	SET_VARIABLE(float, damageNumbersOffsetY);
 	SET_VARIABLE(float, damageNumbersScale);
@@ -606,6 +627,9 @@ void Config::setVariables()
 	SET_VARIABLE(float, sens);
 	SET_VARIABLE(float, sensZoom);
 	SET_VARIABLE(float, sensZoooom);
+
+	// Lua keybinds
+	SET_FUNCTION(onInputEvent);
 }
 
 static int getWeaponID(const std::string &class_name, const std::string &str)
@@ -807,6 +831,73 @@ static UTexture2D *config_createTexture(const std::string &path)
 static bool config_addMutedPlayer(MutedPlayer player)
 {
 	g_config.globalMuteList.push_back(player);
+	return true;
+}
+
+static bool config_bindKey(const std::string &key, int event_type, LuaRef func)
+{
+	if (event_type >= IE_MAX || event_type < 0)
+	{
+		Utils::console("Error: Unable to bind key %s: unknown event type %d", event_type, key.c_str());
+		return false;
+	}
+	FName key_name(key.c_str());
+	if (!key_name.Index)
+	{
+		Utils::console("Error: Unable to bind key %s: unknown key", key.c_str());
+		return false;
+	}
+	if (func.isNil() || !func.isFunction())
+	{
+		Utils::console("Error: Unable to bind key %s: provided callback is not a function", key.c_str());
+		return false;
+	}
+	LuaRef **funcs = NULL;
+	auto &it = g_config.lua_keybinds.find(key_name.Index);
+	if (it == g_config.lua_keybinds.end())
+	{
+		funcs = new LuaRef*[IE_MAX];
+		for (int i = 0; i < IE_MAX; i++)
+			funcs[i] = NULL;
+		g_config.lua_keybinds[key_name.Index] = funcs;
+	}
+	else
+		funcs = g_config.lua_keybinds[key_name.Index];
+	funcs[event_type] = new LuaRef(func);
+	return true;
+}
+
+static bool config_unbindKey(const std::string &key, int event_type)
+{
+	// Check for errors
+	if (event_type >= IE_MAX || event_type < 0)
+	{
+		Utils::console("Error: Unable to unbind key %s: unknown event type %d", event_type, key.c_str());
+		return false;
+	}
+	FName key_name(key.c_str());
+	if (!key_name.Index)
+	{
+		Utils::console("Error: Unable to unbind key %s: unknown key", key.c_str());
+		return false;
+	}
+	// Remove the callback
+	auto &it = g_config.lua_keybinds.find(key_name.Index);
+	if (it == g_config.lua_keybinds.end())
+		return true;
+	if (it->second[event_type])
+	{
+		delete it->second[event_type];
+		it->second[event_type] = NULL;
+	}
+	// Remove the map index if none of the event types are bound
+	for (int i = 0; i < IE_MAX; i++)
+	{
+		if (it->second[i])
+			return true;
+	}
+	delete it->second;
+	g_config.lua_keybinds.erase(it);
 	return true;
 }
 
@@ -1974,6 +2065,10 @@ void Lua::init()
 		addFunction("modifySoundRe", &config_modifySoundRe).
 		addFunction("searchSound", &config_searchSoundRe).
 		addFunction("searchSoundRe", &config_searchSoundRe).
+
+		// Keybinds
+		addFunction("bindKey", &config_bindKey).
+		addFunction("unbindKey", &config_unbindKey).
 
 		// State saving
 		addFunction("save", &savePlayerState).

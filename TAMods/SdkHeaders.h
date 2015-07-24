@@ -129,9 +129,10 @@ struct FName
 
 	~FName() {}; 
 
-	FName ( char* FindName ) 
+	FName ( const char* FindName ) 
 	{ 
-		static TArray< int > NameCache; 
+		static TArray< int > NameCache;
+		Index = 0;
 
 		for ( int i = 0; i < NameCache.Count; ++i ) 
 		{ 
