@@ -20,30 +20,29 @@ static void savePlayerState(ATrPlayerController *TrPC, int n)
 	{
 		ACameraActor *Cam = (ACameraActor *)TrPC->ViewTarget;
 		ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
-		playerState *state = &savedPlayerStates.at(n - 1);
+		playerState &state = savedPlayerStates.at(n - 1);
 
 		if (g_config.stopwatchRunning)
-			state->stopwatchTime = TrPC->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
+			state.stopwatchTime = TrPC->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
 		else
-			state->stopwatchTime = NULL;
+			state.stopwatchTime = NULL;
 
-		state->loc = Cam->Location;
-		state->vel = Cam->Velocity;
-		state->phys = Cam->Physics;
-		state->rot = TrPC->Rotation;
+		state.loc = Cam->Location;
+		state.vel = Cam->Velocity;
+		state.phys = Cam->Physics;
+		state.rot = TrPC->Rotation;
 
 		if (!TrPawn) // Without a pawn we must be spectating or are not on a server
 		{
-			state->relativeLastDamaged = 300.0f;
-			state->energy = 9999.0f;
-			state->health = 9999;
+			state.relativeLastDamaged = 300.0f;
+			state.energy = 9999.0f;
+			state.health = 9999;
 		}
 		else
 		{
-			state->relativeLastDamaged = TrPC->WorldInfo->TimeSeconds - TrPawn->m_fLastDamagerTimeStamp;
-			state->energy = TrPawn->m_fCurrentPowerPool ? TrPawn->m_fCurrentPowerPool : 9999.0f;
-			state->health = TrPawn->Health > 0 ? TrPawn->Health : 9999;
-			
+			state.relativeLastDamaged = TrPC->WorldInfo->TimeSeconds - TrPawn->m_fLastDamagerTimeStamp;
+			state.energy = TrPawn->m_fCurrentPowerPool ? TrPawn->m_fCurrentPowerPool : 9999.0f;
+			state.health = TrPawn->Health > 0 ? TrPawn->Health : 9999;
 		}
 		// display stop watch time as well
 		Utils::printConsole("Saved current state to slot #" + std::to_string(n));
@@ -62,52 +61,53 @@ static void recallPlayerState(ATrPlayerController *TrPC, int n, bool tpOnly)
 		{
 			ACameraActor *Cam = (ACameraActor *)TrPC->ViewTarget;
 			ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
-			playerState *state = &savedPlayerStates.at(n - 1);
+			playerState &state = savedPlayerStates.at(n - 1);
 
 			if (!Cam) return;
 
-			Cam->SetLocation(state->loc);
-			TrPC->SetRotation(state->rot);
+			Cam->SetLocation(state.loc);
+			TrPC->SetRotation(state.rot);
 
 			if (!TrPawn) return;
 
-			Cam->SetPhysics(state->phys);
+			Cam->SetPhysics(state.phys);
 
 			if (tpOnly) // teleportation only
 			{
 				TrPawn->Velocity = { 0.0f, 0.0f, 0.0f };
 
 				if (g_config.stopwatchRunning)
-				{
-					g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
-					g_config.stopwatchRunning = false;
-				}
+					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+
+				g_config.stopwatchReset(); // /tp always resets the stopwatch
+
 				TrPawn->m_fCurrentPowerPool = TrPawn->GetMaxPowerPool();
 				TrPawn->Health = TrPawn->HealthMax;
 				//Utils::printConsole("Teleported to state #" + std::to_string(n));
 			}
 			else // full recall
 			{
-				TrPawn->Velocity = state->vel;
+				TrPawn->Velocity = state.vel;
 
-				if (state->stopwatchTime) // Restore stopwatch state
+				if (state.stopwatchTime) // Restore stopwatch state
 				{
-					g_config.stopwatchStartTime = TrPawn->WorldInfo->RealTimeSeconds - state->stopwatchTime;
-					g_config.stopwatchRunning = true;
+					g_config.stopwatchStart(TrPawn->WorldInfo->RealTimeSeconds - state.stopwatchTime);
 				}
-				else if (g_config.stopwatchRunning) // This state has no stopwatch data, just stop it then
+				else // This state has no stopwatch data, just stop it then
 				{
-					g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
-					g_config.stopwatchRunning = false;
+					if (g_config.stopwatchRunning)
+						g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+
+					g_config.stopwatchReset();
 				}
 
-				TrPawn->m_fLastDamagerTimeStamp = TrPC->WorldInfo->TimeSeconds - state->relativeLastDamaged;
-				TrPawn->m_fCurrentPowerPool = state->energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state->energy;
+				TrPawn->m_fLastDamagerTimeStamp = TrPC->WorldInfo->TimeSeconds - state.relativeLastDamaged;
+				TrPawn->m_fCurrentPowerPool = state.energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state.energy;
 
-				if (state->health <= 0 || state->health > TrPawn->HealthMax)
+				if (state.health <= 0 || state.health > TrPawn->HealthMax)
 					TrPawn->Health = TrPawn->HealthMax;
 				else
-					TrPawn->Health = state->health;
+					TrPawn->Health = state.health;
 
 				//Utils::printConsole("Restored state #" + std::to_string(n));
 			}
@@ -131,7 +131,7 @@ void UpdateLocationOverheadNumbers(ATrHUD *that)
 	{
 		playerState &curr = savedPlayerStates.at(i);
 
-		if (!savedPlayerStates.at(i).loc.X)
+		if (!curr.loc.X)
 			continue;
 
 		if (that->TrPlayerOwner)
@@ -261,14 +261,14 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 				}
 				else if ((line.size() == 10 && line == L"/stopwatch"))
 				{
-					// Display the stopped time
 					if (g_config.stopwatchRunning)
-						g_config.stopwatchDisplayTime(TrPC->WorldInfo->RealTimeSeconds);
-					// Just start the stopwatch
+					{
+						g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+						g_config.stopwatchPrintSummary();
+						g_config.stopwatchReset();
+					}
 					else
-						g_config.stopwatchStartTime = TrPC->WorldInfo->RealTimeSeconds;
-
-					g_config.stopwatchRunning = !g_config.stopwatchRunning;
+						g_config.stopwatchStart(TrPC->WorldInfo->RealTimeSeconds);
 				}
 				// Command to save the current player state (location, velocity etc.)
 				else if (line.substr(0, 5) == L"/save")

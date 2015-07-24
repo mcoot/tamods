@@ -11,7 +11,7 @@ using System.IO;
 
 namespace TAModLauncher
 {
-    class TAModUpdater
+    public class TAModUpdater
     {
         // The application folder
         private readonly string appPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -385,7 +385,7 @@ namespace TAModLauncher
 
     }
 
-    class VersionedFile : IComparable<VersionedFile>
+    public class VersionedFile : IComparable<VersionedFile>
     {
         public readonly string fileName;
         public readonly float version;

@@ -34,8 +34,7 @@
             this.labelDownload = new System.Windows.Forms.Label();
             this.btnUpdateCheck = new System.Windows.Forms.Button();
             this.btnReinstall = new System.Windows.Forms.Button();
-            this.selectUpdateChannel = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUpdateLaunch
@@ -97,32 +96,22 @@
             this.btnReinstall.UseVisualStyleBackColor = true;
             this.btnReinstall.Click += new System.EventHandler(this.btnReinstall_Click);
             // 
-            // selectUpdateChannel
+            // btnSettings
             // 
-            this.selectUpdateChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectUpdateChannel.FormattingEnabled = true;
-            this.selectUpdateChannel.Location = new System.Drawing.Point(143, 38);
-            this.selectUpdateChannel.Name = "selectUpdateChannel";
-            this.selectUpdateChannel.Size = new System.Drawing.Size(98, 21);
-            this.selectUpdateChannel.TabIndex = 7;
-            this.selectUpdateChannel.SelectedIndexChanged += new System.EventHandler(this.selectUpdateChannel_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Update Channel";
+            this.btnSettings.Location = new System.Drawing.Point(611, 12);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSettings.TabIndex = 9;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 195);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.selectUpdateChannel);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnReinstall);
             this.Controls.Add(this.btnUpdateCheck);
             this.Controls.Add(this.labelDownload);
@@ -132,6 +121,7 @@
             this.Name = "LauncherForm";
             this.Text = "TAMods Launcher";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LauncherForm_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LauncherForm_FormClosed);
             this.Load += new System.EventHandler(this.LauncherForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -146,8 +136,7 @@
         private System.Windows.Forms.Label labelDownload;
         private System.Windows.Forms.Button btnUpdateCheck;
         private System.Windows.Forms.Button btnReinstall;
-        private System.Windows.Forms.ComboBox selectUpdateChannel;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnSettings;
     }
 }
 

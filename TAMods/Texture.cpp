@@ -27,7 +27,6 @@ struct FUnknownStruct3
 	int format; // Sometimes 0
 	int data_size;
 	unsigned char *pixel_data;
-	unsigned char unknown_data[172];
 };
 
 struct FUnknownStruct1
@@ -61,7 +60,7 @@ struct FTextureResource
 	UTexture2D *texture; // Texture containing this Resource
 	unsigned char unknown_data2[0xC0];
 	unsigned char *unknown_struct1_bis; // Same as unknown_struct1
-	unsigned char unknown_data3[0x34];
+	//unsigned char unknown_data3[0x34];
 };
 
 static UTexture2D *default_argb_clone = Texture::clone(UObject::FindObject<UTexture2D>("Texture2D EngineMaterials.WeightMapPlaceholderTexture"));
@@ -188,9 +187,12 @@ void Texture::printTexture2D(UTexture2D *that, bool inherited)
 
 UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 {
+	// Temporary bug patch
+	return NULL;
+
 	if (!out)
 	{
-		out = (UTexture2D *)malloc(sizeof(*tex));
+		out = (UTexture2D *)malloc(sizeof(UTexture2D));
 		memcpy(out, tex, sizeof(UTexture2D));
 	}
 	if (tex->Resource.Dummy)
@@ -208,8 +210,8 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		memcpy(nstruct1, struct1, sizeof(FUnknownStruct1));
 
 		// Cloning struct3
-		nstruct1->ptr = (FUnknownStruct3 *)((char *)malloc(300) + 100);
-		memcpy(((char *)nstruct1->ptr) - 100, ((char *)struct1->ptr) - 100, 300);
+		nstruct1->ptr = (FUnknownStruct3 *)((char *)malloc(22 * 4 + sizeof(FUnknownStruct3)) + 22 * 4);
+		memcpy(((char *)nstruct1->ptr) - 22 * 4, ((char *)struct1->ptr) - 22 * 4, 22 * 4 + sizeof(FUnknownStruct3));
 
 		// Cloning pixel data
 		unsigned char *data = (unsigned char *)malloc(nstruct1->data_size);
@@ -217,8 +219,8 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		memcpy(data, struct1->ptr->pixel_data, struct1->data_size);
 
 		// -14 references
-		((int **)nstruct1->ptr)[-14] = ((int *)malloc(64 * 4)) + 32;
-		memcpy(((int **)nstruct1->ptr)[-14] - 32, ((int **)struct1->ptr)[-14] - 32, 64 * 4);
+		((int **)nstruct1->ptr)[-14] = ((int *)malloc(7 * 4));
+		memcpy(((int **)nstruct1->ptr)[-14], ((int **)struct1->ptr)[-14], 7 * 4);
 		((int **)nstruct1->ptr)[-14][7] = (int)nstruct1->ptr - 88;
 
 		// -6 && -7 references
@@ -233,15 +235,21 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		*/
 
 		// -17
-		((int **)nstruct1->ptr)[-17] = ((int *)malloc(4 * 16 * 6)) + 32;
-		memcpy(((int **)nstruct1->ptr)[-17] - 32, ((int **)struct1->ptr)[-17] - 32, 4 * 16 * 6);
+		((int **)nstruct1->ptr)[-17] = ((int *)malloc(27 * 4));
+		memcpy(((int **)nstruct1->ptr)[-17], ((int **)struct1->ptr)[-17], 27 * 4);
 		((int **)nstruct1->ptr)[-17][26] = (int)nstruct1->ptr - 88;
 		((int **)nstruct1->ptr)[-17][20] = (int)data;
-		((int ***)nstruct1->ptr)[-17][0] = ((int *)malloc(4 * 16 * 6)) + 32;
-		memcpy(((int ***)nstruct1->ptr)[-17][0] - 32, ((int ***)struct1->ptr)[-17][0] - 32, 4 * 16 * 6);
+		((int ***)nstruct1->ptr)[-17][0] = ((int *)malloc(32 * 4));
+		memcpy(((int ***)nstruct1->ptr)[-17][0], ((int ***)struct1->ptr)[-17][0], 32 * 4);
+		
+		//Logger::log("Pixel data pointer: %x", struct1->ptr->pixel_data);
+		//printTexture2D(tex);
+
 		TextureData *texdata = (TextureData *)malloc(sizeof(TextureData));
 		((int ****)nstruct1->ptr)[-17][0][10] = (int *)texdata;
+		// This is the line that makes the thing bug
 		memcpy(texdata, ((int ****)struct1->ptr)[-17][0][10], sizeof(TextureData));
+
 		texdata->pixel_data = data;
 	}
 	return out;
@@ -249,6 +257,9 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 
 bool Texture::update(UTexture2D *that, const char *path)
 {
+	// Temporary bug patch
+	return false;
+
 	if (!that->Resource.Dummy)
 		return false;
 
@@ -279,6 +290,9 @@ bool Texture::update(UTexture2D *that, const char *path)
 
 UTexture2D *Texture::create(const char *path)
 {
+	// Temporary bug patch
+	return NULL;
+
 	UTexture2D *cloned = clone(default_argb_clone);
 	if (!update(cloned, path))
 	{

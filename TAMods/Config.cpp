@@ -127,6 +127,10 @@ void Config::reset()
 	maxSpeedWithFlag         = 0;
 	decelerationRateWithFlag = 10;
 
+	// Stopwatch
+	stopwatchStopOnCap = false;
+	stopwatchNotifications = true;
+
 	// Sounds
 	hitSoundMode = 0;
 	customHeadShotSound  = false;
@@ -391,22 +395,57 @@ void Config::refreshSoundVolumes()
 		Utils::console("Error: audio engine unavailable");
 }
 
-void Config::stopwatchDisplayTime(float cur_time)
+void Config::stopwatchDisplayTime(const std::string &prestr, float cur_time)
 {
 	if (stopwatchRunning)
 	{
 		float time = cur_time - stopwatchStartTime;
 
-		int minutes = (int)time / 60;
-		int seconds = (int)time % 60;
-		int milliseconds = (int)((time - (int)time) * 1000);
-
-		char buff[11];
-		sprintf(buff, "%01d:%02d.%03d", minutes, seconds, milliseconds);
-
-		Utils::printConsole("Stopwatch: " + std::string(buff), Utils::rgba(15, 255, 135, 255));
-		Utils::notify(std::string("Stopwatch"), std::string(buff));
+		std::string s = Utils::fTime2stopwatch(time);
+		Utils::printConsole("Stopwatch: " + prestr + s, Utils::rgba(15, 255, 135, 255));
+		if (stopwatchNotifications)
+			Utils::notify(std::string("Stopwatch"), prestr + s);
 	}
+}
+
+void Config::stopwatchPrintSummary()
+{
+	// Speed and health if available (should always be available unless /tp was used or stopwatch was manually reset post-grab)
+	if (g_config.stopwatchGrabHealth > 0 && g_config.stopwatchGrabSpeed >= 0)
+		Utils::printConsole("\nSummary\n\n Flag taken at " + std::to_string(g_config.stopwatchGrabSpeed) + " km/h - " + std::to_string(g_config.stopwatchGrabHealth) + " hp");
+
+	if (g_config.stopwatchGrabTime != 0.0f)
+	{
+		// Time from stopwatch start until grab, only when the stopwatch was not started post-grab
+		if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
+			Utils::printConsole(" Grabbed in:  " + Utils::fTime2string(g_config.stopwatchGrabTime - g_config.stopwatchStartTime));
+
+		// Capture time, only when a grab time is available
+		Utils::printConsole(" Captured in: " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchGrabTime));
+	}
+	// Total time, only when the stopwatch is running and was not started post-grab
+	if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
+	{
+		Utils::printConsole("--------------------------------");
+		Utils::printConsole(" Total:         " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchStartTime));
+		Utils::printConsole("=========================");
+	}
+}
+
+void Config::stopwatchStart(float cur_time)
+{
+	stopwatchStartTime = cur_time;
+	stopwatchRunning = true;
+}
+
+void Config::stopwatchReset()
+{
+	stopwatchRunning    = false;
+	stopwatchStartTime  = 0.0f;
+	stopwatchGrabTime   = 0.0f;
+	stopwatchCapTime    = 0.0f;
+	stopwatchGrabHealth = 0;
+	stopwatchGrabSpeed  = -1;
 }
 
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
@@ -465,6 +504,10 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showSavedLocations);
 	SET_VARIABLE(int, maxSpeedWithFlag);
 	SET_VARIABLE(int, decelerationRateWithFlag);
+
+	// Stopwatch
+	SET_VARIABLE(bool, stopwatchStopOnCap);
+	SET_VARIABLE(bool, stopwatchNotifications);
 
 	// Sounds
 	SET_VARIABLE(int, hitSoundMode);

@@ -13,8 +13,8 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 	if (g_config.stopwatchRunning && that->WorldInfo)
 	{
-		g_config.stopwatchDisplayTime(that->WorldInfo->RealTimeSeconds);
-		g_config.stopwatchRunning = false;
+		g_config.stopwatchDisplayTime("Stopped - ", that->WorldInfo->RealTimeSeconds);
+		g_config.stopwatchReset();
 	}
 
 	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0

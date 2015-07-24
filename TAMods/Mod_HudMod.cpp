@@ -418,19 +418,32 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 	UGFxObject *timer = that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer;
 
-	// if worldseconds - grabtime < ~4 seconds, show grabtime instead of stopwatch time in red
-	// if worldseconds - captime < ~4 seconds, show captime instead of stopwatch time in red
-
 	// while playing online, only show the stopwatch, don't replace the normal game time
 	if (g_config.stopwatchRunning || that->WorldInfo->NetMode == 0)
 	{
 		float worldseconds = that->WorldInfo->RealTimeSeconds;
 
+		if (g_config.stopwatchRunning // Show stopwatch time at the moment of a cap
+			&& worldseconds - g_config.stopwatchCapTime < 4.0f // Show for only 4 seconds
+			&& g_config.stopwatchStartTime < g_config.stopwatchCapTime) // Only when stopwatch was started pre-cap
+		{
+			if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);
+			worldseconds = g_config.stopwatchCapTime;
+		}
+		else if (g_config.stopwatchRunning // Show stopwatch time at the moment of a grab
+			&& worldseconds - g_config.stopwatchGrabTime < 4.0f // Show for only 4 seconds
+			&& g_config.stopwatchStartTime < g_config.stopwatchGrabTime) // Only when stopwatch was started pre-grab
+		{
+			if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);
+			worldseconds = g_config.stopwatchGrabTime;
+		}
+		else if (timer) timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float)0x0FFF87 : (float)0xDDFFDD);
+
 		if (g_config.stopwatchRunning)
 			worldseconds -= g_config.stopwatchStartTime;
 
-		if (worldseconds < 0.0f)
-			g_config.stopwatchRunning = false;
+		if (worldseconds < 0.0f) // no back to the future pls
+			g_config.stopwatchReset();
 
 		int minutes = (int)worldseconds / 60;
 		int seconds = (int)worldseconds % 60;
@@ -444,9 +457,9 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 			wsprintf(buff, L"%02d:%02d", minutes, seconds);
 
 		that->HUDTeamCTFStats->m_MoviePlayer->TeamCTFStatsUpdateTime(FString(buff));
-
-		if (timer)
-			timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float)0x0FFF87 : (float)0xDDFFDD);
 	}
+	else
+		if (timer) timer->SetFloat(L"textColor", (float)0xDDFFDD);
+
 	return false;
 }

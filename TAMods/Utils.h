@@ -18,6 +18,8 @@ namespace Utils
 	std::string f2std(FString &fstr);
 	std::string cleanString(const std::string &str);
 	std::string trim(const std::string &str);
+	std::string fTime2string(float time);
+	std::string fTime2stopwatch(float time);
 
 	// Files
 	std::string getConfigDir();

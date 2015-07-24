@@ -70,3 +70,7 @@ bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction*
 bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool UTCarriedObject_Held_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool UTCarriedObject_Held_EndState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool UTCarriedObject_Dropped_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool UTCarriedObject_Dropped_EndState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

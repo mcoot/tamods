@@ -227,7 +227,10 @@ public:
 	void initializeAudio();
 	void reloadSounds();
 	void refreshSoundVolumes();
-	void stopwatchDisplayTime(float cur_time);
+	void stopwatchDisplayTime(const std::string &prestr, float cur_time);
+	void stopwatchPrintSummary();
+	void stopwatchStart(float cur_time);
+	void stopwatchReset();
 
 	void reloadTrHUD(ATrHUD *currHud, bool updated = true);
 
@@ -297,10 +300,15 @@ public:
 	int  decelerationRateWithFlag;
 
 	// Route timer
-	bool stopwatchRunning = false;
+	bool stopwatchStopOnCap;
+	bool stopwatchNotifications;
+	// Non-user variables
+	bool stopwatchRunning    = false;
 	float stopwatchStartTime = 0.0f;
-	float stopwatchGrabTime = 0.0f;
-	float stopwatchCapTime = 0.0f;
+	float stopwatchGrabTime  = 0.0f;
+	float stopwatchCapTime   = 0.0f;
+	int stopwatchGrabHealth  = 0;
+	int stopwatchGrabSpeed   = -1;
 
 	// Sounds
 	Audio audioEngine;

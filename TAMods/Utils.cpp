@@ -67,6 +67,40 @@ std::string Utils::trim(const std::string &str)
 	return (str.substr(begin, end - begin + 1));
 };
 
+// Converts float seconds to minutes and seconds format
+std::string Utils::fTime2string(float time)
+{
+	int minutes = (int)time / 60;
+	float seconds = (int)time % 60 + time - (int)time;
+
+	std::string sMinutes;
+	if (minutes == 1)
+		sMinutes = minutes + " minute ";
+	else if (minutes > 1)
+		sMinutes = minutes + " minutes ";
+	else
+		sMinutes = "";
+
+	char sSeconds[15];
+	sprintf(sSeconds, "%.3f seconds", seconds);
+	
+	return (sMinutes + sSeconds);
+}
+
+// Converts float seconds to a stopwatch format
+std::string Utils::fTime2stopwatch(float time)
+{
+	int minutes = (int)time / 60;
+	int seconds = (int)time % 60;
+	int milliseconds = (int)((time - (int)time) * 1000);
+
+	char buff[11];
+
+	sprintf(buff, "%02d:%02d.%d", minutes, seconds, milliseconds);
+
+	return buff;
+}
+
 // Returns the config directory path
 std::string Utils::getConfigDir()
 {
