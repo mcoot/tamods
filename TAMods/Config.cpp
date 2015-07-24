@@ -92,8 +92,8 @@ void Config::reset()
 	// Custom damage number text
 	damageNumberCustomText = std::string("");
 
-		delete onDamageNumberCreate;
-		delete onDamageNumberUpdate;
+	delete onDamageNumberCreate;
+	delete onDamageNumberUpdate;
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 
@@ -899,6 +899,16 @@ static bool config_unbindKey(const std::string &key, int event_type)
 	delete it->second;
 	g_config.lua_keybinds.erase(it);
 	return true;
+}
+
+static LuaRef config_searchTribesInputBindings(const std::string &needle)
+{
+	LuaRef out = newTable(g_config.lua.getState());
+	if (!Utils::tr_pc)
+		return out;
+	TArray<FKeyBind> &bindings = Utils::tr_pc->PlayerInput->Bindings;
+
+	return out;
 }
 
 static void config_modifySound(const std::string &name, float pitch, float volume)
@@ -2069,6 +2079,16 @@ void Lua::init()
 		// Keybinds
 		addFunction("bindKey", &config_bindKey).
 		addFunction("unbindKey", &config_unbindKey).
+		beginClass<FKeyBind>("KeyBind").
+			addProperty("name", &FKeyBind::getName).
+			addProperty("command", &FKeyBind::getCommand).
+			addProperty("ctrl", &FKeyBind::getControl).
+			addProperty("shift", &FKeyBind::getShift).
+			addProperty("alt", &FKeyBind::getAlt).
+			addProperty("ignoreCtrl", &FKeyBind::getIgnoreControl).
+			addProperty("ignoreShift", &FKeyBind::getIgnoreShift).
+			addProperty("ignoreAlt", &FKeyBind::getIgnoreAlt).
+		endClass().
 
 		// State saving
 		addFunction("stopwatch", &toggleStopwatch).

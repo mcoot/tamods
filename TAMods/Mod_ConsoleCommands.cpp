@@ -49,7 +49,7 @@ bool printObjectName(UObject *Object)
 	return false;
 }
 
-bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
 	UTrChatConsole_execInputKey_Parms *params = (UTrChatConsole_execInputKey_Parms *)pParams;

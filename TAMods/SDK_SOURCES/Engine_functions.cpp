@@ -15,6 +15,9 @@
 	#pragma pack ( push, 0x4 )
 #endif
 #include "../SdkHeaders.h"
+#include "../Utils.h"
+
+std::string FKeyBind::getCommand() const { return Utils::f2std(*(const_cast<FString *>(&Command))); }
 
 /*
 # ========================================================================================= #
