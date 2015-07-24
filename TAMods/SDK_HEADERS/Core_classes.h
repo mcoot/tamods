@@ -116,7 +116,7 @@
 };*/
 
 // Enum Core.Object.EInputEvent
-/*enum EInputEvent
+enum EInputEvent
 {
 	IE_Pressed                                         = 0,
 	IE_Released                                        = 1,
@@ -124,7 +124,7 @@
 	IE_DoubleClick                                     = 3,
 	IE_Axis                                            = 4,
 	IE_MAX                                             = 5
-};*/
+};
 
 // Enum Core.Object.AlphaBlendType
 /*enum AlphaBlendType

@@ -7,6 +7,43 @@ bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, vo
 	return false;
 }
 
+// Lua keybindings
+bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
+	UTrChatConsole_execInputKey_Parms *params = (UTrChatConsole_execInputKey_Parms *)pParams;
+
+	Utils::tr_pc = that->m_TrPC;
+	// Big hook "onInputevent", intercept everything
+	if (g_config.onInputEvent)
+	{
+		try
+		{
+			(*g_config.onInputEvent)(std::string(params->Key.GetName()), (int)params->Event);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+	}
+
+	// Individual hooks
+	auto &it = g_config.lua_keybinds.find(params->Key.Index);
+	if (it == g_config.lua_keybinds.end())
+		return false;
+	if (it->second[params->Event] == NULL)
+		return false;
+	try
+	{
+		(*it->second[params->Event])(std::string(params->Key.GetName()), (int)params->Event);
+	}
+	catch (const LuaException &e)
+	{
+		Utils::console("LuaException: %s", e.what());
+	}
+	return false;
+}
+
 bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
