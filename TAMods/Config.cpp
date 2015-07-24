@@ -1974,5 +1974,9 @@ void Lua::init()
 		addFunction("modifySoundRe", &config_modifySoundRe).
 		addFunction("searchSound", &config_searchSoundRe).
 		addFunction("searchSoundRe", &config_searchSoundRe).
+
+		// State saving
+		addFunction("save", &savePlayerState).
+		addFunction("recall", &recallPlayerState).
 	endNamespace();
 }

@@ -17,6 +17,9 @@
 #include "Texture.h"
 #include "SoundEffect.h"
 
+void savePlayerState(int n = 1);
+void recallPlayerState(int n = 1, bool tpOnly = false);
+
 struct Crosshairs
 {
 	Crosshairs(const std::string &pstd, const std::string &pzoomed)
@@ -304,6 +307,7 @@ public:
 	bool stopwatchStopOnDeath;
 	bool stopwatchNotifications;
 	// Non-user variables
+	bool stopwatchFlagRecall = false;
 	bool stopwatchRunning    = false;
 	float stopwatchStartTime = 0.0f;
 	float stopwatchGrabTime  = 0.0f;
