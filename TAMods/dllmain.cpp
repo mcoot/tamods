@@ -23,39 +23,7 @@ void onDLLProcessAttach()
 		Hooks::add(&TrPC_PressedSki, "Function TribesGame.TrPlayerController.PressedSki"); // Flag drag in roam map
 		Hooks::add(&TrHUD_Tick, "Function TribesGame.TrHUD.Tick"); // Time in roam map and stopwatch
 		Hooks::add(&GFxTrMenuMoviePlayer_SetPlayerLoading, "Function TribesGame.GFxTrMenuMoviePlayer.SetPlayerLoading"); // Different loading screens
-		Hooks::add([](int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) -> bool
-		{
-			UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
-			UTrChatConsole_execInputKey_Parms *params = (UTrChatConsole_execInputKey_Parms *)pParams;
-
-			Utils::tr_pc = that->m_TrPC;
-			Logger::log("Key %s: event %d", params->Key.GetName(), params->Event);
-			if (g_config.onInputEvent)
-			{
-				try
-				{
-					(*g_config.onInputEvent)(std::string(params->Key.GetName()), (int)params->Event);
-				}
-				catch (const LuaException &e)
-				{
-					Utils::console("LuaException: %s", e.what());
-				}
-			}
-			auto &it = g_config.lua_keybinds.find(params->Key.Index);
-			if (it == g_config.lua_keybinds.end())
-				return false;
-			if (it->second[params->Event] == NULL)
-				return false;
-			try
-			{
-				(*it->second[params->Event])(std::string(params->Key.GetName()), (int)params->Event);
-			}
-			catch (const LuaException &e)
-			{
-				Utils::console("LuaException: %s", e.what());
-			}
-			return false;
-		}, "Function TribesGame.TrChatConsole.InputKey");
+		Hooks::add(&TrChatConsole_InputKey, "Function TribesGame.TrChatConsole.InputKey"); // Lua keybindings
 
 		// HUD modification
 		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers
