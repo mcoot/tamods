@@ -18,9 +18,12 @@
 #include "SoundEffect.h"
 
 void toggleStopwatch();
-void savePlayerState(int n = 1);
-void recallPlayerState(int n = 1, bool tpOnly = false);
-void tpPlayerState(int n = 1);
+void saveState();
+void saveStateTo(int n);
+void tpState();
+void tpStateTo(int n);
+void recallState();
+void recallStateTo(int n);
 
 struct Crosshairs
 {

@@ -109,7 +109,7 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					if (TrPC)
 					{
 						// Without a slot number we just use slot 1
-						savePlayerState(line.size() > 6 ? line[6] - '0' : 1);
+						saveStateTo(line.size() > 6 ? line[6] - '0' : 1);
 					}
 					customcommand = true;
 				}
@@ -120,14 +120,14 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					if (line.substr(0, 3) == L"/tp")
 					{
 						// Without a slot number we just use slot 1
-						recallPlayerState(line.size() > 4 ? line[4] - '0' : 1, true);
+						tpStateTo(line.size() > 4 ? line[4] - '0' : 1);
 						customcommand = true;
 					}
 					// Command to recall a full player state
 					else if (line.substr(0, 7) == L"/recall")
 					{
 						// Without a slot number we just use slot 1
-						recallPlayerState(line.size() > 8 ? line[8] - '0' : 1, false);
+						recallStateTo(line.size() > 8 ? line[8] - '0' : 1);
 						customcommand = true;
 					}
 					else if (line.size() == 14 && line == L"/toggleturrets")
