@@ -2248,6 +2248,15 @@ struct FKeyBind
 	unsigned long                                      bIgnoreCtrl : 1;                                  		// 0x0014 (0x0004) [0x0000000000004000] [0x00000008] ( CPF_Config )
 	unsigned long                                      bIgnoreShift : 1;                                 		// 0x0014 (0x0004) [0x0000000000004000] [0x00000010] ( CPF_Config )
 	unsigned long                                      bIgnoreAlt : 1;                                   		// 0x0014 (0x0004) [0x0000000000004000] [0x00000020] ( CPF_Config )
+
+	std::string getName() const { return std::string(const_cast<FName*>(&Name)->GetName()); }
+	std::string getCommand() const { return Utils::f2std(*(const_cast<FString *>(&Command))); }
+	bool getControl() const { return Control; }
+	bool getIgnoreControl() const { return bIgnoreCtrl; }
+	bool getShift() const { return Shift; }
+	bool getIgnoreShift() const { return bIgnoreShift; }
+	bool getAlt() const { return Alt; }
+	bool getIgnoreAlt() const { return bIgnoreAlt; }
 };
 
 // ScriptStruct Engine.DecalComponent.DecalReceiver

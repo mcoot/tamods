@@ -901,6 +901,16 @@ static bool config_unbindKey(const std::string &key, int event_type)
 	return true;
 }
 
+static LuaRef config_searchTribesInputBindings(const std::string &needle)
+{
+	LuaRef out = newTable(g_config.lua.getState());
+	if (!Utils::tr_pc)
+		return out;
+	TArray<FKeyBind> &bindings = Utils::tr_pc->PlayerInput->Bindings;
+
+	return out;
+}
+
 static void config_modifySound(const std::string &name, float pitch, float volume)
 {
 	if (name[0] == 'A' || name[0] == 'a')
@@ -2069,5 +2079,15 @@ void Lua::init()
 		// Keybinds
 		addFunction("bindKey", &config_bindKey).
 		addFunction("unbindKey", &config_unbindKey).
+		beginClass<FKeyBind>("KeyBind").
+			addProperty("name", &FKeyBind::getName).
+			addProperty("command", &FKeyBind::getCommand).
+			addProperty("ctrl", &FKeyBind::getControl).
+			addProperty("shift", &FKeyBind::getShift).
+			addProperty("alt", &FKeyBind::getAlt).
+			addProperty("ignoreCtrl", &FKeyBind::getIgnoreControl).
+			addProperty("ignoreShift", &FKeyBind::getIgnoreShift).
+			addProperty("ignoreAlt", &FKeyBind::getIgnoreAlt).
+		endClass().
 	endNamespace();
 }
