@@ -75,9 +75,9 @@ std::string Utils::fTime2string(float time)
 
 	std::string sMinutes;
 	if (minutes == 1)
-		sMinutes = minutes + " minute ";
+		sMinutes = std::to_string(minutes) + " minute ";
 	else if (minutes > 1)
-		sMinutes = minutes + " minutes ";
+		sMinutes = std::to_string(minutes) + " minutes ";
 	else
 		sMinutes = "";
 

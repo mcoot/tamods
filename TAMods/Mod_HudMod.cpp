@@ -423,15 +423,15 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 	{
 		float worldseconds = that->WorldInfo->RealTimeSeconds;
 
-		if (g_config.stopwatchRunning // Show stopwatch time at the moment of a cap
-			&& worldseconds - g_config.stopwatchCapTime < 4.0f // Show for only 4 seconds
+		if (g_config.stopwatchRunning // Freeze stopwatch time at the moment of a cap
+			&& worldseconds - g_config.stopwatchCapTime < 4.0f // for 4 seconds
 			&& g_config.stopwatchStartTime < g_config.stopwatchCapTime) // Only when stopwatch was started pre-cap
 		{
 			if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);
 			worldseconds = g_config.stopwatchCapTime;
 		}
-		else if (g_config.stopwatchRunning // Show stopwatch time at the moment of a grab
-			&& worldseconds - g_config.stopwatchGrabTime < 4.0f // Show for only 4 seconds
+		else if (g_config.stopwatchRunning // Freeze stopwatch time at the moment of a grab
+			&& worldseconds - g_config.stopwatchGrabTime < 4.0f // for 4 seconds
 			&& g_config.stopwatchStartTime < g_config.stopwatchGrabTime) // Only when stopwatch was started pre-grab
 		{
 			if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);

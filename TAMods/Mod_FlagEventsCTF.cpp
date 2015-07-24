@@ -54,10 +54,12 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 			}
 		}
 		else
-		{	
+		{
 			if ((msgClass == "TrCTFHUDMessage" || relatedPRI && relatedPRI->IsLocalPlayerPRI()) && that->WorldInfo) // TrCTFHUDMessage doesn't come with a relatedPRI
 			{
 				g_config.stopwatchGrabTime = that->WorldInfo->RealTimeSeconds;
+				g_config.stopwatchCapTime = 0.0f;
+
 				if (that->Pawn)
 				{
 					g_config.stopwatchGrabHealth = that->Pawn->Health;
@@ -96,10 +98,10 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 		{
 			if (relatedPRI->IsLocalPlayerPRI() && that->WorldInfo)
 			{
-				if (g_config.stopwatchGrabTime != 0.0f)
-					g_config.stopwatchGrabTime = that->WorldInfo->RealTimeSeconds;
+				g_config.stopwatchGrabTime = that->WorldInfo->RealTimeSeconds;
+				g_config.stopwatchCapTime = 0.0f;
 
-				if (that->Pawn && g_config.stopwatchGrabHealth == 0)
+				if (that->Pawn)
 				{
 					g_config.stopwatchGrabHealth = that->Pawn->Health;
 					g_config.stopwatchGrabSpeed = ((ATrPawn *)that->Pawn)->CalculatePawnSpeed();
@@ -144,14 +146,15 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 
 				g_config.stopwatchPrintSummary();
 
+				//g_config.stopwatchStartTime = g_config.stopwatchCapTime;
+				g_config.stopwatchGrabTime = 0.0f;
+				g_config.stopwatchGrabHealth = 0;
+				g_config.stopwatchGrabSpeed = -1;
+
 				if (g_config.stopwatchStopOnCap)
-					g_config.stopwatchReset();
-				else
 				{
-					g_config.stopwatchGrabTime = 0.0f;
-					g_config.stopwatchCapTime = 0.0f;
-					g_config.stopwatchGrabHealth = 0;
-					g_config.stopwatchGrabSpeed = -1;
+					g_config.stopwatchRunning = 0;
+					g_config.stopwatchCapTime = 0;
 				}
 			}
 			//////////////////////////////////
@@ -175,8 +178,6 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 		}
 		else
 		{
-			g_config.stopwatchGrabTime = 0.0f;
-
 			if (g_config.customFlagRedReturn)
 			{
 				g_config.s_flagRedPickup.Stop();
