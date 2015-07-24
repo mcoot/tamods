@@ -39,7 +39,17 @@ void toggleStopwatch()
 	}
 }
 
-void savePlayerState(int n)
+void saveState()
+{
+	savePlayerStateNum(1);
+}
+
+void saveStateTo(int n)
+{
+	saveStateTo(n);
+}
+
+void savePlayerStateNum(int n)
 {
 	// Is the specified slot in range?
 	if (n > 0 && (size_t)n <= savedPlayerStates.size())
@@ -88,9 +98,25 @@ void savePlayerState(int n)
 		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(savedPlayerStates.size()));
 }
 
-void tpPlayerState(int n)
+// Wrapper functions
+void tpState()
+{
+	recallPlayerState(1, true);
+}
+
+void tpStateTo(int n)
 {
 	recallPlayerState(n, true);
+}
+
+void recallState()
+{
+	recallPlayerState(1, true);
+}
+
+void recallStateTo(int n)
+{
+	recallPlayerState(n, false);
 }
 
 void recallPlayerState(int n, bool tpOnly)

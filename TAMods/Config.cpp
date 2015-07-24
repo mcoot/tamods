@@ -2100,8 +2100,11 @@ void Lua::init()
 
 		// State saving
 		addFunction("stopwatch", &toggleStopwatch).
-		addFunction("save", &savePlayerState).
-		addFunction("recall", &recallPlayerState).
-		addFunction("tp", &tpPlayerState).
+		addFunction("save", &saveState).
+		addFunction("saveTo", &saveStateTo).
+		addFunction("recall", &recallState).
+		addFunction("recallTo", &recallStateTo).
+		addFunction("tp", &tpState).
+		addFunction("tpTo", &tpState).
 	endNamespace();
 }
