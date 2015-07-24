@@ -265,7 +265,8 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 					{
 						g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->RealTimeSeconds);
 						g_config.stopwatchPrintSummary();
-						g_config.stopwatchReset();
+						g_config.stopwatchStartTime = 0;
+						g_config.stopwatchRunning = 0;
 					}
 					else
 						g_config.stopwatchStart(TrPC->WorldInfo->RealTimeSeconds);

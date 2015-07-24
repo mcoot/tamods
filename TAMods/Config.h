@@ -301,6 +301,7 @@ public:
 
 	// Route timer
 	bool stopwatchStopOnCap;
+	bool stopwatchStopOnDeath;
 	bool stopwatchNotifications;
 	// Non-user variables
 	bool stopwatchRunning    = false;
