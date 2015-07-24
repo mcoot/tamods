@@ -32,3 +32,15 @@ bindKey("L", Input.RELEASED,
            unbindKey("L", 1)
         end
 )
+
+-- Bind save
+bindKey("F1", Input.RELEASED, save)
+bindKey("F2", Input.RELEASED, recall)
+bindKey("F3", Input.RELEASED, stopwatch)
+
+-- Print the original binds for wasd to the console
+-- The console is not working when the dll is just injected to use /rc to see it
+list = searchTribesInputCommands("gba_(moveforward$|backward$|strafe(left|right)$)")
+for key,bind in pairs(list) do
+   print(bind.name .. " -> " .. bind.command)
+end
