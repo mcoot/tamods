@@ -46,6 +46,8 @@ bool TrDeployable_FinalizeDeployment(int ID, UObject *dwCallingObject, UFunction
 bool TrPowerGenerator_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_PressedSki(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
+// State saving
 void UpdateLocationOverheadNumbers(ATrHUD *that);
 
 // Stats

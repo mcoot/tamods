@@ -2089,5 +2089,9 @@ void Lua::init()
 			addProperty("ignoreShift", &FKeyBind::getIgnoreShift).
 			addProperty("ignoreAlt", &FKeyBind::getIgnoreAlt).
 		endClass().
+
+		// State saving
+		addFunction("save", &savePlayerState).
+		addFunction("recall", &recallPlayerState).
 	endNamespace();
 }
