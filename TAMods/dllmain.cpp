@@ -28,6 +28,7 @@ void onDLLProcessAttach()
 			UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
 			UTrChatConsole_execInputKey_Parms *params = (UTrChatConsole_execInputKey_Parms *)pParams;
 
+			Utils::tr_pc = that->m_TrPC;
 			Logger::log("Key %s: event %d", params->Key.GetName(), params->Event);
 			if (g_config.onInputEvent)
 			{
