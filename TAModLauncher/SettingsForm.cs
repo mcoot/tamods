@@ -24,6 +24,12 @@ namespace TAModLauncher
             this.parent = parent;
         }
 
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+            fileSelectLauncherDirectory.FilePathChanged += new EventHandler(fileSelectLauncherDirectory_FilePathChanged);
+            fileSelectLauncherDirectory.setFilePath(parent.LauncherPath);
+        }
+
         private void selectUpdateChannel_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (selectUpdateChannel.SelectedItem != null)
@@ -40,6 +46,12 @@ namespace TAModLauncher
             }
         }
 
+        private void fileSelectLauncherDirectory_FilePathChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("PATHY: " + fileSelectLauncherDirectory.FilePath);
+            parent.LauncherPath = fileSelectLauncherDirectory.FilePath;
+        }
+
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Hide();
@@ -50,7 +62,5 @@ namespace TAModLauncher
         {
             this.Hide();
         }
-
-        
     }
 }

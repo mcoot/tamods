@@ -20,6 +20,13 @@ namespace TAModLauncher
         public TAModLauncherConfig config;
         public SettingsForm settingsform;
 
+        private string launcherPath = "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe";
+        public string LauncherPath
+        {
+            get { return launcherPath; }
+            set { launcherPath = value; }
+        }
+
         public bool updateRequired;
 
         public LauncherForm()
@@ -31,21 +38,25 @@ namespace TAModLauncher
         {
             updater = new TAModUpdater();
             config = new TAModLauncherConfig("launcher.xml");
-            settingsform = new SettingsForm(this);
+            
 
             // Event handlers
             updater.DownloadProgressChanged += new EventHandler(updateProgressChange);
             updater.DownloadCompleted += new EventHandler(updateFinished);
 
             // Load config data
-
             checkAutoUpdate.Checked = (config.getProperty("//LauncherConfig/AutoUpdateCheck") == null ?
                     true : Convert.ToBoolean(config.getProperty("//LauncherConfig/AutoUpdateCheck").ToLower()));
+            LauncherPath = (config.getProperty("//LauncherConfig/TribesLauncherPath") == null ?
+                "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe" : config.getProperty("//LauncherConfig/TribesLauncherPath"));
 
             if (checkAutoUpdate.Checked)
             {
                 checkForUpdates();
             }
+
+            // Initialise settings form
+            settingsform = new SettingsForm(this);
 
         }
 
@@ -53,6 +64,7 @@ namespace TAModLauncher
         {
             config.setProperty("//LauncherConfig/AutoUpdateCheck", checkAutoUpdate.Checked.ToString().ToLower());
             if (settingsform.selectUpdateChannel.SelectedItem != null) config.setProperty("//LauncherConfig/UpdateChannel", settingsform.selectUpdateChannel.SelectedItem.ToString().ToLower());
+            if (LauncherPath.Trim() != "") config.setProperty("//LauncherConfig/TribesLauncherPath", LauncherPath);
             config.saveConfig("launcher.xml");
         }
 
@@ -188,8 +200,32 @@ namespace TAModLauncher
 
         private void btnUpdateLaunch_Click(object sender, EventArgs e)
         {
-            labelDownload.Visible = true;
-            updater.beginUpdate();
+            if (updateRequired)
+            {
+                labelDownload.Visible = true;
+                updater.beginUpdate();
+            }
+            else
+            {
+                if (File.Exists(LauncherPath))
+                {
+                    try
+                    {
+                        Process.Start(LauncherPath, "game=200 product=10");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("ERROR: The Tribes launcher could not be started.\n Message: " + ex.Message,
+                            "Error Starting Tribes Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("ERROR: The Tribes launcher path is not valid. Please change this in the settings.",
+                    "Error Starting Tribes Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
+            }
         }
 
         private void btnUpdateCheck_Click(object sender, EventArgs e)
