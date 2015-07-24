@@ -901,13 +901,20 @@ static bool config_unbindKey(const std::string &key, int event_type)
 	return true;
 }
 
-static LuaRef config_searchTribesInputBindings(const std::string &needle)
+static LuaRef config_searchTribesInputCommands(const std::string &needle)
 {
 	LuaRef out = newTable(g_config.lua.getState());
 	if (!Utils::tr_pc)
 		return out;
+	std::regex re(needle, std::regex_constants::icase);
 	TArray<FKeyBind> &bindings = Utils::tr_pc->PlayerInput->Bindings;
-
+	for (int i = 0; i < bindings.Count; i++)
+	{
+		FKeyBind *bind = bindings.Data + i;
+		std::string haystack = Utils::f2std(bind->Command);
+		if (std::regex_search(haystack, re))
+			out.append(bind);
+	}
 	return out;
 }
 
@@ -2089,6 +2096,7 @@ void Lua::init()
 			addProperty("ignoreShift", &FKeyBind::getIgnoreShift).
 			addProperty("ignoreAlt", &FKeyBind::getIgnoreAlt).
 		endClass().
+		addFunction("searchTribesInputCommands", &config_searchTribesInputCommands).
 
 		// State saving
 		addFunction("stopwatch", &toggleStopwatch).
