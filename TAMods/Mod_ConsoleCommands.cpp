@@ -63,7 +63,7 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 	params->bGamepad = false;
 	if (params->Key == FName("Enter") && params->Event == 1)
 	{
-		if (that->m_TrPC && that->m_TrPC->WorldInfo->TimeSeconds - that->m_fTypingTime < 0.150f)
+		if (TrPC && TrPC->WorldInfo->TimeSeconds - that->m_fTypingTime < 0.150f)
 			return false;
 		if (that->TypedStr.Count)
 		{
@@ -100,15 +100,8 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 				}
 				else if ((line.size() == 10 && line == L"/stopwatch"))
 				{
-					if (g_config.stopwatchRunning)
-					{
-						g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->RealTimeSeconds);
-						g_config.stopwatchPrintSummary();
-						g_config.stopwatchStartTime = 0;
-						g_config.stopwatchRunning = 0;
-					}
-					else
-						g_config.stopwatchStart(TrPC->WorldInfo->RealTimeSeconds);
+					toggleStopwatch();
+					customcommand = true;
 				}
 				// Command to save the current player state (location, velocity etc.)
 				else if (line.substr(0, 5) == L"/save")

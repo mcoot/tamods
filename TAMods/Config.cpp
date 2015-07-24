@@ -2071,7 +2071,9 @@ void Lua::init()
 		addFunction("unbindKey", &config_unbindKey).
 
 		// State saving
+		addFunction("stopwatch", &toggleStopwatch).
 		addFunction("save", &savePlayerState).
 		addFunction("recall", &recallPlayerState).
+		addFunction("tp", &tpPlayerState).
 	endNamespace();
 }

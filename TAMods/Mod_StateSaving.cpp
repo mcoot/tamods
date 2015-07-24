@@ -21,6 +21,24 @@ struct playerState
 };
 std::vector<playerState> savedPlayerStates(9);
 
+void toggleStopwatch()
+{
+	ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
+
+	if (TrPC && TrPC->WorldInfo)
+	{
+		if (g_config.stopwatchRunning)
+		{
+			g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+			g_config.stopwatchPrintSummary();
+			g_config.stopwatchStartTime = 0;
+			g_config.stopwatchRunning = 0;
+		}
+		else
+			g_config.stopwatchStart(TrPC->WorldInfo->RealTimeSeconds);
+	}
+}
+
 void savePlayerState(int n)
 {
 	// Is the specified slot in range?
