@@ -39,6 +39,7 @@ void toggleStopwatch()
 	}
 }
 
+// Wrapper functions
 void saveState()
 {
 	savePlayerStateNum(1);
@@ -132,7 +133,8 @@ void recallPlayerState(int n, bool tpOnly)
 			ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
 			playerState &state = savedPlayerStates.at(n - 1);
 
-			if (!TrPC || !Cam || !TrPC->WorldInfo) return;
+			if (!TrPC || !Cam || !TrPC->WorldInfo || TrPC->WorldInfo->NetMode != 0)
+				return;
 
 			Cam->SetLocation(state.loc);
 			TrPC->SetRotation(state.rot);
