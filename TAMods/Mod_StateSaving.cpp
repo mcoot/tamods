@@ -88,6 +88,11 @@ void savePlayerState(int n)
 		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(savedPlayerStates.size()));
 }
 
+void tpPlayerState(int n)
+{
+	recallPlayerState(n, true);
+}
+
 void recallPlayerState(int n, bool tpOnly)
 {
 	// Is the specified slot in range?

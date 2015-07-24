@@ -20,7 +20,7 @@
 void toggleStopwatch();
 void savePlayerState(int n = 1);
 void recallPlayerState(int n = 1, bool tpOnly = false);
-void tpPlayerState(int n = 1) { recallPlayerState(n, true); };
+void tpPlayerState(int n = 1);
 
 struct Crosshairs
 {
