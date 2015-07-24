@@ -2105,6 +2105,6 @@ void Lua::init()
 		addFunction("recall", &recallState).
 		addFunction("recallTo", &recallStateTo).
 		addFunction("tp", &tpState).
-		addFunction("tpTo", &tpState).
+		addFunction("tpTo", &tpStateTo).
 	endNamespace();
 }

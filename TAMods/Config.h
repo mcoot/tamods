@@ -17,6 +17,7 @@
 #include "Texture.h"
 #include "SoundEffect.h"
 
+// Declared here to use as lua functions
 void toggleStopwatch();
 void saveState();
 void saveStateTo(int n);
