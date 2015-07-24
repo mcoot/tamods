@@ -71,7 +71,7 @@ void onDLLProcessAttach()
 		Hooks::add(&TrPC_PlayerTick, "Function TribesGame.TrPlayerController.PlayerTick");
 
 		// Console commands (/lua)
-		Hooks::add(&TrChatConsole_InputKey, "Function TrChatConsole.Open.InputKey");
+		Hooks::add(&TrChatConsole_Open_InputKey, "Function TrChatConsole.Open.InputKey");
 	}
 
 	// Pass true to log hookable functions

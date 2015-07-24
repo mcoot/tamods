@@ -2250,7 +2250,7 @@ struct FKeyBind
 	unsigned long                                      bIgnoreAlt : 1;                                   		// 0x0014 (0x0004) [0x0000000000004000] [0x00000020] ( CPF_Config )
 
 	std::string getName() const { return std::string(const_cast<FName*>(&Name)->GetName()); }
-	std::string getCommand() const { return Utils::f2std(*(const_cast<FString *>(&Command))); }
+	std::string getCommand() const;
 	bool getControl() const { return Control; }
 	bool getIgnoreControl() const { return bIgnoreCtrl; }
 	bool getShift() const { return Shift; }

@@ -102,7 +102,7 @@ void recallPlayerState(int n, bool tpOnly)
 				g_config.stopwatchReset(); // /tp always resets the stopwatch
 
 				// Restore health, energy and ammo
-				UTrSeqAct_RefreshInventory *seq;
+				UTrSeqAct_RefreshInventory *seq = NULL;
 				TrPC->OnRefreshInventory(seq);
 				//Utils::printConsole("Teleported to state #" + std::to_string(n));
 			}
