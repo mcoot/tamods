@@ -25,6 +25,8 @@ bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFuncti
 {
 	for (size_t i = 0; i < savedPlayerStates.size(); i++)
 		savedPlayerStates.at(i).loc.X = NULL;
+
+	return false;
 }
 
 void toggleStopwatch()
