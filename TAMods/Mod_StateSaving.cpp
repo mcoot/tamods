@@ -21,6 +21,12 @@ struct playerState
 };
 std::vector<playerState> savedPlayerStates(9);
 
+bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	for (size_t i = 0; i < savedPlayerStates.size(); i++)
+		savedPlayerStates.at(i).loc.X = NULL;
+}
+
 void toggleStopwatch()
 {
 	ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
@@ -104,6 +110,12 @@ void recallPlayerState(int n, bool tpOnly)
 			if (!TrPC || !Cam || !TrPC->WorldInfo || TrPC->WorldInfo->NetMode != 0)
 				return;
 
+			if (!tpOnly && state.hasFlag && state.teamNum != TrPawn->GetTeamNum())
+			{
+				Utils::console("Error: you are not in the right team to recall this state");
+				return;
+			}
+
 			Cam->SetLocation(state.loc);
 			TrPC->SetRotation(state.rot);
 
@@ -127,12 +139,6 @@ void recallPlayerState(int n, bool tpOnly)
 			}
 			else // full recall
 			{
-				if (state.hasFlag && state.teamNum != TrPawn->GetTeamNum())
-				{
-					Utils::console("Error: you are not in the right team to recall this state");
-					return;
-				}
-
 				TrPawn->Velocity = state.vel;
 
 				//Restore stopwatch state
