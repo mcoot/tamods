@@ -207,24 +207,31 @@ namespace TAModLauncher
             }
             else
             {
-                if (File.Exists(LauncherPath))
+                // Check if game is already running
+                if (Process.GetProcessesByName("tribesascend").Length > 0)
                 {
-                    try
+                    MessageBox.Show("yo");
+                }
+                else if (Process.GetProcessesByName("hirezlauncherui").Length == 0)
+                {
+                    if (File.Exists(LauncherPath))
                     {
-                        Process.Start(LauncherPath, "game=200 product=10");
+                        try
+                        {
+                            Process.Start(LauncherPath, "game=200 product=10");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("ERROR: The Tribes launcher could not be started.\n Message: " + ex.Message,
+                                "Error Starting Tribes Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show("ERROR: The Tribes launcher could not be started.\n Message: " + ex.Message,
-                            "Error Starting Tribes Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("ERROR: The Tribes launcher path is not valid. Please change this in the settings.",
+                        "Error Starting Tribes Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("ERROR: The Tribes launcher path is not valid. Please change this in the settings.",
-                    "Error Starting Tribes Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                
             }
         }
 
