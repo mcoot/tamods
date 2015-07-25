@@ -438,7 +438,7 @@ void Config::stopwatchPrintSummary()
 			// Capture time, only when cap time is available
 			Utils::printConsole(" Captured in: " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchGrabTime));
 
-			// Total time, only when the stopwatch was started post-grab
+			// Total time, only when the stopwatch was started pre-grab
 			if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
 			{
 				Utils::printConsole("----------------------------------------");
@@ -630,6 +630,11 @@ void Config::setVariables()
 
 	// Lua keybinds
 	SET_FUNCTION(onInputEvent);
+}
+
+static void config_reloadSounds()
+{
+	g_config.reloadSounds();
 }
 
 static int getWeaponID(const std::string &class_name, const std::string &str)
@@ -2098,7 +2103,8 @@ void Lua::init()
 		endClass().
 		addFunction("searchTribesInputCommands", &config_searchTribesInputCommands).
 
-		// State saving
+		// Console commands as lua functions for the use as keybinds
+		addFunction("reloadSounds", &config_reloadSounds).
 		addFunction("stopwatch", &toggleStopwatch).
 		addFunction("save", &saveState).
 		addFunction("saveTo", &saveStateTo).
@@ -2106,5 +2112,8 @@ void Lua::init()
 		addFunction("recallTo", &recallStateTo).
 		addFunction("tp", &tpState).
 		addFunction("tpTo", &tpStateTo).
+		addFunction("toggleTurrets", &toggleTurrets).
+		addFunction("togglePower", &togglePower).
+		addFunction("returnFlags", &returnFlags).
 	endNamespace();
 }

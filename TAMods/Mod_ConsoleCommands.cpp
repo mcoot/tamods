@@ -1,6 +1,6 @@
 #include "Mods.h"
 
-bool toggleBaseTurret(UObject *Object)
+bool toggleBaseTurret_cb(UObject *Object)
 {
 	if (Object->IsA(ATrBaseTurret_BloodEagle::StaticClass()))
 	{
@@ -15,7 +15,7 @@ bool toggleBaseTurret(UObject *Object)
 	return false;
 }
 
-bool togglePower(UObject *Object)
+bool togglePower_cb(UObject *Object)
 {
 	if (Object && Object->IsA(ATrPowerGenerator::StaticClass()))
 	{
@@ -37,6 +37,36 @@ bool togglePower(UObject *Object)
 		}
 	}
 	return false;
+}
+
+void toggleTurrets()
+{
+	Utils::FindObjects("^TrBaseTurret_(BloodEagle|DiamondSword)", &toggleBaseTurret_cb);
+}
+
+void togglePower()
+{
+	Utils::FindObjects("^TrPowerGenerator_(BloodEagle|DiamondSword) TheWorld.PersistentLevel.TrPowerGenerator_", &togglePower_cb);
+}
+
+void returnFlags()
+{
+	ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
+
+	if (!TrPC || !TrPC->WorldInfo)
+		return;
+
+	AGameInfo *gi = TrPC->WorldInfo->Game;
+
+	// is there a better way get the current gametype?
+	if (gi && gi->IsA(ATrGame_TRCTF::StaticClass()))
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			if (((ATrGame_TRCTF *)gi)->m_Flags[i]->GetStateName() == FName("Dropped"))
+				((ATrGame_TRCTF *)gi)->m_Flags[i]->SendHome(TrPC);
+		}
+	}
 }
 
 int matched;
@@ -132,26 +162,18 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					}
 					else if (line.size() == 14 && line == L"/toggleturrets")
 					{
-						Utils::FindObjects("^TrBaseTurret_(BloodEagle|DiamondSword)", &toggleBaseTurret);
+						toggleTurrets();
 						customcommand = true;
 					}
 					else if (line.size() == 12 && line == L"/togglepower")
 					{
-						Utils::FindObjects("^TrPowerGenerator_(BloodEagle|DiamondSword) TheWorld.PersistentLevel.TrPowerGenerator_", &togglePower);
+						togglePower();
 						customcommand = true;
 					}
 					else if (line.size() == 12 && line == L"/returnflags")
 					{
-						AGameInfo *gi = that->m_TrPC->WorldInfo->Game;
-						// is there a better way get the current gametype?
-						if (gi->IsA(ATrGame_TRCTF::StaticClass()))
-						{
-							for (int i = 0; i < 2; i++)
-							{
-								if (((ATrGame_TRCTF *)gi)->m_Flags[i]->GetStateName() == FName("Dropped"))
-									((ATrGame_TRCTF *)gi)->m_Flags[i]->SendHome(that->m_TrPC);
-							}
-						}
+						returnFlags();
+						customcommand = true;
 					}
 				}
 

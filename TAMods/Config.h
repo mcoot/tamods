@@ -25,6 +25,9 @@ void tpState();
 void tpStateTo(int n);
 void recallState();
 void recallStateTo(int n);
+void toggleTurrets();
+void togglePower();
+void returnFlags();
 
 struct Crosshairs
 {
