@@ -25,6 +25,8 @@ void tpState();
 void tpStateTo(int n);
 void recallState();
 void recallStateTo(int n);
+void resetPlayerStates();
+void spawnsToPlayerStates();
 void toggleTurrets();
 void togglePower();
 void returnFlags();

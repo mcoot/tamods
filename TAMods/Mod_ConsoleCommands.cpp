@@ -143,6 +143,16 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					}
 					customcommand = true;
 				}
+				else if (line.size() == 7 && line == L"/spawns")
+				{
+					spawnsToPlayerStates();
+					customcommand = true;
+				}
+				else if (line.size() == 11 && line == L"/resetSaves")
+				{
+					resetPlayerStates();
+					customcommand = true;
+				}
 				// Roam map only commands
 				else if (TrPC && TrPC->WorldInfo->NetMode == 0)
 				{

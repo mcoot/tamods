@@ -2115,5 +2115,7 @@ void Lua::init()
 		addFunction("toggleTurrets", &toggleTurrets).
 		addFunction("togglePower", &togglePower).
 		addFunction("returnFlags", &returnFlags).
+		addFunction("spawns", &spawnsToPlayerStates).
+		addFunction("resetSaves", &resetPlayerStates).
 	endNamespace();
 }
