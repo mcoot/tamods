@@ -134,6 +134,7 @@ void Config::reset()
 	// Sounds
 	hitSoundMode = 0;
 	customHeadShotSound  = false;
+	customKillSound      = false;
 	customAirMailSound   = false;
 	customBluePlateSound = false;
 	hitSoundPitchMin     = 0.4f;
@@ -141,6 +142,7 @@ void Config::reset()
 	hitSoundDamageRef    = 600;
 	volumeHitSound       = 0.55f;
 	volumeHeadShot       = 0.55f;
+	volumeKillSound      = 0.55f;
 	volumeBluePlate      = 0.55f;
 	volumeAirMail        = 0.55f;
 	// Accolades
@@ -341,6 +343,7 @@ void Config::initializeAudio()
 	{
 		s_soundEffects.push_back(s_hitSound.Initialize(audioEngine.SoundEffectEngine,        std::string("hit.wav"),              &volumeHitSound));
 		s_soundEffects.push_back(s_headShot.Initialize(audioEngine.SoundEffectEngine,        std::string("headshot.wav"),         &volumeHeadShot));
+		s_soundEffects.push_back(s_killSound.Initialize(audioEngine.SoundEffectEngine,       std::string("kill.wav"),             &volumeKillSound));
 		s_soundEffects.push_back(s_bluePlate.Initialize(audioEngine.SoundEffectEngine,       std::string("blueplate.wav"),        &volumeBluePlate));
 		s_soundEffects.push_back(s_airMail.Initialize(audioEngine.SoundEffectEngine,         std::string("airmail.wav"),          &volumeAirMail));
 		s_soundEffects.push_back(s_streak1.Initialize(audioEngine.SoundEffectEngine,         std::string("streak1.wav"),          &volumeStreak1));
@@ -538,6 +541,7 @@ void Config::setVariables()
 	// Sounds
 	SET_VARIABLE(int, hitSoundMode);
 	SET_VARIABLE(bool, customHeadShotSound);
+	SET_VARIABLE(bool, customKillSound);
 	SET_VARIABLE(bool, customAirMailSound);
 	SET_VARIABLE(bool, customBluePlateSound);
 	SET_VARIABLE(float, hitSoundPitchMin);
@@ -545,6 +549,7 @@ void Config::setVariables()
 	SET_VARIABLE(int, hitSoundDamageRef);
 	SET_VARIABLE(float, volumeHitSound);
 	SET_VARIABLE(float, volumeHeadShot);
+	SET_VARIABLE(float, volumeKillSound);
 	SET_VARIABLE(float, volumeBluePlate);
 	SET_VARIABLE(float, volumeAirMail);
 	// Accolades

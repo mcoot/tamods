@@ -328,7 +328,7 @@ public:
 
 	// Sounds
 	Audio audioEngine;
-	SoundEffect s_hitSound,   s_headShot;
+	SoundEffect s_hitSound,   s_headShot,     s_killSound;
 	SoundEffect s_bluePlate,  s_airMail;
 	SoundEffect s_streak1,    s_streak2,      s_streak3,       s_streak4,    s_streak5;
 	SoundEffect s_multiKill1, s_multiKill2,   s_multiKill3,    s_multiKill4, s_multiKill5;
@@ -349,6 +349,7 @@ public:
 	// Sound user variables
 	int   hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
 	bool  customHeadShotSound;
+	bool  customKillSound;
 	bool  customAirMailSound;
 	bool  customBluePlateSound;
 	float hitSoundPitchMin;
@@ -356,6 +357,7 @@ public:
 	int   hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
 	float volumeHitSound;
 	float volumeHeadShot;
+	float volumeKillSound;
 	float volumeBluePlate;
 	float volumeAirMail;
 	// Accolades
