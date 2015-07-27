@@ -18,6 +18,7 @@ namespace TAModLauncher
     {
         public TAModUpdater updater;
         public TAModLauncherConfig config;
+        public DLLInjector injector;
         public SettingsForm settingsform;
 
         private string launcherPath = "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe";
@@ -38,7 +39,7 @@ namespace TAModLauncher
         {
             updater = new TAModUpdater();
             config = new TAModLauncherConfig("launcher.xml");
-            
+            injector = new DLLInjector("tribesascend", "TAMods.dll");
 
             // Event handlers
             updater.DownloadProgressChanged += new EventHandler(updateProgressChange);
@@ -262,6 +263,13 @@ namespace TAModLauncher
         private void btnSettings_Click(object sender, EventArgs e)
         {
             settingsform.Show();
+        }
+
+        private void btnTestInjector_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine("INJECTING " + injector.DLLPath + " into " + injector.TargetProcessName +
+                (injector.DoesProcessExist(injector.TargetProcessName) ? " (exists)" : " (does not exist)"));
+            injector.Inject();
         }
     }
 }

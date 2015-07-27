@@ -13,6 +13,9 @@ namespace TAModLauncher
         [DllImport("kernel32.dll")]
         public static extern IntPtr OpenProcess(int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern int CloseHandle(IntPtr hObject);
+
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
 
@@ -28,7 +31,7 @@ namespace TAModLauncher
 
         [DllImport("kernel32.dll")]
         static extern IntPtr CreateRemoteThread(IntPtr hProcess,
-            IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+            IntPtr lpThreadAttributes, IntPtr dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
         // privileges
         const int PROCESS_CREATE_THREAD = 0x0002;
@@ -63,8 +66,11 @@ namespace TAModLauncher
             IntPtr allocatedMemoryAddress = AllocateDLLNameMemory(processHandle, DLLPath);
             WriteDLLName(processHandle, allocatedMemoryAddress, DLLPath);
 
+            Debug.WriteLine("PROCHANDLE: " + processHandle + "\nLOADLIBADDR: " + loadLibraryAddress + "\nALLOCMEMADDR: " + allocatedMemoryAddress);
+
             // Create the thread to actually inject the DLL
-            CreateInjectedThread(processHandle, loadLibraryAddress, allocatedMemoryAddress);
+            Debug.WriteLine("INJECTION STATUS: " + CreateInjectedThread(processHandle, loadLibraryAddress, allocatedMemoryAddress));
+            CloseHandle(processHandle);
         }
 
         private IntPtr GetProcessHandle(string processname)
@@ -93,18 +99,20 @@ namespace TAModLauncher
                         MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
         }
 
-        private void WriteDLLName(IntPtr procHandle, IntPtr memoryAddress, string dllname)
+        private bool WriteDLLName(IntPtr procHandle, IntPtr memoryAddress, string dllname)
         {
             UIntPtr bytesWritten;
 
-            WriteProcessMemory(procHandle, memoryAddress, Encoding.Default.GetBytes(dllname), 
+            return WriteProcessMemory(procHandle, memoryAddress, Encoding.Default.GetBytes(dllname), 
                     (uint)((dllname.Length + 1) * Marshal.SizeOf(typeof(char))), out bytesWritten);
         }
 
-        private void CreateInjectedThread(IntPtr procHandle, IntPtr loadLibraryAddress, IntPtr memoryAddress)
+        private IntPtr CreateInjectedThread(IntPtr procHandle, IntPtr loadLibraryAddress, IntPtr memoryAddress)
         {
-            CreateRemoteThread(procHandle, IntPtr.Zero, 0, loadLibraryAddress, memoryAddress, 0, IntPtr.Zero);
+            return CreateRemoteThread(procHandle, (IntPtr)null, (IntPtr)0, loadLibraryAddress, memoryAddress, 0, (IntPtr)null);
         }
+
+        
     }
 
     public class InjectorException : Exception
