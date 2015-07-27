@@ -12,15 +12,6 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 	// Ignore all other messages
 	if (msgClass != "TrCTFMessage" && msgClass != "TrCTFHUDMessage")
 		return false;
-
-	/*Logger::log("\nMsg: %s", msgClass);
-	Logger::log("Switch: %d", params->Switch);
-	if (params->RelatedPRI)
-		Logger::log("RelatedPRI");
-	if (params->RelatedPRI01)
-		Logger::log("RelatedPRI01");
-	if (params->OptionalObject)
-		Logger::log("OptionalObject");*/
 	
 	// Just need own grab message (0)
 	if (msgClass == "TrCTFHUDMessage" && params->Switch != 0)

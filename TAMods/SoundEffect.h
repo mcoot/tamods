@@ -8,6 +8,7 @@ public:
 	SoundEffect* Initialize(IXAudio2* masteringEngine, std::string wavFile, float* volume);
 	void Reload();
 	bool audioAvailable() { return m_audioAvailable; };
+	bool CurrentlyPlaying();
 	void Play(float pitch = 1.0f);
 	void Stop();
 	void SetVolume(float volume);

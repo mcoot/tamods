@@ -80,3 +80,4 @@ bool UTCarriedObject_Held_BeginState(int id, UObject *dwCallingObject, UFunction
 bool UTCarriedObject_Held_EndState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool UTCarriedObject_Dropped_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool UTCarriedObject_Dropped_EndState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool TrPRI_ReplicatedEvent(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

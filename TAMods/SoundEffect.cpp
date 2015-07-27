@@ -80,3 +80,14 @@ void SoundEffect::RefreshVolume()
 	if (m_audioAvailable && m_configVolumeVar)
 		m_sourceVoice->SetVolume(*m_configVolumeVar);
 }
+
+bool SoundEffect::CurrentlyPlaying()
+{
+	XAUDIO2_VOICE_STATE state;
+	m_sourceVoice->GetState(&state);
+
+	if (m_audioAvailable && state.BuffersQueued > 0)
+		return true;
+	else
+		return false;
+}

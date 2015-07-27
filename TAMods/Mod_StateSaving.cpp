@@ -2,29 +2,98 @@
 
 struct playerState
 {
-	float timeStamp;
-	int health = 9999;
-	float energy = 9999.0f;
-	FVector loc;
-	FVector vel;
+	FVector loc              = { NULL, NULL, NULL };
+	FVector vel              = { 0.0f, 0.0f, 0.0f };
 	FRotator rot;
-	unsigned char phys;
-	// Flag stuff
-	bool stopwatchRunning;
-	bool hasFlag;
-	unsigned char teamNum = 255;
-	int grabHealth;
-	int grabSpeed;
-	float grabTime;
-	float stopwatchStartTime;
-	float lastDamagedTime = 0.0f;
+	bool hasFlag             = false;
+	bool stopwatchRunning    = false;
+	float timeStamp          = 0.0f;
+	float stopwatchStartTime = 0.0f;
+	float lastDamagedTime    = 0.0f;
+	float grabTime           = NULL;
+	float energy             = 9999.0f;
+	int health               = 9999;
+	int grabHealth           = NULL;
+	int grabSpeed            = NULL;
+	unsigned char teamNum    = 0;
+	unsigned char phys       = 1;
 };
 std::vector<playerState> savedPlayerStates(9);
 
-bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+void resetPlayerStates()
 {
 	for (size_t i = 0; i < savedPlayerStates.size(); i++)
-		savedPlayerStates.at(i).loc.X = NULL;
+	{
+		playerState &state = savedPlayerStates.at(i);
+
+		state.loc                = { NULL, NULL, NULL };
+		state.vel                = { 0.0f, 0.0f, 0.0f };
+		state.rot                = { 0, 0, 0 };
+		state.hasFlag            = false;
+		state.stopwatchRunning   = false;
+		state.timeStamp          = 0.0f;
+		state.stopwatchStartTime = 0.0f;
+		state.lastDamagedTime    = 0.0f;
+		state.grabTime           = NULL;
+		state.energy             = 9999.0f;
+		state.health             = 9999;
+		state.grabHealth         = NULL;
+		state.grabSpeed          = NULL;
+		state.teamNum            = 0;
+		state.phys               = 1;
+	}
+}
+bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	resetPlayerStates();
+
+	return false;
+}
+
+void spawnsToPlayerStates()
+{
+	resetPlayerStates();
+
+	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+
+	ANavigationPoint *nav = pc->WorldInfo->NavigationPointList;
+
+	size_t i = 0;
+	while (nav)
+	{
+		if (nav->IsA(APlayerStart::StaticClass()) && ((APlayerStart *)nav)->TeamIndex == pc->GetTeamNum())
+		{
+			if (i >= savedPlayerStates.size())
+				break;
+
+			if (i == 0)
+			{
+				savedPlayerStates.at(i).loc = nav->Location;
+				savedPlayerStates.at(i).rot = nav->Rotation;
+				i++;
+			}
+			else
+			{
+				// Discard this PlayerStart if we already saved another one close to this location
+				bool isClose = false;
+				for (size_t j = 0; j < i; j++)
+				{
+					if (Geom::distance3D(nav->Location, savedPlayerStates.at(j).loc) < 1000.0f)
+					{
+						isClose = true;
+						break;
+					}
+				}
+				if (!isClose)
+				{
+					savedPlayerStates.at(i).loc = nav->Location;
+					savedPlayerStates.at(i).rot = nav->Rotation;
+					i++;
+				}
+			}
+		}
+		nav = nav->nextNavigationPoint;
+	}
 }
 
 void toggleStopwatch()

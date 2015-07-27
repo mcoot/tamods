@@ -71,3 +71,16 @@ bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* p
 	}
 	return false;
 }
+
+bool TrPRI_ReplicatedEvent(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrPlayerReplicationInfo *pri = (ATrPlayerReplicationInfo *)dwCallingObject;
+	ATrPlayerReplicationInfo_eventReplicatedEvent_Parms *params = (ATrPlayerReplicationInfo_eventReplicatedEvent_Parms *)pParams;
+
+	if (g_config.customKillSound && pri->IsLocalPlayerPRI() && std::string(params->VarName.GetName()) == "m_nKills")
+	{
+		if (!g_config.s_bluePlate.CurrentlyPlaying() && !g_config.s_airMail.CurrentlyPlaying())
+			g_config.s_killSound.Play();
+	}
+	return false;
+}
