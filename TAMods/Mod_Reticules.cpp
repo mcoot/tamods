@@ -7,6 +7,8 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 	ATrPawn *that = (ATrPawn *)dwCallingObject;
 	ATrHUD *hud = that->GetTrHud();
 
+	routePawnTick(that);
+
 	if (hud && hud->PlayerOwner)
 		Utils::tr_pc = (ATrPlayerController *)hud->PlayerOwner;
 

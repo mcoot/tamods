@@ -51,6 +51,8 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 				g_config.stopwatchGrabTime = that->WorldInfo->RealTimeSeconds;
 				g_config.stopwatchCapTime = 0.0f;
 
+				routeFlagGrab(g_config.stopwatchGrabTime);
+
 				if (that->Pawn)
 				{
 					g_config.stopwatchGrabHealth = that->Pawn->Health;

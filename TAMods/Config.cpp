@@ -2122,5 +2122,8 @@ void Lua::init()
 		addFunction("returnFlags", &returnFlags).
 		addFunction("spawns", &spawnsToPlayerStates).
 		addFunction("resetSaves", &resetPlayerStates).
+		addFunction("rec", &routeStartRec).
+		addFunction("recStop", &routeStopRec).
+		addFunction("recReset", &routeReset).
 	endNamespace();
 }

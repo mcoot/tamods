@@ -279,6 +279,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	that->UpdateFumbledFlagEffect();
 	my_UpdateOverheadNumbers(that, that->RenderDelta);
 	UpdateLocationOverheadNumbers(that);
+	UpdateRouteOverheadNumbers(that);
 	that->UpdateOwnedItems();
 
 	myDraw(that);

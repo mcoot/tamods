@@ -46,6 +46,7 @@ void resetPlayerStates()
 bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	resetPlayerStates();
+	routeReset();
 
 	return false;
 }
@@ -184,6 +185,8 @@ void recallPlayerState(int n, bool tpOnly)
 				Utils::console("Error: you are not in the right team to recall this state");
 				return;
 			}
+
+			routeStopRec();
 
 			Cam->SetLocation(state.loc);
 			TrPC->SetRotation(state.rot);

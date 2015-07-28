@@ -31,6 +31,14 @@ void toggleTurrets();
 void togglePower();
 void returnFlags();
 
+// Route Recording
+void routeStartRec();
+void routeStopRec();
+void routeReset();
+void routePawnTick(ATrPawn* pawn);
+void routeFlagGrab(float grabtime);
+void UpdateRouteOverheadNumbers(ATrHUD *that);
+
 struct Crosshairs
 {
 	Crosshairs(const std::string &pstd, const std::string &pzoomed)
