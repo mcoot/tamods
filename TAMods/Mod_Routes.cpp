@@ -1,8 +1,8 @@
 #include "Mods.h"
+#include <time.h>
 
-unsigned const ROUTE_MAX_POINTS = 960;
-unsigned const ROUTE_POINTS_PER_SEC = 8; // 960 / 8 = minimum of 120 seconds record
-unsigned const ROUTE_MIN_DISTANCE_TO_PREV = 300;
+unsigned const ROUTE_SAVES_MAX = 1200;
+unsigned const ROUTE_SAVES_INTERVAL = 100; // Save location every 100ms. 0.1 seconds * 1200 dots = 120 seconds record
 
 struct position
 {
@@ -14,7 +14,17 @@ struct position
 std::vector<position> route;
 
 bool recording;
+std::string className;
+//std::string mapName;
 int classHealth;
+
+void routeRec()
+{
+	if (recording)
+		routeStopRec();
+	else
+		routeStartRec();
+}
 
 void routeStartRec()
 {
@@ -23,8 +33,9 @@ void routeStartRec()
 		return;
 
 	route.clear();
-	route.insert(route.begin(), { pawn->WorldInfo->RealTimeSeconds, pawn->Location, pawn->Health });
+	route.insert(route.begin(), { pawn->WorldInfo->TimeSeconds, pawn->Location, pawn->Health });
 	classHealth = pawn->HealthMax;
+	className = ((ATrPawn *)pawn)->GetFamilyInfo()->GetStringName();
 	recording = true;
 }
 
@@ -43,17 +54,13 @@ void routePawnTick(ATrPawn* pawn)
 {
 	if (recording)
 	{
-		float time = pawn->WorldInfo->RealTimeSeconds;
-		if (time - route.at(0).time > 1.0f / ROUTE_POINTS_PER_SEC)
+		float time = pawn->WorldInfo->TimeSeconds;
+		if (time - route.at(0).time >= ROUTE_SAVES_INTERVAL / 1000.0f)
 		{
-			// Skip if too close to previously saved location
-			if (Geom::distance3D(pawn->Location, route.at(0).loc) < ROUTE_MIN_DISTANCE_TO_PREV)
-				return;
-
 			route.insert(route.begin(), { time, pawn->Location, pawn->Health });
 
-			if (route.size() > ROUTE_MAX_POINTS)
-				route.resize(ROUTE_MAX_POINTS);
+			if (route.size() > ROUTE_SAVES_MAX)
+				route.resize(ROUTE_SAVES_MAX);
 		}
 	}
 }
@@ -83,12 +90,27 @@ void routeFlagGrab(float grabtime)
 
 void UpdateRouteOverheadNumbers(ATrHUD *that)
 {
+	if (g_config.routeDrawInterval <= 0)
+		return;
+
+	if (g_config.routeDrawInterval < ROUTE_SAVES_INTERVAL)
+		g_config.routeDrawInterval = ROUTE_SAVES_INTERVAL;
+
 	FVector view_location, overhead_number_location;
 	FRotator view_rotation;
 
 	for (size_t i = 0; i < route.size(); i++)
 	{
 		position &curr = route.at(i);
+
+		// Only draw a dot every x milliseonds but always draw ones with ETA or damage taken
+		if (!curr.eta
+			&& i + 1 < route.size()
+			&& curr.health >= route.at(i + 1).health
+			&& i % int(g_config.routeDrawInterval / ROUTE_SAVES_INTERVAL) != 0)
+		{
+			continue;
+		}
 
 		if (that->TrPlayerOwner)
 		{
@@ -116,7 +138,10 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 						col = { 0, 255, 255 - c, 140 };
 				}
 
-				that->DrawColoredMarkerText(buff, col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
+				if (i + 1 == route.size()) // route start
+					that->DrawColoredMarkerText(FString(L"Start"), { 255, 202, 0, 160 }, overhead_number_location, that->Canvas, 1.0f, 1.0f);
+				else
+					that->DrawColoredMarkerText(buff, col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
 
 				if (curr.eta)
 				{

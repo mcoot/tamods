@@ -127,9 +127,12 @@ void Config::reset()
 	decelerationRateWithFlag = 10;
 
 	// Stopwatch
-	stopwatchStopOnCap = false;
-	stopwatchStopOnDeath = true;
+	stopwatchStopOnCap     = false;
+	stopwatchStopOnDeath   = true;
 	stopwatchNotifications = true;
+
+	// Route recording
+	routeDrawInterval      = 500; // Drawing a dot every 500ms
 
 	// Sounds
 	hitSoundMode = 0;
@@ -537,6 +540,9 @@ void Config::setVariables()
 	SET_VARIABLE(bool, stopwatchStopOnCap);
 	SET_VARIABLE(bool, stopwatchStopOnDeath);
 	SET_VARIABLE(bool, stopwatchNotifications);
+
+	// Route recording
+	SET_VARIABLE(int, routeDrawInterval);
 
 	// Sounds
 	SET_VARIABLE(int, hitSoundMode);
@@ -2122,7 +2128,8 @@ void Lua::init()
 		addFunction("returnFlags", &returnFlags).
 		addFunction("spawns", &spawnsToPlayerStates).
 		addFunction("resetSaves", &resetPlayerStates).
-		addFunction("rec", &routeStartRec).
+		addFunction("rec", &routeRec).
+		addFunction("recStart", &routeStartRec).
 		addFunction("recStop", &routeStopRec).
 		addFunction("recReset", &routeReset).
 	endNamespace();

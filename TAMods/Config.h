@@ -31,7 +31,8 @@ void toggleTurrets();
 void togglePower();
 void returnFlags();
 
-// Route Recording
+// Route recording
+void routeRec();
 void routeStartRec();
 void routeStopRec();
 void routeReset();
@@ -333,6 +334,9 @@ public:
 	float stopwatchCapTime   = 0.0f;
 	int stopwatchGrabHealth  = 0;
 	int stopwatchGrabSpeed   = -1;
+
+	// Route recording
+	int routeDrawInterval;
 
 	// Sounds
 	Audio audioEngine;
