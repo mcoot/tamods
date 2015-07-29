@@ -48,7 +48,7 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 		{
 			if ((msgClass == "TrCTFHUDMessage" || relatedPRI && relatedPRI->IsLocalPlayerPRI()) && that->WorldInfo) // TrCTFHUDMessage doesn't come with a relatedPRI
 			{
-				g_config.stopwatchGrabTime = that->WorldInfo->RealTimeSeconds;
+				g_config.stopwatchGrabTime = that->WorldInfo->TimeSeconds;
 				g_config.stopwatchCapTime = 0.0f;
 
 				routeFlagGrab(g_config.stopwatchGrabTime);
@@ -60,7 +60,7 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 				}
 
 				if (g_config.stopwatchRunning)
-					g_config.stopwatchDisplayTime("Flag taken - ", that->WorldInfo->RealTimeSeconds);
+					g_config.stopwatchDisplayTime("Flag taken - ", that->WorldInfo->TimeSeconds);
 
 				if (g_config.stopwatchNotifications && that->Pawn)
 				{
@@ -91,7 +91,7 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 		{
 			if (relatedPRI->IsLocalPlayerPRI() && that->WorldInfo)
 			{
-				g_config.stopwatchGrabTime = that->WorldInfo->RealTimeSeconds;
+				g_config.stopwatchGrabTime = that->WorldInfo->TimeSeconds;
 				g_config.stopwatchCapTime = 0.0f;
 
 				if (that->Pawn)
@@ -101,7 +101,7 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 				}
 
 				if (g_config.stopwatchRunning)
-					g_config.stopwatchDisplayTime("Flag picked up - ", that->WorldInfo->RealTimeSeconds);
+					g_config.stopwatchDisplayTime("Flag picked up - ", that->WorldInfo->TimeSeconds);
 
 				if (g_config.stopwatchNotifications && that->Pawn)
 				{
@@ -132,10 +132,10 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 		{
 			if (relatedPRI->IsLocalPlayerPRI() && that->WorldInfo)
 			{
-				g_config.stopwatchCapTime = that->WorldInfo->RealTimeSeconds;
+				g_config.stopwatchCapTime = that->WorldInfo->TimeSeconds;
 
 				if (g_config.stopwatchRunning)
-					g_config.stopwatchDisplayTime("Flag captured - ", that->WorldInfo->RealTimeSeconds);
+					g_config.stopwatchDisplayTime("Flag captured - ", that->WorldInfo->TimeSeconds);
 
 				g_config.stopwatchPrintSummary();
 

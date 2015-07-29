@@ -105,13 +105,13 @@ void toggleStopwatch()
 	{
 		if (g_config.stopwatchRunning)
 		{
-			g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+			g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->TimeSeconds);
 			g_config.stopwatchPrintSummary();
 			g_config.stopwatchStartTime = 0;
 			g_config.stopwatchRunning = 0;
 		}
 		else
-			g_config.stopwatchStart(TrPC->WorldInfo->RealTimeSeconds);
+			g_config.stopwatchStart(TrPC->WorldInfo->TimeSeconds);
 	}
 }
 
@@ -128,7 +128,7 @@ void savePlayerState(int n)
 		if (!TrPC || !TrPC->WorldInfo)
 			return;
 
-		state.timeStamp = TrPC->WorldInfo->RealTimeSeconds;
+		state.timeStamp = TrPC->WorldInfo->TimeSeconds;
 
 		state.loc = Cam->Location;
 		state.vel = Cam->Velocity;
@@ -200,7 +200,7 @@ void recallPlayerState(int n, bool tpOnly)
 				TrPawn->Velocity = { 0.0f, 0.0f, 0.0f };
 
 				if (g_config.stopwatchRunning)
-					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->TimeSeconds);
 
 				g_config.stopwatchReset(); // /tp always resets the stopwatch
 
@@ -214,7 +214,7 @@ void recallPlayerState(int n, bool tpOnly)
 				TrPawn->Velocity = state.vel;
 
 				//Restore stopwatch state
-				float time = TrPC->WorldInfo->RealTimeSeconds;
+				float time = TrPC->WorldInfo->TimeSeconds;
 				float timeDiff = time - state.timeStamp;
 				g_config.stopwatchStartTime = state.stopwatchStartTime > 0.0f ? state.stopwatchStartTime + timeDiff : 0.0f;
 				g_config.stopwatchGrabHealth = state.grabHealth;
