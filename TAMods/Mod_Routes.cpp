@@ -93,9 +93,6 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 	if (g_config.routeDrawInterval <= 0)
 		return;
 
-	if (g_config.routeDrawInterval < ROUTE_SAVES_INTERVAL)
-		g_config.routeDrawInterval = ROUTE_SAVES_INTERVAL;
-
 	FVector view_location, overhead_number_location;
 	FRotator view_rotation;
 
@@ -107,7 +104,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 		if (!curr.eta
 			&& i + 1 < route.size()
 			&& curr.health >= route.at(i + 1).health
-			&& i % int(g_config.routeDrawInterval / ROUTE_SAVES_INTERVAL) != 0)
+			&& i % int(g_config.routeDrawInterval < ROUTE_SAVES_INTERVAL ? 1 : g_config.routeDrawInterval / ROUTE_SAVES_INTERVAL) != 0)
 		{
 			continue;
 		}
