@@ -24,6 +24,7 @@ namespace Utils
 	// Files
 	std::string getConfigDir();
 	bool fileExists(const std::string &path, const std::string &mode = "r");
+	bool dirExists(const std::string &path);
 
 	// Map
 	int searchMapId(const std::map<std::string, int> map, const std::string &str, const std::string &location = "", bool print_on_fail = true);

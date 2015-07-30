@@ -17,6 +17,8 @@
 #include "Texture.h"
 #include "SoundEffect.h"
 
+#define MODVERSION "0.5"
+
 // Declared here to use as lua functions
 void toggleStopwatch();
 void saveState();
@@ -36,6 +38,9 @@ void routeRec();
 void routeStartRec();
 void routeStopRec();
 void routeReset();
+void routeSaveFile(const std::string &filename);
+void routeLoadFile(unsigned int num);
+void routeList(const std::string &needle);
 void routePawnTick(ATrPawn* pawn);
 void routeFlagGrab(float grabtime);
 void UpdateRouteOverheadNumbers(ATrHUD *that);

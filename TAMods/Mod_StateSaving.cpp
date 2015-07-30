@@ -43,6 +43,7 @@ void resetPlayerStates()
 		state.phys               = 1;
 	}
 }
+
 bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	resetPlayerStates();

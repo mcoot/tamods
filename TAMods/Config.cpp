@@ -2129,8 +2129,12 @@ void Lua::init()
 		addFunction("spawns", &spawnsToPlayerStates).
 		addFunction("resetSaves", &resetPlayerStates).
 		addFunction("rec", &routeRec).
-		addFunction("recStart", &routeStartRec).
-		addFunction("recStop", &routeStopRec).
-		addFunction("recReset", &routeReset).
+		addFunction("routeStart", &routeStartRec).
+		addFunction("routeStop", &routeStopRec).
+		addFunction("routeReset", &routeReset).
+		addFunction("routeSave", &routeSaveFile).
+		addFunction("routeLoad", &routeLoadFile).
+		addFunction("routeList", &routeList).
+		addFunction("routes", &routeList).
 	endNamespace();
 }
