@@ -35,10 +35,10 @@ void routeRec()
 void routeStartRec()
 {
 	APawn *pawn = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->Pawn;
-	if (!pawn)
+	if (!pawn || recording)
 		return;
 
-	Utils::notify("Routes", "Recording started");
+	Utils::notify("Route recorder", "Recording started");
 
 	route.clear();
 	route.insert(route.begin(), { pawn->WorldInfo->TimeSeconds, pawn->Location, pawn->Health });
@@ -55,8 +55,11 @@ void routeStartRec()
 
 void routeStopRec()
 {
-	Utils::notify("Routes", "Recording stopped");
-	recording = false;
+	if (recording)
+	{
+		Utils::notify("Route recorder", "Recording stopped");
+		recording = false;
+	}
 }
 
 void routeReset()
@@ -242,7 +245,7 @@ void routeList(const std::string &needle)
 
 	if (files.size() == 0)
 	{
-		Utils::printConsole("You do not have any routes :(");
+		Utils::printConsole("No routes found :(");
 		return;
 	}
 
