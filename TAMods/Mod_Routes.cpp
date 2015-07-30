@@ -45,12 +45,13 @@ void routeStartRec()
 	recording = true;
 
 	mapName = Utils::f2std(pawn->WorldInfo->GetMapName(false));
-	// Remove whitespace
-	mapName.erase(std::remove_if(mapName.begin(), mapName.end(), isspace), mapName.end());
+	mapName.erase(std::remove(mapName.begin(), mapName.end(), ' '), mapName.end());
 	className = Utils::f2std(((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetCurrentClassAbb());
 	teamName = pawn->GetTeamNum() == 0 ? "BE" : "DS";
 	classHealth = pawn->HealthMax;
 	playerName = Utils::f2std(pawn->PlayerReplicationInfo->PlayerName);
+	playerName.erase(std::remove(playerName.begin(), playerName.end(), ' '), playerName.end());
+	playerName.erase(std::remove(playerName.begin(), playerName.end(), '\\'), playerName.end());
 }
 
 void routeStopRec()
