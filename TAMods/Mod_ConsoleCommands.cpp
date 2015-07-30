@@ -79,6 +79,60 @@ bool printObjectName(UObject *Object)
 	return false;
 }
 
+namespace consoleHelpText
+{
+	std::string general = "\n"
+		"General commands:\n"
+		" /lua <command>\n"
+		"   Executes a lua function\n"
+		" /reload config\n"
+		"   Reloads your TAMods configs (Alias: /rc)\n"
+		" /reload sounds\n"
+		"   Reloads all your custom sounds (Alias: /rs)\n"
+		" /stopwatch\n"
+		"   Starts and stops the stopwatch\n";
+	std::string roammap = "\n"
+		"Roaming map commands:\n"
+		" /toggle turrets\n"
+		"   Toggles base turrets on and off (Alias: /turrets)\n"
+		" /toggle power\n"
+		"   Toggles generator power on and off (Alias: /power)\n"
+		" /returnflags\n"
+		"   Returns all loose flags back to base (Alias: /flags)\n";
+	std::string state = "\n"
+		"State and location saving commands:\n"
+		" /state save [slot number]\n"
+		"   Saves your current location to the specified slot number. Without a slot number, #1 will be used (Alias: /save)\n"
+		" /state tp [slot number]\n"
+		"   Teleports you to a saved point and restores health and ammo. Without a slot number, #1 will be used (Alias: /tp)\n"
+		" /state recall [slot number]\n"
+		"   Recalls a saved point which includes velocity, health etc. Without a slot number, #1 will be used (Alias: /recall)\n"
+		" /state spawns\n"
+		"   Sets the saved state locations to your teams spawn points (Alias: /spawns)\n"
+		" /state reset\n"
+		"   Resets all saved state points\n";
+	std::string route = "\n"
+		"Route commands:\n"
+		" /route rec\n"
+		"   Toggles route recording on and off (Alias: /rec)\n"
+		" /route start\n"
+		"   Starts route recording\n"
+		" /route stop\n"
+		"   Stops route recording\n"
+		" /route reset\n"
+		"   Stops recording and resets the currently recorded route\n"
+		" /route save <description>\n"
+		"   Saves the currently recorded route to a file\n"
+		" /route load <number>\n"
+		"   Loads a route file by number. To list all routes with their numbers, use '/route list'\n"
+		" /route find <search string>\n"
+		"   Searches through the filenames of all recorded routes and lists the matches\n"
+		" /route list\n"
+		"   Lists all routes (Alias: /routes)\n"
+		" /route all\n"
+		"   Same as '/route list'\n";
+}
+
 bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
@@ -101,7 +155,16 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 			{
 				std::wstring line = that->TypedStr.Data;
 				bool customcommand = false;
-				if (line.size() > 5 && line.substr(0, 5) == L"/lua ")
+
+				if (line.substr(0, 5) == L"/help")
+				{
+					Utils::printConsole(consoleHelpText::general);
+					Utils::printConsole(consoleHelpText::roammap);
+					Utils::printConsole(consoleHelpText::state);
+					Utils::printConsole(consoleHelpText::route);
+					customcommand = true;
+				}
+				else if (line.size() > 5 && line.substr(0, 5) == L"/lua ")
 				{
 					std::string luastr = std::string(line.begin() + 5, line.end());
 					Utils::printConsole("lua> " + luastr);
@@ -110,7 +173,12 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					g_config.lua.doString(luastr);
 					customcommand = true;
 				}
-				else if (line.size() == 13 && line == L"/reloadsounds")
+				else if (line == L"/reload config" || line == L"/rc")
+				{
+					g_config.parseFile();
+					customcommand = true;
+				}
+				else if (line == L"/reload sounds" || line == L"/rs")
 				{
 					g_config.reloadSounds();
 					customcommand = true;
@@ -123,64 +191,137 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					Utils::console("%d objects matched", matched);
 					customcommand = true;
 				}
-				else if ((line.size() == 13 && line == L"/reloadconfig") || (line.size() == 3 && line == L"/rc"))
-				{
-					g_config.parseFile();
-					customcommand = true;
-				}
-				else if ((line.size() == 10 && line == L"/stopwatch"))
+				/****** State saving ******/
+				else if (line == L"/stopwatch")
 				{
 					toggleStopwatch();
 					customcommand = true;
 				}
 				// Command to save the current player state (location, velocity etc.)
-				else if (line.substr(0, 5) == L"/save")
+				else if (line.substr(0, 11) == L"/state save" || line.substr(0, 5) == L"/save")
 				{
 					if (TrPC)
 					{
+						unsigned char n = line.substr(0, 11) == L"/state save" ? 12 : 6;
 						// Without a slot number we just use slot 1
-						saveStateTo(line.size() > 6 ? line[6] - '0' : 1);
+						saveStateTo(line.size() > n ? line[n] - '0' : 1);
 					}
 					customcommand = true;
 				}
-				else if (line.size() == 7 && line == L"/spawns")
+				// Command to teleport to a saved location
+				else if (line.substr(0, 9) == L"/state tp" || line.substr(0, 3) == L"/tp")
+				{
+					unsigned char n = line.substr(0, 9) == L"/state tp" ? 10 : 4;
+					// Without a slot number we just use slot 1
+					tpStateTo(line.size() > n ? line[n] - '0' : 1);
+					customcommand = true;
+				}
+				// Command to recall a full player state
+				else if (line.substr(0, 13) == L"/state recall" || line.substr(0, 7) == L"/recall")
+				{
+					// Without a slot number we just use slot 1
+					recallStateTo(line.size() > 8 ? line[8] - '0' : 1);
+					customcommand = true;
+				}
+				else if (line == L"/state spawns" || line == L"/spawns")
 				{
 					spawnsToPlayerStates();
 					customcommand = true;
 				}
-				else if (line.size() == 11 && line == L"/resetSaves")
+				else if (line == L"/state reset")
 				{
 					resetPlayerStates();
 					customcommand = true;
 				}
-				// Roam map only commands
+				else if (line.substr(0, 6) == L"/state")
+				{
+					Utils::printConsole(consoleHelpText::state);
+					customcommand = true;
+				}
+				/****** Route recording ******/
+				else if (line == L"/route rec" || line == L"/rec")
+				{
+					routeRec();
+					customcommand = true;
+				}
+				else if (line == L"/route start")
+				{
+					routeStartRec();
+					customcommand = true;
+				}
+				else if (line == L"/route stop")
+				{
+					routeStopRec();
+					customcommand = true;
+				}
+				else if (line == L"/route reset")
+				{
+					routeReset();
+					customcommand = true;
+				}
+				else if (line.substr(0, 12) == L"/route save ")
+				{
+					if (line.size() > 12)
+					{
+						std::string desc = std::string(line.begin() + 12, line.end());
+						routeSaveFile(desc);
+					}
+					else
+						Utils::console("Error: You have to enter a description");
+					customcommand = true;
+				}
+				else if (line.substr(0, 12) == L"/route load ")
+				{
+					if (line.size() > 12)
+					{
+						std::stringstream s(std::string(line.begin() + 12, line.end()));
+						int n;
+						s >> n;
+
+						if (s && n)
+							routeLoadFile(n);
+						else
+							Utils::console("Error: You have to enter a number");
+					}
+					else
+						Utils::console("Error: You have to enter a number");
+					customcommand = true;
+				}
+				else if (line.substr(0, 12) == L"/route find")
+				{
+					if (line.size() > 12)
+					{
+						std::string needle = std::string(line.begin() + 12, line.end());
+						routeList(needle);
+					}
+					else
+						Utils::console("Error: You have to enter a search string");
+					customcommand = true;
+				}
+				else if (line == L"/route list" || line == L"/route all" || line == L"/routes")
+				{
+					routeListAll();
+					customcommand = true;
+				}
+				else if (line.substr(0, 6) == L"/route")
+				{
+					Utils::printConsole(consoleHelpText::route);
+					customcommand = true;
+				}
+				/****** Roam map only commands ******/
 				else if (TrPC && TrPC->WorldInfo->NetMode == 0)
 				{
-					// Command to teleport to a saved location
-					if (line.substr(0, 3) == L"/tp")
-					{
-						// Without a slot number we just use slot 1
-						tpStateTo(line.size() > 4 ? line[4] - '0' : 1);
-						customcommand = true;
-					}
-					// Command to recall a full player state
-					else if (line.substr(0, 7) == L"/recall")
-					{
-						// Without a slot number we just use slot 1
-						recallStateTo(line.size() > 8 ? line[8] - '0' : 1);
-						customcommand = true;
-					}
-					else if (line.size() == 14 && line == L"/toggleturrets")
+					if (line == L"/toggle turrets" || line == L"/turrets")
 					{
 						toggleTurrets();
 						customcommand = true;
 					}
-					else if (line.size() == 12 && line == L"/togglepower")
+					else if (line == L"/toggle power" || line == L"/power")
 					{
 						togglePower();
 						customcommand = true;
 					}
-					else if (line.size() == 12 && line == L"/returnflags")
+					else if (line == L"/returnflags" || line == L"/flags")
 					{
 						returnFlags();
 						customcommand = true;

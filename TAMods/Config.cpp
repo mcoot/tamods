@@ -2123,9 +2123,6 @@ void Lua::init()
 		addFunction("recallTo", &recallStateTo).
 		addFunction("tp", &tpState).
 		addFunction("tpTo", &tpStateTo).
-		addFunction("toggleTurrets", &toggleTurrets).
-		addFunction("togglePower", &togglePower).
-		addFunction("returnFlags", &returnFlags).
 		addFunction("spawns", &spawnsToPlayerStates).
 		addFunction("resetSaves", &resetPlayerStates).
 		addFunction("rec", &routeRec).
@@ -2134,7 +2131,10 @@ void Lua::init()
 		addFunction("routeReset", &routeReset).
 		addFunction("routeSave", &routeSaveFile).
 		addFunction("routeLoad", &routeLoadFile).
-		addFunction("routeList", &routeList).
-		addFunction("routes", &routeList).
+		addFunction("routeFind", &routeList).
+		addFunction("routeAll", &routeListAll).
+		addFunction("toggleTurrets", &toggleTurrets).
+		addFunction("togglePower", &togglePower).
+		addFunction("returnFlags", &returnFlags).
 	endNamespace();
 }

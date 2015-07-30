@@ -38,6 +38,8 @@ void routeStartRec()
 	if (!pawn)
 		return;
 
+	Utils::notify("Routes", "Recording started");
+
 	route.clear();
 	route.insert(route.begin(), { pawn->WorldInfo->TimeSeconds, pawn->Location, pawn->Health });
 	recording = true;
@@ -53,6 +55,7 @@ void routeStartRec()
 
 void routeStopRec()
 {
+	Utils::notify("Routes", "Recording stopped");
 	recording = false;
 }
 
@@ -248,6 +251,11 @@ void routeList(const std::string &needle)
 		std::string &filename = files.at(i);
 		Utils::printConsole(std::to_string(i + 1) + ' ' + filename);
 	}
+}
+
+void routeListAll()
+{
+	routeList("");
 }
 
 void UpdateRouteOverheadNumbers(ATrHUD *that)
