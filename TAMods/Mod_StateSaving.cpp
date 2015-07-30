@@ -265,6 +265,8 @@ void UpdateLocationOverheadNumbers(ATrHUD *that)
 	if (!g_config.showSavedLocations)
 		return;
 
+	Hooks::lock();
+
 	FVector view_location, overhead_number_location;
 	FRotator view_rotation;
 
@@ -303,4 +305,5 @@ void UpdateLocationOverheadNumbers(ATrHUD *that)
 			}
 		}
 	}
+	Hooks::unlock();
 }
