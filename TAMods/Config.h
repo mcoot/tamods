@@ -38,7 +38,7 @@ void routeRec();
 void routeStartRec();
 void routeStopRec();
 void routeReset();
-void routeSaveFile(const std::string &filename);
+void routeSaveFile(const std::string &desc);
 void routeLoadFile(unsigned int num);
 void routeList(const std::string &needle);
 void routePawnTick(ATrPawn* pawn);
