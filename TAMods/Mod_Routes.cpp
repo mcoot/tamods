@@ -255,6 +255,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 	if (g_config.routeDrawInterval <= 0)
 		return;
 
+	Hooks::lock();
 	FVector view_location, overhead_number_location;
 	FRotator view_rotation;
 
@@ -282,9 +283,6 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 			if (Geom::dot(Geom::rotationToVector(view_rotation), Geom::normal(Geom::sub(overhead_number_location, view_location))) >= 0.0f)
 			{
 				overhead_number_location = that->Canvas->Project(overhead_number_location);
-
-				wchar_t buff[1];
-				wsprintf(buff, L"%s", ".");
 				
 				unsigned char c = 255 * curr.health / classHealth;
 				FColor col = { c, c, 255, 140 };
@@ -300,7 +298,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 				if (i + 1 == route.size()) // route start
 					that->DrawColoredMarkerText(L"Start", { 255, 202, 0, 160 }, overhead_number_location, that->Canvas, 1.0f, 1.0f);
 				else
-					that->DrawColoredMarkerText(buff, col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
+					that->DrawColoredMarkerText(L".", col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
 
 				if (curr.eta)
 				{
@@ -320,4 +318,5 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 			}
 		}
 	}
+	Hooks::unlock();
 }
