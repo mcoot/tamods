@@ -219,8 +219,9 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 				// Command to recall a full player state
 				else if (line.substr(0, 13) == L"/state recall" || line.substr(0, 7) == L"/recall")
 				{
+					unsigned char n = line.substr(0, 13) == L"/state recall" ? 14 : 8;
 					// Without a slot number we just use slot 1
-					recallStateTo(line.size() > 8 ? line[8] - '0' : 1);
+					recallStateTo(line.size() > n ? line[n] - '0' : 1);
 					customcommand = true;
 				}
 				else if (line == L"/state spawns" || line == L"/spawns")
@@ -287,7 +288,7 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 						Utils::console("Error: You have to enter a number");
 					customcommand = true;
 				}
-				else if (line.substr(0, 12) == L"/route find")
+				else if (line.substr(0, 12) == L"/route find ")
 				{
 					if (line.size() > 12)
 					{
