@@ -121,6 +121,18 @@ bool Utils::fileExists(const std::string &path, const std::string &mode)
 	return false;
 }
 
+bool Utils::dirExists(const std::string &path)
+{
+	DWORD ftyp = GetFileAttributesA(path.c_str());
+	if (ftyp == INVALID_FILE_ATTRIBUTES)
+		return false; //something is wrong with your path!
+
+	if (ftyp & FILE_ATTRIBUTE_DIRECTORY)
+		return true; // this is a directory!
+
+	return false; // this is not a directory!
+}
+
 // Regex search in a map of type <string, int> where the string are regexes
 // location and print_on_fail are only used for error messages
 int Utils::searchMapId(const std::map<std::string, int> map, const std::string &str, const std::string &location, bool print_on_fail)

@@ -43,6 +43,7 @@ void resetPlayerStates()
 		state.phys               = 1;
 	}
 }
+
 bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	resetPlayerStates();
@@ -187,6 +188,7 @@ void recallPlayerState(int n, bool tpOnly)
 			}
 
 			routeStopRec();
+			routeStopReplay();
 
 			Cam->SetLocation(state.loc);
 			TrPC->SetRotation(state.rot);
@@ -264,6 +266,8 @@ void UpdateLocationOverheadNumbers(ATrHUD *that)
 	if (!g_config.showSavedLocations)
 		return;
 
+	Hooks::lock();
+
 	FVector view_location, overhead_number_location;
 	FRotator view_rotation;
 
@@ -302,4 +306,5 @@ void UpdateLocationOverheadNumbers(ATrHUD *that)
 			}
 		}
 	}
+	Hooks::unlock();
 }
