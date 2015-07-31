@@ -34,8 +34,6 @@ unsigned int routeLength = 0;
 std::string routedir = Utils::getConfigDir() + "routes\\";
 std::vector<std::string> files;
 
-ATrPawn *asd;
-
 bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	routeStopReplay();
@@ -121,10 +119,10 @@ void routeReplay()
 void routeStartReplay()
 {
 	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
-	APawn *pawn;
+	ATrPawn *pawn;
 
 	if (pc)
-		pawn = pc->Pawn;
+		pawn = (ATrPawn *)pc->Pawn;
 
 	if (!pc || pc->WorldInfo->NetMode != 0 || !pawn)
 		return;
@@ -141,6 +139,11 @@ void routeStartReplay()
 		return;
 	}
 
+	pawn->m_fSplatDamageFromLandMin = 0.0f;
+	pawn->m_fSplatDamageFromLandMax = 0.0f;
+	pawn->m_fSplatDamageFromWallMin = 0.0f;
+	pawn->m_fSplatDamageFromWallMax = 0.0f;
+
 	i = 0;
 	lastTickTime = 0.0f;
 	replaying = true;
@@ -150,6 +153,19 @@ void routeStopReplay()
 {
 	if (replaying)
 	{
+		ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+		ATrPawn *pawn;
+
+		if (pc)
+			pawn = (ATrPawn *)pc->Pawn;
+
+		if (pawn)
+		{
+			pawn->r_bIsSkiing = 0;
+			pawn->r_bIsJetting = 0;
+			pawn->RefreshInventory(0, 0);
+		}
+
 		Utils::notify("Route recorder", "Replay stopped");
 		replaying = false;
 	}
@@ -215,12 +231,7 @@ void routePawnTickReplay(ATrPawn* pawn, float deltaTime)
 				lastTickTime += deltaTime;
 		}
 		else // End of route vector reached
-		{
-			replaying = false;
-			pawn->r_bIsSkiing = 0;
-			pawn->r_bIsJetting = 0;
-			Utils::notify("Route recorder", "Playback done");
-		}
+			routeStopReplay();
 	}
 }
 
