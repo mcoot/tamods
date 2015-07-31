@@ -115,10 +115,16 @@ namespace consoleHelpText
 		"Route commands:\n"
 		" /route rec\n"
 		"   Toggles route recording on and off (Alias: /rec)\n"
-		" /route start\n"
+		" /route rec start\n"
 		"   Starts route recording\n"
-		" /route stop\n"
+		" /route rec stop\n"
 		"   Stops route recording\n"
+		" /route replay\n"
+		"   Toggles route replaying on and off (Alias: /replay)\n"
+		" /route replay start\n"
+		"   Starts route replay\n"
+		" /route replay stop\n"
+		"   Stops the route replay\n"
 		" /route reset\n"
 		"   Stops recording and resets the currently recorded route\n"
 		" /route save <description>\n"
@@ -245,14 +251,29 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					routeRec();
 					customcommand = true;
 				}
-				else if (line == L"/route start")
+				else if (line == L"/route rec start")
 				{
 					routeStartRec();
 					customcommand = true;
 				}
-				else if (line == L"/route stop")
+				else if (line == L"/route rec stop")
 				{
 					routeStopRec();
+					customcommand = true;
+				}
+				else if (line == L"/route replay" || line == L"/replay")
+				{
+					routeReplay();
+					customcommand = true;
+				}
+				else if (line == L"/route replay start")
+				{
+					routeStartReplay();
+					customcommand = true;
+				}
+				else if (line == L"/route replay stop")
+				{
+					routeStopReplay();
 					customcommand = true;
 				}
 				else if (line == L"/route reset")
