@@ -21,27 +21,20 @@ std::vector<position> route;
 bool recording;
 bool replaying;
 
+// Meta data for the route file
 std::string className;
 std::string mapName;
 std::string teamName;
 std::string playerName;
 std::string version;
+std::string description;
 unsigned int classHealth;
 unsigned int routeLength = 0;
 
 std::string routedir = Utils::getConfigDir() + "routes\\";
 std::vector<std::string> files;
 
-
-FVector lerpFV(float t, FVector a, FVector b)
-{
-	return{ (1 - t)*a.X + t*b.X, (1 - t)*a.Y + t*b.Y, (1 - t)*a.Z + t*b.Z };
-}
-
-FRotator lerpRot(float t, FRotator a, FRotator b)
-{
-	return Utils::tr_pc->RLerp(a, b, t, true);
-}
+ATrPawn *asd;
 
 bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
@@ -142,6 +135,12 @@ void routeStartReplay()
 	if (replaying)
 		routeStopReplay();
 
+	if (route.size() == 0)
+	{
+		Utils::console("Error: No route to replay");
+		return;
+	}
+
 	i = 0;
 	lastTickTime = 0.0f;
 	replaying = true;
@@ -176,19 +175,35 @@ void routePawnTickReplay(ATrPawn* pawn, float deltaTime)
 			if (lastTickTime == 0.0f) // Every route demo tick
 			{
 				pawn->Location = curr.loc;
-				pawn->GetALocalPlayerController()->Rotation = curr.rot;
+				if (g_config.routeReplayRotation)
+					pawn->GetALocalPlayerController()->Rotation = curr.rot;
 				pawn->Physics = curr.phys;
 				pawn->r_bIsSkiing = curr.skiing;
 				pawn->r_bIsJetting = curr.jetting;
+
+				if (curr.jetting != next.jetting)
+				{
+					if (next.jetting)
+						((ATrPlayerPawn *)pawn)->eventPlayJetpackEffects();
+					else
+						((ATrPlayerPawn *)pawn)->eventStopJetpackEffects();
+				}
+				else if (next.jetting)
+					((ATrPlayerPawn *)pawn)->eventUpdateJetpackEffects();
+
 				if (next.health < curr.health) // Lost health
+				{
 					pawn->m_fLastDamagerTimeStamp = pawn->WorldInfo->TimeSeconds;
+					((ATrPlayerController *)pawn->GetALocalPlayerController())->ClientPlayTakeHit(curr.loc, curr.health - next.health, UTrDmgType_LightSpinfusor::StaticClass());
+				}
 				pawn->Health = curr.health;
 				pawn->m_fCurrentPowerPool = curr.energy;
 			}
 			else // Interpolated ticks
 			{
-				pawn->Velocity = lerpFV(lastTickTime / demoDeltaTime, curr.vel, next.vel);
-				pawn->GetALocalPlayerController()->Rotation = lerpRot(lastTickTime / demoDeltaTime, curr.rot, next.rot);
+				pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, lastTickTime / demoDeltaTime);
+				if (g_config.routeReplayRotation)
+					pawn->GetALocalPlayerController()->Rotation = Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true);
 			}
 
 			if (lastTickTime + deltaTime >= demoDeltaTime)
@@ -202,6 +217,8 @@ void routePawnTickReplay(ATrPawn* pawn, float deltaTime)
 		else // End of route vector reached
 		{
 			replaying = false;
+			pawn->r_bIsSkiing = 0;
+			pawn->r_bIsJetting = 0;
 			Utils::notify("Route recorder", "Playback done");
 		}
 	}
@@ -248,7 +265,7 @@ void routeSaveFile(const std::string &desc)
 
 	if (route.size() == 0)
 	{
-		Utils::console("Error: There is nothing recorded");
+		Utils::console("Error: There is nothing to save");
 		return;
 	}
 
@@ -265,8 +282,12 @@ void routeSaveFile(const std::string &desc)
 			Utils::printConsole("Created routes directory");
 	}
 
+	description = desc;
+	description.erase(std::remove(description.begin(), description.end(), '\\'), description.end());
+	std::replace(description.begin(), description.end(), ' ', '_');
+
 	std::string filename = mapName + '_' + teamName + '_' + className + '_'
-		+ playerName + '_' + std::to_string(routeLength) + "s_" + desc + ".route";
+		+ playerName + "_(" + description + ")_" + std::to_string(routeLength) + "s.route";
 
 	std::string filepath = routedir + filename;
 
@@ -276,7 +297,8 @@ void routeSaveFile(const std::string &desc)
 	{
 		routefile
 			<< mapName << ' ' << teamName << ' ' << className << ' ' << routeLength << ' '
-			<< classHealth << ' ' << playerName << ' ' << MODVERSION << '\n';
+			<< classHealth << ' ' << playerName << ' ' << MODVERSION << '\n'
+			<< description << '\n';
 
 		for (size_t i = 0; i < route.size(); i++)
 		{
@@ -334,6 +356,8 @@ void routeLoadFile(unsigned int num)
 		routefile
 			>> mapName >> teamName >> className >> routeLength
 			>> classHealth >> playerName >> version;
+
+		routefile >> description;
 
 		position pos;
 		while (routefile

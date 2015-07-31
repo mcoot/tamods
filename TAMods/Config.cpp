@@ -133,6 +133,7 @@ void Config::reset()
 
 	// Route recording
 	routeDrawInterval      = 500; // Drawing a dot every 500ms
+	routeReplayRotation    = true;
 
 	// Sounds
 	hitSoundMode = 0;
@@ -543,6 +544,7 @@ void Config::setVariables()
 
 	// Route recording
 	SET_VARIABLE(int, routeDrawInterval);
+	SET_VARIABLE(bool, routeReplayRotation);
 
 	// Sounds
 	SET_VARIABLE(int, hitSoundMode);
