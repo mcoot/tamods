@@ -40,7 +40,7 @@ FVector lerpFV(float t, FVector a, FVector b)
 
 FRotator lerpRot(float t, FRotator a, FRotator b)
 {
-	return{ (int)round((1 - t)*a.Pitch + t*b.Pitch), (int)round((1 - t)*a.Yaw + t*b.Yaw), (int)round((1 - t)*a.Roll + t*b.Roll) };
+	return Utils::tr_pc->RLerp(a, b, t, true);
 }
 
 void routeRec()
