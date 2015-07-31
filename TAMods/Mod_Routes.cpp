@@ -61,11 +61,14 @@ void routeStartRec()
 {
 	ATrPawn *pawn = (ATrPawn *)((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->Pawn;
 
-	if (!pawn || recording)
+	if (!pawn)
 		return;
 
 	if (replaying)
 		routeStopReplay();
+
+	if (recording)
+		routeStopRec();
 
 	Utils::notify("Route recorder", "Recording started");
 
@@ -130,11 +133,14 @@ void routeStartReplay()
 	if (pc)
 		pawn = pc->Pawn;
 
-	if (replaying || !pc || pc->WorldInfo->NetMode != 0 || !pawn)
+	if (!pc || pc->WorldInfo->NetMode != 0 || !pawn)
 		return;
 
 	if (recording)
 		routeStopRec();
+
+	if (replaying)
+		routeStopReplay();
 
 	i = 0;
 	lastTickTime = 0.0f;
@@ -324,7 +330,7 @@ void routeLoadFile(unsigned int num)
 
 	if (routefile.is_open())
 	{
-		route.clear();
+		routeReset();
 		routefile
 			>> mapName >> teamName >> className >> routeLength
 			>> classHealth >> playerName >> version;
