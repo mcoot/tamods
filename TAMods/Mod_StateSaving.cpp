@@ -188,6 +188,7 @@ void recallPlayerState(int n, bool tpOnly)
 			}
 
 			routeStopRec();
+			routeStopReplay();
 
 			Cam->SetLocation(state.loc);
 			TrPC->SetRotation(state.rot);

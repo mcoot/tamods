@@ -37,12 +37,16 @@ void returnFlags();
 void routeRec();
 void routeStartRec();
 void routeStopRec();
+void routeReplay();
+void routeStartReplay();
+void routeStopReplay();
 void routeReset();
 void routeSaveFile(const std::string &desc);
 void routeLoadFile(unsigned int num);
 void routeList(const std::string &needle);
 void routeListAll();
-void routePawnTick(ATrPawn* pawn);
+void routePawnTickRecord(ATrPawn* pawn);
+void routePawnTickReplay(ATrPawn* pawn, float deltaTime);
 void routeFlagGrab(float grabtime);
 void UpdateRouteOverheadNumbers(ATrHUD *that);
 

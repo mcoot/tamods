@@ -49,6 +49,7 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 
 	routeStopRec();
+	routeStopReplay();
 
 	if (that->WorldInfo && g_config.stopwatchRunning && g_config.stopwatchStopOnDeath)
 	{

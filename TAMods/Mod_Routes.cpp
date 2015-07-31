@@ -7,12 +7,20 @@ struct position
 {
 	float time;
 	FVector loc;
+	FVector vel;
+	FRotator rot;
+	unsigned int phys;
+	unsigned int skiing;
+	unsigned int jetting;
 	unsigned int health;
+	float energy;
 	unsigned int eta;
 };
 std::vector<position> route;
 
 bool recording;
+bool replaying;
+
 std::string className;
 std::string mapName;
 std::string teamName;
@@ -24,6 +32,17 @@ unsigned int routeLength = 0;
 std::string routedir = Utils::getConfigDir() + "routes\\";
 std::vector<std::string> files;
 
+
+FVector lerpFV(float t, FVector a, FVector b)
+{
+	return{ (1 - t)*a.X + t*b.X, (1 - t)*a.Y + t*b.Y, (1 - t)*a.Z + t*b.Z };
+}
+
+FRotator lerpRot(float t, FRotator a, FRotator b)
+{
+	return{ (int)round((1 - t)*a.Pitch + t*b.Pitch), (int)round((1 - t)*a.Yaw + t*b.Yaw), (int)round((1 - t)*a.Roll + t*b.Roll) };
+}
+
 void routeRec()
 {
 	if (recording)
@@ -34,16 +53,13 @@ void routeRec()
 
 void routeStartRec()
 {
-	APawn *pawn = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->Pawn;
-	if (!pawn || recording)
+	ATrPawn *pawn = (ATrPawn *)((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->Pawn;
+	if (!pawn || recording || replaying)
 		return;
 
 	Utils::notify("Route recorder", "Recording started");
 
-	route.clear();
-	route.insert(route.begin(), { pawn->WorldInfo->TimeSeconds, pawn->Location, pawn->Health });
-	recording = true;
-
+	// Meta data
 	mapName = Utils::f2std(pawn->WorldInfo->GetMapName(false));
 	mapName.erase(std::remove(mapName.begin(), mapName.end(), ' '), mapName.end());
 	className = Utils::f2std(((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetCurrentClassAbb());
@@ -52,6 +68,12 @@ void routeStartRec()
 	playerName = Utils::f2std(pawn->PlayerReplicationInfo->PlayerName);
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), ' '), playerName.end());
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), '\\'), playerName.end());
+
+	route.clear();
+	route.insert(route.begin(), { pawn->WorldInfo->TimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation,
+		pawn->Physics, pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool });
+
+	recording = true;
 }
 
 void routeStopRec()
@@ -63,25 +85,112 @@ void routeStopRec()
 	}
 }
 
-void routeReset()
-{
-	recording = false;
-	route.clear();
-}
-
-void routePawnTick(ATrPawn* pawn)
+void routePawnTickRecord(ATrPawn* pawn)
 {
 	if (recording)
 	{
 		float time = pawn->WorldInfo->TimeSeconds;
 		if (time - route.at(0).time >= ROUTE_SAVES_INTERVAL / 1000.0f)
 		{
-			route.insert(route.begin(), { time, pawn->Location, pawn->Health });
+			route.insert(route.begin(), { time, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation, pawn->Physics,
+				pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool });
 
 			if (route.size() > ROUTE_SAVES_MAX)
 				route.resize(ROUTE_SAVES_MAX);
 		}
 	}
+}
+
+unsigned int i;
+float lastTickTime;
+
+void routeReplay()
+{
+	if (replaying)
+		routeStopReplay();
+	else
+		routeStartReplay();
+}
+
+void routeStartReplay()
+{
+	if (!replaying && !recording)
+	{
+		APlayerController *pc = ((APlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
+		if (pc && pc->WorldInfo->NetMode == 0)
+		{
+			i = 0;
+			lastTickTime = 0.0f;
+			replaying = true;
+		}
+	}
+}
+
+void routeStopReplay()
+{
+	if (replaying)
+	{
+		Utils::notify("Route recorder", "Replay stopped");
+		replaying = false;
+	}
+}
+
+void routePawnTickReplay(ATrPawn* pawn, float deltaTime)
+{
+	if (replaying && !recording)
+	{
+		if (route.size() == 0 || i == route.size() - 1)
+		{
+			replaying = false;
+			return;
+		}
+		size_t end = route.size() - 1;
+		position &curr = route.at(end - i);
+
+		if (i + 1 != end) // Is there a next item in the vector?
+		{
+			position &next = route.at(end - i - 1);
+			float demoDeltaTime = next.time - curr.time;
+
+			if (lastTickTime == 0.0f) // Every route demo tick
+			{
+				pawn->Location = curr.loc;
+				pawn->GetALocalPlayerController()->Rotation = curr.rot;
+				pawn->Physics = curr.phys;
+				pawn->r_bIsSkiing = curr.skiing;
+				pawn->r_bIsJetting = curr.jetting;
+				if (next.health < curr.health) // Lost health
+					pawn->m_fLastDamagerTimeStamp = pawn->WorldInfo->TimeSeconds;
+				pawn->Health = curr.health;
+				pawn->m_fCurrentPowerPool = curr.energy;
+			}
+			else // Interpolated ticks
+			{
+				pawn->Velocity = lerpFV(lastTickTime / demoDeltaTime, curr.vel, next.vel);
+				pawn->GetALocalPlayerController()->Rotation = lerpRot(lastTickTime / demoDeltaTime, curr.rot, next.rot);
+			}
+
+			if (lastTickTime + deltaTime >= demoDeltaTime)
+			{
+				lastTickTime = 0.0f;
+				i++;
+			}
+			else
+				lastTickTime += deltaTime;
+		}
+		else // End of route vector reached
+		{
+			replaying = false;
+			Utils::notify("Route recorder", "Playback done");
+		}
+	}
+}
+
+void routeReset()
+{
+	routeStopRec();
+	routeStopReplay();
+	route.clear();
 }
 
 void routeFlagGrab(float grabtime)
@@ -135,23 +244,34 @@ void routeSaveFile(const std::string &desc)
 			Utils::printConsole("Created routes directory");
 	}
 
-	std::string filename = mapName + '_' + teamName + '_' + className + '_' + playerName + '_' + std::to_string(routeLength) + "s_" + desc + ".route";
+	std::string filename = mapName + '_' + teamName + '_' + className + '_'
+		+ playerName + '_' + std::to_string(routeLength) + "s_" + desc + ".route";
+
 	std::string filepath = routedir + filename;
 
 	std::ofstream routefile(filepath);
 
 	if (routefile.is_open())
 	{
-		routefile << mapName << ' ' << teamName << ' ' << className << ' ' << routeLength << ' ' << classHealth << ' ' << playerName << ' ' << MODVERSION << '\n';
+		routefile
+			<< mapName << ' ' << teamName << ' ' << className << ' ' << routeLength << ' '
+			<< classHealth << ' ' << playerName << ' ' << MODVERSION << '\n';
 
 		for (size_t i = 0; i < route.size(); i++)
 		{
 			position curr = route.at(i);
 
-			routefile << curr.time << ' ';
-			routefile << curr.loc.X << ' ' << curr.loc.Y << ' ' << curr.loc.Z << ' ';
-			routefile << curr.health << ' ';
-			routefile << curr.eta << '\n';
+			routefile 
+				<< curr.time << ' '
+				<< curr.loc.X << ' ' << curr.loc.Y << ' ' << curr.loc.Z << ' '
+				<< curr.vel.X << ' ' << curr.vel.Y << ' ' << curr.vel.Z << ' '
+				<< curr.rot.Pitch << ' ' << curr.rot.Yaw << ' ' << curr.rot.Roll << ' '
+				<< curr.phys << ' '
+				<< curr.skiing << ' '
+				<< curr.jetting << ' '
+				<< curr.health << ' '
+				<< curr.energy << ' '
+				<< curr.eta << '\n';
 		}
 		Utils::printConsole("Saved route '" + filename + "'");
 	}
@@ -190,11 +310,21 @@ void routeLoadFile(unsigned int num)
 	if (routefile.is_open())
 	{
 		route.clear();
-		routefile >> mapName >> teamName >> className >> routeLength >> classHealth >> playerName >> version;
+		routefile
+			>> mapName >> teamName >> className >> routeLength
+			>> classHealth >> playerName >> version;
 
 		position pos;
-		while (routefile >> pos.time >> pos.loc.X >> pos.loc.Y >> pos.loc.Z >> pos.health >> pos.eta)
+		while (routefile
+			>> pos.time
+			>> pos.loc.X >> pos.loc.Y >> pos.loc.Z
+			>> pos.vel.X >> pos.vel.Y >> pos.vel.Z
+			>> pos.rot.Pitch >> pos.rot.Yaw >> pos.rot.Roll
+			>> pos.phys >> pos.skiing >> pos.jetting
+			>> pos.health >> pos.energy >> pos.eta)
+		{
 			route.push_back(pos);
+		}
 
 		Utils::printConsole("Loaded route '" + files.at(num - 1) + "'");
 	}
@@ -302,7 +432,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 				if (i + 1 < route.size())
 				{
 					if (curr.health < route.at(i + 1).health) // damage taken (self impulse)
-						col = { 255, 0, 0, 200 };
+						col = { 255, 116, 100, 255 };
 					else if (curr.health > route.at(i + 1).health) // gaining health (regen)
 						col = { 0, 255, 255 - c, 140 };
 				}
@@ -310,7 +440,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 				if (i + 1 == route.size()) // route start
 					that->DrawColoredMarkerText(L"Start", { 255, 202, 0, 160 }, overhead_number_location, that->Canvas, 1.0f, 1.0f);
 				else
-					that->DrawColoredMarkerText(L".", col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
+					that->DrawColoredMarkerText(L"-", col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
 
 				if (curr.eta)
 				{
