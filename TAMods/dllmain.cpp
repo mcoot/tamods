@@ -25,6 +25,7 @@ void onDLLProcessAttach()
 		Hooks::add(&TrEntryPlayerController_Destroyed, "Function TribesGame.TrEntryPlayerController.Destroyed"); // Reset array of states after map load
 		Hooks::add(&GFxTrMenuMoviePlayer_SetPlayerLoading, "Function TribesGame.GFxTrMenuMoviePlayer.SetPlayerLoading"); // Different loading screens
 		Hooks::add(&TrChatConsole_InputKey, "Function TribesGame.TrChatConsole.InputKey"); // Lua keybindings
+		Hooks::add(&TrPC_PlayerWalking_ToggleJetpack, "Function TrPlayerController.PlayerWalking.ToggleJetpack"); // To abort replays when pressing jet
 
 		// HUD modification
 		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers

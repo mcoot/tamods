@@ -43,6 +43,12 @@ FRotator lerpRot(float t, FRotator a, FRotator b)
 	return{ (int)round((1 - t)*a.Pitch + t*b.Pitch), (int)round((1 - t)*a.Yaw + t*b.Yaw), (int)round((1 - t)*a.Roll + t*b.Roll) };
 }
 
+bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	routeStopReplay();
+	return false;
+}
+
 void routeRec()
 {
 	if (recording)
@@ -54,8 +60,12 @@ void routeRec()
 void routeStartRec()
 {
 	ATrPawn *pawn = (ATrPawn *)((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->Pawn;
-	if (!pawn || recording || replaying)
+
+	if (!pawn || recording)
 		return;
+
+	if (replaying)
+		routeStopReplay();
 
 	Utils::notify("Route recorder", "Recording started");
 
@@ -114,16 +124,21 @@ void routeReplay()
 
 void routeStartReplay()
 {
-	if (!replaying && !recording)
-	{
-		APlayerController *pc = ((APlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
-		if (pc && pc->WorldInfo->NetMode == 0)
-		{
-			i = 0;
-			lastTickTime = 0.0f;
-			replaying = true;
-		}
-	}
+	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+	APawn *pawn;
+
+	if (pc)
+		pawn = pc->Pawn;
+
+	if (replaying || !pc || pc->WorldInfo->NetMode != 0 || !pawn)
+		return;
+
+	if (recording)
+		routeStopRec();
+
+	i = 0;
+	lastTickTime = 0.0f;
+	replaying = true;
 }
 
 void routeStopReplay()

@@ -50,6 +50,7 @@ bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFuncti
 
 // State saving
 void UpdateLocationOverheadNumbers(ATrHUD *that);
+bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 // Stats
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
