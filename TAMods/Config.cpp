@@ -934,6 +934,40 @@ static LuaRef config_searchTribesInputCommands(const std::string &needle)
 	return out;
 }
 
+static void config_spawnPawn()
+{
+	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+
+	if (pc->WorldInfo->NetMode != 0)
+		return;
+
+	// Create one bot
+	static ATrPlayerController_Training *spawned = (ATrPlayerController_Training *)pc->Spawn(ATrPlayerController_Training::StaticClass(), pc, FName(0), pc->Location, pc->Rotation, NULL, 0);
+
+	spawned->PlayerReplicationInfo->PlayerName = L"Test";
+	spawned->PlayerReplicationInfo->bReadyToPlay = true;
+	spawned->PlayerReplicationInfo->bHidden = false;
+	spawned->PlayerReplicationInfo->bIsInactive = false;
+	spawned->PlayerReplicationInfo->PlayerID = pc->PlayerReplicationInfo->PlayerID + 1;
+	spawned->ServerChangeTeam(!pc->GetTeamNum());
+	if (spawned->PlayerReplicationInfo->IsA(ATrPlayerReplicationInfo::StaticClass()))
+	{
+		// Update the class of the bot to the one currently used by the player
+		ATrPlayerReplicationInfo *rep = (ATrPlayerReplicationInfo *)spawned->PlayerReplicationInfo;
+		ATrPlayerReplicationInfo *pcrep = (ATrPlayerReplicationInfo *)pc->PlayerReplicationInfo;
+		rep->m_CurrentBaseClass = pcrep->m_CurrentBaseClass;
+		rep->m_PendingBaseClass = pcrep->m_PendingBaseClass;
+	}
+	// Suicide & respawn
+	spawned->Suicide();
+	spawned->Respawn();
+
+	// Move the bot to the player's location
+	spawned->ViewTarget->Location = pc->ViewTarget->Location;
+	spawned->Velocity = pc->ViewTarget->Velocity;
+	spawned->Rotation = pc->ViewTarget->Rotation;
+}
+
 static void config_modifySound(const std::string &name, float pitch, float volume)
 {
 	if (name[0] == 'A' || name[0] == 'a')
@@ -2113,6 +2147,7 @@ void Lua::init()
 			addProperty("ignoreAlt", &FKeyBind::getIgnoreAlt).
 		endClass().
 		addFunction("searchTribesInputCommands", &config_searchTribesInputCommands).
+		addFunction("spawnPawn", &config_spawnPawn).
 
 		// Console commands as lua functions for the use as keybinds
 		addFunction("reloadSounds", &config_reloadSounds).
