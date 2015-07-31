@@ -113,10 +113,10 @@ void routeReplay()
 	if (replaying)
 		routeStopReplay();
 	else
-		routeStartReplay();
+		routeStartReplay(0);
 }
 
-void routeStartReplay()
+void routeStartReplay(unsigned int startPercent)
 {
 	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
 	ATrPawn *pawn;
@@ -144,7 +144,11 @@ void routeStartReplay()
 	pawn->m_fSplatDamageFromWallMin = 0.0f;
 	pawn->m_fSplatDamageFromWallMax = 0.0f;
 
-	i = 0;
+	if (startPercent > 99)
+		startPercent = 99;
+
+	i = int((route.size() - 1) * startPercent / 100);
+
 	lastTickTime = 0.0f;
 	replaying = true;
 }
@@ -160,11 +164,7 @@ void routeStopReplay()
 			pawn = (ATrPawn *)pc->Pawn;
 
 		if (pawn)
-		{
-			pawn->r_bIsSkiing = 0;
-			pawn->r_bIsJetting = 0;
 			pawn->RefreshInventory(0, 0);
-		}
 
 		Utils::notify("Route recorder", "Replay stopped");
 		replaying = false;
@@ -269,10 +269,7 @@ void routeFlagGrab(float grabtime)
 void routeSaveFile(const std::string &desc)
 {
 	if (recording)
-	{
-		Utils::console("Error: You are still recording");
-		return;
-	}
+		routeStopRec();
 
 	if (route.size() == 0)
 	{

@@ -38,7 +38,7 @@ void routeRec();
 void routeStartRec();
 void routeStopRec();
 void routeReplay();
-void routeStartReplay();
+void routeStartReplay(unsigned int startPercent);
 void routeStopReplay();
 void routeReset();
 void routeSaveFile(const std::string &desc);

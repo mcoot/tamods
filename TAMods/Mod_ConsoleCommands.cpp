@@ -121,8 +121,8 @@ namespace consoleHelpText
 		"   Stops route recording\n"
 		" /route replay\n"
 		"   Toggles route replaying on and off (Alias: /replay)\n"
-		" /route replay start\n"
-		"   Starts route replay\n"
+		" /route replay start [start percent]\n"
+		"   Starts route replay at the beginning or at 'start percent'\n"
 		" /route replay stop\n"
 		"   Stops the route replay\n"
 		" /route reset\n"
@@ -268,7 +268,19 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 				}
 				else if (line == L"/route replay start")
 				{
-					routeStartReplay();
+					routeStartReplay(0);
+					customcommand = true;
+				}
+				else if (line.substr(0, 20) == L"/route replay start ")
+				{
+					std::stringstream s(std::string(line.begin() + 20, line.end()));
+					unsigned int n;
+					s >> n;
+
+					if (s && n >= 0)
+						routeStartReplay(n);
+					else
+						Utils::console("Error: You have to enter a number");
 					customcommand = true;
 				}
 				else if (line == L"/route replay stop")
@@ -297,10 +309,10 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					if (line.size() > 12)
 					{
 						std::stringstream s(std::string(line.begin() + 12, line.end()));
-						int n;
+						unsigned int n;
 						s >> n;
 
-						if (s && n)
+						if (s && n >= 0)
 							routeLoadFile(n);
 						else
 							Utils::console("Error: You have to enter a number");
