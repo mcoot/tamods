@@ -191,6 +191,7 @@ void routePawnTickReplay(ATrPawn* pawn, float deltaTime)
 			if (lastTickTime == 0.0f) // Every route demo tick
 			{
 				pawn->Location = curr.loc;
+				pawn->Velocity = curr.vel;
 				if (g_config.routeReplayRotation)
 					pawn->GetALocalPlayerController()->Rotation = curr.rot;
 				pawn->Physics = curr.phys;
@@ -220,6 +221,8 @@ void routePawnTickReplay(ATrPawn* pawn, float deltaTime)
 				pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, lastTickTime / demoDeltaTime);
 				if (g_config.routeReplayRotation)
 					pawn->GetALocalPlayerController()->Rotation = Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true);
+				pawn->Health = int(Utils::tr_pc->Lerp(curr.health, next.health, lastTickTime / demoDeltaTime));
+				pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, lastTickTime / demoDeltaTime);
 			}
 
 			if (lastTickTime + deltaTime >= demoDeltaTime)
