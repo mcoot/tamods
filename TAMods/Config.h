@@ -344,6 +344,7 @@ public:
 	float stopwatchCapTime   = 0.0f;
 	int stopwatchGrabHealth  = 0;
 	int stopwatchGrabSpeed   = -1;
+	bool routeBotReplay = false; // 'true' just for testing
 
 	// Route recording
 	int routeDrawInterval;

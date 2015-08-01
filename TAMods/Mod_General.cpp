@@ -53,7 +53,7 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 	if (that->WorldInfo && g_config.stopwatchRunning && g_config.stopwatchStopOnDeath)
 	{
-		g_config.stopwatchDisplayTime("Stopped - ", that->WorldInfo->TimeSeconds);
+		g_config.stopwatchDisplayTime("Stopped - ", that->WorldInfo->RealTimeSeconds);
 		g_config.stopwatchRunning = 0;
 	}
 

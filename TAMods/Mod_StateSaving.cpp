@@ -7,6 +7,7 @@ struct playerState
 	FRotator rot;
 	bool hasFlag             = false;
 	bool stopwatchRunning    = false;
+	float realTimeStamp      = 0.0f;
 	float timeStamp          = 0.0f;
 	float stopwatchStartTime = 0.0f;
 	float lastDamagedTime    = 0.0f;
@@ -31,6 +32,7 @@ void resetPlayerStates()
 		state.rot                = { 0, 0, 0 };
 		state.hasFlag            = false;
 		state.stopwatchRunning   = false;
+		state.realTimeStamp      = 0.0f;
 		state.timeStamp          = 0.0f;
 		state.stopwatchStartTime = 0.0f;
 		state.lastDamagedTime    = 0.0f;
@@ -106,13 +108,13 @@ void toggleStopwatch()
 	{
 		if (g_config.stopwatchRunning)
 		{
-			g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->TimeSeconds);
+			g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->RealTimeSeconds);
 			g_config.stopwatchPrintSummary();
 			g_config.stopwatchStartTime = 0;
 			g_config.stopwatchRunning = 0;
 		}
 		else
-			g_config.stopwatchStart(TrPC->WorldInfo->TimeSeconds);
+			g_config.stopwatchStart(TrPC->WorldInfo->RealTimeSeconds);
 	}
 }
 
@@ -129,6 +131,7 @@ void savePlayerState(int n)
 		if (!TrPC || !TrPC->WorldInfo)
 			return;
 
+		state.realTimeStamp = TrPC->WorldInfo->RealTimeSeconds;
 		state.timeStamp = TrPC->WorldInfo->TimeSeconds;
 
 		state.loc = Cam->Location;
@@ -202,7 +205,7 @@ void recallPlayerState(int n, bool tpOnly)
 				TrPawn->Velocity = { 0.0f, 0.0f, 0.0f };
 
 				if (g_config.stopwatchRunning)
-					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->TimeSeconds);
+					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
 
 				g_config.stopwatchReset(); // /tp always resets the stopwatch
 
@@ -215,15 +218,15 @@ void recallPlayerState(int n, bool tpOnly)
 				TrPawn->Velocity = state.vel;
 
 				//Restore stopwatch state
-				float time = TrPC->WorldInfo->TimeSeconds;
-				float timeDiff = time - state.timeStamp;
+				float time = TrPC->WorldInfo->RealTimeSeconds;
+				float timeDiff = time - state.realTimeStamp;
 				g_config.stopwatchStartTime = state.stopwatchStartTime > 0.0f ? state.stopwatchStartTime + timeDiff : 0.0f;
 				g_config.stopwatchGrabHealth = state.grabHealth;
 				g_config.stopwatchGrabSpeed = state.grabSpeed;
 				g_config.stopwatchGrabTime = state.grabTime > 0.0f ? state.grabTime + timeDiff : 0.0f;
 				g_config.stopwatchRunning = state.stopwatchRunning;
 
-				TrPawn->m_fLastDamagerTimeStamp = state.lastDamagedTime + timeDiff;
+				TrPawn->m_fLastDamagerTimeStamp = state.lastDamagedTime + (TrPC->WorldInfo->TimeSeconds - state.timeStamp);
 				TrPawn->m_fCurrentPowerPool = state.energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state.energy;
 
 				if (state.health <= 0 || state.health > TrPawn->HealthMax)

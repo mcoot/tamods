@@ -422,7 +422,7 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 	// while playing online, only show the stopwatch, don't replace the normal game time
 	if (g_config.stopwatchRunning || that->WorldInfo->NetMode == 0)
 	{
-		float worldseconds = that->WorldInfo->TimeSeconds;
+		float worldseconds = that->WorldInfo->RealTimeSeconds;
 
 		if (g_config.stopwatchRunning // Freeze stopwatch time at the moment of a cap
 			&& worldseconds - g_config.stopwatchCapTime < 4.0f // for 4 seconds

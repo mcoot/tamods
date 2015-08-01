@@ -20,7 +20,6 @@ std::vector<position> route;
 
 bool recording;
 bool replaying;
-bool botReplay;
 
 // Meta data for the route file
 std::string className;
@@ -39,7 +38,8 @@ std::vector<std::string> files;
 
 bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	routeStopReplay();
+	if (!g_config.routeBotReplay)
+		routeStopReplay();
 	return false;
 }
 
@@ -94,7 +94,7 @@ void routeStartRec()
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), '\\'), playerName.end());
 
 	route.clear();
-	route.insert(route.begin(), { pawn->WorldInfo->TimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation,
+	route.insert(route.begin(), { pawn->WorldInfo->RealTimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation,
 		pawn->Physics, pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
 	recording = true;
@@ -119,7 +119,7 @@ void routeTickRecord(ATrPlayerController* pc)
 		if (!pawn)
 			return;
 
-		float time = pc->WorldInfo->TimeSeconds;
+		float time = pc->WorldInfo->RealTimeSeconds;
 		if (time - route.at(0).time >= ROUTE_SAVES_INTERVAL / 1000.0f)
 		{
 			route.insert(route.begin(), { time, pawn->Location, pawn->Velocity, pc->Rotation, pawn->Physics,
@@ -175,6 +175,10 @@ void routeStartReplay(unsigned int startPercent)
 
 	i = int((route.size() - 1) * startPercent / 100);
 
+	// Give health of the start point
+	pawn->Health = route.at(route.size() - 1 - i).health;
+	pawn->m_fLastDamagerTimeStamp = pc->WorldInfo->TimeSeconds;
+
 	lastTickTime = 0.0f;
 	replaying = true;
 }
@@ -189,7 +193,7 @@ void routeStopReplay()
 		if (pc)
 			pawn = (ATrPawn *)pc->Pawn;
 
-		if (pawn)
+		if (pawn && !g_config.routeBotReplay)
 			pawn->RefreshInventory(0, 0);
 
 		Utils::notify("Route recorder", "Replay stopped");
@@ -207,8 +211,8 @@ void routeTickReplay(ATrPlayerController* pc, float deltaTime)
 			return;
 		}
 
-		if ((botReplay && !pc->IsA(ATrPlayerController_Training::StaticClass()))
-			|| (!botReplay && pc->IsA(ATrPlayerController_Training::StaticClass())))
+		if ((g_config.routeBotReplay && !pc->IsA(ATrPlayerController_Training::StaticClass()))
+			|| (!g_config.routeBotReplay && pc->IsA(ATrPlayerController_Training::StaticClass())))
 			return;
 
 		if (!pc->Pawn)
@@ -243,20 +247,35 @@ void routeTickReplay(ATrPlayerController* pc, float deltaTime)
 				else if (next.jetting)
 					pawn->eventUpdateJetpackEffects();
 
-				if (next.health < curr.health) // Lost health
+				if (curr.health > next.health) // Lost health
 				{
-					pawn->m_fLastDamagerTimeStamp = pawn->WorldInfo->TimeSeconds;
 					pc->ClientPlayTakeHit(curr.loc, curr.health - next.health, UTrDmgType_LightSpinfusor::StaticClass());
+					pawn->m_fLastDamagerTimeStamp = pc->WorldInfo->TimeSeconds + (ROUTE_SAVES_INTERVAL / 2000);
+					pawn->Health -= curr.health - next.health; // maybe limit health loss to never kill ourself?
+					if (pawn->Health <= 0)
+					{ // This needs a better method
+						pc->Suicide();
+						routeStopReplay();
+						pc->m_nRespawnTimeRemaining = 0;
+						pc->r_fRespawnTime = 0;
+						pc->MinRespawnDelay = 0;
+						pc->UpdateRespawnTimer();
+						pc->ClearTimer(FName("PlayRespawnSoonSound"), pc);
+					}
 				}
-				pawn->Health = curr.health;
+				else if (curr.health < next.health) // Regen
+				{
+					if (pawn->Health >= (int)curr.health) // Health has properly replayed so far, means we didn't stop a bots or our own regen
+						pawn->m_fLastDamagerTimeStamp = 0.0f;
+				}
+
 				pawn->m_fCurrentPowerPool = curr.energy;
 			}
-			else // Interpolated ticks
+			else // Intermediate ticks
 			{
 				pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, lastTickTime / demoDeltaTime);
 				if (g_config.routeReplayRotation)
 					pc->SetRotation(Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true));
-				pawn->Health = int(Utils::tr_pc->Lerp(float(curr.health), float(next.health), lastTickTime / demoDeltaTime));
 				pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, lastTickTime / demoDeltaTime);
 				if (curr.jetting && next.jetting)
 					pawn->eventUpdateJetpackEffects();
