@@ -240,12 +240,12 @@ void routeTickReplay(ATrPlayerController* pc, float deltaTime)
 				if (curr.jetting != next.jetting)
 				{
 					if (next.jetting)
-						pawn->eventPlayJetpackEffects();
+						((ATrPlayerPawn *)pawn)->eventPlayJetpackEffects();
 					else
-						pawn->eventStopJetpackEffects();
+						((ATrPlayerPawn *)pawn)->eventStopJetpackEffects();
 				}
-				else if (next.jetting)
-					pawn->eventUpdateJetpackEffects();
+				if (next.jetting)
+					((ATrPlayerPawn *)pawn)->eventUpdateJetpackEffects();
 
 				if (curr.health > next.health) // Lost health
 				{
@@ -277,8 +277,8 @@ void routeTickReplay(ATrPlayerController* pc, float deltaTime)
 				if (g_config.routeReplayRotation)
 					pc->SetRotation(Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true));
 				pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, lastTickTime / demoDeltaTime);
-				if (curr.jetting && next.jetting)
-					pawn->eventUpdateJetpackEffects();
+				if (next.jetting)
+					((ATrPlayerPawn *)pawn)->eventUpdateJetpackEffects();
 			}
 
 			if (lastTickTime + deltaTime >= demoDeltaTime)
