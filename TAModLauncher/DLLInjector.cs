@@ -33,6 +33,9 @@ namespace TAModLauncher
         static extern IntPtr CreateRemoteThread(IntPtr hProcess,
             IntPtr lpThreadAttributes, IntPtr dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
+        [DllImport("kernel32", SetLastError = true, ExactSpelling = true)]
+        internal static extern Int32 WaitForSingleObject(IntPtr handle, Int32 milliseconds); 
+
         // privileges
         const int PROCESS_CREATE_THREAD = 0x0002;
         const int PROCESS_QUERY_INFORMATION = 0x0400;
@@ -65,11 +68,14 @@ namespace TAModLauncher
             IntPtr loadLibraryAddress = GetLoadLibraryAddress();
             IntPtr allocatedMemoryAddress = AllocateDLLNameMemory(processHandle, DLLPath);
             WriteDLLName(processHandle, allocatedMemoryAddress, DLLPath);
-
-            Debug.WriteLine("PROCHANDLE: " + processHandle + "\nLOADLIBADDR: " + loadLibraryAddress + "\nALLOCMEMADDR: " + allocatedMemoryAddress);
-
+            
             // Create the thread to actually inject the DLL
-            Debug.WriteLine("INJECTION STATUS: " + CreateInjectedThread(processHandle, loadLibraryAddress, allocatedMemoryAddress));
+            IntPtr injectedThread = CreateInjectedThread(processHandle, loadLibraryAddress, allocatedMemoryAddress);
+            Int64 Result = WaitForSingleObject(injectedThread, 10 * 1000);
+            if (Result == 0x00000080L || Result == 0x00000102L || Result == 0xFFFFFFFF)
+            {
+                throw new InjectorException("Injected thread failed to return.");
+            }
             CloseHandle(processHandle);
         }
 
@@ -109,7 +115,7 @@ namespace TAModLauncher
 
         private IntPtr CreateInjectedThread(IntPtr procHandle, IntPtr loadLibraryAddress, IntPtr memoryAddress)
         {
-            return CreateRemoteThread(procHandle, (IntPtr)null, (IntPtr)0, loadLibraryAddress, memoryAddress, 0, (IntPtr)null);
+            return CreateRemoteThread(procHandle, IntPtr.Zero, IntPtr.Zero, loadLibraryAddress, memoryAddress, 0, IntPtr.Zero);
         }
 
         

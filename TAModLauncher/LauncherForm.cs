@@ -21,15 +21,12 @@ namespace TAModLauncher
         public TAModLauncherConfig config;
         public DLLInjector injector;
         public SettingsForm settingsform;
+        public string LauncherPath { get; set; }
 
-        private string launcherPath = "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe";
-        public string LauncherPath
-        {
-            get { return launcherPath; }
-            set { launcherPath = value; }
-        }
+        public string DLLPath { get; set; }
 
         public bool updateRequired;
+        public string tribesProcessName = "tribesascend";
 
         public LauncherForm()
         {
@@ -40,7 +37,6 @@ namespace TAModLauncher
         {
             updater = new TAModUpdater();
             config = new TAModLauncherConfig("launcher.xml");
-            injector = new DLLInjector("tribesascend", "TAMods.dll");
 
             // Event handlers
             updater.DownloadProgressChanged += new EventHandler(updateProgressChange);
@@ -57,6 +53,11 @@ namespace TAModLauncher
                 (launcherRegEntry == null ? "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe" : launcherRegEntry + "\\HiRezLauncherUI.exe")
                 : config.getProperty("//LauncherConfig/TribesLauncherPath"));
 
+            DLLPath = (config.getProperty("//LauncherConfig/TAModsDLLPath") == null ?
+                 Environment.CurrentDirectory + "\\TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
+            // Create the injector
+            injector = new DLLInjector(tribesProcessName, DLLPath);
+
             if (checkAutoUpdate.Checked)
             {
                 checkForUpdates();
@@ -72,6 +73,7 @@ namespace TAModLauncher
             config.setProperty("//LauncherConfig/AutoUpdateCheck", checkAutoUpdate.Checked.ToString().ToLower());
             if (settingsform.selectUpdateChannel.SelectedItem != null) config.setProperty("//LauncherConfig/UpdateChannel", settingsform.selectUpdateChannel.SelectedItem.ToString().ToLower());
             if (LauncherPath.Trim() != "") config.setProperty("//LauncherConfig/TribesLauncherPath", LauncherPath);
+            if (DLLPath.Trim() != "") config.setProperty("//LauncherConfig/TAModsDLLPath", DLLPath);
             config.saveConfig("launcher.xml");
         }
 
@@ -191,6 +193,29 @@ namespace TAModLauncher
 
         }
 
+        private bool InjectMods()
+        {
+            if (!injector.DoesProcessExist(tribesProcessName))
+            {
+                MessageBox.Show("ERROR: Tribes: Ascend is not running.",
+                    "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            
+            try
+            {
+                injector.Inject();
+            }
+            catch (InjectorException ex)
+            {
+                MessageBox.Show("ERROR: Injection failed.\n\nMessage: " + ex.Message,
+                    "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            return true;
+        }
+
         private void updateProgressChange(object sender, EventArgs e)
         {
             labelDownload.Text = "Downloading: " + updater.getDownloadListCurrentFile();
@@ -200,6 +225,7 @@ namespace TAModLauncher
         private void updateFinished(object sender, EventArgs e)
         {
             checkForUpdates();
+            updateRequired = false;
             labelDownload.Visible = true;
             labelDownload.Text = "Ready to Play!";
             //MessageBox.Show("Download complete!");
@@ -215,11 +241,11 @@ namespace TAModLauncher
             else
             {
                 // Check if game is already running
-                if (Process.GetProcessesByName("tribesascend").Length > 0)
+                if (injector.DoesProcessExist(tribesProcessName))
                 {
-                    MessageBox.Show("yo");
+                    InjectMods();
                 }
-                else if (Process.GetProcessesByName("hirezlauncherui").Length == 0)
+                else if (!injector.DoesProcessExist("hirezlauncherui"))
                 {
                     if (File.Exists(LauncherPath))
                     {
@@ -271,11 +297,20 @@ namespace TAModLauncher
             settingsform.Show();
         }
 
-        private void btnTestInjector_Click(object sender, EventArgs e)
+        private void timerCheckTribesRunning_Tick(object sender, EventArgs e)
         {
-            Debug.WriteLine("INJECTING " + injector.DLLPath + " into " + injector.TargetProcessName +
-                (injector.DoesProcessExist(injector.TargetProcessName) ? " (exists)" : " (does not exist)"));
-            injector.Inject();
+            if (!updateRequired)
+            {
+                if (injector.DoesProcessExist(tribesProcessName))
+                {
+                    btnUpdateLaunch.Text = "Inject TAMods";
+                }
+                else
+                {
+                    btnUpdateLaunch.Text = "Launch Tribes";
+                }
+            }
         }
+
     }
 }
