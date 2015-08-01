@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Diagnostics;
 using System.IO;
+using Microsoft.Win32;
 
 namespace TAModLauncher
 {
@@ -72,6 +73,20 @@ namespace TAModLauncher
             // Set the node's value
             nav.SelectSingleNode(propertyXPath).SetValue(value);
             
+        }
+
+        public string getRegistryEntry(RegistryKey registryRoot, string registryPath, string value)
+        {
+            using (RegistryKey key = registryRoot.OpenSubKey(registryPath))
+            {
+                if (key == null) return null;
+
+                Object o = key.GetValue(value);
+
+                if (o == null) return null;
+
+                return o.ToString();
+            }
         }
     }
 }

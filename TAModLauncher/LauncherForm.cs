@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Xml;
+using Microsoft.Win32;
 
 namespace TAModLauncher
 {
@@ -48,8 +49,13 @@ namespace TAModLauncher
             // Load config data
             checkAutoUpdate.Checked = (config.getProperty("//LauncherConfig/AutoUpdateCheck") == null ?
                     true : Convert.ToBoolean(config.getProperty("//LauncherConfig/AutoUpdateCheck").ToLower()));
+
+            string launcherRegEntry = config.getRegistryEntry(Registry.LocalMachine,
+                "SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{3C87E0FF-BC0A-4F5E-951B-68DC3F8DF1FC}",
+                "InstallLocation");
             LauncherPath = (config.getProperty("//LauncherConfig/TribesLauncherPath") == null ?
-                "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe" : config.getProperty("//LauncherConfig/TribesLauncherPath"));
+                (launcherRegEntry == null ? "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe" : launcherRegEntry + "\\HiRezLauncherUI.exe")
+                : config.getProperty("//LauncherConfig/TribesLauncherPath"));
 
             if (checkAutoUpdate.Checked)
             {
