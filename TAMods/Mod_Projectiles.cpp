@@ -342,6 +342,10 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 
 	Hooks::lock();
 	Utils::tr_pc = that;
+
+	routeTickRecord(that);
+	routeTickReplay(that, params->DeltaTime);
+
 	if (g_config.useMagicChain)
 		that->m_bAllowSimulatedProjectiles = true;
 	for (int i = 0; i < 50; i++)

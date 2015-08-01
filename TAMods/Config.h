@@ -45,8 +45,8 @@ void routeSaveFile(const std::string &desc);
 void routeLoadFile(unsigned int num);
 void routeList(const std::string &needle);
 void routeListAll();
-void routePawnTickRecord(ATrPawn* pawn);
-void routePawnTickReplay(ATrPlayerPawn* pawn, float deltaTime);
+void routeTickRecord(ATrPlayerController * pc);
+void routeTickReplay(ATrPlayerController* pc, float deltaTime);
 void routeFlagGrab(float grabtime);
 void UpdateRouteOverheadNumbers(ATrHUD *that);
 

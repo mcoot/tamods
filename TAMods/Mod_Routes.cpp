@@ -20,6 +20,7 @@ std::vector<position> route;
 
 bool recording;
 bool replaying;
+bool botReplay;
 
 // Meta data for the route file
 std::string className;
@@ -109,14 +110,19 @@ void routeStopRec()
 	}
 }
 
-void routePawnTickRecord(ATrPawn* pawn)
+void routeTickRecord(ATrPlayerController* pc)
 {
-	if (recording)
+	if (recording && !pc->IsA(ATrPlayerController_Training::StaticClass()))
 	{
-		float time = pawn->WorldInfo->TimeSeconds;
+		ATrPawn *pawn = (ATrPawn *)pc->Pawn;
+
+		if (!pawn)
+			return;
+
+		float time = pc->WorldInfo->TimeSeconds;
 		if (time - route.at(0).time >= ROUTE_SAVES_INTERVAL / 1000.0f)
 		{
-			route.insert(route.begin(), { time, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation, pawn->Physics,
+			route.insert(route.begin(), { time, pawn->Location, pawn->Velocity, pc->Rotation, pawn->Physics,
 				pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
 			if (route.size() > ROUTE_SAVES_MAX)
@@ -191,7 +197,7 @@ void routeStopReplay()
 	}
 }
 
-void routePawnTickReplay(ATrPlayerPawn* pawn, float deltaTime)
+void routeTickReplay(ATrPlayerController* pc, float deltaTime)
 {
 	if (replaying && !recording)
 	{
@@ -200,6 +206,15 @@ void routePawnTickReplay(ATrPlayerPawn* pawn, float deltaTime)
 			replaying = false;
 			return;
 		}
+
+		if ((botReplay && !pc->IsA(ATrPlayerController_Training::StaticClass()))
+			|| (!botReplay && pc->IsA(ATrPlayerController_Training::StaticClass())))
+			return;
+
+		if (!pc->Pawn)
+			return;
+
+		ATrPawn *pawn = (ATrPawn *)pc->Pawn;
 		size_t end = route.size() - 1;
 		position &curr = route.at(end - i);
 
@@ -213,7 +228,7 @@ void routePawnTickReplay(ATrPlayerPawn* pawn, float deltaTime)
 				pawn->Location = curr.loc;
 				pawn->Velocity = curr.vel;
 				if (g_config.routeReplayRotation)
-					pawn->GetALocalPlayerController()->Rotation = curr.rot;
+					pc->SetRotation(curr.rot);
 				pawn->Physics = curr.phys;
 				pawn->r_bIsSkiing = curr.skiing;
 				pawn->r_bIsJetting = curr.jetting;
@@ -231,7 +246,7 @@ void routePawnTickReplay(ATrPlayerPawn* pawn, float deltaTime)
 				if (next.health < curr.health) // Lost health
 				{
 					pawn->m_fLastDamagerTimeStamp = pawn->WorldInfo->TimeSeconds;
-					((ATrPlayerController *)pawn->GetALocalPlayerController())->ClientPlayTakeHit(curr.loc, curr.health - next.health, UTrDmgType_LightSpinfusor::StaticClass());
+					pc->ClientPlayTakeHit(curr.loc, curr.health - next.health, UTrDmgType_LightSpinfusor::StaticClass());
 				}
 				pawn->Health = curr.health;
 				pawn->m_fCurrentPowerPool = curr.energy;
@@ -240,7 +255,7 @@ void routePawnTickReplay(ATrPlayerPawn* pawn, float deltaTime)
 			{
 				pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, lastTickTime / demoDeltaTime);
 				if (g_config.routeReplayRotation)
-					pawn->GetALocalPlayerController()->Rotation = Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true);
+					pc->SetRotation(Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true));
 				pawn->Health = int(Utils::tr_pc->Lerp(float(curr.health), float(next.health), lastTickTime / demoDeltaTime));
 				pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, lastTickTime / demoDeltaTime);
 				if (curr.jetting && next.jetting)

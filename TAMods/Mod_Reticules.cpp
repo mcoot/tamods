@@ -5,11 +5,7 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 	Hooks::lock();
 
 	ATrPawn *that = (ATrPawn *)dwCallingObject;
-	ATrPawn_eventTick_Parms *params = (ATrPawn_eventTick_Parms *)pParams;
 	ATrHUD *hud = that->GetTrHud();
-
-	routePawnTickRecord(that);
-	routePawnTickReplay((ATrPlayerPawn *)that, params->DeltaTime);
 
 	if (hud && hud->PlayerOwner)
 		Utils::tr_pc = (ATrPlayerController *)hud->PlayerOwner;
