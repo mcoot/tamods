@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnUpdateLaunch = new System.Windows.Forms.Button();
             this.progressUpdate = new System.Windows.Forms.ProgressBar();
             this.checkAutoUpdate = new System.Windows.Forms.CheckBox();
@@ -35,7 +36,7 @@
             this.btnUpdateCheck = new System.Windows.Forms.Button();
             this.btnReinstall = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
-            this.btnTestInjector = new System.Windows.Forms.Button();
+            this.timerCheckTribesRunning = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // btnUpdateLaunch
@@ -107,22 +108,17 @@
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
-            // btnTestInjector
+            // timerCheckTribesRunning
             // 
-            this.btnTestInjector.Location = new System.Drawing.Point(180, 12);
-            this.btnTestInjector.Name = "btnTestInjector";
-            this.btnTestInjector.Size = new System.Drawing.Size(107, 43);
-            this.btnTestInjector.TabIndex = 10;
-            this.btnTestInjector.Text = "INJECT TEST DLL INTO NOTEPAD";
-            this.btnTestInjector.UseVisualStyleBackColor = true;
-            this.btnTestInjector.Click += new System.EventHandler(this.btnTestInjector_Click);
+            this.timerCheckTribesRunning.Enabled = true;
+            this.timerCheckTribesRunning.Interval = 1000;
+            this.timerCheckTribesRunning.Tick += new System.EventHandler(this.timerCheckTribesRunning_Tick);
             // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 195);
-            this.Controls.Add(this.btnTestInjector);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnReinstall);
             this.Controls.Add(this.btnUpdateCheck);
@@ -149,7 +145,7 @@
         private System.Windows.Forms.Button btnUpdateCheck;
         private System.Windows.Forms.Button btnReinstall;
         private System.Windows.Forms.Button btnSettings;
-        private System.Windows.Forms.Button btnTestInjector;
+        private System.Windows.Forms.Timer timerCheckTribesRunning;
     }
 }
 

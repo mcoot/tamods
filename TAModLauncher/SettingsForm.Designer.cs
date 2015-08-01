@@ -33,6 +33,8 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.fileSelectLauncherDirectory = new TAModLauncher.FormFileSelector();
+            this.fileSelectDLLDirectory = new TAModLauncher.FormFileSelector();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -82,11 +84,32 @@
             this.fileSelectLauncherDirectory.Size = new System.Drawing.Size(420, 20);
             this.fileSelectLauncherDirectory.TabIndex = 12;
             // 
+            // fileSelectDLLDirectory
+            // 
+            this.fileSelectDLLDirectory.FilePath = "";
+            this.fileSelectDLLDirectory.Location = new System.Drawing.Point(12, 112);
+            this.fileSelectDLLDirectory.MaximumSize = new System.Drawing.Size(0, 20);
+            this.fileSelectDLLDirectory.MinimumSize = new System.Drawing.Size(420, 20);
+            this.fileSelectDLLDirectory.Name = "fileSelectDLLDirectory";
+            this.fileSelectDLLDirectory.Size = new System.Drawing.Size(420, 20);
+            this.fileSelectDLLDirectory.TabIndex = 14;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 95);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "TAMods DLL Path";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(444, 261);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.fileSelectDLLDirectory);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.fileSelectLauncherDirectory);
             this.Controls.Add(this.btnOK);
@@ -109,5 +132,7 @@
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label label2;
         private FormFileSelector fileSelectLauncherDirectory;
+        private FormFileSelector fileSelectDLLDirectory;
+        private System.Windows.Forms.Label label3;
     }
 }
