@@ -14,7 +14,7 @@ struct position
 	unsigned int jetting;
 	unsigned int health;
 	float energy;
-	unsigned int eta;
+	int eta;
 };
 std::vector<position> route;
 
@@ -23,13 +23,15 @@ bool replaying;
 
 // Meta data for the route file
 std::string className;
+std::string classAbbr;
 std::string mapName;
-std::string teamName;
 std::string playerName;
 std::string version;
 std::string description;
+unsigned int teamNum;
 unsigned int classHealth;
 unsigned int routeLength = 0;
+float flagGrabTime = 0.0f;
 
 std::string routedir = Utils::getConfigDir() + "routes\\";
 std::vector<std::string> files;
@@ -38,6 +40,22 @@ bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunctio
 {
 	routeStopReplay();
 	return false;
+}
+
+static void routeInsertEta()
+{
+	unsigned int eta = 0;
+
+	for (size_t i = 0; i < route.size(); i++)
+	{
+		if (flagGrabTime - route.at(i).time >= eta)
+		{
+			route.at(i > 0 ? i - 1 : i).eta = eta;
+			eta += 5;
+		}
+	}
+	route.back().eta = int(round(flagGrabTime - route.back().time));
+	routeLength = route.back().eta < 0 ? 0 : route.back().eta;
 }
 
 void routeRec()
@@ -66,8 +84,9 @@ void routeStartRec()
 	// Meta data
 	mapName = Utils::f2std(pawn->WorldInfo->GetMapName(false));
 	mapName.erase(std::remove(mapName.begin(), mapName.end(), ' '), mapName.end());
-	className = Utils::f2std(((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetCurrentClassAbb());
-	teamName = pawn->GetTeamNum() == 0 ? "BE" : "DS";
+	className = ((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetCurrentClass()->GetName();
+	classAbbr = Utils::f2std(((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetCurrentClassAbb());
+	teamNum = pawn->GetTeamNum();
 	classHealth = pawn->HealthMax;
 	playerName = Utils::f2std(pawn->PlayerReplicationInfo->PlayerName);
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), ' '), playerName.end());
@@ -75,7 +94,7 @@ void routeStartRec()
 
 	route.clear();
 	route.insert(route.begin(), { pawn->WorldInfo->TimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation,
-		pawn->Physics, pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool });
+		pawn->Physics, pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
 	recording = true;
 }
@@ -86,6 +105,7 @@ void routeStopRec()
 	{
 		Utils::notify("Route recorder", "Recording stopped");
 		recording = false;
+		routeInsertEta();
 	}
 }
 
@@ -97,7 +117,7 @@ void routePawnTickRecord(ATrPawn* pawn)
 		if (time - route.at(0).time >= ROUTE_SAVES_INTERVAL / 1000.0f)
 		{
 			route.insert(route.begin(), { time, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation, pawn->Physics,
-				pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool });
+				pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
 			if (route.size() > ROUTE_SAVES_MAX)
 				route.resize(ROUTE_SAVES_MAX);
@@ -171,7 +191,7 @@ void routeStopReplay()
 	}
 }
 
-void routePawnTickReplay(ATrPawn* pawn, float deltaTime)
+void routePawnTickReplay(ATrPlayerPawn* pawn, float deltaTime)
 {
 	if (replaying && !recording)
 	{
@@ -201,12 +221,12 @@ void routePawnTickReplay(ATrPawn* pawn, float deltaTime)
 				if (curr.jetting != next.jetting)
 				{
 					if (next.jetting)
-						((ATrPlayerPawn *)pawn)->eventPlayJetpackEffects();
+						pawn->eventPlayJetpackEffects();
 					else
-						((ATrPlayerPawn *)pawn)->eventStopJetpackEffects();
+						pawn->eventStopJetpackEffects();
 				}
 				else if (next.jetting)
-					((ATrPlayerPawn *)pawn)->eventUpdateJetpackEffects();
+					pawn->eventUpdateJetpackEffects();
 
 				if (next.health < curr.health) // Lost health
 				{
@@ -221,8 +241,10 @@ void routePawnTickReplay(ATrPawn* pawn, float deltaTime)
 				pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, lastTickTime / demoDeltaTime);
 				if (g_config.routeReplayRotation)
 					pawn->GetALocalPlayerController()->Rotation = Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true);
-				pawn->Health = int(Utils::tr_pc->Lerp(curr.health, next.health, lastTickTime / demoDeltaTime));
+				pawn->Health = int(Utils::tr_pc->Lerp(float(curr.health), float(next.health), lastTickTime / demoDeltaTime));
 				pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, lastTickTime / demoDeltaTime);
+				if (curr.jetting && next.jetting)
+					pawn->eventUpdateJetpackEffects();
 			}
 
 			if (lastTickTime + deltaTime >= demoDeltaTime)
@@ -249,24 +271,8 @@ void routeFlagGrab(float grabtime)
 {
 	if (!recording)
 		return;
-
-	//recording = false;
 	
-	int eta = 5;
-
-	for (size_t i = 0; i < route.size(); i++)
-	{
-		if (grabtime - route.at(i).time >= eta)
-		{
-			route.at(i).eta = eta;
-			eta += 5;
-		}
-		else if (route.at(i).eta)
-			route.at(i).eta = NULL;
-	}
-	// Exact ETA for the first point
-	route.back().eta = int(round(grabtime - route.back().time));
-	routeLength = route.back().eta;
+	flagGrabTime = grabtime;
 }
 
 void routeSaveFile(const std::string &desc)
@@ -297,7 +303,8 @@ void routeSaveFile(const std::string &desc)
 	description.erase(std::remove(description.begin(), description.end(), '\\'), description.end());
 	std::replace(description.begin(), description.end(), ' ', '_');
 
-	std::string filename = mapName + '_' + teamName + '_' + className + '_'
+	std::string teamName = teamNum == 0 ? "BE" : "DS";
+	std::string filename = mapName + '_' + teamName + '_' + classAbbr + '_'
 		+ playerName + "_(" + description + ")_" + std::to_string(routeLength) + "s.route";
 
 	std::string filepath = routedir + filename;
@@ -307,8 +314,8 @@ void routeSaveFile(const std::string &desc)
 	if (routefile.is_open())
 	{
 		routefile
-			<< mapName << ' ' << teamName << ' ' << className << ' ' << routeLength << ' '
-			<< classHealth << ' ' << playerName << ' ' << MODVERSION << '\n'
+			<< MODVERSION << ' ' << mapName << ' ' << teamNum << ' ' << className << ' ' << classAbbr << ' '
+			<< classHealth << ' ' << playerName << ' ' << flagGrabTime << ' ' << routeLength << '\n'
 			<< description << '\n';
 
 		for (size_t i = 0; i < route.size(); i++)
@@ -319,13 +326,12 @@ void routeSaveFile(const std::string &desc)
 				<< curr.time << ' '
 				<< curr.loc.X << ' ' << curr.loc.Y << ' ' << curr.loc.Z << ' '
 				<< curr.vel.X << ' ' << curr.vel.Y << ' ' << curr.vel.Z << ' '
-				<< curr.rot.Pitch << ' ' << curr.rot.Yaw << ' ' << curr.rot.Roll << ' '
+				<< curr.rot.Pitch << ' ' << curr.rot.Yaw << ' '
 				<< curr.phys << ' '
 				<< curr.skiing << ' '
 				<< curr.jetting << ' '
 				<< curr.health << ' '
-				<< curr.energy << ' '
-				<< curr.eta << '\n';
+				<< curr.energy << '\n';
 		}
 		Utils::printConsole("Saved route '" + filename + "'");
 	}
@@ -365,8 +371,8 @@ void routeLoadFile(unsigned int num)
 	{
 		routeReset();
 		routefile
-			>> mapName >> teamName >> className >> routeLength
-			>> classHealth >> playerName >> version;
+			>> version >> mapName >> teamNum >> className >> classAbbr
+			>> classHealth >> playerName >> flagGrabTime >> routeLength;
 
 		routefile >> description;
 
@@ -375,12 +381,15 @@ void routeLoadFile(unsigned int num)
 			>> pos.time
 			>> pos.loc.X >> pos.loc.Y >> pos.loc.Z
 			>> pos.vel.X >> pos.vel.Y >> pos.vel.Z
-			>> pos.rot.Pitch >> pos.rot.Yaw >> pos.rot.Roll
+			>> pos.rot.Pitch >> pos.rot.Yaw
 			>> pos.phys >> pos.skiing >> pos.jetting
-			>> pos.health >> pos.energy >> pos.eta)
+			>> pos.health >> pos.energy)
 		{
-			route.push_back(pos);
+			pos.rot.Roll = 0;
+			pos.eta = -1;
+			route.push_back(pos);	
 		}
+		routeInsertEta();
 
 		Utils::printConsole("Loaded route '" + files.at(num - 1) + "'");
 	}
@@ -462,7 +471,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 		position &curr = route.at(i);
 
 		// Only draw a dot every x milliseonds but always draw ones with ETA or damage taken
-		if (!curr.eta
+		if (curr.eta < 0
 			&& i + 1 < route.size()
 			&& curr.health >= route.at(i + 1).health
 			&& i % int(g_config.routeDrawInterval < ROUTE_SAVES_INTERVAL ? 1 : g_config.routeDrawInterval / ROUTE_SAVES_INTERVAL) != 0)
@@ -498,7 +507,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 				else
 					that->DrawColoredMarkerText(L"-", col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
 
-				if (curr.eta)
+				if (curr.eta >= 0)
 				{
 					overhead_number_location.X = curr.loc.X;
 					overhead_number_location.Y = curr.loc.Y;

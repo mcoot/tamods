@@ -46,7 +46,7 @@ void routeLoadFile(unsigned int num);
 void routeList(const std::string &needle);
 void routeListAll();
 void routePawnTickRecord(ATrPawn* pawn);
-void routePawnTickReplay(ATrPawn* pawn, float deltaTime);
+void routePawnTickReplay(ATrPlayerPawn* pawn, float deltaTime);
 void routeFlagGrab(float grabtime);
 void UpdateRouteOverheadNumbers(ATrHUD *that);
 
