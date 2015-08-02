@@ -168,6 +168,7 @@
     <ClCompile Include="Mod_Projectiles.cpp" />
     <ClCompile Include="Mod_Reticules.cpp" />
     <ClCompile Include="Mod_Routes.cpp" />
+    <ClCompile Include="Mod_ServerSettings.cpp" />
     <ClCompile Include="Mod_StateSaving.cpp" />
     <ClCompile Include="ParticleModuleHelper.cpp" />
     <ClCompile Include="SDK_SOURCES\Core_functions.cpp" />

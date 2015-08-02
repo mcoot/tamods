@@ -24,10 +24,6 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 		playHeadShotSound();
 		nHitEnemyHeadshot = that->r_nHitEnemyHeadshot;
 	}
-	// Doesn't work here because a kill happens after the damange number was drawn
-	//ATrPlayerReplicationInfo *aTrPRI = (ATrPlayerReplicationInfo*)that->PlayerReplicationInfo;
-	//if (aTrPRI)
-	//	Utils::console("Kills: %d", aTrPRI->m_nKills);
 
 	//Stats Stuff, TODO this should be hooked onto event TakeDamage instead
 	if (g_config.recordStats == true){

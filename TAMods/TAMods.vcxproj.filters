@@ -339,6 +339,9 @@
     <ClCompile Include="Mod_Routes.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
+    <ClCompile Include="Mod_ServerSettings.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h">

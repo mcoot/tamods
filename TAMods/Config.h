@@ -45,10 +45,6 @@ void routeSaveFile(const std::string &desc);
 void routeLoadFile(unsigned int num);
 void routeList(const std::string &needle);
 void routeListAll();
-void routeTickRecord(ATrPlayerController * pc);
-void routeTickReplay(ATrPlayerController* pc, float deltaTime);
-void routeFlagGrab(float grabtime);
-void UpdateRouteOverheadNumbers(ATrHUD *that);
 
 struct Crosshairs
 {
@@ -344,7 +340,7 @@ public:
 	float stopwatchCapTime   = 0.0f;
 	int stopwatchGrabHealth  = 0;
 	int stopwatchGrabSpeed   = -1;
-	bool routeBotReplay = false; // 'true' just for testing
+	bool routeBotReplay = true;
 
 	// Route recording
 	int routeDrawInterval;

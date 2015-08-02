@@ -56,15 +56,6 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 		g_config.stopwatchDisplayTime("Stopped - ", that->WorldInfo->RealTimeSeconds);
 		g_config.stopwatchRunning = 0;
 	}
-
-	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0
-	{
-		that->m_nRespawnTimeRemaining = 0;
-		that->r_fRespawnTime = 0;
-		that->MinRespawnDelay = 0;
-		that->UpdateRespawnTimer();
-		that->ClearTimer(FName("PlayRespawnSoonSound"), that);
-	}
 	return false;
 }
 
@@ -142,23 +133,6 @@ bool TrPowerGenerator_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction*
 	}
 
 	return true;
-}
-
-// Flag drag in roam map
-bool TrPC_PressedSki(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
-
-	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0
-	{
-		ATrPawn *pawn = (ATrPawn *)that->Pawn;
-		if (pawn)
-		{
-			pawn->m_fMaxSpeedWithFlag = (float)g_config.maxSpeedWithFlag / 0.072f;
-			pawn->m_fDecelerationRateWithFlag = (float)g_config.decelerationRateWithFlag / 0.072f;
-		}
-	}
-	return false;
 }
 
 static void updateLoadingSceneImage(const std::string &map)

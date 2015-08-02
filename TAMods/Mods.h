@@ -40,17 +40,21 @@ bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, vo
 bool TrPC_InitInputSystem(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 // Roam map
-bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool TrGame_TRCTF_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_Suicide(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrDeployable_FinalizeDeployment(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPowerGenerator_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool TrPC_PressedSki(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
+// Route/state saving
 bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-
-// State saving
-void UpdateLocationOverheadNumbers(ATrHUD *that);
+bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+void routeFlagGrab(float grabtime);
+void routeTickRecord(ATrPlayerController * pc);
+void routeTickReplay(ATrPlayerController* pc, float deltaTime);
+void UpdateRouteOverheadNumbers(ATrHUD *that);
+void UpdateLocationOverheadNumbers(ATrHUD *that);
 
 // Stats
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
