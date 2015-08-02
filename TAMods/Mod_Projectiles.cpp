@@ -323,6 +323,9 @@ bool TrDev_WeaponConstantFiring_BeginState(int ID, UObject *dwCallingObject, UFu
 
 bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	if (dwCallingObject->IsA(ATrPlayerController_Training::StaticClass()))
+		return false;
+
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_eventPlayerTick_Parms *params = (ATrPlayerController_eventPlayerTick_Parms *) pParams;
 
@@ -344,7 +347,7 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	Utils::tr_pc = that;
 
 	routeTickRecord(that);
-	routeTickReplay(that, params->DeltaTime);
+	routeTickReplay(params->DeltaTime);
 
 	if (g_config.useMagicChain)
 		that->m_bAllowSimulatedProjectiles = true;

@@ -36,6 +36,8 @@ float flagGrabTime = 0.0f;
 std::string routedir = Utils::getConfigDir() + "routes\\";
 std::vector<std::string> files;
 
+ATrPlayerController *replayPC;
+
 bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	if (!g_config.routeBotReplay)
@@ -74,11 +76,8 @@ void routeStartRec()
 	if (!pawn)
 		return;
 
-	if (replaying)
-		routeStopReplay();
-
-	if (recording)
-		routeStopRec();
+	routeStopReplay();
+	routeStopRec();
 
 	Utils::notify("Route recorder", "Recording started");
 
@@ -112,7 +111,7 @@ void routeStopRec()
 
 void routeTickRecord(ATrPlayerController* pc)
 {
-	if (recording && !pc->IsA(ATrPlayerController_Training::StaticClass()))
+	if (recording)
 	{
 		ATrPawn *pawn = (ATrPawn *)pc->Pawn;
 
@@ -134,6 +133,46 @@ void routeTickRecord(ATrPlayerController* pc)
 unsigned int i;
 float lastTickTime;
 
+static ATrPlayerController_Training* spawnPawn()
+{
+	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+
+	// Create one bot
+	static ATrPlayerController_Training *spawned = (ATrPlayerController_Training *)pc->Spawn(ATrPlayerController_Training::StaticClass(), pc, FName(0), pc->Location, pc->Rotation, NULL, 0);
+
+	spawned->PlayerReplicationInfo->PlayerName = L"Creature";
+	spawned->PlayerReplicationInfo->bReadyToPlay = true;
+	spawned->PlayerReplicationInfo->bHidden = false;
+	spawned->PlayerReplicationInfo->bIsInactive = false;
+	spawned->PlayerReplicationInfo->PlayerID = pc->PlayerReplicationInfo->PlayerID + 1;
+	spawned->ServerChangeTeam(teamNum);
+	if (spawned->PlayerReplicationInfo->IsA(ATrPlayerReplicationInfo::StaticClass()))
+	{
+		// Update the class of the bot to the one currently used by the player
+		ATrPlayerReplicationInfo *rep = (ATrPlayerReplicationInfo *)spawned->PlayerReplicationInfo;
+		ATrPlayerReplicationInfo *pcrep = (ATrPlayerReplicationInfo *)pc->PlayerReplicationInfo;
+		rep->m_CurrentBaseClass = pcrep->m_CurrentBaseClass;
+		rep->m_PendingBaseClass = pcrep->m_PendingBaseClass;
+	}
+
+
+	// Suicide & respawn
+	spawned->Suicide();
+	spawned->Respawn();
+	
+	if (spawned->Pawn)
+	{
+		((ATrPawn *)spawned->Pawn)->ClearInvulnerability();
+		((ATrPawn *)spawned->Pawn)->m_AudioComponentJetpackLoop->VolumeMultiplier = 0.0f;
+		((ATrPawn *)spawned->Pawn)->m_AudioComponentSkiLoop->VolumeMultiplier = 0.0f;
+		((ATrPawn *)spawned->Pawn)->m_AudioComponentSpeedSound->VolumeMultiplier = 0.0f;
+	}
+	spawned->m_AudioComponentLowHealthLoop->VolumeMultiplier = 0.0f;
+	spawned->m_AudioComponentRechargeHealth->VolumeMultiplier = 0.0f;
+
+	return spawned;
+}
+
 void routeReplay()
 {
 	if (replaying)
@@ -144,26 +183,29 @@ void routeReplay()
 
 void routeStartReplay(unsigned int startPercent)
 {
-	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
-	ATrPawn *pawn;
+	routeStopRec();
+	routeStopReplay();
 
-	if (pc)
-		pawn = (ATrPawn *)pc->Pawn;
-
-	if (!pc || pc->WorldInfo->NetMode != 0 || !pawn)
+	if (Utils::engine->GetCurrentWorldInfo()->NetMode != 0)
 		return;
-
-	if (recording)
-		routeStopRec();
-
-	if (replaying)
-		routeStopReplay();
 
 	if (route.size() == 0)
 	{
 		Utils::console("Error: No route to replay");
 		return;
 	}
+
+	if (g_config.routeBotReplay)
+		replayPC = spawnPawn();
+	else
+		replayPC = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+	
+	ATrPawn *pawn;
+	if (replayPC)
+		pawn = (ATrPawn *)replayPC->Pawn;
+
+	if (!replayPC || !pawn)
+		return;
 
 	pawn->m_fSplatDamageFromLandMin = 0.0f;
 	pawn->m_fSplatDamageFromLandMax = 0.0f;
@@ -177,7 +219,7 @@ void routeStartReplay(unsigned int startPercent)
 
 	// Give health of the start point
 	pawn->Health = route.at(route.size() - 1 - i).health;
-	pawn->m_fLastDamagerTimeStamp = pc->WorldInfo->TimeSeconds;
+	pawn->m_fLastDamagerTimeStamp = replayPC->WorldInfo->TimeSeconds;
 
 	lastTickTime = 0.0f;
 	replaying = true;
@@ -187,21 +229,25 @@ void routeStopReplay()
 {
 	if (replaying)
 	{
-		ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
 		ATrPawn *pawn;
 
-		if (pc)
-			pawn = (ATrPawn *)pc->Pawn;
+		if (replayPC)
+			pawn = (ATrPawn *)replayPC->Pawn;
 
-		if (pawn && !g_config.routeBotReplay)
+		if (pawn && !replayPC->IsA(ATrPlayerController_Training::StaticClass()))
+		{
+			if (!replayPC->m_bPressingJetpack)
+				pawn->r_bIsJetting = 0; // FIXME: jet still stuck
+
 			pawn->RefreshInventory(0, 0);
+		}
 
 		Utils::notify("Route recorder", "Replay stopped");
 		replaying = false;
 	}
 }
 
-void routeTickReplay(ATrPlayerController* pc, float deltaTime)
+void routeTickReplay(float deltaTime)
 {
 	if (replaying && !recording)
 	{
@@ -210,15 +256,14 @@ void routeTickReplay(ATrPlayerController* pc, float deltaTime)
 			replaying = false;
 			return;
 		}
-
-		if ((g_config.routeBotReplay && !pc->IsA(ATrPlayerController_Training::StaticClass()))
-			|| (!g_config.routeBotReplay && pc->IsA(ATrPlayerController_Training::StaticClass())))
+		if (!replayPC)
 			return;
 
-		if (!pc->Pawn)
+		if (!replayPC->Pawn)
 			return;
 
-		ATrPawn *pawn = (ATrPawn *)pc->Pawn;
+		ATrPawn *pawn = (ATrPawn *)replayPC->Pawn;
+
 		size_t end = route.size() - 1;
 		position &curr = route.at(end - i);
 
@@ -232,7 +277,7 @@ void routeTickReplay(ATrPlayerController* pc, float deltaTime)
 				pawn->Location = curr.loc;
 				pawn->Velocity = curr.vel;
 				if (g_config.routeReplayRotation)
-					pc->SetRotation(curr.rot);
+					replayPC->SetRotation(curr.rot);
 				pawn->Physics = curr.phys;
 				pawn->r_bIsSkiing = curr.skiing;
 				pawn->r_bIsJetting = curr.jetting;
@@ -249,18 +294,13 @@ void routeTickReplay(ATrPlayerController* pc, float deltaTime)
 
 				if (curr.health > next.health) // Lost health
 				{
-					pc->ClientPlayTakeHit(curr.loc, curr.health - next.health, UTrDmgType_LightSpinfusor::StaticClass());
-					pawn->m_fLastDamagerTimeStamp = pc->WorldInfo->TimeSeconds + (ROUTE_SAVES_INTERVAL / 2000);
+					replayPC->ClientPlayTakeHit(curr.loc, curr.health - next.health, UTrDmgType_LightSpinfusor::StaticClass());
+					pawn->m_fLastDamagerTimeStamp = replayPC->WorldInfo->TimeSeconds + (ROUTE_SAVES_INTERVAL / 2000);
 					pawn->Health -= curr.health - next.health; // maybe limit health loss to never kill ourself?
 					if (pawn->Health <= 0)
-					{ // This needs a better method
-						pc->Suicide();
+					{
+						replayPC->Suicide();
 						routeStopReplay();
-						pc->m_nRespawnTimeRemaining = 0;
-						pc->r_fRespawnTime = 0;
-						pc->MinRespawnDelay = 0;
-						pc->UpdateRespawnTimer();
-						pc->ClearTimer(FName("PlayRespawnSoonSound"), pc);
 					}
 				}
 				else if (curr.health < next.health) // Regen
@@ -275,7 +315,7 @@ void routeTickReplay(ATrPlayerController* pc, float deltaTime)
 			{
 				pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, lastTickTime / demoDeltaTime);
 				if (g_config.routeReplayRotation)
-					pc->SetRotation(Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true));
+					replayPC->SetRotation(Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true));
 				pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, lastTickTime / demoDeltaTime);
 				if (next.jetting)
 					((ATrPlayerPawn *)pawn)->eventUpdateJetpackEffects();
