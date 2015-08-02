@@ -24,6 +24,7 @@ bool TrGame_TRCTF_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction* pFu
 		settings->bFriendlyFireDeployables = true;
 		
 		game->ApplyServerSettings();
+		game->m_bShouldAutoBalance = false;
 	}
 
 	return false;

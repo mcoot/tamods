@@ -181,6 +181,9 @@ void Config::reset()
 	//Stats
 	recordStats = false;
 
+	// delete me! this is just for testing
+	routeBotReplay = false;
+
 	// Magic chain
 	useSmallBullets      = false;
 	useMagicChain        = false;
@@ -627,6 +630,9 @@ void Config::setVariables()
 
 	// Toggle Stats
 	SET_VARIABLE(bool, recordStats);
+
+	// delete me! this is just for testing
+	SET_VARIABLE(bool, routeBotReplay);
 
 	// Magic chain
 	SET_VARIABLE(bool, useSmallBullets);

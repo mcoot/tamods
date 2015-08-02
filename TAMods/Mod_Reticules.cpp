@@ -2,6 +2,8 @@
 
 bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	// TODO: Is this also called by bots?
+
 	Hooks::lock();
 
 	ATrPawn *that = (ATrPawn *)dwCallingObject;

@@ -340,7 +340,7 @@ public:
 	float stopwatchCapTime   = 0.0f;
 	int stopwatchGrabHealth  = 0;
 	int stopwatchGrabSpeed   = -1;
-	bool routeBotReplay = true;
+	bool routeBotReplay;
 
 	// Route recording
 	int routeDrawInterval;

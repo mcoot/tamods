@@ -52,7 +52,7 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 void routeFlagGrab(float grabtime);
 void routeTickRecord(ATrPlayerController * pc);
-void routeTickReplay(ATrPlayerController* pc, float deltaTime);
+void routeTickReplay(float deltaTime);
 void UpdateRouteOverheadNumbers(ATrHUD *that);
 void UpdateLocationOverheadNumbers(ATrHUD *that);
 
