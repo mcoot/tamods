@@ -20,7 +20,6 @@ namespace TAModLauncher
         public TAModUpdater updater;
         public TAModLauncherConfig config;
         public DLLInjector injector;
-        public DLLInjector testInjector;
         public SettingsForm settingsform;
         public string LauncherPath { get; set; }
 
@@ -58,8 +57,6 @@ namespace TAModLauncher
                  Environment.CurrentDirectory + "\\TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
             // Create the injector
             injector = new DLLInjector(tribesProcessName, DLLPath);
-
-            testInjector = new DLLInjector("notepad++", "E:\\UserFiles\\Documents\\Tribes Mods\\TAMods\\TAModLauncher\\bin\\Debug\\TestInject.dll");
 
             if (checkAutoUpdate.Checked)
             {
@@ -204,6 +201,13 @@ namespace TAModLauncher
                     "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            if (injector.HasInjected)
+            {
+                MessageBox.Show("ERROR: Mods have already been injected.",
+                    "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             
             try
             {
@@ -216,6 +220,36 @@ namespace TAModLauncher
                 return false;
             }
 
+            return true;
+        }
+
+        private bool EjectMods()
+        {
+            if (!injector.DoesProcessExist(tribesProcessName))
+            {
+                MessageBox.Show("ERROR: Tribes: Ascend is not running.",
+                    "Error Ejecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (!injector.HasInjected)
+            {
+                MessageBox.Show("ERROR: Mods have not been injected.",
+                    "Error Ejecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            try
+            {
+                injector.Eject();
+            }
+            catch (InjectorException ex)
+            {
+                MessageBox.Show("ERROR: Ejection failed.\n\nMessage: " + ex.Message,
+                    "Error Ejecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            
             return true;
         }
 
@@ -246,7 +280,14 @@ namespace TAModLauncher
                 // Check if game is already running
                 if (injector.DoesProcessExist(tribesProcessName))
                 {
-                    InjectMods();
+                    if (injector.HasInjected)
+                    {
+                        EjectMods();
+                    }
+                    else
+                    {
+                        InjectMods();
+                    }
                 }
                 else if (!injector.DoesProcessExist("hirezlauncherui"))
                 {
@@ -306,25 +347,20 @@ namespace TAModLauncher
             {
                 if (injector.DoesProcessExist(tribesProcessName))
                 {
-                    btnUpdateLaunch.Text = "Inject TAMods";
+                    if (injector.HasInjected)
+                    {
+                        btnUpdateLaunch.Text = "Eject TAMods";
+                    }
+                    else
+                    {
+                        btnUpdateLaunch.Text = "Inject TAMods";
+                    }
                 }
                 else
                 {
                     btnUpdateLaunch.Text = "Launch Tribes";
+                    if (injector.HasInjected) injector.HasInjected = false;
                 }
-            }
-        }
-
-        private void btnInjectorTest_Click(object sender, EventArgs e)
-        {
-            Debug.WriteLine("INJECTOR IS " + ((testInjector.HasInjected) ? "EJECTING!" : "INJECTING!"));
-            if (testInjector.HasInjected)
-            {
-                testInjector.Eject();
-            }
-            else
-            {
-                testInjector.Inject();
             }
         }
 

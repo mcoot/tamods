@@ -37,7 +37,6 @@
             this.btnReinstall = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.timerCheckTribesRunning = new System.Windows.Forms.Timer(this.components);
-            this.btnInjectorTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUpdateLaunch
@@ -115,22 +114,11 @@
             this.timerCheckTribesRunning.Interval = 1000;
             this.timerCheckTribesRunning.Tick += new System.EventHandler(this.timerCheckTribesRunning_Tick);
             // 
-            // btnInjectorTest
-            // 
-            this.btnInjectorTest.Location = new System.Drawing.Point(342, 26);
-            this.btnInjectorTest.Name = "btnInjectorTest";
-            this.btnInjectorTest.Size = new System.Drawing.Size(75, 23);
-            this.btnInjectorTest.TabIndex = 10;
-            this.btnInjectorTest.Text = "TESTY";
-            this.btnInjectorTest.UseVisualStyleBackColor = true;
-            this.btnInjectorTest.Click += new System.EventHandler(this.btnInjectorTest_Click);
-            // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(698, 195);
-            this.Controls.Add(this.btnInjectorTest);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnReinstall);
             this.Controls.Add(this.btnUpdateCheck);
@@ -158,7 +146,6 @@
         private System.Windows.Forms.Button btnReinstall;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Timer timerCheckTribesRunning;
-        private System.Windows.Forms.Button btnInjectorTest;
     }
 }
 

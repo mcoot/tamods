@@ -87,7 +87,6 @@ namespace TAModLauncher
                 throw new InjectorException("Injected thread failed to return.");
             }
             GetExitCodeThread(injectedThread, out DLLAllocatedMemoryAddress);
-            Debug.WriteLine("ALLOC ADDR: " + DLLAllocatedMemoryAddress);
             CloseHandle(processHandle);
             
             HasInjected = true;
