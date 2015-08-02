@@ -20,6 +20,7 @@ namespace TAModLauncher
         public TAModUpdater updater;
         public TAModLauncherConfig config;
         public DLLInjector injector;
+        public DLLInjector testInjector;
         public SettingsForm settingsform;
         public string LauncherPath { get; set; }
 
@@ -57,6 +58,8 @@ namespace TAModLauncher
                  Environment.CurrentDirectory + "\\TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
             // Create the injector
             injector = new DLLInjector(tribesProcessName, DLLPath);
+
+            testInjector = new DLLInjector("notepad++", "E:\\UserFiles\\Documents\\Tribes Mods\\TAMods\\TAModLauncher\\bin\\Debug\\TestInject.dll");
 
             if (checkAutoUpdate.Checked)
             {
@@ -309,6 +312,19 @@ namespace TAModLauncher
                 {
                     btnUpdateLaunch.Text = "Launch Tribes";
                 }
+            }
+        }
+
+        private void btnInjectorTest_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine("INJECTOR IS " + ((testInjector.HasInjected) ? "EJECTING!" : "INJECTING!"));
+            if (testInjector.HasInjected)
+            {
+                testInjector.Eject();
+            }
+            else
+            {
+                testInjector.Inject();
             }
         }
 

@@ -34,7 +34,11 @@ namespace TAModLauncher
             IntPtr lpThreadAttributes, IntPtr dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
 
         [DllImport("kernel32", SetLastError = true, ExactSpelling = true)]
-        internal static extern Int32 WaitForSingleObject(IntPtr handle, Int32 milliseconds); 
+        internal static extern Int32 WaitForSingleObject(IntPtr handle, Int32 milliseconds);
+
+        [DllImport("kernel32")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool GetExitCodeThread(IntPtr hThread, out IntPtr lpExitCode);
 
         // privileges
         const int PROCESS_CREATE_THREAD = 0x0002;
@@ -48,6 +52,11 @@ namespace TAModLauncher
         const uint MEM_RESERVE = 0x00002000;
         const uint PAGE_READWRITE = 4;
 
+        // Required handles
+        private IntPtr DLLAllocatedMemoryAddress = IntPtr.Zero;
+
+        public bool HasInjected { get; set; }
+
         public string TargetProcessName { get; set; }
         public string DLLPath { get; set; }
 
@@ -55,6 +64,7 @@ namespace TAModLauncher
         {
             TargetProcessName = processname;
             DLLPath = dllpath;
+            HasInjected = false;
         }
 
         public bool DoesProcessExist(string processname)
@@ -76,7 +86,27 @@ namespace TAModLauncher
             {
                 throw new InjectorException("Injected thread failed to return.");
             }
+            GetExitCodeThread(injectedThread, out DLLAllocatedMemoryAddress);
+            Debug.WriteLine("ALLOC ADDR: " + DLLAllocatedMemoryAddress);
             CloseHandle(processHandle);
+            
+            HasInjected = true;
+        }
+
+        public void Eject()
+        {
+            IntPtr processHandle = GetProcessHandle(TargetProcessName);
+            IntPtr FreeLibraryAddress = GetFreeLibraryAddress();
+            // Create the thread to eject the DLL
+            IntPtr injectedThread = CreateInjectedThread(processHandle, FreeLibraryAddress, DLLAllocatedMemoryAddress);
+            Int64 Result = WaitForSingleObject(injectedThread, 10 * 1000);
+            if (Result == 0x00000080L || Result == 0x00000102L || Result == 0xFFFFFFFF)
+            {
+                throw new InjectorException("Injected thread failed to return.");
+            }
+            CloseHandle(processHandle);
+
+            HasInjected = false;
         }
 
         private IntPtr GetProcessHandle(string processname)
@@ -96,6 +126,11 @@ namespace TAModLauncher
         private IntPtr GetLoadLibraryAddress()
         {
             return GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
+        }
+
+        private IntPtr GetFreeLibraryAddress()
+        {
+            return GetProcAddress(GetModuleHandle("kernel32.dll"), "FreeLibrary");
         }
 
         private IntPtr AllocateDLLNameMemory(IntPtr procHandle, string dllname)
