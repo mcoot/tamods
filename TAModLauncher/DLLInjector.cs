@@ -129,7 +129,7 @@ namespace TAModLauncher
 
         private IntPtr GetFreeLibraryAddress()
         {
-            return GetProcAddress(GetModuleHandle("kernel32.dll"), "FreeLibrary");
+            return GetProcAddress(GetModuleHandle("kernel32.dll"), "FreeLibraryAndExitThread");
         }
 
         private IntPtr AllocateDLLNameMemory(IntPtr procHandle, string dllname)

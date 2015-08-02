@@ -31,6 +31,7 @@ namespace TAModLauncher
 
             fileSelectDLLDirectory.FilePathChanged += new EventHandler(fileSelectDLLDirectory_FilePathChanged);
             fileSelectDLLDirectory.setFilePath(parent.DLLPath);
+
         }
 
         private void selectUpdateChannel_SelectedIndexChanged(object sender, EventArgs e)
@@ -56,7 +57,7 @@ namespace TAModLauncher
 
         private void fileSelectDLLDirectory_FilePathChanged(object sender, EventArgs e)
         {
-            parent.DLLPath = fileSelectLauncherDirectory.FilePath;
+            parent.DLLPath = fileSelectDLLDirectory.FilePath;
         }
 
         private void SettingsForm_FormClosing(object sender, FormClosingEventArgs e)
