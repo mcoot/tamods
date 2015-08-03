@@ -1,4 +1,5 @@
 #include "Mods.h"
+#include <iomanip>
 
 unsigned const ROUTE_SAVES_MAX = 1200;
 unsigned const ROUTE_SAVES_INTERVAL = 100; // Save location every 100ms. 0.1 seconds * 1200 dots = 120 seconds record
@@ -130,9 +131,6 @@ void routeTickRecord(ATrPlayerController* pc)
 	}
 }
 
-unsigned int i;
-float lastTickTime;
-
 static ATrPlayerController_Training* spawnPawn()
 {
 	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
@@ -215,14 +213,13 @@ void routeStartReplay(unsigned int startPercent)
 	if (startPercent > 99)
 		startPercent = 99;
 
-	i = int((route.size() - 1) * startPercent / 100);
+	size_t startPos = int((route.size() - 1) * startPercent / 100);
 
 	// Give health of the start point
-	pawn->Health = route.at(route.size() - 1 - i).health;
+	pawn->Health = route.at((route.size() - 1) - startPos).health;
 	pawn->m_fLastDamagerTimeStamp = replayPC->WorldInfo->TimeSeconds;
 
-	lastTickTime = 0.0f;
-	replaying = true;
+	routeTickReplay(0.0f, true, startPos);
 }
 
 void routeStopReplay()
@@ -247,37 +244,54 @@ void routeStopReplay()
 	}
 }
 
-void routeTickReplay(float deltaTime)
+void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 {
+	static bool fullTickReached = true;
+	static float timeSinceLastTick = 0.0f;
+	static unsigned int i = 0;
+
+	if (firstRun)
+	{
+		fullTickReached = true;
+		timeSinceLastTick = 0.0f;
+		i = startPos;
+		replaying = true;
+		return;
+	}
+
 	if (replaying && !recording)
 	{
-		if (route.size() == 0 || i == route.size() - 1)
+		if (route.size() == 0 || i == route.size())
 		{
 			replaying = false;
 			return;
 		}
-		if (!replayPC)
+		if (!replayPC || !replayPC->Pawn)
+		{
+			replaying = false;
 			return;
-
-		if (!replayPC->Pawn)
-			return;
+		}
 
 		ATrPawn *pawn = (ATrPawn *)replayPC->Pawn;
 
 		size_t end = route.size() - 1;
 		position &curr = route.at(end - i);
 
-		if (i + 1 != end) // Is there a next item in the vector?
+		if (i + 1 < end) // Is there a next item in the vector?
 		{
 			position &next = route.at(end - i - 1);
 			float demoDeltaTime = next.time - curr.time;
 
-			if (lastTickTime == 0.0f) // Every route demo tick
+			pawn->Location = Utils::tr_pc->VLerp(curr.loc, next.loc, timeSinceLastTick / demoDeltaTime);
+			pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, timeSinceLastTick / demoDeltaTime);
+			pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, timeSinceLastTick / demoDeltaTime);
+			if (g_config.routeReplayRotation)
+				replayPC->SetRotation(Utils::tr_pc->RLerp(curr.rot, next.rot, timeSinceLastTick / demoDeltaTime, true));
+
+			if (fullTickReached) // Every demo tick
 			{
-				pawn->Location = curr.loc;
-				pawn->Velocity = curr.vel;
-				if (g_config.routeReplayRotation)
-					replayPC->SetRotation(curr.rot);
+				fullTickReached = false;
+
 				pawn->Physics = curr.phys;
 				pawn->r_bIsSkiing = curr.skiing;
 				pawn->r_bIsJetting = curr.jetting;
@@ -295,8 +309,8 @@ void routeTickReplay(float deltaTime)
 				if (curr.health > next.health) // Lost health
 				{
 					replayPC->ClientPlayTakeHit(curr.loc, curr.health - next.health, UTrDmgType_LightSpinfusor::StaticClass());
-					pawn->m_fLastDamagerTimeStamp = replayPC->WorldInfo->TimeSeconds + (ROUTE_SAVES_INTERVAL / 2000);
-					pawn->Health -= curr.health - next.health; // maybe limit health loss to never kill ourself?
+					pawn->m_fLastDamagerTimeStamp = (replayPC->WorldInfo->TimeSeconds * replayPC->WorldInfo->TimeDilation) + (ROUTE_SAVES_INTERVAL / 2000);
+					pawn->Health -= curr.health - next.health;
 					if (pawn->Health <= 0)
 					{
 						replayPC->Suicide();
@@ -308,28 +322,22 @@ void routeTickReplay(float deltaTime)
 					if (pawn->Health >= (int)curr.health) // Health has properly replayed so far, means we didn't stop a bots or our own regen
 						pawn->m_fLastDamagerTimeStamp = 0.0f;
 				}
-
-				pawn->m_fCurrentPowerPool = curr.energy;
-			}
-			else // Intermediate ticks
-			{
-				pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, lastTickTime / demoDeltaTime);
-				if (g_config.routeReplayRotation)
-					replayPC->SetRotation(Utils::tr_pc->RLerp(curr.rot, next.rot, lastTickTime / demoDeltaTime, true));
-				pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, lastTickTime / demoDeltaTime);
-				if (next.jetting)
-					((ATrPlayerPawn *)pawn)->eventUpdateJetpackEffects();
 			}
 
-			if (lastTickTime + deltaTime >= demoDeltaTime)
+			if (next.jetting)
+				((ATrPlayerPawn *)pawn)->eventUpdateJetpackEffects();
+
+			deltaTime /= replayPC->WorldInfo->TimeDilation;
+			if (timeSinceLastTick + deltaTime >= demoDeltaTime)
 			{
-				lastTickTime = 0.0f;
+				timeSinceLastTick = (timeSinceLastTick + deltaTime) - demoDeltaTime;
+				fullTickReached = true;
 				i++;
 			}
 			else
-				lastTickTime += deltaTime;
+				timeSinceLastTick += deltaTime;
 		}
-		else // End of route vector reached
+		else // End of route reached
 			routeStopReplay();
 	}
 }
@@ -389,23 +397,23 @@ void routeSaveFile(const std::string &desc)
 	{
 		routefile
 			<< MODVERSION << ' ' << mapName << ' ' << teamNum << ' ' << className << ' ' << classAbbr << ' '
-			<< classHealth << ' ' << playerName << ' ' << flagGrabTime << ' ' << routeLength << '\n'
+			<< classHealth << ' ' << playerName << ' ' << std::setprecision(5) << std::fixed << flagGrabTime << ' ' << routeLength << '\n'
 			<< description << '\n';
 
 		for (size_t i = 0; i < route.size(); i++)
 		{
 			position curr = route.at(i);
 
-			routefile 
-				<< curr.time << ' '
+			routefile
+				<< std::fixed << std::setprecision(5) << curr.time << ' '
 				<< curr.loc.X << ' ' << curr.loc.Y << ' ' << curr.loc.Z << ' '
-				<< curr.vel.X << ' ' << curr.vel.Y << ' ' << curr.vel.Z << ' '
+				<< std::setprecision(3) << curr.vel.X << ' ' << curr.vel.Y << ' ' << curr.vel.Z << ' '
 				<< curr.rot.Pitch << ' ' << curr.rot.Yaw << ' '
 				<< curr.phys << ' '
 				<< curr.skiing << ' '
 				<< curr.jetting << ' '
 				<< curr.health << ' '
-				<< curr.energy << '\n';
+				<< std::setprecision(1) << curr.energy << '\n';
 		}
 		Utils::printConsole("Saved route '" + filename + "'");
 	}

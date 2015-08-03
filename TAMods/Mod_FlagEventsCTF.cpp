@@ -2,9 +2,6 @@
 
 bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (!g_config.audioEngine.audioAvailable())
-		return false;
-
 	ATrPlayerController_eventReceiveLocalizedMessage_Parms *params = (ATrPlayerController_eventReceiveLocalizedMessage_Parms *)pParams;
 
 	std::string msgClass = std::string(params->Message->GetName());
