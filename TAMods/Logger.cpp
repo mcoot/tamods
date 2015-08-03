@@ -21,6 +21,13 @@ static bool openFile()
 	return !!_file;
 }
 
+void Logger::cleanup()
+{
+	if (!_file)
+		return;
+	fclose(_file);
+}
+
 void Logger::quiet()
 {
 	_quiet = true;

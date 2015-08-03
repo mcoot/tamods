@@ -18,6 +18,7 @@ namespace Hooks
 	};
 	
 	void init(bool print_hookable = true);
+	void cleanup();
 	int add(HookFunction hook_function, char *original_name, Order hook_order = PRE, UClass *thisclassonly = NULL);
 	bool remove(char *original_name, Order order = PRE);
 	bool remove(int id);

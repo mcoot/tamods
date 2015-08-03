@@ -88,6 +88,8 @@ void onDLLProcessAttach()
 void onDLLProcessDetach()
 {
 	Logger::log("DLL Process Detach");
+	Hooks::cleanup();
+	Logger::cleanup();
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason, LPVOID lpReserved)

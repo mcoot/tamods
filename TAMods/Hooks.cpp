@@ -111,6 +111,11 @@ void Hooks::init(bool print_hookable) {
 	pProcessEvent = (ProcessEventFunction) DetourFunction((PBYTE) *ProcessEventsAddress, (PBYTE)&ProxyFunction); //0x00458B30
 }
 
+void Hooks::cleanup()
+{
+	DetourRemove((PBYTE)pProcessEvent, (PBYTE)&ProxyFunction);
+}
+
 // Returns the id of the created hook, 0 on failure
 int Hooks::add(HookFunction hook_function, char *original_name, Order hook_order, UClass *thisclassonly)
 {

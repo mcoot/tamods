@@ -11,4 +11,5 @@ namespace Logger
 	void noln(const char *format, ...);
 	void quiet();
 	bool isQuiet();
+	void cleanup();
 };
