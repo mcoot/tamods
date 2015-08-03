@@ -179,7 +179,7 @@ void routeReplay()
 		routeStartReplay(0);
 }
 
-void routeStartReplay(unsigned int startPercent)
+void routeStartReplay(float startTime)
 {
 	routeStopRec();
 	routeStopReplay();
@@ -210,13 +210,27 @@ void routeStartReplay(unsigned int startPercent)
 	pawn->m_fSplatDamageFromWallMin = 0.0f;
 	pawn->m_fSplatDamageFromWallMax = 0.0f;
 
-	if (startPercent > 99)
-		startPercent = 99;
+	float &start = route.back().time;
+	float &end = route.at(0).time;
+	size_t last = route.size() - 1;
+	size_t startPos;
 
-	size_t startPos = int((route.size() - 1) * startPercent / 100);
+	if (startTime >= end - start)
+		startPos = last - 1;
+	else if (startTime <= 0.0f)
+		startPos = 0;
+	else
+		for (startPos = 0; startPos < route.size(); startPos++)
+		{
+			if (route.at(startPos).time - start <= startTime)
+			{
+				startPos = last - startPos;
+				break;
+			}
+		}
 
 	// Give health of the start point
-	pawn->Health = route.at((route.size() - 1) - startPos).health;
+	pawn->Health = route.at(last - startPos).health;
 	pawn->m_fLastDamagerTimeStamp = replayPC->WorldInfo->TimeSeconds;
 
 	routeTickReplay(0.0f, true, startPos);
@@ -277,7 +291,7 @@ void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 		size_t end = route.size() - 1;
 		position &curr = route.at(end - i);
 
-		if (i + 1 < end) // Is there a next item in the vector?
+		if (i < end) // Is there a next item in the vector?
 		{
 			position &next = route.at(end - i - 1);
 			float demoDeltaTime = next.time - curr.time;
