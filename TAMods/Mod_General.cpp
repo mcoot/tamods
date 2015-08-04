@@ -48,20 +48,21 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 
+	if (!dwCallingObject->IsA(ATrPlayerController_Training::StaticClass()))
+	{
+		if (that->WorldInfo && g_config.stopwatchRunning && g_config.stopwatchStopOnDeath)
+		{
+			g_config.stopwatchDisplayTime("Stopped - ", that->WorldInfo->RealTimeSeconds);
+			g_config.stopwatchPrintSummary();
+			g_config.stopwatchRunning = 0;
+		}
+		routeStopRec();
+	}
+
 	if ((g_config.routeBotReplay && that->IsA(ATrPlayerController_Training::StaticClass()))
 		|| (!g_config.routeBotReplay && !that->IsA(ATrPlayerController_Training::StaticClass())))
 		routeStopReplay();
 
-	if (!dwCallingObject->IsA(ATrPlayerController_Training::StaticClass()))
-	{
-		routeStopRec();
-
-		if (that->WorldInfo && g_config.stopwatchRunning && g_config.stopwatchStopOnDeath)
-		{
-			g_config.stopwatchDisplayTime("Stopped - ", that->WorldInfo->RealTimeSeconds);
-			g_config.stopwatchRunning = 0;
-		}
-	}
 	return false;
 }
 

@@ -444,7 +444,7 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 			worldseconds -= g_config.stopwatchStartTime;
 
 		if (worldseconds < 0.0f) // no back to the future pls
-			g_config.stopwatchReset();
+			stopwatchReset();
 
 		int minutes = (int)worldseconds / 60;
 		int seconds = (int)worldseconds % 60;

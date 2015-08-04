@@ -47,6 +47,7 @@ void resetPlayerStates()
 bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	resetPlayerStates();
+	stopwatchReset();
 	routeReset();
 
 	return false;
@@ -98,7 +99,33 @@ void spawnsToPlayerStates()
 	}
 }
 
-void toggleStopwatch()
+void stopwatch()
+{
+	if (g_config.stopwatchRunning)
+		stopwatchStop();
+	else
+		stopwatchStart();
+}
+
+void stopwatchStart()
+{
+	ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
+
+	if (TrPC && TrPC->WorldInfo)
+	{
+		if (g_config.stopwatchRunning)
+		{
+			g_config.stopwatchDisplayTime("Restarted - ", TrPC->WorldInfo->RealTimeSeconds);
+			g_config.stopwatchPrintSummary();
+		}
+		else
+			g_config.stopwatchRunning = true;
+
+		g_config.stopwatchStartTime = TrPC->WorldInfo->RealTimeSeconds;
+	}
+}
+
+void stopwatchStop()
 {
 	ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
 
@@ -111,9 +138,18 @@ void toggleStopwatch()
 			g_config.stopwatchStartTime = 0;
 			g_config.stopwatchRunning = 0;
 		}
-		else
-			g_config.stopwatchStart(TrPC->WorldInfo->RealTimeSeconds);
 	}
+}
+
+void stopwatchReset()
+{
+	stopwatchStop();
+	g_config.stopwatchRunning = false;
+	g_config.stopwatchStartTime = 0;
+	g_config.stopwatchCapTime = 0.0f;
+	g_config.stopwatchGrabTime = 0.0f;
+	g_config.stopwatchGrabHealth = 0;
+	g_config.stopwatchGrabSpeed = -1;
 }
 
 void savePlayerState(int n)
@@ -204,7 +240,7 @@ void recallPlayerState(int n, bool tpOnly)
 				if (g_config.stopwatchRunning)
 					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
 
-				g_config.stopwatchReset(); // /tp always resets the stopwatch
+				stopwatchReset(); // /tp always resets the stopwatch
 
 				// Restore health, energy and ammo
 				TrPawn->RefreshInventory(1, 0);

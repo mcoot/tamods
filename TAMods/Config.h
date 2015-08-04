@@ -20,7 +20,10 @@
 #define MODVERSION "0.5"
 
 // Declared here to use as lua functions
-void toggleStopwatch();
+void stopwatch();
+void stopwatchStart();
+void stopwatchStop();
+void stopwatchReset();
 void saveState();
 void saveStateTo(int n);
 void tpState();
@@ -258,8 +261,6 @@ public:
 	void refreshSoundVolumes();
 	void stopwatchDisplayTime(const std::string &prestr, float cur_time);
 	void stopwatchPrintSummary();
-	void stopwatchStart(float cur_time);
-	void stopwatchReset();
 
 	void reloadTrHUD(ATrHUD *currHud, bool updated = true);
 

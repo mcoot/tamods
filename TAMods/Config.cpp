@@ -459,22 +459,6 @@ void Config::stopwatchPrintSummary()
 	}
 }
 
-void Config::stopwatchStart(float cur_time)
-{
-	stopwatchStartTime = cur_time;
-	stopwatchRunning = true;
-}
-
-void Config::stopwatchReset()
-{
-	stopwatchRunning    = false;
-	stopwatchStartTime  = 0.0f;
-	stopwatchGrabTime   = 0.0f;
-	stopwatchCapTime    = 0.0f;
-	stopwatchGrabHealth = 0;
-	stopwatchGrabSpeed  = -1;
-}
-
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
 #define SET_FUNCTION(var) do {\
 	var = new LuaRef(getGlobal(lua.getState(), #var));\
@@ -2159,7 +2143,9 @@ void Lua::init()
 
 		// Console commands as lua functions for the use as keybinds
 		addFunction("reloadSounds", &config_reloadSounds).
-		addFunction("stopwatch", &toggleStopwatch).
+		addFunction("stopwatch", &stopwatch).
+		addFunction("stopwatchStart", &stopwatchStart).
+		addFunction("stopwatchStop", &stopwatchStop).
 		addFunction("save", &saveState).
 		addFunction("saveTo", &saveStateTo).
 		addFunction("recall", &recallState).

@@ -90,7 +90,11 @@ namespace consoleHelpText
 		" /reload sounds\n"
 		"   Reloads all your custom sounds (Alias: /rs)\n"
 		" /stopwatch\n"
-		"   Starts and stops the stopwatch\n";
+		"   Toggles the stopwatch on and off (Alias: /sw)\n"
+		" /stopwatch start\n"
+		"   Starts/restarts the stopwatch\n"
+		" /stopwatch stops\n"
+		"   Stops the stopwatch\n";
 	std::string roammap = "\n"
 		"Roaming map commands:\n"
 		" /toggle turrets\n"
@@ -198,9 +202,19 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					customcommand = true;
 				}
 				/****** State saving ******/
-				else if (line == L"/stopwatch")
+				else if (line == L"/stopwatch" || line == L"/sw")
 				{
-					toggleStopwatch();
+					stopwatch();
+					customcommand = true;
+				}
+				else if (line == L"/stopwatch start")
+				{
+					stopwatchStart();
+					customcommand = true;
+				}
+				else if (line == L"/stopwatch stop")
+				{
+					stopwatchStop();
 					customcommand = true;
 				}
 				// Command to save the current player state (location, velocity etc.)
@@ -274,11 +288,11 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 				else if (line.substr(0, 20) == L"/route replay start ")
 				{
 					std::stringstream s(std::string(line.begin() + 20, line.end()));
-					unsigned int n;
-					s >> n;
+					float start;
+					s >> start;
 
-					if (s && n >= 0)
-						routeStartReplay(n);
+					if (s && start >= 0.0f)
+						routeStartReplay(start);
 					else
 						Utils::console("Error: You have to enter a number");
 					customcommand = true;
