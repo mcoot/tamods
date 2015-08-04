@@ -224,7 +224,7 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 					{
 						unsigned char n = line.substr(0, 11) == L"/state save" ? 12 : 6;
 						// Without a slot number we just use slot 1
-						saveStateTo(line.size() > n ? line[n] - '0' : 1);
+						savesSaveTo(line.size() > n ? line[n] - '0' : 1);
 					}
 					customcommand = true;
 				}
@@ -233,7 +233,7 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 				{
 					unsigned char n = line.substr(0, 9) == L"/state tp" ? 10 : 4;
 					// Without a slot number we just use slot 1
-					tpStateTo(line.size() > n ? line[n] - '0' : 1);
+					savesTpTo(line.size() > n ? line[n] - '0' : 1);
 					customcommand = true;
 				}
 				// Command to recall a full player state
@@ -241,17 +241,17 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 				{
 					unsigned char n = line.substr(0, 13) == L"/state recall" ? 14 : 8;
 					// Without a slot number we just use slot 1
-					recallStateTo(line.size() > n ? line[n] - '0' : 1);
+					savesRecallTo(line.size() > n ? line[n] - '0' : 1);
 					customcommand = true;
 				}
 				else if (line == L"/state spawns" || line == L"/spawns")
 				{
-					spawnsToPlayerStates();
+					savesToSpawns();
 					customcommand = true;
 				}
 				else if (line == L"/state reset")
 				{
-					resetPlayerStates();
+					savesReset();
 					customcommand = true;
 				}
 				else if (line.substr(0, 6) == L"/state")

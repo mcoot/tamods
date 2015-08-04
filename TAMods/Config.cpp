@@ -2146,14 +2146,14 @@ void Lua::init()
 		addFunction("stopwatch", &stopwatch).
 		addFunction("stopwatchStart", &stopwatchStart).
 		addFunction("stopwatchStop", &stopwatchStop).
-		addFunction("save", &saveState).
-		addFunction("saveTo", &saveStateTo).
-		addFunction("recall", &recallState).
-		addFunction("recallTo", &recallStateTo).
-		addFunction("tp", &tpState).
-		addFunction("tpTo", &tpStateTo).
-		addFunction("spawns", &spawnsToPlayerStates).
-		addFunction("resetSaves", &resetPlayerStates).
+		addFunction("save", &savesSave).
+		addFunction("saveTo", &savesSaveTo).
+		addFunction("recall", &savesRecall).
+		addFunction("recallTo", &savesRecallTo).
+		addFunction("tp", &savesTp).
+		addFunction("tpTo", &savesTpTo).
+		addFunction("spawns", &savesToSpawns).
+		addFunction("resetSaves", &savesReset).
 		addFunction("rec", &routeRec).
 		addFunction("routeRecStart", &routeStartRec).
 		addFunction("routeRecStop", &routeStopRec).

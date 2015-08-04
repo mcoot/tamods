@@ -18,13 +18,13 @@ struct playerState
 	unsigned char teamNum    = 0;
 	unsigned char phys       = 1;
 };
-std::vector<playerState> savedPlayerStates(9);
+std::vector<playerState> saves(9);
 
-void resetPlayerStates()
+void savesReset()
 {
-	for (size_t i = 0; i < savedPlayerStates.size(); i++)
+	for (size_t i = 0; i < saves.size(); i++)
 	{
-		playerState &state = savedPlayerStates.at(i);
+		playerState &state = saves.at(i);
 
 		state.loc                = { NULL, NULL, NULL };
 		state.vel                = { 0.0f, 0.0f, 0.0f };
@@ -46,16 +46,16 @@ void resetPlayerStates()
 
 bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	resetPlayerStates();
+	savesReset();
 	stopwatchReset();
 	routeReset();
 
 	return false;
 }
 
-void spawnsToPlayerStates()
+void savesToSpawns()
 {
-	resetPlayerStates();
+	savesReset();
 
 	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
 
@@ -66,13 +66,13 @@ void spawnsToPlayerStates()
 	{
 		if (nav->IsA(APlayerStart::StaticClass()) && ((APlayerStart *)nav)->TeamIndex == pc->GetTeamNum())
 		{
-			if (i >= savedPlayerStates.size())
+			if (i >= saves.size())
 				break;
 
 			if (i == 0)
 			{
-				savedPlayerStates.at(i).loc = nav->Location;
-				savedPlayerStates.at(i).rot = nav->Rotation;
+				saves.at(i).loc = nav->Location;
+				saves.at(i).rot = nav->Rotation;
 				i++;
 			}
 			else
@@ -81,7 +81,7 @@ void spawnsToPlayerStates()
 				bool isClose = false;
 				for (size_t j = 0; j < i; j++)
 				{
-					if (Geom::distance3D(nav->Location, savedPlayerStates.at(j).loc) < 1000.0f)
+					if (Geom::distance3D(nav->Location, saves.at(j).loc) < 1000.0f)
 					{
 						isClose = true;
 						break;
@@ -89,8 +89,8 @@ void spawnsToPlayerStates()
 				}
 				if (!isClose)
 				{
-					savedPlayerStates.at(i).loc = nav->Location;
-					savedPlayerStates.at(i).rot = nav->Rotation;
+					saves.at(i).loc = nav->Location;
+					saves.at(i).rot = nav->Rotation;
 					i++;
 				}
 			}
@@ -133,7 +133,7 @@ void stopwatchStop()
 	{
 		if (g_config.stopwatchRunning)
 		{
-			g_config.stopwatchDisplayTime("Manually stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+			g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
 			g_config.stopwatchPrintSummary();
 			g_config.stopwatchStartTime = 0;
 			g_config.stopwatchRunning = 0;
@@ -152,15 +152,15 @@ void stopwatchReset()
 	g_config.stopwatchGrabSpeed = -1;
 }
 
-void savePlayerState(int n)
+void savesSave(int n)
 {
 	// Is the specified slot in range?
-	if (n > 0 && (size_t)n <= savedPlayerStates.size())
+	if (n > 0 && (size_t)n <= saves.size())
 	{
 		ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
 		ACameraActor *Cam = (ACameraActor *)TrPC->ViewTarget;
 		ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
-		playerState &state = savedPlayerStates.at(n - 1);
+		playerState &state = saves.at(n - 1);
 
 		if (!TrPC || !TrPC->WorldInfo)
 			return;
@@ -198,21 +198,21 @@ void savePlayerState(int n)
 		Utils::printConsole("Saved current state to slot #" + std::to_string(n));
 	}
 	else
-		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(savedPlayerStates.size()));
+		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(saves.size()));
 }
 
-void recallPlayerState(int n, bool tpOnly)
+void savesRecall(int n, bool tpOnly)
 {
 	// Is the specified slot in range?
-	if (n > 0 && (size_t)n <= savedPlayerStates.size())
+	if (n > 0 && (size_t)n <= saves.size())
 	{
 		// Is data stored at that slot?
-		if (savedPlayerStates.at(n - 1).loc.X)
+		if (saves.at(n - 1).loc.X)
 		{
 			ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
 			ACameraActor *Cam = (ACameraActor *)TrPC->ViewTarget;
 			ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
-			playerState &state = savedPlayerStates.at(n - 1);
+			playerState &state = saves.at(n - 1);
 
 			if (!TrPC || !Cam || !TrPC->WorldInfo || TrPC->WorldInfo->NetMode != 0)
 				return;
@@ -283,17 +283,17 @@ void recallPlayerState(int n, bool tpOnly)
 			Utils::printConsole("Nothing stored in slot #" + std::to_string(n));
 	}
 	else
-		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(savedPlayerStates.size()));
+		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(saves.size()));
 }
 
 // Wrapper functions
 
-void saveState()          { savePlayerState(1); }
-void saveStateTo(int n)   { savePlayerState(n); }
-void tpState()            { recallPlayerState(1, true); }
-void tpStateTo(int n)     { recallPlayerState(n, true); }
-void recallState()        { recallPlayerState(1, false); }
-void recallStateTo(int n) { recallPlayerState(n, false); }
+void savesSave()          { savesSave(1); }
+void savesSaveTo(int n)   { savesSave(n); }
+void savesTp()            { savesRecall(1, true); }
+void savesTpTo(int n)     { savesRecall(n, true); }
+void savesRecall()        { savesRecall(1, false); }
+void savesRecallTo(int n) { savesRecall(n, false); }
 
 void UpdateLocationOverheadNumbers(ATrHUD *that)
 {
@@ -305,9 +305,9 @@ void UpdateLocationOverheadNumbers(ATrHUD *that)
 	FVector view_location, overhead_number_location;
 	FRotator view_rotation;
 
-	for (size_t i = 0; i < savedPlayerStates.size(); i++)
+	for (size_t i = 0; i < saves.size(); i++)
 	{
-		playerState &curr = savedPlayerStates.at(i);
+		playerState &curr = saves.at(i);
 
 		if (!curr.loc.X)
 			continue;
@@ -328,9 +328,9 @@ void UpdateLocationOverheadNumbers(ATrHUD *that)
 				wsprintf(buff, L"%d", i + 1);
 
 				FColor col;
-				if (savedPlayerStates.at(i).hasFlag)
+				if (saves.at(i).hasFlag)
 				{
-					col = savedPlayerStates.at(i).teamNum == 0 ? g_config.friendlyHUDChatColor : g_config.enemyHUDChatColor;
+					col = saves.at(i).teamNum == 0 ? g_config.friendlyHUDChatColor : g_config.enemyHUDChatColor;
 					//col = { 135, 255, 15, 180 };
 				}
 				else
