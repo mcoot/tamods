@@ -1,8 +1,8 @@
 #include "Mods.h"
 #include <iomanip>
 
-unsigned const ROUTE_SAVES_MAX = 1200;
-unsigned const ROUTE_SAVES_INTERVAL = 100; // Save location every 100ms. 0.1 seconds * 1200 dots = 120 seconds record
+unsigned const ROUTE_SAVES_MAX = 3000;
+unsigned const ROUTE_SAVES_INTERVAL = 100; // Save location every 100ms. 0.1 seconds * 3000 dots = ~5 minutes recording
 
 struct position
 {
