@@ -198,7 +198,10 @@ bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* p
 bool UTCarriedObject_Held_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	if (g_config.stopwatchFlagRecall)
+	{
+		g_config.stopwatchFlagRecall = false;
 		return false;
+	}
 
 	AUTCarriedObject *that = (AUTCarriedObject *)dwCallingObject;
 	UObject_eventBeginState_Parms *params = (UObject_eventBeginState_Parms *)pParams;

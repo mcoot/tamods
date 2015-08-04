@@ -77,8 +77,7 @@ void routeStartRec()
 	if (!pawn)
 		return;
 
-	routeStopReplay();
-	routeStopRec();
+	routeReset();
 
 	Utils::notify("Route recorder", "Recording started");
 
@@ -93,7 +92,6 @@ void routeStartRec()
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), ' '), playerName.end());
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), '\\'), playerName.end());
 
-	route.clear();
 	route.insert(route.begin(), { pawn->WorldInfo->RealTimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation,
 		pawn->Physics, pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
@@ -210,28 +208,68 @@ void routeStartReplay(float startTime)
 	pawn->m_fSplatDamageFromWallMin = 0.0f;
 	pawn->m_fSplatDamageFromWallMax = 0.0f;
 
-	float &start = route.back().time;
-	float &end = route.at(0).time;
-	size_t last = route.size() - 1;
+	float &routeStartTime = route.back().time;
+	float &routeEndTime = route.at(0).time;
+	size_t routeStart = route.size() - 1;
 	size_t startPos;
 
-	if (startTime >= end - start)
-		startPos = last - 1;
+	// Figure out where in the replay we should start
+	if (startTime >= routeEndTime - routeStartTime)
+		startPos = routeStart - 1;
 	else if (startTime <= 0.0f)
 		startPos = 0;
 	else
+	{
 		for (startPos = 0; startPos < route.size(); startPos++)
 		{
-			if (route.at(startPos).time - start <= startTime)
+			if (route.at(startPos).time - routeStartTime <= startTime)
 			{
-				startPos = last - startPos;
+				startPos = routeStart - startPos;
 				break;
 			}
 		}
+	}
+
+	position &routeStartPos = route.at(routeStart - startPos);
+
+	// Give us the flag back if we should have it
+	if (flagGrabTime != 0.0f && routeStartPos.time > flagGrabTime)
+	{
+		if (replayPC->GetTeamNum() == teamNum)
+		{
+			if (!((ATrPlayerReplicationInfo *)replayPC->PlayerReplicationInfo)->bHasFlag)
+			{
+				if (replayPC->WorldInfo->GRI)
+				{
+					g_config.stopwatchFlagRecall = true;
+					((ATrGameReplicationInfo *)replayPC->WorldInfo->GRI)->m_Flags[!teamNum]->SetHolder(replayPC);
+				}
+			}
+		}
+	}
+
+	// Look back for damage taken to calculate the proper regen timestamp
+	if (startPos == 0)
+		pawn->m_fLastDamagerTimeStamp = replayPC->WorldInfo->TimeSeconds;
+	else
+	{
+		unsigned int &startPosHealth = route.at(routeStart - startPos).health;
+
+		for (size_t i = routeStart - startPos + 1; i < route.size(); i++)
+		{
+			position &curr = route.at(i);
+
+			if (startPosHealth < curr.health)
+			{
+				float timeDiff = routeStartPos.time - curr.time + (ROUTE_SAVES_INTERVAL / 2000);
+				pawn->m_fLastDamagerTimeStamp = replayPC->WorldInfo->TimeSeconds - timeDiff * replayPC->WorldInfo->TimeDilation;
+				break;
+			}
+		}
+	}
 
 	// Give health of the start point
-	pawn->Health = route.at(last - startPos).health;
-	pawn->m_fLastDamagerTimeStamp = replayPC->WorldInfo->TimeSeconds;
+	pawn->Health = routeStartPos.health;
 
 	routeTickReplay(0.0f, true, startPos);
 }
@@ -323,7 +361,7 @@ void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 				if (curr.health > next.health) // Lost health
 				{
 					replayPC->ClientPlayTakeHit(curr.loc, curr.health - next.health, UTrDmgType_LightSpinfusor::StaticClass());
-					pawn->m_fLastDamagerTimeStamp = (replayPC->WorldInfo->TimeSeconds * replayPC->WorldInfo->TimeDilation) + (ROUTE_SAVES_INTERVAL / 2000);
+					pawn->m_fLastDamagerTimeStamp = replayPC->WorldInfo->TimeSeconds + ROUTE_SAVES_INTERVAL / 2000;
 					pawn->Health -= curr.health - next.health;
 					if (pawn->Health <= 0)
 					{
@@ -344,7 +382,7 @@ void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 			deltaTime /= replayPC->WorldInfo->TimeDilation;
 			if (timeSinceLastTick + deltaTime >= demoDeltaTime)
 			{
-				timeSinceLastTick = (timeSinceLastTick + deltaTime) - demoDeltaTime;
+				timeSinceLastTick = timeSinceLastTick + deltaTime - demoDeltaTime;
 				fullTickReached = true;
 				i++;
 			}
@@ -361,6 +399,8 @@ void routeReset()
 	routeStopRec();
 	routeStopReplay();
 	route.clear();
+	routeLength = 0;
+	flagGrabTime = 0.0f;
 }
 
 void routeFlagGrab(float grabtime)

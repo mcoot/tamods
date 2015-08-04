@@ -7,7 +7,6 @@ struct playerState
 	FRotator rot;
 	bool hasFlag             = false;
 	bool stopwatchRunning    = false;
-	float realTimeStamp      = 0.0f;
 	float timeStamp          = 0.0f;
 	float stopwatchStartTime = 0.0f;
 	float lastDamagedTime    = 0.0f;
@@ -32,7 +31,6 @@ void resetPlayerStates()
 		state.rot                = { 0, 0, 0 };
 		state.hasFlag            = false;
 		state.stopwatchRunning   = false;
-		state.realTimeStamp      = 0.0f;
 		state.timeStamp          = 0.0f;
 		state.stopwatchStartTime = 0.0f;
 		state.lastDamagedTime    = 0.0f;
@@ -131,8 +129,7 @@ void savePlayerState(int n)
 		if (!TrPC || !TrPC->WorldInfo)
 			return;
 
-		state.realTimeStamp = TrPC->WorldInfo->RealTimeSeconds;
-		state.timeStamp = TrPC->WorldInfo->TimeSeconds;
+		state.timeStamp = TrPC->WorldInfo->RealTimeSeconds;
 
 		state.loc = Cam->Location;
 		state.vel = Cam->Velocity;
@@ -219,14 +216,14 @@ void recallPlayerState(int n, bool tpOnly)
 
 				//Restore stopwatch state
 				float time = TrPC->WorldInfo->RealTimeSeconds;
-				float timeDiff = time - state.realTimeStamp;
+				float timeDiff = time - state.timeStamp;
 				g_config.stopwatchStartTime = state.stopwatchStartTime > 0.0f ? state.stopwatchStartTime + timeDiff : 0.0f;
 				g_config.stopwatchGrabHealth = state.grabHealth;
 				g_config.stopwatchGrabSpeed = state.grabSpeed;
 				g_config.stopwatchGrabTime = state.grabTime > 0.0f ? state.grabTime + timeDiff : 0.0f;
 				g_config.stopwatchRunning = state.stopwatchRunning;
 
-				TrPawn->m_fLastDamagerTimeStamp = state.lastDamagedTime + (TrPC->WorldInfo->TimeSeconds - state.timeStamp);
+				TrPawn->m_fLastDamagerTimeStamp = state.lastDamagedTime + timeDiff * TrPC->WorldInfo->TimeDilation;
 				TrPawn->m_fCurrentPowerPool = state.energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state.energy;
 
 				if (state.health <= 0 || state.health > TrPawn->HealthMax)
@@ -240,8 +237,7 @@ void recallPlayerState(int n, bool tpOnly)
 					if (TrPC->PlayerReplicationInfo && TrPC->WorldInfo->GRI)
 					{
 						g_config.stopwatchFlagRecall = true;
-						((ATrGameReplicationInfo *)TrPC->WorldInfo->GRI)->m_Flags[1 - state.teamNum]->SetHolder(TrPC);
-						g_config.stopwatchFlagRecall = false;
+						((ATrGameReplicationInfo *)TrPC->WorldInfo->GRI)->m_Flags[!state.teamNum]->SetHolder(TrPC);
 					}
 				}
 				//Utils::printConsole("Restored state #" + std::to_string(n));
