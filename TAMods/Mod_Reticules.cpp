@@ -9,6 +9,12 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 	ATrPawn *that = (ATrPawn *)dwCallingObject;
 	ATrHUD *hud = that->GetTrHud();
 
+	if (!g_config.showBodyMesh)
+	{
+		that->m_FirstPersonBodyMesh->SetOwnerNoSee(true);
+		that->m_FirstPersonBodyOverlayMesh->SetOwnerNoSee(true);
+	}
+
 	if (hud && hud->PlayerOwner)
 		Utils::tr_pc = (ATrPlayerController *)hud->PlayerOwner;
 

@@ -271,6 +271,7 @@ public:
 	bool    showErrorNotifications;
 	bool    showWeapon;
 	bool    showFirstPersonAmmo;
+	bool    showBodyMesh;
 	bool    showCrosshair;
 	float   crosshairScale;
 	FColor  crosshairColor;
