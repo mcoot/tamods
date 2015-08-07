@@ -72,9 +72,13 @@ void routeRec()
 
 void routeStartRec()
 {
-	ATrPawn *pawn = (ATrPawn *)((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->Pawn;
+	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+	ATrPawn *pawn = (ATrPawn *)pc->Pawn;
 
 	if (!pawn)
+		return;
+
+	if (pawn->IsA(ATrVehicle::StaticClass()))
 		return;
 
 	routeReset();
@@ -116,6 +120,12 @@ void routeTickRecord(ATrPlayerController* pc)
 
 		if (!pawn)
 			return;
+
+		if (pawn->IsA(ATrVehicle::StaticClass()))
+		{
+			routeStopRec();
+			return;
+		}
 
 		float time = pc->WorldInfo->RealTimeSeconds;
 		if (time - route.at(0).time >= ROUTE_SAVES_INTERVAL / 1000.0f)
@@ -201,6 +211,9 @@ void routeStartReplay(float startTime)
 		pawn = (ATrPawn *)replayPC->Pawn;
 
 	if (!replayPC || !pawn)
+		return;
+
+	if (!g_config.routeBotReplay && pawn->IsA(ATrVehicle::StaticClass()))
 		return;
 
 	pawn->m_fSplatDamageFromLandMin = 0.0f;
