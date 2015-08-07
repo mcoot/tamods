@@ -180,3 +180,16 @@ bool GFxTrMenuMoviePlayer_SetPlayerLoading(int ID, UObject *dwCallingObject, UFu
 	Hooks::unlock();
 	return true;
 }
+
+bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrDevice *that = (ATrDevice *)dwCallingObject;
+
+	if (g_config.customWeaponOffset)
+		that->m_TinyWeaponsOffset = g_config.weaponOffset;
+	
+	if (g_config.customBulletSpawnOffset)
+		that->m_vClientSideFireOffset = g_config.bulletSpawnOffset;
+	
+	return false;
+}

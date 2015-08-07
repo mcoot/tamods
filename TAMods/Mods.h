@@ -28,6 +28,9 @@ bool GFxTrScenePS_LoadPlayerMiscData(int ID, UObject *dwCallingObject, UFunction
 bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
+// Weapon position
+bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
 // Loading images
 bool GFxTrMenuMoviePlayer_SetPlayerLoading(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 

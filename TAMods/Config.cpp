@@ -197,6 +197,12 @@ void Config::reset()
 	sensZoom             = 5.0f;
 	sensZoooom           = 2.0f;
 
+	// Weapon and bullet position
+	bool customWeaponOffset = false;
+	FVector weaponOffset = { 0.0f, 0.0f, 0.0f };
+	bool customBulletSpawnOffset = false;
+	FVector bulletSpawnOffset = { 180.0f, 0.0f, 0.0f };
+
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();
 
@@ -630,6 +636,12 @@ void Config::setVariables()
 	SET_VARIABLE(float, sens);
 	SET_VARIABLE(float, sensZoom);
 	SET_VARIABLE(float, sensZoooom);
+
+	// Weapon and bullet position
+	SET_VARIABLE(bool, customWeaponOffset);
+	SET_VARIABLE(FVector, weaponOffset);
+	SET_VARIABLE(bool, customBulletSpawnOffset);
+	SET_VARIABLE(FVector, bulletSpawnOffset);
 
 	// Lua keybinds
 	SET_FUNCTION(onInputEvent);

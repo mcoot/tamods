@@ -427,6 +427,12 @@ public:
 	float sensZoom;
 	float sensZoooom;
 
+	// Weapon and bullet position
+	bool customWeaponOffset;
+	FVector weaponOffset;
+	bool customBulletSpawnOffset;
+	FVector bulletSpawnOffset;
+
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;
 
