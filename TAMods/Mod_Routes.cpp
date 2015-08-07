@@ -23,7 +23,7 @@ bool recording;
 bool replaying;
 
 // Meta data for the route file
-std::string className;
+int classID;
 std::string classAbbr;
 std::string mapName;
 std::string playerName;
@@ -88,7 +88,7 @@ void routeStartRec()
 	// Meta data
 	mapName = Utils::f2std(pawn->WorldInfo->GetMapName(false));
 	mapName.erase(std::remove(mapName.begin(), mapName.end(), ' '), mapName.end());
-	className = ((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetCurrentClass()->GetName();
+	classID = ((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetPlayerClassId();
 	classAbbr = Utils::f2std(((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetCurrentClassAbb());
 	teamNum = pawn->GetTeamNum();
 	classHealth = pawn->HealthMax;
@@ -144,23 +144,31 @@ static ATrPlayerController_Training* spawnPawn()
 	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
 
 	// Create one bot
-	static ATrPlayerController_Training *spawned = (ATrPlayerController_Training *)pc->Spawn(ATrPlayerController_Training::StaticClass(), pc, FName(0), pc->Location, pc->Rotation, NULL, 0);
-
-	spawned->PlayerReplicationInfo->PlayerName = L"Creature";
-	spawned->PlayerReplicationInfo->bReadyToPlay = true;
-	spawned->PlayerReplicationInfo->bHidden = false;
-	spawned->PlayerReplicationInfo->bIsInactive = false;
-	spawned->PlayerReplicationInfo->PlayerID = pc->PlayerReplicationInfo->PlayerID + 1;
-	spawned->ServerChangeTeam(teamNum);
-	if (spawned->PlayerReplicationInfo->IsA(ATrPlayerReplicationInfo::StaticClass()))
+	static ATrPlayerController_Training *spawned;
+	
+	if (!spawned)
 	{
-		// Update the class of the bot to the one currently used by the player
-		ATrPlayerReplicationInfo *rep = (ATrPlayerReplicationInfo *)spawned->PlayerReplicationInfo;
-		ATrPlayerReplicationInfo *pcrep = (ATrPlayerReplicationInfo *)pc->PlayerReplicationInfo;
-		rep->m_CurrentBaseClass = pcrep->m_CurrentBaseClass;
-		rep->m_PendingBaseClass = pcrep->m_PendingBaseClass;
+		spawned = (ATrPlayerController_Training *)pc->Spawn(ATrPlayerController_Training::StaticClass(), pc, FName(0), pc->Location, pc->Rotation, NULL, 0);
+
+		spawned->PlayerReplicationInfo->PlayerName = L"Creature";
+		spawned->PlayerReplicationInfo->bReadyToPlay = true;
+		spawned->PlayerReplicationInfo->bHidden = false;
+		spawned->PlayerReplicationInfo->bIsInactive = false;
+		spawned->PlayerReplicationInfo->PlayerID = pc->PlayerReplicationInfo->PlayerID + 1;
+
+		spawned->m_AudioComponentLowHealthLoop->VolumeMultiplier = 0.0f;
+		spawned->m_AudioComponentRechargeHealth->VolumeMultiplier = 0.0f;
 	}
 
+	spawned->ServerChangeTeam(teamNum);
+
+	if (spawned->PlayerReplicationInfo->IsA(ATrPlayerReplicationInfo::StaticClass()))
+	{
+		// Update the class of the bot to the one used in the replay
+		ATrPlayerReplicationInfo *rep = (ATrPlayerReplicationInfo *)spawned->PlayerReplicationInfo;
+		rep->m_CurrentBaseClass = pc->m_TrInventoryHelper->GetFamilyClass(classID);
+		rep->m_PendingBaseClass = rep->m_CurrentBaseClass;
+	}
 
 	// Suicide & respawn
 	spawned->Suicide();
@@ -173,8 +181,6 @@ static ATrPlayerController_Training* spawnPawn()
 		((ATrPawn *)spawned->Pawn)->m_AudioComponentSkiLoop->VolumeMultiplier = 0.0f;
 		((ATrPawn *)spawned->Pawn)->m_AudioComponentSpeedSound->VolumeMultiplier = 0.0f;
 	}
-	spawned->m_AudioComponentLowHealthLoop->VolumeMultiplier = 0.0f;
-	spawned->m_AudioComponentRechargeHealth->VolumeMultiplier = 0.0f;
 
 	return spawned;
 }
@@ -296,12 +302,17 @@ void routeStopReplay()
 		if (replayPC)
 			pawn = (ATrPawn *)replayPC->Pawn;
 
-		if (pawn && !replayPC->IsA(ATrPlayerController_Training::StaticClass()))
+		if (pawn)
 		{
-			if (!replayPC->m_bPressingJetpack)
-				pawn->r_bIsJetting = 0; // FIXME: jet still stuck
+			if (!replayPC->IsA(ATrPlayerController_Training::StaticClass()))
+			{
+				if (!replayPC->m_bPressingJetpack)
+					pawn->r_bIsJetting = 0; // FIXME: jet still stuck
 
-			pawn->RefreshInventory(0, 0);
+				pawn->RefreshInventory(0, 0);
+			}
+			else
+				replayPC->Suicide();
 		}
 
 		Utils::notify("Route recorder", "Replay stopped");
@@ -463,7 +474,7 @@ void routeSaveFile(const std::string &desc)
 	if (routefile.is_open())
 	{
 		routefile
-			<< MODVERSION << ' ' << mapName << ' ' << teamNum << ' ' << className << ' ' << classAbbr << ' '
+			<< MODVERSION << ' ' << mapName << ' ' << teamNum << ' ' << classID << ' ' << classAbbr << ' '
 			<< classHealth << ' ' << playerName << ' ' << std::setprecision(5) << std::fixed << flagGrabTime << ' ' << routeLength << '\n'
 			<< description << '\n';
 
@@ -520,7 +531,7 @@ void routeLoadFile(unsigned int num)
 	{
 		routeReset();
 		routefile
-			>> version >> mapName >> teamNum >> className >> classAbbr
+			>> version >> mapName >> teamNum >> classID >> classAbbr
 			>> classHealth >> playerName >> flagGrabTime >> routeLength;
 
 		routefile >> description;
