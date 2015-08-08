@@ -50,17 +50,19 @@ bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunctio
 
 static void routeInsertEta()
 {
-	unsigned int eta = 0;
-
-	for (size_t i = 0; i < route.size() - 1000 / ROUTE_SAVES_INTERVAL; i++)
+	if (flagGrabTime > 0.0f)
 	{
-		if (flagGrabTime - route.at(i).time >= eta)
+		unsigned int eta = 0;
+		for (size_t i = 0; i < route.size() - 1000 / ROUTE_SAVES_INTERVAL; i++)
 		{
-			route.at(i > 0 ? i - 1 : i).eta = eta;
-			eta += 1;
+			if (flagGrabTime - route.at(i).time >= eta)
+			{
+				route.at(i > 0 ? i - 1 : i).eta = eta;
+				eta += 1;
+			}
 		}
+		route.back().eta = int(round(flagGrabTime - route.back().time));
 	}
-	route.back().eta = int(round(flagGrabTime - route.back().time));
 	routeLength = route.back().eta < 0 ? 0 : route.back().eta;
 }
 
