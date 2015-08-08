@@ -635,7 +635,9 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 		position &curr = route.at(i);
 
 		// Only draw a dot every x milliseonds but always draw ones with ETA or damage taken
-		if ((curr.eta < 0 || curr.eta % 5 > 0)
+		if ((curr.eta < 0
+			|| g_config.routeDrawETAInterval < 1
+			|| curr.eta % g_config.routeDrawETAInterval > 0)
 			&& i + 1 < route.size()
 			&& curr.health >= route.at(i + 1).health
 			&& i % int(g_config.routeDrawInterval < ROUTE_SAVES_INTERVAL ? 1 : g_config.routeDrawInterval / ROUTE_SAVES_INTERVAL) != 0)
@@ -671,7 +673,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 				else
 					that->DrawColoredMarkerText(L"-", col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
 
-				if (curr.eta % 5 == 0 || i == route.size() - 1)
+				if (((g_config.routeDrawETAInterval > 0 && curr.eta % g_config.routeDrawETAInterval == 0) || i == route.size() - 1) && curr.eta >= 0)
 				{
 					overhead_number_location.X = curr.loc.X;
 					overhead_number_location.Y = curr.loc.Y;

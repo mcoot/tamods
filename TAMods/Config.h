@@ -346,6 +346,7 @@ public:
 
 	// Route recording
 	int routeDrawInterval;
+	int routeDrawETAInterval;
 	bool routeReplayRotation;
 
 	// Sounds
