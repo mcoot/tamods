@@ -9,10 +9,11 @@ struct position
 	float time;
 	FVector loc;
 	FVector vel;
-	FRotator rot;
-	unsigned int phys;
-	unsigned int skiing;
-	unsigned int jetting;
+	int pitch;
+	int yaw;
+	unsigned char phys;
+	bool skiing;
+	bool jetting;
 	unsigned int health;
 	float energy;
 	int eta;
@@ -23,13 +24,14 @@ bool recording;
 bool replaying;
 
 // Meta data for the route file
+float modVersion;
 int classID;
 std::string classAbbr;
 std::string mapName;
 std::string playerName;
 std::string version;
 std::string description;
-unsigned int teamNum;
+unsigned char teamNum;
 unsigned int classHealth;
 unsigned int routeLength = 0;
 float flagGrabTime = 0.0f;
@@ -50,12 +52,12 @@ static void routeInsertEta()
 {
 	unsigned int eta = 0;
 
-	for (size_t i = 0; i < route.size(); i++)
+	for (size_t i = 0; i < route.size() - 1000 / ROUTE_SAVES_INTERVAL; i++)
 	{
 		if (flagGrabTime - route.at(i).time >= eta)
 		{
 			route.at(i > 0 ? i - 1 : i).eta = eta;
-			eta += 5;
+			eta += 1;
 		}
 	}
 	route.back().eta = int(round(flagGrabTime - route.back().time));
@@ -96,8 +98,8 @@ void routeStartRec()
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), ' '), playerName.end());
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), '\\'), playerName.end());
 
-	route.insert(route.begin(), { pawn->WorldInfo->RealTimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation,
-		pawn->Physics, pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
+	route.insert(route.begin(), { pawn->WorldInfo->RealTimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation.Pitch,
+		pawn->GetALocalPlayerController()->Rotation.Yaw, pawn->Physics, pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
 	recording = true;
 }
@@ -130,7 +132,7 @@ void routeTickRecord(ATrPlayerController* pc)
 		float time = pc->WorldInfo->RealTimeSeconds;
 		if (time - route.at(0).time >= ROUTE_SAVES_INTERVAL / 1000.0f)
 		{
-			route.insert(route.begin(), { time, pawn->Location, pawn->Velocity, pc->Rotation, pawn->Physics,
+			route.insert(route.begin(), { time, pawn->Location, pawn->Velocity, pc->Rotation.Pitch, pc->Rotation.Yaw, pawn->Physics,
 				pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
 			if (route.size() > ROUTE_SAVES_MAX)
@@ -362,7 +364,7 @@ void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 			pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, timeSinceLastTick / demoDeltaTime);
 			pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, timeSinceLastTick / demoDeltaTime);
 			if (g_config.routeReplayRotation)
-				replayPC->SetRotation(Utils::tr_pc->RLerp(curr.rot, next.rot, timeSinceLastTick / demoDeltaTime, true));
+				replayPC->SetRotation(Utils::tr_pc->RLerp({ curr.pitch, curr.yaw, 0 }, { next.pitch, next.yaw, 0 }, timeSinceLastTick / demoDeltaTime, true));
 
 			if (fullTickReached) // Every demo tick
 			{
@@ -435,6 +437,16 @@ void routeFlagGrab(float grabtime)
 	flagGrabTime = grabtime;
 }
 
+template<typename T> std::ostream& binary_write(std::ostream& stream, const T& value)
+{
+	return stream.write(reinterpret_cast<const char*>(&value), sizeof(T));
+}
+
+template<typename T> std::istream & binary_read(std::istream& stream, T& value)
+{
+	return stream.read(reinterpret_cast<char*>(&value), sizeof(T));
+}
+
 void routeSaveFile(const std::string &desc)
 {
 	if (recording)
@@ -469,29 +481,25 @@ void routeSaveFile(const std::string &desc)
 
 	std::string filepath = routedir + filename;
 
-	std::ofstream routefile(filepath);
+	std::ofstream routefile(filepath, std::ios::binary);
 
 	if (routefile.is_open())
 	{
-		routefile
-			<< MODVERSION << ' ' << mapName << ' ' << teamNum << ' ' << classID << ' ' << classAbbr << ' '
-			<< classHealth << ' ' << playerName << ' ' << std::setprecision(5) << std::fixed << flagGrabTime << ' ' << routeLength << '\n'
-			<< description << '\n';
+		binary_write(routefile, (float)MODVERSION);
+
+		routefile << mapName << ' ' << classAbbr << ' ' << playerName << ' ' << description << ' ';
+
+		binary_write(routefile, teamNum);
+		binary_write(routefile, classID);
+		binary_write(routefile, classHealth);
+		binary_write(routefile, flagGrabTime);
+		binary_write(routefile, routeLength);
 
 		for (size_t i = 0; i < route.size(); i++)
 		{
 			position curr = route.at(i);
 
-			routefile
-				<< std::fixed << std::setprecision(5) << curr.time << ' '
-				<< curr.loc.X << ' ' << curr.loc.Y << ' ' << curr.loc.Z << ' '
-				<< std::setprecision(3) << curr.vel.X << ' ' << curr.vel.Y << ' ' << curr.vel.Z << ' '
-				<< curr.rot.Pitch << ' ' << curr.rot.Yaw << ' '
-				<< curr.phys << ' '
-				<< curr.skiing << ' '
-				<< curr.jetting << ' '
-				<< curr.health << ' '
-				<< std::setprecision(1) << curr.energy << '\n';
+			binary_write(routefile, curr);
 		}
 		Utils::printConsole("Saved route '" + filename + "'");
 	}
@@ -525,31 +533,27 @@ void routeLoadFile(unsigned int num)
 		return;
 	}
 
-	std::ifstream routefile(filepath);
+	std::ifstream routefile(filepath, std::ios::binary);
 
 	if (routefile.is_open())
 	{
 		routeReset();
-		routefile
-			>> version >> mapName >> teamNum >> classID >> classAbbr
-			>> classHealth >> playerName >> flagGrabTime >> routeLength;
+		binary_read(routefile, modVersion);
+		
+		routefile >> mapName >> classAbbr >> playerName >> description;
 
-		routefile >> description;
+		// One char forward because there is a space after description
+		routefile.ignore();
+
+		binary_read(routefile, teamNum);
+		binary_read(routefile, classID);
+		binary_read(routefile, classHealth);
+		binary_read(routefile, flagGrabTime);
+		binary_read(routefile, routeLength);
 
 		position pos;
-		while (routefile
-			>> pos.time
-			>> pos.loc.X >> pos.loc.Y >> pos.loc.Z
-			>> pos.vel.X >> pos.vel.Y >> pos.vel.Z
-			>> pos.rot.Pitch >> pos.rot.Yaw
-			>> pos.phys >> pos.skiing >> pos.jetting
-			>> pos.health >> pos.energy)
-		{
-			pos.rot.Roll = 0;
-			pos.eta = -1;
-			route.push_back(pos);	
-		}
-		routeInsertEta();
+		while (binary_read(routefile, pos))
+			route.push_back(pos);
 
 		Utils::printConsole("Loaded route '" + files.at(num - 1) + "'");
 	}
@@ -631,7 +635,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 		position &curr = route.at(i);
 
 		// Only draw a dot every x milliseonds but always draw ones with ETA or damage taken
-		if (curr.eta < 0
+		if ((curr.eta < 0 || curr.eta % 5 > 0)
 			&& i + 1 < route.size()
 			&& curr.health >= route.at(i + 1).health
 			&& i % int(g_config.routeDrawInterval < ROUTE_SAVES_INTERVAL ? 1 : g_config.routeDrawInterval / ROUTE_SAVES_INTERVAL) != 0)
@@ -667,7 +671,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 				else
 					that->DrawColoredMarkerText(L"-", col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
 
-				if (curr.eta >= 0)
+				if (curr.eta % 5 == 0 || i == route.size() - 1)
 				{
 					overhead_number_location.X = curr.loc.X;
 					overhead_number_location.Y = curr.loc.Y;

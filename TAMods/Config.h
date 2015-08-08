@@ -17,7 +17,7 @@
 #include "Texture.h"
 #include "SoundEffect.h"
 
-#define MODVERSION "0.5"
+#define MODVERSION 0.5
 
 // Declared here to use as lua functions
 void stopwatch();
