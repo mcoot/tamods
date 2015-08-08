@@ -365,7 +365,7 @@ void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 			pawn->Location = Utils::tr_pc->VLerp(curr.loc, next.loc, timeSinceLastTick / demoDeltaTime);
 			pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, timeSinceLastTick / demoDeltaTime);
 			pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, timeSinceLastTick / demoDeltaTime);
-			if (g_config.routeReplayRotation)
+			if (g_config.routeBotReplay || g_config.routeReplayRotation)
 				replayPC->SetRotation(Utils::tr_pc->RLerp({ curr.pitch, curr.yaw, 0 }, { next.pitch, next.yaw, 0 }, timeSinceLastTick / demoDeltaTime, true));
 
 			if (fullTickReached) // Every demo tick
