@@ -283,10 +283,12 @@ namespace TAModLauncher
                     if (injector.HasInjected)
                     {
                         EjectMods();
+                        labelDownload.Text = "Mods ejected!";
                     }
                     else
                     {
                         InjectMods();
+                        labelDownload.Text = "Mods injected!";
                     }
                 }
                 else if (!injector.DoesProcessExist("hirezlauncherui"))
