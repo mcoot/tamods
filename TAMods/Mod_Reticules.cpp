@@ -2,18 +2,23 @@
 
 bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	// TODO: Is this also called by bots?
-
 	Hooks::lock();
 
 	ATrPawn *that = (ATrPawn *)dwCallingObject;
-	ATrHUD *hud = that->GetTrHud();
+
+	if (that->Controller && !that->Controller->IsLocalPlayerController())
+	{
+		Hooks::unlock();
+		return false;
+	}
 
 	if (!g_config.showBodyMesh)
 	{
 		that->m_FirstPersonBodyMesh->SetOwnerNoSee(true);
 		that->m_FirstPersonBodyOverlayMesh->SetOwnerNoSee(true);
 	}
+
+	ATrHUD *hud = that->GetTrHud();
 
 	if (hud && hud->PlayerOwner)
 		Utils::tr_pc = (ATrPlayerController *)hud->PlayerOwner;
