@@ -2185,4 +2185,13 @@ void Lua::init()
 		addFunction("togglePower", &togglePower).
 		addFunction("returnFlags", &returnFlags).
 	endNamespace();
+
+	if (!Logger::isQuiet())
+	{
+		getGlobalNamespace(_state)
+			.addFunction("profilerStart", &Profiler::start)
+			.addFunction("profilerStop", &Profiler::stop)
+			.addFunction("profiler", &Profiler::toggle)
+		.endNamespace();
+	}
 }

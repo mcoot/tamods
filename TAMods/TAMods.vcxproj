@@ -171,6 +171,7 @@
     <ClCompile Include="Mod_ServerSettings.cpp" />
     <ClCompile Include="Mod_StateSaving.cpp" />
     <ClCompile Include="ParticleModuleHelper.cpp" />
+    <ClCompile Include="Profiler.cpp" />
     <ClCompile Include="SDK_SOURCES\Core_functions.cpp" />
     <ClCompile Include="SDK_SOURCES\Engine_functions.cpp" />
     <ClCompile Include="SDK_SOURCES\GameFramework_functions.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="libpng\pnglibconf.h" />
     <ClInclude Include="libpng\pngpriv.h" />
     <ClInclude Include="libpng\pngstruct.h" />
+    <ClInclude Include="Profiler.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Wave.h" />

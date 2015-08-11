@@ -6,6 +6,7 @@
 #include "SdkHeaders.h"
 #include "detours.h"
 #include "Logger.h"
+#include "Profiler.h"
 
 typedef VOID(__stdcall * ProcessEventFunction)(UFunction*, PVOID, PVOID);
 typedef bool(*HookFunction)(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
