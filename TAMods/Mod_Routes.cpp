@@ -66,6 +66,8 @@ static void routeInsertEta()
 	routeLength = route.back().eta < 0 ? 0 : route.back().eta;
 }
 
+void routeEnableBot(bool enable) { routeStopReplay(); g_config.routeBotReplay = enable; }
+
 void routeRec()
 {
 	if (recording)
@@ -153,8 +155,8 @@ static ATrPlayerController_Training* spawnPawn()
 	if (!spawned)
 	{
 		spawned = (ATrPlayerController_Training *)pc->Spawn(ATrPlayerController_Training::StaticClass(), pc, FName(0), pc->Location, pc->Rotation, NULL, 0);
-
-		spawned->PlayerReplicationInfo->PlayerName = L"Creature";
+		
+		spawned->PlayerReplicationInfo->PlayerName = L"Replay Bot";
 		spawned->PlayerReplicationInfo->bReadyToPlay = true;
 		spawned->PlayerReplicationInfo->bHidden = false;
 		spawned->PlayerReplicationInfo->bIsInactive = false;

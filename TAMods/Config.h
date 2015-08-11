@@ -49,6 +49,7 @@ void routeSaveFile(const std::string &desc);
 void routeLoadFile(unsigned int num);
 void routeList(const std::string &needle);
 void routeListAll();
+void routeEnableBot(bool on);
 
 struct Crosshairs
 {

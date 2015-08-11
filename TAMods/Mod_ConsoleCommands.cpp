@@ -129,6 +129,8 @@ namespace consoleHelpText
 		"   Starts route replay at the beginning or at 'start percent'\n"
 		" /route replay stop\n"
 		"   Stops the route replay\n"
+		" /route bot [on|off]\n"
+		"   Sets or toggles if a bot should be used for the route replay\n"
 		" /route reset\n"
 		"   Stops recording and resets the currently recorded route\n"
 		" /route save <description>\n"
@@ -300,6 +302,24 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 				else if (line == L"/route replay stop")
 				{
 					routeStopReplay();
+					customcommand = true;
+				}
+				else if (line.substr(0, 10) == L"/route bot")
+				{
+					if (line.substr(10, 13) == L" on")
+						routeEnableBot(true);
+					else if (line.substr(10, 14) == L" off")
+						routeEnableBot(false);
+					else if (line.length() == 10)
+					{
+						routeEnableBot(!g_config.routeBotReplay);
+						if (g_config.routeBotReplay)
+							Utils::printConsole("Bot replay is now on");
+						else
+							Utils::printConsole("Bot replay is now off");
+					}
+					else
+						Utils::printConsole(consoleHelpText::route);
 					customcommand = true;
 				}
 				else if (line == L"/route reset")
