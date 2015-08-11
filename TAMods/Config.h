@@ -5,6 +5,7 @@
 #include <regex>
 #include <queue>
 #include <map>
+#include "Logger.h"
 #include "Loadout.h"
 #include "Utils.h"
 #include "Data.h"

@@ -35,13 +35,17 @@ VOID __stdcall NakedFunction(UFunction*, PVOID, PVOID) { }
 bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *pResult, Hook &hook)
 {
 	if (pFunction && pCallObject) {
-
 		if (!hook.id)
 			return false;
 		if (hook.calling_class && !pCallObject->IsA(hook.calling_class))
 			return false;
 		// Don't call original if true is returned
-		return hook.hook_func(hook.id, pCallObject, pFunction, pParams, pResult);
+		if (Profiler::isActive())
+			Profiler::enterFunction(pFunction->GetFullName());
+		bool ret = hook.hook_func(hook.id, pCallObject, pFunction, pParams, pResult);
+		if (Profiler::isActive())
+			Profiler::leaveFunction();
+		return ret;
 	}
 	return false;
 }
