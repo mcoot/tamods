@@ -2,7 +2,7 @@
 
 #define UCONST_Pi			3.1415926f
 #define URotation180		32768.0f
-#define URotationToRadians	UCONST_Pi / URotation180
+#define URotationToRadians	(UCONST_Pi / URotation180)
 
 FVector Geom::scale(const FVector &vec1, float s)
 {

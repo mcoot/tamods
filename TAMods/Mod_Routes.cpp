@@ -19,6 +19,7 @@ struct position
 	int eta;
 };
 std::vector<position> route;
+std::vector<FVector> filteredVel;
 
 bool recording;
 bool replaying;
@@ -46,6 +47,20 @@ bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunctio
 	if (!g_config.routeBotReplay)
 		routeStopReplay();
 	return false;
+}
+
+void velocityLPF()
+{
+	float a = 0.06f;
+	filteredVel.clear();
+	filteredVel.resize(route.size());
+	filteredVel[0] = route[0].vel;
+	for (size_t i = 1; i < route.size(); ++i)
+	{
+		filteredVel[i].X = a * route[i].vel.X + (1.0f - a) * filteredVel[i - 1].X;
+		filteredVel[i].Y = a * route[i].vel.Y + (1.0f - a) * filteredVel[i - 1].Y;
+		filteredVel[i].Z = a * route[i].vel.Z + (1.0f - a) * filteredVel[i - 1].Z;
+	}
 }
 
 static void routeInsertEta()
@@ -293,6 +308,9 @@ void routeStartReplay(float startTime)
 		}
 	}
 
+	if (!g_config.routeBotReplay && g_config.routeReplayRotation && g_config.routeCinematicMode)
+		velocityLPF();
+
 	// Give health of the start point
 	pawn->Health = routeStartPos.health;
 
@@ -316,6 +334,7 @@ void routeStopReplay()
 					pawn->r_bIsJetting = 0; // FIXME: jet still stuck
 
 				pawn->RefreshInventory(0, 0);
+				replayPC->Rotation.Roll = 0;
 			}
 			else
 				replayPC->Suicide();
@@ -363,13 +382,29 @@ void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 		{
 			position &next = route.at(end - i - 1);
 			float demoDeltaTime = next.time - curr.time;
+			float alphaTime = timeSinceLastTick / demoDeltaTime;
 
-			pawn->Location = Utils::tr_pc->VLerp(curr.loc, next.loc, timeSinceLastTick / demoDeltaTime);
-			pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, timeSinceLastTick / demoDeltaTime);
-			pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, timeSinceLastTick / demoDeltaTime);
-			if (g_config.routeBotReplay || g_config.routeReplayRotation)
-				replayPC->SetRotation(Utils::tr_pc->RLerp({ curr.pitch, curr.yaw, 0 }, { next.pitch, next.yaw, 0 }, timeSinceLastTick / demoDeltaTime, true));
 
+			pawn->Location = Utils::tr_pc->VLerp(curr.loc, next.loc, alphaTime);
+			pawn->Velocity = Utils::tr_pc->VLerp(curr.vel, next.vel, alphaTime);
+			pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, alphaTime);
+
+			// Normal rotation
+			if (g_config.routeBotReplay || (g_config.routeReplayRotation && !g_config.routeCinematicMode))
+				replayPC->SetRotation(Utils::tr_pc->RLerp({ curr.pitch, curr.yaw, 0 }, { next.pitch, next.yaw, 0 }, alphaTime, true));
+			// Smooth cinematic rotation
+			else if (i + 2 < route.size() && filteredVel.size())
+			{
+				FVector currVel = Utils::tr_pc->VLerp(filteredVel.at(end - i), filteredVel.at(end - i - 1), alphaTime);
+				FVector nextVel = Utils::tr_pc->VLerp(filteredVel.at(end - i - 1), filteredVel.at(end - i - 2), alphaTime);
+
+				FRotator currRot = Geom::vectorToRotation(currVel);
+				FRotator nextRot = Geom::vectorToRotation(nextVel);
+				nextRot.Roll = Utils::tr_pc->Clamp((nextRot.Yaw - currRot.Yaw) * 15, -5000, 5000);
+
+				replayPC->SetRotation(replayPC->RInterpTo(replayPC->Rotation, nextRot, deltaTime, 8000, true));
+			}
+			
 			if (fullTickReached) // Every demo tick
 			{
 				fullTickReached = false;
@@ -429,6 +464,7 @@ void routeReset()
 	routeStopRec();
 	routeStopReplay();
 	route.clear();
+	filteredVel.clear();
 	routeLength = 0;
 	flagGrabTime = 0.0f;
 }

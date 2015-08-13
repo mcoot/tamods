@@ -350,6 +350,7 @@ public:
 	int routeDrawInterval;
 	int routeDrawETAInterval;
 	bool routeReplayRotation;
+	bool routeCinematicMode;
 
 	// Sounds
 	Audio audioEngine;

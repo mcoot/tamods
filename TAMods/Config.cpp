@@ -136,6 +136,7 @@ void Config::reset()
 	routeDrawInterval      = 500; // Drawing a dot every 500ms
 	routeDrawETAInterval   = 5; // ETA every 5 seconds
 	routeReplayRotation    = true;
+	routeCinematicMode     = false;
 
 	// Sounds
 	hitSoundMode = 0;
@@ -539,6 +540,7 @@ void Config::setVariables()
 	SET_VARIABLE(int, routeDrawInterval);
 	SET_VARIABLE(int, routeDrawETAInterval);
 	SET_VARIABLE(bool, routeReplayRotation);
+	SET_VARIABLE(bool, routeCinematicMode);
 
 	// Sounds
 	SET_VARIABLE(int, hitSoundMode);
