@@ -1,68 +1,5 @@
 #include "Texture.h"
 
-struct TextureData
-{
-	int SizeX;
-	int SizeY;
-	int zero;
-	unsigned char *pixel_data;
-	int line_size;
-	int data_size;
-	unsigned int *ptr1;
-	unsigned int *ptr2;
-};
-
-struct FUnknownStruct3
-{
-	unsigned char *common_ptr1;
-	unsigned char *unknown_ptr1;
-	unsigned char *common_ptr3;
-	unsigned int unknown_int1; // 0x03
-	unsigned int unknown_int2; // 0x0c000000
-	unsigned int unknown_int3; // 0x02
-	unsigned int zeroes[2];
-	int SizeX;
-	int SizeY;
-	unsigned int zeroes2[24];
-	int format; // Sometimes 0
-	int data_size;
-	unsigned char *pixel_data;
-};
-
-struct FUnknownStruct1
-{
-	FUnknownStruct3 *ptr;
-	int format;
-	unsigned int data_size;
-	unsigned char zeroes[12];
-	int *common_ptr;
-	int flags;
-};
-
-struct FUnknownStruct2
-{
-	unsigned char data[0x30];
-};
-
-struct FTextureResource
-{
-	unsigned char *unknown_ptr1; // Common to all structs
-	FTextureResource *self; // Pointer to this struct
-	int *prev_self; // Pointer to the self field of the previous FTextureResource
-	int *next_prev; // Pointer to the prev field of the next FTextureResource
-	int flags; // 1 or something that looks like an address
-	unsigned char *unknown_struct1; // FUnknownStruct1 + 4 (wtf)
-	unsigned char *unknown_struct2;
-	int unknown_int1; // 0xe0000000
-	int unknown_int2; // 0xc7efffff
-	int unknown_int3; // 0x3f800000
-	unsigned char unknown_data1[0x1C]; // 00
-	UTexture2D *texture; // Texture containing this Resource
-	unsigned char unknown_data2[0xC0];
-	unsigned char *unknown_struct1_bis; // Same as unknown_struct1
-	//unsigned char unknown_data3[0x34];
-};
-
 static UTexture2D *default_argb_clone = Texture::clone(UObject::FindObject<UTexture2D>("Texture2D EngineMaterials.WeightMapPlaceholderTexture"));
 
 static void printDump(unsigned int *data, int count, const char *name)
@@ -127,9 +64,15 @@ static void printResource(FTextureResource *res)
 	Logger::log("Unknown Structure 1 @ %p: format:%x, data_size:%x, ptr:%p", struct1, struct1->format, struct1->data_size, struct1->ptr);
 
 	printDump((unsigned int *)struct1->ptr - 100, 12 * 0x10, "Main pointer memory");
+	printDump(((unsigned int **)struct1->ptr)[-14] - 0x20, 12 * 0x10, "-14");
 	printDump(((unsigned int **)struct1->ptr)[-17] - 0x20, 12 * 0x10, "-17");
 	printDump(((unsigned int ***)struct1->ptr)[-17][0] - 0x20, 12 * 0x10, "-17[0]");
-	printDump(((unsigned int ****)struct1->ptr)[-17][0][10] - 0x20, 12 * 0x10, "-17[0][10]");
+	printDump(((unsigned int ****)struct1->ptr)[-17][0][4] - 0x20, 12 * 0x10, "-17[0][4]");
+	printDump(((unsigned int *****)struct1->ptr)[-17][0][4][0] - 0x20, 12 * 0x10, "-17[0][4][0]");
+	printDump(((unsigned int ******)struct1->ptr)[-17][0][4][0][87] - 0x20, 12 * 0x10, "-17[0][4][0][87]");
+	printDump(((unsigned int *******)struct1->ptr)[-17][0][4][0][87][59] - 0x20, 12 * 0x10, "LinkedList");
+	printDump(((unsigned int ********)struct1->ptr)[-17][0][4][0][87][59][2] - 0x80, 24 * 0x10, "Wrapper");
+	//printDump(((unsigned int ****)struct1->ptr)[-17][0][10] - 0x20, 12 * 0x10, "-17[0][10]");
 	printDump((unsigned int *)struct1->ptr->pixel_data, 10 * 0x10, "Pixel Data");
 }
 
@@ -235,22 +178,47 @@ UTexture2D *Texture::clone(UTexture2D *tex, UTexture2D *out)
 		*/
 
 		// -17
+		
 		((int **)nstruct1->ptr)[-17] = ((int *)malloc(27 * 4));
 		memcpy(((int **)nstruct1->ptr)[-17], ((int **)struct1->ptr)[-17], 27 * 4);
 		((int **)nstruct1->ptr)[-17][26] = (int)nstruct1->ptr - 88;
 		((int **)nstruct1->ptr)[-17][20] = (int)data;
 		((int ***)nstruct1->ptr)[-17][0] = ((int *)malloc(32 * 4));
 		memcpy(((int ***)nstruct1->ptr)[-17][0], ((int ***)struct1->ptr)[-17][0], 32 * 4);
-		
-		//Logger::log("Pixel data pointer: %x", struct1->ptr->pixel_data);
-		//printTexture2D(tex);
 
+		((int ****)nstruct1->ptr)[-17][0][4] = ((int *)malloc(16 * 4));
+		memcpy(((int ****)nstruct1->ptr)[-17][0][4], ((int ****)struct1->ptr)[-17][0][4], 16 * 4);
+		((int *****)nstruct1->ptr)[-17][0][4][0] = ((int *)malloc(128 * 4 + 64 * 4)) - 64;
+		memcpy(((int *****)nstruct1->ptr)[-17][0][4][0] - 64, ((int *****)struct1->ptr)[-17][0][4][0] - 64, 64 * 4 + 128 * 4);
+
+		((int ******)nstruct1->ptr)[-17][0][4][0][87] = ((int *)malloc(128 * 4));
+		memcpy(((int ******)nstruct1->ptr)[-17][0][4][0][87], ((int ******)struct1->ptr)[-17][0][4][0][87], 128 * 4);
+		((int ******)nstruct1->ptr)[-17][0][4][0][88] = ((int ******)nstruct1->ptr)[-17][0][4][0][87];
+
+		NvidiaTextureLL *orig_ll = (NvidiaTextureLL *) (((int *******)struct1->ptr)[-17][0][4][0][87][59]);
+		NvidiaTextureLL *ll = (NvidiaTextureLL *)malloc(64 * 4);// 64 * 4
+		((int *******)nstruct1->ptr)[-17][0][4][0][87][59] = (int *)ll;
+		memcpy(ll, orig_ll, 64 * 4);
+		/*ll->prev = orig_ll;
+		ll->next = orig_ll->next;
+		orig_ll->next->prev = ll;
+		orig_ll->next = ll;*/
+		
+		ll->wrapper = (NvidiaTextureWrapper *)(((int *)malloc(sizeof(NvidiaTextureWrapper))));
+		memcpy(((int *)ll->wrapper), ((int *)orig_ll->wrapper), sizeof(NvidiaTextureWrapper));
+		ll->wrapper->node = ll;
+		ll->wrapper->data = (unsigned int *)data;
+		
+		Logger::log("Pixel data pointer: %x", struct1->ptr->pixel_data);
+		printTexture2D(tex);
+
+		/*
 		TextureData *texdata = (TextureData *)malloc(sizeof(TextureData));
 		((int ****)nstruct1->ptr)[-17][0][10] = (int *)texdata;
 		// This is the line that makes the thing bug
 		memcpy(texdata, ((int ****)struct1->ptr)[-17][0][10], sizeof(TextureData));
 
-		texdata->pixel_data = data;
+		texdata->pixel_data = data;*/
 	}
 	return out;
 }

@@ -178,13 +178,35 @@ void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale
 
 	canvas->CurX = x;
 	canvas->CurY = y;
-	canvas->DrawTile(tex, (float) tex->SizeX * scale, (float) tex->SizeY * scale, 0, 0, (float) tex->SizeX, (float) tex->SizeY, {1.0f, 1.0f, 1.0f, 1.0f}, 0, 2);
+	canvas->DrawTile(tex, (float) tex->SizeX * scale, (float) tex->SizeY * scale, 0, 0, (float) tex->SizeX, (float) tex->SizeY, {1.0f, 1.0f, 1.0f, 1.0f}, 0, 0/*2 == alpha*/);
 	canvas->CurX = old_curx;
 	canvas->CurY = old_cury;
 }
 
 void myDraw(ATrHUD *that)
 {
+	/*
+	static UTexture2D *ret40 = UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I40");
+	static UTexture2D *ret44 = UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I44");
+	static UTexture2D *ntex = NULL;
+
+	if (!ntex)
+	{
+		ntex = Texture::clone(ret40);
+		FTextureResource *nres = (FTextureResource *)ntex->Resource.Dummy;
+		FTextureResource *res44 = (FTextureResource *)ret44->Resource.Dummy;
+		FTextureResource *res40 = (FTextureResource *)ret40->Resource.Dummy;
+		FUnknownStruct1 *nstruct1 = (FUnknownStruct1 *)(nres->unknown_struct1 - 4);
+		FUnknownStruct1 *struct144 = (FUnknownStruct1 *)(res44->unknown_struct1 - 4);
+		FUnknownStruct1 *struct140 = (FUnknownStruct1 *)(res40->unknown_struct1 - 4);
+		unsigned char *data = (unsigned char *)struct140->ptr->pixel_data;
+		for (int i = 0; i < 100; i++)
+			data[i] = (i * 3) % 256;
+	}
+	//drawTexture(that->Canvas, ret40, 5, 5);
+	//drawTexture(that->Canvas, ntex, 10 + ret40->SizeX, 5);
+	*/
+
 	UCanvas *canvas = that->Canvas;
 	int reticule_id = that->m_GFxHud->Reticules->m_nCurrentReticuleIndex;
 
@@ -295,7 +317,8 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 			that->LastChangeResCheckTime = (int)that->WorldInfo->TimeSeconds;
 		}
 	}
-	Hooks::unlock();
+	Hooks::unlock(); 
+	Logger::log("Hello Noisette");
 	return true;
 }
 
