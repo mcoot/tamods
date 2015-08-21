@@ -2181,6 +2181,8 @@ void Lua::init()
 		addFunction("toggleTurrets", &toggleTurrets).
 		addFunction("togglePower", &togglePower).
 		addFunction("returnFlags", &returnFlags).
+		addFunction("routeGetAll", &routeGetAll).
+		addFunction("routeGetEnemyRoutes", &routeGetEnemyRoutes).
 	endNamespace();
 
 	if (!Logger::isQuiet())

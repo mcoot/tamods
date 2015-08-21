@@ -38,6 +38,8 @@ void togglePower();
 void returnFlags();
 
 // Route recording
+LuaRef routeGetAll();
+LuaRef routeGetEnemyRoutes();
 void routeRec();
 void routeStartRec();
 void routeStopRec();

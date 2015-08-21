@@ -487,6 +487,111 @@ template<typename T> std::istream & binary_read(std::istream& stream, T& value)
 	return stream.read(reinterpret_cast<char*>(&value), sizeof(T));
 }
 
+// Reloads the list of files for the current map
+static void reloadRouteList()
+{
+	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+	ATrPawn *pawn = (ATrPawn *)pc->Pawn;
+
+	if (!pawn || pawn->IsA(ATrVehicle::StaticClass()))
+		return;
+	std::string curr_map_name = Utils::f2std(pawn->WorldInfo->GetMapName(false));
+	curr_map_name.erase(std::remove(curr_map_name.begin(), curr_map_name.end(), ' '), curr_map_name.end());
+
+	std::wstring stemp = std::wstring(routedir.begin(), routedir.end());
+	LPCWSTR sw = stemp.c_str();
+
+	if (!Utils::dirExists(routedir))
+	{
+		if (!CreateDirectory(sw, NULL))
+		{
+			Utils::console("Error: Route directory does not exist");
+			return;
+		}
+		else
+			Utils::printConsole("Created routes directory");
+	}
+
+	if (files.size() != 0)
+		files.clear();
+
+	stemp += L"*.route";
+	sw = stemp.c_str();
+
+	WIN32_FIND_DATA search_data;
+
+	memset(&search_data, 0, sizeof(WIN32_FIND_DATA));
+
+	HANDLE handle = FindFirstFile(sw, &search_data);
+
+	while (handle != INVALID_HANDLE_VALUE)
+	{
+		std::wstring filename = search_data.cFileName;
+		std::string fname = std::string(filename.begin(), filename.end());
+		std::ifstream routefile(routedir + fname, std::ios::binary);
+		std::string file_map_name;
+
+		if (routefile.is_open())
+		{
+			float mod_version;
+			binary_read(routefile, mod_version);
+			routefile >> file_map_name;
+			routefile.close();
+		}
+		if (file_map_name == curr_map_name)
+			files.push_back(fname);
+
+		if (FindNextFile(handle, &search_data) == FALSE)
+			break;
+	}
+
+	//Close the handle after use or memory/resource leak
+	FindClose(handle);
+}
+
+LuaRef routeGetAll()
+{
+	reloadRouteList();
+	LuaRef out = newTable(g_config.lua.getState());
+
+	for (size_t i = 0; i < files.size(); i++)
+		out[i + 1] = files[i];
+	return out;
+}
+
+LuaRef routeGetEnemyRoutes()
+{
+	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+	ATrPawn *pawn = (ATrPawn *)pc->Pawn;
+
+	reloadRouteList();
+	LuaRef out = newTable(g_config.lua.getState());
+
+	if (!pawn || pawn->IsA(ATrVehicle::StaticClass()))
+		return out;
+
+	for (size_t i = 0; i < files.size(); i++)
+	{
+		std::ifstream routefile(routedir + files[i], std::ios::binary);
+		unsigned char team_num = 255;
+
+		if (routefile.is_open())
+		{
+			std::string tmp_map, tmp_class, tmp_name, tmp_desc;
+			float mod_version;
+
+			binary_read(routefile, mod_version);
+			routefile >> tmp_map >> tmp_class >> tmp_name >> tmp_desc;
+			routefile.ignore();
+			binary_read(routefile, team_num);
+			routefile.close();
+		}
+		if (team_num != 255 && team_num != pawn->GetTeamNum())
+			out[i + 1] = files[i];
+	}
+	return out;
+}
+
 void routeSaveFile(const std::string &desc)
 {
 	if (recording)
@@ -551,8 +656,7 @@ void routeSaveFile(const std::string &desc)
 
 void routeLoadFile(unsigned int num)
 {
-	if (files.size() == 0)
-		routeList("");
+	reloadRouteList();
 
 	if (files.size() == 0)
 	{
@@ -605,43 +709,7 @@ void routeLoadFile(unsigned int num)
 
 void routeList(const std::string &needle)
 {
-	std::wstring stemp = std::wstring(routedir.begin(), routedir.end());
-	LPCWSTR sw = stemp.c_str();
-
-	if (!Utils::dirExists(routedir))
-	{
-		if (!CreateDirectory(sw, NULL))
-		{
-			Utils::console("Error: Route directory does not exist");
-			return;
-		}
-		else
-			Utils::printConsole("Created routes directory");
-	}
-
-	if (files.size() != 0)
-		files.clear();
-
-	stemp += L'*' + std::wstring(needle.begin(), needle.end()) + L"*.route";
-	sw = stemp.c_str();
-
-	WIN32_FIND_DATA search_data;
-
-	memset(&search_data, 0, sizeof(WIN32_FIND_DATA));
-
-	HANDLE handle = FindFirstFile(sw, &search_data);
-
-	while (handle != INVALID_HANDLE_VALUE)
-	{
-		std::wstring filename = search_data.cFileName;
-		files.push_back(std::string(filename.begin(), filename.end()));
-
-		if (FindNextFile(handle, &search_data) == FALSE)
-			break;
-	}
-
-	//Close the handle after use or memory/resource leak
-	FindClose(handle);
+	reloadRouteList();
 
 	if (files.size() == 0)
 	{
@@ -652,7 +720,8 @@ void routeList(const std::string &needle)
 	for (size_t i = 0; i < files.size(); i++)
 	{
 		std::string &filename = files.at(i);
-		Utils::printConsole(std::to_string(i + 1) + ' ' + filename);
+		if (needle == "" || std::regex_search(filename, std::regex(needle, std::regex_constants::icase)))
+			Utils::printConsole(std::to_string(i + 1) + ' ' + filename);
 	}
 }
 
