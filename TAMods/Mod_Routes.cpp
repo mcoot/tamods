@@ -18,29 +18,29 @@ struct position
 	float energy;
 	int eta;
 };
-std::vector<position> route;
-std::vector<FVector> filteredVel;
+static std::vector<position> route;
+static std::vector<FVector> filteredVel;
 
-bool recording;
-bool replaying;
+static bool recording;
+static bool replaying;
 
 // Meta data for the route file
-float modVersion;
-int classID;
-std::string classAbbr;
-std::string mapName;
-std::string playerName;
-std::string version;
-std::string description;
-unsigned char teamNum;
-unsigned int classHealth;
-unsigned int routeLength = 0;
-float flagGrabTime = 0.0f;
+static float modVersion;
+static int classID;
+static std::string classAbbr;
+static std::string mapName;
+static std::string playerName;
+static std::string version;
+static std::string description;
+static unsigned char teamNum;
+static unsigned int classHealth;
+static unsigned int routeLength = 0;
+static float flagGrabTime = 0.0f;
 
-std::string routedir = Utils::getConfigDir() + "routes\\";
-std::vector<std::string> files;
+static std::string routedir = Utils::getConfigDir() + "routes\\";
+static std::vector<std::string> files;
 
-ATrPlayerController *replayPC;
+static ATrPlayerController *replayPC;
 
 bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
