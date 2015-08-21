@@ -493,7 +493,7 @@ static void reloadRouteList()
 	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
 	ATrPawn *pawn = (ATrPawn *)pc->Pawn;
 
-	if (!pawn || pawn->IsA(ATrVehicle::StaticClass()))
+	if (!pawn)
 		return;
 	std::string curr_map_name = Utils::f2std(pawn->WorldInfo->GetMapName(false));
 	curr_map_name.erase(std::remove(curr_map_name.begin(), curr_map_name.end(), ' '), curr_map_name.end());
@@ -567,7 +567,7 @@ LuaRef routeGetEnemyRoutes()
 	reloadRouteList();
 	LuaRef out = newTable(g_config.lua.getState());
 
-	if (!pawn || pawn->IsA(ATrVehicle::StaticClass()))
+	if (!pawn)
 		return out;
 
 	for (size_t i = 0; i < files.size(); i++)
