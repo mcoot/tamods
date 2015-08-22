@@ -222,7 +222,7 @@ void routeStartReplay(float startTime)
 	if (Utils::engine->GetCurrentWorldInfo()->NetMode != 0)
 		return;
 
-	if (route.size() == 0)
+	if (route.size() < 2)
 	{
 		Utils::console("Error: No route to replay");
 		return;
