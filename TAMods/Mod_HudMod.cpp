@@ -318,7 +318,6 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 		}
 	}
 	Hooks::unlock(); 
-	Logger::log("Hello Noisette");
 	return true;
 }
 
