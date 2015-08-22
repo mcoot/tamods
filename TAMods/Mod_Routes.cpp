@@ -170,12 +170,9 @@ static ATrPlayerController_Training* spawnPawn()
 	if (!spawned)
 	{
 		spawned = (ATrPlayerController_Training *)pc->Spawn(ATrPlayerController_Training::StaticClass(), pc, FName(0), pc->Location, pc->Rotation, NULL, 0);
-		
+
 		spawned->PlayerReplicationInfo->PlayerName = L"Replay Bot";
-		spawned->PlayerReplicationInfo->bReadyToPlay = true;
-		spawned->PlayerReplicationInfo->bHidden = false;
-		spawned->PlayerReplicationInfo->bIsInactive = false;
-		spawned->PlayerReplicationInfo->PlayerID = pc->PlayerReplicationInfo->PlayerID + 1;
+		spawned->PlayerReplicationInfo->bIsInactive = true; // Only with this set to true the bot shows up on the scoreboard
 
 		spawned->m_AudioComponentLowHealthLoop->VolumeMultiplier = 0.0f;
 		spawned->m_AudioComponentRechargeHealth->VolumeMultiplier = 0.0f;
@@ -491,11 +488,8 @@ template<typename T> std::istream & binary_read(std::istream& stream, T& value)
 static void reloadRouteList()
 {
 	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
-	ATrPawn *pawn = (ATrPawn *)pc->Pawn;
 
-	if (!pawn)
-		return;
-	std::string curr_map_name = Utils::f2std(pawn->WorldInfo->GetMapName(false));
+	std::string curr_map_name = Utils::f2std(pc->WorldInfo->GetMapName(false));
 	curr_map_name.erase(std::remove(curr_map_name.begin(), curr_map_name.end(), ' '), curr_map_name.end());
 
 	std::wstring stemp = std::wstring(routedir.begin(), routedir.end());
