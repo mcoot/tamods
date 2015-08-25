@@ -205,6 +205,7 @@ void Config::reset()
 
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();
+	muteVGS = false;
 
 	// Lua keybinds
 	for (auto &it : lua_keybinds)
@@ -620,6 +621,9 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showVehicleIcon);
 	SET_VARIABLE(bool, showMineIcon);
 	SET_VARIABLE(bool, showSensorIcon);
+
+	// VGS Mute
+	SET_VARIABLE(bool, muteVGS),
 
 	// Toggle Stats
 	SET_VARIABLE(bool, recordStats);

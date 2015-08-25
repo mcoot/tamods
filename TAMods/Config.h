@@ -442,6 +442,7 @@ public:
 
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;
+	bool muteVGS;
 
 	// Custom bullet color
 	std::map<int, CustomProjectile *> wep_id_to_custom_proj;

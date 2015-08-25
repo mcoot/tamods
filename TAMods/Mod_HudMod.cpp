@@ -355,6 +355,8 @@ bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_execClientReceiveVGSCommand_Parms *params = (ATrPlayerController_execClientReceiveVGSCommand_Parms *)pParams;
 
+	if (g_config.muteVGS)
+		return true;
 	if (!params->PRI)
 		return false;
 	std::string sender = Utils::f2std(params->PRI->PlayerName);
