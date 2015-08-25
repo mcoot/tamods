@@ -48,19 +48,26 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 			trans.Multiply = Utils::linCol(g_config.crosshairColor);
 			reticule->ReticulesMC->SetColorTransform(trans);
 
+
+			static UGFxObject *obj = NULL;
+			static UGFxObject *clipMC = NULL;
+			static UGfxTrHud *lasthud = NULL;
+
+			if (!obj || lasthud != hud->m_GFxHud)
+			{
+				clipMC = hud->m_GFxHud->GetVariableObject(L"_root.reticulesMC.reticules.clipMC", NULL);
+				obj = hud->m_GFxHud->GetVariableObject(L"_root.reticulesMC.reticules.clipMC.clipTF", NULL);
+				lasthud = hud->m_GFxHud;
+			}
+			if (clipMC)
+				clipMC->SetFloat(L"_y", offset / g_config.crosshairScale);
+
 			// Ammo info in 1st person
 			if (g_config.showFirstPersonAmmo)
 			{
 				reticule->EnableVehicleAmmoClip();
 				ATrDevice *dev = (ATrDevice *)reticule->LastWeapon;
-				static UGFxObject *obj = NULL;
-				static UGfxTrHud *lasthud = NULL;
-				
-				if (!obj || lasthud != hud->m_GFxHud)
-				{
-					obj = hud->m_GFxHud->GetVariableObject(L"_root.reticulesMC.reticules.clipMC.clipTF", NULL);
-					lasthud = hud->m_GFxHud;
-				}
+
 				if (obj && dev && reticule->LastWeapon->IsA(ATrDevice::StaticClass()))
 				{
 					wsprintf(buff, L"%d/%d", dev->m_RemainingAmmoInClip, dev->m_nCarriedAmmo);
