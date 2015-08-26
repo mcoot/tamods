@@ -2155,38 +2155,45 @@ void Lua::init()
 			addProperty("ignoreAlt", &FKeyBind::getIgnoreAlt).
 		endClass().
 		addFunction("searchTribesInputCommands", &config_searchTribesInputCommands).
-		addFunction("spawnPawn", &config_spawnPawn).
 
 		// Console commands as lua functions for the use as keybinds
 		addFunction("reloadSounds", &config_reloadSounds).
-		addFunction("stopwatch", &stopwatch).
-		addFunction("stopwatchStart", &stopwatchStart).
-		addFunction("stopwatchStop", &stopwatchStop).
-		addFunction("save", &savesSave).
-		addFunction("saveTo", &savesSaveTo).
-		addFunction("recall", &savesRecall).
-		addFunction("recallTo", &savesRecallTo).
-		addFunction("tp", &savesTp).
-		addFunction("tpTo", &savesTpTo).
-		addFunction("spawns", &savesToSpawns).
-		addFunction("resetSaves", &savesReset).
-		addFunction("rec", &routeRec).
-		addFunction("routeRecStart", &routeStartRec).
-		addFunction("routeRecStop", &routeStopRec).
-		addFunction("replay", &routeReplay).
-		addFunction("routeReplayStart", &routeStartReplay).
-		addFunction("routeReplayStop", &routeStopReplay).
-		addFunction("routeReset", &routeReset).
-		addFunction("routeSave", &routeSaveFile).
-		addFunction("routeLoad", &routeLoadFile).
-		addFunction("routeFind", &routeList).
-		addFunction("routeAll", &routeListAll).
-		addFunction("routeEnableBot", &routeEnableBot).
+		beginNamespace("stopwatch").
+			addFunction("toggle", &stopwatch).
+			addFunction("start", &stopwatchStart).
+			addFunction("stop", &stopwatchStop).
+		endNamespace().
+		beginNamespace("state").
+			addFunction("save", &savesSave).
+			addFunction("saveTo", &savesSaveTo).
+			addFunction("recall", &savesRecall).
+			addFunction("recallTo", &savesRecallTo).
+			addFunction("tp", &savesTp).
+			addFunction("tpTo", &savesTpTo).
+			addFunction("reset", &savesReset).
+			addFunction("setToSpawns", &savesToSpawns).
+		endNamespace().
+		beginNamespace("route").
+			addFunction("rec", &routeRec).
+			addFunction("record", &routeRec).
+			addFunction("recStart", &routeStartRec).
+			addFunction("recStop", &routeStopRec).
+			addFunction("replay", &routeReplay).
+			addFunction("replayStart", &routeStartReplay).
+			addFunction("replayStop", &routeStopReplay).
+			addFunction("reset", &routeReset).
+			addFunction("save", &routeSaveFile).
+			addFunction("load", &routeLoadFile).
+			addFunction("search", &routeList).
+			addFunction("find", &routeList).
+			addFunction("list", &routeListAll).
+			addFunction("enableBot", &routeEnableBot).
+			addFunction("getAll", &routeGetAll).
+			addFunction("getEnemyRoutes", &routeGetEnemyRoutes).
+		endNamespace().
 		addFunction("toggleTurrets", &toggleTurrets).
 		addFunction("togglePower", &togglePower).
 		addFunction("returnFlags", &returnFlags).
-		addFunction("routeGetAll", &routeGetAll).
-		addFunction("routeGetEnemyRoutes", &routeGetEnemyRoutes).
 	endNamespace();
 
 	if (!Logger::isQuiet())
