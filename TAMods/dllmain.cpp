@@ -78,8 +78,9 @@ void onDLLProcessAttach()
 		// Magic chain
 		Hooks::add(&TrPC_PlayerTick, "Function TribesGame.TrPlayerController.PlayerTick");
 
-		// Console commands (/lua)
+		// Custom console commands
 		Hooks::add(&TrChatConsole_Open_InputKey, "Function TrChatConsole.Open.InputKey");
+		Hooks::add(&TrChatConsole_Typing_InputKey, "Function TrChatConsole.Typing.InputKey");
 	}
 
 	// Pass true to log hookable functions
