@@ -651,6 +651,17 @@ void Config::setVariables()
 	SET_FUNCTION(onInputEvent);
 }
 
+static void config_rereadVariables()
+{
+	g_config.setVariables();
+	g_config.updateDefaults();
+}
+
+static void config_reload()
+{
+	g_config.parseFile();
+}
+
 static void config_reloadSounds()
 {
 	g_config.reloadSounds();
@@ -2194,6 +2205,11 @@ void Lua::init()
 		addFunction("toggleTurrets", &toggleTurrets).
 		addFunction("togglePower", &togglePower).
 		addFunction("returnFlags", &returnFlags).
+
+		beginNamespace("config").
+			addFunction("reloadVariables", &config_rereadVariables).
+			addFunction("reload", &config_reload).
+		endNamespace().
 	endNamespace();
 
 	if (!Logger::isQuiet())
