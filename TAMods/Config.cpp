@@ -105,6 +105,7 @@ void Config::reset()
 	damageNumbersColorMax = Utils::rgb(248, 83, 83);
 	friendlyChatColor     = Utils::rgb(158, 208, 212);
 	enemyChatColor        = Utils::rgb(255, 111, 111);
+	whisperChatColor      = Utils::rgb(207, 165, 101);
 	friendlyHUDChatColor  = Utils::rgb(158, 208, 211);
 	enemyHUDChatColor     = Utils::rgb(249, 32, 32);
 
@@ -281,9 +282,11 @@ void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 		{
 			default_hud->FriendlyChatColor = g_config.friendlyChatColor;
 			default_hud->EnemyChatColor = g_config.enemyChatColor;
+			default_hud->WhisperChatColor = g_config.whisperChatColor;
 		}
 		currHud->FriendlyChatColor = g_config.friendlyChatColor;
 		currHud->EnemyChatColor = g_config.enemyChatColor;
+		currHud->WhisperChatColor = g_config.whisperChatColor;
 
 		// Damage numbers
 		if (default_hud)
@@ -510,6 +513,7 @@ void Config::setVariables()
 	// Chat colors
 	SET_VARIABLE(FColor, friendlyChatColor);
 	SET_VARIABLE(FColor, enemyChatColor);
+	SET_VARIABLE(FColor, whisperChatColor);
 	SET_VARIABLE(FColor, friendlyHUDChatColor);
 	SET_VARIABLE(FColor, enemyHUDChatColor);
 

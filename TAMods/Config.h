@@ -313,6 +313,7 @@ public:
 	//Chat Cols
 	FColor friendlyChatColor;
 	FColor enemyChatColor;
+	FColor whisperChatColor;
 	FColor friendlyHUDChatColor;
 	FColor enemyHUDChatColor;
 	//Marker Cols
