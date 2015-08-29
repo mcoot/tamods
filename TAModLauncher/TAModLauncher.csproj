@@ -54,6 +54,7 @@
     <Compile Include="FormFileSelector.Designer.cs">
       <DependentUpon>FormFileSelector.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameDetector.cs" />
     <Compile Include="LauncherForm.cs">
       <SubType>Form</SubType>
     </Compile>

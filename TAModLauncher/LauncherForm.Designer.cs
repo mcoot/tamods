@@ -41,7 +41,7 @@
             // 
             // btnUpdateLaunch
             // 
-            this.btnUpdateLaunch.Location = new System.Drawing.Point(611, 132);
+            this.btnUpdateLaunch.Location = new System.Drawing.Point(549, 132);
             this.btnUpdateLaunch.Name = "btnUpdateLaunch";
             this.btnUpdateLaunch.Size = new System.Drawing.Size(75, 38);
             this.btnUpdateLaunch.TabIndex = 0;
@@ -53,7 +53,7 @@
             // 
             this.progressUpdate.Location = new System.Drawing.Point(12, 132);
             this.progressUpdate.Name = "progressUpdate";
-            this.progressUpdate.Size = new System.Drawing.Size(593, 38);
+            this.progressUpdate.Size = new System.Drawing.Size(531, 38);
             this.progressUpdate.TabIndex = 2;
             // 
             // checkAutoUpdate
@@ -100,7 +100,7 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(611, 12);
+            this.btnSettings.Location = new System.Drawing.Point(549, 12);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(75, 23);
             this.btnSettings.TabIndex = 9;
@@ -118,7 +118,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 195);
+            this.ClientSize = new System.Drawing.Size(630, 191);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnReinstall);
             this.Controls.Add(this.btnUpdateCheck);
