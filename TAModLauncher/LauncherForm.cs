@@ -21,6 +21,7 @@ namespace TAModLauncher
         public TAModLauncherConfig config;
         public DLLInjector injector;
         public SettingsForm settingsform;
+        public GameDetector autoInjectTimer;
         public string LauncherPath { get; set; }
 
         public string DLLPath { get; set; }
@@ -37,7 +38,7 @@ namespace TAModLauncher
         {
             updater = new TAModUpdater();
             config = new TAModLauncherConfig("launcher.xml");
-
+            
             // Event handlers
             updater.DownloadProgressChanged += new EventHandler(updateProgressChange);
             updater.DownloadCompleted += new EventHandler(updateFinished);
@@ -52,11 +53,21 @@ namespace TAModLauncher
             LauncherPath = (config.getProperty("//LauncherConfig/TribesLauncherPath") == null ?
                 (launcherRegEntry == null ? "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe" : launcherRegEntry + "\\HiRezLauncherUI.exe")
                 : config.getProperty("//LauncherConfig/TribesLauncherPath"));
-
             DLLPath = (config.getProperty("//LauncherConfig/TAModsDLLPath") == null ?
                  Environment.CurrentDirectory + "\\TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
+            bool autoInjecting = (config.getProperty("//LauncherConfig/AutoInject/Enabled") == null ?
+                false : Convert.ToBoolean(config.getProperty("//LauncherConfig/AutoInject/Enabled")));
+            int autoInjectDelay = (config.getProperty("//LauncherConfig/AutoInject/Delay") == null ?
+                60 : Convert.ToInt32(config.getProperty("//LauncherConfig/AutoInject/Delay")));
+            bool autoInjectMode = (config.getProperty("//LauncherConfig/AutoInject/SmartMode") == null ?
+                true : Convert.ToBoolean(config.getProperty("//LauncherConfig/AutoInject/SmartMode")));
+            
             // Create the injector
             injector = new DLLInjector(tribesProcessName, DLLPath);
+
+            // Create the auto-inject timer
+            autoInjectTimer = new GameDetector(autoInjecting, autoInjectDelay, "tribesascend", autoInjectMode);
+            checkAutoInject.Checked = autoInjectTimer.Enabled;
 
             if (checkAutoUpdate.Checked)
             {
@@ -74,6 +85,9 @@ namespace TAModLauncher
             if (settingsform.selectUpdateChannel.SelectedItem != null) config.setProperty("//LauncherConfig/UpdateChannel", settingsform.selectUpdateChannel.SelectedItem.ToString().ToLower());
             if (LauncherPath.Trim() != "") config.setProperty("//LauncherConfig/TribesLauncherPath", LauncherPath);
             if (DLLPath.Trim() != "") config.setProperty("//LauncherConfig/TAModsDLLPath", DLLPath);
+            config.setProperty("//LauncherConfig/AutoInject/Enabled", autoInjectTimer.Enabled.ToString());
+            config.setProperty("//LauncherConfig/AutoInject/Delay", autoInjectTimer.Delay.ToString());
+            config.setProperty("//LauncherConfig/AutoInject/SmartMode", autoInjectTimer.SmartMode.ToString());
             config.saveConfig("launcher.xml");
         }
 
@@ -356,14 +370,32 @@ namespace TAModLauncher
                     else
                     {
                         btnUpdateLaunch.Text = "Inject TAMods";
+
+                        // Handle auto-injection
+                        if (autoInjectTimer.Enabled)
+                        {
+                            if (autoInjectTimer.IsReadyToInject())
+                            {
+                                InjectMods();
+                            }
+                        }
                     }
                 }
                 else
                 {
                     btnUpdateLaunch.Text = "Launch Tribes";
                     if (injector.HasInjected) injector.HasInjected = false;
+                    if (autoInjectTimer.Enabled)
+                    {
+                        autoInjectTimer.ResetTimer();
+                    }
                 }
             }
+        }
+
+        private void checkAutoInject_CheckedChanged(object sender, EventArgs e)
+        {
+            autoInjectTimer.Enabled = checkAutoInject.Checked;
         }
 
     }

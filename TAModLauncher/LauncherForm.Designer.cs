@@ -37,7 +37,7 @@
             this.btnReinstall = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.timerCheckTribesRunning = new System.Windows.Forms.Timer(this.components);
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkAutoInject = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnUpdateLaunch
@@ -115,22 +115,23 @@
             this.timerCheckTribesRunning.Interval = 1000;
             this.timerCheckTribesRunning.Tick += new System.EventHandler(this.timerCheckTribesRunning_Tick);
             // 
-            // checkBox1
+            // checkAutoInject
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(424, 108);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(117, 17);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "Automatically Inject";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkAutoInject.AutoSize = true;
+            this.checkAutoInject.Location = new System.Drawing.Point(424, 108);
+            this.checkAutoInject.Name = "checkAutoInject";
+            this.checkAutoInject.Size = new System.Drawing.Size(117, 17);
+            this.checkAutoInject.TabIndex = 10;
+            this.checkAutoInject.Text = "Automatically Inject";
+            this.checkAutoInject.UseVisualStyleBackColor = true;
+            this.checkAutoInject.CheckedChanged += new System.EventHandler(this.checkAutoInject_CheckedChanged);
             // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(630, 191);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkAutoInject);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnReinstall);
             this.Controls.Add(this.btnUpdateCheck);
@@ -160,7 +161,7 @@
         private System.Windows.Forms.Button btnReinstall;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Timer timerCheckTribesRunning;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkAutoInject;
     }
 }
 

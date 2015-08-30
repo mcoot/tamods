@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace TAModLauncher
 {
-    class GameDetector
+    public class GameDetector
     {
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
@@ -33,6 +33,11 @@ namespace TAModLauncher
         private int readyTime = 0;
 
         /// <summary>
+        /// The game detector timer operates if true; if false, it always returns as ready
+        /// </summary>
+        public bool Enabled { get; set; }
+
+        /// <summary>
         /// If true, the detector will automatically ready when the window is fullscreen,
         /// otherwise it will just use a straight timer
         /// </summary>
@@ -48,8 +53,9 @@ namespace TAModLauncher
         /// </summary>
         public string ProcessName { get; set; }
 
-        public GameDetector(int delay, string processName, bool smartMode)
+        public GameDetector(bool enabled, int delay, string processName, bool smartMode)
         {
+            this.Enabled = enabled;
             this.Delay = delay;
             this.ProcessName = processName;
             this.SmartMode = smartMode;
@@ -65,7 +71,15 @@ namespace TAModLauncher
         /// <returns>true iff the foreground window is ProcessName, and the delay has elapsed</returns>
         public bool IsReadyToInject()
         {
-            return (readyTime >= Delay);
+            return (Enabled && readyTime >= Delay);
+        }
+
+        /// <summary>
+        /// Resets the readiness timer
+        /// </summary>
+        public void ResetTimer()
+        {
+            readyTime = 0;
         }
 
         private void Timer_tick(object sender, EventArgs e)

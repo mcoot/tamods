@@ -32,6 +32,9 @@ namespace TAModLauncher
             fileSelectDLLDirectory.FilePathChanged += new EventHandler(fileSelectDLLDirectory_FilePathChanged);
             fileSelectDLLDirectory.setFilePath(parent.DLLPath);
 
+            checkAutoInjectSmartMode.Checked = parent.autoInjectTimer.SmartMode;
+            numAutoInjectDelay.Value = parent.autoInjectTimer.Delay;
+
         }
 
         private void selectUpdateChannel_SelectedIndexChanged(object sender, EventArgs e)
@@ -69,6 +72,29 @@ namespace TAModLauncher
         private void btnOK_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void checkAutoInjectSmartMode_CheckedChanged(object sender, EventArgs e)
+        {
+            parent.autoInjectTimer.SmartMode = checkAutoInjectSmartMode.Checked;
+            numAutoInjectDelay.Enabled = !checkAutoInjectSmartMode.Checked;
+
+            if (checkAutoInjectSmartMode.Checked)
+            {
+                parent.autoInjectTimer.Delay = 15;
+            }
+            else
+            {
+                parent.autoInjectTimer.Delay = Convert.ToInt32(numAutoInjectDelay.Value);
+            }
+        }
+
+        private void numAutoInjectDelay_ValueChanged(object sender, EventArgs e)
+        {
+            if (numAutoInjectDelay.Enabled)
+            {
+                parent.autoInjectTimer.Delay = Convert.ToInt32(numAutoInjectDelay.Value);
+            }
         }
     }
 }
