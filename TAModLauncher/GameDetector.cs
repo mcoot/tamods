@@ -30,14 +30,59 @@ namespace TAModLauncher
         [DllImport("user32.dll")]
         static extern uint GetWindowThreadProcessId(IntPtr hWnd, out int ProcessId);
 
-        public long Delay { get; set; }
+        private int readyTime = 0;
 
+        /// <summary>
+        /// If true, the detector will automatically ready when the window is fullscreen,
+        /// otherwise it will just use a straight timer
+        /// </summary>
+        public bool SmartMode { get; set; }
+
+        /// <summary>
+        /// The delay in seconds to wait after the process has launched
+        /// </summary>
+        public int Delay { get; set; }
+
+        /// <summary>
+        /// The process name to check for foreground status
+        /// </summary>
         public string ProcessName { get; set; }
 
-        public GameDetector(long delay, string processName)
+        public GameDetector(int delay, string processName, bool smartMode)
         {
             this.Delay = delay;
             this.ProcessName = processName;
+            this.SmartMode = smartMode;
+            Timer timer = new Timer();
+            timer.Interval = 1000;
+            timer.Tick += new EventHandler(Timer_tick);
+            timer.Start();
+        }
+
+        /// <summary>
+        /// Returns true if the process is ready for injection
+        /// </summary>
+        /// <returns>true iff the foreground window is ProcessName, and the delay has elapsed</returns>
+        public bool IsReadyToInject()
+        {
+            return (readyTime >= Delay);
+        }
+
+        private void Timer_tick(object sender, EventArgs e)
+        {
+            if (!IsMyProcessInForeground() || (SmartMode && !IsForegroundFullscreen()))
+            {
+                // Only reset if not yet ready for inject
+                if (readyTime < Delay) readyTime = 0;
+            }
+            else
+            {
+                if (readyTime < Delay)
+                {
+                    readyTime++;
+                }
+            }
+
         }
 
         /// <summary>
@@ -45,7 +90,7 @@ namespace TAModLauncher
         /// </summary>
         /// <param name="screen">the screen to check the foreground window for</param>
         /// <returns>true iff the screen's foreground window covers the whole screen</returns>
-        public static bool IsForegroundFullscreen(Screen screen)
+        private static bool IsForegroundFullscreen(Screen screen)
         {
             if (screen == null)
             {
@@ -62,7 +107,7 @@ namespace TAModLauncher
         /// Check whether the current foreground window on the primary screen is fullscreen
         /// </summary>
         /// <returns>true iff the primary screen's foreground window covers the whole screen</returns>
-        public static bool IsForegroundFullscreen()
+        private static bool IsForegroundFullscreen()
         {
             return IsForegroundFullscreen(null);
         }
@@ -72,7 +117,7 @@ namespace TAModLauncher
         /// </summary>
         /// <param name="process">the process to check</param>
         /// <returns>true iff the given process has a window in the foreground</returns>
-        public static bool IsProcessInForeground(Process process)
+        private static bool IsProcessInForeground(Process process)
         {
             IntPtr hWnd = GetForegroundWindow();
             if (hWnd == null) return false;
@@ -89,7 +134,7 @@ namespace TAModLauncher
         /// </summary>
         /// <param name="processName">the process name to check</param>
         /// <returns>true iff any process with the given name has a window in the foreground</returns>
-        public static bool IsProcessNameInForeground(string processName)
+        private static bool IsProcessByNameInForeground(string processName)
         {
             Process[] processes = Process.GetProcessesByName(processName);
 
@@ -98,6 +143,15 @@ namespace TAModLauncher
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Checks whether the GameDetector's process is in the foreground
+        /// </summary>
+        /// <returns>true iff any process with the GameDetector's process name has a window in the foreground</returns>
+        private bool IsMyProcessInForeground()
+        {
+            return IsProcessByNameInForeground(ProcessName);
         }
     }
 }
