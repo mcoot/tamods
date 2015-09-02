@@ -97,7 +97,7 @@ namespace TAModConfigurationTool
 
                 { "HUD Colours", new List<string>()
                     {
-                        "friendlyChatColor", "enemyChatColor", "friendlyHUDChatColor", "enemyHUDChatColor", "friendlyColor", "enemyColor", "friendlyMarkerColor", "friendlyIsFMarkerColor", "enemyMarkerColor", "enemyIsFMarkerColor"
+                        "friendlyChatColor", "enemyChatColor", "whisperChatColor", "friendlyHUDChatColor", "enemyHUDChatColor", "friendlyColor", "enemyColor", "friendlyMarkerColor", "friendlyIsFMarkerColor", "enemyMarkerColor", "enemyIsFMarkerColor"
                     }
                 },
 
@@ -176,6 +176,7 @@ namespace TAModConfigurationTool
                 { "damageNumbersColorMax", rgb(248, 83, 83) },
                 { "friendlyChatColor", rgb(158, 208, 212) },
                 { "enemyChatColor", rgb(255, 111, 111) },
+                { "whisperChatColor", rgb(207, 165, 101) },
                 { "friendlyHUDChatColor", rgb(158, 208, 211) },
                 { "enemyHUDChatColor", rgb(249, 32, 32) },
 

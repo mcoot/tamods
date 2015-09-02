@@ -715,6 +715,7 @@ namespace TAModConfigurationTool
 
                 {"Console Chat Colour - Friendly", "friendlyChatColor"},
                 {"Console Chat Colour - Enemy", "enemyChatColor"},
+                {"Console Chat Colour - PM", "whisperChatColor"},
                 {"HUD Chat Colour - Friendly", "friendlyHUDChatColor"},
                 {"HUD Chat Colour - Enemy", "enemyHUDChatColor"},
                 
