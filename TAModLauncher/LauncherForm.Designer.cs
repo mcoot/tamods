@@ -37,11 +37,12 @@
             this.btnReinstall = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.timerCheckTribesRunning = new System.Windows.Forms.Timer(this.components);
+            this.checkAutoInject = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnUpdateLaunch
             // 
-            this.btnUpdateLaunch.Location = new System.Drawing.Point(611, 132);
+            this.btnUpdateLaunch.Location = new System.Drawing.Point(549, 132);
             this.btnUpdateLaunch.Name = "btnUpdateLaunch";
             this.btnUpdateLaunch.Size = new System.Drawing.Size(75, 38);
             this.btnUpdateLaunch.TabIndex = 0;
@@ -53,7 +54,7 @@
             // 
             this.progressUpdate.Location = new System.Drawing.Point(12, 132);
             this.progressUpdate.Name = "progressUpdate";
-            this.progressUpdate.Size = new System.Drawing.Size(593, 38);
+            this.progressUpdate.Size = new System.Drawing.Size(531, 38);
             this.progressUpdate.TabIndex = 2;
             // 
             // checkAutoUpdate
@@ -92,7 +93,7 @@
             // 
             this.btnReinstall.Location = new System.Drawing.Point(279, 105);
             this.btnReinstall.Name = "btnReinstall";
-            this.btnReinstall.Size = new System.Drawing.Size(96, 21);
+            this.btnReinstall.Size = new System.Drawing.Size(81, 23);
             this.btnReinstall.TabIndex = 6;
             this.btnReinstall.Text = "Reinstall Mod";
             this.btnReinstall.UseVisualStyleBackColor = true;
@@ -100,7 +101,7 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(611, 12);
+            this.btnSettings.Location = new System.Drawing.Point(549, 12);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(75, 23);
             this.btnSettings.TabIndex = 9;
@@ -114,11 +115,23 @@
             this.timerCheckTribesRunning.Interval = 1000;
             this.timerCheckTribesRunning.Tick += new System.EventHandler(this.timerCheckTribesRunning_Tick);
             // 
+            // checkAutoInject
+            // 
+            this.checkAutoInject.AutoSize = true;
+            this.checkAutoInject.Location = new System.Drawing.Point(424, 108);
+            this.checkAutoInject.Name = "checkAutoInject";
+            this.checkAutoInject.Size = new System.Drawing.Size(117, 17);
+            this.checkAutoInject.TabIndex = 10;
+            this.checkAutoInject.Text = "Automatically Inject";
+            this.checkAutoInject.UseVisualStyleBackColor = true;
+            this.checkAutoInject.CheckedChanged += new System.EventHandler(this.checkAutoInject_CheckedChanged);
+            // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 195);
+            this.ClientSize = new System.Drawing.Size(630, 191);
+            this.Controls.Add(this.checkAutoInject);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnReinstall);
             this.Controls.Add(this.btnUpdateCheck);
@@ -126,6 +139,8 @@
             this.Controls.Add(this.checkAutoUpdate);
             this.Controls.Add(this.progressUpdate);
             this.Controls.Add(this.btnUpdateLaunch);
+            this.MaximumSize = new System.Drawing.Size(646, 230);
+            this.MinimumSize = new System.Drawing.Size(646, 230);
             this.Name = "LauncherForm";
             this.Text = "TAMods Launcher";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LauncherForm_FormClosing);
@@ -146,6 +161,7 @@
         private System.Windows.Forms.Button btnReinstall;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Timer timerCheckTribesRunning;
+        private System.Windows.Forms.CheckBox checkAutoInject;
     }
 }
 

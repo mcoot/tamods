@@ -35,6 +35,10 @@
             this.fileSelectLauncherDirectory = new TAModLauncher.FormFileSelector();
             this.fileSelectDLLDirectory = new TAModLauncher.FormFileSelector();
             this.label3 = new System.Windows.Forms.Label();
+            this.checkAutoInjectSmartMode = new System.Windows.Forms.CheckBox();
+            this.numAutoInjectDelay = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numAutoInjectDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -103,11 +107,42 @@
             this.label3.TabIndex = 15;
             this.label3.Text = "TAMods DLL Path";
             // 
+            // checkAutoInjectSmartMode
+            // 
+            this.checkAutoInjectSmartMode.AutoSize = true;
+            this.checkAutoInjectSmartMode.Location = new System.Drawing.Point(12, 148);
+            this.checkAutoInjectSmartMode.Name = "checkAutoInjectSmartMode";
+            this.checkAutoInjectSmartMode.Size = new System.Drawing.Size(324, 17);
+            this.checkAutoInjectSmartMode.TabIndex = 16;
+            this.checkAutoInjectSmartMode.Text = "AutoInjector Smart Mode (does not work with Windowed mode)";
+            this.checkAutoInjectSmartMode.UseVisualStyleBackColor = true;
+            this.checkAutoInjectSmartMode.CheckedChanged += new System.EventHandler(this.checkAutoInjectSmartMode_CheckedChanged);
+            // 
+            // numAutoInjectDelay
+            // 
+            this.numAutoInjectDelay.Location = new System.Drawing.Point(112, 171);
+            this.numAutoInjectDelay.Name = "numAutoInjectDelay";
+            this.numAutoInjectDelay.Size = new System.Drawing.Size(60, 20);
+            this.numAutoInjectDelay.TabIndex = 17;
+            this.numAutoInjectDelay.ValueChanged += new System.EventHandler(this.numAutoInjectDelay_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 174);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(94, 13);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "AutoInjector Delay";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(444, 261);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.numAutoInjectDelay);
+            this.Controls.Add(this.checkAutoInjectSmartMode);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.fileSelectDLLDirectory);
             this.Controls.Add(this.label2);
@@ -120,6 +155,7 @@
             this.Text = "SettingsForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
             this.Load += new System.EventHandler(this.SettingsForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.numAutoInjectDelay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -134,5 +170,8 @@
         private FormFileSelector fileSelectLauncherDirectory;
         private FormFileSelector fileSelectDLLDirectory;
         private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.CheckBox checkAutoInjectSmartMode;
+        private System.Windows.Forms.NumericUpDown numAutoInjectDelay;
+        private System.Windows.Forms.Label label4;
     }
 }
