@@ -87,8 +87,9 @@ bool TrPC_InitInputSystem(int ID, UObject *dwCallingObject, UFunction* pFunction
 		FKeyBind *bind = that->PlayerInput->Bindings.Data + i;
 
 		FString cmd = bind->Command;
-		std::string scmd = Utils::f2std(cmd);
-		if (Utils::cleanString(scmd).find("showextentlinecheck") != std::string::npos)
+		std::string scmd = Utils::cleanString(Utils::f2std(cmd));
+		if (scmd.find("showextentlinecheck") != std::string::npos
+			|| scmd.find("exec") != std::string::npos)
 			bind->Command = FString(L"");
 	}
 	return false;

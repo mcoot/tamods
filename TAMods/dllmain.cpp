@@ -85,6 +85,10 @@ void onDLLProcessAttach()
 
 	// Pass true to log hookable functions
 	Hooks::init(true);
+
+	Utils::tr_pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->NetMode != 0)
+		Utils::tr_pc->Disconnect();
 }
 
 void onDLLProcessDetach()
