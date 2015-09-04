@@ -63,8 +63,15 @@ void returnFlags()
 	{
 		for (int i = 0; i < 2; i++)
 		{
-			if (((ATrGame_TRCTF *)gi)->m_Flags[i]->GetStateName() == FName("Dropped"))
-				((ATrGame_TRCTF *)gi)->m_Flags[i]->SendHome(TrPC);
+			FName state = ((ATrGame_TRCTF *)gi)->m_Flags[i]->GetStateName();
+
+			if (state == FName("Held"))
+			{
+				((ATrGame_TRCTF *)gi)->m_Flags[i]->eventDrop(NULL, false);
+				((ATrGame_TRCTF *)gi)->m_Flags[i]->SendHome(NULL);
+			}
+			else if (state == FName("Dropped"))
+				((ATrGame_TRCTF *)gi)->m_Flags[i]->SendHome(NULL);
 		}
 	}
 }
