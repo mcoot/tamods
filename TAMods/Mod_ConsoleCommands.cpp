@@ -440,12 +440,14 @@ bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* 
 		{
 			if (that->IsSlashCommand())
 			{
-				execConsoleCommand(that->TypedStr.Data);
-				that->TypedStr = L"";
-				that->SetInputText(FString(L""));
-				that->SetCursorPos(0);
-				that->ChannelStr = L"";
-				that->UpdateCompleteIndices();
+				if (execConsoleCommand(that->TypedStr.Data))
+				{
+					that->TypedStr = L"";
+					that->SetInputText(FString(L""));
+					that->SetCursorPos(0);
+					that->ChannelStr = L"";
+					that->UpdateCompleteIndices();
+				}
 				return false;
 			}
 		}
