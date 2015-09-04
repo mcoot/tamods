@@ -531,9 +531,10 @@ static void reloadRouteList()
 			binary_read(routefile, mod_version);
 			routefile >> file_map_name;
 			routefile.close();
+
+			if (mod_version == MODVERSION && file_map_name == curr_map_name)
+				files.push_back(fname);
 		}
-		if (file_map_name == curr_map_name)
-			files.push_back(fname);
 
 		if (FindNextFile(handle, &search_data) == FALSE)
 			break;
@@ -579,9 +580,10 @@ LuaRef routeGetEnemyRoutes()
 			routefile.ignore();
 			binary_read(routefile, team_num);
 			routefile.close();
+
+			if (team_num != 255 && team_num != pawn->GetTeamNum())
+				out[i + 1] = files[i];
 		}
-		if (team_num != 255 && team_num != pawn->GetTeamNum())
-			out[i + 1] = files[i];
 	}
 	return out;
 }
@@ -677,6 +679,13 @@ void routeLoadFile(unsigned int num)
 	{
 		routeReset();
 		binary_read(routefile, modVersion);
+
+		if (modVersion != MODVERSION)
+		{
+			routefile.close();
+			Utils::console("Error: This route file has a wrong format");
+			return;
+		}
 		
 		routefile >> mapName >> classAbbr >> playerName >> description;
 
