@@ -7,19 +7,57 @@ bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, vo
 	return false;
 }
 
+struct Modifier
+{
+	struct Key
+	{
+		FName key;
+		bool status;
+
+		Key(const std::string &pname)
+			: key(pname.c_str()), status(false)
+		{}
+		void update(FName &pkey, EInputEvent evt)
+		{
+			if (key == pkey && evt < 2 /* Pressed or released */)
+				status = !evt;
+		}
+	};
+
+	Key left;
+	Key right;
+
+	Modifier(const std::string &pname)
+		: left("Left" + pname), right("Right" + pname)
+	{ }
+	void update(FName &pkey, EInputEvent evt)
+	{
+		left.update(pkey, evt);
+		right.update(pkey, evt);
+	}
+	bool isPressed()
+	{
+		return left.status || right.status;
+	}
+};
+
 // Lua keybindings
 bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	static Modifier mods[3] = { Modifier("Control"), Modifier("Shift"), Modifier("Alt") };
 	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
 	UTrChatConsole_execInputKey_Parms *params = (UTrChatConsole_execInputKey_Parms *)pParams;
 
 	Utils::tr_pc = that->m_TrPC;
+	for (int i = 0; i < 3; i++)
+		mods[i].update(params->Key, (EInputEvent)params->Event);
+
 	// Big hook "onInputevent", intercept everything
 	if (g_config.onInputEvent)
 	{
 		try
 		{
-			(*g_config.onInputEvent)(std::string(params->Key.GetName()), (int)params->Event);
+			(*g_config.onInputEvent)(std::string(params->Key.GetName()), (int)params->Event, mods[0].isPressed(), mods[1].isPressed(), mods[2].isPressed());
 		}
 		catch (const LuaException &e)
 		{
@@ -35,7 +73,7 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 		return false;
 	try
 	{
-		(*it->second[params->Event])(std::string(params->Key.GetName()), (int)params->Event);
+		(*it->second[params->Event])(std::string(params->Key.GetName()), (int)params->Event, mods[0].isPressed(), mods[1].isPressed(), mods[2].isPressed());
 	}
 	catch (const LuaException &e)
 	{
