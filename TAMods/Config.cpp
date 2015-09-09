@@ -199,10 +199,10 @@ void Config::reset()
 	sensZoooom           = 2.0f;
 
 	// Weapon and bullet position
-	bool customWeaponOffset = false;
-	FVector weaponOffset = { 0.0f, 0.0f, 0.0f };
-	bool customBulletSpawnOffset = false;
-	FVector bulletSpawnOffset = { 180.0f, 0.0f, 0.0f };
+	customWeaponOffset = false;
+	weaponOffset = { 0.0f, 0.0f, 0.0f };
+	customBulletSpawnOffset = false;
+	bulletSpawnOffset = { 180.0f, 0.0f, 0.0f };
 
 	//Global mute
 	globalMuteList = std::vector<MutedPlayer>();

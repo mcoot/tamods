@@ -333,15 +333,17 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	if (!g_config.useFOVScaling)
 	{
 		that->PlayerInput->bEnableFOVScaling = 0;
-		if (that->FOVAngle > 40)
-			that->PlayerInput->MouseSensitivity = g_config.sens;
-		else if (that->FOVAngle == 40)
-			that->PlayerInput->MouseSensitivity = g_config.sensZoom;
+
+		if (that->DesiredFOV == 40.0f)
+			that->PlayerInput->MouseSensitivity = that->FInterpEaseOut(that->PlayerInput->MouseSensitivity, g_config.sensZoom, 40.0f / that->FOVAngle, 0.4f);
+		else if (that->DesiredFOV == 20.0f)
+			that->PlayerInput->MouseSensitivity = that->FInterpEaseOut(that->PlayerInput->MouseSensitivity, g_config.sensZoooom, 20.0f / that->FOVAngle, 0.4f);
 		else
-			that->PlayerInput->MouseSensitivity = g_config.sensZoooom;
+			that->PlayerInput->MouseSensitivity = g_config.sens;
 	}
 	else
 		that->PlayerInput->bEnableFOVScaling = 1;
+
 
 	Hooks::lock();
 	Utils::tr_pc = that;
