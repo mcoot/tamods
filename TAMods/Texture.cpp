@@ -1,6 +1,6 @@
 #include "Texture.h"
 
-static UTexture2D *default_argb_clone = Texture::clone(UObject::FindObject<UTexture2D>("Texture2D EngineMaterials.WeightMapPlaceholderTexture"));
+static UTexture2D *default_argb_clone = NULL;// Texture::clone(UObject::FindObject<UTexture2D>("Texture2D EngineMaterials.WeightMapPlaceholderTexture"));
 
 static void printDump(unsigned int *data, int count, const char *name)
 {

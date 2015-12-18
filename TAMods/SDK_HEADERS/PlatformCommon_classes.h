@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: PlatformCommon_classes.h
@@ -34,25 +34,25 @@
 */
 
 // Enum PlatformCommon.TgStructures.CMTargetType
-/*enum CMTargetType
+enum CMTargetType
 {
 	CMTT_Pawn                                          = 0,
 	CMTT_Deployable                                    = 1,
 	CMTT_MAX                                           = 2
-};*/
+};
 
 // Enum PlatformCommon.TgSupportCommands.GC_ALERT_PRIORITY
-/*enum GC_ALERT_PRIORITY
+enum GC_ALERT_PRIORITY
 {
 	GC_APT_MINIMAL                                     = 0,
 	GC_APT_NORMAL                                      = 1,
 	GC_APT_HIGH                                        = 2,
 	GC_APT_CRITICAL                                    = 3,
 	GC_APT_MAX                                         = 4
-};*/
+};
 
 // Enum PlatformCommon.TgSupportCommands.GC_CHAT_CHANNEL
-/*enum GC_CHAT_CHANNEL
+enum GC_CHAT_CHANNEL
 {
 	GC_CC_GLOBAL                                       = 0,
 	GC_CC_CLAN                                         = 1,
@@ -77,10 +77,10 @@
 	GC_CC_INVALID                                      = 20,
 	GC_CC_LAST                                         = 21,
 	GC_CC_MAX                                          = 22
-};*/
+};
 
 // Enum PlatformCommon.TgSupportCommands.GC_STEAM_TXN_TYPES
-/*enum GC_STEAM_TXN_TYPES
+enum GC_STEAM_TXN_TYPES
 {
 	GC_STT_INVALID                                     = 0,
 	GC_STT_GETUSERINFO                                 = 1,
@@ -88,7 +88,7 @@
 	GC_STT_FINALIZE                                    = 3,
 	GC_STT_DECLINE                                     = 4,
 	GC_STT_MAX                                         = 5
-};*/
+};
 
 
 /*
@@ -117,8 +117,6 @@ public:
 
 };
 
-// UClass* USearFiles::pClassPointer = NULL;
-
 // Class PlatformCommon.TgBrowserInteraction
 // 0x0004 (0x0070 - 0x006C)
 class UTgBrowserInteraction : public UInteraction
@@ -140,8 +138,6 @@ public:
 
 };
 
-// UClass* UTgBrowserInteraction::pClassPointer = NULL;
-
 // Class PlatformCommon.TgCheatManager
 // 0x0000 (0x005C - 0x005C)
 class UTgCheatManager : public UCheatManager
@@ -161,8 +157,6 @@ public:
 	};
 
 };
-
-// UClass* UTgCheatManager::pClassPointer = NULL;
 
 // Class PlatformCommon.TgGameEngine
 // 0x0020 (0x0730 - 0x0710)
@@ -203,8 +197,6 @@ public:
 	bool SetFieldInt ( int nToken, int IntValue );
 	bool SetFunction ( int nFunction );
 };
-
-// UClass* UTgGameEngine::pClassPointer = NULL;
 
 // Class PlatformCommon.TgPlayerProfile
 // 0x008C (0x00F0 - 0x0064)
@@ -252,8 +244,6 @@ public:
 
 };
 
-// UClass* UTgPlayerProfile::pClassPointer = NULL;
-
 // Class PlatformCommon.TgStructures
 // 0x0000 (0x003C - 0x003C)
 class UTgStructures : public UObject
@@ -273,8 +263,6 @@ public:
 	};
 
 };
-
-// UClass* UTgStructures::pClassPointer = NULL;
 
 // Class PlatformCommon.TgSupportCommands
 // 0x0008 (0x0044 - 0x003C)
@@ -320,8 +308,6 @@ public:
 	void gmMatchForce ( int nQueueId );
 };
 
-// UClass* UTgSupportCommands::pClassPointer = NULL;
-
 // Class PlatformCommon.TgNetDriver
 // 0x0028 (0x01D8 - 0x01B0)
 class UTgNetDriver : public UTcpNetDriver
@@ -343,8 +329,6 @@ public:
 
 };
 
-// UClass* UTgNetDriver::pClassPointer = NULL;
-
 // Class PlatformCommon.TgNetConn
 // 0x0060 (0x5074 - 0x5014)
 class UTgNetConn : public UTcpipConnection
@@ -365,8 +349,6 @@ public:
 	};
 
 };
-
-// UClass* UTgNetConn::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER

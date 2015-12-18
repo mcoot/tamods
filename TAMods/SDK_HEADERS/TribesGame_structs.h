@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: TribesGame_structs.h
@@ -466,6 +466,14 @@ struct FStickyGrenadeSocketInfo
 	struct FVector                                     ViewOffset;                                       		// 0x0010 (0x000C) [0x0000000000000000]              
 };
 
+// ScriptStruct TribesGame.TrPlayerReplicationInfo.EquipLevel
+// 0x0005
+struct FEquipLevel
+{
+	int                                                EquipId;                                          		// 0x0000 (0x0004) [0x0000000000000000]              
+	unsigned char                                      UpgradeLevel;                                     		// 0x0004 (0x0001) [0x0000000000000000]              
+};
+
 // ScriptStruct TribesGame.TrSkin.SkinStruct
 // 0x0034
 struct FSkinStruct
@@ -540,6 +548,22 @@ struct ATrConsolePlayerController_FProfileSettingToUE3BindingDatum
 	struct FName                                       UE3BindingName;                                   		// 0x0008 (0x0008) [0x0000000000000000]              
 };
 
+// ScriptStruct TribesGame.TrCustomImageManager.CustomImageInfo
+// 0x0014
+struct FCustomImageInfo
+{
+	struct FName                                       ImageName;                                        		// 0x0000 (0x0008) [0x0000000000000000]              
+	struct FString                                     Filename;                                         		// 0x0008 (0x000C) [0x0000000000500000]              ( CPF_NeedCtorLink )
+};
+
+// ScriptStruct TribesGame.TrCustomImageManager.CustomImage
+// 0x000C
+struct FCustomImage
+{
+	struct FName                                       ImageName;                                        		// 0x0000 (0x0008) [0x0000000000000000]              
+	class UTexture2DDynamic*                           Texture;                                          		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
 // ScriptStruct TribesGame.TrDaDStats.DaDScoreInfo
 // 0x0010
 struct FDaDScoreInfo
@@ -581,7 +605,7 @@ struct FMeleeRandomAnimation
 // 0x0014
 struct FDeviceSelectionList
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000000]              
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000000]              
 	class UClass*                                      DeviceClass;                                      		// 0x0004 (0x0004) [0x0000000000000000]              
 	struct FString                                     ContentDeviceClassString;                         		// 0x0008 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 };
@@ -631,8 +655,8 @@ struct FQueuedAccolade
 {
 	int                                                Icon;                                             		// 0x0000 (0x0004) [0x0000000000000000]              
 	unsigned long                                      bIsBadge : 1;                                     		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
-	struct FString                                     Title;                                            		// 0x0008 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	struct FString                                     Subtitle;                                         		// 0x0014 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	struct FString                                     Title;                                            		// 0x0008 (0x000C) [0x0000000000500000]              ( CPF_NeedCtorLink )
+	struct FString                                     Subtitle;                                         		// 0x0014 (0x000C) [0x0000000000500000]              ( CPF_NeedCtorLink )
 };
 
 // ScriptStruct TribesGame.TrHUD.OverheadNumber
@@ -713,14 +737,6 @@ struct FTracerCacheInfo
 	class UClass*                                      TracerClass;                                      		// 0x0004 (0x0004) [0x0000000000000000]              
 	int                                                ListIdx;                                          		// 0x0008 (0x0004) [0x0000000000000000]              
 	class ATrProj_Tracer*                              List[ 0x14 ];                                     		// 0x000C (0x0050) [0x0000000000000000]              
-};
-
-// ScriptStruct TribesGame.TrPlayerReplicationInfo.EquipLevel
-// 0x0005
-struct FEquipLevel
-{
-	int                                                EquipId;                                          		// 0x0000 (0x0004) [0x0000000000000000]              
-	unsigned char                                      UpgradeLevel;                                     		// 0x0004 (0x0001) [0x0000000000000000]              
 };
 
 // ScriptStruct TribesGame.TrPlayerVoice.VGSCommandToVoiceMap

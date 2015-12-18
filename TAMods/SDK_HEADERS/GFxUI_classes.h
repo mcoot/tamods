@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: GFxUI_classes.h
@@ -29,17 +29,17 @@
 */
 
 // Enum GFxUI.SwfMovie.FlashTextureRescale
-/*enum FlashTextureRescale
+enum FlashTextureRescale
 {
 	FlashTextureScale_High                             = 0,
 	FlashTextureScale_Low                              = 1,
 	FlashTextureScale_NextLow                          = 2,
 	FlashTextureScale_Mult4                            = 3,
 	FlashTextureScale_MAX                              = 4
-};*/
+};
 
 // Enum GFxUI.GFxMoviePlayer.ASType
-/*enum ASType
+enum ASType
 {
 	AS_Undefined                                       = 0,
 	AS_Null                                            = 1,
@@ -47,10 +47,10 @@
 	AS_String                                          = 3,
 	AS_Boolean                                         = 4,
 	AS_MAX                                             = 5
-};*/
+};
 
 // Enum GFxUI.GFxMoviePlayer.GFxAlign
-/*enum GFxAlign
+enum GFxAlign
 {
 	Align_Center                                       = 0,
 	Align_TopCenter                                    = 1,
@@ -62,34 +62,34 @@
 	Align_BottomLeft                                   = 7,
 	Align_BottomRight                                  = 8,
 	Align_MAX                                          = 9
-};*/
+};
 
 // Enum GFxUI.GFxMoviePlayer.GFxScaleMode
-/*enum GFxScaleMode
+enum GFxScaleMode
 {
 	SM_NoScale                                         = 0,
 	SM_ShowAll                                         = 1,
 	SM_ExactFit                                        = 2,
 	SM_NoBorder                                        = 3,
 	SM_MAX                                             = 4
-};*/
+};
 
 // Enum GFxUI.GFxMoviePlayer.GFxTimingMode
-/*enum GFxTimingMode
+enum GFxTimingMode
 {
 	TM_Game                                            = 0,
 	TM_Real                                            = 1,
 	TM_MAX                                             = 2
-};*/
+};
 
 // Enum GFxUI.GFxMoviePlayer.GFxRenderTextureMode
-/*enum GFxRenderTextureMode
+enum GFxRenderTextureMode
 {
 	RTM_Opaque                                         = 0,
 	RTM_Alpha                                          = 1,
 	RTM_AlphaComposite                                 = 2,
 	RTM_MAX                                            = 3
-};*/
+};
 
 
 /*
@@ -120,8 +120,6 @@ public:
 
 };
 
-// UClass* UGFxEngine::pClassPointer = NULL;
-
 // Class GFxUI.GFxFSCmdHandler
 // 0x0000 (0x003C - 0x003C)
 class UGFxFSCmdHandler : public UObject
@@ -142,8 +140,6 @@ public:
 
 	bool eventFSCommand ( class UGFxMoviePlayer* Movie, class UGFxEvent_FSCommand* Event, struct FString Cmd, struct FString Arg );
 };
-
-// UClass* UGFxFSCmdHandler::pClassPointer = NULL;
 
 // Class GFxUI.GFxInteraction
 // 0x0004 (0x0070 - 0x006C)
@@ -170,8 +166,6 @@ public:
 	void NotifyGameSessionEnded ( );
 	class UGFxMoviePlayer* GetFocusMovie ( int ControllerId );
 };
-
-// UClass* UGFxInteraction::pClassPointer = NULL;
 
 // Class GFxUI.GFxMoviePlayer
 // 0x0140 (0x017C - 0x003C)
@@ -299,8 +293,6 @@ public:
 	bool eventStart ( unsigned long StartPaused );
 };
 
-// UClass* UGFxMoviePlayer::pClassPointer = NULL;
-
 // Class GFxUI.GFxObject
 // 0x003C (0x0078 - 0x003C)
 class UGFxObject : public UObject
@@ -391,8 +383,6 @@ public:
 	struct FASValue Get ( struct FString Member );
 };
 
-// UClass* UGFxObject::pClassPointer = NULL;
-
 // Class GFxUI.GFxRawData
 // 0x0030 (0x006C - 0x003C)
 class UGFxRawData : public UObject
@@ -416,8 +406,6 @@ public:
 	};
 
 };
-
-// UClass* UGFxRawData::pClassPointer = NULL;
 
 // Class GFxUI.SwfMovie
 // 0x0040 (0x00AC - 0x006C)
@@ -450,8 +438,6 @@ public:
 
 };
 
-// UClass* USwfMovie::pClassPointer = NULL;
-
 // Class GFxUI.FlashMovie
 // 0x0000 (0x00AC - 0x00AC)
 class UFlashMovie : public USwfMovie
@@ -471,8 +457,6 @@ public:
 	};
 
 };
-
-// UClass* UFlashMovie::pClassPointer = NULL;
 
 // Class GFxUI.GFxAction_CloseMovie
 // 0x0008 (0x00F0 - 0x00E8)
@@ -497,8 +481,6 @@ public:
 	bool eventIsValidLevelSequenceObject ( );
 };
 
-// UClass* UGFxAction_CloseMovie::pClassPointer = NULL;
-
 // Class GFxUI.GFxAction_GetVariable
 // 0x0010 (0x00F8 - 0x00E8)
 class UGFxAction_GetVariable : public USequenceAction
@@ -521,8 +503,6 @@ public:
 
 	bool eventIsValidLevelSequenceObject ( );
 };
-
-// UClass* UGFxAction_GetVariable::pClassPointer = NULL;
 
 // Class GFxUI.GFxAction_Invoke
 // 0x001C (0x0104 - 0x00E8)
@@ -547,8 +527,6 @@ public:
 
 	bool eventIsValidLevelSequenceObject ( );
 };
-
-// UClass* UGFxAction_Invoke::pClassPointer = NULL;
 
 // Class GFxUI.GFxAction_OpenMovie
 // 0x0030 (0x0118 - 0x00E8)
@@ -583,8 +561,6 @@ public:
 	bool eventIsValidLevelSequenceObject ( );
 };
 
-// UClass* UGFxAction_OpenMovie::pClassPointer = NULL;
-
 // Class GFxUI.GFxAction_SetCaptureKeys
 // 0x0010 (0x00F8 - 0x00E8)
 class UGFxAction_SetCaptureKeys : public USequenceAction
@@ -606,8 +582,6 @@ public:
 	};
 
 };
-
-// UClass* UGFxAction_SetCaptureKeys::pClassPointer = NULL;
 
 // Class GFxUI.GFxAction_SetVariable
 // 0x0010 (0x00F8 - 0x00E8)
@@ -632,8 +606,6 @@ public:
 	bool eventIsValidLevelSequenceObject ( );
 };
 
-// UClass* UGFxAction_SetVariable::pClassPointer = NULL;
-
 // Class GFxUI.GFxEvent_FSCommand
 // 0x0014 (0x0114 - 0x0100)
 class UGFxEvent_FSCommand : public USequenceEvent
@@ -657,8 +629,6 @@ public:
 
 };
 
-// UClass* UGFxEvent_FSCommand::pClassPointer = NULL;
-
 // Class GFxUI.GFxFSCmdHandler_Kismet
 // 0x0000 (0x003C - 0x003C)
 class UGFxFSCmdHandler_Kismet : public UGFxFSCmdHandler
@@ -679,8 +649,6 @@ public:
 
 	bool eventFSCommand ( class UGFxMoviePlayer* Movie, class UGFxEvent_FSCommand* Event, struct FString Cmd, struct FString Arg );
 };
-
-// UClass* UGFxFSCmdHandler_Kismet::pClassPointer = NULL;
 
 // Class GFxUI.GFxDataStoreSubscriber
 // 0x0008 (0x0044 - 0x003C)
@@ -712,8 +680,6 @@ public:
 	void PublishValues ( );
 };
 
-// UClass* UGFxDataStoreSubscriber::pClassPointer = NULL;
-
 // Class GFxUI.GFxClikWidget
 // 0x000C (0x0084 - 0x0078)
 class UGFxClikWidget : public UGFxObject
@@ -728,7 +694,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 29949 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 29968 ];
 
 		return pClassPointer;
 	};
@@ -741,8 +707,6 @@ public:
 	void AddEventListener ( struct FName Type, struct FScriptDelegate Listener );
 	void EventListener ( struct FEventData Data );
 };
-
-// UClass* UGFxClikWidget::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER

@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: UDKBase_classes.h
@@ -31,7 +31,7 @@
 */
 
 // Enum UDKBase.UDKAnimBlendByFall.EBlendFallTypes
-/*enum EBlendFallTypes
+enum EBlendFallTypes
 {
 	FBT_Up                                             = 0,
 	FBT_Down                                           = 1,
@@ -43,28 +43,28 @@
 	FBT_DblJumpLand                                    = 7,
 	FBT_None                                           = 8,
 	FBT_MAX                                            = 9
-};*/
+};
 
 // Enum UDKBase.UDKAnimBlendByFlying.EFlyingState
-/*enum EFlyingState
+enum EFlyingState
 {
 	Flying_NotFlying                                   = 0,
 	Flying_OpeningWings                                = 1,
 	Flying_Flying                                      = 2,
 	Flying_ClosingWings                                = 3,
 	Flying_MAX                                         = 4
-};*/
+};
 
 // Enum UDKBase.UDKMapMusicInfo.ECrossfadeType
-/*enum ECrossfadeType
+enum ECrossfadeType
 {
 	CFT_BeginningOfMeasure                             = 0,
 	CFT_EndOfMeasure                                   = 1,
 	CFT_MAX                                            = 2
-};*/
+};
 
 // Enum UDKBase.UDKUIDataProvider_MenuOption.EUTOptionType
-/*enum EUTOptionType
+enum EUTOptionType
 {
 	UTOT_ComboReadOnly                                 = 0,
 	UTOT_ComboNumeric                                  = 1,
@@ -74,7 +74,7 @@
 	UTOT_EditBox                                       = 5,
 	UTOT_CollectionCheckBox                            = 6,
 	UTOT_MAX                                           = 7
-};*/
+};
 
 
 /*
@@ -116,8 +116,6 @@ public:
 	class AActor* eventGetBestViewTarget ( );
 	void ObjectiveChanged ( );
 };
-
-// UClass* AUDKGameObjective::pClassPointer = NULL;
 
 // Class UDKBase.UDKPawn
 // 0x01D4 (0x0654 - 0x0480)
@@ -251,8 +249,6 @@ public:
 	void GetBoundingCylinder ( float* CollisionRadius, float* CollisionHeight );
 };
 
-// UClass* AUDKPawn::pClassPointer = NULL;
-
 // Class UDKBase.UDKAIDecisionComponent
 // 0x0007 (0x005C - 0x0055)
 class UUDKAIDecisionComponent : public UActorComponent
@@ -273,8 +269,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKAIDecisionComponent::pClassPointer = NULL;
 
 // Class UDKBase.UDKBot
 // 0x00C8 (0x0468 - 0x03A0)
@@ -367,8 +361,6 @@ public:
 	class AActor* FaceActor ( float StrafingModifier );
 };
 
-// UClass* AUDKBot::pClassPointer = NULL;
-
 // Class UDKBase.UDKCarriedObject
 // 0x0038 (0x0218 - 0x01E0)
 class AUDKCarriedObject : public AActor
@@ -403,8 +395,6 @@ public:
 	void SetHUDLocation ( struct FVector NewHUDLocation );
 };
 
-// UClass* AUDKCarriedObject::pClassPointer = NULL;
-
 // Class UDKBase.UDKDataStore_GameSearchBase
 // 0x0004 (0x00AC - 0x00A8)
 class UUDKDataStore_GameSearchBase : public UUIDataStore_OnlineGameSearch
@@ -431,8 +421,6 @@ public:
 	void eventInit ( );
 	bool GetEnabledMutators ( TArray< int >* MutatorIndices );
 };
-
-// UClass* UUDKDataStore_GameSearchBase::pClassPointer = NULL;
 
 // Class UDKBase.UDKEmitCameraEffect
 // 0x0008 (0x01F4 - 0x01EC)
@@ -462,8 +450,6 @@ public:
 	void eventPostBeginPlay ( );
 };
 
-// UClass* AUDKEmitCameraEffect::pClassPointer = NULL;
-
 // Class UDKBase.UDKEmitterPool
 // 0x000C (0x0244 - 0x0238)
 class AUDKEmitterPool : public AEmitterPool
@@ -487,8 +473,6 @@ public:
 	void OnExplosionLightFinished ( class UUDKExplosionLight* Light );
 	class UParticleSystemComponent* SpawnEmitter ( class UParticleSystem* EmitterTemplate, struct FVector SpawnLocation, struct FRotator SpawnRotation, class AActor* AttachToActor, unsigned long bInheritScaleFromBase );
 };
-
-// UClass* AUDKEmitterPool::pClassPointer = NULL;
 
 // Class UDKBase.UDKExplosionLight
 // 0x0028 (0x0270 - 0x0248)
@@ -518,8 +502,6 @@ public:
 	void OnLightFinished ( class UUDKExplosionLight* Light );
 	void ResetLight ( );
 };
-
-// UClass* UUDKExplosionLight::pClassPointer = NULL;
 
 // Class UDKBase.UDKForcedDirectionVolume
 // 0x0024 (0x0270 - 0x024C)
@@ -554,8 +536,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AUDKForcedDirectionVolume::pClassPointer = NULL;
-
 // Class UDKBase.UDKGame
 // 0x0000 (0x0384 - 0x0384)
 class AUDKGame : public AFrameworkGame
@@ -575,8 +555,6 @@ public:
 	};
 
 };
-
-// UClass* AUDKGame::pClassPointer = NULL;
 
 // Class UDKBase.UDKGameInteraction
 // 0x0004 (0x0160 - 0x015C)
@@ -603,8 +581,6 @@ public:
 	bool ShouldProcessUIInput ( );
 };
 
-// UClass* UUDKGameInteraction::pClassPointer = NULL;
-
 // Class UDKBase.UDKGameSettingsCommon
 // 0x0000 (0x00AC - 0x00AC)
 class UUDKGameSettingsCommon : public UOnlineGameSettings
@@ -627,8 +603,6 @@ public:
 	bool StringToBlob ( struct FString* InString, struct FString* OutBlob );
 };
 
-// UClass* UUDKGameSettingsCommon::pClassPointer = NULL;
-
 // Class UDKBase.UDKGameViewportClient
 // 0x000C (0x012C - 0x0120)
 class UUDKGameViewportClient : public UGameViewportClient
@@ -650,8 +624,6 @@ public:
 
 	struct FString LoadRandomLocalizedHintMessage ( struct FString Category1Name, struct FString Category2Name );
 };
-
-// UClass* UUDKGameViewportClient::pClassPointer = NULL;
 
 // Class UDKBase.UDKHUD
 // 0x0044 (0x0598 - 0x0554)
@@ -682,8 +654,6 @@ public:
 	void DrawGlowText ( struct FString Text, float X, float Y, float MaxHeightInPixels, float PulseTime, unsigned long bRightJustified );
 };
 
-// UClass* AUDKHUD::pClassPointer = NULL;
-
 // Class UDKBase.UDKJumpPad
 // 0x0020 (0x02D8 - 0x02B8)
 class AUDKJumpPad : public ANavigationPoint
@@ -712,8 +682,6 @@ public:
 	void eventPostTouch ( class AActor* Other );
 	void eventTouch ( class AActor* Other, class UPrimitiveComponent* OtherComp, struct FVector HitLocation, struct FVector HitNormal );
 };
-
-// UClass* AUDKJumpPad::pClassPointer = NULL;
 
 // Class UDKBase.UDKKActorBreakable
 // 0x0038 (0x0310 - 0x02D8)
@@ -756,8 +724,6 @@ public:
 	void OnBreakApart ( );
 };
 
-// UClass* AUDKKActorBreakable::pClassPointer = NULL;
-
 // Class UDKBase.UDKMapInfo
 // 0x0004 (0x0040 - 0x003C)
 class UUDKMapInfo : public UMapInfo
@@ -778,8 +744,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKMapInfo::pClassPointer = NULL;
 
 // Class UDKBase.UDKMapMusicInfo
 // 0x00A0 (0x00DC - 0x003C)
@@ -802,8 +766,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKMapMusicInfo::pClassPointer = NULL;
 
 // Class UDKBase.UDKParticleSystemComponent
 // 0x0014 (0x02F4 - 0x02E0)
@@ -828,8 +790,6 @@ public:
 
 	void SetFOV ( float NewFOV );
 };
-
-// UClass* UUDKParticleSystemComponent::pClassPointer = NULL;
 
 // Class UDKBase.UDKPickupFactory
 // 0x00A4 (0x0378 - 0x02D4)
@@ -884,8 +844,6 @@ public:
 	void SetPickupVisible ( );
 };
 
-// UClass* AUDKPickupFactory::pClassPointer = NULL;
-
 // Class UDKBase.UDKPlayerController
 // 0x01F0 (0x07AC - 0x05BC)
 class AUDKPlayerController : public AGamePlayerController
@@ -933,8 +891,6 @@ public:
 	void SetGamma ( float GammaValue );
 };
 
-// UClass* AUDKPlayerController::pClassPointer = NULL;
-
 // Class UDKBase.UDKPlayerInput
 // 0x0000 (0x03DC - 0x03DC)
 class UUDKPlayerInput : public UMobilePlayerInput
@@ -955,8 +911,6 @@ public:
 
 	struct FString GetUDKBindNameFromCommand ( struct FString BindCommand );
 };
-
-// UClass* UUDKPlayerInput::pClassPointer = NULL;
 
 // Class UDKBase.UDKProfileSettings
 // 0x0000 (0x0088 - 0x0088)
@@ -979,8 +933,6 @@ public:
 	void ResetKeysToDefault ( class ULocalPlayer* InPlayerOwner );
 	void ResetToDefault ( int ProfileId );
 };
-
-// UClass* UUDKProfileSettings::pClassPointer = NULL;
 
 // Class UDKBase.UDKProjectile
 // 0x003C (0x0258 - 0x021C)
@@ -1020,8 +972,6 @@ public:
 	float GetTerminalVelocity ( );
 };
 
-// UClass* AUDKProjectile::pClassPointer = NULL;
-
 // Class UDKBase.UDKScout
 // 0x0014 (0x051C - 0x0508)
 class AUDKScout : public AScout
@@ -1046,8 +996,6 @@ public:
 
 	bool SuggestJumpVelocity ( struct FVector Destination, struct FVector Start, unsigned long bRequireFallLanding, struct FVector* JumpVelocity );
 };
-
-// UClass* AUDKScout::pClassPointer = NULL;
 
 // Class UDKBase.UDKScriptedNavigationPoint
 // 0x0004 (0x02BC - 0x02B8)
@@ -1074,8 +1022,6 @@ public:
 	class ANavigationPoint* eventSpecifyEndAnchor ( class APawn* RouteFinder );
 };
 
-// UClass* AUDKScriptedNavigationPoint::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkeletalMeshComponent
 // 0x000F (0x05F4 - 0x05E5)
 class UUDKSkeletalMeshComponent : public USkeletalMeshComponent
@@ -1101,8 +1047,6 @@ public:
 	void eventPreloadTextures ( unsigned long bForcePreload, float ClearTime );
 };
 
-// UClass* UUDKSkeletalMeshComponent::pClassPointer = NULL;
-
 // Class UDKBase.UDKTeamOwnedInfo
 // 0x0004 (0x01E4 - 0x01E0)
 class AUDKTeamOwnedInfo : public AReplicationInfo
@@ -1124,8 +1068,6 @@ public:
 
 	unsigned char GetTeamNum ( );
 };
-
-// UClass* AUDKTeamOwnedInfo::pClassPointer = NULL;
 
 // Class UDKBase.UDKSquadAI
 // 0x0038 (0x021C - 0x01E4)
@@ -1155,8 +1097,6 @@ public:
 
 };
 
-// UClass* AUDKSquadAI::pClassPointer = NULL;
-
 // Class UDKBase.UDKTeamPlayerStart
 // 0x0010 (0x02D0 - 0x02C0)
 class AUDKTeamPlayerStart : public APlayerStart
@@ -1178,8 +1118,6 @@ public:
 	};
 
 };
-
-// UClass* AUDKTeamPlayerStart::pClassPointer = NULL;
 
 // Class UDKBase.UDKTeleporterBase
 // 0x0028 (0x0308 - 0x02E0)
@@ -1213,8 +1151,6 @@ public:
 	void eventPostBeginPlay ( );
 };
 
-// UClass* AUDKTeleporterBase::pClassPointer = NULL;
-
 // Class UDKBase.UDKTrajectoryReachSpec
 // 0x0000 (0x0090 - 0x0090)
 class UUDKTrajectoryReachSpec : public UAdvancedReachSpec
@@ -1235,8 +1171,6 @@ public:
 
 };
 
-// UClass* UUDKTrajectoryReachSpec::pClassPointer = NULL;
-
 // Class UDKBase.UDKJumpPadReachSpec
 // 0x0000 (0x0090 - 0x0090)
 class UUDKJumpPadReachSpec : public UUDKTrajectoryReachSpec
@@ -1256,8 +1190,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKJumpPadReachSpec::pClassPointer = NULL;
 
 // Class UDKBase.UDKUIDataProvider_SearchResult
 // 0x002C (0x00BC - 0x0090)
@@ -1285,8 +1217,6 @@ public:
 	bool IsPrivateServer ( );
 };
 
-// UClass* UUDKUIDataProvider_SearchResult::pClassPointer = NULL;
-
 // Class UDKBase.UDKUIDataProvider_SimpleElementProvider
 // 0x0004 (0x005C - 0x0058)
 class UUDKUIDataProvider_SimpleElementProvider : public UUIDataProvider
@@ -1308,8 +1238,6 @@ public:
 
 	int GetElementCount ( );
 };
-
-// UClass* UUDKUIDataProvider_SimpleElementProvider::pClassPointer = NULL;
 
 // Class UDKBase.UDKUIDataProvider_ServerDetails
 // 0x0004 (0x0060 - 0x005C)
@@ -1334,8 +1262,6 @@ public:
 	class UUIDataProvider_Settings* GetSearchResultsProvider ( );
 };
 
-// UClass* UUDKUIDataProvider_ServerDetails::pClassPointer = NULL;
-
 // Class UDKBase.UDKUIDataProvider_StringArray
 // 0x000C (0x0068 - 0x005C)
 class UUDKUIDataProvider_StringArray : public UUDKUIDataProvider_SimpleElementProvider
@@ -1357,8 +1283,6 @@ public:
 
 	int GetElementCount ( );
 };
-
-// UClass* UUDKUIDataProvider_StringArray::pClassPointer = NULL;
 
 // Class UDKBase.UDKUIDataStore_MenuItems
 // 0x0030 (0x00F4 - 0x00C4)
@@ -1395,8 +1319,6 @@ public:
 	int GetProviderCount ( struct FName FieldName );
 };
 
-// UClass* UUDKUIDataStore_MenuItems::pClassPointer = NULL;
-
 // Class UDKBase.UDKUIDataStore_Options
 // 0x0048 (0x010C - 0x00C4)
 class UUDKUIDataStore_Options : public UUIDataStore_GameResource
@@ -1421,8 +1343,6 @@ public:
 	void AppendToSet ( struct FName SetName, int NumOptions );
 	void ClearSet ( struct FName SetName );
 };
-
-// UClass* UUDKUIDataStore_Options::pClassPointer = NULL;
 
 // Class UDKBase.UDKUIDataStore_StringAliasBindingMap
 // 0x004C (0x0110 - 0x00C4)
@@ -1452,8 +1372,6 @@ public:
 	int GetStringWithFieldName ( struct FString FieldName, struct FString* MappedString );
 };
 
-// UClass* UUDKUIDataStore_StringAliasBindingMap::pClassPointer = NULL;
-
 // Class UDKBase.UDKUIDataStore_StringAliasMap
 // 0x0004 (0x00C8 - 0x00C4)
 class UUDKUIDataStore_StringAliasMap : public UUIDataStore_StringAliasMap
@@ -1475,8 +1393,6 @@ public:
 
 	int GetStringWithFieldName ( struct FString FieldName, struct FString* MappedString );
 };
-
-// UClass* UUDKUIDataStore_StringAliasMap::pClassPointer = NULL;
 
 // Class UDKBase.UDKUIDataStore_StringList
 // 0x0014 (0x008C - 0x0078)
@@ -1515,8 +1431,6 @@ public:
 	void eventRegistered ( class ULocalPlayer* PlayerOwner );
 };
 
-// UClass* UUDKUIDataStore_StringList::pClassPointer = NULL;
-
 // Class UDKBase.UDKUIResourceDataProvider
 // 0x001C (0x0098 - 0x007C)
 class UUDKUIResourceDataProvider : public UUIResourceDataProvider
@@ -1545,8 +1459,6 @@ public:
 	bool IsFiltered ( );
 };
 
-// UClass* UUDKUIResourceDataProvider::pClassPointer = NULL;
-
 // Class UDKBase.UDKUIDataProvider_MapInfo
 // 0x0034 (0x00CC - 0x0098)
 class UUDKUIDataProvider_MapInfo : public UUDKUIResourceDataProvider
@@ -1571,8 +1483,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKUIDataProvider_MapInfo::pClassPointer = NULL;
 
 // Class UDKBase.UDKUIDataProvider_MenuOption
 // 0x0058 (0x00F0 - 0x0098)
@@ -1606,8 +1516,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKUIDataProvider_MenuOption::pClassPointer = NULL;
 
 // Class UDKBase.UDKVehicleBase
 // 0x0004 (0x061C - 0x0618)
@@ -1647,8 +1555,6 @@ public:
 	void SwitchWeapon ( unsigned char NewGroup );
 	void eventHoldGameObject ( class AUDKCarriedObject* GameObj );
 };
-
-// UClass* AUDKVehicleBase::pClassPointer = NULL;
 
 // Class UDKBase.UDKVehicle
 // 0x01AC (0x07C8 - 0x061C)
@@ -1788,8 +1694,6 @@ public:
 	struct FRotator SeatWeaponRotation ( int SeatIndex, struct FRotator NewRot, unsigned long bReadValue );
 };
 
-// UClass* AUDKVehicle::pClassPointer = NULL;
-
 // Class UDKBase.UDKWeaponPawn
 // 0x000C (0x0628 - 0x061C)
 class AUDKWeaponPawn : public AUDKVehicleBase
@@ -1813,8 +1717,6 @@ public:
 
 	struct FVector GetTargetLocation ( class AActor* RequestedBy, unsigned long bRequestAlternateLoc );
 };
-
-// UClass* AUDKWeaponPawn::pClassPointer = NULL;
 
 // Class UDKBase.UDKVehicleFactory
 // 0x002C (0x02E4 - 0x02B8)
@@ -1847,8 +1749,6 @@ public:
 	void eventSpawnVehicle ( );
 };
 
-// UClass* AUDKVehicleFactory::pClassPointer = NULL;
-
 // Class UDKBase.UDKVehicleMovementEffect
 // 0x001C (0x01FC - 0x01E0)
 class AUDKVehicleMovementEffect : public AActor
@@ -1874,8 +1774,6 @@ public:
 	};
 
 };
-
-// UClass* AUDKVehicleMovementEffect::pClassPointer = NULL;
 
 // Class UDKBase.UDKVehicleSimCar
 // 0x0078 (0x013C - 0x00C4)
@@ -1923,8 +1821,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKVehicleSimCar::pClassPointer = NULL;
 
 // Class UDKBase.UDKVehicleSimChopper
 // 0x00A4 (0x0134 - 0x0090)
@@ -1987,8 +1883,6 @@ public:
 
 };
 
-// UClass* UUDKVehicleSimChopper::pClassPointer = NULL;
-
 // Class UDKBase.UDKVehicleSimHover
 // 0x0004 (0x0138 - 0x0134)
 class UUDKVehicleSimHover : public UUDKVehicleSimChopper
@@ -2012,8 +1906,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKVehicleSimHover::pClassPointer = NULL;
 
 // Class UDKBase.UDKVehicleSimHoverboard
 // 0x007C (0x010C - 0x0090)
@@ -2065,8 +1957,6 @@ public:
 	void InitWheels ( class AUDKVehicle* Vehicle );
 };
 
-// UClass* UUDKVehicleSimHoverboard::pClassPointer = NULL;
-
 // Class UDKBase.UDKVehicleWheel
 // 0x000C (0x0120 - 0x0114)
 class UUDKVehicleWheel : public USVehicleWheel
@@ -2092,8 +1982,6 @@ public:
 	void OldEffectFinished ( class UParticleSystemComponent* PSystem );
 	void eventSetParticleEffect ( class AUDKVehicle* OwnerVehicle, class UParticleSystem* NewTemplate );
 };
-
-// UClass* UUDKVehicleWheel::pClassPointer = NULL;
 
 // Class UDKBase.UDKWeapon
 // 0x0020 (0x02F0 - 0x02D0)
@@ -2127,8 +2015,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AUDKWeapon::pClassPointer = NULL;
-
 // Class UDKBase.UDKWeaponShield
 // 0x0004 (0x01E4 - 0x01E0)
 class AUDKWeaponShield : public AActor
@@ -2149,8 +2035,6 @@ public:
 	};
 
 };
-
-// UClass* AUDKWeaponShield::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimBlendBase
 // 0x0014 (0x0128 - 0x0114)
@@ -2177,8 +2061,6 @@ public:
 	float GetAnimDuration ( int ChildIndex );
 	float GetBlendTime ( int ChildIndex, unsigned long bGetDefault );
 };
-
-// UClass* UUDKAnimBlendBase::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimBlendByFall
 // 0x001C (0x0144 - 0x0128)
@@ -2209,8 +2091,6 @@ public:
 
 };
 
-// UClass* UUDKAnimBlendByFall::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendByHoverJump
 // 0x0008 (0x014C - 0x0144)
 class UUDKAnimBlendByHoverJump : public UUDKAnimBlendByFall
@@ -2232,8 +2112,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKAnimBlendByHoverJump::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimBlendByFlying
 // 0x0024 (0x014C - 0x0128)
@@ -2264,8 +2142,6 @@ public:
 	void UpdateFlyingState ( );
 };
 
-// UClass* UUDKAnimBlendByFlying::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendByHoverboarding
 // 0x000C (0x0134 - 0x0128)
 class UUDKAnimBlendByHoverboarding : public UUDKAnimBlendBase
@@ -2289,8 +2165,6 @@ public:
 
 };
 
-// UClass* UUDKAnimBlendByHoverboarding::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendByIdle
 // 0x0000 (0x0128 - 0x0128)
 class UUDKAnimBlendByIdle : public UUDKAnimBlendBase
@@ -2310,8 +2184,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKAnimBlendByIdle::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimBlendByPhysics
 // 0x0040 (0x0168 - 0x0128)
@@ -2338,8 +2210,6 @@ public:
 
 };
 
-// UClass* UUDKAnimBlendByPhysics::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendByPhysicsVolume
 // 0x0010 (0x0138 - 0x0128)
 class UUDKAnimBlendByPhysicsVolume : public UUDKAnimBlendBase
@@ -2363,8 +2233,6 @@ public:
 	void eventPhysicsVolumeChanged ( class APhysicsVolume* NewVolume );
 };
 
-// UClass* UUDKAnimBlendByPhysicsVolume::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendByPosture
 // 0x0000 (0x0128 - 0x0128)
 class UUDKAnimBlendByPosture : public UUDKAnimBlendBase
@@ -2384,8 +2252,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKAnimBlendByPosture::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimBlendByTurnInPlace
 // 0x000C (0x0134 - 0x0128)
@@ -2410,8 +2276,6 @@ public:
 
 };
 
-// UClass* UUDKAnimBlendByTurnInPlace::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendByVehicle
 // 0x0008 (0x0130 - 0x0128)
 class UUDKAnimBlendByVehicle : public UUDKAnimBlendBase
@@ -2435,8 +2299,6 @@ public:
 	void UpdateVehicleState ( );
 };
 
-// UClass* UUDKAnimBlendByVehicle::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendByDriving
 // 0x0000 (0x0104 - 0x0104)
 class UUDKAnimBlendByDriving : public UAnimNodeBlend
@@ -2457,8 +2319,6 @@ public:
 
 	void UpdateDrivingState ( );
 };
-
-// UClass* UUDKAnimBlendByDriving::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimBlendByHoverboardTilt
 // 0x0023 (0x0114 - 0x00F1)
@@ -2485,8 +2345,6 @@ public:
 
 };
 
-// UClass* UUDKAnimBlendByHoverboardTilt::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendByHoverboardTurn
 // 0x000F (0x0100 - 0x00F1)
 class UUDKAnimBlendByHoverboardTurn : public UAnimNodeBlendBase
@@ -2510,8 +2368,6 @@ public:
 
 };
 
-// UClass* UUDKAnimBlendByHoverboardTurn::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendBySlotActive
 // 0x0004 (0x0130 - 0x012C)
 class UUDKAnimBlendBySlotActive : public UAnimNodeBlendPerBone
@@ -2532,8 +2388,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKAnimBlendBySlotActive::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimBlendBySpeed
 // 0x0008 (0x010C - 0x0104)
@@ -2556,8 +2410,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKAnimBlendBySpeed::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimBlendByWeapon
 // 0x0010 (0x013C - 0x012C)
@@ -2584,8 +2436,6 @@ public:
 	void AnimFire ( struct FName FireSequence, unsigned long bAutoFire, float AnimRate, float SpecialBlendTime, struct FName LoopSequence );
 };
 
-// UClass* UUDKAnimBlendByWeapon::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimBlendByWeapType
 // 0x0000 (0x012C - 0x012C)
 class UUDKAnimBlendByWeapType : public UAnimNodeBlendPerBone
@@ -2605,8 +2455,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKAnimBlendByWeapType::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimNodeCopyBoneTranslation
 // 0x0057 (0x0148 - 0x00F1)
@@ -2636,8 +2484,6 @@ public:
 
 };
 
-// UClass* UUDKAnimNodeCopyBoneTranslation::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimNodeFramePlayer
 // 0x0000 (0x0140 - 0x0140)
 class UUDKAnimNodeFramePlayer : public UAnimNodeSequence
@@ -2659,8 +2505,6 @@ public:
 	void SetAnimPosition ( float Perc );
 	void SetAnimation ( struct FName Sequence, float RateScale );
 };
-
-// UClass* UUDKAnimNodeFramePlayer::pClassPointer = NULL;
 
 // Class UDKBase.UDKAnimNodeJumpLeanOffset
 // 0x002C (0x0168 - 0x013C)
@@ -2696,8 +2540,6 @@ public:
 	void SetLeanWeight ( float WeightTarget, float BlendTime );
 };
 
-// UClass* UUDKAnimNodeJumpLeanOffset::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimNodeSequence
 // 0x0010 (0x0150 - 0x0140)
 class UUDKAnimNodeSequence : public UAnimNodeSequence
@@ -2724,8 +2566,6 @@ public:
 	void PlayAnimation ( struct FName Sequence, float SeqRate, unsigned long bSeqLoop );
 };
 
-// UClass* UUDKAnimNodeSequence::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimNodeSeqWeap
 // 0x0028 (0x0178 - 0x0150)
 class UUDKAnimNodeSeqWeap : public UUDKAnimNodeSequence
@@ -2750,8 +2590,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKAnimNodeSeqWeap::pClassPointer = NULL;
 
 // Class UDKBase.UDKSkelControl_CantileverBeam
 // 0x003C (0x017C - 0x0140)
@@ -2780,8 +2618,6 @@ public:
 
 	struct FVector EntireBeamVelocity ( );
 };
-
-// UClass* UUDKSkelControl_CantileverBeam::pClassPointer = NULL;
 
 // Class UDKBase.UDKSkelControl_Damage
 // 0x008C (0x0178 - 0x00EC)
@@ -2837,8 +2673,6 @@ public:
 	void eventBreakApart ( struct FVector PartLocation, unsigned long bIsVisible );
 };
 
-// UClass* UUDKSkelControl_Damage::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkelControl_DamageHinge
 // 0x0014 (0x018C - 0x0178)
 class UUDKSkelControl_DamageHinge : public UUDKSkelControl_Damage
@@ -2863,8 +2697,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKSkelControl_DamageHinge::pClassPointer = NULL;
 
 // Class UDKBase.UDKSkelControl_DamageSpring
 // 0x0048 (0x01C0 - 0x0178)
@@ -2896,8 +2728,6 @@ public:
 
 };
 
-// UClass* UUDKSkelControl_DamageSpring::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkelControl_HoverboardSuspension
 // 0x0024 (0x0110 - 0x00EC)
 class UUDKSkelControl_HoverboardSuspension : public USkelControlSingleBone
@@ -2927,8 +2757,6 @@ public:
 
 };
 
-// UClass* UUDKSkelControl_HoverboardSuspension::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkelControl_HoverboardSwing
 // 0x0024 (0x0110 - 0x00EC)
 class UUDKSkelControl_HoverboardSwing : public USkelControlSingleBone
@@ -2956,8 +2784,6 @@ public:
 
 };
 
-// UClass* UUDKSkelControl_HoverboardSwing::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkelControl_HoverboardVibration
 // 0x0014 (0x0100 - 0x00EC)
 class UUDKSkelControl_HoverboardVibration : public USkelControlSingleBone
@@ -2982,8 +2808,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKSkelControl_HoverboardVibration::pClassPointer = NULL;
 
 // Class UDKBase.UDKSkelControl_HugGround
 // 0x0024 (0x0110 - 0x00EC)
@@ -3013,8 +2837,6 @@ public:
 
 };
 
-// UClass* UUDKSkelControl_HugGround::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkelControl_LockRotation
 // 0x0028 (0x00E4 - 0x00BC)
 class UUDKSkelControl_LockRotation : public USkelControlBase
@@ -3041,8 +2863,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKSkelControl_LockRotation::pClassPointer = NULL;
 
 // Class UDKBase.UDKSkelControl_LookAt
 // 0x0010 (0x0150 - 0x0140)
@@ -3071,8 +2891,6 @@ public:
 
 };
 
-// UClass* UUDKSkelControl_LookAt::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkelControl_MassBoneScaling
 // 0x000C (0x00C8 - 0x00BC)
 class UUDKSkelControl_MassBoneScaling : public USkelControlBase
@@ -3095,8 +2913,6 @@ public:
 	float GetBoneScale ( struct FName BoneName );
 	void SetBoneScale ( struct FName BoneName, float Scale );
 };
-
-// UClass* UUDKSkelControl_MassBoneScaling::pClassPointer = NULL;
 
 // Class UDKBase.UDKSkelControl_PropellerBlade
 // 0x0014 (0x0100 - 0x00EC)
@@ -3123,8 +2939,6 @@ public:
 
 };
 
-// UClass* UUDKSkelControl_PropellerBlade::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkelControl_Rotate
 // 0x0018 (0x0104 - 0x00EC)
 class UUDKSkelControl_Rotate : public USkelControlSingleBone
@@ -3147,8 +2961,6 @@ public:
 
 };
 
-// UClass* UUDKSkelControl_Rotate::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkelControl_SpinControl
 // 0x0010 (0x00FC - 0x00EC)
 class UUDKSkelControl_SpinControl : public USkelControlSingleBone
@@ -3170,8 +2982,6 @@ public:
 	};
 
 };
-
-// UClass* UUDKSkelControl_SpinControl::pClassPointer = NULL;
 
 // Class UDKBase.UDKSkelControl_TurretConstrained
 // 0x0058 (0x0144 - 0x00EC)
@@ -3214,8 +3024,6 @@ public:
 	void OnTurretStatusChange ( unsigned long bIsMoving );
 };
 
-// UClass* UUDKSkelControl_TurretConstrained::pClassPointer = NULL;
-
 // Class UDKBase.UDKSkelControl_VehicleFlap
 // 0x0020 (0x010C - 0x00EC)
 class UUDKSkelControl_VehicleFlap : public USkelControlSingleBone
@@ -3242,8 +3050,6 @@ public:
 
 };
 
-// UClass* UUDKSkelControl_VehicleFlap::pClassPointer = NULL;
-
 // Class UDKBase.UDKAnimNodeSequenceByBoneRotation
 // 0x0018 (0x0158 - 0x0140)
 class UUDKAnimNodeSequenceByBoneRotation : public UAnimNodeSequence
@@ -3260,15 +3066,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 34358 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 34377 ];
 
 		return pClassPointer;
 	};
 
 	void eventOnBecomeRelevant ( );
 };
-
-// UClass* UUDKAnimNodeSequenceByBoneRotation::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER

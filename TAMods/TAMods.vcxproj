@@ -96,6 +96,7 @@
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Geom.cpp" />
+    <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="libpng\png.c" />
     <ClCompile Include="libpng\pngerror.c" />
     <ClCompile Include="libpng\pngget.c" />
@@ -146,7 +147,6 @@
     <ClCompile Include="lua_src\lutf8lib.c" />
     <ClCompile Include="lua_src\lvm.c" />
     <ClCompile Include="lua_src\lzio.c" />
-    <ClCompile Include="Mod_DamageNumbers.cpp" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -155,22 +155,19 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Hooks.cpp" />
-    <ClCompile Include="Loadout.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="Mod_AccoladeSounds.cpp" />
+    <ClCompile Include="Mod_ConsoleCommands.cpp" />
+    <ClCompile Include="Mod_DamageNumbers.cpp" />
     <ClCompile Include="Mod_FlagEventsCTF.cpp" />
     <ClCompile Include="Mod_General.cpp" />
     <ClCompile Include="Mod_HitSounds.cpp" />
     <ClCompile Include="Mod_HudMod.cpp" />
-    <ClCompile Include="Mod_AccoladeSounds.cpp" />
-    <ClCompile Include="Mod_Loadouts.cpp" />
-    <ClCompile Include="Mod_ConsoleCommands.cpp" />
     <ClCompile Include="Mod_Projectiles.cpp" />
     <ClCompile Include="Mod_Reticules.cpp" />
     <ClCompile Include="Mod_Routes.cpp" />
     <ClCompile Include="Mod_ServerSettings.cpp" />
     <ClCompile Include="Mod_StateSaving.cpp" />
-    <ClCompile Include="ParticleModuleHelper.cpp" />
     <ClCompile Include="Profiler.cpp" />
     <ClCompile Include="SDK_SOURCES\Core_functions.cpp" />
     <ClCompile Include="SDK_SOURCES\Engine_functions.cpp" />
@@ -187,9 +184,7 @@
     <ClCompile Include="SDK_SOURCES\XAudio2_functions.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="Stats.cpp" />
-    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Utils.cpp" />
-    <ClCompile Include="Data.cpp" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
     <ClCompile Include="zlib\crc32.c" />
@@ -207,7 +202,6 @@
   <ItemGroup>
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="Data.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Geom.h" />
     <ClInclude Include="libpng\png.h" />
@@ -219,10 +213,8 @@
     <ClInclude Include="libpng\pngstruct.h" />
     <ClInclude Include="Profiler.h" />
     <ClInclude Include="SoundEffect.h" />
-    <ClInclude Include="Texture.h" />
     <ClInclude Include="Wave.h" />
     <ClInclude Include="Hooks.h" />
-    <ClInclude Include="Loadout.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="Lua.h" />
     <ClInclude Include="lua_src\lapi.h" />
@@ -252,7 +244,6 @@
     <ClInclude Include="lua_src\lvm.h" />
     <ClInclude Include="lua_src\lzio.h" />
     <ClInclude Include="Mods.h" />
-    <ClInclude Include="ParticleModuleHelper.h" />
     <ClInclude Include="SdkHeaders.h" />
     <ClInclude Include="SDK_HEADERS\Core_classes.h" />
     <ClInclude Include="SDK_HEADERS\Core_f_structs.h" />

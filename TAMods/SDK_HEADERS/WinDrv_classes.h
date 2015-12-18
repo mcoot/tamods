@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: WinDrv_classes.h
@@ -60,8 +60,6 @@ public:
 
 };
 
-// UClass* UWindowsClient::pClassPointer = NULL;
-
 // Class WinDrv.XnaForceFeedbackManager
 // 0x0000 (0x0054 - 0x0054)
 class UXnaForceFeedbackManager : public UForceFeedbackManager
@@ -81,8 +79,6 @@ public:
 	};
 
 };
-
-// UClass* UXnaForceFeedbackManager::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER

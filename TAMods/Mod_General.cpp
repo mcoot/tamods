@@ -108,27 +108,10 @@ bool TrPC_Suicide(int ID, UObject *dwCallingObject, UFunction* pFunction, void* 
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	
-	if (that->WorldInfo && that->WorldInfo->NetMode == 0)
+	if (that->WorldInfo && that->WorldInfo->NetMode == NM_Standalone)
 	{
 		that->m_bLastDeathWasUserSuicide = 0;
 		that->m_fLastSuicideTimestamp = 0.0f;
-	}
-	return false;
-}
-
-bool TrPC_InitInputSystem(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
-
-	for (int i = 0; i < that->PlayerInput->Bindings.Count; i++)
-	{
-		FKeyBind *bind = that->PlayerInput->Bindings.Data + i;
-
-		FString cmd = bind->Command;
-		std::string scmd = Utils::cleanString(Utils::f2std(cmd));
-		if (scmd.find("showextentlinecheck") != std::string::npos
-			|| scmd.find("exec") != std::string::npos)
-			bind->Command = FString(L"");
 	}
 	return false;
 }
@@ -141,7 +124,7 @@ bool TrDeployable_FinalizeDeployment(int ID, UObject *dwCallingObject, UFunction
 
 	ATrBaseTurret_BloodEagle *that = (ATrBaseTurret_BloodEagle *)dwCallingObject;
 
-	if (that->WorldInfo && that->WorldInfo->NetMode == 0) // NM_Standalone == 0
+	if (that->WorldInfo && that->WorldInfo->NetMode == NM_Standalone)
 	{
 		if (dwCallingObject->IsA(ATrBaseTurret_BloodEagle::StaticClass()))
 		{
@@ -164,7 +147,7 @@ bool TrPowerGenerator_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction*
 
 	ATrPowerGenerator *gen = (ATrPowerGenerator *)dwCallingObject;
 
-	if (gen->WorldInfo && gen->WorldInfo->NetMode == 0) // NM_Standalone == 0
+	if (gen->WorldInfo && gen->WorldInfo->NetMode == NM_Standalone)
 	{
 		gen->UpdateGeneratorPower(0);
 
@@ -181,49 +164,12 @@ bool TrPowerGenerator_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction*
 	return true;
 }
 
-static void updateLoadingSceneImage(const std::string &map)
-{
-	static UTexture2D *loadingscreen = UObject::FindObject<UTexture2D>("Texture2D TribesMenu.LoadingScene.LoadingScene_I2");
-	static UTexture2D *cloned = NULL;
-
-	std::string directory = Utils::getConfigDir();
-	std::string path = directory + "maps\\" + map + ".png";
-
-	if (Utils::fileExists(path))
-	{
-		cloned = Texture::clone(loadingscreen);
-		Texture::update(loadingscreen, path.c_str());
-	}
-	else if (cloned)
-		Texture::clone(cloned, loadingscreen);
-}
-
-bool GFxTrMenuMoviePlayer_SetPlayerLoading(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	UGFxTrMenuMoviePlayer *that = (UGFxTrMenuMoviePlayer *)dwCallingObject;
-
-	Hooks::lock();
-	that->eventGetPC()->ClientSetHUD(NULL);
-	that->ASC_GotoState(L"ALL_OFF");
-	that->ClosePopup();
-	that->CloseServerPopup();
-	that->bInGame = false;
-	that->bLoading = true;
-	that->bEndOfMatch = false;
-	that->bViewingSummary = false;
-	that->LoadingData->SetDataFields();
-	updateLoadingSceneImage(Utils::cleanString(Utils::f2std(that->LoadingData->MapName)));
-	that->ASC_GotoState(L"LOADING");
-	that->PlayerSummaryScene->ClearEarnedBadgeValue();
-	that->eventShowMovie(0);
-	Hooks::unlock();
-	return true;
-}
-
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
 	ATrDevice_eventSetPosition_Parms *params = (ATrDevice_eventSetPosition_Parms *)pParams;
+
+	return false;
 
 	FVector DrawOffset, ViewOffset, FinalSmallWeaponsOffset, FinalLocation, X, Y, Z;
 	unsigned char CurrentHand;
@@ -258,7 +204,7 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 	// Hide the weapon if hidden
 	CurrentHand = that->GetHand();
-	if (that->bForceHidden || CurrentHand == 3) // 3 == HAND_Hidden
+	if (that->bForceHidden || CurrentHand == HAND_Hidden)
 	{
 		that->Mesh->SetHidden(true);
 		params->Holder->ArmsMesh[0]->SetHidden(true);
@@ -293,7 +239,7 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 	if (that->m_bTinyWeaponsEnabled)
 		ViewOffset = Geom::add(ViewOffset, that->m_TinyWeaponsOffset);
 
-	if (CurrentHand == 1) // 1 == HAND_Left
+	if (CurrentHand == HAND_Left)
 	{
 		FVector scale = ((ATrDevice *)that->StaticClass()->Default)->Mesh->Scale3D;
 		scale.Y *= -1.0f;
@@ -309,12 +255,12 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 		ViewOffset.Y *= -1.0f;
 		FinalSmallWeaponsOffset.Y *= -1.0f;
 	}
-	else if (CurrentHand == 2) // 2 == HAND_Centered
+	else if (CurrentHand == HAND_Centered)
 	{
 		ViewOffset.Y = 0.0f;
 		FinalSmallWeaponsOffset.Y = 0.0f;
 	}
-	else if (CurrentHand == 0) // 0 == HAND_Right
+	else if (CurrentHand == HAND_Right)
 	{
 		that->Mesh->SetScale3D(((ATrDevice *)that->StaticClass()->Default)->Mesh->Scale3D);
 		that->Mesh->SetRotation(((ATrDevice *)that->StaticClass()->Default)->Mesh->Rotation);

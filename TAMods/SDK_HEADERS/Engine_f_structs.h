@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: Engine_f_structs.h
@@ -8148,17 +8148,18 @@ struct AWeapon_execCalcWeaponFire_Parms
 	struct FVector                                     EndTrace;                                         		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	TArray< struct FImpactInfo >                       ImpactList;                                       		// 0x0018 (0x000C) [0x0000000000400190]              ( CPF_OptionalParm | CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 	struct FVector                                     Extent;                                           		// 0x0024 (0x000C) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	struct FImpactInfo                                 ReturnValue;                                      		// 0x0030 (0x0050) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// struct FVector                                  HitLocation;                                      		// 0x0080 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  HitNormal;                                        		// 0x008C (0x000C) [0x0000000000000000]              
-	// struct FVector                                  Dir;                                              		// 0x0098 (0x000C) [0x0000000000000000]              
-	// class AActor*                                   HitActor;                                         		// 0x00A4 (0x0004) [0x0000000000000000]              
-	// struct FTraceHitInfo                            HitInfo;                                          		// 0x00A8 (0x001C) [0x0000000000000000]              
-	// struct FImpactInfo                              CurrentImpact;                                    		// 0x00C4 (0x0050) [0x0000000000000000]              
-	// class APortalTeleporter*                        Portal;                                           		// 0x0114 (0x0004) [0x0000000000000000]              
-	// float                                           HitDist;                                          		// 0x0118 (0x0004) [0x0000000000000000]              
-	// unsigned long                                   bOldBlockActors : 1;                              		// 0x011C (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   bOldCollideActors : 1;                            		// 0x0120 (0x0004) [0x0000000000000000] [0x00000001] 
+	int                                                ExtraTraceFlags;                                  		// 0x0030 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	struct FImpactInfo                                 ReturnValue;                                      		// 0x0034 (0x0050) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FVector                                  HitLocation;                                      		// 0x0084 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  HitNormal;                                        		// 0x0090 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  Dir;                                              		// 0x009C (0x000C) [0x0000000000000000]              
+	// class AActor*                                   HitActor;                                         		// 0x00A8 (0x0004) [0x0000000000000000]              
+	// struct FTraceHitInfo                            HitInfo;                                          		// 0x00AC (0x001C) [0x0000000000000000]              
+	// struct FImpactInfo                              CurrentImpact;                                    		// 0x00C8 (0x0050) [0x0000000000000000]              
+	// class APortalTeleporter*                        Portal;                                           		// 0x0118 (0x0004) [0x0000000000000000]              
+	// float                                           HitDist;                                          		// 0x011C (0x0004) [0x0000000000000000]              
+	// unsigned long                                   bOldBlockActors : 1;                              		// 0x0120 (0x0004) [0x0000000000000000] [0x00000001] 
+	// unsigned long                                   bOldCollideActors : 1;                            		// 0x0124 (0x0004) [0x0000000000000000] [0x00000001] 
 };
 
 // Function Engine.Weapon.GetTraceOwner
@@ -25156,6 +25157,14 @@ struct UInput_execSetBind_Parms
 	// int                                             BindIndex;                                        		// 0x002C (0x0004) [0x0000000000000000]              
 };
 
+// Function Engine.Input.TranslateKeyBindScript
+// [0x00020400] ( FUNC_Native )
+struct UInput_execTranslateKeyBindScript_Parms
+{
+	struct FString                                     KeyName;                                          		// 0x0000 (0x000C) [0x0000000000400082]              ( CPF_Const | CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     ReturnValue;                                      		// 0x000C (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+};
+
 // Function Engine.Input.GetBindNameFromCommandScript
 // [0x00420400] ( FUNC_Native )
 struct UInput_execGetBindNameFromCommandScript_Parms
@@ -27508,6 +27517,23 @@ struct UTexture2DDynamic_execCreate_Parms
 	unsigned char                                      InFormat;                                         		// 0x0008 (0x0001) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 	unsigned long                                      InIsResolveTarget : 1;                            		// 0x000C (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
 	class UTexture2DDynamic*                           ReturnValue;                                      		// 0x0010 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function Engine.Texture2DDynamic.UpdateMipFromPNG
+// [0x00420400] ( FUNC_Native )
+struct UTexture2DDynamic_execUpdateMipFromPNG_Parms
+{
+	int                                                MipIdx;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	TArray< unsigned char >                            MipData;                                          		// 0x0004 (0x000C) [0x0000000000400182]              ( CPF_Const | CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0010 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function Engine.Texture2DDynamic.UpdateMip
+// [0x00420400] ( FUNC_Native )
+struct UTexture2DDynamic_execUpdateMip_Parms
+{
+	int                                                MipIdx;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	TArray< unsigned char >                            MipData;                                          		// 0x0004 (0x000C) [0x0000000000400182]              ( CPF_Const | CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 };
 
 // Function Engine.Texture2DDynamic.Init

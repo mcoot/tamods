@@ -1,9 +1,9 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
-# File: WinDrv_functions.h
+# File: WinDrv_functions.cpp
 # ========================================================================================= #
 # Credits: uNrEaL, Tamimego, SystemFiles, R00T88, _silencer, the1domo, K@N@VEL
 # Thanks: HOOAH07, lowHertz
@@ -14,6 +14,7 @@
 #ifdef _MSC_VER
 	#pragma pack ( push, 0x4 )
 #endif
+
 #include "../SdkHeaders.h"
 
 /*
@@ -23,7 +24,7 @@
 */
 
 UClass* UWindowsClient::pClassPointer = NULL;
-UClass* UXnaForceFeedbackManager::pClassPointer = NULL; 
+UClass* UXnaForceFeedbackManager::pClassPointer = NULL;
 
 /*
 # ========================================================================================= #

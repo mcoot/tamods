@@ -112,7 +112,7 @@ void Hooks::init(bool print_hookable) {
 	unsigned long *ProcessEventsAddress = (unsigned long *)(*(cObject)+65 * sizeof(unsigned long));
 
 	// Detour the function
-	pProcessEvent = (ProcessEventFunction) DetourFunction((PBYTE) *ProcessEventsAddress, (PBYTE)&ProxyFunction); //0x00458B30
+	pProcessEvent = (ProcessEventFunction) DetourFunction((PBYTE) *ProcessEventsAddress, (PBYTE)&ProxyFunction);
 }
 
 void Hooks::cleanup()

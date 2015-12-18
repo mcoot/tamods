@@ -1,9 +1,9 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
-# File: UDKBase_functions.h
+# File: UDKBase_functions.cpp
 # ========================================================================================= #
 # Credits: uNrEaL, Tamimego, SystemFiles, R00T88, _silencer, the1domo, K@N@VEL
 # Thanks: HOOAH07, lowHertz
@@ -14,6 +14,7 @@
 #ifdef _MSC_VER
 	#pragma pack ( push, 0x4 )
 #endif
+
 #include "../SdkHeaders.h"
 
 /*
@@ -119,7 +120,7 @@ UClass* UUDKSkelControl_Rotate::pClassPointer = NULL;
 UClass* UUDKSkelControl_SpinControl::pClassPointer = NULL;
 UClass* UUDKSkelControl_TurretConstrained::pClassPointer = NULL;
 UClass* UUDKSkelControl_VehicleFlap::pClassPointer = NULL;
-UClass* UUDKAnimNodeSequenceByBoneRotation::pClassPointer = NULL; 
+UClass* UUDKAnimNodeSequenceByBoneRotation::pClassPointer = NULL;
 
 /*
 # ========================================================================================= #
@@ -137,7 +138,7 @@ unsigned char AUDKGameObjective::GetTeamNum ( )
 	static UFunction* pFnGetTeamNum = NULL;
 
 	if ( ! pFnGetTeamNum )
-		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 34632 ];
+		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 34651 ];
 
 	AUDKGameObjective_execGetTeamNum_Parms GetTeamNum_Parms;
 
@@ -165,7 +166,7 @@ void AUDKGameObjective::DrawIcon ( class UCanvas* Canvas, struct FVector IconLoc
 	static UFunction* pFnDrawIcon = NULL;
 
 	if ( ! pFnDrawIcon )
-		pFnDrawIcon = (UFunction*) UObject::GObjObjects()->Data[ 34625 ];
+		pFnDrawIcon = (UFunction*) UObject::GObjObjects()->Data[ 34644 ];
 
 	AUDKGameObjective_execDrawIcon_Parms DrawIcon_Parms;
 	DrawIcon_Parms.Canvas = Canvas;
@@ -192,7 +193,7 @@ void AUDKGameObjective::SetHUDLocation ( struct FVector NewHUDLocation )
 	static UFunction* pFnSetHUDLocation = NULL;
 
 	if ( ! pFnSetHUDLocation )
-		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 34623 ];
+		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 34642 ];
 
 	AUDKGameObjective_execSetHUDLocation_Parms SetHUDLocation_Parms;
 	memcpy ( &SetHUDLocation_Parms.NewHUDLocation, &NewHUDLocation, 0xC );
@@ -215,7 +216,7 @@ void AUDKGameObjective::TriggerFlagEvent ( struct FName EventType, class AContro
 	static UFunction* pFnTriggerFlagEvent = NULL;
 
 	if ( ! pFnTriggerFlagEvent )
-		pFnTriggerFlagEvent = (UFunction*) UObject::GObjObjects()->Data[ 34620 ];
+		pFnTriggerFlagEvent = (UFunction*) UObject::GObjObjects()->Data[ 34639 ];
 
 	AUDKGameObjective_execTriggerFlagEvent_Parms TriggerFlagEvent_Parms;
 	memcpy ( &TriggerFlagEvent_Parms.EventType, &EventType, 0x8 );
@@ -235,7 +236,7 @@ bool AUDKGameObjective::BotNearObjective ( class AAIController* C )
 	static UFunction* pFnBotNearObjective = NULL;
 
 	if ( ! pFnBotNearObjective )
-		pFnBotNearObjective = (UFunction*) UObject::GObjObjects()->Data[ 34617 ];
+		pFnBotNearObjective = (UFunction*) UObject::GObjObjects()->Data[ 34636 ];
 
 	AUDKGameObjective_execBotNearObjective_Parms BotNearObjective_Parms;
 	BotNearObjective_Parms.C = C;
@@ -255,7 +256,7 @@ class AActor* AUDKGameObjective::eventGetBestViewTarget ( )
 	static UFunction* pFnGetBestViewTarget = NULL;
 
 	if ( ! pFnGetBestViewTarget )
-		pFnGetBestViewTarget = (UFunction*) UObject::GObjObjects()->Data[ 34615 ];
+		pFnGetBestViewTarget = (UFunction*) UObject::GObjObjects()->Data[ 34634 ];
 
 	AUDKGameObjective_eventGetBestViewTarget_Parms GetBestViewTarget_Parms;
 
@@ -273,7 +274,7 @@ void AUDKGameObjective::ObjectiveChanged ( )
 	static UFunction* pFnObjectiveChanged = NULL;
 
 	if ( ! pFnObjectiveChanged )
-		pFnObjectiveChanged = (UFunction*) UObject::GObjObjects()->Data[ 34614 ];
+		pFnObjectiveChanged = (UFunction*) UObject::GObjObjects()->Data[ 34633 ];
 
 	AUDKGameObjective_execObjectiveChanged_Parms ObjectiveChanged_Parms;
 
@@ -289,7 +290,7 @@ void AUDKPawn::eventStuckFalling ( )
 	static UFunction* pFnStuckFalling = NULL;
 
 	if ( ! pFnStuckFalling )
-		pFnStuckFalling = (UFunction*) UObject::GObjObjects()->Data[ 34936 ];
+		pFnStuckFalling = (UFunction*) UObject::GObjObjects()->Data[ 34955 ];
 
 	AUDKPawn_eventStuckFalling_Parms StuckFalling_Parms;
 
@@ -306,7 +307,7 @@ void AUDKPawn::eventUpdateEyeHeight ( float DeltaTime )
 	static UFunction* pFnUpdateEyeHeight = NULL;
 
 	if ( ! pFnUpdateEyeHeight )
-		pFnUpdateEyeHeight = (UFunction*) UObject::GObjObjects()->Data[ 34934 ];
+		pFnUpdateEyeHeight = (UFunction*) UObject::GObjObjects()->Data[ 34953 ];
 
 	AUDKPawn_eventUpdateEyeHeight_Parms UpdateEyeHeight_Parms;
 	UpdateEyeHeight_Parms.DeltaTime = DeltaTime;
@@ -323,7 +324,7 @@ void AUDKPawn::eventTakeHitBlendedOut ( )
 	static UFunction* pFnTakeHitBlendedOut = NULL;
 
 	if ( ! pFnTakeHitBlendedOut )
-		pFnTakeHitBlendedOut = (UFunction*) UObject::GObjObjects()->Data[ 34933 ];
+		pFnTakeHitBlendedOut = (UFunction*) UObject::GObjObjects()->Data[ 34952 ];
 
 	AUDKPawn_eventTakeHitBlendedOut_Parms TakeHitBlendedOut_Parms;
 
@@ -339,7 +340,7 @@ void AUDKPawn::eventStartFeignDeathRecoveryAnim ( )
 	static UFunction* pFnStartFeignDeathRecoveryAnim = NULL;
 
 	if ( ! pFnStartFeignDeathRecoveryAnim )
-		pFnStartFeignDeathRecoveryAnim = (UFunction*) UObject::GObjObjects()->Data[ 34932 ];
+		pFnStartFeignDeathRecoveryAnim = (UFunction*) UObject::GObjObjects()->Data[ 34951 ];
 
 	AUDKPawn_eventStartFeignDeathRecoveryAnim_Parms StartFeignDeathRecoveryAnim_Parms;
 
@@ -356,7 +357,7 @@ void AUDKPawn::SetHandIKEnabled ( unsigned long bEnabled )
 	static UFunction* pFnSetHandIKEnabled = NULL;
 
 	if ( ! pFnSetHandIKEnabled )
-		pFnSetHandIKEnabled = (UFunction*) UObject::GObjObjects()->Data[ 34930 ];
+		pFnSetHandIKEnabled = (UFunction*) UObject::GObjObjects()->Data[ 34949 ];
 
 	AUDKPawn_execSetHandIKEnabled_Parms SetHandIKEnabled_Parms;
 	SetHandIKEnabled_Parms.bEnabled = bEnabled;
@@ -374,7 +375,7 @@ void AUDKPawn::SetWeaponAttachmentVisibility ( unsigned long bAttachmentVisible 
 	static UFunction* pFnSetWeaponAttachmentVisibility = NULL;
 
 	if ( ! pFnSetWeaponAttachmentVisibility )
-		pFnSetWeaponAttachmentVisibility = (UFunction*) UObject::GObjObjects()->Data[ 34928 ];
+		pFnSetWeaponAttachmentVisibility = (UFunction*) UObject::GObjObjects()->Data[ 34947 ];
 
 	AUDKPawn_execSetWeaponAttachmentVisibility_Parms SetWeaponAttachmentVisibility_Parms;
 	SetWeaponAttachmentVisibility_Parms.bAttachmentVisible = bAttachmentVisible;
@@ -395,7 +396,7 @@ void AUDKPawn::NativePostRenderFor ( class APlayerController* PC, class UCanvas*
 	static UFunction* pFnNativePostRenderFor = NULL;
 
 	if ( ! pFnNativePostRenderFor )
-		pFnNativePostRenderFor = (UFunction*) UObject::GObjObjects()->Data[ 34923 ];
+		pFnNativePostRenderFor = (UFunction*) UObject::GObjObjects()->Data[ 34942 ];
 
 	AUDKPawn_execNativePostRenderFor_Parms NativePostRenderFor_Parms;
 	NativePostRenderFor_Parms.PC = PC;
@@ -420,7 +421,7 @@ void AUDKPawn::SetHUDLocation ( struct FVector NewHUDLocation )
 	static UFunction* pFnSetHUDLocation = NULL;
 
 	if ( ! pFnSetHUDLocation )
-		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 34921 ];
+		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 34940 ];
 
 	AUDKPawn_execSetHUDLocation_Parms SetHUDLocation_Parms;
 	memcpy ( &SetHUDLocation_Parms.NewHUDLocation, &NewHUDLocation, 0xC );
@@ -446,7 +447,7 @@ bool AUDKPawn::SuggestJumpVelocity ( struct FVector Destination, struct FVector 
 	static UFunction* pFnSuggestJumpVelocity = NULL;
 
 	if ( ! pFnSuggestJumpVelocity )
-		pFnSuggestJumpVelocity = (UFunction*) UObject::GObjObjects()->Data[ 34915 ];
+		pFnSuggestJumpVelocity = (UFunction*) UObject::GObjObjects()->Data[ 34934 ];
 
 	AUDKPawn_execSuggestJumpVelocity_Parms SuggestJumpVelocity_Parms;
 	memcpy ( &SuggestJumpVelocity_Parms.Destination, &Destination, 0xC );
@@ -475,7 +476,7 @@ void AUDKPawn::eventStartCrouch ( float HeightAdjust )
 	static UFunction* pFnStartCrouch = NULL;
 
 	if ( ! pFnStartCrouch )
-		pFnStartCrouch = (UFunction*) UObject::GObjObjects()->Data[ 34913 ];
+		pFnStartCrouch = (UFunction*) UObject::GObjObjects()->Data[ 34932 ];
 
 	AUDKPawn_eventStartCrouch_Parms StartCrouch_Parms;
 	StartCrouch_Parms.HeightAdjust = HeightAdjust;
@@ -493,7 +494,7 @@ void AUDKPawn::eventEndCrouch ( float HeightAdjust )
 	static UFunction* pFnEndCrouch = NULL;
 
 	if ( ! pFnEndCrouch )
-		pFnEndCrouch = (UFunction*) UObject::GObjObjects()->Data[ 34911 ];
+		pFnEndCrouch = (UFunction*) UObject::GObjObjects()->Data[ 34930 ];
 
 	AUDKPawn_eventEndCrouch_Parms EndCrouch_Parms;
 	EndCrouch_Parms.HeightAdjust = HeightAdjust;
@@ -510,7 +511,7 @@ void AUDKPawn::eventStoppedFalling ( )
 	static UFunction* pFnStoppedFalling = NULL;
 
 	if ( ! pFnStoppedFalling )
-		pFnStoppedFalling = (UFunction*) UObject::GObjObjects()->Data[ 34910 ];
+		pFnStoppedFalling = (UFunction*) UObject::GObjObjects()->Data[ 34929 ];
 
 	AUDKPawn_eventStoppedFalling_Parms StoppedFalling_Parms;
 
@@ -527,7 +528,7 @@ void AUDKPawn::eventHoldGameObject ( class AUDKCarriedObject* UDKGameObj )
 	static UFunction* pFnHoldGameObject = NULL;
 
 	if ( ! pFnHoldGameObject )
-		pFnHoldGameObject = (UFunction*) UObject::GObjObjects()->Data[ 34908 ];
+		pFnHoldGameObject = (UFunction*) UObject::GObjObjects()->Data[ 34927 ];
 
 	AUDKPawn_eventHoldGameObject_Parms HoldGameObject_Parms;
 	HoldGameObject_Parms.UDKGameObj = UDKGameObj;
@@ -545,7 +546,7 @@ bool AUDKPawn::IsInvisible ( )
 	static UFunction* pFnIsInvisible = NULL;
 
 	if ( ! pFnIsInvisible )
-		pFnIsInvisible = (UFunction*) UObject::GObjObjects()->Data[ 34906 ];
+		pFnIsInvisible = (UFunction*) UObject::GObjObjects()->Data[ 34925 ];
 
 	AUDKPawn_execIsInvisible_Parms IsInvisible_Parms;
 
@@ -570,7 +571,7 @@ struct FVector AUDKPawn::GetTargetLocation ( class AActor* RequestedBy, unsigned
 	static UFunction* pFnGetTargetLocation = NULL;
 
 	if ( ! pFnGetTargetLocation )
-		pFnGetTargetLocation = (UFunction*) UObject::GObjObjects()->Data[ 34902 ];
+		pFnGetTargetLocation = (UFunction*) UObject::GObjObjects()->Data[ 34921 ];
 
 	AUDKPawn_execGetTargetLocation_Parms GetTargetLocation_Parms;
 	GetTargetLocation_Parms.RequestedBy = RequestedBy;
@@ -594,7 +595,7 @@ void AUDKPawn::EnsureOverlayComponentLast ( )
 	static UFunction* pFnEnsureOverlayComponentLast = NULL;
 
 	if ( ! pFnEnsureOverlayComponentLast )
-		pFnEnsureOverlayComponentLast = (UFunction*) UObject::GObjObjects()->Data[ 34901 ];
+		pFnEnsureOverlayComponentLast = (UFunction*) UObject::GObjObjects()->Data[ 34920 ];
 
 	AUDKPawn_execEnsureOverlayComponentLast_Parms EnsureOverlayComponentLast_Parms;
 
@@ -614,7 +615,7 @@ void AUDKPawn::RestorePreRagdollCollisionComponent ( )
 	static UFunction* pFnRestorePreRagdollCollisionComponent = NULL;
 
 	if ( ! pFnRestorePreRagdollCollisionComponent )
-		pFnRestorePreRagdollCollisionComponent = (UFunction*) UObject::GObjObjects()->Data[ 34900 ];
+		pFnRestorePreRagdollCollisionComponent = (UFunction*) UObject::GObjObjects()->Data[ 34919 ];
 
 	AUDKPawn_execRestorePreRagdollCollisionComponent_Parms RestorePreRagdollCollisionComponent_Parms;
 
@@ -636,7 +637,7 @@ void AUDKPawn::GetBoundingCylinder ( float* CollisionRadius, float* CollisionHei
 	static UFunction* pFnGetBoundingCylinder = NULL;
 
 	if ( ! pFnGetBoundingCylinder )
-		pFnGetBoundingCylinder = (UFunction*) UObject::GObjObjects()->Data[ 34897 ];
+		pFnGetBoundingCylinder = (UFunction*) UObject::GObjObjects()->Data[ 34916 ];
 
 	AUDKPawn_execGetBoundingCylinder_Parms GetBoundingCylinder_Parms;
 
@@ -662,7 +663,7 @@ void AUDKBot::eventDelayedLeaveVehicle ( )
 	static UFunction* pFnDelayedLeaveVehicle = NULL;
 
 	if ( ! pFnDelayedLeaveVehicle )
-		pFnDelayedLeaveVehicle = (UFunction*) UObject::GObjObjects()->Data[ 34474 ];
+		pFnDelayedLeaveVehicle = (UFunction*) UObject::GObjObjects()->Data[ 34493 ];
 
 	AUDKBot_eventDelayedLeaveVehicle_Parms DelayedLeaveVehicle_Parms;
 
@@ -678,7 +679,7 @@ void AUDKBot::eventDelayedWarning ( )
 	static UFunction* pFnDelayedWarning = NULL;
 
 	if ( ! pFnDelayedWarning )
-		pFnDelayedWarning = (UFunction*) UObject::GObjObjects()->Data[ 34473 ];
+		pFnDelayedWarning = (UFunction*) UObject::GObjObjects()->Data[ 34492 ];
 
 	AUDKBot_eventDelayedWarning_Parms DelayedWarning_Parms;
 
@@ -694,7 +695,7 @@ void AUDKBot::eventMissedDodge ( )
 	static UFunction* pFnMissedDodge = NULL;
 
 	if ( ! pFnMissedDodge )
-		pFnMissedDodge = (UFunction*) UObject::GObjObjects()->Data[ 34472 ];
+		pFnMissedDodge = (UFunction*) UObject::GObjObjects()->Data[ 34491 ];
 
 	AUDKBot_eventMissedDodge_Parms MissedDodge_Parms;
 
@@ -713,7 +714,7 @@ float AUDKBot::eventAdjustAimError ( float TargetDist, unsigned long bInstantPro
 	static UFunction* pFnAdjustAimError = NULL;
 
 	if ( ! pFnAdjustAimError )
-		pFnAdjustAimError = (UFunction*) UObject::GObjObjects()->Data[ 34468 ];
+		pFnAdjustAimError = (UFunction*) UObject::GObjObjects()->Data[ 34487 ];
 
 	AUDKBot_eventAdjustAimError_Parms AdjustAimError_Parms;
 	AdjustAimError_Parms.TargetDist = TargetDist;
@@ -735,7 +736,7 @@ float AUDKBot::eventSuperDesireability ( class APickupFactory* P )
 	static UFunction* pFnSuperDesireability = NULL;
 
 	if ( ! pFnSuperDesireability )
-		pFnSuperDesireability = (UFunction*) UObject::GObjObjects()->Data[ 34465 ];
+		pFnSuperDesireability = (UFunction*) UObject::GObjObjects()->Data[ 34484 ];
 
 	AUDKBot_eventSuperDesireability_Parms SuperDesireability_Parms;
 	SuperDesireability_Parms.P = P;
@@ -757,7 +758,7 @@ bool AUDKBot::eventSpecialJumpCost ( float RequiredJumpZ, float* Cost )
 	static UFunction* pFnSpecialJumpCost = NULL;
 
 	if ( ! pFnSpecialJumpCost )
-		pFnSpecialJumpCost = (UFunction*) UObject::GObjObjects()->Data[ 34461 ];
+		pFnSpecialJumpCost = (UFunction*) UObject::GObjObjects()->Data[ 34480 ];
 
 	AUDKBot_eventSpecialJumpCost_Parms SpecialJumpCost_Parms;
 	SpecialJumpCost_Parms.RequiredJumpZ = RequiredJumpZ;
@@ -779,7 +780,7 @@ void AUDKBot::eventMayDodgeToMoveTarget ( )
 	static UFunction* pFnMayDodgeToMoveTarget = NULL;
 
 	if ( ! pFnMayDodgeToMoveTarget )
-		pFnMayDodgeToMoveTarget = (UFunction*) UObject::GObjObjects()->Data[ 34460 ];
+		pFnMayDodgeToMoveTarget = (UFunction*) UObject::GObjObjects()->Data[ 34479 ];
 
 	AUDKBot_eventMayDodgeToMoveTarget_Parms MayDodgeToMoveTarget_Parms;
 
@@ -795,7 +796,7 @@ void AUDKBot::eventTimeDJReset ( )
 	static UFunction* pFnTimeDJReset = NULL;
 
 	if ( ! pFnTimeDJReset )
-		pFnTimeDJReset = (UFunction*) UObject::GObjObjects()->Data[ 34459 ];
+		pFnTimeDJReset = (UFunction*) UObject::GObjObjects()->Data[ 34478 ];
 
 	AUDKBot_eventTimeDJReset_Parms TimeDJReset_Parms;
 
@@ -811,7 +812,7 @@ void AUDKBot::eventMonitoredPawnAlert ( )
 	static UFunction* pFnMonitoredPawnAlert = NULL;
 
 	if ( ! pFnMonitoredPawnAlert )
-		pFnMonitoredPawnAlert = (UFunction*) UObject::GObjObjects()->Data[ 34458 ];
+		pFnMonitoredPawnAlert = (UFunction*) UObject::GObjObjects()->Data[ 34477 ];
 
 	AUDKBot_eventMonitoredPawnAlert_Parms MonitoredPawnAlert_Parms;
 
@@ -827,7 +828,7 @@ void AUDKBot::eventWhatToDoNext ( )
 	static UFunction* pFnWhatToDoNext = NULL;
 
 	if ( ! pFnWhatToDoNext )
-		pFnWhatToDoNext = (UFunction*) UObject::GObjObjects()->Data[ 34457 ];
+		pFnWhatToDoNext = (UFunction*) UObject::GObjObjects()->Data[ 34476 ];
 
 	AUDKBot_eventWhatToDoNext_Parms WhatToDoNext_Parms;
 
@@ -845,7 +846,7 @@ class AActor* AUDKBot::FindBestSuperPickup ( float MaxDist )
 	static UFunction* pFnFindBestSuperPickup = NULL;
 
 	if ( ! pFnFindBestSuperPickup )
-		pFnFindBestSuperPickup = (UFunction*) UObject::GObjObjects()->Data[ 34454 ];
+		pFnFindBestSuperPickup = (UFunction*) UObject::GObjObjects()->Data[ 34473 ];
 
 	AUDKBot_execFindBestSuperPickup_Parms FindBestSuperPickup_Parms;
 	FindBestSuperPickup_Parms.MaxDist = MaxDist;
@@ -868,7 +869,7 @@ void AUDKBot::BuildSquadRoute ( )
 	static UFunction* pFnBuildSquadRoute = NULL;
 
 	if ( ! pFnBuildSquadRoute )
-		pFnBuildSquadRoute = (UFunction*) UObject::GObjObjects()->Data[ 34453 ];
+		pFnBuildSquadRoute = (UFunction*) UObject::GObjObjects()->Data[ 34472 ];
 
 	AUDKBot_execBuildSquadRoute_Parms BuildSquadRoute_Parms;
 
@@ -890,7 +891,7 @@ class AActor* AUDKBot::FindPathToSquadRoute ( unsigned long bWeightDetours )
 	static UFunction* pFnFindPathToSquadRoute = NULL;
 
 	if ( ! pFnFindPathToSquadRoute )
-		pFnFindPathToSquadRoute = (UFunction*) UObject::GObjObjects()->Data[ 34450 ];
+		pFnFindPathToSquadRoute = (UFunction*) UObject::GObjObjects()->Data[ 34469 ];
 
 	AUDKBot_execFindPathToSquadRoute_Parms FindPathToSquadRoute_Parms;
 	FindPathToSquadRoute_Parms.bWeightDetours = bWeightDetours;
@@ -915,7 +916,7 @@ class AActor* AUDKBot::FindBestInventoryPath ( float* MinWeight )
 	static UFunction* pFnFindBestInventoryPath = NULL;
 
 	if ( ! pFnFindBestInventoryPath )
-		pFnFindBestInventoryPath = (UFunction*) UObject::GObjObjects()->Data[ 34447 ];
+		pFnFindBestInventoryPath = (UFunction*) UObject::GObjObjects()->Data[ 34466 ];
 
 	AUDKBot_execFindBestInventoryPath_Parms FindBestInventoryPath_Parms;
 
@@ -942,7 +943,7 @@ bool AUDKBot::CanMakePathTo ( class AActor* A )
 	static UFunction* pFnCanMakePathTo = NULL;
 
 	if ( ! pFnCanMakePathTo )
-		pFnCanMakePathTo = (UFunction*) UObject::GObjObjects()->Data[ 34444 ];
+		pFnCanMakePathTo = (UFunction*) UObject::GObjObjects()->Data[ 34463 ];
 
 	AUDKBot_execCanMakePathTo_Parms CanMakePathTo_Parms;
 	CanMakePathTo_Parms.A = A;
@@ -965,7 +966,7 @@ void AUDKBot::LatentWhatToDoNext ( )
 	static UFunction* pFnLatentWhatToDoNext = NULL;
 
 	if ( ! pFnLatentWhatToDoNext )
-		pFnLatentWhatToDoNext = (UFunction*) UObject::GObjObjects()->Data[ 34443 ];
+		pFnLatentWhatToDoNext = (UFunction*) UObject::GObjObjects()->Data[ 34462 ];
 
 	AUDKBot_execLatentWhatToDoNext_Parms LatentWhatToDoNext_Parms;
 
@@ -985,7 +986,7 @@ void AUDKBot::WaitToSeeEnemy ( )
 	static UFunction* pFnWaitToSeeEnemy = NULL;
 
 	if ( ! pFnWaitToSeeEnemy )
-		pFnWaitToSeeEnemy = (UFunction*) UObject::GObjObjects()->Data[ 34442 ];
+		pFnWaitToSeeEnemy = (UFunction*) UObject::GObjObjects()->Data[ 34461 ];
 
 	AUDKBot_execWaitToSeeEnemy_Parms WaitToSeeEnemy_Parms;
 
@@ -1008,7 +1009,7 @@ void AUDKBot::eventReceiveRunOverWarning ( class AUDKVehicle* V, float projSpeed
 	static UFunction* pFnReceiveRunOverWarning = NULL;
 
 	if ( ! pFnReceiveRunOverWarning )
-		pFnReceiveRunOverWarning = (UFunction*) UObject::GObjObjects()->Data[ 34438 ];
+		pFnReceiveRunOverWarning = (UFunction*) UObject::GObjObjects()->Data[ 34457 ];
 
 	AUDKBot_eventReceiveRunOverWarning_Parms ReceiveRunOverWarning_Parms;
 	ReceiveRunOverWarning_Parms.V = V;
@@ -1027,7 +1028,7 @@ void AUDKBot::eventExecuteWhatToDoNext ( )
 	static UFunction* pFnExecuteWhatToDoNext = NULL;
 
 	if ( ! pFnExecuteWhatToDoNext )
-		pFnExecuteWhatToDoNext = (UFunction*) UObject::GObjObjects()->Data[ 34437 ];
+		pFnExecuteWhatToDoNext = (UFunction*) UObject::GObjObjects()->Data[ 34456 ];
 
 	AUDKBot_eventExecuteWhatToDoNext_Parms ExecuteWhatToDoNext_Parms;
 
@@ -1045,7 +1046,7 @@ class AActor* AUDKBot::FaceActor ( float StrafingModifier )
 	static UFunction* pFnFaceActor = NULL;
 
 	if ( ! pFnFaceActor )
-		pFnFaceActor = (UFunction*) UObject::GObjObjects()->Data[ 34434 ];
+		pFnFaceActor = (UFunction*) UObject::GObjObjects()->Data[ 34453 ];
 
 	AUDKBot_execFaceActor_Parms FaceActor_Parms;
 	FaceActor_Parms.StrafingModifier = StrafingModifier;
@@ -1065,7 +1066,7 @@ unsigned char AUDKCarriedObject::GetTeamNum ( )
 	static UFunction* pFnGetTeamNum = NULL;
 
 	if ( ! pFnGetTeamNum )
-		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 34491 ];
+		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 34510 ];
 
 	AUDKCarriedObject_execGetTeamNum_Parms GetTeamNum_Parms;
 
@@ -1087,7 +1088,7 @@ void AUDKCarriedObject::eventOnBaseChainChanged ( )
 	static UFunction* pFnOnBaseChainChanged = NULL;
 
 	if ( ! pFnOnBaseChainChanged )
-		pFnOnBaseChainChanged = (UFunction*) UObject::GObjObjects()->Data[ 34490 ];
+		pFnOnBaseChainChanged = (UFunction*) UObject::GObjObjects()->Data[ 34509 ];
 
 	AUDKCarriedObject_eventOnBaseChainChanged_Parms OnBaseChainChanged_Parms;
 
@@ -1104,7 +1105,7 @@ void AUDKCarriedObject::eventNotReachableBy ( class APawn* P )
 	static UFunction* pFnNotReachableBy = NULL;
 
 	if ( ! pFnNotReachableBy )
-		pFnNotReachableBy = (UFunction*) UObject::GObjObjects()->Data[ 34488 ];
+		pFnNotReachableBy = (UFunction*) UObject::GObjObjects()->Data[ 34507 ];
 
 	AUDKCarriedObject_eventNotReachableBy_Parms NotReachableBy_Parms;
 	NotReachableBy_Parms.P = P;
@@ -1122,7 +1123,7 @@ void AUDKCarriedObject::SetHUDLocation ( struct FVector NewHUDLocation )
 	static UFunction* pFnSetHUDLocation = NULL;
 
 	if ( ! pFnSetHUDLocation )
-		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 34486 ];
+		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 34505 ];
 
 	AUDKCarriedObject_execSetHUDLocation_Parms SetHUDLocation_Parms;
 	memcpy ( &SetHUDLocation_Parms.NewHUDLocation, &NewHUDLocation, 0xC );
@@ -1144,7 +1145,7 @@ bool UUDKDataStore_GameSearchBase::HasExistingSearchResults ( )
 	static UFunction* pFnHasExistingSearchResults = NULL;
 
 	if ( ! pFnHasExistingSearchResults )
-		pFnHasExistingSearchResults = (UFunction*) UObject::GObjObjects()->Data[ 34511 ];
+		pFnHasExistingSearchResults = (UFunction*) UObject::GObjObjects()->Data[ 34530 ];
 
 	UUDKDataStore_GameSearchBase_execHasExistingSearchResults_Parms HasExistingSearchResults_Parms;
 
@@ -1164,7 +1165,7 @@ bool UUDKDataStore_GameSearchBase::HasOutstandingQueries ( unsigned long bRestri
 	static UFunction* pFnHasOutstandingQueries = NULL;
 
 	if ( ! pFnHasOutstandingQueries )
-		pFnHasOutstandingQueries = (UFunction*) UObject::GObjObjects()->Data[ 34506 ];
+		pFnHasOutstandingQueries = (UFunction*) UObject::GObjObjects()->Data[ 34525 ];
 
 	UUDKDataStore_GameSearchBase_execHasOutstandingQueries_Parms HasOutstandingQueries_Parms;
 	HasOutstandingQueries_Parms.bRestrictCheckToSelf = bRestrictCheckToSelf;
@@ -1184,7 +1185,7 @@ void UUDKDataStore_GameSearchBase::OnSearchComplete ( unsigned long bWasSuccessf
 	static UFunction* pFnOnSearchComplete = NULL;
 
 	if ( ! pFnOnSearchComplete )
-		pFnOnSearchComplete = (UFunction*) UObject::GObjObjects()->Data[ 34504 ];
+		pFnOnSearchComplete = (UFunction*) UObject::GObjObjects()->Data[ 34523 ];
 
 	UUDKDataStore_GameSearchBase_execOnSearchComplete_Parms OnSearchComplete_Parms;
 	OnSearchComplete_Parms.bWasSuccessful = bWasSuccessful;
@@ -1204,7 +1205,7 @@ bool UUDKDataStore_GameSearchBase::eventSubmitGameSearch ( unsigned char Control
 	static UFunction* pFnSubmitGameSearch = NULL;
 
 	if ( ! pFnSubmitGameSearch )
-		pFnSubmitGameSearch = (UFunction*) UObject::GObjObjects()->Data[ 34499 ];
+		pFnSubmitGameSearch = (UFunction*) UObject::GObjObjects()->Data[ 34518 ];
 
 	UUDKDataStore_GameSearchBase_eventSubmitGameSearch_Parms SubmitGameSearch_Parms;
 	SubmitGameSearch_Parms.ControllerIndex = ControllerIndex;
@@ -1224,7 +1225,7 @@ void UUDKDataStore_GameSearchBase::eventInit ( )
 	static UFunction* pFnInit = NULL;
 
 	if ( ! pFnInit )
-		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 34498 ];
+		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 34517 ];
 
 	UUDKDataStore_GameSearchBase_eventInit_Parms Init_Parms;
 
@@ -1242,7 +1243,7 @@ bool UUDKDataStore_GameSearchBase::GetEnabledMutators ( TArray< int >* MutatorIn
 	static UFunction* pFnGetEnabledMutators = NULL;
 
 	if ( ! pFnGetEnabledMutators )
-		pFnGetEnabledMutators = (UFunction*) UObject::GObjObjects()->Data[ 34494 ];
+		pFnGetEnabledMutators = (UFunction*) UObject::GObjObjects()->Data[ 34513 ];
 
 	UUDKDataStore_GameSearchBase_execGetEnabledMutators_Parms GetEnabledMutators_Parms;
 
@@ -1270,7 +1271,7 @@ void AUDKEmitCameraEffect::UpdateLocation ( float CamFOVDeg, struct FVector* Cam
 	static UFunction* pFnUpdateLocation = NULL;
 
 	if ( ! pFnUpdateLocation )
-		pFnUpdateLocation = (UFunction*) UObject::GObjObjects()->Data[ 34522 ];
+		pFnUpdateLocation = (UFunction*) UObject::GObjObjects()->Data[ 34541 ];
 
 	AUDKEmitCameraEffect_execUpdateLocation_Parms UpdateLocation_Parms;
 	UpdateLocation_Parms.CamFOVDeg = CamFOVDeg;
@@ -1297,7 +1298,7 @@ void AUDKEmitCameraEffect::Deactivate ( )
 	static UFunction* pFnDeactivate = NULL;
 
 	if ( ! pFnDeactivate )
-		pFnDeactivate = (UFunction*) UObject::GObjObjects()->Data[ 34521 ];
+		pFnDeactivate = (UFunction*) UObject::GObjObjects()->Data[ 34540 ];
 
 	AUDKEmitCameraEffect_execDeactivate_Parms Deactivate_Parms;
 
@@ -1313,7 +1314,7 @@ void AUDKEmitCameraEffect::Activate ( )
 	static UFunction* pFnActivate = NULL;
 
 	if ( ! pFnActivate )
-		pFnActivate = (UFunction*) UObject::GObjObjects()->Data[ 34520 ];
+		pFnActivate = (UFunction*) UObject::GObjObjects()->Data[ 34539 ];
 
 	AUDKEmitCameraEffect_execActivate_Parms Activate_Parms;
 
@@ -1330,7 +1331,7 @@ void AUDKEmitCameraEffect::RegisterCamera ( class AUDKPlayerController* inCam )
 	static UFunction* pFnRegisterCamera = NULL;
 
 	if ( ! pFnRegisterCamera )
-		pFnRegisterCamera = (UFunction*) UObject::GObjObjects()->Data[ 34518 ];
+		pFnRegisterCamera = (UFunction*) UObject::GObjObjects()->Data[ 34537 ];
 
 	AUDKEmitCameraEffect_execRegisterCamera_Parms RegisterCamera_Parms;
 	RegisterCamera_Parms.inCam = inCam;
@@ -1347,7 +1348,7 @@ void AUDKEmitCameraEffect::Destroyed ( )
 	static UFunction* pFnDestroyed = NULL;
 
 	if ( ! pFnDestroyed )
-		pFnDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 34517 ];
+		pFnDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 34536 ];
 
 	AUDKEmitCameraEffect_execDestroyed_Parms Destroyed_Parms;
 
@@ -1363,7 +1364,7 @@ void AUDKEmitCameraEffect::eventPostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 34516 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 34535 ];
 
 	AUDKEmitCameraEffect_eventPostBeginPlay_Parms PostBeginPlay_Parms;
 
@@ -1383,7 +1384,7 @@ class UUDKExplosionLight* AUDKEmitterPool::SpawnExplosionLight ( class UClass* L
 	static UFunction* pFnSpawnExplosionLight = NULL;
 
 	if ( ! pFnSpawnExplosionLight )
-		pFnSpawnExplosionLight = (UFunction*) UObject::GObjObjects()->Data[ 34546 ];
+		pFnSpawnExplosionLight = (UFunction*) UObject::GObjObjects()->Data[ 34565 ];
 
 	AUDKEmitterPool_execSpawnExplosionLight_Parms SpawnExplosionLight_Parms;
 	SpawnExplosionLight_Parms.LightClass = LightClass;
@@ -1405,7 +1406,7 @@ void AUDKEmitterPool::OnExplosionLightFinished ( class UUDKExplosionLight* Light
 	static UFunction* pFnOnExplosionLightFinished = NULL;
 
 	if ( ! pFnOnExplosionLightFinished )
-		pFnOnExplosionLightFinished = (UFunction*) UObject::GObjObjects()->Data[ 34543 ];
+		pFnOnExplosionLightFinished = (UFunction*) UObject::GObjObjects()->Data[ 34562 ];
 
 	AUDKEmitterPool_execOnExplosionLightFinished_Parms OnExplosionLightFinished_Parms;
 	OnExplosionLightFinished_Parms.Light = Light;
@@ -1428,7 +1429,7 @@ class UParticleSystemComponent* AUDKEmitterPool::SpawnEmitter ( class UParticleS
 	static UFunction* pFnSpawnEmitter = NULL;
 
 	if ( ! pFnSpawnEmitter )
-		pFnSpawnEmitter = (UFunction*) UObject::GObjObjects()->Data[ 34533 ];
+		pFnSpawnEmitter = (UFunction*) UObject::GObjObjects()->Data[ 34552 ];
 
 	AUDKEmitterPool_execSpawnEmitter_Parms SpawnEmitter_Parms;
 	SpawnEmitter_Parms.EmitterTemplate = EmitterTemplate;
@@ -1452,7 +1453,7 @@ void UUDKExplosionLight::OnLightFinished ( class UUDKExplosionLight* Light )
 	static UFunction* pFnOnLightFinished = NULL;
 
 	if ( ! pFnOnLightFinished )
-		pFnOnLightFinished = (UFunction*) UObject::GObjObjects()->Data[ 34558 ];
+		pFnOnLightFinished = (UFunction*) UObject::GObjObjects()->Data[ 34577 ];
 
 	UUDKExplosionLight_execOnLightFinished_Parms OnLightFinished_Parms;
 	OnLightFinished_Parms.Light = Light;
@@ -1469,7 +1470,7 @@ void UUDKExplosionLight::ResetLight ( )
 	static UFunction* pFnResetLight = NULL;
 
 	if ( ! pFnResetLight )
-		pFnResetLight = (UFunction*) UObject::GObjObjects()->Data[ 34568 ];
+		pFnResetLight = (UFunction*) UObject::GObjObjects()->Data[ 34587 ];
 
 	UUDKExplosionLight_execResetLight_Parms ResetLight_Parms;
 
@@ -1491,7 +1492,7 @@ bool AUDKForcedDirectionVolume::StopsProjectile ( class AProjectile* P )
 	static UFunction* pFnStopsProjectile = NULL;
 
 	if ( ! pFnStopsProjectile )
-		pFnStopsProjectile = (UFunction*) UObject::GObjObjects()->Data[ 34595 ];
+		pFnStopsProjectile = (UFunction*) UObject::GObjObjects()->Data[ 34614 ];
 
 	AUDKForcedDirectionVolume_execStopsProjectile_Parms StopsProjectile_Parms;
 	StopsProjectile_Parms.P = P;
@@ -1511,7 +1512,7 @@ void AUDKForcedDirectionVolume::eventUnTouch ( class AActor* Other )
 	static UFunction* pFnUnTouch = NULL;
 
 	if ( ! pFnUnTouch )
-		pFnUnTouch = (UFunction*) UObject::GObjObjects()->Data[ 34591 ];
+		pFnUnTouch = (UFunction*) UObject::GObjObjects()->Data[ 34610 ];
 
 	AUDKForcedDirectionVolume_eventUnTouch_Parms UnTouch_Parms;
 	UnTouch_Parms.Other = Other;
@@ -1532,7 +1533,7 @@ void AUDKForcedDirectionVolume::eventTouch ( class AActor* Other, class UPrimiti
 	static UFunction* pFnTouch = NULL;
 
 	if ( ! pFnTouch )
-		pFnTouch = (UFunction*) UObject::GObjObjects()->Data[ 34582 ];
+		pFnTouch = (UFunction*) UObject::GObjObjects()->Data[ 34601 ];
 
 	AUDKForcedDirectionVolume_eventTouch_Parms Touch_Parms;
 	Touch_Parms.Other = Other;
@@ -1553,7 +1554,7 @@ void AUDKForcedDirectionVolume::eventActorEnteredVolume ( class AActor* Other )
 	static UFunction* pFnActorEnteredVolume = NULL;
 
 	if ( ! pFnActorEnteredVolume )
-		pFnActorEnteredVolume = (UFunction*) UObject::GObjObjects()->Data[ 34580 ];
+		pFnActorEnteredVolume = (UFunction*) UObject::GObjObjects()->Data[ 34599 ];
 
 	AUDKForcedDirectionVolume_eventActorEnteredVolume_Parms ActorEnteredVolume_Parms;
 	ActorEnteredVolume_Parms.Other = Other;
@@ -1570,7 +1571,7 @@ void AUDKForcedDirectionVolume::PostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 34579 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 34598 ];
 
 	AUDKForcedDirectionVolume_execPostBeginPlay_Parms PostBeginPlay_Parms;
 
@@ -1586,7 +1587,7 @@ void UUDKGameInteraction::NotifyGameSessionEnded ( )
 	static UFunction* pFnNotifyGameSessionEnded = NULL;
 
 	if ( ! pFnNotifyGameSessionEnded )
-		pFnNotifyGameSessionEnded = (UFunction*) UObject::GObjObjects()->Data[ 34605 ];
+		pFnNotifyGameSessionEnded = (UFunction*) UObject::GObjObjects()->Data[ 34624 ];
 
 	UUDKGameInteraction_execNotifyGameSessionEnded_Parms NotifyGameSessionEnded_Parms;
 
@@ -1603,7 +1604,7 @@ void UUDKGameInteraction::eventBlockUIInput ( unsigned long bBlock )
 	static UFunction* pFnBlockUIInput = NULL;
 
 	if ( ! pFnBlockUIInput )
-		pFnBlockUIInput = (UFunction*) UObject::GObjObjects()->Data[ 34603 ];
+		pFnBlockUIInput = (UFunction*) UObject::GObjObjects()->Data[ 34622 ];
 
 	UUDKGameInteraction_eventBlockUIInput_Parms BlockUIInput_Parms;
 	BlockUIInput_Parms.bBlock = bBlock;
@@ -1620,7 +1621,7 @@ void UUDKGameInteraction::eventClearUIInputBlocks ( )
 	static UFunction* pFnClearUIInputBlocks = NULL;
 
 	if ( ! pFnClearUIInputBlocks )
-		pFnClearUIInputBlocks = (UFunction*) UObject::GObjObjects()->Data[ 34602 ];
+		pFnClearUIInputBlocks = (UFunction*) UObject::GObjObjects()->Data[ 34621 ];
 
 	UUDKGameInteraction_eventClearUIInputBlocks_Parms ClearUIInputBlocks_Parms;
 
@@ -1637,7 +1638,7 @@ bool UUDKGameInteraction::ShouldProcessUIInput ( )
 	static UFunction* pFnShouldProcessUIInput = NULL;
 
 	if ( ! pFnShouldProcessUIInput )
-		pFnShouldProcessUIInput = (UFunction*) UObject::GObjObjects()->Data[ 34600 ];
+		pFnShouldProcessUIInput = (UFunction*) UObject::GObjObjects()->Data[ 34619 ];
 
 	UUDKGameInteraction_execShouldProcessUIInput_Parms ShouldProcessUIInput_Parms;
 
@@ -1661,7 +1662,7 @@ struct FString UUDKGameSettingsCommon::BlobToString ( struct FString* InBlob )
 	static UFunction* pFnBlobToString = NULL;
 
 	if ( ! pFnBlobToString )
-		pFnBlobToString = (UFunction*) UObject::GObjObjects()->Data[ 34639 ];
+		pFnBlobToString = (UFunction*) UObject::GObjObjects()->Data[ 34658 ];
 
 	UUDKGameSettingsCommon_execBlobToString_Parms BlobToString_Parms;
 
@@ -1689,7 +1690,7 @@ bool UUDKGameSettingsCommon::StringToBlob ( struct FString* InString, struct FSt
 	static UFunction* pFnStringToBlob = NULL;
 
 	if ( ! pFnStringToBlob )
-		pFnStringToBlob = (UFunction*) UObject::GObjObjects()->Data[ 34635 ];
+		pFnStringToBlob = (UFunction*) UObject::GObjObjects()->Data[ 34654 ];
 
 	UUDKGameSettingsCommon_execStringToBlob_Parms StringToBlob_Parms;
 
@@ -1720,7 +1721,7 @@ struct FString UUDKGameViewportClient::LoadRandomLocalizedHintMessage ( struct F
 	static UFunction* pFnLoadRandomLocalizedHintMessage = NULL;
 
 	if ( ! pFnLoadRandomLocalizedHintMessage )
-		pFnLoadRandomLocalizedHintMessage = (UFunction*) UObject::GObjObjects()->Data[ 34643 ];
+		pFnLoadRandomLocalizedHintMessage = (UFunction*) UObject::GObjObjects()->Data[ 34662 ];
 
 	UUDKGameViewportClient_execLoadRandomLocalizedHintMessage_Parms LoadRandomLocalizedHintMessage_Parms;
 	memcpy ( &LoadRandomLocalizedHintMessage_Parms.Category1Name, &Category1Name, 0xC );
@@ -1747,7 +1748,7 @@ void AUDKHUD::TranslateBindToFont ( struct FString InBindStr, class UFont** Draw
 	static UFunction* pFnTranslateBindToFont = NULL;
 
 	if ( ! pFnTranslateBindToFont )
-		pFnTranslateBindToFont = (UFunction*) UObject::GObjObjects()->Data[ 34661 ];
+		pFnTranslateBindToFont = (UFunction*) UObject::GObjObjects()->Data[ 34680 ];
 
 	AUDKHUD_execTranslateBindToFont_Parms TranslateBindToFont_Parms;
 	memcpy ( &TranslateBindToFont_Parms.InBindStr, &InBindStr, 0xC );
@@ -1780,7 +1781,7 @@ void AUDKHUD::DrawGlowText ( struct FString Text, float X, float Y, float MaxHei
 	static UFunction* pFnDrawGlowText = NULL;
 
 	if ( ! pFnDrawGlowText )
-		pFnDrawGlowText = (UFunction*) UObject::GObjObjects()->Data[ 34654 ];
+		pFnDrawGlowText = (UFunction*) UObject::GObjObjects()->Data[ 34673 ];
 
 	AUDKHUD_execDrawGlowText_Parms DrawGlowText_Parms;
 	memcpy ( &DrawGlowText_Parms.Text, &Text, 0xC );
@@ -1808,7 +1809,7 @@ bool AUDKJumpPad::eventSuggestMovePreparation ( class APawn* Other )
 	static UFunction* pFnSuggestMovePreparation = NULL;
 
 	if ( ! pFnSuggestMovePreparation )
-		pFnSuggestMovePreparation = (UFunction*) UObject::GObjObjects()->Data[ 34681 ];
+		pFnSuggestMovePreparation = (UFunction*) UObject::GObjObjects()->Data[ 34700 ];
 
 	AUDKJumpPad_eventSuggestMovePreparation_Parms SuggestMovePreparation_Parms;
 	SuggestMovePreparation_Parms.Other = Other;
@@ -1828,7 +1829,7 @@ void AUDKJumpPad::eventPostTouch ( class AActor* Other )
 	static UFunction* pFnPostTouch = NULL;
 
 	if ( ! pFnPostTouch )
-		pFnPostTouch = (UFunction*) UObject::GObjObjects()->Data[ 34676 ];
+		pFnPostTouch = (UFunction*) UObject::GObjObjects()->Data[ 34695 ];
 
 	AUDKJumpPad_eventPostTouch_Parms PostTouch_Parms;
 	PostTouch_Parms.Other = Other;
@@ -1849,7 +1850,7 @@ void AUDKJumpPad::eventTouch ( class AActor* Other, class UPrimitiveComponent* O
 	static UFunction* pFnTouch = NULL;
 
 	if ( ! pFnTouch )
-		pFnTouch = (UFunction*) UObject::GObjObjects()->Data[ 34671 ];
+		pFnTouch = (UFunction*) UObject::GObjObjects()->Data[ 34690 ];
 
 	AUDKJumpPad_eventTouch_Parms Touch_Parms;
 	Touch_Parms.Other = Other;
@@ -1870,7 +1871,7 @@ void AUDKKActorBreakable::eventReplicatedEvent ( struct FName VarName )
 	static UFunction* pFnReplicatedEvent = NULL;
 
 	if ( ! pFnReplicatedEvent )
-		pFnReplicatedEvent = (UFunction*) UObject::GObjObjects()->Data[ 34718 ];
+		pFnReplicatedEvent = (UFunction*) UObject::GObjObjects()->Data[ 34737 ];
 
 	AUDKKActorBreakable_eventReplicatedEvent_Parms ReplicatedEvent_Parms;
 	memcpy ( &ReplicatedEvent_Parms.VarName, &VarName, 0x8 );
@@ -1887,7 +1888,7 @@ void AUDKKActorBreakable::BreakApart ( )
 	static UFunction* pFnBreakApart = NULL;
 
 	if ( ! pFnBreakApart )
-		pFnBreakApart = (UFunction*) UObject::GObjObjects()->Data[ 34717 ];
+		pFnBreakApart = (UFunction*) UObject::GObjObjects()->Data[ 34736 ];
 
 	AUDKKActorBreakable_execBreakApart_Parms BreakApart_Parms;
 
@@ -1905,7 +1906,7 @@ bool AUDKKActorBreakable::EncroachingOn ( class AActor* Other )
 	static UFunction* pFnEncroachingOn = NULL;
 
 	if ( ! pFnEncroachingOn )
-		pFnEncroachingOn = (UFunction*) UObject::GObjObjects()->Data[ 34714 ];
+		pFnEncroachingOn = (UFunction*) UObject::GObjObjects()->Data[ 34733 ];
 
 	AUDKKActorBreakable_execEncroachingOn_Parms EncroachingOn_Parms;
 	EncroachingOn_Parms.Other = Other;
@@ -1931,7 +1932,7 @@ void AUDKKActorBreakable::eventTakeDamage ( int Damage, class AController* Event
 	static UFunction* pFnTakeDamage = NULL;
 
 	if ( ! pFnTakeDamage )
-		pFnTakeDamage = (UFunction*) UObject::GObjObjects()->Data[ 34706 ];
+		pFnTakeDamage = (UFunction*) UObject::GObjObjects()->Data[ 34725 ];
 
 	AUDKKActorBreakable_eventTakeDamage_Parms TakeDamage_Parms;
 	TakeDamage_Parms.Damage = Damage;
@@ -1956,7 +1957,7 @@ bool AUDKKActorBreakable::OnEncroach ( class AActor* Other )
 	static UFunction* pFnOnEncroach = NULL;
 
 	if ( ! pFnOnEncroach )
-		pFnOnEncroach = (UFunction*) UObject::GObjObjects()->Data[ 34688 ];
+		pFnOnEncroach = (UFunction*) UObject::GObjObjects()->Data[ 34707 ];
 
 	AUDKKActorBreakable_execOnEncroach_Parms OnEncroach_Parms;
 	OnEncroach_Parms.Other = Other;
@@ -1975,7 +1976,7 @@ void AUDKKActorBreakable::OnBreakApart ( )
 	static UFunction* pFnOnBreakApart = NULL;
 
 	if ( ! pFnOnBreakApart )
-		pFnOnBreakApart = (UFunction*) UObject::GObjObjects()->Data[ 34690 ];
+		pFnOnBreakApart = (UFunction*) UObject::GObjObjects()->Data[ 34709 ];
 
 	AUDKKActorBreakable_execOnBreakApart_Parms OnBreakApart_Parms;
 
@@ -1992,7 +1993,7 @@ void UUDKParticleSystemComponent::SetFOV ( float NewFOV )
 	static UFunction* pFnSetFOV = NULL;
 
 	if ( ! pFnSetFOV )
-		pFnSetFOV = (UFunction*) UObject::GObjObjects()->Data[ 34758 ];
+		pFnSetFOV = (UFunction*) UObject::GObjObjects()->Data[ 34777 ];
 
 	UUDKParticleSystemComponent_execSetFOV_Parms SetFOV_Parms;
 	SetFOV_Parms.NewFOV = NewFOV;
@@ -2013,7 +2014,7 @@ void AUDKPickupFactory::SetPickupHidden ( )
 	static UFunction* pFnSetPickupHidden = NULL;
 
 	if ( ! pFnSetPickupHidden )
-		pFnSetPickupHidden = (UFunction*) UObject::GObjObjects()->Data[ 34970 ];
+		pFnSetPickupHidden = (UFunction*) UObject::GObjObjects()->Data[ 34989 ];
 
 	AUDKPickupFactory_execSetPickupHidden_Parms SetPickupHidden_Parms;
 
@@ -2029,7 +2030,7 @@ void AUDKPickupFactory::SetPickupVisible ( )
 	static UFunction* pFnSetPickupVisible = NULL;
 
 	if ( ! pFnSetPickupVisible )
-		pFnSetPickupVisible = (UFunction*) UObject::GObjObjects()->Data[ 34969 ];
+		pFnSetPickupVisible = (UFunction*) UObject::GObjObjects()->Data[ 34988 ];
 
 	AUDKPickupFactory_execSetPickupVisible_Parms SetPickupVisible_Parms;
 
@@ -2046,7 +2047,7 @@ void AUDKPlayerController::SetUseTiltForwardAndBack ( unsigned long bActive )
 	static UFunction* pFnSetUseTiltForwardAndBack = NULL;
 
 	if ( ! pFnSetUseTiltForwardAndBack )
-		pFnSetUseTiltForwardAndBack = (UFunction*) UObject::GObjObjects()->Data[ 35018 ];
+		pFnSetUseTiltForwardAndBack = (UFunction*) UObject::GObjObjects()->Data[ 35037 ];
 
 	AUDKPlayerController_execSetUseTiltForwardAndBack_Parms SetUseTiltForwardAndBack_Parms;
 	SetUseTiltForwardAndBack_Parms.bActive = bActive;
@@ -2068,7 +2069,7 @@ void AUDKPlayerController::SetOnlyUseControllerTiltInput ( unsigned long bActive
 	static UFunction* pFnSetOnlyUseControllerTiltInput = NULL;
 
 	if ( ! pFnSetOnlyUseControllerTiltInput )
-		pFnSetOnlyUseControllerTiltInput = (UFunction*) UObject::GObjObjects()->Data[ 35016 ];
+		pFnSetOnlyUseControllerTiltInput = (UFunction*) UObject::GObjObjects()->Data[ 35035 ];
 
 	AUDKPlayerController_execSetOnlyUseControllerTiltInput_Parms SetOnlyUseControllerTiltInput_Parms;
 	SetOnlyUseControllerTiltInput_Parms.bActive = bActive;
@@ -2090,7 +2091,7 @@ void AUDKPlayerController::SetControllerTiltActive ( unsigned long bActive )
 	static UFunction* pFnSetControllerTiltActive = NULL;
 
 	if ( ! pFnSetControllerTiltActive )
-		pFnSetControllerTiltActive = (UFunction*) UObject::GObjObjects()->Data[ 35014 ];
+		pFnSetControllerTiltActive = (UFunction*) UObject::GObjObjects()->Data[ 35033 ];
 
 	AUDKPlayerController_execSetControllerTiltActive_Parms SetControllerTiltActive_Parms;
 	SetControllerTiltActive_Parms.bActive = bActive;
@@ -2112,7 +2113,7 @@ void AUDKPlayerController::SetControllerTiltDesiredIfAvailable ( unsigned long b
 	static UFunction* pFnSetControllerTiltDesiredIfAvailable = NULL;
 
 	if ( ! pFnSetControllerTiltDesiredIfAvailable )
-		pFnSetControllerTiltDesiredIfAvailable = (UFunction*) UObject::GObjObjects()->Data[ 35012 ];
+		pFnSetControllerTiltDesiredIfAvailable = (UFunction*) UObject::GObjObjects()->Data[ 35031 ];
 
 	AUDKPlayerController_execSetControllerTiltDesiredIfAvailable_Parms SetControllerTiltDesiredIfAvailable_Parms;
 	SetControllerTiltDesiredIfAvailable_Parms.bActive = bActive;
@@ -2134,7 +2135,7 @@ bool AUDKPlayerController::IsControllerTiltActive ( )
 	static UFunction* pFnIsControllerTiltActive = NULL;
 
 	if ( ! pFnIsControllerTiltActive )
-		pFnIsControllerTiltActive = (UFunction*) UObject::GObjObjects()->Data[ 35010 ];
+		pFnIsControllerTiltActive = (UFunction*) UObject::GObjObjects()->Data[ 35029 ];
 
 	AUDKPlayerController_execIsControllerTiltActive_Parms IsControllerTiltActive_Parms;
 
@@ -2160,7 +2161,7 @@ class APawn* AUDKPlayerController::GetTargetAdhesionFrictionTarget ( float MaxDi
 	static UFunction* pFnGetTargetAdhesionFrictionTarget = NULL;
 
 	if ( ! pFnGetTargetAdhesionFrictionTarget )
-		pFnGetTargetAdhesionFrictionTarget = (UFunction*) UObject::GObjObjects()->Data[ 35005 ];
+		pFnGetTargetAdhesionFrictionTarget = (UFunction*) UObject::GObjObjects()->Data[ 35024 ];
 
 	AUDKPlayerController_execGetTargetAdhesionFrictionTarget_Parms GetTargetAdhesionFrictionTarget_Parms;
 	GetTargetAdhesionFrictionTarget_Parms.MaxDistance = MaxDistance;
@@ -2189,7 +2190,7 @@ void AUDKPlayerController::ClearCameraEffect ( )
 	static UFunction* pFnClearCameraEffect = NULL;
 
 	if ( ! pFnClearCameraEffect )
-		pFnClearCameraEffect = (UFunction*) UObject::GObjObjects()->Data[ 35004 ];
+		pFnClearCameraEffect = (UFunction*) UObject::GObjObjects()->Data[ 35023 ];
 
 	AUDKPlayerController_execClearCameraEffect_Parms ClearCameraEffect_Parms;
 
@@ -2206,7 +2207,7 @@ void AUDKPlayerController::ClientSpawnCameraEffect ( class UClass* CameraEffectC
 	static UFunction* pFnClientSpawnCameraEffect = NULL;
 
 	if ( ! pFnClientSpawnCameraEffect )
-		pFnClientSpawnCameraEffect = (UFunction*) UObject::GObjObjects()->Data[ 35000 ];
+		pFnClientSpawnCameraEffect = (UFunction*) UObject::GObjObjects()->Data[ 35019 ];
 
 	AUDKPlayerController_execClientSpawnCameraEffect_Parms ClientSpawnCameraEffect_Parms;
 	ClientSpawnCameraEffect_Parms.CameraEffectClass = CameraEffectClass;
@@ -2224,7 +2225,7 @@ void AUDKPlayerController::RemoveCameraEffect ( class AUDKEmitCameraEffect* CamE
 	static UFunction* pFnRemoveCameraEffect = NULL;
 
 	if ( ! pFnRemoveCameraEffect )
-		pFnRemoveCameraEffect = (UFunction*) UObject::GObjObjects()->Data[ 34998 ];
+		pFnRemoveCameraEffect = (UFunction*) UObject::GObjObjects()->Data[ 35017 ];
 
 	AUDKPlayerController_execRemoveCameraEffect_Parms RemoveCameraEffect_Parms;
 	RemoveCameraEffect_Parms.CamEmitter = CamEmitter;
@@ -2242,7 +2243,7 @@ bool AUDKPlayerController::IsMouseAvailable ( )
 	static UFunction* pFnIsMouseAvailable = NULL;
 
 	if ( ! pFnIsMouseAvailable )
-		pFnIsMouseAvailable = (UFunction*) UObject::GObjObjects()->Data[ 34996 ];
+		pFnIsMouseAvailable = (UFunction*) UObject::GObjObjects()->Data[ 35015 ];
 
 	AUDKPlayerController_execIsMouseAvailable_Parms IsMouseAvailable_Parms;
 
@@ -2265,7 +2266,7 @@ bool AUDKPlayerController::IsKeyboardAvailable ( )
 	static UFunction* pFnIsKeyboardAvailable = NULL;
 
 	if ( ! pFnIsKeyboardAvailable )
-		pFnIsKeyboardAvailable = (UFunction*) UObject::GObjObjects()->Data[ 34994 ];
+		pFnIsKeyboardAvailable = (UFunction*) UObject::GObjObjects()->Data[ 35013 ];
 
 	AUDKPlayerController_execIsKeyboardAvailable_Parms IsKeyboardAvailable_Parms;
 
@@ -2288,7 +2289,7 @@ void AUDKPlayerController::SetHardwarePhysicsEnabled ( unsigned long bEnabled )
 	static UFunction* pFnSetHardwarePhysicsEnabled = NULL;
 
 	if ( ! pFnSetHardwarePhysicsEnabled )
-		pFnSetHardwarePhysicsEnabled = (UFunction*) UObject::GObjObjects()->Data[ 34992 ];
+		pFnSetHardwarePhysicsEnabled = (UFunction*) UObject::GObjObjects()->Data[ 35011 ];
 
 	AUDKPlayerController_execSetHardwarePhysicsEnabled_Parms SetHardwarePhysicsEnabled_Parms;
 	SetHardwarePhysicsEnabled_Parms.bEnabled = bEnabled;
@@ -2310,7 +2311,7 @@ void AUDKPlayerController::SetGamma ( float GammaValue )
 	static UFunction* pFnSetGamma = NULL;
 
 	if ( ! pFnSetGamma )
-		pFnSetGamma = (UFunction*) UObject::GObjObjects()->Data[ 34990 ];
+		pFnSetGamma = (UFunction*) UObject::GObjObjects()->Data[ 35009 ];
 
 	AUDKPlayerController_execSetGamma_Parms SetGamma_Parms;
 	SetGamma_Parms.GammaValue = GammaValue;
@@ -2333,7 +2334,7 @@ struct FString UUDKPlayerInput::GetUDKBindNameFromCommand ( struct FString BindC
 	static UFunction* pFnGetUDKBindNameFromCommand = NULL;
 
 	if ( ! pFnGetUDKBindNameFromCommand )
-		pFnGetUDKBindNameFromCommand = (UFunction*) UObject::GObjObjects()->Data[ 35021 ];
+		pFnGetUDKBindNameFromCommand = (UFunction*) UObject::GObjObjects()->Data[ 35040 ];
 
 	UUDKPlayerInput_execGetUDKBindNameFromCommand_Parms GetUDKBindNameFromCommand_Parms;
 	memcpy ( &GetUDKBindNameFromCommand_Parms.BindCommand, &BindCommand, 0xC );
@@ -2357,7 +2358,7 @@ void UUDKProfileSettings::ResetKeysToDefault ( class ULocalPlayer* InPlayerOwner
 	static UFunction* pFnResetKeysToDefault = NULL;
 
 	if ( ! pFnResetKeysToDefault )
-		pFnResetKeysToDefault = (UFunction*) UObject::GObjObjects()->Data[ 35026 ];
+		pFnResetKeysToDefault = (UFunction*) UObject::GObjObjects()->Data[ 35045 ];
 
 	UUDKProfileSettings_execResetKeysToDefault_Parms ResetKeysToDefault_Parms;
 	ResetKeysToDefault_Parms.InPlayerOwner = InPlayerOwner;
@@ -2379,7 +2380,7 @@ void UUDKProfileSettings::ResetToDefault ( int ProfileId )
 	static UFunction* pFnResetToDefault = NULL;
 
 	if ( ! pFnResetToDefault )
-		pFnResetToDefault = (UFunction*) UObject::GObjObjects()->Data[ 35024 ];
+		pFnResetToDefault = (UFunction*) UObject::GObjObjects()->Data[ 35043 ];
 
 	UUDKProfileSettings_execResetToDefault_Parms ResetToDefault_Parms;
 	ResetToDefault_Parms.ProfileId = ProfileId;
@@ -2400,7 +2401,7 @@ void AUDKProjectile::eventCreateProjectileLight ( )
 	static UFunction* pFnCreateProjectileLight = NULL;
 
 	if ( ! pFnCreateProjectileLight )
-		pFnCreateProjectileLight = (UFunction*) UObject::GObjObjects()->Data[ 35046 ];
+		pFnCreateProjectileLight = (UFunction*) UObject::GObjObjects()->Data[ 35065 ];
 
 	AUDKProjectile_eventCreateProjectileLight_Parms CreateProjectileLight_Parms;
 
@@ -2417,7 +2418,7 @@ float AUDKProjectile::GetTerminalVelocity ( )
 	static UFunction* pFnGetTerminalVelocity = NULL;
 
 	if ( ! pFnGetTerminalVelocity )
-		pFnGetTerminalVelocity = (UFunction*) UObject::GObjObjects()->Data[ 35044 ];
+		pFnGetTerminalVelocity = (UFunction*) UObject::GObjObjects()->Data[ 35063 ];
 
 	AUDKProjectile_execGetTerminalVelocity_Parms GetTerminalVelocity_Parms;
 
@@ -2444,7 +2445,7 @@ bool AUDKScout::SuggestJumpVelocity ( struct FVector Destination, struct FVector
 	static UFunction* pFnSuggestJumpVelocity = NULL;
 
 	if ( ! pFnSuggestJumpVelocity )
-		pFnSuggestJumpVelocity = (UFunction*) UObject::GObjObjects()->Data[ 35052 ];
+		pFnSuggestJumpVelocity = (UFunction*) UObject::GObjObjects()->Data[ 35071 ];
 
 	AUDKScout_execSuggestJumpVelocity_Parms SuggestJumpVelocity_Parms;
 	memcpy ( &SuggestJumpVelocity_Parms.Destination, &Destination, 0xC );
@@ -2474,7 +2475,7 @@ void AUDKScriptedNavigationPoint::eventNotifyAnchorFindingResult ( class ANaviga
 	static UFunction* pFnNotifyAnchorFindingResult = NULL;
 
 	if ( ! pFnNotifyAnchorFindingResult )
-		pFnNotifyAnchorFindingResult = (UFunction*) UObject::GObjObjects()->Data[ 35065 ];
+		pFnNotifyAnchorFindingResult = (UFunction*) UObject::GObjObjects()->Data[ 35084 ];
 
 	AUDKScriptedNavigationPoint_eventNotifyAnchorFindingResult_Parms NotifyAnchorFindingResult_Parms;
 	NotifyAnchorFindingResult_Parms.EndAnchor = EndAnchor;
@@ -2494,7 +2495,7 @@ class ANavigationPoint* AUDKScriptedNavigationPoint::eventSpecifyEndAnchor ( cla
 	static UFunction* pFnSpecifyEndAnchor = NULL;
 
 	if ( ! pFnSpecifyEndAnchor )
-		pFnSpecifyEndAnchor = (UFunction*) UObject::GObjObjects()->Data[ 35062 ];
+		pFnSpecifyEndAnchor = (UFunction*) UObject::GObjObjects()->Data[ 35081 ];
 
 	AUDKScriptedNavigationPoint_eventSpecifyEndAnchor_Parms SpecifyEndAnchor_Parms;
 	SpecifyEndAnchor_Parms.RouteFinder = RouteFinder;
@@ -2514,7 +2515,7 @@ void UUDKSkeletalMeshComponent::SetFOV ( float NewFOV )
 	static UFunction* pFnSetFOV = NULL;
 
 	if ( ! pFnSetFOV )
-		pFnSetFOV = (UFunction*) UObject::GObjObjects()->Data[ 35243 ];
+		pFnSetFOV = (UFunction*) UObject::GObjObjects()->Data[ 35262 ];
 
 	UUDKSkeletalMeshComponent_execSetFOV_Parms SetFOV_Parms;
 	SetFOV_Parms.NewFOV = NewFOV;
@@ -2537,7 +2538,7 @@ void UUDKSkeletalMeshComponent::eventPreloadTextures ( unsigned long bForcePrelo
 	static UFunction* pFnPreloadTextures = NULL;
 
 	if ( ! pFnPreloadTextures )
-		pFnPreloadTextures = (UFunction*) UObject::GObjObjects()->Data[ 35239 ];
+		pFnPreloadTextures = (UFunction*) UObject::GObjObjects()->Data[ 35258 ];
 
 	UUDKSkeletalMeshComponent_eventPreloadTextures_Parms PreloadTextures_Parms;
 	PreloadTextures_Parms.bForcePreload = bForcePreload;
@@ -2556,7 +2557,7 @@ unsigned char AUDKTeamOwnedInfo::GetTeamNum ( )
 	static UFunction* pFnGetTeamNum = NULL;
 
 	if ( ! pFnGetTeamNum )
-		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 35246 ];
+		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 35265 ];
 
 	AUDKTeamOwnedInfo_execGetTeamNum_Parms GetTeamNum_Parms;
 
@@ -2581,7 +2582,7 @@ bool AUDKTeleporterBase::eventAccept ( class AActor* Incoming, class AActor* Sou
 	static UFunction* pFnAccept = NULL;
 
 	if ( ! pFnAccept )
-		pFnAccept = (UFunction*) UObject::GObjObjects()->Data[ 35280 ];
+		pFnAccept = (UFunction*) UObject::GObjObjects()->Data[ 35299 ];
 
 	AUDKTeleporterBase_eventAccept_Parms Accept_Parms;
 	Accept_Parms.Incoming = Incoming;
@@ -2602,7 +2603,7 @@ void AUDKTeleporterBase::InitializePortalEffect ( class AActor* Dest )
 	static UFunction* pFnInitializePortalEffect = NULL;
 
 	if ( ! pFnInitializePortalEffect )
-		pFnInitializePortalEffect = (UFunction*) UObject::GObjObjects()->Data[ 35277 ];
+		pFnInitializePortalEffect = (UFunction*) UObject::GObjObjects()->Data[ 35296 ];
 
 	AUDKTeleporterBase_execInitializePortalEffect_Parms InitializePortalEffect_Parms;
 	InitializePortalEffect_Parms.Dest = Dest;
@@ -2619,7 +2620,7 @@ void AUDKTeleporterBase::eventPostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 35275 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 35294 ];
 
 	AUDKTeleporterBase_eventPostBeginPlay_Parms PostBeginPlay_Parms;
 
@@ -2636,7 +2637,7 @@ bool UUDKUIDataProvider_SearchResult::IsPrivateServer ( )
 	static UFunction* pFnIsPrivateServer = NULL;
 
 	if ( ! pFnIsPrivateServer )
-		pFnIsPrivateServer = (UFunction*) UObject::GObjObjects()->Data[ 35320 ];
+		pFnIsPrivateServer = (UFunction*) UObject::GObjObjects()->Data[ 35339 ];
 
 	UUDKUIDataProvider_SearchResult_execIsPrivateServer_Parms IsPrivateServer_Parms;
 
@@ -2659,7 +2660,7 @@ int UUDKUIDataProvider_SimpleElementProvider::GetElementCount ( )
 	static UFunction* pFnGetElementCount = NULL;
 
 	if ( ! pFnGetElementCount )
-		pFnGetElementCount = (UFunction*) UObject::GObjObjects()->Data[ 35323 ];
+		pFnGetElementCount = (UFunction*) UObject::GObjObjects()->Data[ 35342 ];
 
 	UUDKUIDataProvider_SimpleElementProvider_execGetElementCount_Parms GetElementCount_Parms;
 
@@ -2682,7 +2683,7 @@ int UUDKUIDataProvider_ServerDetails::GetElementCount ( )
 	static UFunction* pFnGetElementCount = NULL;
 
 	if ( ! pFnGetElementCount )
-		pFnGetElementCount = (UFunction*) UObject::GObjObjects()->Data[ 35328 ];
+		pFnGetElementCount = (UFunction*) UObject::GObjObjects()->Data[ 35347 ];
 
 	UUDKUIDataProvider_ServerDetails_execGetElementCount_Parms GetElementCount_Parms;
 
@@ -2705,7 +2706,7 @@ class UUIDataProvider_Settings* UUDKUIDataProvider_ServerDetails::GetSearchResul
 	static UFunction* pFnGetSearchResultsProvider = NULL;
 
 	if ( ! pFnGetSearchResultsProvider )
-		pFnGetSearchResultsProvider = (UFunction*) UObject::GObjObjects()->Data[ 35326 ];
+		pFnGetSearchResultsProvider = (UFunction*) UObject::GObjObjects()->Data[ 35345 ];
 
 	UUDKUIDataProvider_ServerDetails_execGetSearchResultsProvider_Parms GetSearchResultsProvider_Parms;
 
@@ -2728,7 +2729,7 @@ int UUDKUIDataProvider_StringArray::GetElementCount ( )
 	static UFunction* pFnGetElementCount = NULL;
 
 	if ( ! pFnGetElementCount )
-		pFnGetElementCount = (UFunction*) UObject::GObjObjects()->Data[ 35332 ];
+		pFnGetElementCount = (UFunction*) UObject::GObjObjects()->Data[ 35351 ];
 
 	UUDKUIDataProvider_StringArray_execGetElementCount_Parms GetElementCount_Parms;
 
@@ -2752,7 +2753,7 @@ void UUDKUIDataStore_MenuItems::AddListElementProvidersKey ( struct FName KeyNam
 	static UFunction* pFnAddListElementProvidersKey = NULL;
 
 	if ( ! pFnAddListElementProvidersKey )
-		pFnAddListElementProvidersKey = (UFunction*) UObject::GObjObjects()->Data[ 35377 ];
+		pFnAddListElementProvidersKey = (UFunction*) UObject::GObjObjects()->Data[ 35396 ];
 
 	UUDKUIDataStore_MenuItems_execAddListElementProvidersKey_Parms AddListElementProvidersKey_Parms;
 	memcpy ( &AddListElementProvidersKey_Parms.KeyName, &KeyName, 0x8 );
@@ -2775,7 +2776,7 @@ void UUDKUIDataStore_MenuItems::RemoveListElementProvidersKey ( struct FName Key
 	static UFunction* pFnRemoveListElementProvidersKey = NULL;
 
 	if ( ! pFnRemoveListElementProvidersKey )
-		pFnRemoveListElementProvidersKey = (UFunction*) UObject::GObjObjects()->Data[ 35375 ];
+		pFnRemoveListElementProvidersKey = (UFunction*) UObject::GObjObjects()->Data[ 35394 ];
 
 	UUDKUIDataStore_MenuItems_execRemoveListElementProvidersKey_Parms RemoveListElementProvidersKey_Parms;
 	memcpy ( &RemoveListElementProvidersKey_Parms.KeyName, &KeyName, 0x8 );
@@ -2796,7 +2797,7 @@ void UUDKUIDataStore_MenuItems::eventInitializeListElementProviders ( )
 	static UFunction* pFnInitializeListElementProviders = NULL;
 
 	if ( ! pFnInitializeListElementProviders )
-		pFnInitializeListElementProviders = (UFunction*) UObject::GObjObjects()->Data[ 35370 ];
+		pFnInitializeListElementProviders = (UFunction*) UObject::GObjObjects()->Data[ 35389 ];
 
 	UUDKUIDataStore_MenuItems_eventInitializeListElementProviders_Parms InitializeListElementProviders_Parms;
 
@@ -2815,7 +2816,7 @@ bool UUDKUIDataStore_MenuItems::GetProviderSet ( struct FName ProviderFieldName,
 	static UFunction* pFnGetProviderSet = NULL;
 
 	if ( ! pFnGetProviderSet )
-		pFnGetProviderSet = (UFunction*) UObject::GObjObjects()->Data[ 35365 ];
+		pFnGetProviderSet = (UFunction*) UObject::GObjObjects()->Data[ 35384 ];
 
 	UUDKUIDataStore_MenuItems_execGetProviderSet_Parms GetProviderSet_Parms;
 	memcpy ( &GetProviderSet_Parms.ProviderFieldName, &ProviderFieldName, 0x8 );
@@ -2846,7 +2847,7 @@ bool UUDKUIDataStore_MenuItems::GetValueFromProviderSet ( struct FName ProviderF
 	static UFunction* pFnGetValueFromProviderSet = NULL;
 
 	if ( ! pFnGetValueFromProviderSet )
-		pFnGetValueFromProviderSet = (UFunction*) UObject::GObjObjects()->Data[ 35359 ];
+		pFnGetValueFromProviderSet = (UFunction*) UObject::GObjObjects()->Data[ 35378 ];
 
 	UUDKUIDataStore_MenuItems_execGetValueFromProviderSet_Parms GetValueFromProviderSet_Parms;
 	memcpy ( &GetValueFromProviderSet_Parms.ProviderFieldName, &ProviderFieldName, 0x8 );
@@ -2878,7 +2879,7 @@ int UUDKUIDataStore_MenuItems::FindValueInProviderSet ( struct FName ProviderFie
 	static UFunction* pFnFindValueInProviderSet = NULL;
 
 	if ( ! pFnFindValueInProviderSet )
-		pFnFindValueInProviderSet = (UFunction*) UObject::GObjObjects()->Data[ 35354 ];
+		pFnFindValueInProviderSet = (UFunction*) UObject::GObjObjects()->Data[ 35373 ];
 
 	UUDKUIDataStore_MenuItems_execFindValueInProviderSet_Parms FindValueInProviderSet_Parms;
 	memcpy ( &FindValueInProviderSet_Parms.ProviderFieldName, &ProviderFieldName, 0x8 );
@@ -2905,7 +2906,7 @@ void UUDKUIDataStore_MenuItems::GetAllResourceDataProviders ( class UClass* Prov
 	static UFunction* pFnGetAllResourceDataProviders = NULL;
 
 	if ( ! pFnGetAllResourceDataProviders )
-		pFnGetAllResourceDataProviders = (UFunction*) UObject::GObjObjects()->Data[ 35350 ];
+		pFnGetAllResourceDataProviders = (UFunction*) UObject::GObjObjects()->Data[ 35369 ];
 
 	UUDKUIDataStore_MenuItems_execGetAllResourceDataProviders_Parms GetAllResourceDataProviders_Parms;
 	GetAllResourceDataProviders_Parms.ProviderClass = ProviderClass;
@@ -2932,7 +2933,7 @@ bool UUDKUIDataStore_MenuItems::IsProviderFiltered ( struct FName FieldName, int
 	static UFunction* pFnIsProviderFiltered = NULL;
 
 	if ( ! pFnIsProviderFiltered )
-		pFnIsProviderFiltered = (UFunction*) UObject::GObjObjects()->Data[ 35346 ];
+		pFnIsProviderFiltered = (UFunction*) UObject::GObjObjects()->Data[ 35365 ];
 
 	UUDKUIDataStore_MenuItems_execIsProviderFiltered_Parms IsProviderFiltered_Parms;
 	memcpy ( &IsProviderFiltered_Parms.FieldName, &FieldName, 0x8 );
@@ -2958,7 +2959,7 @@ int UUDKUIDataStore_MenuItems::GetProviderCount ( struct FName FieldName )
 	static UFunction* pFnGetProviderCount = NULL;
 
 	if ( ! pFnGetProviderCount )
-		pFnGetProviderCount = (UFunction*) UObject::GObjObjects()->Data[ 35343 ];
+		pFnGetProviderCount = (UFunction*) UObject::GObjObjects()->Data[ 35362 ];
 
 	UUDKUIDataStore_MenuItems_execGetProviderCount_Parms GetProviderCount_Parms;
 	memcpy ( &GetProviderCount_Parms.FieldName, &FieldName, 0x8 );
@@ -2983,7 +2984,7 @@ void UUDKUIDataStore_Options::GetSet ( struct FName SetName, TArray< class UUDKU
 	static UFunction* pFnGetSet = NULL;
 
 	if ( ! pFnGetSet )
-		pFnGetSet = (UFunction*) UObject::GObjObjects()->Data[ 35388 ];
+		pFnGetSet = (UFunction*) UObject::GObjObjects()->Data[ 35407 ];
 
 	UUDKUIDataStore_Options_execGetSet_Parms GetSet_Parms;
 	memcpy ( &GetSet_Parms.SetName, &SetName, 0x8 );
@@ -3009,7 +3010,7 @@ void UUDKUIDataStore_Options::AppendToSet ( struct FName SetName, int NumOptions
 	static UFunction* pFnAppendToSet = NULL;
 
 	if ( ! pFnAppendToSet )
-		pFnAppendToSet = (UFunction*) UObject::GObjObjects()->Data[ 35385 ];
+		pFnAppendToSet = (UFunction*) UObject::GObjObjects()->Data[ 35404 ];
 
 	UUDKUIDataStore_Options_execAppendToSet_Parms AppendToSet_Parms;
 	memcpy ( &AppendToSet_Parms.SetName, &SetName, 0x8 );
@@ -3032,7 +3033,7 @@ void UUDKUIDataStore_Options::ClearSet ( struct FName SetName )
 	static UFunction* pFnClearSet = NULL;
 
 	if ( ! pFnClearSet )
-		pFnClearSet = (UFunction*) UObject::GObjObjects()->Data[ 35383 ];
+		pFnClearSet = (UFunction*) UObject::GObjObjects()->Data[ 35402 ];
 
 	UUDKUIDataStore_Options_execClearSet_Parms ClearSet_Parms;
 	memcpy ( &ClearSet_Parms.SetName, &SetName, 0x8 );
@@ -3053,7 +3054,7 @@ void UUDKUIDataStore_StringAliasBindingMap::ClearBoundKeyCache ( )
 	static UFunction* pFnClearBoundKeyCache = NULL;
 
 	if ( ! pFnClearBoundKeyCache )
-		pFnClearBoundKeyCache = (UFunction*) UObject::GObjObjects()->Data[ 35424 ];
+		pFnClearBoundKeyCache = (UFunction*) UObject::GObjObjects()->Data[ 35443 ];
 
 	UUDKUIDataStore_StringAliasBindingMap_execClearBoundKeyCache_Parms ClearBoundKeyCache_Parms;
 
@@ -3076,7 +3077,7 @@ void UUDKUIDataStore_StringAliasBindingMap::AddMappingToBoundKeyCache ( struct F
 	static UFunction* pFnAddMappingToBoundKeyCache = NULL;
 
 	if ( ! pFnAddMappingToBoundKeyCache )
-		pFnAddMappingToBoundKeyCache = (UFunction*) UObject::GObjObjects()->Data[ 35420 ];
+		pFnAddMappingToBoundKeyCache = (UFunction*) UObject::GObjObjects()->Data[ 35439 ];
 
 	UUDKUIDataStore_StringAliasBindingMap_execAddMappingToBoundKeyCache_Parms AddMappingToBoundKeyCache_Parms;
 	memcpy ( &AddMappingToBoundKeyCache_Parms.Command, &Command, 0xC );
@@ -3103,7 +3104,7 @@ bool UUDKUIDataStore_StringAliasBindingMap::FindMappingInBoundKeyCache ( struct 
 	static UFunction* pFnFindMappingInBoundKeyCache = NULL;
 
 	if ( ! pFnFindMappingInBoundKeyCache )
-		pFnFindMappingInBoundKeyCache = (UFunction*) UObject::GObjObjects()->Data[ 35415 ];
+		pFnFindMappingInBoundKeyCache = (UFunction*) UObject::GObjObjects()->Data[ 35434 ];
 
 	UUDKUIDataStore_StringAliasBindingMap_execFindMappingInBoundKeyCache_Parms FindMappingInBoundKeyCache_Parms;
 	memcpy ( &FindMappingInBoundKeyCache_Parms.Command, &Command, 0xC );
@@ -3137,7 +3138,7 @@ int UUDKUIDataStore_StringAliasBindingMap::GetBoundStringWithFieldName ( struct 
 	static UFunction* pFnGetBoundStringWithFieldName = NULL;
 
 	if ( ! pFnGetBoundStringWithFieldName )
-		pFnGetBoundStringWithFieldName = (UFunction*) UObject::GObjObjects()->Data[ 35409 ];
+		pFnGetBoundStringWithFieldName = (UFunction*) UObject::GObjObjects()->Data[ 35428 ];
 
 	UUDKUIDataStore_StringAliasBindingMap_execGetBoundStringWithFieldName_Parms GetBoundStringWithFieldName_Parms;
 	memcpy ( &GetBoundStringWithFieldName_Parms.FieldName, &FieldName, 0xC );
@@ -3172,7 +3173,7 @@ int UUDKUIDataStore_StringAliasBindingMap::GetStringWithFieldName ( struct FStri
 	static UFunction* pFnGetStringWithFieldName = NULL;
 
 	if ( ! pFnGetStringWithFieldName )
-		pFnGetStringWithFieldName = (UFunction*) UObject::GObjObjects()->Data[ 35405 ];
+		pFnGetStringWithFieldName = (UFunction*) UObject::GObjObjects()->Data[ 35424 ];
 
 	UUDKUIDataStore_StringAliasBindingMap_execGetStringWithFieldName_Parms GetStringWithFieldName_Parms;
 	memcpy ( &GetStringWithFieldName_Parms.FieldName, &FieldName, 0xC );
@@ -3201,7 +3202,7 @@ int UUDKUIDataStore_StringAliasMap::GetStringWithFieldName ( struct FString Fiel
 	static UFunction* pFnGetStringWithFieldName = NULL;
 
 	if ( ! pFnGetStringWithFieldName )
-		pFnGetStringWithFieldName = (UFunction*) UObject::GObjObjects()->Data[ 35426 ];
+		pFnGetStringWithFieldName = (UFunction*) UObject::GObjObjects()->Data[ 35445 ];
 
 	UUDKUIDataStore_StringAliasMap_execGetStringWithFieldName_Parms GetStringWithFieldName_Parms;
 	memcpy ( &GetStringWithFieldName_Parms.FieldName, &FieldName, 0xC );
@@ -3229,7 +3230,7 @@ int UUDKUIDataStore_StringList::eventNum ( struct FName FieldName )
 	static UFunction* pFnNum = NULL;
 
 	if ( ! pFnNum )
-		pFnNum = (UFunction*) UObject::GObjObjects()->Data[ 35499 ];
+		pFnNum = (UFunction*) UObject::GObjObjects()->Data[ 35518 ];
 
 	UUDKUIDataStore_StringList_eventNum_Parms Num_Parms;
 	memcpy ( &Num_Parms.FieldName, &FieldName, 0x8 );
@@ -3251,7 +3252,7 @@ int UUDKUIDataStore_StringList::eventSetCurrentValueIndex ( struct FName FieldNa
 	static UFunction* pFnSetCurrentValueIndex = NULL;
 
 	if ( ! pFnSetCurrentValueIndex )
-		pFnSetCurrentValueIndex = (UFunction*) UObject::GObjObjects()->Data[ 35493 ];
+		pFnSetCurrentValueIndex = (UFunction*) UObject::GObjObjects()->Data[ 35512 ];
 
 	UUDKUIDataStore_StringList_eventSetCurrentValueIndex_Parms SetCurrentValueIndex_Parms;
 	memcpy ( &SetCurrentValueIndex_Parms.FieldName, &FieldName, 0x8 );
@@ -3273,7 +3274,7 @@ int UUDKUIDataStore_StringList::eventGetCurrentValueIndex ( struct FName FieldNa
 	static UFunction* pFnGetCurrentValueIndex = NULL;
 
 	if ( ! pFnGetCurrentValueIndex )
-		pFnGetCurrentValueIndex = (UFunction*) UObject::GObjObjects()->Data[ 35488 ];
+		pFnGetCurrentValueIndex = (UFunction*) UObject::GObjObjects()->Data[ 35507 ];
 
 	UUDKUIDataStore_StringList_eventGetCurrentValueIndex_Parms GetCurrentValueIndex_Parms;
 	memcpy ( &GetCurrentValueIndex_Parms.FieldName, &FieldName, 0x8 );
@@ -3295,7 +3296,7 @@ bool UUDKUIDataStore_StringList::eventGetCurrentValue ( struct FName FieldName, 
 	static UFunction* pFnGetCurrentValue = NULL;
 
 	if ( ! pFnGetCurrentValue )
-		pFnGetCurrentValue = (UFunction*) UObject::GObjObjects()->Data[ 35482 ];
+		pFnGetCurrentValue = (UFunction*) UObject::GObjObjects()->Data[ 35501 ];
 
 	UUDKUIDataStore_StringList_eventGetCurrentValue_Parms GetCurrentValue_Parms;
 	memcpy ( &GetCurrentValue_Parms.FieldName, &FieldName, 0x8 );
@@ -3319,7 +3320,7 @@ TArray< struct FString > UUDKUIDataStore_StringList::GetList ( struct FName Fiel
 	static UFunction* pFnGetList = NULL;
 
 	if ( ! pFnGetList )
-		pFnGetList = (UFunction*) UObject::GObjObjects()->Data[ 35478 ];
+		pFnGetList = (UFunction*) UObject::GObjObjects()->Data[ 35497 ];
 
 	UUDKUIDataStore_StringList_execGetList_Parms GetList_Parms;
 	memcpy ( &GetList_Parms.FieldName, &FieldName, 0x8 );
@@ -3345,7 +3346,7 @@ struct FString UUDKUIDataStore_StringList::GetStr ( struct FName FieldName, int 
 	static UFunction* pFnGetStr = NULL;
 
 	if ( ! pFnGetStr )
-		pFnGetStr = (UFunction*) UObject::GObjObjects()->Data[ 35474 ];
+		pFnGetStr = (UFunction*) UObject::GObjObjects()->Data[ 35493 ];
 
 	UUDKUIDataStore_StringList_execGetStr_Parms GetStr_Parms;
 	memcpy ( &GetStr_Parms.FieldName, &FieldName, 0x8 );
@@ -3372,7 +3373,7 @@ int UUDKUIDataStore_StringList::FindStr ( struct FName FieldName, struct FString
 	static UFunction* pFnFindStr = NULL;
 
 	if ( ! pFnFindStr )
-		pFnFindStr = (UFunction*) UObject::GObjObjects()->Data[ 35470 ];
+		pFnFindStr = (UFunction*) UObject::GObjObjects()->Data[ 35489 ];
 
 	UUDKUIDataStore_StringList_execFindStr_Parms FindStr_Parms;
 	memcpy ( &FindStr_Parms.FieldName, &FieldName, 0x8 );
@@ -3398,7 +3399,7 @@ void UUDKUIDataStore_StringList::Empty ( struct FName FieldName, unsigned long b
 	static UFunction* pFnEmpty = NULL;
 
 	if ( ! pFnEmpty )
-		pFnEmpty = (UFunction*) UObject::GObjObjects()->Data[ 35467 ];
+		pFnEmpty = (UFunction*) UObject::GObjObjects()->Data[ 35486 ];
 
 	UUDKUIDataStore_StringList_execEmpty_Parms Empty_Parms;
 	memcpy ( &Empty_Parms.FieldName, &FieldName, 0x8 );
@@ -3424,7 +3425,7 @@ void UUDKUIDataStore_StringList::RemoveStrByIndex ( struct FName FieldName, int 
 	static UFunction* pFnRemoveStrByIndex = NULL;
 
 	if ( ! pFnRemoveStrByIndex )
-		pFnRemoveStrByIndex = (UFunction*) UObject::GObjObjects()->Data[ 35462 ];
+		pFnRemoveStrByIndex = (UFunction*) UObject::GObjObjects()->Data[ 35481 ];
 
 	UUDKUIDataStore_StringList_execRemoveStrByIndex_Parms RemoveStrByIndex_Parms;
 	memcpy ( &RemoveStrByIndex_Parms.FieldName, &FieldName, 0x8 );
@@ -3451,7 +3452,7 @@ void UUDKUIDataStore_StringList::RemoveStr ( struct FName FieldName, struct FStr
 	static UFunction* pFnRemoveStr = NULL;
 
 	if ( ! pFnRemoveStr )
-		pFnRemoveStr = (UFunction*) UObject::GObjObjects()->Data[ 35458 ];
+		pFnRemoveStr = (UFunction*) UObject::GObjObjects()->Data[ 35477 ];
 
 	UUDKUIDataStore_StringList_execRemoveStr_Parms RemoveStr_Parms;
 	memcpy ( &RemoveStr_Parms.FieldName, &FieldName, 0x8 );
@@ -3478,7 +3479,7 @@ void UUDKUIDataStore_StringList::InsertStr ( struct FName FieldName, struct FStr
 	static UFunction* pFnInsertStr = NULL;
 
 	if ( ! pFnInsertStr )
-		pFnInsertStr = (UFunction*) UObject::GObjObjects()->Data[ 35453 ];
+		pFnInsertStr = (UFunction*) UObject::GObjObjects()->Data[ 35472 ];
 
 	UUDKUIDataStore_StringList_execInsertStr_Parms InsertStr_Parms;
 	memcpy ( &InsertStr_Parms.FieldName, &FieldName, 0x8 );
@@ -3505,7 +3506,7 @@ void UUDKUIDataStore_StringList::AddStr ( struct FName FieldName, struct FString
 	static UFunction* pFnAddStr = NULL;
 
 	if ( ! pFnAddStr )
-		pFnAddStr = (UFunction*) UObject::GObjObjects()->Data[ 35449 ];
+		pFnAddStr = (UFunction*) UObject::GObjObjects()->Data[ 35468 ];
 
 	UUDKUIDataStore_StringList_execAddStr_Parms AddStr_Parms;
 	memcpy ( &AddStr_Parms.FieldName, &FieldName, 0x8 );
@@ -3530,7 +3531,7 @@ int UUDKUIDataStore_StringList::GetFieldIndex ( struct FName FieldName )
 	static UFunction* pFnGetFieldIndex = NULL;
 
 	if ( ! pFnGetFieldIndex )
-		pFnGetFieldIndex = (UFunction*) UObject::GObjObjects()->Data[ 35446 ];
+		pFnGetFieldIndex = (UFunction*) UObject::GObjObjects()->Data[ 35465 ];
 
 	UUDKUIDataStore_StringList_execGetFieldIndex_Parms GetFieldIndex_Parms;
 	memcpy ( &GetFieldIndex_Parms.FieldName, &FieldName, 0x8 );
@@ -3554,7 +3555,7 @@ void UUDKUIDataStore_StringList::eventRegistered ( class ULocalPlayer* PlayerOwn
 	static UFunction* pFnRegistered = NULL;
 
 	if ( ! pFnRegistered )
-		pFnRegistered = (UFunction*) UObject::GObjObjects()->Data[ 35443 ];
+		pFnRegistered = (UFunction*) UObject::GObjObjects()->Data[ 35462 ];
 
 	UUDKUIDataStore_StringList_eventRegistered_Parms Registered_Parms;
 	Registered_Parms.PlayerOwner = PlayerOwner;
@@ -3572,7 +3573,7 @@ bool UUDKUIResourceDataProvider::eventShouldBeFiltered ( )
 	static UFunction* pFnShouldBeFiltered = NULL;
 
 	if ( ! pFnShouldBeFiltered )
-		pFnShouldBeFiltered = (UFunction*) UObject::GObjObjects()->Data[ 35293 ];
+		pFnShouldBeFiltered = (UFunction*) UObject::GObjObjects()->Data[ 35312 ];
 
 	UUDKUIResourceDataProvider_eventShouldBeFiltered_Parms ShouldBeFiltered_Parms;
 
@@ -3591,7 +3592,7 @@ bool UUDKUIResourceDataProvider::IsFiltered ( )
 	static UFunction* pFnIsFiltered = NULL;
 
 	if ( ! pFnIsFiltered )
-		pFnIsFiltered = (UFunction*) UObject::GObjObjects()->Data[ 35291 ];
+		pFnIsFiltered = (UFunction*) UObject::GObjObjects()->Data[ 35310 ];
 
 	UUDKUIResourceDataProvider_execIsFiltered_Parms IsFiltered_Parms;
 
@@ -3613,7 +3614,7 @@ void AUDKVehicleBase::HandleDeadVehicleDriver ( )
 	static UFunction* pFnHandleDeadVehicleDriver = NULL;
 
 	if ( ! pFnHandleDeadVehicleDriver )
-		pFnHandleDeadVehicleDriver = (UFunction*) UObject::GObjObjects()->Data[ 35552 ];
+		pFnHandleDeadVehicleDriver = (UFunction*) UObject::GObjObjects()->Data[ 35571 ];
 
 	AUDKVehicleBase_execHandleDeadVehicleDriver_Parms HandleDeadVehicleDriver_Parms;
 
@@ -3629,7 +3630,7 @@ void AUDKVehicleBase::DriverLeft ( )
 	static UFunction* pFnDriverLeft = NULL;
 
 	if ( ! pFnDriverLeft )
-		pFnDriverLeft = (UFunction*) UObject::GObjObjects()->Data[ 35550 ];
+		pFnDriverLeft = (UFunction*) UObject::GObjObjects()->Data[ 35569 ];
 
 	AUDKVehicleBase_execDriverLeft_Parms DriverLeft_Parms;
 
@@ -3645,7 +3646,7 @@ void AUDKVehicleBase::StopFiringWeapon ( )
 	static UFunction* pFnStopFiringWeapon = NULL;
 
 	if ( ! pFnStopFiringWeapon )
-		pFnStopFiringWeapon = (UFunction*) UObject::GObjObjects()->Data[ 35549 ];
+		pFnStopFiringWeapon = (UFunction*) UObject::GObjObjects()->Data[ 35568 ];
 
 	AUDKVehicleBase_execStopFiringWeapon_Parms StopFiringWeapon_Parms;
 
@@ -3663,7 +3664,7 @@ bool AUDKVehicleBase::BotFire ( unsigned long bFinished )
 	static UFunction* pFnBotFire = NULL;
 
 	if ( ! pFnBotFire )
-		pFnBotFire = (UFunction*) UObject::GObjObjects()->Data[ 35545 ];
+		pFnBotFire = (UFunction*) UObject::GObjObjects()->Data[ 35564 ];
 
 	AUDKVehicleBase_execBotFire_Parms BotFire_Parms;
 	BotFire_Parms.bFinished = bFinished;
@@ -3683,7 +3684,7 @@ unsigned char AUDKVehicleBase::ChooseFireMode ( )
 	static UFunction* pFnChooseFireMode = NULL;
 
 	if ( ! pFnChooseFireMode )
-		pFnChooseFireMode = (UFunction*) UObject::GObjObjects()->Data[ 35541 ];
+		pFnChooseFireMode = (UFunction*) UObject::GObjObjects()->Data[ 35560 ];
 
 	AUDKVehicleBase_execChooseFireMode_Parms ChooseFireMode_Parms;
 
@@ -3702,7 +3703,7 @@ void AUDKVehicleBase::DetachDriver ( class APawn* P )
 	static UFunction* pFnDetachDriver = NULL;
 
 	if ( ! pFnDetachDriver )
-		pFnDetachDriver = (UFunction*) UObject::GObjObjects()->Data[ 35538 ];
+		pFnDetachDriver = (UFunction*) UObject::GObjObjects()->Data[ 35557 ];
 
 	AUDKVehicleBase_execDetachDriver_Parms DetachDriver_Parms;
 	DetachDriver_Parms.P = P;
@@ -3719,7 +3720,7 @@ void AUDKVehicleBase::EjectDriver ( )
 	static UFunction* pFnEjectDriver = NULL;
 
 	if ( ! pFnEjectDriver )
-		pFnEjectDriver = (UFunction*) UObject::GObjObjects()->Data[ 35535 ];
+		pFnEjectDriver = (UFunction*) UObject::GObjObjects()->Data[ 35554 ];
 
 	AUDKVehicleBase_execEjectDriver_Parms EjectDriver_Parms;
 
@@ -3736,7 +3737,7 @@ struct FName AUDKVehicleBase::GetVehicleDrivingStatName ( )
 	static UFunction* pFnGetVehicleDrivingStatName = NULL;
 
 	if ( ! pFnGetVehicleDrivingStatName )
-		pFnGetVehicleDrivingStatName = (UFunction*) UObject::GObjObjects()->Data[ 35532 ];
+		pFnGetVehicleDrivingStatName = (UFunction*) UObject::GObjObjects()->Data[ 35551 ];
 
 	AUDKVehicleBase_execGetVehicleDrivingStatName_Parms GetVehicleDrivingStatName_Parms;
 
@@ -3756,7 +3757,7 @@ void AUDKVehicleBase::ApplyWeaponEffects ( int OverlayFlags, int SeatIndex )
 	static UFunction* pFnApplyWeaponEffects = NULL;
 
 	if ( ! pFnApplyWeaponEffects )
-		pFnApplyWeaponEffects = (UFunction*) UObject::GObjObjects()->Data[ 35529 ];
+		pFnApplyWeaponEffects = (UFunction*) UObject::GObjObjects()->Data[ 35548 ];
 
 	AUDKVehicleBase_execApplyWeaponEffects_Parms ApplyWeaponEffects_Parms;
 	ApplyWeaponEffects_Parms.OverlayFlags = OverlayFlags;
@@ -3776,7 +3777,7 @@ bool AUDKVehicleBase::DriverEnter ( class APawn* P )
 	static UFunction* pFnDriverEnter = NULL;
 
 	if ( ! pFnDriverEnter )
-		pFnDriverEnter = (UFunction*) UObject::GObjObjects()->Data[ 35525 ];
+		pFnDriverEnter = (UFunction*) UObject::GObjObjects()->Data[ 35544 ];
 
 	AUDKVehicleBase_execDriverEnter_Parms DriverEnter_Parms;
 	DriverEnter_Parms.P = P;
@@ -3795,7 +3796,7 @@ void AUDKVehicleBase::DrivingStatusChanged ( )
 	static UFunction* pFnDrivingStatusChanged = NULL;
 
 	if ( ! pFnDrivingStatusChanged )
-		pFnDrivingStatusChanged = (UFunction*) UObject::GObjObjects()->Data[ 35524 ];
+		pFnDrivingStatusChanged = (UFunction*) UObject::GObjObjects()->Data[ 35543 ];
 
 	AUDKVehicleBase_execDrivingStatusChanged_Parms DrivingStatusChanged_Parms;
 
@@ -3813,7 +3814,7 @@ bool AUDKVehicleBase::NeedToTurn ( struct FVector targ )
 	static UFunction* pFnNeedToTurn = NULL;
 
 	if ( ! pFnNeedToTurn )
-		pFnNeedToTurn = (UFunction*) UObject::GObjObjects()->Data[ 35518 ];
+		pFnNeedToTurn = (UFunction*) UObject::GObjObjects()->Data[ 35537 ];
 
 	AUDKVehicleBase_execNeedToTurn_Parms NeedToTurn_Parms;
 	memcpy ( &NeedToTurn_Parms.targ, &targ, 0xC );
@@ -3833,7 +3834,7 @@ float AUDKVehicleBase::GetDamageScaling ( )
 	static UFunction* pFnGetDamageScaling = NULL;
 
 	if ( ! pFnGetDamageScaling )
-		pFnGetDamageScaling = (UFunction*) UObject::GObjObjects()->Data[ 35516 ];
+		pFnGetDamageScaling = (UFunction*) UObject::GObjObjects()->Data[ 35535 ];
 
 	AUDKVehicleBase_execGetDamageScaling_Parms GetDamageScaling_Parms;
 
@@ -3852,7 +3853,7 @@ void AUDKVehicleBase::ServerChangeSeat ( int RequestedSeat )
 	static UFunction* pFnServerChangeSeat = NULL;
 
 	if ( ! pFnServerChangeSeat )
-		pFnServerChangeSeat = (UFunction*) UObject::GObjObjects()->Data[ 35514 ];
+		pFnServerChangeSeat = (UFunction*) UObject::GObjObjects()->Data[ 35533 ];
 
 	AUDKVehicleBase_execServerChangeSeat_Parms ServerChangeSeat_Parms;
 	ServerChangeSeat_Parms.RequestedSeat = RequestedSeat;
@@ -3871,7 +3872,7 @@ void AUDKVehicleBase::ServerAdjacentSeat ( int Direction, class AController* C )
 	static UFunction* pFnServerAdjacentSeat = NULL;
 
 	if ( ! pFnServerAdjacentSeat )
-		pFnServerAdjacentSeat = (UFunction*) UObject::GObjObjects()->Data[ 35511 ];
+		pFnServerAdjacentSeat = (UFunction*) UObject::GObjObjects()->Data[ 35530 ];
 
 	AUDKVehicleBase_execServerAdjacentSeat_Parms ServerAdjacentSeat_Parms;
 	ServerAdjacentSeat_Parms.Direction = Direction;
@@ -3891,7 +3892,7 @@ void AUDKVehicleBase::AdjacentSeat ( int Direction, class AController* C )
 	static UFunction* pFnAdjacentSeat = NULL;
 
 	if ( ! pFnAdjacentSeat )
-		pFnAdjacentSeat = (UFunction*) UObject::GObjObjects()->Data[ 35508 ];
+		pFnAdjacentSeat = (UFunction*) UObject::GObjObjects()->Data[ 35527 ];
 
 	AUDKVehicleBase_execAdjacentSeat_Parms AdjacentSeat_Parms;
 	AdjacentSeat_Parms.Direction = Direction;
@@ -3910,7 +3911,7 @@ void AUDKVehicleBase::SwitchWeapon ( unsigned char NewGroup )
 	static UFunction* pFnSwitchWeapon = NULL;
 
 	if ( ! pFnSwitchWeapon )
-		pFnSwitchWeapon = (UFunction*) UObject::GObjObjects()->Data[ 35506 ];
+		pFnSwitchWeapon = (UFunction*) UObject::GObjObjects()->Data[ 35525 ];
 
 	AUDKVehicleBase_execSwitchWeapon_Parms SwitchWeapon_Parms;
 	SwitchWeapon_Parms.NewGroup = NewGroup;
@@ -3928,7 +3929,7 @@ void AUDKVehicleBase::eventHoldGameObject ( class AUDKCarriedObject* GameObj )
 	static UFunction* pFnHoldGameObject = NULL;
 
 	if ( ! pFnHoldGameObject )
-		pFnHoldGameObject = (UFunction*) UObject::GObjObjects()->Data[ 35504 ];
+		pFnHoldGameObject = (UFunction*) UObject::GObjObjects()->Data[ 35523 ];
 
 	AUDKVehicleBase_eventHoldGameObject_Parms HoldGameObject_Parms;
 	HoldGameObject_Parms.GameObj = GameObj;
@@ -3946,7 +3947,7 @@ void AUDKVehicle::eventUpdateHoverboardDustEffect ( float DustHeight )
 	static UFunction* pFnUpdateHoverboardDustEffect = NULL;
 
 	if ( ! pFnUpdateHoverboardDustEffect )
-		pFnUpdateHoverboardDustEffect = (UFunction*) UObject::GObjObjects()->Data[ 35856 ];
+		pFnUpdateHoverboardDustEffect = (UFunction*) UObject::GObjObjects()->Data[ 35875 ];
 
 	AUDKVehicle_eventUpdateHoverboardDustEffect_Parms UpdateHoverboardDustEffect_Parms;
 	UpdateHoverboardDustEffect_Parms.DustHeight = DustHeight;
@@ -3964,7 +3965,7 @@ void AUDKVehicle::eventPostInitRigidBody ( class UPrimitiveComponent* PrimComp )
 	static UFunction* pFnPostInitRigidBody = NULL;
 
 	if ( ! pFnPostInitRigidBody )
-		pFnPostInitRigidBody = (UFunction*) UObject::GObjObjects()->Data[ 35854 ];
+		pFnPostInitRigidBody = (UFunction*) UObject::GObjObjects()->Data[ 35873 ];
 
 	AUDKVehicle_eventPostInitRigidBody_Parms PostInitRigidBody_Parms;
 	PostInitRigidBody_Parms.PrimComp = PrimComp;
@@ -3981,7 +3982,7 @@ void AUDKVehicle::eventTakeFireDamage ( )
 	static UFunction* pFnTakeFireDamage = NULL;
 
 	if ( ! pFnTakeFireDamage )
-		pFnTakeFireDamage = (UFunction*) UObject::GObjObjects()->Data[ 35853 ];
+		pFnTakeFireDamage = (UFunction*) UObject::GObjObjects()->Data[ 35872 ];
 
 	AUDKVehicle_eventTakeFireDamage_Parms TakeFireDamage_Parms;
 
@@ -3997,7 +3998,7 @@ void AUDKVehicle::eventCheckReset ( )
 	static UFunction* pFnCheckReset = NULL;
 
 	if ( ! pFnCheckReset )
-		pFnCheckReset = (UFunction*) UObject::GObjObjects()->Data[ 35852 ];
+		pFnCheckReset = (UFunction*) UObject::GObjObjects()->Data[ 35871 ];
 
 	AUDKVehicle_eventCheckReset_Parms CheckReset_Parms;
 
@@ -4013,7 +4014,7 @@ void AUDKVehicle::eventTakeWaterDamage ( )
 	static UFunction* pFnTakeWaterDamage = NULL;
 
 	if ( ! pFnTakeWaterDamage )
-		pFnTakeWaterDamage = (UFunction*) UObject::GObjObjects()->Data[ 35851 ];
+		pFnTakeWaterDamage = (UFunction*) UObject::GObjObjects()->Data[ 35870 ];
 
 	AUDKVehicle_eventTakeWaterDamage_Parms TakeWaterDamage_Parms;
 
@@ -4029,7 +4030,7 @@ void AUDKVehicle::eventRBPenetrationDestroy ( )
 	static UFunction* pFnRBPenetrationDestroy = NULL;
 
 	if ( ! pFnRBPenetrationDestroy )
-		pFnRBPenetrationDestroy = (UFunction*) UObject::GObjObjects()->Data[ 35850 ];
+		pFnRBPenetrationDestroy = (UFunction*) UObject::GObjObjects()->Data[ 35869 ];
 
 	AUDKVehicle_eventRBPenetrationDestroy_Parms RBPenetrationDestroy_Parms;
 
@@ -4046,7 +4047,7 @@ void AUDKVehicle::eventMorphTargetDestroyed ( int MorphNodeIndex )
 	static UFunction* pFnMorphTargetDestroyed = NULL;
 
 	if ( ! pFnMorphTargetDestroyed )
-		pFnMorphTargetDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 35848 ];
+		pFnMorphTargetDestroyed = (UFunction*) UObject::GObjObjects()->Data[ 35867 ];
 
 	AUDKVehicle_eventMorphTargetDestroyed_Parms MorphTargetDestroyed_Parms;
 	MorphTargetDestroyed_Parms.MorphNodeIndex = MorphNodeIndex;
@@ -4066,7 +4067,7 @@ void AUDKVehicle::ApplyMorphDamage ( struct FVector HitLocation, int Damage, str
 	static UFunction* pFnApplyMorphDamage = NULL;
 
 	if ( ! pFnApplyMorphDamage )
-		pFnApplyMorphDamage = (UFunction*) UObject::GObjObjects()->Data[ 35844 ];
+		pFnApplyMorphDamage = (UFunction*) UObject::GObjObjects()->Data[ 35863 ];
 
 	AUDKVehicle_execApplyMorphDamage_Parms ApplyMorphDamage_Parms;
 	memcpy ( &ApplyMorphDamage_Parms.HitLocation, &HitLocation, 0xC );
@@ -4089,7 +4090,7 @@ void AUDKVehicle::UpdateDamageMaterial ( )
 	static UFunction* pFnUpdateDamageMaterial = NULL;
 
 	if ( ! pFnUpdateDamageMaterial )
-		pFnUpdateDamageMaterial = (UFunction*) UObject::GObjObjects()->Data[ 35843 ];
+		pFnUpdateDamageMaterial = (UFunction*) UObject::GObjObjects()->Data[ 35862 ];
 
 	AUDKVehicle_execUpdateDamageMaterial_Parms UpdateDamageMaterial_Parms;
 
@@ -4109,7 +4110,7 @@ void AUDKVehicle::InitDamageSkel ( )
 	static UFunction* pFnInitDamageSkel = NULL;
 
 	if ( ! pFnInitDamageSkel )
-		pFnInitDamageSkel = (UFunction*) UObject::GObjObjects()->Data[ 35842 ];
+		pFnInitDamageSkel = (UFunction*) UObject::GObjObjects()->Data[ 35861 ];
 
 	AUDKVehicle_execInitDamageSkel_Parms InitDamageSkel_Parms;
 
@@ -4130,7 +4131,7 @@ void AUDKVehicle::SetHUDLocation ( struct FVector NewHUDLocation )
 	static UFunction* pFnSetHUDLocation = NULL;
 
 	if ( ! pFnSetHUDLocation )
-		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 35840 ];
+		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 35859 ];
 
 	AUDKVehicle_execSetHUDLocation_Parms SetHUDLocation_Parms;
 	memcpy ( &SetHUDLocation_Parms.NewHUDLocation, &NewHUDLocation, 0xC );
@@ -4154,7 +4155,7 @@ bool AUDKVehicle::InUseableRange ( class AUDKPlayerController* PC, float Dist )
 	static UFunction* pFnInUseableRange = NULL;
 
 	if ( ! pFnInUseableRange )
-		pFnInUseableRange = (UFunction*) UObject::GObjObjects()->Data[ 35836 ];
+		pFnInUseableRange = (UFunction*) UObject::GObjObjects()->Data[ 35855 ];
 
 	AUDKVehicle_execInUseableRange_Parms InUseableRange_Parms;
 	InUseableRange_Parms.PC = PC;
@@ -4182,7 +4183,7 @@ void AUDKVehicle::NativePostRenderFor ( class APlayerController* PC, class UCanv
 	static UFunction* pFnNativePostRenderFor = NULL;
 
 	if ( ! pFnNativePostRenderFor )
-		pFnNativePostRenderFor = (UFunction*) UObject::GObjObjects()->Data[ 35831 ];
+		pFnNativePostRenderFor = (UFunction*) UObject::GObjObjects()->Data[ 35850 ];
 
 	AUDKVehicle_execNativePostRenderFor_Parms NativePostRenderFor_Parms;
 	NativePostRenderFor_Parms.PC = PC;
@@ -4207,7 +4208,7 @@ unsigned char AUDKVehicle::GetTeamNum ( )
 	static UFunction* pFnGetTeamNum = NULL;
 
 	if ( ! pFnGetTeamNum )
-		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 35829 ];
+		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 35848 ];
 
 	AUDKVehicle_execGetTeamNum_Parms GetTeamNum_Parms;
 
@@ -4230,7 +4231,7 @@ void AUDKVehicle::eventSelfDestruct ( class AActor* ImpactedActor )
 	static UFunction* pFnSelfDestruct = NULL;
 
 	if ( ! pFnSelfDestruct )
-		pFnSelfDestruct = (UFunction*) UObject::GObjObjects()->Data[ 35827 ];
+		pFnSelfDestruct = (UFunction*) UObject::GObjObjects()->Data[ 35846 ];
 
 	AUDKVehicle_eventSelfDestruct_Parms SelfDestruct_Parms;
 	SelfDestruct_Parms.ImpactedActor = ImpactedActor;
@@ -4250,7 +4251,7 @@ bool AUDKVehicle::CheckAutoDestruct ( class ATeamInfo* InstigatorTeam, float Che
 	static UFunction* pFnCheckAutoDestruct = NULL;
 
 	if ( ! pFnCheckAutoDestruct )
-		pFnCheckAutoDestruct = (UFunction*) UObject::GObjObjects()->Data[ 35823 ];
+		pFnCheckAutoDestruct = (UFunction*) UObject::GObjObjects()->Data[ 35842 ];
 
 	AUDKVehicle_execCheckAutoDestruct_Parms CheckAutoDestruct_Parms;
 	CheckAutoDestruct_Parms.InstigatorTeam = InstigatorTeam;
@@ -4275,7 +4276,7 @@ float AUDKVehicle::GetMaxRiseForce ( )
 	static UFunction* pFnGetMaxRiseForce = NULL;
 
 	if ( ! pFnGetMaxRiseForce )
-		pFnGetMaxRiseForce = (UFunction*) UObject::GObjObjects()->Data[ 35821 ];
+		pFnGetMaxRiseForce = (UFunction*) UObject::GObjObjects()->Data[ 35840 ];
 
 	AUDKVehicle_execGetMaxRiseForce_Parms GetMaxRiseForce_Parms;
 
@@ -4297,7 +4298,7 @@ void AUDKVehicle::eventJumpOutCheck ( )
 	static UFunction* pFnJumpOutCheck = NULL;
 
 	if ( ! pFnJumpOutCheck )
-		pFnJumpOutCheck = (UFunction*) UObject::GObjObjects()->Data[ 35820 ];
+		pFnJumpOutCheck = (UFunction*) UObject::GObjObjects()->Data[ 35839 ];
 
 	AUDKVehicle_eventJumpOutCheck_Parms JumpOutCheck_Parms;
 
@@ -4313,7 +4314,7 @@ void AUDKVehicle::eventReceivedHealthChange ( )
 	static UFunction* pFnReceivedHealthChange = NULL;
 
 	if ( ! pFnReceivedHealthChange )
-		pFnReceivedHealthChange = (UFunction*) UObject::GObjObjects()->Data[ 35819 ];
+		pFnReceivedHealthChange = (UFunction*) UObject::GObjObjects()->Data[ 35838 ];
 
 	AUDKVehicle_eventReceivedHealthChange_Parms ReceivedHealthChange_Parms;
 
@@ -4329,7 +4330,7 @@ void AUDKVehicle::eventPlayTakeHitEffects ( )
 	static UFunction* pFnPlayTakeHitEffects = NULL;
 
 	if ( ! pFnPlayTakeHitEffects )
-		pFnPlayTakeHitEffects = (UFunction*) UObject::GObjObjects()->Data[ 35818 ];
+		pFnPlayTakeHitEffects = (UFunction*) UObject::GObjObjects()->Data[ 35837 ];
 
 	AUDKVehicle_eventPlayTakeHitEffects_Parms PlayTakeHitEffects_Parms;
 
@@ -4347,7 +4348,7 @@ bool AUDKVehicle::OnTouchForcedDirVolume ( class AUDKForcedDirectionVolume* Vol 
 	static UFunction* pFnOnTouchForcedDirVolume = NULL;
 
 	if ( ! pFnOnTouchForcedDirVolume )
-		pFnOnTouchForcedDirVolume = (UFunction*) UObject::GObjObjects()->Data[ 34588 ];
+		pFnOnTouchForcedDirVolume = (UFunction*) UObject::GObjObjects()->Data[ 34607 ];
 
 	AUDKVehicle_execOnTouchForcedDirVolume_Parms OnTouchForcedDirVolume_Parms;
 	OnTouchForcedDirVolume_Parms.Vol = Vol;
@@ -4367,7 +4368,7 @@ float AUDKVehicle::GetGravityZ ( )
 	static UFunction* pFnGetGravityZ = NULL;
 
 	if ( ! pFnGetGravityZ )
-		pFnGetGravityZ = (UFunction*) UObject::GObjObjects()->Data[ 35815 ];
+		pFnGetGravityZ = (UFunction*) UObject::GObjObjects()->Data[ 35834 ];
 
 	AUDKVehicle_execGetGravityZ_Parms GetGravityZ_Parms;
 
@@ -4390,7 +4391,7 @@ void AUDKVehicle::eventOnPropertyChange ( struct FName PropName )
 	static UFunction* pFnOnPropertyChange = NULL;
 
 	if ( ! pFnOnPropertyChange )
-		pFnOnPropertyChange = (UFunction*) UObject::GObjObjects()->Data[ 35813 ];
+		pFnOnPropertyChange = (UFunction*) UObject::GObjObjects()->Data[ 35832 ];
 
 	AUDKVehicle_eventOnPropertyChange_Parms OnPropertyChange_Parms;
 	memcpy ( &OnPropertyChange_Parms.PropName, &PropName, 0x8 );
@@ -4408,7 +4409,7 @@ void AUDKVehicle::eventLockOnWarning ( class AUDKProjectile* IncomingMissile )
 	static UFunction* pFnLockOnWarning = NULL;
 
 	if ( ! pFnLockOnWarning )
-		pFnLockOnWarning = (UFunction*) UObject::GObjObjects()->Data[ 35811 ];
+		pFnLockOnWarning = (UFunction*) UObject::GObjObjects()->Data[ 35830 ];
 
 	AUDKVehicle_eventLockOnWarning_Parms LockOnWarning_Parms;
 	LockOnWarning_Parms.IncomingMissile = IncomingMissile;
@@ -4427,7 +4428,7 @@ bool AUDKVehicle::eventIsLocalOnVehicle ( class APawn* InP )
 	static UFunction* pFnIsLocalOnVehicle = NULL;
 
 	if ( ! pFnIsLocalOnVehicle )
-		pFnIsLocalOnVehicle = (UFunction*) UObject::GObjObjects()->Data[ 35805 ];
+		pFnIsLocalOnVehicle = (UFunction*) UObject::GObjObjects()->Data[ 35824 ];
 
 	AUDKVehicle_eventIsLocalOnVehicle_Parms IsLocalOnVehicle_Parms;
 	IsLocalOnVehicle_Parms.InP = InP;
@@ -4447,7 +4448,7 @@ class UClass* AUDKVehicle::GetRanOverDamageType ( )
 	static UFunction* pFnGetRanOverDamageType = NULL;
 
 	if ( ! pFnGetRanOverDamageType )
-		pFnGetRanOverDamageType = (UFunction*) UObject::GObjObjects()->Data[ 35556 ];
+		pFnGetRanOverDamageType = (UFunction*) UObject::GObjObjects()->Data[ 35575 ];
 
 	AUDKVehicle_execGetRanOverDamageType_Parms GetRanOverDamageType_Parms;
 
@@ -4467,7 +4468,7 @@ bool AUDKVehicle::IsSeatControllerReplicationViewer ( int SeatIndex )
 	static UFunction* pFnIsSeatControllerReplicationViewer = NULL;
 
 	if ( ! pFnIsSeatControllerReplicationViewer )
-		pFnIsSeatControllerReplicationViewer = (UFunction*) UObject::GObjObjects()->Data[ 35802 ];
+		pFnIsSeatControllerReplicationViewer = (UFunction*) UObject::GObjObjects()->Data[ 35821 ];
 
 	AUDKVehicle_execIsSeatControllerReplicationViewer_Parms IsSeatControllerReplicationViewer_Parms;
 	IsSeatControllerReplicationViewer_Parms.SeatIndex = SeatIndex;
@@ -4497,7 +4498,7 @@ int AUDKVehicle::GetBarrelIndex ( int SeatIndex )
 	static UFunction* pFnGetBarrelIndex = NULL;
 
 	if ( ! pFnGetBarrelIndex )
-		pFnGetBarrelIndex = (UFunction*) UObject::GObjObjects()->Data[ 35799 ];
+		pFnGetBarrelIndex = (UFunction*) UObject::GObjObjects()->Data[ 35818 ];
 
 	AUDKVehicle_execGetBarrelIndex_Parms GetBarrelIndex_Parms;
 	GetBarrelIndex_Parms.SeatIndex = SeatIndex;
@@ -4522,7 +4523,7 @@ struct FVector AUDKVehicle::GetSeatPivotPoint ( int SeatIndex )
 	static UFunction* pFnGetSeatPivotPoint = NULL;
 
 	if ( ! pFnGetSeatPivotPoint )
-		pFnGetSeatPivotPoint = (UFunction*) UObject::GObjObjects()->Data[ 35796 ];
+		pFnGetSeatPivotPoint = (UFunction*) UObject::GObjObjects()->Data[ 35815 ];
 
 	AUDKVehicle_execGetSeatPivotPoint_Parms GetSeatPivotPoint_Parms;
 	GetSeatPivotPoint_Parms.SeatIndex = SeatIndex;
@@ -4547,7 +4548,7 @@ void AUDKVehicle::ForceWeaponRotation ( int SeatIndex, struct FRotator NewRotati
 	static UFunction* pFnForceWeaponRotation = NULL;
 
 	if ( ! pFnForceWeaponRotation )
-		pFnForceWeaponRotation = (UFunction*) UObject::GObjObjects()->Data[ 35793 ];
+		pFnForceWeaponRotation = (UFunction*) UObject::GObjObjects()->Data[ 35812 ];
 
 	AUDKVehicle_execForceWeaponRotation_Parms ForceWeaponRotation_Parms;
 	ForceWeaponRotation_Parms.SeatIndex = SeatIndex;
@@ -4573,7 +4574,7 @@ unsigned char AUDKVehicle::SeatFiringMode ( int SeatIndex, unsigned char NewFire
 	static UFunction* pFnSeatFiringMode = NULL;
 
 	if ( ! pFnSeatFiringMode )
-		pFnSeatFiringMode = (UFunction*) UObject::GObjObjects()->Data[ 35788 ];
+		pFnSeatFiringMode = (UFunction*) UObject::GObjObjects()->Data[ 35807 ];
 
 	AUDKVehicle_execSeatFiringMode_Parms SeatFiringMode_Parms;
 	SeatFiringMode_Parms.SeatIndex = SeatIndex;
@@ -4602,7 +4603,7 @@ unsigned char AUDKVehicle::SeatFlashCount ( int SeatIndex, unsigned char NewCoun
 	static UFunction* pFnSeatFlashCount = NULL;
 
 	if ( ! pFnSeatFlashCount )
-		pFnSeatFlashCount = (UFunction*) UObject::GObjObjects()->Data[ 35783 ];
+		pFnSeatFlashCount = (UFunction*) UObject::GObjObjects()->Data[ 35802 ];
 
 	AUDKVehicle_execSeatFlashCount_Parms SeatFlashCount_Parms;
 	SeatFlashCount_Parms.SeatIndex = SeatIndex;
@@ -4631,7 +4632,7 @@ struct FVector AUDKVehicle::SeatFlashLocation ( int SeatIndex, struct FVector Ne
 	static UFunction* pFnSeatFlashLocation = NULL;
 
 	if ( ! pFnSeatFlashLocation )
-		pFnSeatFlashLocation = (UFunction*) UObject::GObjObjects()->Data[ 35778 ];
+		pFnSeatFlashLocation = (UFunction*) UObject::GObjObjects()->Data[ 35797 ];
 
 	AUDKVehicle_execSeatFlashLocation_Parms SeatFlashLocation_Parms;
 	SeatFlashLocation_Parms.SeatIndex = SeatIndex;
@@ -4660,7 +4661,7 @@ struct FRotator AUDKVehicle::SeatWeaponRotation ( int SeatIndex, struct FRotator
 	static UFunction* pFnSeatWeaponRotation = NULL;
 
 	if ( ! pFnSeatWeaponRotation )
-		pFnSeatWeaponRotation = (UFunction*) UObject::GObjObjects()->Data[ 35773 ];
+		pFnSeatWeaponRotation = (UFunction*) UObject::GObjObjects()->Data[ 35792 ];
 
 	AUDKVehicle_execSeatWeaponRotation_Parms SeatWeaponRotation_Parms;
 	SeatWeaponRotation_Parms.SeatIndex = SeatIndex;
@@ -4688,7 +4689,7 @@ struct FVector AUDKWeaponPawn::GetTargetLocation ( class AActor* RequestedBy, un
 	static UFunction* pFnGetTargetLocation = NULL;
 
 	if ( ! pFnGetTargetLocation )
-		pFnGetTargetLocation = (UFunction*) UObject::GObjObjects()->Data[ 36020 ];
+		pFnGetTargetLocation = (UFunction*) UObject::GObjObjects()->Data[ 36039 ];
 
 	AUDKWeaponPawn_execGetTargetLocation_Parms GetTargetLocation_Parms;
 	GetTargetLocation_Parms.RequestedBy = RequestedBy;
@@ -4713,7 +4714,7 @@ unsigned char AUDKVehicleFactory::GetTeamNum ( )
 	static UFunction* pFnGetTeamNum = NULL;
 
 	if ( ! pFnGetTeamNum )
-		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 35873 ];
+		pFnGetTeamNum = (UFunction*) UObject::GObjObjects()->Data[ 35892 ];
 
 	AUDKVehicleFactory_execGetTeamNum_Parms GetTeamNum_Parms;
 
@@ -4736,7 +4737,7 @@ void AUDKVehicleFactory::SetHUDLocation ( struct FVector NewHUDLocation )
 	static UFunction* pFnSetHUDLocation = NULL;
 
 	if ( ! pFnSetHUDLocation )
-		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 35871 ];
+		pFnSetHUDLocation = (UFunction*) UObject::GObjObjects()->Data[ 35890 ];
 
 	AUDKVehicleFactory_execSetHUDLocation_Parms SetHUDLocation_Parms;
 	memcpy ( &SetHUDLocation_Parms.NewHUDLocation, &NewHUDLocation, 0xC );
@@ -4757,7 +4758,7 @@ void AUDKVehicleFactory::eventSpawnVehicle ( )
 	static UFunction* pFnSpawnVehicle = NULL;
 
 	if ( ! pFnSpawnVehicle )
-		pFnSpawnVehicle = (UFunction*) UObject::GObjObjects()->Data[ 35870 ];
+		pFnSpawnVehicle = (UFunction*) UObject::GObjObjects()->Data[ 35889 ];
 
 	AUDKVehicleFactory_eventSpawnVehicle_Parms SpawnVehicle_Parms;
 
@@ -4776,7 +4777,7 @@ void UUDKVehicleSimHoverboard::UpdateLeanConstraint ( class URB_ConstraintInstan
 	static UFunction* pFnUpdateLeanConstraint = NULL;
 
 	if ( ! pFnUpdateLeanConstraint )
-		pFnUpdateLeanConstraint = (UFunction*) UObject::GObjObjects()->Data[ 35991 ];
+		pFnUpdateLeanConstraint = (UFunction*) UObject::GObjObjects()->Data[ 36010 ];
 
 	UUDKVehicleSimHoverboard_execUpdateLeanConstraint_Parms UpdateLeanConstraint_Parms;
 	UpdateLeanConstraint_Parms.LeanUprightConstraintInstance = LeanUprightConstraintInstance;
@@ -4800,7 +4801,7 @@ void UUDKVehicleSimHoverboard::InitWheels ( class AUDKVehicle* Vehicle )
 	static UFunction* pFnInitWheels = NULL;
 
 	if ( ! pFnInitWheels )
-		pFnInitWheels = (UFunction*) UObject::GObjObjects()->Data[ 35989 ];
+		pFnInitWheels = (UFunction*) UObject::GObjObjects()->Data[ 36008 ];
 
 	UUDKVehicleSimHoverboard_execInitWheels_Parms InitWheels_Parms;
 	InitWheels_Parms.Vehicle = Vehicle;
@@ -4822,7 +4823,7 @@ void UUDKVehicleWheel::OldEffectFinished ( class UParticleSystemComponent* PSyst
 	static UFunction* pFnOldEffectFinished = NULL;
 
 	if ( ! pFnOldEffectFinished )
-		pFnOldEffectFinished = (UFunction*) UObject::GObjObjects()->Data[ 36002 ];
+		pFnOldEffectFinished = (UFunction*) UObject::GObjObjects()->Data[ 36021 ];
 
 	UUDKVehicleWheel_execOldEffectFinished_Parms OldEffectFinished_Parms;
 	OldEffectFinished_Parms.PSystem = PSystem;
@@ -4841,7 +4842,7 @@ void UUDKVehicleWheel::eventSetParticleEffect ( class AUDKVehicle* OwnerVehicle,
 	static UFunction* pFnSetParticleEffect = NULL;
 
 	if ( ! pFnSetParticleEffect )
-		pFnSetParticleEffect = (UFunction*) UObject::GObjObjects()->Data[ 35999 ];
+		pFnSetParticleEffect = (UFunction*) UObject::GObjObjects()->Data[ 36018 ];
 
 	UUDKVehicleWheel_eventSetParticleEffect_Parms SetParticleEffect_Parms;
 	SetParticleEffect_Parms.OwnerVehicle = OwnerVehicle;
@@ -4861,7 +4862,7 @@ void AUDKWeapon::eventSetPosition ( class AUDKPawn* Holder, float DeltaSeconds )
 	static UFunction* pFnSetPosition = NULL;
 
 	if ( ! pFnSetPosition )
-		pFnSetPosition = (UFunction*) UObject::GObjObjects()->Data[ 36014 ];
+		pFnSetPosition = (UFunction*) UObject::GObjObjects()->Data[ 36033 ];
 
 	AUDKWeapon_eventSetPosition_Parms SetPosition_Parms;
 	SetPosition_Parms.Holder = Holder;
@@ -4879,7 +4880,7 @@ void AUDKWeapon::EnsureWeaponOverlayComponentLast ( )
 	static UFunction* pFnEnsureWeaponOverlayComponentLast = NULL;
 
 	if ( ! pFnEnsureWeaponOverlayComponentLast )
-		pFnEnsureWeaponOverlayComponentLast = (UFunction*) UObject::GObjObjects()->Data[ 36013 ];
+		pFnEnsureWeaponOverlayComponentLast = (UFunction*) UObject::GObjObjects()->Data[ 36032 ];
 
 	AUDKWeapon_execEnsureWeaponOverlayComponentLast_Parms EnsureWeaponOverlayComponentLast_Parms;
 
@@ -4900,7 +4901,7 @@ unsigned char AUDKWeapon::BestMode ( )
 	static UFunction* pFnBestMode = NULL;
 
 	if ( ! pFnBestMode )
-		pFnBestMode = (UFunction*) UObject::GObjObjects()->Data[ 35543 ];
+		pFnBestMode = (UFunction*) UObject::GObjObjects()->Data[ 35562 ];
 
 	AUDKWeapon_execBestMode_Parms BestMode_Parms;
 
@@ -4919,7 +4920,7 @@ bool AUDKWeapon::eventIsAimCorrect ( )
 	static UFunction* pFnIsAimCorrect = NULL;
 
 	if ( ! pFnIsAimCorrect )
-		pFnIsAimCorrect = (UFunction*) UObject::GObjObjects()->Data[ 35522 ];
+		pFnIsAimCorrect = (UFunction*) UObject::GObjObjects()->Data[ 35541 ];
 
 	AUDKWeapon_eventIsAimCorrect_Parms IsAimCorrect_Parms;
 
@@ -4937,7 +4938,7 @@ void AUDKWeapon::PostBeginPlay ( )
 	static UFunction* pFnPostBeginPlay = NULL;
 
 	if ( ! pFnPostBeginPlay )
-		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 36012 ];
+		pFnPostBeginPlay = (UFunction*) UObject::GObjObjects()->Data[ 36031 ];
 
 	AUDKWeapon_execPostBeginPlay_Parms PostBeginPlay_Parms;
 
@@ -4954,7 +4955,7 @@ void UUDKAnimBlendBase::eventTickAnim ( float DeltaSeconds )
 	static UFunction* pFnTickAnim = NULL;
 
 	if ( ! pFnTickAnim )
-		pFnTickAnim = (UFunction*) UObject::GObjObjects()->Data[ 34227 ];
+		pFnTickAnim = (UFunction*) UObject::GObjObjects()->Data[ 34246 ];
 
 	UUDKAnimBlendBase_eventTickAnim_Parms TickAnim_Parms;
 	TickAnim_Parms.DeltaSeconds = DeltaSeconds;
@@ -4973,7 +4974,7 @@ float UUDKAnimBlendBase::GetAnimDuration ( int ChildIndex )
 	static UFunction* pFnGetAnimDuration = NULL;
 
 	if ( ! pFnGetAnimDuration )
-		pFnGetAnimDuration = (UFunction*) UObject::GObjObjects()->Data[ 34224 ];
+		pFnGetAnimDuration = (UFunction*) UObject::GObjObjects()->Data[ 34243 ];
 
 	UUDKAnimBlendBase_execGetAnimDuration_Parms GetAnimDuration_Parms;
 	GetAnimDuration_Parms.ChildIndex = ChildIndex;
@@ -4999,7 +5000,7 @@ float UUDKAnimBlendBase::GetBlendTime ( int ChildIndex, unsigned long bGetDefaul
 	static UFunction* pFnGetBlendTime = NULL;
 
 	if ( ! pFnGetBlendTime )
-		pFnGetBlendTime = (UFunction*) UObject::GObjObjects()->Data[ 34220 ];
+		pFnGetBlendTime = (UFunction*) UObject::GObjObjects()->Data[ 34239 ];
 
 	UUDKAnimBlendBase_execGetBlendTime_Parms GetBlendTime_Parms;
 	GetBlendTime_Parms.ChildIndex = ChildIndex;
@@ -5023,7 +5024,7 @@ void UUDKAnimBlendByFlying::UpdateFlyingState ( )
 	static UFunction* pFnUpdateFlyingState = NULL;
 
 	if ( ! pFnUpdateFlyingState )
-		pFnUpdateFlyingState = (UFunction*) UObject::GObjObjects()->Data[ 34249 ];
+		pFnUpdateFlyingState = (UFunction*) UObject::GObjObjects()->Data[ 34268 ];
 
 	UUDKAnimBlendByFlying_execUpdateFlyingState_Parms UpdateFlyingState_Parms;
 
@@ -5044,7 +5045,7 @@ void UUDKAnimBlendByPhysicsVolume::eventPhysicsVolumeChanged ( class APhysicsVol
 	static UFunction* pFnPhysicsVolumeChanged = NULL;
 
 	if ( ! pFnPhysicsVolumeChanged )
-		pFnPhysicsVolumeChanged = (UFunction*) UObject::GObjObjects()->Data[ 34277 ];
+		pFnPhysicsVolumeChanged = (UFunction*) UObject::GObjObjects()->Data[ 34296 ];
 
 	UUDKAnimBlendByPhysicsVolume_eventPhysicsVolumeChanged_Parms PhysicsVolumeChanged_Parms;
 	PhysicsVolumeChanged_Parms.NewVolume = NewVolume;
@@ -5061,7 +5062,7 @@ void UUDKAnimBlendByVehicle::UpdateVehicleState ( )
 	static UFunction* pFnUpdateVehicleState = NULL;
 
 	if ( ! pFnUpdateVehicleState )
-		pFnUpdateVehicleState = (UFunction*) UObject::GObjObjects()->Data[ 34290 ];
+		pFnUpdateVehicleState = (UFunction*) UObject::GObjObjects()->Data[ 34309 ];
 
 	UUDKAnimBlendByVehicle_execUpdateVehicleState_Parms UpdateVehicleState_Parms;
 
@@ -5081,7 +5082,7 @@ void UUDKAnimBlendByDriving::UpdateDrivingState ( )
 	static UFunction* pFnUpdateDrivingState = NULL;
 
 	if ( ! pFnUpdateDrivingState )
-		pFnUpdateDrivingState = (UFunction*) UObject::GObjObjects()->Data[ 34229 ];
+		pFnUpdateDrivingState = (UFunction*) UObject::GObjObjects()->Data[ 34248 ];
 
 	UUDKAnimBlendByDriving_execUpdateDrivingState_Parms UpdateDrivingState_Parms;
 
@@ -5102,7 +5103,7 @@ void UUDKAnimBlendByWeapon::eventAnimStopFire ( float SpecialBlendTime )
 	static UFunction* pFnAnimStopFire = NULL;
 
 	if ( ! pFnAnimStopFire )
-		pFnAnimStopFire = (UFunction*) UObject::GObjObjects()->Data[ 34301 ];
+		pFnAnimStopFire = (UFunction*) UObject::GObjObjects()->Data[ 34320 ];
 
 	UUDKAnimBlendByWeapon_eventAnimStopFire_Parms AnimStopFire_Parms;
 	AnimStopFire_Parms.SpecialBlendTime = SpecialBlendTime;
@@ -5124,7 +5125,7 @@ void UUDKAnimBlendByWeapon::AnimFire ( struct FName FireSequence, unsigned long 
 	static UFunction* pFnAnimFire = NULL;
 
 	if ( ! pFnAnimFire )
-		pFnAnimFire = (UFunction*) UObject::GObjObjects()->Data[ 34294 ];
+		pFnAnimFire = (UFunction*) UObject::GObjObjects()->Data[ 34313 ];
 
 	UUDKAnimBlendByWeapon_execAnimFire_Parms AnimFire_Parms;
 	memcpy ( &AnimFire_Parms.FireSequence, &FireSequence, 0x8 );
@@ -5146,7 +5147,7 @@ void UUDKAnimNodeFramePlayer::SetAnimPosition ( float Perc )
 	static UFunction* pFnSetAnimPosition = NULL;
 
 	if ( ! pFnSetAnimPosition )
-		pFnSetAnimPosition = (UFunction*) UObject::GObjObjects()->Data[ 34326 ];
+		pFnSetAnimPosition = (UFunction*) UObject::GObjObjects()->Data[ 34345 ];
 
 	UUDKAnimNodeFramePlayer_execSetAnimPosition_Parms SetAnimPosition_Parms;
 	SetAnimPosition_Parms.Perc = Perc;
@@ -5169,7 +5170,7 @@ void UUDKAnimNodeFramePlayer::SetAnimation ( struct FName Sequence, float RateSc
 	static UFunction* pFnSetAnimation = NULL;
 
 	if ( ! pFnSetAnimation )
-		pFnSetAnimation = (UFunction*) UObject::GObjObjects()->Data[ 34323 ];
+		pFnSetAnimation = (UFunction*) UObject::GObjObjects()->Data[ 34342 ];
 
 	UUDKAnimNodeFramePlayer_execSetAnimation_Parms SetAnimation_Parms;
 	memcpy ( &SetAnimation_Parms.Sequence, &Sequence, 0x8 );
@@ -5193,7 +5194,7 @@ void UUDKAnimNodeJumpLeanOffset::SetLeanWeight ( float WeightTarget, float Blend
 	static UFunction* pFnSetLeanWeight = NULL;
 
 	if ( ! pFnSetLeanWeight )
-		pFnSetLeanWeight = (UFunction*) UObject::GObjObjects()->Data[ 34341 ];
+		pFnSetLeanWeight = (UFunction*) UObject::GObjObjects()->Data[ 34360 ];
 
 	UUDKAnimNodeJumpLeanOffset_execSetLeanWeight_Parms SetLeanWeight_Parms;
 	SetLeanWeight_Parms.WeightTarget = WeightTarget;
@@ -5215,7 +5216,7 @@ void UUDKAnimNodeSequence::eventOnInit ( )
 	static UFunction* pFnOnInit = NULL;
 
 	if ( ! pFnOnInit )
-		pFnOnInit = (UFunction*) UObject::GObjObjects()->Data[ 34357 ];
+		pFnOnInit = (UFunction*) UObject::GObjObjects()->Data[ 34376 ];
 
 	UUDKAnimNodeSequence_eventOnInit_Parms OnInit_Parms;
 
@@ -5234,7 +5235,7 @@ void UUDKAnimNodeSequence::PlayAnimationSet ( TArray< struct FName > Sequences, 
 	static UFunction* pFnPlayAnimationSet = NULL;
 
 	if ( ! pFnPlayAnimationSet )
-		pFnPlayAnimationSet = (UFunction*) UObject::GObjObjects()->Data[ 34352 ];
+		pFnPlayAnimationSet = (UFunction*) UObject::GObjObjects()->Data[ 34371 ];
 
 	UUDKAnimNodeSequence_execPlayAnimationSet_Parms PlayAnimationSet_Parms;
 	memcpy ( &PlayAnimationSet_Parms.Sequences, &Sequences, 0xC );
@@ -5260,7 +5261,7 @@ void UUDKAnimNodeSequence::PlayAnimation ( struct FName Sequence, float SeqRate,
 	static UFunction* pFnPlayAnimation = NULL;
 
 	if ( ! pFnPlayAnimation )
-		pFnPlayAnimation = (UFunction*) UObject::GObjObjects()->Data[ 34348 ];
+		pFnPlayAnimation = (UFunction*) UObject::GObjObjects()->Data[ 34367 ];
 
 	UUDKAnimNodeSequence_execPlayAnimation_Parms PlayAnimation_Parms;
 	memcpy ( &PlayAnimation_Parms.Sequence, &Sequence, 0x8 );
@@ -5284,7 +5285,7 @@ struct FVector UUDKSkelControl_CantileverBeam::EntireBeamVelocity ( )
 	static UFunction* pFnEntireBeamVelocity = NULL;
 
 	if ( ! pFnEntireBeamVelocity )
-		pFnEntireBeamVelocity = (UFunction*) UObject::GObjObjects()->Data[ 35070 ];
+		pFnEntireBeamVelocity = (UFunction*) UObject::GObjObjects()->Data[ 35089 ];
 
 	UUDKSkelControl_CantileverBeam_execEntireBeamVelocity_Parms EntireBeamVelocity_Parms;
 
@@ -5303,7 +5304,7 @@ float UUDKSkelControl_Damage::eventRestorePart ( )
 	static UFunction* pFnRestorePart = NULL;
 
 	if ( ! pFnRestorePart )
-		pFnRestorePart = (UFunction*) UObject::GObjObjects()->Data[ 35115 ];
+		pFnRestorePart = (UFunction*) UObject::GObjObjects()->Data[ 35134 ];
 
 	UUDKSkelControl_Damage_eventRestorePart_Parms RestorePart_Parms;
 
@@ -5323,7 +5324,7 @@ void UUDKSkelControl_Damage::eventBreakApartOnDeath ( struct FVector PartLocatio
 	static UFunction* pFnBreakApartOnDeath = NULL;
 
 	if ( ! pFnBreakApartOnDeath )
-		pFnBreakApartOnDeath = (UFunction*) UObject::GObjObjects()->Data[ 35112 ];
+		pFnBreakApartOnDeath = (UFunction*) UObject::GObjObjects()->Data[ 35131 ];
 
 	UUDKSkelControl_Damage_eventBreakApartOnDeath_Parms BreakApartOnDeath_Parms;
 	memcpy ( &BreakApartOnDeath_Parms.PartLocation, &PartLocation, 0xC );
@@ -5343,7 +5344,7 @@ void UUDKSkelControl_Damage::eventBreakApart ( struct FVector PartLocation, unsi
 	static UFunction* pFnBreakApart = NULL;
 
 	if ( ! pFnBreakApart )
-		pFnBreakApart = (UFunction*) UObject::GObjObjects()->Data[ 35109 ];
+		pFnBreakApart = (UFunction*) UObject::GObjObjects()->Data[ 35128 ];
 
 	UUDKSkelControl_Damage_eventBreakApart_Parms BreakApart_Parms;
 	memcpy ( &BreakApart_Parms.PartLocation, &PartLocation, 0xC );
@@ -5363,7 +5364,7 @@ float UUDKSkelControl_MassBoneScaling::GetBoneScale ( struct FName BoneName )
 	static UFunction* pFnGetBoneScale = NULL;
 
 	if ( ! pFnGetBoneScale )
-		pFnGetBoneScale = (UFunction*) UObject::GObjObjects()->Data[ 35181 ];
+		pFnGetBoneScale = (UFunction*) UObject::GObjObjects()->Data[ 35200 ];
 
 	UUDKSkelControl_MassBoneScaling_execGetBoneScale_Parms GetBoneScale_Parms;
 	memcpy ( &GetBoneScale_Parms.BoneName, &BoneName, 0x8 );
@@ -5388,7 +5389,7 @@ void UUDKSkelControl_MassBoneScaling::SetBoneScale ( struct FName BoneName, floa
 	static UFunction* pFnSetBoneScale = NULL;
 
 	if ( ! pFnSetBoneScale )
-		pFnSetBoneScale = (UFunction*) UObject::GObjObjects()->Data[ 35178 ];
+		pFnSetBoneScale = (UFunction*) UObject::GObjObjects()->Data[ 35197 ];
 
 	UUDKSkelControl_MassBoneScaling_execSetBoneScale_Parms SetBoneScale_Parms;
 	memcpy ( &SetBoneScale_Parms.BoneName, &BoneName, 0x8 );
@@ -5413,7 +5414,7 @@ bool UUDKSkelControl_TurretConstrained::WouldConstrainPitch ( int TestPitch, cla
 	static UFunction* pFnWouldConstrainPitch = NULL;
 
 	if ( ! pFnWouldConstrainPitch )
-		pFnWouldConstrainPitch = (UFunction*) UObject::GObjObjects()->Data[ 35226 ];
+		pFnWouldConstrainPitch = (UFunction*) UObject::GObjObjects()->Data[ 35245 ];
 
 	UUDKSkelControl_TurretConstrained_execWouldConstrainPitch_Parms WouldConstrainPitch_Parms;
 	WouldConstrainPitch_Parms.TestPitch = TestPitch;
@@ -5439,7 +5440,7 @@ void UUDKSkelControl_TurretConstrained::InitTurret ( struct FRotator InitRot, cl
 	static UFunction* pFnInitTurret = NULL;
 
 	if ( ! pFnInitTurret )
-		pFnInitTurret = (UFunction*) UObject::GObjObjects()->Data[ 35223 ];
+		pFnInitTurret = (UFunction*) UObject::GObjObjects()->Data[ 35242 ];
 
 	UUDKSkelControl_TurretConstrained_execInitTurret_Parms InitTurret_Parms;
 	memcpy ( &InitTurret_Parms.InitRot, &InitRot, 0xC );
@@ -5462,7 +5463,7 @@ void UUDKSkelControl_TurretConstrained::OnTurretStatusChange ( unsigned long bIs
 	static UFunction* pFnOnTurretStatusChange = NULL;
 
 	if ( ! pFnOnTurretStatusChange )
-		pFnOnTurretStatusChange = (UFunction*) UObject::GObjObjects()->Data[ 35197 ];
+		pFnOnTurretStatusChange = (UFunction*) UObject::GObjObjects()->Data[ 35216 ];
 
 	UUDKSkelControl_TurretConstrained_execOnTurretStatusChange_Parms OnTurretStatusChange_Parms;
 	OnTurretStatusChange_Parms.bIsMoving = bIsMoving;
@@ -5479,7 +5480,7 @@ void UUDKAnimNodeSequenceByBoneRotation::eventOnBecomeRelevant ( )
 	static UFunction* pFnOnBecomeRelevant = NULL;
 
 	if ( ! pFnOnBecomeRelevant )
-		pFnOnBecomeRelevant = (UFunction*) UObject::GObjObjects()->Data[ 34366 ];
+		pFnOnBecomeRelevant = (UFunction*) UObject::GObjObjects()->Data[ 34385 ];
 
 	UUDKAnimNodeSequenceByBoneRotation_eventOnBecomeRelevant_Parms OnBecomeRelevant_Parms;
 

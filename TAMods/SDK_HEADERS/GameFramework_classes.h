@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: GameFramework_classes.h
@@ -53,43 +53,43 @@
 */
 
 // Enum GameFramework.GameCrowdAgent.EConformType
-/*enum EConformType
+enum EConformType
 {
 	CFM_NavMesh                                        = 0,
 	CFM_BSP                                            = 1,
 	CFM_World                                          = 2,
 	CFM_None                                           = 3,
 	CFM_MAX                                            = 4
-};*/
+};
 
 // Enum GameFramework.GameTypes.EShakeParam
-/*enum EShakeParam
+enum EShakeParam
 {
 	ESP_OffsetRandom                                   = 0,
 	ESP_OffsetZero                                     = 1,
 	ESP_MAX                                            = 2
-};*/
+};
 
 // Enum GameFramework.GameSkelCtrl_Recoil.ERecoilStart
-/*enum ERecoilStart
+enum ERecoilStart
 {
 	ERS_Zero                                           = 0,
 	ERS_Random                                         = 1,
 	ERS_MAX                                            = 2
-};*/
+};
 
 // Enum GameFramework.GameStateObject.GameSessionType
-/*enum GameSessionType
+enum GameSessionType
 {
 	GT_SessionInvalid                                  = 0,
 	GT_SinglePlayer                                    = 1,
 	GT_Coop                                            = 2,
 	GT_Multiplayer                                     = 3,
 	GT_MAX                                             = 4
-};*/
+};
 
 // Enum GameFramework.GameThirdPersonCameraMode.ECameraViewportTypes
-/*enum ECameraViewportTypes
+enum ECameraViewportTypes
 {
 	CVT_16to9_Full                                     = 0,
 	CVT_16to9_VertSplit                                = 1,
@@ -98,30 +98,30 @@
 	CVT_4to3_HorizSplit                                = 4,
 	CVT_4to3_VertSplit                                 = 5,
 	CVT_MAX                                            = 6
-};*/
+};
 
 // Enum GameFramework.MobileInputZone.EZoneType
-/*enum EZoneType
+enum EZoneType
 {
 	ZoneType_Button                                    = 0,
 	ZoneType_Joystick                                  = 1,
 	ZoneType_Trackball                                 = 2,
 	ZoneType_Slider                                    = 3,
 	ZoneType_MAX                                       = 4
-};*/
+};
 
 // Enum GameFramework.MobileInputZone.EZoneState
-/*enum EZoneState
+enum EZoneState
 {
 	ZoneState_Inactive                                 = 0,
 	ZoneState_Activating                               = 1,
 	ZoneState_Active                                   = 2,
 	ZoneState_Deactivating                             = 3,
 	ZoneState_MAX                                      = 4
-};*/
+};
 
 // Enum GameFramework.MobileInputZone.EZoneTouchEvent
-/*enum EZoneTouchEvent
+enum EZoneTouchEvent
 {
 	ZoneEvent_Touch                                    = 0,
 	ZoneEvent_Update                                   = 1,
@@ -129,27 +129,27 @@
 	ZoneEvent_UnTouch                                  = 3,
 	ZoneEvent_Cancelled                                = 4,
 	ZoneEvent_MAX                                      = 5
-};*/
+};
 
 // Enum GameFramework.MobileInputZone.EZoneSlideType
-/*enum EZoneSlideType
+enum EZoneSlideType
 {
 	ZoneSlide_UpDown                                   = 0,
 	ZoneSlide_LeftRight                                = 1,
 	ZoneSlide_MAX                                      = 2
-};*/
+};
 
 // Enum GameFramework.MobileMenuImage.MenuImageDrawStyle
-/*enum MenuImageDrawStyle
+enum MenuImageDrawStyle
 {
 	IDS_Normal                                         = 0,
 	IDS_Stretched                                      = 1,
 	IDS_Tile                                           = 2,
 	IDS_MAX                                            = 3
-};*/
+};
 
 // Enum GameFramework.MobilePlayerInput.EUIOrientation
-/*enum EUIOrientation
+enum EUIOrientation
 {
 	UI_Unknown                                         = 0,
 	UI_Portait                                         = 1,
@@ -157,15 +157,15 @@
 	UI_LandscapeRight                                  = 3,
 	UI_LandscapeLeft                                   = 4,
 	UI_MAX                                             = 5
-};*/
+};
 
 // Enum GameFramework.SeqEvent_HudRenderText.ETextDrawMethod
-/*enum ETextDrawMethod
+enum ETextDrawMethod
 {
 	DRAW_CenterText                                    = 0,
 	DRAW_WrapText                                      = 1,
 	DRAW_MAX                                           = 2
-};*/
+};
 
 
 /*
@@ -199,8 +199,6 @@ public:
 	void eventUpdateShadowSettings ( unsigned long bInWantShadow );
 };
 
-// UClass* AGamePawn::pClassPointer = NULL;
-
 // Class GameFramework.DynamicSpriteComponent
 // 0x0040 (0x0244 - 0x0204)
 class UDynamicSpriteComponent : public USpriteComponent
@@ -225,8 +223,6 @@ public:
 	};
 
 };
-
-// UClass* UDynamicSpriteComponent::pClassPointer = NULL;
 
 // Class GameFramework.FrameworkGame
 // 0x000C (0x0384 - 0x0378)
@@ -254,8 +250,6 @@ public:
 	void eventTgEndGame ( struct FString* Reason );
 	void eventTgStartGame ( struct FString* Reason );
 };
-
-// UClass* AFrameworkGame::pClassPointer = NULL;
 
 // Class GameFramework.GameAIController
 // 0x006C (0x040C - 0x03A0)
@@ -311,8 +305,6 @@ public:
 	void AllCommands ( class UClass* BaseClass, class UGameAICommand** Cmd );
 };
 
-// UClass* AGameAIController::pClassPointer = NULL;
-
 // Class GameFramework.GameAICommand
 // 0x001C (0x0058 - 0x003C)
 class UGameAICommand : public UAICommandBase
@@ -365,8 +357,6 @@ public:
 	bool InitCommandUserActor ( class AGameAIController* AI, class AActor* UserActor );
 };
 
-// UClass* UGameAICommand::pClassPointer = NULL;
-
 // Class GameFramework.GameCameraBlockingVolume
 // 0x0000 (0x0210 - 0x0210)
 class AGameCameraBlockingVolume : public ABlockingVolume
@@ -386,8 +376,6 @@ public:
 	};
 
 };
-
-// UClass* AGameCameraBlockingVolume::pClassPointer = NULL;
 
 // Class GameFramework.GameCrowdAgent
 // 0x01E4 (0x03C8 - 0x01E4)
@@ -543,8 +531,6 @@ public:
 	void eventFellOutOfWorld ( class UClass* dmgType );
 };
 
-// UClass* AGameCrowdAgent::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdAgentSkeletal
 // 0x0080 (0x0448 - 0x03C8)
 class AGameCrowdAgentSkeletal : public AGameCrowdAgent
@@ -599,8 +585,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AGameCrowdAgentSkeletal::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdAgentBehavior
 // 0x0018 (0x0054 - 0x003C)
 class UGameCrowdAgentBehavior : public UObject
@@ -646,8 +630,6 @@ public:
 	bool ShouldEndIdle ( );
 };
 
-// UClass* UGameCrowdAgentBehavior::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdBehavior_PlayAnimation
 // 0x002C (0x0080 - 0x0054)
 class UGameCrowdBehavior_PlayAnimation : public UGameCrowdAgentBehavior
@@ -687,8 +669,6 @@ public:
 	void InitBehavior ( class AGameCrowdAgent* Agent );
 };
 
-// UClass* UGameCrowdBehavior_PlayAnimation::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdBehavior_RunFromPanic
 // 0x000C (0x0060 - 0x0054)
 class UGameCrowdBehavior_RunFromPanic : public UGameCrowdAgentBehavior
@@ -720,8 +700,6 @@ public:
 	void ActivatedBy ( class AActor* NewActionTarget );
 };
 
-// UClass* UGameCrowdBehavior_RunFromPanic::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdBehavior_WaitForGroup
 // 0x0000 (0x0054 - 0x0054)
 class UGameCrowdBehavior_WaitForGroup : public UGameCrowdAgentBehavior
@@ -745,8 +723,6 @@ public:
 	struct FString GetBehaviorString ( );
 	void InitBehavior ( class AGameCrowdAgent* Agent );
 };
-
-// UClass* UGameCrowdBehavior_WaitForGroup::pClassPointer = NULL;
 
 // Class GameFramework.GameCrowdBehavior_WaitInQueue
 // 0x0008 (0x005C - 0x0054)
@@ -776,8 +752,6 @@ public:
 	bool HandleMovement ( );
 };
 
-// UClass* UGameCrowdBehavior_WaitInQueue::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdGroup
 // 0x000C (0x0048 - 0x003C)
 class UGameCrowdGroup : public UObject
@@ -802,8 +776,6 @@ public:
 	void AddMember ( class AGameCrowdAgent* Agent );
 };
 
-// UClass* UGameCrowdGroup::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdInteractionPoint
 // 0x0008 (0x01E8 - 0x01E0)
 class AGameCrowdInteractionPoint : public AActor
@@ -826,8 +798,6 @@ public:
 
 	void OnToggle ( class USeqAct_Toggle* Action );
 };
-
-// UClass* AGameCrowdInteractionPoint::pClassPointer = NULL;
 
 // Class GameFramework.GameCrowdDestination
 // 0x0084 (0x026C - 0x01E8)
@@ -896,8 +866,6 @@ public:
 	bool ReachedByAgent ( class AGameCrowdAgent* Agent, struct FVector TestPosition, unsigned long bTestExactly );
 };
 
-// UClass* AGameCrowdDestination::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdDestinationQueuePoint
 // 0x001C (0x0204 - 0x01E8)
 class AGameCrowdDestinationQueuePoint : public AGameCrowdInteractionPoint
@@ -934,8 +902,6 @@ public:
 	bool QueueReachedBy ( class AGameCrowdAgent* Agent, struct FVector TestPosition );
 };
 
-// UClass* AGameCrowdDestinationQueuePoint::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdForcePoint
 // 0x0000 (0x01E8 - 0x01E8)
 class AGameCrowdForcePoint : public AGameCrowdInteractionPoint
@@ -958,8 +924,6 @@ public:
 	void eventUnTouch ( class AActor* Other );
 	void eventTouch ( class AActor* Other, class UPrimitiveComponent* OtherComp, struct FVector HitLocation, struct FVector HitNormal );
 };
-
-// UClass* AGameCrowdForcePoint::pClassPointer = NULL;
 
 // Class GameFramework.GameCrowdAttractor
 // 0x0008 (0x01F0 - 0x01E8)
@@ -984,8 +948,6 @@ public:
 	struct FVector eventAppliedForce ( class AGameCrowdAgent* Agent );
 };
 
-// UClass* AGameCrowdAttractor::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdRepulsor
 // 0x0008 (0x01F0 - 0x01E8)
 class AGameCrowdRepulsor : public AGameCrowdForcePoint
@@ -1008,8 +970,6 @@ public:
 
 	struct FVector eventAppliedForce ( class AGameCrowdAgent* Agent );
 };
-
-// UClass* AGameCrowdRepulsor::pClassPointer = NULL;
 
 // Class GameFramework.GameCrowdPopulationManager
 // 0x0098 (0x0278 - 0x01E0)
@@ -1086,8 +1046,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AGameCrowdPopulationManager::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdReplicationActor
 // 0x000C (0x01EC - 0x01E0)
 class AGameCrowdReplicationActor : public AActor
@@ -1112,8 +1070,6 @@ public:
 	void eventReplicatedEvent ( struct FName VarName );
 };
 
-// UClass* AGameCrowdReplicationActor::pClassPointer = NULL;
-
 // Class GameFramework.GameDestinationConnRenderingComponent
 // 0x0000 (0x01E8 - 0x01E8)
 class UGameDestinationConnRenderingComponent : public UPrimitiveComponent
@@ -1133,8 +1089,6 @@ public:
 	};
 
 };
-
-// UClass* UGameDestinationConnRenderingComponent::pClassPointer = NULL;
 
 // Class GameFramework.GameExplosion
 // 0x00A8 (0x00E4 - 0x003C)
@@ -1203,8 +1157,6 @@ public:
 
 };
 
-// UClass* UGameExplosion::pClassPointer = NULL;
-
 // Class GameFramework.GameExplosionActor
 // 0x0058 (0x0238 - 0x01E0)
 class AGameExplosionActor : public AActor
@@ -1264,8 +1216,6 @@ public:
 	void eventPreBeginPlay ( );
 };
 
-// UClass* AGameExplosionActor::pClassPointer = NULL;
-
 // Class GameFramework.GamePlayerController
 // 0x0010 (0x05BC - 0x05AC)
 class AGamePlayerController : public APlayerController
@@ -1307,8 +1257,6 @@ public:
 	int GetUIPlayerIndex ( );
 };
 
-// UClass* AGamePlayerController::pClassPointer = NULL;
-
 // Class GameFramework.GameTypes
 // 0x0000 (0x003C - 0x003C)
 class UGameTypes : public UObject
@@ -1328,8 +1276,6 @@ public:
 	};
 
 };
-
-// UClass* UGameTypes::pClassPointer = NULL;
 
 // Class GameFramework.MobileHUD
 // 0x00EC (0x0554 - 0x0468)
@@ -1390,8 +1336,6 @@ public:
 	void PostRender ( );
 	void PostBeginPlay ( );
 };
-
-// UClass* AMobileHUD::pClassPointer = NULL;
 
 // Class GameFramework.MobileInputZone
 // 0x01B4 (0x01F0 - 0x003C)
@@ -1497,8 +1441,6 @@ public:
 	void ActivateZone ( );
 };
 
-// UClass* UMobileInputZone::pClassPointer = NULL;
-
 // Class GameFramework.MobileMenuObject
 // 0x0048 (0x0084 - 0x003C)
 class UMobileMenuObject : public UObject
@@ -1552,8 +1494,6 @@ public:
 	void InitMenuObject ( class UMobilePlayerInput* PlayerInput, class UMobileMenuScene* Scene, int ScreenWidth, int ScreenHeight );
 };
 
-// UClass* UMobileMenuObject::pClassPointer = NULL;
-
 // Class GameFramework.MobileMenuImage
 // 0x002C (0x00B0 - 0x0084)
 class UMobileMenuImage : public UMobileMenuObject
@@ -1578,8 +1518,6 @@ public:
 
 	void RenderObject ( class UCanvas* Canvas );
 };
-
-// UClass* UMobileMenuImage::pClassPointer = NULL;
 
 // Class GameFramework.MobileMenuScene
 // 0x0044 (0x0080 - 0x003C)
@@ -1634,8 +1572,6 @@ public:
 	float GetGlobalScaleY ( );
 	float GetGlobalScaleX ( );
 };
-
-// UClass* UMobileMenuScene::pClassPointer = NULL;
 
 // Class GameFramework.MobilePlayerInput
 // 0x0260 (0x03DC - 0x017C)
@@ -1720,8 +1656,6 @@ public:
 	void OnMobileMotion ( class UPlayerInput* PlayerInput, struct FVector CurrentAttitude, struct FVector CurrentRotationRate, struct FVector CurrentGravity, struct FVector CurrentAcceleration );
 };
 
-// UClass* UMobilePlayerInput::pClassPointer = NULL;
-
 // Class GameFramework.NavMeshGoal_OutOfViewFrom
 // 0x0014 (0x0064 - 0x0050)
 class UNavMeshGoal_OutOfViewFrom : public UNavMeshPathGoalEvaluator
@@ -1747,8 +1681,6 @@ public:
 	bool MustBeHiddenFromThisPoint ( class UNavigationHandle* NavHandle, struct FVector InOutOfViewLocation );
 	void RecycleNative ( );
 };
-
-// UClass* UNavMeshGoal_OutOfViewFrom::pClassPointer = NULL;
 
 // Class GameFramework.NavMeshPath_BiasAgainstPolysWithinDistanceOfLocations
 // 0x0028 (0x0078 - 0x0050)
@@ -1776,8 +1708,6 @@ public:
 	bool BiasAgainstPolysWithinDistanceOfLocations ( class UNavigationHandle* NavHandle, struct FVector InLocation, struct FRotator InRotation, float InDistanceToCheck, TArray< struct FVector > InLocationsToCheck );
 };
 
-// UClass* UNavMeshPath_BiasAgainstPolysWithinDistanceOfLocations::pClassPointer = NULL;
-
 // Class GameFramework.SeqAct_ControlGameMovie
 // 0x0014 (0x010C - 0x00F8)
 class USeqAct_ControlGameMovie : public USeqAct_Latent
@@ -1800,8 +1730,6 @@ public:
 	};
 
 };
-
-// UClass* USeqAct_ControlGameMovie::pClassPointer = NULL;
 
 // Class GameFramework.SeqAct_Deproject
 // 0x0028 (0x0110 - 0x00E8)
@@ -1828,8 +1756,6 @@ public:
 	};
 
 };
-
-// UClass* USeqAct_Deproject::pClassPointer = NULL;
 
 // Class GameFramework.SeqAct_GameCrowdPopulationManagerToggle
 // 0x001C (0x0104 - 0x00E8)
@@ -1862,8 +1788,6 @@ public:
 	int eventGetObjClassVersion ( );
 	void eventFindPopMgrTarget ( );
 };
-
-// UClass* USeqAct_GameCrowdPopulationManagerToggle::pClassPointer = NULL;
 
 // Class GameFramework.SeqAct_GameCrowdSpawner
 // 0x0058 (0x0150 - 0x00F8)
@@ -1917,8 +1841,6 @@ public:
 	void SpawnedAgent ( class AGameCrowdAgent* NewAgent );
 };
 
-// UClass* USeqAct_GameCrowdSpawner::pClassPointer = NULL;
-
 // Class GameFramework.SeqAct_MobileAddInputZones
 // 0x000C (0x00F4 - 0x00E8)
 class USeqAct_MobileAddInputZones : public USequenceAction
@@ -1941,8 +1863,6 @@ public:
 
 };
 
-// UClass* USeqAct_MobileAddInputZones::pClassPointer = NULL;
-
 // Class GameFramework.SeqAct_MobileClearInputZones
 // 0x0000 (0x00E8 - 0x00E8)
 class USeqAct_MobileClearInputZones : public USequenceAction
@@ -1962,8 +1882,6 @@ public:
 	};
 
 };
-
-// UClass* USeqAct_MobileClearInputZones::pClassPointer = NULL;
 
 // Class GameFramework.SeqAct_MobileRemoveInputZone
 // 0x000C (0x00F4 - 0x00E8)
@@ -1986,8 +1904,6 @@ public:
 
 };
 
-// UClass* USeqAct_MobileRemoveInputZone::pClassPointer = NULL;
-
 // Class GameFramework.SeqAct_MobileSaveLoadValue
 // 0x0000 (0x00E8 - 0x00E8)
 class USeqAct_MobileSaveLoadValue : public USequenceAction
@@ -2009,8 +1925,6 @@ public:
 	int eventGetObjClassVersion ( );
 };
 
-// UClass* USeqAct_MobileSaveLoadValue::pClassPointer = NULL;
-
 // Class GameFramework.SeqAct_ModifyProperty
 // 0x000C (0x00F4 - 0x00E8)
 class USeqAct_ModifyProperty : public USequenceAction
@@ -2031,8 +1945,6 @@ public:
 	};
 
 };
-
-// UClass* USeqAct_ModifyProperty::pClassPointer = NULL;
 
 // Class GameFramework.SeqAct_PlayAgentAnimation
 // 0x0024 (0x011C - 0x00F8)
@@ -2066,8 +1978,6 @@ public:
 	int eventGetObjClassVersion ( );
 };
 
-// UClass* USeqAct_PlayAgentAnimation::pClassPointer = NULL;
-
 // Class GameFramework.SeqEvent_CrowdAgentReachedDestination
 // 0x0000 (0x0100 - 0x0100)
 class USeqEvent_CrowdAgentReachedDestination : public USequenceEvent
@@ -2087,8 +1997,6 @@ public:
 	};
 
 };
-
-// UClass* USeqEvent_CrowdAgentReachedDestination::pClassPointer = NULL;
 
 // Class GameFramework.SeqEvent_HudRender
 // 0x0014 (0x0114 - 0x0100)
@@ -2115,8 +2023,6 @@ public:
 	void eventRegisterEvent ( );
 };
 
-// UClass* USeqEvent_HudRender::pClassPointer = NULL;
-
 // Class GameFramework.SeqEvent_MobileBase
 // 0x0000 (0x0100 - 0x0100)
 class USeqEvent_MobileBase : public USequenceEvent
@@ -2138,8 +2044,6 @@ public:
 	void eventAddToMobileInput ( class UMobilePlayerInput* MPI );
 	void eventRegisterEvent ( );
 };
-
-// UClass* USeqEvent_MobileBase::pClassPointer = NULL;
 
 // Class GameFramework.SeqEvent_MobileMotion
 // 0x0018 (0x0118 - 0x0100)
@@ -2168,8 +2072,6 @@ public:
 	int eventGetObjClassVersion ( );
 };
 
-// UClass* USeqEvent_MobileMotion::pClassPointer = NULL;
-
 // Class GameFramework.SeqEvent_MobileZoneBase
 // 0x000C (0x010C - 0x0100)
 class USeqEvent_MobileZoneBase : public USeqEvent_MobileBase
@@ -2191,8 +2093,6 @@ public:
 
 	void eventAddToMobileInput ( class UMobilePlayerInput* MPI );
 };
-
-// UClass* USeqEvent_MobileZoneBase::pClassPointer = NULL;
 
 // Class GameFramework.SeqEvent_MobileButton
 // 0x0004 (0x0110 - 0x010C)
@@ -2216,8 +2116,6 @@ public:
 	};
 
 };
-
-// UClass* USeqEvent_MobileButton::pClassPointer = NULL;
 
 // Class GameFramework.SeqEvent_MobileInput
 // 0x0018 (0x0124 - 0x010C)
@@ -2245,8 +2143,6 @@ public:
 
 };
 
-// UClass* USeqEvent_MobileInput::pClassPointer = NULL;
-
 // Class GameFramework.SeqEvent_MobileLook
 // 0x0014 (0x0120 - 0x010C)
 class USeqEvent_MobileLook : public USeqEvent_MobileZoneBase
@@ -2269,8 +2165,6 @@ public:
 	};
 
 };
-
-// UClass* USeqEvent_MobileLook::pClassPointer = NULL;
 
 // Class GameFramework.SeqEvent_MobileRawInput
 // 0x0010 (0x0110 - 0x0100)
@@ -2297,8 +2191,6 @@ public:
 	void eventRegisterEvent ( );
 };
 
-// UClass* USeqEvent_MobileRawInput::pClassPointer = NULL;
-
 // Class GameFramework.SeqEvent_MobileObjectPicker
 // 0x002C (0x013C - 0x0110)
 class USeqEvent_MobileObjectPicker : public USeqEvent_MobileRawInput
@@ -2324,8 +2216,6 @@ public:
 
 };
 
-// UClass* USeqEvent_MobileObjectPicker::pClassPointer = NULL;
-
 // Class GameFramework.SeqEvent_MobileSwipe
 // 0x0010 (0x0120 - 0x0110)
 class USeqEvent_MobileSwipe : public USeqEvent_MobileRawInput
@@ -2348,8 +2238,6 @@ public:
 	};
 
 };
-
-// UClass* USeqEvent_MobileSwipe::pClassPointer = NULL;
 
 // Class GameFramework.GameSkelCtrl_Recoil
 // 0x007C (0x0138 - 0x00BC)
@@ -2376,8 +2264,6 @@ public:
 	};
 
 };
-
-// UClass* UGameSkelCtrl_Recoil::pClassPointer = NULL;
 
 // Class GameFramework.GameCameraBase
 // 0x0008 (0x0044 - 0x003C)
@@ -2408,8 +2294,6 @@ public:
 	void OnBecomeInActive ( class UGameCameraBase* NewCamera );
 	void OnBecomeActive ( class UGameCameraBase* OldCamera );
 };
-
-// UClass* UGameCameraBase::pClassPointer = NULL;
 
 // Class GameFramework.GameThirdPersonCamera
 // 0x0130 (0x0174 - 0x0044)
@@ -2501,8 +2385,6 @@ public:
 	class UGameThirdPersonCameraMode* CreateCameraMode ( class UClass* ModeClass );
 };
 
-// UClass* UGameThirdPersonCamera::pClassPointer = NULL;
-
 // Class GameFramework.GamePlayerCamera
 // 0x006C (0x04B0 - 0x0444)
 class AGamePlayerCamera : public ACamera
@@ -2549,8 +2431,6 @@ public:
 	void CacheLastTargetBaseInfo ( class AActor* TargetBase );
 	class UGameCameraBase* CreateCamera ( class UClass* CameraClass );
 };
-
-// UClass* AGamePlayerCamera::pClassPointer = NULL;
 
 // Class GameFramework.GameThirdPersonCameraMode
 // 0x01F1 (0x022D - 0x003C)
@@ -2642,8 +2522,6 @@ public:
 	void Init ( );
 };
 
-// UClass* UGameThirdPersonCameraMode::pClassPointer = NULL;
-
 // Class GameFramework.GameThirdPersonCameraMode_Default
 // 0x000F (0x023C - 0x022D)
 class UGameThirdPersonCameraMode_Default : public UGameThirdPersonCameraMode
@@ -2666,8 +2544,6 @@ public:
 	};
 
 };
-
-// UClass* UGameThirdPersonCameraMode_Default::pClassPointer = NULL;
 
 // Class GameFramework.GameSpecialMove
 // 0x0040 (0x007C - 0x003C)
@@ -2724,8 +2600,6 @@ public:
 	void InitSpecialMove ( class AGamePawn* inPawn, struct FName InHandle );
 };
 
-// UClass* UGameSpecialMove::pClassPointer = NULL;
-
 // Class GameFramework.GameStateObject
 // 0x0028 (0x0080 - 0x0058)
 class UGameStateObject : public UGameplayEventsHandler
@@ -2754,8 +2628,6 @@ public:
 	void Reset ( );
 	void eventPreProcessStream ( );
 };
-
-// UClass* UGameStateObject::pClassPointer = NULL;
 
 // Class GameFramework.GameStatsAggregator
 // 0x01CC (0x0224 - 0x0058)
@@ -2791,8 +2663,6 @@ public:
 	void eventPreProcessStream ( );
 };
 
-// UClass* UGameStatsAggregator::pClassPointer = NULL;
-
 // Class GameFramework.GameCrowdSpawnerInterface
 // 0x0000 (0x003C - 0x003C)
 class UGameCrowdSpawnerInterface : public UInterface
@@ -2806,7 +2676,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30084 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30103 ];
 
 		return pClassPointer;
 	};
@@ -2815,8 +2685,6 @@ public:
 	bool AddToAgentPool ( class AGameCrowdAgent* Agent );
 	void AgentDestroyed ( class AGameCrowdAgent* Agent );
 };
-
-// UClass* UGameCrowdSpawnerInterface::pClassPointer = NULL;
 
 // Class GameFramework.GameCrowdSpawnInterface
 // 0x0000 (0x003C - 0x003C)
@@ -2831,15 +2699,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30263 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30282 ];
 
 		return pClassPointer;
 	};
 
 	void GetSpawnPosition ( class USeqAct_GameCrowdSpawner* Spawner, struct FVector* SpawnPos, struct FRotator* SpawnRot );
 };
-
-// UClass* UGameCrowdSpawnInterface::pClassPointer = NULL;
 
 // Class GameFramework.DynamicGameCrowdDestination
 // 0x0000 (0x026C - 0x026C)
@@ -2854,14 +2720,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30264 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30283 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* ADynamicGameCrowdDestination::pClassPointer = NULL;
 
 // Class GameFramework.GameAICmd_Hover_MoveToGoal
 // 0x0034 (0x008C - 0x0058)
@@ -2887,7 +2751,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30362 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30381 ];
 
 		return pClassPointer;
 	};
@@ -2897,8 +2761,6 @@ public:
 	void Pushed ( );
 	bool MoveToGoal ( class AGameAIController* AI, class AActor* InGoal, float InGoalDistance, float InHoverHeight );
 };
-
-// UClass* UGameAICmd_Hover_MoveToGoal::pClassPointer = NULL;
 
 // Class GameFramework.GameAICmd_Hover_MoveToGoal_Mesh
 // 0x0058 (0x00B0 - 0x0058)
@@ -2927,7 +2789,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30408 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30427 ];
 
 		return pClassPointer;
 	};
@@ -2940,8 +2802,6 @@ public:
 	bool HoverToPoint ( class AGameAIController* AI, struct FVector InPoint, float InGoalDistance, float InHoverHeight );
 	bool HoverToGoal ( class AGameAIController* AI, class AActor* InGoal, float InGoalDistance, float InHoverHeight );
 };
-
-// UClass* UGameAICmd_Hover_MoveToGoal_Mesh::pClassPointer = NULL;
 
 // Class GameFramework.GameCrowd_ListOfAgents
 // 0x000C (0x0048 - 0x003C)
@@ -2957,14 +2817,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30643 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 30662 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UGameCrowd_ListOfAgents::pClassPointer = NULL;
 
 // Class GameFramework.GameCrowdInteractionDestination
 // 0x0000 (0x026C - 0x026C)
@@ -2979,14 +2837,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31059 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31078 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AGameCrowdInteractionDestination::pClassPointer = NULL;
 
 // Class GameFramework.GameExplosionContent
 // 0x0048 (0x0084 - 0x003C)
@@ -3020,14 +2876,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31410 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31429 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UGameExplosionContent::pClassPointer = NULL;
 
 // Class GameFramework.GameFixedCamera
 // 0x0004 (0x0048 - 0x0044)
@@ -3043,7 +2897,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31431 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31450 ];
 
 		return pClassPointer;
 	};
@@ -3051,8 +2905,6 @@ public:
 	void OnBecomeActive ( class UGameCameraBase* OldCamera );
 	void UpdateCamera ( class APawn* P, class AGamePlayerCamera* CameraActor, float DeltaTime, struct FTViewTarget* OutVT );
 };
-
-// UClass* UGameFixedCamera::pClassPointer = NULL;
 
 // Class GameFramework.GameKActorSpawnableEffect
 // 0x0000 (0x02D8 - 0x02D8)
@@ -3067,7 +2919,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31442 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31461 ];
 
 		return pClassPointer;
 	};
@@ -3076,8 +2928,6 @@ public:
 	void eventFellOutOfWorld ( class UClass* dmgType );
 	void eventPostBeginPlay ( );
 };
-
-// UClass* AGameKActorSpawnableEffect::pClassPointer = NULL;
 
 // Class GameFramework.GameWaveForms
 // 0x0010 (0x004C - 0x003C)
@@ -3096,14 +2946,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31531 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 31550 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UGameWaveForms::pClassPointer = NULL;
 
 // Class GameFramework.MobileMenuButton
 // 0x005C (0x00E0 - 0x0084)
@@ -3123,7 +2971,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32336 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32355 ];
 
 		return pClassPointer;
 	};
@@ -3132,8 +2980,6 @@ public:
 	void RenderObject ( class UCanvas* Canvas );
 	void InitMenuObject ( class UMobilePlayerInput* PlayerInput, class UMobileMenuScene* Scene, int ScreenWidth, int ScreenHeight );
 };
-
-// UClass* UMobileMenuButton::pClassPointer = NULL;
 
 // Class GameFramework.MobileMenuGame
 // 0x0004 (0x037C - 0x0378)
@@ -3149,7 +2995,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32363 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32382 ];
 
 		return pClassPointer;
 	};
@@ -3158,8 +3004,6 @@ public:
 	void StartMatch ( );
 	void eventPostLogin ( class APlayerController* NewPlayer );
 };
-
-// UClass* AMobileMenuGame::pClassPointer = NULL;
 
 // Class GameFramework.MobileMenuPlayerController
 // 0x0000 (0x05BC - 0x05BC)
@@ -3174,14 +3018,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32374 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32393 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AMobileMenuPlayerController::pClassPointer = NULL;
 
 // Class GameFramework.MobileMenuLabel
 // 0x0024 (0x00A8 - 0x0084)
@@ -3203,15 +3045,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32389 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32408 ];
 
 		return pClassPointer;
 	};
 
 	void RenderObject ( class UCanvas* Canvas );
 };
-
-// UClass* UMobileMenuLabel::pClassPointer = NULL;
 
 // Class GameFramework.PlayerCollectorGame
 // 0x0010 (0x0388 - 0x0378)
@@ -3228,7 +3068,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32612 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32631 ];
 
 		return pClassPointer;
 	};
@@ -3236,8 +3076,6 @@ public:
 	void eventGetSeamlessTravelActorList ( unsigned long bToEntry, TArray< class AActor* >* ActorList );
 	class APlayerController* eventLogin ( struct FString Portal, struct FString Options, struct FUniqueNetId UniqueId, struct FString* ErrorMessage );
 };
-
-// UClass* APlayerCollectorGame::pClassPointer = NULL;
 
 // Class GameFramework.PMESTG_LeaveADecalBase
 // 0x0004 (0x0040 - 0x003C)
@@ -3253,14 +3091,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32627 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32646 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UPMESTG_LeaveADecalBase::pClassPointer = NULL;
 
 // Class GameFramework.SeqEvent_HudRenderImage
 // 0x0038 (0x014C - 0x0114)
@@ -3284,15 +3120,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32707 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32726 ];
 
 		return pClassPointer;
 	};
 
 	void Render ( class UCanvas* TargetCanvas, class AHUD* TargetHud );
 };
-
-// UClass* USeqEvent_HudRenderImage::pClassPointer = NULL;
 
 // Class GameFramework.SeqEvent_HudRenderText
 // 0x0021 (0x0135 - 0x0114)
@@ -3312,7 +3146,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32728 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32747 ];
 
 		return pClassPointer;
 	};
@@ -3320,8 +3154,6 @@ public:
 	int eventGetObjClassVersion ( );
 	void Render ( class UCanvas* TargetCanvas, class AHUD* TargetHud );
 };
-
-// UClass* USeqEvent_HudRenderText::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER

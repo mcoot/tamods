@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: IpDrv_classes.h
@@ -29,34 +29,34 @@
 */
 
 // Enum IpDrv.InternetLink.ELinkMode
-/*enum ELinkMode
+enum ELinkMode
 {
 	MODE_Text                                          = 0,
 	MODE_Line                                          = 1,
 	MODE_Binary                                        = 2,
 	MODE_MAX                                           = 3
-};*/
+};
 
 // Enum IpDrv.InternetLink.EReceiveMode
-/*enum EReceiveMode
+enum EReceiveMode
 {
 	RMODE_Manual                                       = 0,
 	RMODE_Event                                        = 1,
 	RMODE_MAX                                          = 2
-};*/
+};
 
 // Enum IpDrv.InternetLink.ELineMode
-/*enum ELineMode
+enum ELineMode
 {
 	LMODE_auto                                         = 0,
 	LMODE_DOS                                          = 1,
 	LMODE_UNIX                                         = 2,
 	LMODE_MAC                                          = 3,
 	LMODE_MAX                                          = 4
-};*/
+};
 
 // Enum IpDrv.MeshBeacon.EMeshBeaconPacketType
-/*enum EMeshBeaconPacketType
+enum EMeshBeaconPacketType
 {
 	MB_Packet_UnknownType                              = 0,
 	MB_Packet_ClientNewConnectionRequest               = 1,
@@ -70,20 +70,20 @@
 	MB_Packet_DummyData                                = 9,
 	MB_Packet_Heartbeat                                = 10,
 	MB_Packet_MAX                                      = 11
-};*/
+};
 
 // Enum IpDrv.MeshBeacon.EMeshBeaconConnectionResult
-/*enum EMeshBeaconConnectionResult
+enum EMeshBeaconConnectionResult
 {
 	MB_ConnectionResult_Succeeded                      = 0,
 	MB_ConnectionResult_Duplicate                      = 1,
 	MB_ConnectionResult_Timeout                        = 2,
 	MB_ConnectionResult_Error                          = 3,
 	MB_ConnectionResult_MAX                            = 4
-};*/
+};
 
 // Enum IpDrv.MeshBeacon.EMeshBeaconBandwidthTestState
-/*enum EMeshBeaconBandwidthTestState
+enum EMeshBeaconBandwidthTestState
 {
 	MB_BandwidthTestState_NotStarted                   = 0,
 	MB_BandwidthTestState_RequestPending               = 1,
@@ -94,28 +94,28 @@
 	MB_BandwidthTestState_Timeout                      = 6,
 	MB_BandwidthTestState_Error                        = 7,
 	MB_BandwidthTestState_MAX                          = 8
-};*/
+};
 
 // Enum IpDrv.MeshBeacon.EMeshBeaconBandwidthTestResult
-/*enum EMeshBeaconBandwidthTestResult
+enum EMeshBeaconBandwidthTestResult
 {
 	MB_BandwidthTestResult_Succeeded                   = 0,
 	MB_BandwidthTestResult_Timeout                     = 1,
 	MB_BandwidthTestResult_Error                       = 2,
 	MB_BandwidthTestResult_MAX                         = 3
-};*/
+};
 
 // Enum IpDrv.MeshBeacon.EMeshBeaconBandwidthTestType
-/*enum EMeshBeaconBandwidthTestType
+enum EMeshBeaconBandwidthTestType
 {
 	MB_BandwidthTestType_Upstream                      = 0,
 	MB_BandwidthTestType_Downstream                    = 1,
 	MB_BandwidthTestType_RoundtripLatency              = 2,
 	MB_BandwidthTestType_MAX                           = 3
-};*/
+};
 
 // Enum IpDrv.MeshBeaconClient.EMeshBeaconClientState
-/*enum EMeshBeaconClientState
+enum EMeshBeaconClientState
 {
 	MBCS_None                                          = 0,
 	MBCS_Connecting                                    = 1,
@@ -124,20 +124,20 @@
 	MBCS_AwaitingResponse                              = 4,
 	MBCS_Closed                                        = 5,
 	MBCS_MAX                                           = 6
-};*/
+};
 
 // Enum IpDrv.OnlineEventsInterfaceMcp.EEventUploadType
-/*enum EEventUploadType
+enum EEventUploadType
 {
 	EUT_GenericStats                                   = 0,
 	EUT_ProfileData                                    = 1,
 	EUT_MatchmakingData                                = 2,
 	EUT_PlaylistPopulation                             = 3,
 	EUT_MAX                                            = 4
-};*/
+};
 
 // Enum IpDrv.PartyBeacon.EReservationPacketType
-/*enum EReservationPacketType
+enum EReservationPacketType
 {
 	RPT_UnknownPacketType                              = 0,
 	RPT_ClientReservationRequest                       = 1,
@@ -150,10 +150,10 @@
 	RPT_HostHasCancelled                               = 8,
 	RPT_Heartbeat                                      = 9,
 	RPT_MAX                                            = 10
-};*/
+};
 
 // Enum IpDrv.PartyBeacon.EPartyReservationResult
-/*enum EPartyReservationResult
+enum EPartyReservationResult
 {
 	PRR_GeneralError                                   = 0,
 	PRR_PartyLimitReached                              = 1,
@@ -164,18 +164,18 @@
 	PRR_ReservationAccepted                            = 6,
 	PRR_ReservationDenied                              = 7,
 	PRR_MAX                                            = 8
-};*/
+};
 
 // Enum IpDrv.PartyBeaconClient.EPartyBeaconClientRequest
-/*enum EPartyBeaconClientRequest
+enum EPartyBeaconClientRequest
 {
 	PBClientRequest_NewReservation                     = 0,
 	PBClientRequest_UpdateReservation                  = 1,
 	PBClientRequest_MAX                                = 2
-};*/
+};
 
 // Enum IpDrv.PartyBeaconClient.EPartyBeaconClientState
-/*enum EPartyBeaconClientState
+enum EPartyBeaconClientState
 {
 	PBCS_None                                          = 0,
 	PBCS_Connecting                                    = 1,
@@ -184,18 +184,18 @@
 	PBCS_AwaitingResponse                              = 4,
 	PBCS_Closed                                        = 5,
 	PBCS_MAX                                           = 6
-};*/
+};
 
 // Enum IpDrv.PartyBeaconHost.EPartyBeaconHostState
-/*enum EPartyBeaconHostState
+enum EPartyBeaconHostState
 {
 	PBHS_AllowReservations                             = 0,
 	PBHS_DenyReservations                              = 1,
 	PBHS_MAX                                           = 2
-};*/
+};
 
 // Enum IpDrv.TcpLink.ELinkState
-/*enum ELinkState
+enum ELinkState
 {
 	STATE_Initialized                                  = 0,
 	STATE_Ready                                        = 1,
@@ -207,15 +207,15 @@
 	STATE_ListenClosing                                = 7,
 	STATE_ConnectClosing                               = 8,
 	STATE_MAX                                          = 9
-};*/
+};
 
 // Enum IpDrv.WebRequest.ERequestType
-/*enum ERequestType
+enum ERequestType
 {
 	Request_GET                                        = 0,
 	Request_POST                                       = 1,
 	Request_MAX                                        = 2
-};*/
+};
 
 
 /*
@@ -246,8 +246,6 @@ public:
 
 };
 
-// UClass* UClientBeaconAddressResolver::pClassPointer = NULL;
-
 // Class IpDrv.HTTPDownload
 // 0x00FC (0x0B6C - 0x0A70)
 class UHTTPDownload : public UDownload
@@ -272,8 +270,6 @@ public:
 	};
 
 };
-
-// UClass* UHTTPDownload::pClassPointer = NULL;
 
 // Class IpDrv.InternetLink
 // 0x0018 (0x01F8 - 0x01E0)
@@ -312,8 +308,6 @@ public:
 	bool ParseURL ( struct FString URL, struct FString* Addr, int* PortNum, struct FString* LevelName, struct FString* EntryName );
 	bool IsDataPending ( );
 };
-
-// UClass* AInternetLink::pClassPointer = NULL;
 
 // Class IpDrv.TcpLink
 // 0x0028 (0x0220 - 0x01F8)
@@ -355,8 +349,6 @@ public:
 	int BindPort ( int PortNum, unsigned long bUseNextAvailable );
 };
 
-// UClass* ATcpLink::pClassPointer = NULL;
-
 // Class IpDrv.MCPBase
 // 0x0004 (0x0040 - 0x003C)
 class UMCPBase : public UObject
@@ -377,8 +369,6 @@ public:
 	};
 
 };
-
-// UClass* UMCPBase::pClassPointer = NULL;
 
 // Class IpDrv.OnlineEventsInterfaceMcp
 // 0x0028 (0x0068 - 0x0040)
@@ -408,8 +398,6 @@ public:
 	bool UploadPlayerData ( struct FUniqueNetId UniqueId, struct FString PlayerNick, class UOnlineProfileSettings* ProfileSettings, class UOnlinePlayerStorage* PlayerStorage );
 };
 
-// UClass* UOnlineEventsInterfaceMcp::pClassPointer = NULL;
-
 // Class IpDrv.OnlineNewsInterfaceMcp
 // 0x0028 (0x0068 - 0x0040)
 class UOnlineNewsInterfaceMcp : public UMCPBase
@@ -438,8 +426,6 @@ public:
 	void OnReadNewsCompleted ( unsigned long bWasSuccessful, unsigned char NewsType );
 	bool ReadNews ( unsigned char LocalUserNum, unsigned char NewsType );
 };
-
-// UClass* UOnlineNewsInterfaceMcp::pClassPointer = NULL;
 
 // Class IpDrv.OnlineTitleFileDownloadMcp
 // 0x0044 (0x0084 - 0x0040)
@@ -475,8 +461,6 @@ public:
 	bool ReadTitleFile ( struct FString FileToRead );
 	void OnReadTitleFileComplete ( unsigned long bWasSuccessful, struct FString Filename );
 };
-
-// UClass* UOnlineTitleFileDownloadMcp::pClassPointer = NULL;
 
 // Class IpDrv.MeshBeacon
 // 0x003C (0x0078 - 0x003C)
@@ -514,8 +498,6 @@ public:
 
 	void eventDestroyBeacon ( );
 };
-
-// UClass* UMeshBeacon::pClassPointer = NULL;
 
 // Class IpDrv.MeshBeaconClient
 // 0x00A0 (0x0118 - 0x0078)
@@ -561,8 +543,6 @@ public:
 	bool RequestConnection ( unsigned long bRegisterSecureAddress, struct FOnlineGameSearchResult* DesiredHost, struct FClientConnectionRequest* ClientRequest );
 	void eventDestroyBeacon ( );
 };
-
-// UClass* UMeshBeaconClient::pClassPointer = NULL;
 
 // Class IpDrv.MeshBeaconHost
 // 0x0064 (0x00DC - 0x0078)
@@ -612,8 +592,6 @@ public:
 	bool InitHostBeacon ( struct FUniqueNetId InOwningPlayerId );
 };
 
-// UClass* UMeshBeaconHost::pClassPointer = NULL;
-
 // Class IpDrv.OnlineSubsystemCommonImpl
 // 0x0014 (0x00F4 - 0x00E0)
 class UOnlineSubsystemCommonImpl : public UOnlineSubsystem
@@ -642,8 +620,6 @@ public:
 	struct FUniqueNetId eventGetPlayerUniqueNetIdFromIndex ( int UserIndex );
 	struct FString eventGetPlayerNicknameFromIndex ( int UserIndex );
 };
-
-// UClass* UOnlineSubsystemCommonImpl::pClassPointer = NULL;
 
 // Class IpDrv.OnlineGameInterfaceImpl
 // 0x0178 (0x01B4 - 0x003C)
@@ -777,8 +753,6 @@ public:
 	void OnFindOnlineGamesComplete ( unsigned long bWasSuccessful );
 };
 
-// UClass* UOnlineGameInterfaceImpl::pClassPointer = NULL;
-
 // Class IpDrv.OnlinePlaylistManager
 // 0x009C (0x00D8 - 0x003C)
 class UOnlinePlaylistManager : public UObject
@@ -846,8 +820,6 @@ public:
 	void OnReadPlaylistComplete ( );
 };
 
-// UClass* UOnlinePlaylistManager::pClassPointer = NULL;
-
 // Class IpDrv.PartyBeacon
 // 0x002C (0x0068 - 0x003C)
 class UPartyBeacon : public UObject
@@ -879,8 +851,6 @@ public:
 	void OnDestroyComplete ( );
 	void eventDestroyBeacon ( );
 };
-
-// UClass* UPartyBeacon::pClassPointer = NULL;
 
 // Class IpDrv.PartyBeaconClient
 // 0x007C (0x00E4 - 0x0068)
@@ -924,8 +894,6 @@ public:
 	void OnReservationCountUpdated ( int ReservationRemaining );
 	void OnReservationRequestComplete ( unsigned char ReservationResult );
 };
-
-// UClass* UPartyBeaconClient::pClassPointer = NULL;
 
 // Class IpDrv.PartyBeaconHost
 // 0x0068 (0x00D0 - 0x0068)
@@ -983,8 +951,6 @@ public:
 	void PauseReservationRequests ( unsigned long bPause );
 };
 
-// UClass* UPartyBeaconHost::pClassPointer = NULL;
-
 // Class IpDrv.TcpipConnection
 // 0x001C (0x5014 - 0x4FF8)
 class UTcpipConnection : public UNetConnection
@@ -1005,8 +971,6 @@ public:
 	};
 
 };
-
-// UClass* UTcpipConnection::pClassPointer = NULL;
 
 // Class IpDrv.TcpNetDriver
 // 0x001C (0x01B0 - 0x0194)
@@ -1030,8 +994,6 @@ public:
 	};
 
 };
-
-// UClass* UTcpNetDriver::pClassPointer = NULL;
 
 // Class IpDrv.WebRequest
 // 0x00BC (0x00F8 - 0x003C)
@@ -1075,8 +1037,6 @@ public:
 	struct FString EncodeBase64 ( struct FString Decoded );
 	struct FString DecodeBase64 ( struct FString Encoded );
 };
-
-// UClass* UWebRequest::pClassPointer = NULL;
 
 // Class IpDrv.WebResponse
 // 0x0068 (0x00A4 - 0x003C)
@@ -1126,8 +1086,6 @@ public:
 	bool FileExists ( struct FString Filename );
 };
 
-// UClass* UWebResponse::pClassPointer = NULL;
-
 // Class IpDrv.WebApplication
 // 0x0014 (0x0050 - 0x003C)
 class UWebApplication : public UObject
@@ -1144,7 +1102,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32803 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32822 ];
 
 		return pClassPointer;
 	};
@@ -1156,8 +1114,6 @@ public:
 	void Cleanup ( );
 	void Init ( );
 };
-
-// UClass* UWebApplication::pClassPointer = NULL;
 
 // Class IpDrv.WebServer
 // 0x014C (0x036C - 0x0220)
@@ -1184,7 +1140,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32806 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32825 ];
 
 		return pClassPointer;
 	};
@@ -1196,35 +1152,9 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AWebServer::pClassPointer = NULL;
-
 // Class IpDrv.HelloWeb
 // 0x0000 (0x0050 - 0x0050)
 class UHelloWeb : public UWebApplication
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32822 ];
-
-		return pClassPointer;
-	};
-
-	void eventQuery ( class UWebRequest* Request, class UWebResponse* Response );
-	void Init ( );
-};
-
-// UClass* UHelloWeb::pClassPointer = NULL;
-
-// Class IpDrv.ImageServer
-// 0x0000 (0x0050 - 0x0050)
-class UImageServer : public UWebApplication
 {
 public:
 
@@ -1241,9 +1171,29 @@ public:
 	};
 
 	void eventQuery ( class UWebRequest* Request, class UWebResponse* Response );
+	void Init ( );
 };
 
-// UClass* UImageServer::pClassPointer = NULL;
+// Class IpDrv.ImageServer
+// 0x0000 (0x0050 - 0x0050)
+class UImageServer : public UWebApplication
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32860 ];
+
+		return pClassPointer;
+	};
+
+	void eventQuery ( class UWebRequest* Request, class UWebResponse* Response );
+};
 
 // Class IpDrv.WebConnection
 // 0x0030 (0x0250 - 0x0220)
@@ -1268,7 +1218,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 33820 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 33839 ];
 
 		return pClassPointer;
 	};
@@ -1287,8 +1237,6 @@ public:
 	void eventClosed ( );
 	void eventAccepted ( );
 };
-
-// UClass* AWebConnection::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER

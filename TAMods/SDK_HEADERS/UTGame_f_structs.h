@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: UTGame_f_structs.h
@@ -1871,6 +1871,209 @@ struct AUTPawn_execAdjustPPEffects_Parms
 {
 	class AUTPlayerController*                         PC;                                               		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	unsigned long                                      bRemove : 1;                                      		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function UTGame.GFxMinimapHud.AddDeathMessage
+// [0x00020002] 
+struct UGFxMinimapHud_execAddDeathMessage_Parms
+{
+	class APlayerReplicationInfo*                      Killer;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class APlayerReplicationInfo*                      Killed;                                           		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      Dmg;                                              		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// struct FString                                  msg;                                              		// 0x000C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// unsigned char                                   Index;                                            		// 0x0018 (0x0001) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.GetRank
+// [0x00020002] 
+struct UGFxMinimapHud_execGetRank_Parms
+{
+	class APlayerReplicationInfo*                      PRI;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+	// int                                             I;                                                		// 0x0010 (0x0004) [0x0000000000000000]              
+	// int                                             J;                                                		// 0x0014 (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.SetCenterText
+// [0x00020000] 
+struct UGFxMinimapHud_execSetCenterText_Parms
+{
+	struct FString                                     Text;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function UTGame.GFxMinimapHud.ShowMultiKill
+// [0x00020002] 
+struct UGFxMinimapHud_execShowMultiKill_Parms
+{
+	int                                                N;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     msg;                                              		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function UTGame.GFxMinimapHud.DisplayHit
+// [0x00820002] 
+struct UGFxMinimapHud_execDisplayHit_Parms
+{
+	struct FVector                                     HitDir;                                           		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Damage;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      DamageType;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// struct FVector                                  Loc;                                              		// 0x0014 (0x000C) [0x0000000000000000]              
+	// struct FRotator                                 Rot;                                              		// 0x0020 (0x000C) [0x0000000000000000]              
+	// float                                           DirOfHit;                                         		// 0x002C (0x0004) [0x0000000000000000]              
+	// struct FVector                                  AxisX;                                            		// 0x0030 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  AxisY;                                            		// 0x003C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  AxisZ;                                            		// 0x0048 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  ShotDirection;                                    		// 0x0054 (0x000C) [0x0000000000000000]              
+	// unsigned long                                   bIsInFront : 1;                                   		// 0x0060 (0x0004) [0x0000000000000000] [0x00000001] 
+	// struct FVector2D                                AngularDist;                                      		// 0x0064 (0x0008) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.MinimapZoomIn
+// [0x00020002] 
+struct UGFxMinimapHud_execMinimapZoomIn_Parms
+{
+};
+
+// Function UTGame.GFxMinimapHud.MinimapZoomOut
+// [0x00020002] 
+struct UGFxMinimapHud_execMinimapZoomOut_Parms
+{
+};
+
+// Function UTGame.GFxMinimapHud.ToggleCrosshair
+// [0x00020002] 
+struct UGFxMinimapHud_execToggleCrosshair_Parms
+{
+	unsigned long                                      bToggle : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	// class AUTHUDBase*                               UTHB;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class AUTPlayerController*                      PC;                                               		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.TickHud
+// [0x00020002] 
+struct UGFxMinimapHud_execTickHud_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class AUTPawn*                                  UTP;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class AUTVehicle*                               UTV;                                              		// 0x000C (0x0004) [0x0000000000000000]              
+	// class AUTWeaponPawn*                            UWP;                                              		// 0x0010 (0x0004) [0x0000000000000000]              
+	// class AUTWeapon*                                Weapon;                                           		// 0x0014 (0x0004) [0x0000000000000000]              
+	// class AUTPlayerReplicationInfo*                 PRI;                                              		// 0x0018 (0x0004) [0x0000000000000000]              
+	// class APlayerController*                        PC;                                               		// 0x001C (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.UpdateGameHUD
+// [0x00020002] 
+struct UGFxMinimapHud_execUpdateGameHUD_Parms
+{
+	class AUTPlayerReplicationInfo*                    PRI;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class AUTPlayerReplicationInfo*                 MaxPRI;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
+	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             J;                                                		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.AddMessage
+// [0x00820002] 
+struct UGFxMinimapHud_execAddMessage_Parms
+{
+	struct FString                                     Type;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     msg;                                              		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	// struct FMessageRow                              mrow;                                             		// 0x0018 (0x0010) [0x0000000000000000]              
+	// struct FASDisplayInfo                           DI;                                               		// 0x0028 (0x002C) [0x0000000000000000]              
+	// int                                             J;                                                		// 0x0054 (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.RemoveMessage
+// [0x00020000] 
+struct UGFxMinimapHud_execRemoveMessage_Parms
+{
+};
+
+// Function UTGame.GFxMinimapHud.ClearStats
+// [0x00824002] 
+struct UGFxMinimapHud_execClearStats_Parms
+{
+	unsigned long                                      clearScores : 1;                                  		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// struct FASDisplayInfo                           DI;                                               		// 0x0004 (0x002C) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.FormatTime
+// [0x00022002] 
+struct UGFxMinimapHud_execFormatTime_Parms
+{
+	int                                                Seconds;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+	// int                                             Hours;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
+	// int                                             Mins;                                             		// 0x0014 (0x0004) [0x0000000000000000]              
+	// struct FString                                  NewTimeString;                                    		// 0x0018 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+};
+
+// Function UTGame.GFxMinimapHud.UpdateEnergy
+// [0x00C20002] 
+struct UGFxMinimapHud_execUpdateEnergy_Parms
+{
+	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	float                                              NewEnergy;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              EnergyMax;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// struct FASDisplayInfo                           DI;                                               		// 0x002C (0x002C) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.UpdateHealth
+// [0x00C20002] 
+struct UGFxMinimapHud_execUpdateHealth_Parms
+{
+	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	float                                              NewHealth;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              HealthMax;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// struct FASDisplayInfo                           DI;                                               		// 0x002C (0x002C) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.LoadHeEn
+// [0x00420002] 
+struct UGFxMinimapHud_execLoadHeEn_Parms
+{
+	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	struct FString                                     Base;                                             		// 0x0024 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function UTGame.GFxMinimapHud.Init
+// [0x00024002] 
+struct UGFxMinimapHud_execInit_Parms
+{
+	class ULocalPlayer*                                Player;                                           		// 0x0000 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// int                                             J;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class UGFxObject*                               TempWidget;                                       		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.InitMessageRow
+// [0x00820002] 
+struct UGFxMinimapHud_execInitMessageRow_Parms
+{
+	class UGFxObject*                                  ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FMessageRow                              mrow;                                             		// 0x0004 (0x0010) [0x0000000000000000]              
+};
+
+// Function UTGame.GFxMinimapHud.CreateMessageRow
+// [0x00020002] 
+struct UGFxMinimapHud_execCreateMessageRow_Parms
+{
+	class UGFxObject*                                  ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function UTGame.GFxMinimapHud.SetAmmoCountTF
+// [0x00020000] 
+struct UGFxMinimapHud_execSetAmmoCountTF_Parms
+{
+	class AWeapon*                                     Wep;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Ammo;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function UTGame.GFxMinimapHud.registerMiniMapView
+// [0x00020002] 
+struct UGFxMinimapHud_execregisterMiniMapView_Parms
+{
+	class UGFxMinimap*                                 MC;                                               		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              R;                                                		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function UTGame.UTCarriedObject.CheckPain
@@ -3923,6 +4126,316 @@ struct AUTGameReplicationInfo_execPostBeginPlay_Parms
 	// class USeqAct_ActorFactory*                     FactoryAction;                                    		// 0x0014 (0x0004) [0x0000000000000000]              
 	// class UUTActorFactoryPickup*                    Factory;                                          		// 0x0018 (0x0004) [0x0000000000000000]              
 	// int                                             I;                                                		// 0x001C (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.UTHUDBase.DrawShadowedRotatedTile
+// [0x00824102] 
+struct AUTHUDBase_execDrawShadowedRotatedTile_Parms
+{
+	class UTexture2D*                                  Tex;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FRotator                                    Rot;                                              		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	float                                              X;                                                		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Y;                                                		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              XL;                                               		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              YL;                                               		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              U;                                                		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              V;                                                		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              UL;                                               		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              VL;                                               		// 0x002C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FColor                                      TileColor;                                        		// 0x0030 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bScaleToRes : 1;                                  		// 0x0034 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// struct FColor                                   B;                                                		// 0x0038 (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.UTHUDBase.DrawShadowedStretchedTile
+// [0x00824102] 
+struct AUTHUDBase_execDrawShadowedStretchedTile_Parms
+{
+	class UTexture2D*                                  Tex;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              X;                                                		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Y;                                                		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              XL;                                               		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              YL;                                               		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              U;                                                		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              V;                                                		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              UL;                                               		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              VL;                                               		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FColor                                      TileColor;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bScaleToRes : 1;                                  		// 0x0028 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// struct FLinearColor                             C;                                                		// 0x002C (0x0010) [0x0000000000000000]              
+	// struct FLinearColor                             B;                                                		// 0x003C (0x0010) [0x0000000000000000]              
+};
+
+// Function UTGame.UTHUDBase.DrawShadowedTile
+// [0x00824102] 
+struct AUTHUDBase_execDrawShadowedTile_Parms
+{
+	class UTexture2D*                                  Tex;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              X;                                                		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Y;                                                		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              XL;                                               		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              YL;                                               		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              U;                                                		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              V;                                                		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              UL;                                               		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              VL;                                               		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FColor                                      TileColor;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bScaleToRes : 1;                                  		// 0x0028 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// struct FColor                                   B;                                                		// 0x002C (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.UTHUDBase.ClearCrosshairOnFriendly
+// [0x00020000] 
+struct AUTHUDBase_execClearCrosshairOnFriendly_Parms
+{
+};
+
+// Function UTGame.UTHUDBase.CheckCrosshairOnFriendly
+// [0x00820002] 
+struct AUTHUDBase_execCheckCrosshairOnFriendly_Parms
+{
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// float                                           Size;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  HitLocation;                                      		// 0x0008 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  HitNormal;                                        		// 0x0014 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  StartTrace;                                       		// 0x0020 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  EndTrace;                                         		// 0x002C (0x000C) [0x0000000000000000]              
+	// class AActor*                                   HitActor;                                         		// 0x0038 (0x0004) [0x0000000000000000]              
+	// class AUTVehicle*                               V;                                                		// 0x003C (0x0004) [0x0000000000000000]              
+	// class AUTVehicle*                               HitV;                                             		// 0x0040 (0x0004) [0x0000000000000000]              
+	// class AUTWeapon*                                W;                                                		// 0x0044 (0x0004) [0x0000000000000000]              
+	// int                                             SeatIndex;                                        		// 0x0048 (0x0004) [0x0000000000000000]              
+	// class APawn*                                    MyPawnOwner;                                      		// 0x004C (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.UTHUDBase.DrawToolTip
+// [0x00024002] 
+struct AUTHUDBase_execDrawToolTip_Parms
+{
+	class UCanvas*                                     Cvs;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class APlayerController*                           PC;                                               		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Command;                                          		// 0x0008 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	float                                              X;                                                		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Y;                                                		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              U;                                                		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              V;                                                		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              UL;                                               		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              VL;                                               		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              ResScale;                                         		// 0x002C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UTexture2D*                                  IconTexture;                                      		// 0x0030 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	float                                              Alpha;                                            		// 0x0034 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// float                                           Left;                                             		// 0x0038 (0x0004) [0x0000000000000000]              
+	// float                                           XL;                                               		// 0x003C (0x0004) [0x0000000000000000]              
+	// float                                           YL;                                               		// 0x0040 (0x0004) [0x0000000000000000]              
+	// float                                           ScaleX;                                           		// 0x0044 (0x0004) [0x0000000000000000]              
+	// float                                           ScaleY;                                           		// 0x0048 (0x0004) [0x0000000000000000]              
+	// float                                           WholeWidth;                                       		// 0x004C (0x0004) [0x0000000000000000]              
+	// struct FString                                  MappingStr;                                       		// 0x0050 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// class UFont*                                    OrgFont;                                          		// 0x005C (0x0004) [0x0000000000000000]              
+	// class UFont*                                    BindFont;                                         		// 0x0060 (0x0004) [0x0000000000000000]              
+	// struct FString                                  Key;                                              		// 0x0064 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+};
+
+// Function UTGame.UTHUDBase.GetLocalPlayerOwnerIndex
+// [0x00020002] 
+struct AUTHUDBase_execGetLocalPlayerOwnerIndex_Parms
+{
+	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function UTGame.UTHUDBase.ReleaseShowScores
+// [0x00020202] ( FUNC_Exec )
+struct AUTHUDBase_execReleaseShowScores_Parms
+{
+};
+
+// Function UTGame.UTHUDBase.CompletePauseMenuClose
+// [0x00020002] 
+struct AUTHUDBase_execCompletePauseMenuClose_Parms
+{
+};
+
+// Function UTGame.UTHUDBase.TogglePauseMenu
+// [0x00020002] 
+struct AUTHUDBase_execTogglePauseMenu_Parms
+{
+};
+
+// Function UTGame.UTHUDBase.CloseOtherMenus
+// [0x00020000] 
+struct AUTHUDBase_execCloseOtherMenus_Parms
+{
+};
+
+// Function UTGame.UTHUDBase.SetVisible
+// [0x00020002] 
+struct AUTHUDBase_execSetVisible_Parms
+{
+	unsigned long                                      bNewVisible : 1;                                  		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function UTGame.UTHUDBase.RemoveMovies
+// [0x00020002] 
+struct AUTHUDBase_execRemoveMovies_Parms
+{
+};
+
+// Function UTGame.UTHUDBase.PostRender
+// [0x00020802] ( FUNC_Event )
+struct AUTHUDBase_eventPostRender_Parms
+{
+};
+
+// Function UTGame.UTHUDBase.DisplayHit
+// [0x00020000] 
+struct AUTHUDBase_execDisplayHit_Parms
+{
+	struct FVector                                     HitDir;                                           		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Damage;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      DamageType;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function UTGame.UTHUDBase.ResolutionChanged
+// [0x00020002] 
+struct AUTHUDBase_execResolutionChanged_Parms
+{
+	// unsigned long                                   bNeedPauseMenuMovie : 1;                          		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
+};
+
+// Function UTGame.UTHUDBase.ShowMenu
+// [0x00020202] ( FUNC_Exec )
+struct AUTHUDBase_execShowMenu_Parms
+{
+};
+
+// Function UTGame.UTHUDBase.Timer
+// [0x00020902] ( FUNC_Event )
+struct AUTHUDBase_eventTimer_Parms
+{
+};
+
+// Function UTGame.UTHUDBase.PostBeginPlay
+// [0x00020102] 
+struct AUTHUDBase_execPostBeginPlay_Parms
+{
+	// class APawn*                                    P;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class AUTGameObjective*                         O;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.UTGFxHudWrapper.CompleteCloseTimer
+// [0x00020002] 
+struct AUTGFxHudWrapper_execCompleteCloseTimer_Parms
+{
+};
+
+// Function UTGame.UTGFxHudWrapper.CompleteCloseInventory
+// [0x00020002] 
+struct AUTGFxHudWrapper_execCompleteCloseInventory_Parms
+{
+};
+
+// Function UTGame.UTGFxHudWrapper.AddConsoleMessage
+// [0x00024002] 
+struct AUTGFxHudWrapper_execAddConsoleMessage_Parms
+{
+	struct FString                                     M;                                                		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	class UClass*                                      InMessageClass;                                   		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class APlayerReplicationInfo*                      PRI;                                              		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Lifetime;                                         		// 0x0014 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+};
+
+// Function UTGame.UTGFxHudWrapper.LocalizedMessage
+// [0x00024002] 
+struct AUTGFxHudWrapper_execLocalizedMessage_Parms
+{
+	class UClass*                                      InMessageClass;                                   		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class APlayerReplicationInfo*                      RelatedPRI;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class APlayerReplicationInfo*                      RelatedPRI01;                                     		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     CriticalString;                                   		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                Switch;                                           		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Position;                                         		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Lifetime;                                         		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                FontSize;                                         		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FColor                                      DrawColor;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UObject*                                     OptionalObject;                                   		// 0x002C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// class UClass*                                   UTMessageClass;                                   		// 0x0030 (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.UTGFxHudWrapper.DrawHUD
+// [0x00820802] ( FUNC_Event )
+struct AUTGFxHudWrapper_eventDrawHUD_Parms
+{
+	// struct FVector                                  ViewPoint;                                        		// 0x0000 (0x000C) [0x0000000000000000]              
+	// struct FRotator                                 ViewRotation;                                     		// 0x000C (0x000C) [0x0000000000000000]              
+	// float                                           XL;                                               		// 0x0018 (0x0004) [0x0000000000000000]              
+	// float                                           YL;                                               		// 0x001C (0x0004) [0x0000000000000000]              
+	// float                                           YPos;                                             		// 0x0020 (0x0004) [0x0000000000000000]              
+};
+
+// Function UTGame.UTGFxHudWrapper.PostRender
+// [0x00020802] ( FUNC_Event )
+struct AUTGFxHudWrapper_eventPostRender_Parms
+{
+};
+
+// Function UTGame.UTGFxHudWrapper.ResolutionChanged
+// [0x00020002] 
+struct AUTGFxHudWrapper_execResolutionChanged_Parms
+{
+	// unsigned long                                   bNeedInventoryMovie : 1;                          		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
+};
+
+// Function UTGame.UTGFxHudWrapper.CloseOtherMenus
+// [0x00020002] 
+struct AUTGFxHudWrapper_execCloseOtherMenus_Parms
+{
+};
+
+// Function UTGame.UTGFxHudWrapper.DisplayHit
+// [0x00020002] 
+struct AUTGFxHudWrapper_execDisplayHit_Parms
+{
+	struct FVector                                     HitDir;                                           		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Damage;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      DamageType;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function UTGame.UTGFxHudWrapper.SetVisible
+// [0x00020002] 
+struct AUTGFxHudWrapper_execSetVisible_Parms
+{
+	unsigned long                                      bNewVisible : 1;                                  		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function UTGame.UTGFxHudWrapper.GetLocalPlayerOwnerIndex
+// [0x00020002] 
+struct AUTGFxHudWrapper_execGetLocalPlayerOwnerIndex_Parms
+{
+	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function UTGame.UTGFxHudWrapper.CreateHUDMovie
+// [0x00020002] 
+struct AUTGFxHudWrapper_execCreateHUDMovie_Parms
+{
+};
+
+// Function UTGame.UTGFxHudWrapper.PostBeginPlay
+// [0x00020102] 
+struct AUTGFxHudWrapper_execPostBeginPlay_Parms
+{
+};
+
+// Function UTGame.UTGFxHudWrapper.RemoveMovies
+// [0x00020002] 
+struct AUTGFxHudWrapper_execRemoveMovies_Parms
+{
+};
+
+// Function UTGame.UTGFxHudWrapper.Destroyed
+// [0x00020822] ( FUNC_Event )
+struct AUTGFxHudWrapper_eventDestroyed_Parms
+{
 };
 
 // Function UTGame.UTPlayerController.OnScoreChanged
@@ -9749,200 +10262,6 @@ struct UUTTeamGameMessage_execClientReceive_Parms
 	class UObject*                                     OptionalObject;                                   		// 0x0010 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 };
 
-// Function UTGame.UTHUDBase.DrawShadowedRotatedTile
-// [0x00824102] 
-struct AUTHUDBase_execDrawShadowedRotatedTile_Parms
-{
-	class UTexture2D*                                  Tex;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FRotator                                    Rot;                                              		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	float                                              X;                                                		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Y;                                                		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              XL;                                               		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              YL;                                               		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              U;                                                		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              V;                                                		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              UL;                                               		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              VL;                                               		// 0x002C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FColor                                      TileColor;                                        		// 0x0030 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bScaleToRes : 1;                                  		// 0x0034 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// struct FColor                                   B;                                                		// 0x0038 (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.UTHUDBase.DrawShadowedStretchedTile
-// [0x00824102] 
-struct AUTHUDBase_execDrawShadowedStretchedTile_Parms
-{
-	class UTexture2D*                                  Tex;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              X;                                                		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Y;                                                		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              XL;                                               		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              YL;                                               		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              U;                                                		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              V;                                                		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              UL;                                               		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              VL;                                               		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FColor                                      TileColor;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bScaleToRes : 1;                                  		// 0x0028 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// struct FLinearColor                             C;                                                		// 0x002C (0x0010) [0x0000000000000000]              
-	// struct FLinearColor                             B;                                                		// 0x003C (0x0010) [0x0000000000000000]              
-};
-
-// Function UTGame.UTHUDBase.DrawShadowedTile
-// [0x00824102] 
-struct AUTHUDBase_execDrawShadowedTile_Parms
-{
-	class UTexture2D*                                  Tex;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              X;                                                		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Y;                                                		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              XL;                                               		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              YL;                                               		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              U;                                                		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              V;                                                		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              UL;                                               		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              VL;                                               		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FColor                                      TileColor;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bScaleToRes : 1;                                  		// 0x0028 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// struct FColor                                   B;                                                		// 0x002C (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.UTHUDBase.ClearCrosshairOnFriendly
-// [0x00020000] 
-struct AUTHUDBase_execClearCrosshairOnFriendly_Parms
-{
-};
-
-// Function UTGame.UTHUDBase.CheckCrosshairOnFriendly
-// [0x00820002] 
-struct AUTHUDBase_execCheckCrosshairOnFriendly_Parms
-{
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// float                                           Size;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
-	// struct FVector                                  HitLocation;                                      		// 0x0008 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  HitNormal;                                        		// 0x0014 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  StartTrace;                                       		// 0x0020 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  EndTrace;                                         		// 0x002C (0x000C) [0x0000000000000000]              
-	// class AActor*                                   HitActor;                                         		// 0x0038 (0x0004) [0x0000000000000000]              
-	// class AUTVehicle*                               V;                                                		// 0x003C (0x0004) [0x0000000000000000]              
-	// class AUTVehicle*                               HitV;                                             		// 0x0040 (0x0004) [0x0000000000000000]              
-	// class AUTWeapon*                                W;                                                		// 0x0044 (0x0004) [0x0000000000000000]              
-	// int                                             SeatIndex;                                        		// 0x0048 (0x0004) [0x0000000000000000]              
-	// class APawn*                                    MyPawnOwner;                                      		// 0x004C (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.UTHUDBase.DrawToolTip
-// [0x00024002] 
-struct AUTHUDBase_execDrawToolTip_Parms
-{
-	class UCanvas*                                     Cvs;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class APlayerController*                           PC;                                               		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Command;                                          		// 0x0008 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	float                                              X;                                                		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Y;                                                		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              U;                                                		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              V;                                                		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              UL;                                               		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              VL;                                               		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              ResScale;                                         		// 0x002C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UTexture2D*                                  IconTexture;                                      		// 0x0030 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	float                                              Alpha;                                            		// 0x0034 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	// float                                           Left;                                             		// 0x0038 (0x0004) [0x0000000000000000]              
-	// float                                           XL;                                               		// 0x003C (0x0004) [0x0000000000000000]              
-	// float                                           YL;                                               		// 0x0040 (0x0004) [0x0000000000000000]              
-	// float                                           ScaleX;                                           		// 0x0044 (0x0004) [0x0000000000000000]              
-	// float                                           ScaleY;                                           		// 0x0048 (0x0004) [0x0000000000000000]              
-	// float                                           WholeWidth;                                       		// 0x004C (0x0004) [0x0000000000000000]              
-	// struct FString                                  MappingStr;                                       		// 0x0050 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// class UFont*                                    OrgFont;                                          		// 0x005C (0x0004) [0x0000000000000000]              
-	// class UFont*                                    BindFont;                                         		// 0x0060 (0x0004) [0x0000000000000000]              
-	// struct FString                                  Key;                                              		// 0x0064 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-};
-
-// Function UTGame.UTHUDBase.GetLocalPlayerOwnerIndex
-// [0x00020002] 
-struct AUTHUDBase_execGetLocalPlayerOwnerIndex_Parms
-{
-	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function UTGame.UTHUDBase.ReleaseShowScores
-// [0x00020202] ( FUNC_Exec )
-struct AUTHUDBase_execReleaseShowScores_Parms
-{
-};
-
-// Function UTGame.UTHUDBase.CompletePauseMenuClose
-// [0x00020002] 
-struct AUTHUDBase_execCompletePauseMenuClose_Parms
-{
-};
-
-// Function UTGame.UTHUDBase.TogglePauseMenu
-// [0x00020002] 
-struct AUTHUDBase_execTogglePauseMenu_Parms
-{
-};
-
-// Function UTGame.UTHUDBase.CloseOtherMenus
-// [0x00020000] 
-struct AUTHUDBase_execCloseOtherMenus_Parms
-{
-};
-
-// Function UTGame.UTHUDBase.SetVisible
-// [0x00020002] 
-struct AUTHUDBase_execSetVisible_Parms
-{
-	unsigned long                                      bNewVisible : 1;                                  		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function UTGame.UTHUDBase.RemoveMovies
-// [0x00020002] 
-struct AUTHUDBase_execRemoveMovies_Parms
-{
-};
-
-// Function UTGame.UTHUDBase.PostRender
-// [0x00020802] ( FUNC_Event )
-struct AUTHUDBase_eventPostRender_Parms
-{
-};
-
-// Function UTGame.UTHUDBase.DisplayHit
-// [0x00020000] 
-struct AUTHUDBase_execDisplayHit_Parms
-{
-	struct FVector                                     HitDir;                                           		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Damage;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UClass*                                      DamageType;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function UTGame.UTHUDBase.ResolutionChanged
-// [0x00020002] 
-struct AUTHUDBase_execResolutionChanged_Parms
-{
-	// unsigned long                                   bNeedPauseMenuMovie : 1;                          		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
-};
-
-// Function UTGame.UTHUDBase.ShowMenu
-// [0x00020202] ( FUNC_Exec )
-struct AUTHUDBase_execShowMenu_Parms
-{
-};
-
-// Function UTGame.UTHUDBase.Timer
-// [0x00020902] ( FUNC_Event )
-struct AUTHUDBase_eventTimer_Parms
-{
-};
-
-// Function UTGame.UTHUDBase.PostBeginPlay
-// [0x00020102] 
-struct AUTHUDBase_execPostBeginPlay_Parms
-{
-	// class APawn*                                    P;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class AUTGameObjective*                         O;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
 // Function UTGame.UTTimerMessage.GetFontSize
 // [0x00022002] 
 struct UUTTimerMessage_execGetFontSize_Parms
@@ -11323,209 +11642,6 @@ struct UUTMapInfo_execVerifyMapExtent_Parms
 	// class AWorldInfo*                               WI;                                               		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
-// Function UTGame.GFxMinimapHud.AddDeathMessage
-// [0x00020002] 
-struct UGFxMinimapHud_execAddDeathMessage_Parms
-{
-	class APlayerReplicationInfo*                      Killer;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class APlayerReplicationInfo*                      Killed;                                           		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UClass*                                      Dmg;                                              		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// struct FString                                  msg;                                              		// 0x000C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// unsigned char                                   Index;                                            		// 0x0018 (0x0001) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.GetRank
-// [0x00020002] 
-struct UGFxMinimapHud_execGetRank_Parms
-{
-	class APlayerReplicationInfo*                      PRI;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
-	// int                                             I;                                                		// 0x0010 (0x0004) [0x0000000000000000]              
-	// int                                             J;                                                		// 0x0014 (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.SetCenterText
-// [0x00020000] 
-struct UGFxMinimapHud_execSetCenterText_Parms
-{
-	struct FString                                     Text;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function UTGame.GFxMinimapHud.ShowMultiKill
-// [0x00020002] 
-struct UGFxMinimapHud_execShowMultiKill_Parms
-{
-	int                                                N;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     msg;                                              		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function UTGame.GFxMinimapHud.DisplayHit
-// [0x00820002] 
-struct UGFxMinimapHud_execDisplayHit_Parms
-{
-	struct FVector                                     HitDir;                                           		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Damage;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UClass*                                      DamageType;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// struct FVector                                  Loc;                                              		// 0x0014 (0x000C) [0x0000000000000000]              
-	// struct FRotator                                 Rot;                                              		// 0x0020 (0x000C) [0x0000000000000000]              
-	// float                                           DirOfHit;                                         		// 0x002C (0x0004) [0x0000000000000000]              
-	// struct FVector                                  AxisX;                                            		// 0x0030 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  AxisY;                                            		// 0x003C (0x000C) [0x0000000000000000]              
-	// struct FVector                                  AxisZ;                                            		// 0x0048 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  ShotDirection;                                    		// 0x0054 (0x000C) [0x0000000000000000]              
-	// unsigned long                                   bIsInFront : 1;                                   		// 0x0060 (0x0004) [0x0000000000000000] [0x00000001] 
-	// struct FVector2D                                AngularDist;                                      		// 0x0064 (0x0008) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.MinimapZoomIn
-// [0x00020002] 
-struct UGFxMinimapHud_execMinimapZoomIn_Parms
-{
-};
-
-// Function UTGame.GFxMinimapHud.MinimapZoomOut
-// [0x00020002] 
-struct UGFxMinimapHud_execMinimapZoomOut_Parms
-{
-};
-
-// Function UTGame.GFxMinimapHud.ToggleCrosshair
-// [0x00020002] 
-struct UGFxMinimapHud_execToggleCrosshair_Parms
-{
-	unsigned long                                      bToggle : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	// class AUTHUDBase*                               UTHB;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class AUTPlayerController*                      PC;                                               		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.TickHud
-// [0x00020002] 
-struct UGFxMinimapHud_execTickHud_Parms
-{
-	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class AUTPawn*                                  UTP;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class AUTVehicle*                               UTV;                                              		// 0x000C (0x0004) [0x0000000000000000]              
-	// class AUTWeaponPawn*                            UWP;                                              		// 0x0010 (0x0004) [0x0000000000000000]              
-	// class AUTWeapon*                                Weapon;                                           		// 0x0014 (0x0004) [0x0000000000000000]              
-	// class AUTPlayerReplicationInfo*                 PRI;                                              		// 0x0018 (0x0004) [0x0000000000000000]              
-	// class APlayerController*                        PC;                                               		// 0x001C (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.UpdateGameHUD
-// [0x00020002] 
-struct UGFxMinimapHud_execUpdateGameHUD_Parms
-{
-	class AUTPlayerReplicationInfo*                    PRI;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// class AUTPlayerReplicationInfo*                 MaxPRI;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
-	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
-	// int                                             J;                                                		// 0x000C (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.AddMessage
-// [0x00820002] 
-struct UGFxMinimapHud_execAddMessage_Parms
-{
-	struct FString                                     Type;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     msg;                                              		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	// struct FMessageRow                              mrow;                                             		// 0x0018 (0x0010) [0x0000000000000000]              
-	// struct FASDisplayInfo                           DI;                                               		// 0x0028 (0x002C) [0x0000000000000000]              
-	// int                                             J;                                                		// 0x0054 (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.RemoveMessage
-// [0x00020000] 
-struct UGFxMinimapHud_execRemoveMessage_Parms
-{
-};
-
-// Function UTGame.GFxMinimapHud.ClearStats
-// [0x00824002] 
-struct UGFxMinimapHud_execClearStats_Parms
-{
-	unsigned long                                      clearScores : 1;                                  		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// struct FASDisplayInfo                           DI;                                               		// 0x0004 (0x002C) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.FormatTime
-// [0x00022002] 
-struct UGFxMinimapHud_execFormatTime_Parms
-{
-	int                                                Seconds;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
-	// int                                             Hours;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
-	// int                                             Mins;                                             		// 0x0014 (0x0004) [0x0000000000000000]              
-	// struct FString                                  NewTimeString;                                    		// 0x0018 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-};
-
-// Function UTGame.GFxMinimapHud.UpdateEnergy
-// [0x00C20002] 
-struct UGFxMinimapHud_execUpdateEnergy_Parms
-{
-	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	float                                              NewEnergy;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              EnergyMax;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// struct FASDisplayInfo                           DI;                                               		// 0x002C (0x002C) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.UpdateHealth
-// [0x00C20002] 
-struct UGFxMinimapHud_execUpdateHealth_Parms
-{
-	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	float                                              NewHealth;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              HealthMax;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// struct FASDisplayInfo                           DI;                                               		// 0x002C (0x002C) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.LoadHeEn
-// [0x00420002] 
-struct UGFxMinimapHud_execLoadHeEn_Parms
-{
-	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	struct FString                                     Base;                                             		// 0x0024 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function UTGame.GFxMinimapHud.Init
-// [0x00024002] 
-struct UGFxMinimapHud_execInit_Parms
-{
-	class ULocalPlayer*                                Player;                                           		// 0x0000 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	// int                                             J;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class UGFxObject*                               TempWidget;                                       		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.InitMessageRow
-// [0x00820002] 
-struct UGFxMinimapHud_execInitMessageRow_Parms
-{
-	class UGFxObject*                                  ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// struct FMessageRow                              mrow;                                             		// 0x0004 (0x0010) [0x0000000000000000]              
-};
-
-// Function UTGame.GFxMinimapHud.CreateMessageRow
-// [0x00020002] 
-struct UGFxMinimapHud_execCreateMessageRow_Parms
-{
-	class UGFxObject*                                  ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function UTGame.GFxMinimapHud.SetAmmoCountTF
-// [0x00020000] 
-struct UGFxMinimapHud_execSetAmmoCountTF_Parms
-{
-	class AWeapon*                                     Wep;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Ammo;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function UTGame.GFxMinimapHud.registerMiniMapView
-// [0x00020002] 
-struct UGFxMinimapHud_execregisterMiniMapView_Parms
-{
-	class UGFxMinimap*                                 MC;                                               		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              R;                                                		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
 // Function UTGame.UTGFxTweenableMoviePlayer.TweenComplete
 // [0x00020002] 
 struct UUTGFxTweenableMoviePlayer_execTweenComplete_Parms
@@ -11827,122 +11943,6 @@ struct UGFxUI_InventoryButton_execSetIconMC_Parms
 struct UGFxUI_InventoryButton_execSetContent_Parms
 {
 	struct FString                                     newContent;                                       		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function UTGame.UTGFxHudWrapper.CompleteCloseTimer
-// [0x00020002] 
-struct AUTGFxHudWrapper_execCompleteCloseTimer_Parms
-{
-};
-
-// Function UTGame.UTGFxHudWrapper.CompleteCloseInventory
-// [0x00020002] 
-struct AUTGFxHudWrapper_execCompleteCloseInventory_Parms
-{
-};
-
-// Function UTGame.UTGFxHudWrapper.AddConsoleMessage
-// [0x00024002] 
-struct AUTGFxHudWrapper_execAddConsoleMessage_Parms
-{
-	struct FString                                     M;                                                		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	class UClass*                                      InMessageClass;                                   		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class APlayerReplicationInfo*                      PRI;                                              		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Lifetime;                                         		// 0x0014 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-};
-
-// Function UTGame.UTGFxHudWrapper.LocalizedMessage
-// [0x00024002] 
-struct AUTGFxHudWrapper_execLocalizedMessage_Parms
-{
-	class UClass*                                      InMessageClass;                                   		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class APlayerReplicationInfo*                      RelatedPRI;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class APlayerReplicationInfo*                      RelatedPRI01;                                     		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     CriticalString;                                   		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                Switch;                                           		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Position;                                         		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Lifetime;                                         		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                FontSize;                                         		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FColor                                      DrawColor;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UObject*                                     OptionalObject;                                   		// 0x002C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	// class UClass*                                   UTMessageClass;                                   		// 0x0030 (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.UTGFxHudWrapper.DrawHUD
-// [0x00820802] ( FUNC_Event )
-struct AUTGFxHudWrapper_eventDrawHUD_Parms
-{
-	// struct FVector                                  ViewPoint;                                        		// 0x0000 (0x000C) [0x0000000000000000]              
-	// struct FRotator                                 ViewRotation;                                     		// 0x000C (0x000C) [0x0000000000000000]              
-	// float                                           XL;                                               		// 0x0018 (0x0004) [0x0000000000000000]              
-	// float                                           YL;                                               		// 0x001C (0x0004) [0x0000000000000000]              
-	// float                                           YPos;                                             		// 0x0020 (0x0004) [0x0000000000000000]              
-};
-
-// Function UTGame.UTGFxHudWrapper.PostRender
-// [0x00020802] ( FUNC_Event )
-struct AUTGFxHudWrapper_eventPostRender_Parms
-{
-};
-
-// Function UTGame.UTGFxHudWrapper.ResolutionChanged
-// [0x00020002] 
-struct AUTGFxHudWrapper_execResolutionChanged_Parms
-{
-	// unsigned long                                   bNeedInventoryMovie : 1;                          		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
-};
-
-// Function UTGame.UTGFxHudWrapper.CloseOtherMenus
-// [0x00020002] 
-struct AUTGFxHudWrapper_execCloseOtherMenus_Parms
-{
-};
-
-// Function UTGame.UTGFxHudWrapper.DisplayHit
-// [0x00020002] 
-struct AUTGFxHudWrapper_execDisplayHit_Parms
-{
-	struct FVector                                     HitDir;                                           		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Damage;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UClass*                                      DamageType;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function UTGame.UTGFxHudWrapper.SetVisible
-// [0x00020002] 
-struct AUTGFxHudWrapper_execSetVisible_Parms
-{
-	unsigned long                                      bNewVisible : 1;                                  		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function UTGame.UTGFxHudWrapper.GetLocalPlayerOwnerIndex
-// [0x00020002] 
-struct AUTGFxHudWrapper_execGetLocalPlayerOwnerIndex_Parms
-{
-	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function UTGame.UTGFxHudWrapper.CreateHUDMovie
-// [0x00020002] 
-struct AUTGFxHudWrapper_execCreateHUDMovie_Parms
-{
-};
-
-// Function UTGame.UTGFxHudWrapper.PostBeginPlay
-// [0x00020102] 
-struct AUTGFxHudWrapper_execPostBeginPlay_Parms
-{
-};
-
-// Function UTGame.UTGFxHudWrapper.RemoveMovies
-// [0x00020002] 
-struct AUTGFxHudWrapper_execRemoveMovies_Parms
-{
-};
-
-// Function UTGame.UTGFxHudWrapper.Destroyed
-// [0x00020822] ( FUNC_Event )
-struct AUTGFxHudWrapper_eventDestroyed_Parms
-{
 };
 
 // Function UTGame.UTHealthPickupFactory.BotDesireability

@@ -39,9 +39,6 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Hooks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SDK_SOURCES\GFxUI_functions.cpp">
       <Filter>Source Files\SDK_SOURCES</Filter>
     </ClCompile>
@@ -82,36 +79,6 @@
       <Filter>Source Files\SDK_SOURCES</Filter>
     </ClCompile>
     <ClCompile Include="Logger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Config.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Data.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Loadout.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_Reticules.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_Loadouts.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_General.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_HudMod.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="Geom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Lua.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="lua_src\lapi.c">
@@ -216,39 +183,6 @@
     <ClCompile Include="lua_src\lzio.c">
       <Filter>Source Files\lua_src</Filter>
     </ClCompile>
-    <ClCompile Include="Stats.cpp">
-      <Filter>Source Files\Additions</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_Projectiles.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleModuleHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_HitSounds.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="Audio.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundEffect.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_ConsoleCommands.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_DamageNumbers.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_AccoladeSounds.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="Mod_FlagEventsCTF.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="libpng\png.c">
       <Filter>Source Files\libpng</Filter>
     </ClCompile>
@@ -333,7 +267,58 @@
     <ClCompile Include="zlib\zutil.c">
       <Filter>Source Files\zlib</Filter>
     </ClCompile>
-    <ClCompile Include="Mod_StateSaving.cpp">
+    <ClCompile Include="Hooks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Profiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Lua.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Geom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundEffect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_AccoladeSounds.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_ConsoleCommands.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_DamageNumbers.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_FlagEventsCTF.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_General.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_HitSounds.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_HudMod.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_Projectiles.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_Reticules.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
     <ClCompile Include="Mod_Routes.cpp">
@@ -342,8 +327,8 @@
     <ClCompile Include="Mod_ServerSettings.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
-    <ClCompile Include="Profiler.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Mod_StateSaving.cpp">
+      <Filter>Source Files\Mods</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -482,12 +467,6 @@
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Data.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Loadout.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Mods.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -578,9 +557,6 @@
     <ClInclude Include="Stats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleModuleHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Wave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -588,9 +564,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SoundEffect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libpng\png.h">

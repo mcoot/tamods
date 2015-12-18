@@ -2,7 +2,8 @@
 
 namespace Utils
 {
-	UEngine *engine = (UEngine*)(*UObject::GObjObjects())(164042);
+	// 60 017504 83295
+	UEngine *engine = (UEngine*)(*UObject::GObjObjects())(83295);
 	ATrPlayerController *tr_pc = NULL;
 	UTrGameViewportClient *tr_gvc = NULL;
 }

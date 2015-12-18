@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: TribesGame_f_structs.h
@@ -1384,17 +1384,19 @@ struct ATrPawn_execPlayRageEffect_Parms
 struct ATrPawn_execClearRagePerk_Parms
 {
 	// class UClass*                                   FamilyInfo;                                       		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         TrVM;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class UTrValueModifier*                         TrVM;                                             		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPawn.SetRagePerkActive
-// [0x00020002] 
+// [0x00024002] 
 struct ATrPawn_execSetRagePerkActive_Parms
 {
-	// class UClass*                                   FamilyInfo;                                       		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         TrVM;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
+	float                                              PickupSpeed;                                      		// 0x0000 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// class UClass*                                   FamilyInfo;                                       		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class UTrValueModifier*                         TrVM;                                             		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPawn.IsPulseStealthed
@@ -1434,10 +1436,11 @@ struct ATrPawn_execPlayShieldPackEffect_Parms
 };
 
 // Function TribesGame.TrPawn.SetShieldPackActive
-// [0x00020002] 
+// [0x00024002] 
 struct ATrPawn_execSetShieldPackActive_Parms
 {
 	unsigned long                                      bActive : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	float                                              ShieldEnergyAbsorb;                               		// 0x0004 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 };
 
 // Function TribesGame.TrPawn.ClientPlayHealthRegenEffect
@@ -1564,8 +1567,6 @@ struct ATrPawn_execPlayTakeHitEffects_Parms
 	// class ATrPlayerController*                      PC;                                               		// 0x0000 (0x0004) [0x0000000000000000]              
 	// class UClass*                                   TrDamage;                                         		// 0x0004 (0x0004) [0x0000000000000000]              
 	// class UAudioDevice*                             Audio;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x000C (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         TrVM;                                             		// 0x0010 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPawn.IsLastHitFromNinjaSmoke
@@ -1794,22 +1795,22 @@ struct ATrPawn_execTakeRadiusDamage_Parms
 	// float                                           ColRadius;                                        		// 0x0034 (0x0004) [0x0000000000000000]              
 	// float                                           ColHeight;                                        		// 0x0038 (0x0004) [0x0000000000000000]              
 	// float                                           DamageScale;                                      		// 0x003C (0x0004) [0x0000000000000000]              
-	// float                                           Dist;                                             		// 0x0040 (0x0004) [0x0000000000000000]              
-	// float                                           fMomentumTransferPct;                             		// 0x0044 (0x0004) [0x0000000000000000]              
-	// struct FVector                                  Dir;                                              		// 0x0048 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  LocationAdjustedToClaymoreZ;                      		// 0x0054 (0x000C) [0x0000000000000000]              
-	// class ATrProjectile*                            Projectile;                                       		// 0x0060 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerController*                      TrPC;                                             		// 0x0064 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0068 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 DamagingPawnPRI;                                  		// 0x006C (0x0004) [0x0000000000000000]              
-	// struct FVector                                  AdditionalMomentum;                               		// 0x0070 (0x000C) [0x0000000000000000]              
-	// class UClass*                                   VictimFamilyInfo;                                 		// 0x007C (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         VM;                                               		// 0x0080 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         DamagingPawnVM;                                   		// 0x0084 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   TrDmgType;                                        		// 0x0088 (0x0004) [0x0000000000000000]              
-	// unsigned long                                   bIgnoreSecondaryEffectsOnSelf : 1;                		// 0x008C (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   bStickyHands : 1;                                 		// 0x0090 (0x0004) [0x0000000000000000] [0x00000001] 
-	// class ATrDevice_Pack*                           StealthPack;                                      		// 0x0094 (0x0004) [0x0000000000000000]              
+	// float                                           ImpulseScale;                                     		// 0x0040 (0x0004) [0x0000000000000000]              
+	// float                                           Dist;                                             		// 0x0044 (0x0004) [0x0000000000000000]              
+	// float                                           fMomentumTransferPct;                             		// 0x0048 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  Dir;                                              		// 0x004C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  LocationAdjustedToClaymoreZ;                      		// 0x0058 (0x000C) [0x0000000000000000]              
+	// class ATrProjectile*                            Projectile;                                       		// 0x0064 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      TrPC;                                             		// 0x0068 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x006C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 DamagingPawnPRI;                                  		// 0x0070 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  AdditionalMomentum;                               		// 0x0074 (0x000C) [0x0000000000000000]              
+	// class UClass*                                   VictimFamilyInfo;                                 		// 0x0080 (0x0004) [0x0000000000000000]              
+	// class UTrValueModifier*                         VM;                                               		// 0x0084 (0x0004) [0x0000000000000000]              
+	// class UTrValueModifier*                         DamagingPawnVM;                                   		// 0x0088 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   TrDmgType;                                        		// 0x008C (0x0004) [0x0000000000000000]              
+	// unsigned long                                   bIgnoreSecondaryEffectsOnSelf : 1;                		// 0x0090 (0x0004) [0x0000000000000000] [0x00000001] 
+	// unsigned long                                   bStickyHands : 1;                                 		// 0x0094 (0x0004) [0x0000000000000000] [0x00000001] 
 };
 
 // Function TribesGame.TrPawn.PlayWhiteoutEffect
@@ -1883,6 +1884,15 @@ struct ATrPawn_execDoRepairs_Parms
 	class UClass*                                      DamageType;                                       		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
+// Function TribesGame.TrPawn.GetImpulseScale
+// [0x00020102] 
+struct ATrPawn_execGetImpulseScale_Parms
+{
+	float                                              DamageScale;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      dmgType;                                          		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              ReturnValue;                                      		// 0x0008 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
 // Function TribesGame.TrPawn.GetDamageScale
 // [0x00424102] 
 struct ATrPawn_execGetDamageScale_Parms
@@ -1952,18 +1962,19 @@ struct ATrPawn_execCreateAssistRecord_Parms
 };
 
 // Function TribesGame.TrPawn.RememberLastDamager
-// [0x00020102] 
+// [0x00024102] 
 struct ATrPawn_execRememberLastDamager_Parms
 {
 	class AController*                                 Damager;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                DamageAmount;                                     		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	class AActor*                                      DamagingActor;                                    		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// unsigned long                                   bSameTeam : 1;                                    		// 0x000C (0x0004) [0x0000000000000000] [0x00000001] 
-	// class ATrPawn*                                  TRP;                                              		// 0x0010 (0x0004) [0x0000000000000000]              
-	// class ATrTurretPawn*                            TrTP;                                             		// 0x0014 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerController*                      TrDamager;                                        		// 0x0018 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerController*                      OwnerController;                                  		// 0x001C (0x0004) [0x0000000000000000]              
-	// int                                             I;                                                		// 0x0020 (0x0004) [0x0000000000000000]              
+	int                                                UnscaledDamageAmount;                             		// 0x000C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// unsigned long                                   bSameTeam : 1;                                    		// 0x0010 (0x0004) [0x0000000000000000] [0x00000001] 
+	// class ATrPawn*                                  TRP;                                              		// 0x0014 (0x0004) [0x0000000000000000]              
+	// class ATrTurretPawn*                            TrTP;                                             		// 0x0018 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      TrDamager;                                        		// 0x001C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      OwnerController;                                  		// 0x0020 (0x0004) [0x0000000000000000]              
+	// int                                             I;                                                		// 0x0024 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPawn.PlayJumpingSound
@@ -2164,8 +2175,9 @@ struct ATrPawn_execActivatePendingClass_Parms
 {
 	unsigned long                                      bIsRespawn : 1;                                   		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
 	unsigned long                                      bCallin : 1;                                      		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// class ATrPlayerReplicationInfo*                 PRI;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x000C (0x0004) [0x0000000000000000]              
+	unsigned long                                      bCanSwapArmor : 1;                                		// 0x0008 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// class ATrPlayerReplicationInfo*                 PRI;                                              		// 0x000C (0x0004) [0x0000000000000000]              
+	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPawn.SetCharacterClassFromInfo
@@ -2206,6 +2218,7 @@ struct ATrPawn_execEquipBestPossibleDevice_Parms
 	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
 	// class UClass*                                   FamilyInfo;                                       		// 0x0014 (0x0004) [0x0000000000000000]              
 	// class UTrValueModifier*                         VM;                                               		// 0x0018 (0x0004) [0x0000000000000000]              
+	// int                                             AddedAmmo;                                        		// 0x001C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPawn.ReplicateMultiFlashLocation
@@ -2506,6 +2519,1661 @@ struct UAlienFXManager_execClose_Parms
 struct UAlienFXManager_execInit_Parms
 {
 	unsigned long                                      bEnable : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSoundAccoladeDelegate
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execSetSoundAccoladeDelegate_Parms
+{
+	struct FScriptDelegate                             InDelegate;                                       		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetLoadVGSMenuDelegate
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execSetLoadVGSMenuDelegate_Parms
+{
+	struct FScriptDelegate                             InDelegate;                                       		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.AddFlyingIcon
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execAddFlyingIcon_Parms
+{
+	int                                                iconNumber;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Description;                                      		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Points;                                           		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                bIsBadge;                                         		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetFontIndex
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execSetFontIndex_Parms
+{
+	int                                                FontIdx;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.HideSpectatorFloatCameraPanel
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideSpectatorFloatCameraPanel_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowSpectatorFloatCameraPanel
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execShowSpectatorFloatCameraPanel_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.HideSpectatorObjectivePanel
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideSpectatorObjectivePanel_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowSpectatorObjectivePanel
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execShowSpectatorObjectivePanel_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.HideSpectatorBookmark
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideSpectatorBookmark_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowSpectatorBookmark
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execShowSpectatorBookmark_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.HideSpectatorVehicle
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideSpectatorVehicle_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowSpectatorVehicle
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execShowSpectatorVehicle_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.HideSpectatorPlayer
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideSpectatorPlayer_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowSpectatorPlayer
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execShowSpectatorPlayer_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowKillCamInfo
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execShowKillCamInfo_Parms
+{
+	class UGFxObject*                                  Data;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.AddUpdateToKillMessage
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execAddUpdateToKillMessage_Parms
+{
+	int                                                RankIcon;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                PlayerIcon;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     PlayerName;                                       		// 0x0008 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Message;                                          		// 0x0014 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.AddUpdateToCombatLog
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execAddUpdateToCombatLog_Parms
+{
+	int                                                CombatType;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Aggressor;                                        		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                WeaponIcon;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Victim;                                           		// 0x0014 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.UpdateTutorial
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execUpdateTutorial_Parms
+{
+	struct FString                                     Title;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Body;                                             		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	float                                              Icon;                                             		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     footer;                                           		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Suppress;                                         		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetHUDStageSize
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execSetHUDStageSize_Parms
+{
+	int                                                HUDOriginX;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                HUDOriginY;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Width;                                            		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Height;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamScoreboardUpdateTeamScore
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execTeamScoreboardUpdateTeamScore_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.RabbitScoreboardUpdateTime
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execRabbitScoreboardUpdateTime_Parms
+{
+	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.TeamScoreboardUpdateTime
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execTeamScoreboardUpdateTime_Parms
+{
+	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.TeamScoreboardActivePlayer
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execTeamScoreboardActivePlayer_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.RemoveFromPromptPanel
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execRemoveFromPromptPanel_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.AddtoPromptPanelAS
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execAddtoPromptPanelAS_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.UpdateChatLogInput
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execUpdateChatLogInput_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetPowerOscillation
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execSetPowerOscillation_Parms
+{
+	unsigned long                                      bEnable : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateChatLog
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execUpdateChatLog_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                ChannelColor;                                     		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bPublic : 1;                                      		// 0x0010 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ASSetHeading
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execASSetHeading_Parms
+{
+	int                                                Heading;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ShowEnding
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execShowEnding_Parms
+{
+	int                                                Winner;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateVGSMenuList
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execUpdateVGSMenuList_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.HideKillCamInfo
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideKillCamInfo_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.HideFlagCarried
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideFlagCarried_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowFlagCarried
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execShowFlagCarried_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.HideTutorial
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideTutorial_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.HideVGSMenu
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideVGSMenu_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.HideChatLog
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execHideChatLog_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowChatLog
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execShowChatLog_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowSpectatorControls
+// [0x00020002] 
+struct UGfxTrHud_execShowSpectatorControls_Parms
+{
+	unsigned long                                      bShowControls : 1;                                		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorFloatCameraPanel_Description
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorFloatCameraPanel_Description_Parms
+{
+	struct FString                                     Description;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorFloatCameraPanel_Name
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorFloatCameraPanel_Name_Parms
+{
+	struct FString                                     FloatCameraName;                                  		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorObjectivePanel_HealthFillBar
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorObjectivePanel_HealthFillBar_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Health;                                           		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorObjectivePanel_ObjectiveDescription
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorObjectivePanel_ObjectiveDescription_Parms
+{
+	struct FString                                     ObjectiveDescription;                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorObjectivePanel_ObjectiveName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorObjectivePanel_ObjectiveName_Parms
+{
+	struct FString                                     ObjectiveName;                                    		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorBookmarkPanel_BookmarkName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorBookmarkPanel_BookmarkName_Parms
+{
+	struct FString                                     BookmarkName;                                     		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_Selected
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_Selected_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SkiIndicatorSpeed
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_SkiIndicatorSpeed_Parms
+{
+	struct FString                                     Speed;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SkiIndicatorFillBar
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_SkiIndicatorFillBar_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SecondaryWeaponVisible
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_SecondaryWeaponVisible_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SecondaryWeaponReady
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_SecondaryWeaponReady_Parms
+{
+	int                                                Ready;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SecondaryWeaponName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_SecondaryWeaponName_Parms
+{
+	struct FString                                     SecondaryWeaponName;                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_PrimaryWeaponVisible
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_PrimaryWeaponVisible_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_PrimaryWeaponReady
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_PrimaryWeaponReady_Parms
+{
+	int                                                Ready;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_PrimaryWeaponName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_PrimaryWeaponName_Parms
+{
+	struct FString                                     PrimaryWeaponName;                                		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_Energy
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_Energy_Parms
+{
+	struct FString                                     Energy;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_EnergyFillBar
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_EnergyFillBar_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_Health
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_Health_Parms
+{
+	struct FString                                     Health;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_HealthFillBar
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_HealthFillBar_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_PassengerName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_PassengerName_Parms
+{
+	struct FString                                     PassengerName;                                    		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_DriverName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_DriverName_Parms
+{
+	struct FString                                     DriverName;                                       		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_VehicleName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_VehicleName_Parms
+{
+	struct FString                                     VehicleName;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_FlagCarried
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorVehiclePanel_FlagCarried_Parms
+{
+	unsigned long                                      bCarried : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Selected
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_Selected_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_SkiIndicatorSpeed
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_SkiIndicatorSpeed_Parms
+{
+	struct FString                                     Speed;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_SkiIndicatorFillBar
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_SkiIndicatorFillBar_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Perk2Name
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_Perk2Name_Parms
+{
+	struct FString                                     PerkName;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Perk2Icon
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_Perk2Icon_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Perk1Name
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_Perk1Name_Parms
+{
+	struct FString                                     PerkName;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Perk1Icon
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_Perk1Icon_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PackName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_PackName_Parms
+{
+	struct FString                                     PackName;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PackAmmo
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_PackAmmo_Parms
+{
+	struct FString                                     PackAmmo;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PackIcon
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_PackIcon_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_OffhandName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_OffhandName_Parms
+{
+	struct FString                                     OffhandName;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_OffhandAmmo
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_OffhandAmmo_Parms
+{
+	struct FString                                     OffhandAmmo;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_OffhandIcon
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_OffhandIcon_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_SecondaryAmmoCount
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_SecondaryAmmoCount_Parms
+{
+	struct FString                                     SecondaryAmmoCount;                               		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_SecondaryWeaponName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_SecondaryWeaponName_Parms
+{
+	struct FString                                     SecondaryWeaponName;                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PrimaryAmmoCount
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_PrimaryAmmoCount_Parms
+{
+	struct FString                                     PrimaryAmmoCount;                                 		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PrimaryWeaponName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_PrimaryWeaponName_Parms
+{
+	struct FString                                     PrimaryWeaponName;                                		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Energy
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_Energy_Parms
+{
+	struct FString                                     Energy;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_EnergyFillBar
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_EnergyFillBar_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Health
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_Health_Parms
+{
+	struct FString                                     Health;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_HealthFillBar
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_HealthFillBar_Parms
+{
+	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_NextRegen
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_NextRegen_Parms
+{
+	struct FString                                     NextRegen;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_ClassName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_ClassName_Parms
+{
+	struct FString                                     ClassName;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PlayerName
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_PlayerName_Parms
+{
+	struct FString                                     PlayerName;                                       		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_FlagCarried
+// [0x00020002] 
+struct UGfxTrHud_execSetSpectatorPlayerPanel_FlagCarried_Parms
+{
+	unsigned long                                      bCarried : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.GetWeaponNameFromDamageType
+// [0x00020002] 
+struct UGfxTrHud_execGetWeaponNameFromDamageType_Parms
+{
+	class ATrPlayerReplicationInfo*                    PRI;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      FamilyInfo;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      KillDamageType;                                   		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     ReturnValue;                                      		// 0x000C (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+	// class UClass*                                   device;                                           		// 0x0018 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.CreateKillCamInfo
+// [0x00020002] 
+struct UGfxTrHud_execCreateKillCamInfo_Parms
+{
+	class ATrPlayerReplicationInfo*                    KillerPRI;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class ATrPlayerReplicationInfo*                    VictimPRI;                                        		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      KillDamageType;                                   		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             RankIcon;                                         		// 0x000C (0x0004) [0x0000000000000000]              
+	// int                                             stateType;                                        		// 0x0010 (0x0004) [0x0000000000000000]              
+	// int                                             classIcon;                                        		// 0x0014 (0x0004) [0x0000000000000000]              
+	// struct FString                                  Health;                                           		// 0x0018 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FString                                  RankName;                                         		// 0x0024 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FString                                  ClassName;                                        		// 0x0030 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FString                                  PlayerName;                                       		// 0x003C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FString                                  WeaponName;                                       		// 0x0048 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FString                                  infoString;                                       		// 0x0054 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// class UClass*                                   RankInfo;                                         		// 0x0060 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   FamilyInfo;                                       		// 0x0064 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.HideGlobalAlert
+// [0x00020002] 
+struct UGfxTrHud_execHideGlobalAlert_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.SetGlobalAlert
+// [0x00020002] 
+struct UGfxTrHud_execSetGlobalAlert_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.RetrieveGFxObject
+// [0x00420002] 
+struct UGfxTrHud_execRetrieveGFxObject_Parms
+{
+	class UGFxObject*                                  Obj;                                              		// 0x0000 (0x0004) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	struct FString                                     ObjName;                                          		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	class UGFxObject*                                  ReturnValue;                                      		// 0x0010 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateCallIn
+// [0x00020000] 
+struct UGfxTrHud_execUpdateCallIn_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bEnable : 1;                                      		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	unsigned long                                      bAvailable : 1;                                   		// 0x0008 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SoundAccolade
+// [0x00020002] 
+struct UGfxTrHud_execSoundAccolade_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.UpdateOwnedItem
+// [0x00024002] 
+struct UGfxTrHud_execUpdateOwnedItem_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bVisible : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	int                                                FrameId;                                          		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateOffhand
+// [0x00024002] 
+struct UGfxTrHud_execUpdateOffhand_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bVisible : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	int                                                FrameId;                                          		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	int                                                Count;                                            		// 0x000C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateOffhandKeybindLabel
+// [0x00024002] 
+struct UGfxTrHud_execUpdateOffhandKeybindLabel_Parms
+{
+	int                                                nIndex;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bVisible : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	struct FString                                     sLabel;                                           		// 0x0008 (0x000C) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetOffhandKeybindLabels
+// [0x00020002] 
+struct UGfxTrHud_execSetOffhandKeybindLabels_Parms
+{
+	// struct FString                                  commandString;                                    		// 0x0000 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.UpdateKeybindings
+// [0x00020002] 
+struct UGfxTrHud_execUpdateKeybindings_Parms
+{
+	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.WeaponReloaded
+// [0x00020002] 
+struct UGfxTrHud_execWeaponReloaded_Parms
+{
+	class ATrDevice*                                   Weapon;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class UGFxTrWeaponInventory*                    Slot;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.WeaponReloading
+// [0x00020002] 
+struct UGfxTrHud_execWeaponReloading_Parms
+{
+	class ATrDevice*                                   Weapon;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              fReloadTime;                                      		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class UGFxTrWeaponInventory*                    Slot;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.WeaponDeactivated
+// [0x00020002] 
+struct UGfxTrHud_execWeaponDeactivated_Parms
+{
+	class ATrDevice*                                   Weapon;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              fReloadTime;                                      		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class UGFxTrWeaponInventory*                    Slot;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.WeaponActivated
+// [0x00020002] 
+struct UGfxTrHud_execWeaponActivated_Parms
+{
+	class ATrDevice*                                   Weapon;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.PositionWeaponInventorySlots
+// [0x00020002] 
+struct UGfxTrHud_execPositionWeaponInventorySlots_Parms
+{
+	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
+	// int                                             numVisibleSlots;                                  		// 0x0004 (0x0004) [0x0000000000000000]              
+	// float                                           slotSpacing;                                      		// 0x0008 (0x0004) [0x0000000000000000]              
+	// float                                           widthVisibleSlots;                                		// 0x000C (0x0004) [0x0000000000000000]              
+	// float                                           X;                                                		// 0x0010 (0x0004) [0x0000000000000000]              
+	// class UGFxTrWeaponInventory*                    Slot;                                             		// 0x0014 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.InitWeaponInventorySlots
+// [0x00020002] 
+struct UGfxTrHud_execInitWeaponInventorySlots_Parms
+{
+	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class UGFxTrWeaponInventory*                    Slot;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.GetWeaponInventorySlot
+// [0x00020002] 
+struct UGfxTrHud_execGetWeaponInventorySlot_Parms
+{
+	class ATrDevice*                                   Weapon;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UGFxTrWeaponInventory*                       ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class UGFxTrWeaponInventory*                    Slot;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             I;                                                		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.UpdateVehicleSeat
+// [0x00020002] 
+struct UGfxTrHud_execUpdateVehicleSeat_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                FrameId;                                          		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateVehicleEnergy
+// [0x00020002] 
+struct UGfxTrHud_execUpdateVehicleEnergy_Parms
+{
+	float                                              Energy;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                FrameId;                                          		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateVehicleHealth
+// [0x00020002] 
+struct UGfxTrHud_execUpdateVehicleHealth_Parms
+{
+	int                                                Health;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                FrameId;                                          		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateVehicleStats
+// [0x00024002] 
+struct UGfxTrHud_execUpdateVehicleStats_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	int                                                FrameId;                                          		// 0x0004 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateTeamStats
+// [0x00020002] 
+struct UGfxTrHud_execUpdateTeamStats_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateSkiLevel
+// [0x00020002] 
+struct UGfxTrHud_execUpdateSkiLevel_Parms
+{
+	int                                                Level;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateSkiing
+// [0x00020002] 
+struct UGfxTrHud_execUpdateSkiing_Parms
+{
+	unsigned long                                      bSkiing : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateFlagInHand
+// [0x00020002] 
+struct UGfxTrHud_execUpdateFlagInHand_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateCredits
+// [0x00020000] 
+struct UGfxTrHud_execUpdateCredits_Parms
+{
+	int                                                Credits;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.RabbitScoreboardShow
+// [0x00020002] 
+struct UGfxTrHud_execRabbitScoreboardShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamScoreboardShow
+// [0x00020002] 
+struct UGfxTrHud_execTeamScoreboardShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.CaHEnemyPointBreak
+// [0x00020002] 
+struct UGfxTrHud_execCaHEnemyPointBreak_Parms
+{
+	struct FString                                     Value;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.CaHFriendlyPointBreak
+// [0x00020002] 
+struct UGfxTrHud_execCaHFriendlyPointBreak_Parms
+{
+	struct FString                                     Value;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.CaHPointUpdate
+// [0x00020002] 
+struct UGfxTrHud_execCaHPointUpdate_Parms
+{
+	struct FString                                     PointName;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                PointType;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                PctHeld;                                          		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.CaHUpdate
+// [0x00020002] 
+struct UGfxTrHud_execCaHUpdate_Parms
+{
+	int                                                FriendlyHeld;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                FriendlyPoints;                                   		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                FriendlyPct;                                      		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                EnemyHeld;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                EnemyPoints;                                      		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                EnemyPct;                                         		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     GenTime;                                          		// 0x0018 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.CaHControlPointEShow
+// [0x00020002] 
+struct UGfxTrHud_execCaHControlPointEShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.CaHControlPointDShow
+// [0x00020002] 
+struct UGfxTrHud_execCaHControlPointDShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.CaHControlPointCShow
+// [0x00020002] 
+struct UGfxTrHud_execCaHControlPointCShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.CaHControlPointBShow
+// [0x00020002] 
+struct UGfxTrHud_execCaHControlPointBShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.CaHControlPointAShow
+// [0x00020002] 
+struct UGfxTrHud_execCaHControlPointAShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.CaHStatsShow
+// [0x00020002] 
+struct UGfxTrHud_execCaHStatsShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.DaDUpdateEnemyStats
+// [0x00020002] 
+struct UGfxTrHud_execDaDUpdateEnemyStats_Parms
+{
+	int                                                bGenOnline;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     RemainingGenTime;                                 		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                CapAOnline;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                CapBOnline;                                       		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                CapCOnline;                                       		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                CoreHealth;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.DaDUpdateFriendlyStats
+// [0x00020002] 
+struct UGfxTrHud_execDaDUpdateFriendlyStats_Parms
+{
+	int                                                bGenOnline;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     RemainingGenTime;                                 		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                CapAOnline;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                CapBOnline;                                       		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                CapCOnline;                                       		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                CoreHealth;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.DaDStatsShow
+// [0x00020002] 
+struct UGfxTrHud_execDaDStatsShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ASC_EnemyArenaLivesUpdate
+// [0x00020002] 
+struct UGfxTrHud_execASC_EnemyArenaLivesUpdate_Parms
+{
+	int                                                val;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ASC_FriendlyArenaLivesUpdate
+// [0x00020002] 
+struct UGfxTrHud_execASC_FriendlyArenaLivesUpdate_Parms
+{
+	int                                                val;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ArenaStatsUpdateTeamScore
+// [0x00020002] 
+struct UGfxTrHud_execArenaStatsUpdateTeamScore_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ASC_EnemyArenaPointBreak
+// [0x00020002] 
+struct UGfxTrHud_execASC_EnemyArenaPointBreak_Parms
+{
+	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.ASC_FriendlyArenaPointBreak
+// [0x00020002] 
+struct UGfxTrHud_execASC_FriendlyArenaPointBreak_Parms
+{
+	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.ArenaStatsPointBreak
+// [0x00020002] 
+struct UGfxTrHud_execArenaStatsPointBreak_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     val;                                              		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.ArenaStatsShow
+// [0x00020002] 
+struct UGfxTrHud_execArenaStatsShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ArenaStatsUpdateEnemyRoundScore
+// [0x00020002] 
+struct UGfxTrHud_execArenaStatsUpdateEnemyRoundScore_Parms
+{
+	int                                                Score;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ArenaStatsUpdateFriendlyRoundScore
+// [0x00020002] 
+struct UGfxTrHud_execArenaStatsUpdateFriendlyRoundScore_Parms
+{
+	int                                                Score;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ArenaStatsUpdateRoundCount
+// [0x00020002] 
+struct UGfxTrHud_execArenaStatsUpdateRoundCount_Parms
+{
+	int                                                RoundNum;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ArenaStatsUpdateTime
+// [0x00020002] 
+struct UGfxTrHud_execArenaStatsUpdateTime_Parms
+{
+	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.ArenaUpdateManGraphic
+// [0x00020002] 
+struct UGfxTrHud_execArenaUpdateManGraphic_Parms
+{
+	class UGFxObject*                                  Obj;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Path;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                Index;                                            		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamRabbitStatsShow
+// [0x00020002] 
+struct UGfxTrHud_execTeamRabbitStatsShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamRabbitStatsUpdateTime
+// [0x00020002] 
+struct UGfxTrHud_execTeamRabbitStatsUpdateTime_Parms
+{
+	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.HideNotification
+// [0x00020002] 
+struct UGfxTrHud_execHideNotification_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.ShowNotification
+// [0x00020002] 
+struct UGfxTrHud_execShowNotification_Parms
+{
+	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Val2;                                             		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.ASC_EnemyTDMPointBreak
+// [0x00020002] 
+struct UGfxTrHud_execASC_EnemyTDMPointBreak_Parms
+{
+	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.ASC_FriendlyTDMPointBreak
+// [0x00020002] 
+struct UGfxTrHud_execASC_FriendlyTDMPointBreak_Parms
+{
+	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.TeamRabbitStatsPointBreak
+// [0x00020002] 
+struct UGfxTrHud_execTeamRabbitStatsPointBreak_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     val;                                              		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.ASC_EnemyTDMScoreUpdate
+// [0x00020002] 
+struct UGfxTrHud_execASC_EnemyTDMScoreUpdate_Parms
+{
+	int                                                val;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ASC_FriendlyTDMScoreUpdate
+// [0x00020002] 
+struct UGfxTrHud_execASC_FriendlyTDMScoreUpdate_Parms
+{
+	int                                                val;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamRabbitStatsUpdateTeamScore
+// [0x00020002] 
+struct UGfxTrHud_execTeamRabbitStatsUpdateTeamScore_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamRabbitStatsUpdateFlagStatus
+// [0x00020002] 
+struct UGfxTrHud_execTeamRabbitStatsUpdateFlagStatus_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamCTFStatsShow
+// [0x00020002] 
+struct UGfxTrHud_execTeamCTFStatsShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateTime
+// [0x00020002] 
+struct UGfxTrHud_execTeamCTFStatsUpdateTime_Parms
+{
+	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateTeamScore
+// [0x00020002] 
+struct UGfxTrHud_execTeamCTFStatsUpdateTeamScore_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateFlagStatus
+// [0x00020002] 
+struct UGfxTrHud_execTeamCTFStatsUpdateFlagStatus_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bAtBase : 1;                                      		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateFlagReturnTime
+// [0x00020002] 
+struct UGfxTrHud_execTeamCTFStatsUpdateFlagReturnTime_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Time;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateGeneratorTimer
+// [0x00020002] 
+struct UGfxTrHud_execTeamCTFStatsUpdateGeneratorTimer_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Time;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateGeneratorStatus
+// [0x00020002] 
+struct UGfxTrHud_execTeamCTFStatsUpdateGeneratorStatus_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bPowered : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.RabbitLeaderboardUpdateTime
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execRabbitLeaderboardUpdateTime_Parms
+{
+	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.RabbitLeaderboardUpdateSlot
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execRabbitLeaderboardUpdateSlot_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.RabbitLeaderboardShow
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execRabbitLeaderboardShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.RabbitScoreboardActivePlayer
+// [0x00020002] 
+struct UGfxTrHud_execRabbitScoreboardActivePlayer_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bVisible : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.RabbitScoreboardUpdateSlot
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execRabbitScoreboardUpdateSlot_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Kills;                                            		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Assists;                                          		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Ping;                                             		// 0x0034 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     ClassAbb;                                         		// 0x0040 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                Rank;                                             		// 0x004C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                RankIcon;                                         		// 0x0050 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TeamScoreboardUpdateSlot
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execTeamScoreboardUpdateSlot_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Kills;                                            		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Assists;                                          		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Ping;                                             		// 0x0034 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     ClassAbb;                                         		// 0x0040 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                Rank;                                             		// 0x004C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                RankIcon;                                         		// 0x0050 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetOwnership
+// [0x00020002] 
+struct UGfxTrHud_execSetOwnership_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.UpdateEnergy
+// [0x00420002] 
+struct UGfxTrHud_execUpdateEnergy_Parms
+{
+	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	float                                              NewEnergy;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              EnergyMax;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.TickGhostHealth
+// [0x00020002] 
+struct UGfxTrHud_execTickGhostHealth_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             healthFrame;                                      		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.UpdateHealth
+// [0x00420002] 
+struct UGfxTrHud_execUpdateHealth_Parms
+{
+	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	float                                              NewHealth;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              HealthMax;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// float                                           nearDeath;                                        		// 0x002C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.DisplayHit
+// [0x00820002] 
+struct UGfxTrHud_execDisplayHit_Parms
+{
+	struct FVector                                     HitDir;                                           		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Damage;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      DamageType;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// struct FVector                                  Loc;                                              		// 0x0014 (0x000C) [0x0000000000000000]              
+	// struct FRotator                                 Rot;                                              		// 0x0020 (0x000C) [0x0000000000000000]              
+	// float                                           DirOfHit;                                         		// 0x002C (0x0004) [0x0000000000000000]              
+	// struct FVector                                  AxisX;                                            		// 0x0030 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  AxisY;                                            		// 0x003C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  AxisZ;                                            		// 0x0048 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  ShotDirection;                                    		// 0x0054 (0x000C) [0x0000000000000000]              
+	// unsigned long                                   bIsInFront : 1;                                   		// 0x0060 (0x0004) [0x0000000000000000] [0x00000001] 
+	// struct FVector2D                                AngularDist;                                      		// 0x0064 (0x0008) [0x0000000000000000]              
+	// int                                             HitDirIndex;                                      		// 0x006C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.ApplyNearDeathEffect
+// [0x00020002] 
+struct UGfxTrHud_execApplyNearDeathEffect_Parms
+{
+	float                                              Value;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ApplyDirectionalDamageEffect
+// [0x00020002] 
+struct UGfxTrHud_execApplyDirectionalDamageEffect_Parms
+{
+	int                                                EffectIndex;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              addValue;                                         		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.PlayDamageEffectWithNoDirectionalIndicator
+// [0x00020002] 
+struct UGfxTrHud_execPlayDamageEffectWithNoDirectionalIndicator_Parms
+{
+	float                                              Amount;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ChangeDamageEffectParameter
+// [0x00020002] 
+struct UGfxTrHud_execChangeDamageEffectParameter_Parms
+{
+	struct FName                                       ParamName;                                        		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	float                                              changeValue;                                      		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x000C (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// float                                           Value;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.TickDirectionalDamageEffect
+// [0x00020002] 
+struct UGfxTrHud_execTickDirectionalDamageEffect_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// float                                           tickDecrement;                                    		// 0x0004 (0x0004) [0x0000000000000000]              
+	// struct FName                                    ParamName;                                        		// 0x0008 (0x0008) [0x0000000000000000]              
+	// unsigned long                                   bFoundNonZero : 1;                                		// 0x0010 (0x0004) [0x0000000000000000] [0x00000001] 
+};
+
+// Function TribesGame.GfxTrHud.TickHud
+// [0x00020002] 
+struct UGfxTrHud_execTickHud_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             S;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             Ammo;                                             		// 0x000C (0x0004) [0x0000000000000000]              
+	// float                                           Rotation;                                         		// 0x0010 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TRP;                                              		// 0x0014 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  SpectateViewingPawn;                              		// 0x0018 (0x0004) [0x0000000000000000]              
+	// class ATrVehicle*                               TRV;                                              		// 0x001C (0x0004) [0x0000000000000000]              
+	// class ATrVehicle*                               SpectateViewingVehicle;                           		// 0x0020 (0x0004) [0x0000000000000000]              
+	// class ATrDevice*                                trDev;                                            		// 0x0024 (0x0004) [0x0000000000000000]              
+	// class ATrDevice*                                device[ 0x3 ];                                    		// 0x0028 (0x000C) [0x0000000000000000]              
+	// class ATrDevice_LaserTargeter*                  TrDevLaser;                                       		// 0x0034 (0x0004) [0x0000000000000000]              
+	// class ATrVehicleWeapon*                         TRVW;                                             		// 0x0038 (0x0004) [0x0000000000000000]              
+	// class ATrWeaponPawn*                            TRWP;                                             		// 0x003C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 PRI;                                              		// 0x0040 (0x0004) [0x0000000000000000]              
+	// int                                             currentPercent;                                   		// 0x0044 (0x0004) [0x0000000000000000]              
+	// int                                             currentPercentReload;                             		// 0x0048 (0x0004) [0x0000000000000000]              
+	// int                                             skiSpeedStep;                                     		// 0x004C (0x0004) [0x0000000000000000]              
+	// class ATrCamera_SpectatorBookmark*              SpectateViewingBookmark;                          		// 0x0050 (0x0004) [0x0000000000000000]              
+	// class AActor*                                   SpectateObjectiveActor;                           		// 0x0054 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.GetFrameNumberForVehicle
+// [0x00020002] 
+struct UGfxTrHud_execGetFrameNumberForVehicle_Parms
+{
+	class ATrVehicle*                                  V;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.GfxTrHud.ConfigureSkiSpeedSteps
+// [0x00020002] 
+struct UGfxTrHud_execConfigureSkiSpeedSteps_Parms
+{
+	float                                              SoftCap;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// int                                             stepAmount;                                       		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.GetSkiSpeedStep
+// [0x00020002] 
+struct UGfxTrHud_execGetSkiSpeedStep_Parms
+{
+	float                                              Speed;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.ForceHealthUpdate
+// [0x00020002] 
+struct UGfxTrHud_execForceHealthUpdate_Parms
+{
+	int                                                NewHealth;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                NewMaxHealth;                                     		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ClearStats
+// [0x00824002] 
+struct UGfxTrHud_execClearStats_Parms
+{
+	unsigned long                                      clearScores : 1;                                  		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// struct FASDisplayInfo                           DI;                                               		// 0x0004 (0x002C) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.SetAmmoCountTF
+// [0x00020002] 
+struct UGfxTrHud_execSetAmmoCountTF_Parms
+{
+	class AWeapon*                                     Wep;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Ammo;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	// class ATrDevice*                                Dev;                                              		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.registerHUDView
+// [0x00020002] 
+struct UGfxTrHud_execregisterHUDView_Parms
+{
+	class UGFxObject*                                  MovieClip;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      secondPass : 1;                                   		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateHUDCredits
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execUpdateHUDCredits_Parms
+{
+	int                                                changeAmount;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                newTotal;                                         		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.UpdateRespawnTimer
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execUpdateRespawnTimer_Parms
+{
+	int                                                TimeRemaining;                                    		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetRespawnText
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execSetRespawnText_Parms
+{
+	struct FString                                     Text;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.UpdateRespawnText
+// [0x00020002] 
+struct UGfxTrHud_execUpdateRespawnText_Parms
+{
+	struct FString                                     Text;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.SetScoreboardTitle
+// [0x00020002] 
+struct UGfxTrHud_execSetScoreboardTitle_Parms
+{
+	struct FString                                     sValue;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     sServer;                                          		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.UpdateCreditsAndStreaks
+// [0x00020002] 
+struct UGfxTrHud_execUpdateCreditsAndStreaks_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ShowCenterHUDElements
+// [0x00020002] 
+struct UGfxTrHud_execShowCenterHUDElements_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ConfigureHUDState
+// [0x00024003] ( FUNC_Final )
+struct UGfxTrHud_execConfigureHUDState_Parms
+{
+	unsigned long                                      bAlive : 1;                                       		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	unsigned long                                      bReady : 1;                                       		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	unsigned long                                      bForceCredits : 1;                                		// 0x0008 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// unsigned long                                   bVisible : 1;                                     		// 0x000C (0x0004) [0x0000000000000000] [0x00000001] 
+};
+
+// Function TribesGame.GfxTrHud.ConfigureSpectatorHUD
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execConfigureSpectatorHUD_Parms
+{
+	unsigned long                                      bIsNeutral : 1;                                   		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SystemEnableNotifies
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execSystemEnableNotifies_Parms
+{
+	unsigned long                                      bEnable : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ShouldShowSpectatorReticule
+// [0x00020002] 
+struct UGfxTrHud_execShouldShowSpectatorReticule_Parms
+{
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.GfxTrHud.SetPlayerClassObjects
+// [0x00020002] 
+struct UGfxTrHud_execSetPlayerClassObjects_Parms
+{
+	struct FString                                     ClassName;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                PerkIcon1;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                PerkIcon2;                                        		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class ATrPawn*                                  TRP;                                              		// 0x0014 (0x0004) [0x0000000000000000]              
+	// class ATrDevice*                                Weapon;                                           		// 0x0018 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.SetPlayerTeamIcon
+// [0x00020000] 
+struct UGfxTrHud_execSetPlayerTeamIcon_Parms
+{
+	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetPlayerRankIcon
+// [0x00020000] 
+struct UGfxTrHud_execSetPlayerRankIcon_Parms
+{
+	int                                                IconIndex;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.SetSpeedometer
+// [0x00020002] 
+struct UGfxTrHud_execSetSpeedometer_Parms
+{
+	int                                                Speed;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.ClearHeroStatus
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execClearHeroStatus_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.UpdateHeroStatus
+// [0x00020003] ( FUNC_Final )
+struct UGfxTrHud_execUpdateHeroStatus_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	float                                              ShowTime;                                         		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.AddToPromptPanelTime
+// [0x00020002] 
+struct UGfxTrHud_execAddToPromptPanelTime_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	float                                              EndTime;                                          		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      messagePriority;                                  		// 0x0010 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.AddVGSEntry
+// [0x00020002] 
+struct UGfxTrHud_execAddVGSEntry_Parms
+{
+	struct FString                                     Command;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	unsigned long                                      bBold : 1;                                        		// 0x000C (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.LoadVGSMenu
+// [0x00020002] 
+struct UGfxTrHud_execLoadVGSMenu_Parms
+{
+	class UGFxObject*                                  List;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// int                                             ClassId;                                          		// 0x0008 (0x0004) [0x0000000000000000]              
+	// struct FString                                  loadoutName;                                      		// 0x000C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// class UTrPlayerInput*                           TrPI;                                             		// 0x0018 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   FamilyInfo;                                       		// 0x001C (0x0004) [0x0000000000000000]              
+	// class UClass*                                   InfoList;                                         		// 0x0020 (0x0004) [0x0000000000000000]              
+	// TArray< unsigned char >                         GametypeSpecificCommands;                         		// 0x0024 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// TArray< class UClass* >                         VGSNodeChildrenClasses;                           		// 0x0030 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.ClearPromptPanelMessage
+// [0x00020002] 
+struct UGfxTrHud_execClearPromptPanelMessage_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GfxTrHud.ClearPromptPanel
+// [0x00020002] 
+struct UGfxTrHud_execClearPromptPanel_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.Init
+// [0x00024002] 
+struct UGfxTrHud_execInit_Parms
+{
+	class ULocalPlayer*                                Player;                                           		// 0x0000 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GfxTrHud.registerReticules
+// [0x00020002] 
+struct UGfxTrHud_execregisterReticules_Parms
+{
+	class UGFxTrReticules*                             MC;                                               		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GfxTrHud.WidgetInitialized
+// [0x00020802] ( FUNC_Event )
+struct UGfxTrHud_eventWidgetInitialized_Parms
+{
+	struct FName                                       WidgetName;                                       		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	struct FName                                       WidgetPath;                                       		// 0x0008 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	class UGFxObject*                                  Widget;                                           		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0014 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.GfxTrHud.Start
+// [0x00024002] 
+struct UGfxTrHud_execStart_Parms
+{
+	unsigned long                                      StartPaused : 1;                                  		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.GfxTrHud.DelegateSoundAccolade
+// [0x00120000] 
+struct UGfxTrHud_execDelegateSoundAccolade_Parms
+{
+};
+
+// Function TribesGame.GfxTrHud.DelegateLoadVGSMenu
+// [0x00120000] 
+struct UGfxTrHud_execDelegateLoadVGSMenu_Parms
+{
+	class UGFxObject*                                  List;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.SetClosePopupDelegate
@@ -4650,6 +6318,170 @@ struct UGFxTrMenuMoviePlayer_execDelegateNoParam_Parms
 {
 };
 
+// Function TribesGame.GFxTrReticules.UpdateReticule
+// [0x00024002] 
+struct UGFxTrReticules_execUpdateReticule_Parms
+{
+	class APawn*                                       pPawn;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bForceUpdate : 1;                                 		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// class ATrDevice*                                Dev;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class ATrVehicleWeapon*                         vw;                                               		// 0x000C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      TrPC;                                             		// 0x0010 (0x0004) [0x0000000000000000]              
+	// unsigned long                                   bShouldBeVisibileThisTick : 1;                    		// 0x0014 (0x0004) [0x0000000000000000] [0x00000001] 
+	// unsigned long                                   bFlashReticule : 1;                               		// 0x0018 (0x0004) [0x0000000000000000] [0x00000001] 
+};
+
+// Function TribesGame.GFxTrReticules.SetReticuleVisible
+// [0x00020002] 
+struct UGFxTrReticules_execSetReticuleVisible_Parms
+{
+	unsigned long                                      bNewVisible : 1;                                  		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.Init
+// [0x00020002] 
+struct UGFxTrReticules_execInit_Parms
+{
+	class UGfxTrHud*                                   H;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.SetGenericPowerupPercentage
+// [0x00020002] 
+struct UGFxTrReticules_execSetGenericPowerupPercentage_Parms
+{
+	int                                                pPercentage;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.SetVehiclePowerupPercentage
+// [0x00020002] 
+struct UGFxTrReticules_execSetVehiclePowerupPercentage_Parms
+{
+	int                                                pPercentage;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.SetLaserPowerupPercentage
+// [0x00020002] 
+struct UGFxTrReticules_execSetLaserPowerupPercentage_Parms
+{
+	int                                                pPercentage;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.SetPowerupPercentage
+// [0x00020002] 
+struct UGFxTrReticules_execSetPowerupPercentage_Parms
+{
+	int                                                pPercentage;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.SetVehicleAmmoClip
+// [0x00020002] 
+struct UGFxTrReticules_execSetVehicleAmmoClip_Parms
+{
+	struct FString                                     AmmoCount;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GFxTrReticules.EnableVehicleAmmoClip
+// [0x00020002] 
+struct UGFxTrReticules_execEnableVehicleAmmoClip_Parms
+{
+};
+
+// Function TribesGame.GFxTrReticules.DisableVehicleAmmoClip
+// [0x00020002] 
+struct UGFxTrReticules_execDisableVehicleAmmoClip_Parms
+{
+};
+
+// Function TribesGame.GFxTrReticules.CallShowHit
+// [0x00020002] 
+struct UGFxTrReticules_execCallShowHit_Parms
+{
+};
+
+// Function TribesGame.GFxTrReticules.CallSetAccuracy
+// [0x00020002] 
+struct UGFxTrReticules_execCallSetAccuracy_Parms
+{
+	int                                                nAccuracy;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.GetCurrentReticuleIndex
+// [0x00020002] 
+struct UGFxTrReticules_execGetCurrentReticuleIndex_Parms
+{
+	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.GFxTrReticules.SetCustomReticule
+// [0x00020002] 
+struct UGFxTrReticules_execSetCustomReticule_Parms
+{
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class ATrDevice*                                device;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class UGFxObject*                               Data;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      TrPC;                                             		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrReticules.ChangeReticule
+// [0x00820002] 
+struct UGFxTrReticules_execChangeReticule_Parms
+{
+	int                                                nIndex;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class ATrPlayerController*                      TrPC;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
+	// struct FVector2D                                ViewportSize;                                     		// 0x0008 (0x0008) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrReticules.CallSetReticuleDepth
+// [0x00820002] 
+struct UGFxTrReticules_execCallSetReticuleDepth_Parms
+{
+	float                                              fDepth;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// struct FMatrix                                  DepthMatrix;                                      		// 0x0010 (0x0040) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrReticules.ASC_SetAlternateReticules
+// [0x00020002] 
+struct UGFxTrReticules_execASC_SetAlternateReticules_Parms
+{
+	class UGFxObject*                                  Data;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.SetAlternateReticules
+// [0x00020802] ( FUNC_Event )
+struct UGFxTrReticules_eventSetAlternateReticules_Parms
+{
+	class UGFxObject*                                  Data;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.ASC_SetCustomReticule
+// [0x00020002] 
+struct UGFxTrReticules_execASC_SetCustomReticule_Parms
+{
+	class UGFxObject*                                  Data;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.CallSetReticuleColor
+// [0x00020002] 
+struct UGFxTrReticules_execCallSetReticuleColor_Parms
+{
+	int                                                nType;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.CallShowReticule
+// [0x00020002] 
+struct UGFxTrReticules_execCallShowReticule_Parms
+{
+	int                                                nIndex;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                nStageWidth;                                      		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                nStageHeight;                                     		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrReticules.SetAlternates
+// [0x00020400] ( FUNC_Native )
+struct UGFxTrReticules_execSetAlternates_Parms
+{
+};
+
 // Function TribesGame.GFxTrScene.Initialize
 // [0x00020002] 
 struct UGFxTrScene_execInitialize_Parms
@@ -6457,6 +8289,13 @@ struct ATrPlayerController_execShowAlienFX_Parms
 	unsigned long                                      bEnable : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 };
 
+// Function TribesGame.TrPlayerController.EnableHUDWeapons
+// [0x00020002] 
+struct ATrPlayerController_execEnableHUDWeapons_Parms
+{
+	unsigned long                                      bEnable : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
 // Function TribesGame.TrPlayerController.EnableHUDCracks
 // [0x00020002] 
 struct ATrPlayerController_execEnableHUDCracks_Parms
@@ -6805,9 +8644,6 @@ struct ATrPlayerController_execUpdateCallInCooldown_Parms
 // [0x00020102] 
 struct ATrPlayerController_execUpdateCallInAvailability_Parms
 {
-	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class UGfxTrHud*                                TrH;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class ATrDevice_LaserTargeter*                  LaserTargeter;                                    		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.ClientOnFumbledFlag
@@ -7714,7 +9550,6 @@ struct ATrPlayerController_execServerSetZoom_Parms
 struct ATrPlayerController_execResetZoomDuration_Parms
 {
 	unsigned long                                      bPlayRechargeSoundOnWeapon : 1;                   		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// class ATrDevice_SniperRifle*                    SniperRifle;                                      		// 0x0004 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.TrEndZoom
@@ -7950,10 +9785,6 @@ struct ATrPlayerController_execGetVehicleCost_Parms
 {
 	class UClass*                                      VehicleClass;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// int                                             CreditCost;                                       		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x000C (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         VM;                                               		// 0x0014 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.ServerRequestLoadoutChange
@@ -8014,7 +9845,6 @@ struct ATrPlayerController_execSwitchToSeat_Parms
 struct ATrPlayerController_execServerRequestCallInChange_Parms
 {
 	unsigned char                                      T;                                                		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrDevice_LaserTargeter*                  LaserTargeter;                                    		// 0x0004 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.SwitchToCallIn
@@ -8022,9 +9852,6 @@ struct ATrPlayerController_execServerRequestCallInChange_Parms
 struct ATrPlayerController_execSwitchToCallIn_Parms
 {
 	unsigned char                                      T;                                                		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrDevice_LaserTargeter*                  LaserTargeter;                                    		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class ATrInventoryManager*                      invMan;                                           		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class ATrDevice_AutoFire*                       AutoFireDevice;                                   		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.ServerRiding
@@ -8195,12 +10022,13 @@ struct ATrPlayerController_execGetBlinkPackAccel_Parms
 {
 	struct FVector                                     newAccel;                                         		// 0x0000 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
 	float                                              BlinkPackPctEffectiveness;                        		// 0x000C (0x0004) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	// float                                           BlinkPackSpeedCapMultiplier;                      		// 0x0010 (0x0004) [0x0000000000000000]              
-	// float                                           pawnSpeed;                                        		// 0x0014 (0x0004) [0x0000000000000000]              
-	// struct FVector                                  ViewPos;                                          		// 0x0018 (0x000C) [0x0000000000000000]              
-	// struct FRotator                                 ViewRot;                                          		// 0x0024 (0x000C) [0x0000000000000000]              
-	// class ATrPawn*                                  TRP;                                              		// 0x0030 (0x0004) [0x0000000000000000]              
-	// class ATrDevice_Blink*                          BlinkPack;                                        		// 0x0034 (0x0004) [0x0000000000000000]              
+	// unsigned long                                   IsRageBlink : 1;                                  		// 0x0010 (0x0004) [0x0000000000000000] [0x00000001] 
+	// float                                           BlinkPackSpeedCapMultiplier;                      		// 0x0014 (0x0004) [0x0000000000000000]              
+	// float                                           pawnSpeed;                                        		// 0x0018 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  ViewPos;                                          		// 0x001C (0x000C) [0x0000000000000000]              
+	// struct FRotator                                 ViewRot;                                          		// 0x0028 (0x000C) [0x0000000000000000]              
+	// class ATrPawn*                                  TRP;                                              		// 0x0034 (0x0004) [0x0000000000000000]              
+	// class ATrDevice_Blink*                          BlinkPack;                                        		// 0x0038 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.PerformBlink
@@ -8433,7 +10261,7 @@ struct ATrPlayerController_execStartFire_Parms
 // [0x00020002] 
 struct ATrPlayerController_execActivateDevice_Parms
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	// class ATrDevice_Deployable*                     DeployableDevice;                                 		// 0x0004 (0x0004) [0x0000000000000000]              
 	// class ATrPawn*                                  TRP;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
 };
@@ -8458,6 +10286,16 @@ struct ATrPlayerController_execSwitchWeapon_Parms
 	// class ATrDevice_AutoFire*                       AutoFireDevice;                                   		// 0x0004 (0x0004) [0x0000000000000000]              
 };
 
+// Function TribesGame.TrPlayerController.EquipWeapon
+// [0x00020202] ( FUNC_Exec )
+struct ATrPlayerController_execEquipWeapon_Parms
+{
+	unsigned char                                      T;                                                		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	// unsigned char                                   EqpSlot;                                          		// 0x0001 (0x0001) [0x0000000000000000]              
+	// class ATrInventoryManager*                      invMan;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrDevice_AutoFire*                       AutoFireDevice;                                   		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
 // Function TribesGame.TrPlayerController.EquipSecondary
 // [0x00020202] ( FUNC_Exec )
 struct ATrPlayerController_execEquipSecondary_Parms
@@ -8475,10 +10313,11 @@ struct ATrPlayerController_execEquipPrimary_Parms
 };
 
 // Function TribesGame.TrPlayerController.PressedWeaponSwitch
-// [0x00020202] ( FUNC_Exec )
+// [0x00024202] ( FUNC_Exec )
 struct ATrPlayerController_execPressedWeaponSwitch_Parms
 {
 	unsigned long                                      bFilterTimeStamp : 1;                             		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	int                                                Offset;                                           		// 0x0004 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 };
 
 // Function TribesGame.TrPlayerController.PressedConsoleUse
@@ -8518,9 +10357,10 @@ struct ATrPlayerController_execPressedBelt_Parms
 };
 
 // Function TribesGame.TrPlayerController.PressedLaser
-// [0x00020200] ( FUNC_Exec )
+// [0x00020202] ( FUNC_Exec )
 struct ATrPlayerController_execPressedLaser_Parms
 {
+	// class ATrInventoryManager*                      invMan;                                           		// 0x0000 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.PressedMelee
@@ -8616,7 +10456,7 @@ struct ATrPlayerController_execAimingHelp_Parms
 // [0x00020002] 
 struct ATrPlayerController_execGetDeviceByEquipPoint_Parms
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	class ATrDevice*                                   ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 	// class ATrInventoryManager*                      invMan;                                           		// 0x0008 (0x0004) [0x0000000000000000]              
 };
@@ -8667,14 +10507,14 @@ struct ATrPlayerController_execGetLatestAccoladeIconIndex_Parms
 };
 
 // Function TribesGame.TrPlayerController.ClientUpdateCredits
-// [0x010201C2] 
+// [0x01020140] 
 struct ATrPlayerController_execClientUpdateCredits_Parms
 {
 	int                                                Count;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function TribesGame.TrPlayerController.CreditsSoundFinished
-// [0x00020102] 
+// [0x00020100] 
 struct ATrPlayerController_execCreditsSoundFinished_Parms
 {
 	class UAudioComponent*                             AC;                                               		// 0x0000 (0x0004) [0x0000000004000080]              ( CPF_Parm | CPF_EditInline )
@@ -9779,6 +11619,28 @@ struct UTrControlSettings_execFlushSettings_Parms
 {
 };
 
+// Function TribesGame.TrCustomImageManager.DebugDraw
+// [0x00020802] ( FUNC_Event )
+struct UTrCustomImageManager_eventDebugDraw_Parms
+{
+	class UCanvas*                                     Canvas;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// float                                           PosX;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
+	// float                                           PosY;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             Idx;                                              		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrCustomImageManager.Load
+// [0x00020400] ( FUNC_Native )
+struct UTrCustomImageManager_execLoad_Parms
+{
+};
+
+// Function TribesGame.TrCustomImageManager.Initialize
+// [0x00020400] ( FUNC_Native )
+struct UTrCustomImageManager_execInitialize_Parms
+{
+};
+
 // Function TribesGame.TrDeployableHologram.Init
 // [0x00020102] 
 struct ATrDeployableHologram_execInit_Parms
@@ -9844,7 +11706,7 @@ struct ATrDevice_execGetMaxAmmoCount_Parms
 	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
 	// class UTrValueModifier*                         VM;                                               		// 0x000C (0x0004) [0x0000000000000000]              
 	// float                                           Count;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
-	// unsigned char                                   EquipPoint;                                       		// 0x0014 (0x0001) [0x0000000000000000]              
+	// unsigned char                                   equipPoint;                                       		// 0x0014 (0x0001) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice.BuffMaxCarriedAmmo
@@ -9868,23 +11730,25 @@ struct ATrDevice_execCalcWeaponFire_Parms
 	struct FVector                                     EndTrace;                                         		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	TArray< struct FImpactInfo >                       ImpactList;                                       		// 0x0018 (0x000C) [0x0000000000400190]              ( CPF_OptionalParm | CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 	struct FVector                                     Extent;                                           		// 0x0024 (0x000C) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	struct FImpactInfo                                 ReturnValue;                                      		// 0x0030 (0x0050) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// struct FVector                                  HitLocation;                                      		// 0x0080 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  HitNormal;                                        		// 0x008C (0x000C) [0x0000000000000000]              
-	// struct FVector                                  Dir;                                              		// 0x0098 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  ImprovedStartTrace;                               		// 0x00A4 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  ImprovedEndTrace;                                 		// 0x00B0 (0x000C) [0x0000000000000000]              
-	// class AActor*                                   HitActor;                                         		// 0x00BC (0x0004) [0x0000000000000000]              
-	// struct FTraceHitInfo                            HitInfo;                                          		// 0x00C0 (0x001C) [0x0000000000000000]              
-	// struct FImpactInfo                              CurrentImpact;                                    		// 0x00DC (0x0050) [0x0000000000000000]              
-	// struct FImpactInfo                              AccurateImpact;                                   		// 0x012C (0x0050) [0x0000000000000000]              
-	// class APortalTeleporter*                        Portal;                                           		// 0x017C (0x0004) [0x0000000000000000]              
-	// float                                           HitDist;                                          		// 0x0180 (0x0004) [0x0000000000000000]              
-	// unsigned long                                   bOldBlockActors : 1;                              		// 0x0184 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   bOldCollideActors : 1;                            		// 0x0188 (0x0004) [0x0000000000000000] [0x00000001] 
-	// float                                           ShotDist;                                         		// 0x018C (0x0004) [0x0000000000000000]              
-	// int                                             I;                                                		// 0x0190 (0x0004) [0x0000000000000000]              
-	// TArray< struct FImpactInfo >                    ImprovedAccuracyImpactList;                       		// 0x0194 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	int                                                ExtraTraceFlags;                                  		// 0x0030 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	struct FImpactInfo                                 ReturnValue;                                      		// 0x0034 (0x0050) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FVector                                  HitLocation;                                      		// 0x0084 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  HitNormal;                                        		// 0x0090 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  Dir;                                              		// 0x009C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  ImprovedStartTrace;                               		// 0x00A8 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  ImprovedEndTrace;                                 		// 0x00B4 (0x000C) [0x0000000000000000]              
+	// class AActor*                                   HitActor;                                         		// 0x00C0 (0x0004) [0x0000000000000000]              
+	// struct FTraceHitInfo                            HitInfo;                                          		// 0x00C4 (0x001C) [0x0000000000000000]              
+	// struct FImpactInfo                              CurrentImpact;                                    		// 0x00E0 (0x0050) [0x0000000000000000]              
+	// struct FImpactInfo                              AccurateImpact;                                   		// 0x0130 (0x0050) [0x0000000000000000]              
+	// class APortalTeleporter*                        Portal;                                           		// 0x0180 (0x0004) [0x0000000000000000]              
+	// float                                           HitDist;                                          		// 0x0184 (0x0004) [0x0000000000000000]              
+	// unsigned long                                   bOldBlockActors : 1;                              		// 0x0188 (0x0004) [0x0000000000000000] [0x00000001] 
+	// unsigned long                                   bOldCollideActors : 1;                            		// 0x018C (0x0004) [0x0000000000000000] [0x00000001] 
+	// float                                           ShotDist;                                         		// 0x0190 (0x0004) [0x0000000000000000]              
+	// int                                             I;                                                		// 0x0194 (0x0004) [0x0000000000000000]              
+	// TArray< struct FImpactInfo >                    ImprovedAccuracyImpactList;                       		// 0x0198 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// class APawn*                                    P;                                                		// 0x01A4 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice.ResetAltReticule
@@ -10184,6 +12048,9 @@ struct ATrDevice_execEnableWeaponReadyToFire_Parms
 struct ATrDevice_execPlayReloadAnim_Parms
 {
 	// float                                           ReloadTime;                                       		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class ATrHUD*                                   TrH;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TRP;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class UGfxTrHud*                                HudMovie;                                         		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice.ResumeZoomOnReloadEnd
@@ -10194,13 +12061,16 @@ struct ATrDevice_execResumeZoomOnReloadEnd_Parms
 };
 
 // Function TribesGame.TrDevice.ClientFinishedReload
-// [0x00020100] 
+// [0x00020102] 
 struct ATrDevice_execClientFinishedReload_Parms
 {
+	// class ATrHUD*                                   TrH;                                              		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TRP;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class UGfxTrHud*                                HudMovie;                                         		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice.CalcAmountToLoad
-// [0x00020002] 
+// [0x00020102] 
 struct ATrDevice_execCalcAmountToLoad_Parms
 {
 	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
@@ -10267,7 +12137,7 @@ struct ATrDevice_execIsInConduitWithVelocity_Parms
 struct ATrDevice_execGetReloadTime_Parms
 {
 	class APlayerReplicationInfo*                      PRI;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned char                                      EquipPoint;                                       		// 0x0004 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0004 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	float                                              ReturnValue;                                      		// 0x0008 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 	// float                                           RateMultiplier;                                   		// 0x000C (0x0004) [0x0000000000000000]              
 	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
@@ -10703,15 +12573,34 @@ struct ATrDevice_execClientWeaponSet_Parms
 };
 
 // Function TribesGame.TrDevice.OnSwitchAwayFromWeapon
-// [0x00020100] 
+// [0x00020102] 
 struct ATrDevice_execOnSwitchAwayFromWeapon_Parms
 {
+};
+
+// Function TribesGame.TrDevice.HudWeaponDeactivated
+// [0x00020102] 
+struct ATrDevice_execHudWeaponDeactivated_Parms
+{
+	// class ATrHUD*                                   TrH;                                              		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TRP;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class UGfxTrHud*                                HudMovie;                                         		// 0x0008 (0x0004) [0x0000000000000000]              
+	// float                                           ReloadTime;                                       		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice.OnSwitchToWeapon
 // [0x00020102] 
 struct ATrDevice_execOnSwitchToWeapon_Parms
 {
+};
+
+// Function TribesGame.TrDevice.HudWeaponActivated
+// [0x00020102] 
+struct ATrDevice_execHudWeaponActivated_Parms
+{
+	// class ATrHUD*                                   TrH;                                              		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TRP;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class UGfxTrHud*                                HudMovie;                                         		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice.WeaponEmpty
@@ -10873,22 +12762,22 @@ struct ATrDevice_execGetObjectReferencerName_Parms
 };
 
 // Function TribesGame.TrDevice.ValidateClientReportedHitInternal
-// [0x00020400] ( FUNC_Native )
+// [0x00420400] ( FUNC_Native )
 struct ATrDevice_execValidateClientReportedHitInternal_Parms
 {
 	unsigned char                                      FiringMode;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000080]              ( CPF_Parm )
+	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
 	unsigned long                                      bHeadShot : 1;                                    		// 0x0054 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 	unsigned long                                      bDeviceIsFiring : 1;                              		// 0x0058 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 	int                                                ReturnValue;                                      		// 0x005C (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function TribesGame.TrDevice.ValidateClientReportedHit
-// [0x00020400] ( FUNC_Native )
+// [0x00420400] ( FUNC_Native )
 struct ATrDevice_execValidateClientReportedHit_Parms
 {
 	unsigned char                                      FiringMode;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000080]              ( CPF_Parm )
+	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
 	unsigned long                                      bHeadShot : 1;                                    		// 0x0054 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 	unsigned long                                      bDeviceIsFiring : 1;                              		// 0x0058 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 	int                                                ReturnValue;                                      		// 0x005C (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
@@ -11254,200 +13143,6 @@ struct ATrDevice_ConstantFire_eventReplicatedEvent_Parms
 	struct FName                                       VarName;                                          		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
 };
 
-// Function TribesGame.TrDevice_LaserTargeter.UpdateWeaponMICs
-// [0x00020902] ( FUNC_Event )
-struct ATrDevice_LaserTargeter_eventUpdateWeaponMICs_Parms
-{
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.UpdateCallInMaterial
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execUpdateCallInMaterial_Parms
-{
-	// class UMaterialInstanceConstant*                DisplayMaterial;                                  		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.PlayWeaponEquip
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execPlayWeaponEquip_Parms
-{
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.UpdateCreditMaterial
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execUpdateCreditMaterial_Parms
-{
-	// class ATrPawn*                                  POwner;                                           		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.GetAmmoCount
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execGetAmmoCount_Parms
-{
-	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.GetTraceOwner
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execGetTraceOwner_Parms
-{
-	class AActor*                                      ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.CalcHUDAimChargePercent
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execCalcHUDAimChargePercent_Parms
-{
-	float                                              ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.UpdateTarget
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execUpdateTarget_Parms
-{
-	unsigned long                                      hasHitSomething : 1;                              		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	struct FVector                                     End;                                              		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	float                                              DeltaTime;                                        		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrPawn*                                  POwner;                                           		// 0x0014 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.ServerPerformCallIn
-// [0x002200C2] 
-struct ATrDevice_LaserTargeter_execServerPerformCallIn_Parms
-{
-	struct FVector                                     EndLocation;                                      		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     HitNormal;                                        		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrPlayerController*                      TrPC;                                             		// 0x0018 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.CallInConfirmed
-// [0x010201C2] 
-struct ATrDevice_LaserTargeter_execCallInConfirmed_Parms
-{
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.UpdateLaserEffect
-// [0x00820102] 
-struct ATrDevice_LaserTargeter_execUpdateLaserEffect_Parms
-{
-	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// unsigned long                                   hasLaserHit : 1;                                  		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
-	// class UMaterialInterface*                       BeamMIOut;                                        		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class UMaterialInstanceConstant*                BeamMIC;                                          		// 0x000C (0x0004) [0x0000000000000000]              
-	// struct FVector                                  Start;                                            		// 0x0010 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  End;                                              		// 0x001C (0x000C) [0x0000000000000000]              
-	// struct FVector                                  HitNormal;                                        		// 0x0028 (0x000C) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.SpawnLaserEffect
-// [0x00820102] 
-struct ATrDevice_LaserTargeter_execSpawnLaserEffect_Parms
-{
-	// unsigned long                                   hasLaserHit : 1;                                  		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
-	// class UMaterialInstanceConstant*                BeamMIC;                                          		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  POwner;                                           		// 0x0008 (0x0004) [0x0000000000000000]              
-	// struct FVector                                  Start;                                            		// 0x000C (0x000C) [0x0000000000000000]              
-	// struct FVector                                  End;                                              		// 0x0018 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  HitNormal;                                        		// 0x0024 (0x000C) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.KillLaserEffect
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execKillLaserEffect_Parms
-{
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.GetLaserStartAndEnd
-// [0x00C20102] 
-struct ATrDevice_LaserTargeter_execGetLaserStartAndEnd_Parms
-{
-	struct FVector                                     StartLocation;                                    		// 0x0000 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	struct FVector                                     EndLocation;                                      		// 0x000C (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	struct FVector                                     EndLocationNormal;                                		// 0x0018 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0024 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// TArray< struct FImpactInfo >                    ImpactList;                                       		// 0x0028 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FImpactInfo                              TestImpact;                                       		// 0x0034 (0x0050) [0x0000000000000000]              
-	// struct FVector                                  StartTrace;                                       		// 0x0084 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  EndTrace;                                         		// 0x0090 (0x000C) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.OnStartConstantFire
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execOnStartConstantFire_Parms
-{
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.OnEndConstantFire
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execOnEndConstantFire_Parms
-{
-	// class ATrPawn*                                  TRP;                                              		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.SetActiveCallIn
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execSetActiveCallIn_Parms
-{
-	unsigned char                                      CallInIndex;                                      		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.IsValidCallIn
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execIsValidCallIn_Parms
-{
-	unsigned char                                      CallInIndex;                                      		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.CanFireCallIn
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execCanFireCallIn_Parms
-{
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class ATrPlayerController*                      TrPC;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.Destroyed
-// [0x00020902] ( FUNC_Event )
-struct ATrDevice_LaserTargeter_eventDestroyed_Parms
-{
-	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.UpdateCallins
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execUpdateCallins_Parms
-{
-	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.PostBeginPlay
-// [0x00020102] 
-struct ATrDevice_LaserTargeter_execPostBeginPlay_Parms
-{
-	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.ReplicatedEvent
-// [0x00020902] ( FUNC_Event )
-struct ATrDevice_LaserTargeter_eventReplicatedEvent_Parms
-{
-	struct FName                                       VarName;                                          		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrDevice_LaserTargeter.IsValidTargetLocation
-// [0x00024400] ( FUNC_Native )
-struct ATrDevice_LaserTargeter_execIsValidTargetLocation_Parms
-{
-	struct FVector                                     CurrentTarget;                                    		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     PreviousTarget;                                   		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	class AActor*                                      HitTarget;                                        		// 0x0018 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x001C (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
 // Function TribesGame.TrDevice_Deployable.HasAmmo
 // [0x00024102] 
 struct ATrDevice_Deployable_execHasAmmo_Parms
@@ -11786,6 +13481,20 @@ struct ATrDevice_Shotgun_execFireAmmunition_Parms
 {
 };
 
+// Function TribesGame.TrDevice_Shotgun.AddSpreadWithAccuracy
+// [0x00820102] 
+struct ATrDevice_Shotgun_execAddSpreadWithAccuracy_Parms
+{
+	struct FRotator                                    BaseAim;                                          		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	float                                              fAccuracy;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FRotator                                    ReturnValue;                                      		// 0x0010 (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FVector                                  X;                                                		// 0x001C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  Y;                                                		// 0x0028 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  Z;                                                		// 0x0034 (0x000C) [0x0000000000000000]              
+	// float                                           SpreadDist;                                       		// 0x0040 (0x0004) [0x0000000000000000]              
+	// float                                           SpreadAngle;                                      		// 0x0044 (0x0004) [0x0000000000000000]              
+};
+
 // Function TribesGame.TrDevice_Shotgun.CustomFire
 // [0x00020102] 
 struct ATrDevice_Shotgun_execCustomFire_Parms
@@ -11840,6 +13549,15 @@ struct UTrDmgType_Base_execGetCameraShake_Parms
 	// float                                           MaxDamage;                                        		// 0x0010 (0x0004) [0x0000000000000000]              
 };
 
+// Function TribesGame.TrDmgType_Base.GetImpulseScale
+// [0x00022002] 
+struct UTrDmgType_Base_execGetImpulseScale_Parms
+{
+	float                                              DamageScale;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      dmgType;                                          		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              ReturnValue;                                      		// 0x0008 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
 // Function TribesGame.TrDmgType_Base.GetDamageScale
 // [0x00022002] 
 struct UTrDmgType_Base_execGetDamageScale_Parms
@@ -11869,7 +13587,7 @@ struct UTrDmgType_Base_execCalculateRangeDamageFalloff_Parms
 	float                                              Dist;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	float                                              damageRange;                                      		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	class ATrPlayerController*                         TrPCDamager;                                      		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	unsigned char                                      EquipPoint;                                       		// 0x000C (0x0001) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x000C (0x0001) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 	unsigned long                                      bMinDamageAlwaysApplied : 1;                      		// 0x0010 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
 	float                                              ReturnValue;                                      		// 0x0014 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 	// float                                           maxDamageRange;                                   		// 0x0018 (0x0004) [0x0000000000000000]              
@@ -12197,6 +13915,28 @@ struct UTrEquipInterface_execGetUpgradePrice_Parms
 	int                                                ReturnValue;                                      		// 0x0014 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
+// Function TribesGame.TrEquipInterface.CanEquipCategory
+// [0x00020400] ( FUNC_Native )
+struct UTrEquipInterface_execCanEquipCategory_Parms
+{
+	int                                                ClassId;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Type;                                             		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Loadout;                                          		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Category;                                         		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0010 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrEquipInterface.CanEquip
+// [0x00020400] ( FUNC_Native )
+struct UTrEquipInterface_execCanEquip_Parms
+{
+	int                                                ClassId;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Type;                                             		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Loadout;                                          		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                equip;                                            		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0010 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
 // Function TribesGame.TrEquipInterface.SetActiveEquipId
 // [0x00020400] ( FUNC_Native )
 struct UTrEquipInterface_execSetActiveEquipId_Parms
@@ -12366,6 +14106,16 @@ struct UTrEquipInterface_execGetMasteryPrice_Parms
 	int                                                ReturnValue;                                      		// 0x000C (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
+// Function TribesGame.TrEquipInterface.GetFirstEquipIdFiltered
+// [0x00020400] ( FUNC_Native )
+struct UTrEquipInterface_execGetFirstEquipIdFiltered_Parms
+{
+	int                                                ClassId;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Type;                                             		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Filter;                                           		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                ReturnValue;                                      		// 0x000C (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
 // Function TribesGame.TrEquipInterface.GetFirstEquipId
 // [0x00020400] ( FUNC_Native )
 struct UTrEquipInterface_execGetFirstEquipId_Parms
@@ -12383,6 +14133,17 @@ struct UTrEquipInterface_execGetEquipRibbon_Parms
 	int                                                Type;                                             		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                equip;                                            		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                ReturnValue;                                      		// 0x000C (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrEquipInterface.GetNextEquipIdFiltered
+// [0x00020400] ( FUNC_Native )
+struct UTrEquipInterface_execGetNextEquipIdFiltered_Parms
+{
+	int                                                ClassId;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Type;                                             		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Filter;                                           		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                PrevClass;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                ReturnValue;                                      		// 0x0010 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function TribesGame.TrEquipInterface.GetNextEquipId
@@ -12443,6 +14204,17 @@ struct UTrEquipInterface_execIsEquipOwned_Parms
 	int                                                Type;                                             		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                equip;                                            		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	unsigned long                                      ReturnValue : 1;                                  		// 0x000C (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrEquipInterface.GetEquipIdFiltered
+// [0x00020400] ( FUNC_Native )
+struct UTrEquipInterface_execGetEquipIdFiltered_Parms
+{
+	int                                                ClassId;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Type;                                             		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Filter;                                           		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Index;                                            		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                ReturnValue;                                      		// 0x0010 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function TribesGame.TrEquipInterface.GetEquipId
@@ -12534,12 +14306,13 @@ struct UTrEquipInterface_execOnMarshalEvent_Parms
 };
 
 // Function TribesGame.TrEquipInterface.SetDefaultEquip
-// [0x00020400] ( FUNC_Native )
+// [0x00024400] ( FUNC_Native )
 struct UTrEquipInterface_execSetDefaultEquip_Parms
 {
 	int                                                ClassId;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                Type;                                             		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                equip;                                            		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bClassExtra : 1;                                  		// 0x000C (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
 };
 
 // Function TribesGame.TrEquipInterface.InitClass
@@ -12566,7 +14339,7 @@ struct UTrEquipInterface_execDelegateOnMarshalEvent_Parms
 // [0x00022002] 
 struct UTrFamilyInfo_execGetContentDeviceClassStringByEquipPoint_Parms
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 	// int                                             I;                                                		// 0x0010 (0x0004) [0x0000000000000000]              
 };
@@ -12575,7 +14348,7 @@ struct UTrFamilyInfo_execGetContentDeviceClassStringByEquipPoint_Parms
 // [0x00022002] 
 struct UTrFamilyInfo_execGetDeviceClassByEquipPoint_Parms
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	class UClass*                                      ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
 };
@@ -13557,6 +15330,71 @@ struct ATrCaHCapturePoint_execPostBeginPlay_Parms
 	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
 };
 
+// Function TribesGame.TrDeployable_DropJammer.GetMarker
+// [0x00020102] 
+struct ATrDeployable_DropJammer_execGetMarker_Parms
+{
+	class UTexture2D*                                  ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrDeployable_DropJammer.Timer
+// [0x00020002] 
+struct ATrDeployable_DropJammer_execTimer_Parms
+{
+};
+
+// Function TribesGame.TrDeployable_DropJammer.PlayStationLeftEffects
+// [0x00020100] 
+struct ATrDeployable_DropJammer_execPlayStationLeftEffects_Parms
+{
+};
+
+// Function TribesGame.TrDeployable_DropJammer.PlayStationEnteredEffects
+// [0x00820102] 
+struct ATrDeployable_DropJammer_execPlayStationEnteredEffects_Parms
+{
+	// class ATrHUD*                                   TrH;                                              		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      C;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// struct FRotator                                 R;                                                		// 0x0008 (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDeployable_DropJammer.PawnLeftStation
+// [0x00020002] 
+struct ATrDeployable_DropJammer_execPawnLeftStation_Parms
+{
+	class ATrPawn*                                     P;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class ATrPlayerController*                      C;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDeployable_DropJammer.PawnEnteredStation
+// [0x00820002] 
+struct ATrDeployable_DropJammer_execPawnEnteredStation_Parms
+{
+	class ATrPawn*                                     P;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// struct FVector                                  Loc;                                              		// 0x0004 (0x000C) [0x0000000000000000]              
+	// class ATrPlayerController*                      C;                                                		// 0x0010 (0x0004) [0x0000000000000000]              
+	// struct FRotator                                 R;                                                		// 0x0014 (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDeployable_DropJammer.Destroyed
+// [0x00020102] 
+struct ATrDeployable_DropJammer_execDestroyed_Parms
+{
+};
+
+// Function TribesGame.TrDeployable_DropJammer.ReplicatedEvent
+// [0x00020902] ( FUNC_Event )
+struct ATrDeployable_DropJammer_eventReplicatedEvent_Parms
+{
+	struct FName                                       VarName;                                          		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrDeployable_DropJammer.PostBeginPlay
+// [0x00020902] ( FUNC_Event )
+struct ATrDeployable_DropJammer_eventPostBeginPlay_Parms
+{
+};
+
 // Function TribesGame.TrDeployable_PrismMine.OnPowerStatusChanged
 // [0x00020102] 
 struct ATrDeployable_PrismMine_execOnPowerStatusChanged_Parms
@@ -13856,7 +15694,6 @@ struct ATrStation_execPlayStationLeftEffects_Parms
 struct ATrStation_execPlayStationEnteredEffects_Parms
 {
 	// class ATrPlayerController*                      C;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerController*                      LocalC;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrStation.PawnLeftStation
@@ -14181,6 +16018,1038 @@ struct ATrGameReplicationInfo_eventReplicatedEvent_Parms
 	struct FName                                       VarName;                                          		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
 };
 
+// Function TribesGame.TrHUD.UpdateDebugDraws
+// [0x00020400] ( FUNC_Native )
+struct ATrHUD_execUpdateDebugDraws_Parms
+{
+};
+
+// Function TribesGame.TrHUD.UpdateOwnedItems
+// [0x00020002] 
+struct ATrHUD_execUpdateOwnedItems_Parms
+{
+	// unsigned long                                   bUpdate : 1;                                      		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
+	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// int                                             drawnItems;                                       		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.MineReplicated
+// [0x00020002] 
+struct ATrHUD_execMineReplicated_Parms
+{
+	class ATrProj_Mine*                                NewMine;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.DeployableReplicated
+// [0x00020002] 
+struct ATrHUD_execDeployableReplicated_Parms
+{
+	class ATrDeployable*                               NewDep;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.ClearQueuedAccoladesTimer
+// [0x00020002] 
+struct ATrHUD_execClearQueuedAccoladesTimer_Parms
+{
+};
+
+// Function TribesGame.TrHUD.RunQueuedAccoladesTimer
+// [0x00020002] 
+struct ATrHUD_execRunQueuedAccoladesTimer_Parms
+{
+	unsigned long                                      bIsBadge : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	// float                                           waitTime;                                         		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.CheckQueuedAccolades
+// [0x00020002] 
+struct ATrHUD_execCheckQueuedAccolades_Parms
+{
+};
+
+// Function TribesGame.TrHUD.QueueAccolade
+// [0x00824002] 
+struct ATrHUD_execQueueAccolade_Parms
+{
+	int                                                Icon;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Title;                                            		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Subtitle;                                         		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	unsigned long                                      bIsBadge : 1;                                     		// 0x001C (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// struct FQueuedAccolade                          Accolade;                                         		// 0x0020 (0x0020) [0x0000000000400000]              ( CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.PlayAward
+// [0x00020002] 
+struct ATrHUD_execPlayAward_Parms
+{
+	class UCanvas*                                     DrawCanvas;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// float                                           Progress;                                         		// 0x0004 (0x0004) [0x0000000000000000]              
+	// float                                           timelinePercent;                                  		// 0x0008 (0x0004) [0x0000000000000000]              
+	// float                                           Scale;                                            		// 0x000C (0x0004) [0x0000000000000000]              
+	// float                                           scaledSize;                                       		// 0x0010 (0x0004) [0x0000000000000000]              
+	// float                                           scaledHeight;                                     		// 0x0014 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.PostRenderFor
+// [0x00020902] ( FUNC_Event )
+struct ATrHUD_eventPostRenderFor_Parms
+{
+	class APlayerController*                           PC;                                               		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UCanvas*                                     DrawCanvas;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     CameraPosition;                                   		// 0x0008 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     CameraDir;                                        		// 0x0014 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.Tick
+// [0x00020902] ( FUNC_Event )
+struct ATrHUD_eventTick_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.UpdateOverheadNumbers
+// [0x00820002] 
+struct ATrHUD_execUpdateOverheadNumbers_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// float                                           AccumulatedTime;                                  		// 0x0008 (0x0004) [0x0000000000000000]              
+	// float                                           ScalingPeakTime;                                  		// 0x000C (0x0004) [0x0000000000000000]              
+	// float                                           Alpha;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  ViewLocation;                                     		// 0x0014 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  OverheadNumberLocation;                           		// 0x0020 (0x000C) [0x0000000000000000]              
+	// struct FRotator                                 ViewRotation;                                     		// 0x002C (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.AddOverheadNumber
+// [0x00820002] 
+struct ATrHUD_execAddOverheadNumber_Parms
+{
+	int                                                Value;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector4                                    WorldLocation;                                    		// 0x0010 (0x0010) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bShieldDamage : 1;                                		// 0x0020 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	// struct FOverheadNumber                          NewOverheadNumber;                                		// 0x0030 (0x0030) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.TestNumber
+// [0x00020200] ( FUNC_Exec )
+struct ATrHUD_execTestNumber_Parms
+{
+	int                                                Value;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.OnViewTargetChange
+// [0x00020002] 
+struct ATrHUD_execOnViewTargetChange_Parms
+{
+	class AActor*                                      NewViewTarget;                                    		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.HideAllSpectatorPanels
+// [0x00020002] 
+struct ATrHUD_execHideAllSpectatorPanels_Parms
+{
+};
+
+// Function TribesGame.TrHUD.UpdateSpectatorFloatCameraPanel
+// [0x00020002] 
+struct ATrHUD_execUpdateSpectatorFloatCameraPanel_Parms
+{
+};
+
+// Function TribesGame.TrHUD.HideSpectatorFloatCameraPanel
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execHideSpectatorFloatCameraPanel_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ShowSpectatorFloatCameraPanel
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execShowSpectatorFloatCameraPanel_Parms
+{
+};
+
+// Function TribesGame.TrHUD.UpdateSpectatorObjectivePanel
+// [0x00020002] 
+struct ATrHUD_execUpdateSpectatorObjectivePanel_Parms
+{
+	class AActor*                                      ObjectiveActor;                                   		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             ObjectiveHealth;                                  		// 0x0004 (0x0004) [0x0000000000000000]              
+	// int                                             ObjectiveHealthMax;                               		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.HideSpectatorObjectivePanel
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execHideSpectatorObjectivePanel_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ShowSpectatorObjectivePanel
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execShowSpectatorObjectivePanel_Parms
+{
+};
+
+// Function TribesGame.TrHUD.UpdateSpectatorBookmarkPanel
+// [0x00020002] 
+struct ATrHUD_execUpdateSpectatorBookmarkPanel_Parms
+{
+	class ATrCamera_SpectatorBookmark*                 BookMark;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.HideSpectatorBookmark
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execHideSpectatorBookmark_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ShowSpectatorBookmark
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execShowSpectatorBookmark_Parms
+{
+};
+
+// Function TribesGame.TrHUD.UpdateSpectatorVehiclePanel
+// [0x00020002] 
+struct ATrHUD_execUpdateSpectatorVehiclePanel_Parms
+{
+	class ATrVehicle*                                  ViewTargetVehicle;                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class APlayerReplicationInfo*                   DriverPRI;                                        		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class APlayerReplicationInfo*                   PassengerPRI;                                     		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.HideSpectatorVehicle
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execHideSpectatorVehicle_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ShowSpectatorVehicle
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execShowSpectatorVehicle_Parms
+{
+};
+
+// Function TribesGame.TrHUD.UpdateSpectatorPlayerPanel
+// [0x00020002] 
+struct ATrHUD_execUpdateSpectatorPlayerPanel_Parms
+{
+	class ATrPawn*                                     ViewTargetTrPawn;                                 		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class ATrPlayerReplicationInfo*                 ViewTargetPRI;                                    		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.HideSpectatorPlayer
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execHideSpectatorPlayer_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ShowSpectatorPlayer
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execShowSpectatorPlayer_Parms
+{
+};
+
+// Function TribesGame.TrHUD.EnableGameTypeHUD
+// [0x00020002] 
+struct ATrHUD_execEnableGameTypeHUD_Parms
+{
+};
+
+// Function TribesGame.TrHUD.KickVoteMessage
+// [0x00020002] 
+struct ATrHUD_execKickVoteMessage_Parms
+{
+	unsigned long                                      bComplete : 1;                                    		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	struct FString                                     Message;                                          		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.HideGlobalAlert
+// [0x00020002] 
+struct ATrHUD_execHideGlobalAlert_Parms
+{
+};
+
+// Function TribesGame.TrHUD.SetPlayerClassObjects
+// [0x00020002] 
+struct ATrHUD_execSetPlayerClassObjects_Parms
+{
+	struct FString                                     ClassName;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                PerkIcon1;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                PerkIcon2;                                        		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.SendLocalMessageToChat
+// [0x00020002] 
+struct ATrHUD_execSendLocalMessageToChat_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	// class ULocalPlayer*                             LP;                                               		// 0x000C (0x0004) [0x0000000000000000]              
+	// class UTrGameViewportClient*                    trvpc;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.SendLocalMessageToGlobalAlert
+// [0x00020002] 
+struct ATrHUD_execSendLocalMessageToGlobalAlert_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.StripTag
+// [0x00020002] 
+struct ATrHUD_execStripTag_Parms
+{
+	struct FString                                     sValue;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     ReturnValue;                                      		// 0x000C (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+	// int                                             I;                                                		// 0x0018 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.ChatMessageReceived
+// [0x00820002] 
+struct ATrHUD_execChatMessageReceived_Parms
+{
+	int                                                Channel;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Sender;                                           		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Message;                                          		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	// TArray< class APlayerReplicationInfo* >         PRIArray;                                         		// 0x001C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// unsigned long                                   isOnSameTeam : 1;                                 		// 0x0028 (0x0004) [0x0000000000000000] [0x00000001] 
+	// unsigned long                                   isPublicChat : 1;                                 		// 0x002C (0x0004) [0x0000000000000000] [0x00000001] 
+	// int                                             ChatColorIdx;                                     		// 0x0030 (0x0004) [0x0000000000000000]              
+	// class APlayerReplicationInfo*                   CurrPRI;                                          		// 0x0034 (0x0004) [0x0000000000000000]              
+	// class ULocalPlayer*                             LP;                                               		// 0x0038 (0x0004) [0x0000000000000000]              
+	// class UTrGameViewportClient*                    trvpc;                                            		// 0x003C (0x0004) [0x0000000000000000]              
+	// struct FColor                                   ChatColor;                                        		// 0x0040 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.LocalizedMessage
+// [0x00024002] 
+struct ATrHUD_execLocalizedMessage_Parms
+{
+	class UClass*                                      InMessageClass;                                   		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class APlayerReplicationInfo*                      RelatedPRI;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class APlayerReplicationInfo*                      RelatedPRI01;                                     		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     CriticalString;                                   		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                Switch;                                           		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Position;                                         		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Lifetime;                                         		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                FontSize;                                         		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FColor                                      DrawColor;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UObject*                                     OptionalObject;                                   		// 0x002C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// int                                             WeaponIcon;                                       		// 0x0030 (0x0004) [0x0000000000000000]              
+	// int                                             FriendlyType;                                     		// 0x0034 (0x0004) [0x0000000000000000]              
+	// struct FString                                  KillerName;                                       		// 0x0038 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FString                                  VictimName;                                       		// 0x0044 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0050 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   KillDamageType;                                   		// 0x0054 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.UpdateWhiteoutEffect
+// [0x00020002] 
+struct ATrHUD_execUpdateWhiteoutEffect_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ClearWhiteout
+// [0x00020002] 
+struct ATrHUD_execClearWhiteout_Parms
+{
+};
+
+// Function TribesGame.TrHUD.Whiteout
+// [0x00020002] 
+struct ATrHUD_execWhiteout_Parms
+{
+	float                                              Speed;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Amount;                                           		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.UpdateFumbledFlagEffect
+// [0x00020002] 
+struct ATrHUD_execUpdateFumbledFlagEffect_Parms
+{
+};
+
+// Function TribesGame.TrHUD.FumbleFlag
+// [0x00020002] 
+struct ATrHUD_execFumbleFlag_Parms
+{
+	float                                              Speed;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.UpdateFadeEffect
+// [0x00020002] 
+struct ATrHUD_execUpdateFadeEffect_Parms
+{
+	// float                                           CurrentParamValue;                                		// 0x0000 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.UpdateJammerEffect
+// [0x00020002] 
+struct ATrHUD_execUpdateJammerEffect_Parms
+{
+	// class ATrPawn*                                  P;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
+	// float                                           StartupParamValue;                                		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.PulseShieldEffect
+// [0x00020002] 
+struct ATrHUD_execPulseShieldEffect_Parms
+{
+};
+
+// Function TribesGame.TrHUD.UpdateShieldEffect
+// [0x00020002] 
+struct ATrHUD_execUpdateShieldEffect_Parms
+{
+	// class ATrPawn*                                  P;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
+	// float                                           StartupParamValue;                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// float                                           HitParamValue;                                    		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.UpdateInvulnerableEfect
+// [0x00020002] 
+struct ATrHUD_execUpdateInvulnerableEfect_Parms
+{
+	// class ATrPawn*                                  P;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
+	// float                                           StartupParamValue;                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// float                                           OpacityParamValue;                                		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.PulsePickupFlashEffect
+// [0x00020002] 
+struct ATrHUD_execPulsePickupFlashEffect_Parms
+{
+	float                                              PulseAmount;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              PulseSpeed;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.UpdatePickupFlashEffect
+// [0x00020002] 
+struct ATrHUD_execUpdatePickupFlashEffect_Parms
+{
+	// float                                           ParamValue;                                       		// 0x0000 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.UpdateSkiEffect
+// [0x00020002] 
+struct ATrHUD_execUpdateSkiEffect_Parms
+{
+	// float                                           Intensity;                                        		// 0x0000 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.GetRemainingEnemyGeneratorRestoreTime
+// [0x00020002] 
+struct ATrHUD_execGetRemainingEnemyGeneratorRestoreTime_Parms
+{
+	float                                              ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrHUD.GetRemainingFriendlyGeneratorRestoreTime
+// [0x00020002] 
+struct ATrHUD_execGetRemainingFriendlyGeneratorRestoreTime_Parms
+{
+	float                                              ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrHUD.PostRender
+// [0x00020802] ( FUNC_Event )
+struct ATrHUD_eventPostRender_Parms
+{
+};
+
+// Function TribesGame.TrHUD.GetEdgeScreenCoordinates
+// [0x00C22002] 
+struct ATrHUD_execGetEdgeScreenCoordinates_Parms
+{
+	class UCanvas*                                     inCanvas;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     CameraPosition;                                   		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     CameraDir;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     ObjectLocation;                                   		// 0x001C (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     ScreenLocation;                                   		// 0x0028 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0034 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// unsigned long                                   bBehindCamera : 1;                                		// 0x0038 (0x0004) [0x0000000000000000] [0x00000001] 
+	// unsigned long                                   bAlongScreenEdges : 1;                            		// 0x003C (0x0004) [0x0000000000000000] [0x00000001] 
+	// int                                             minScrCoordValue;                                 		// 0x0040 (0x0004) [0x0000000000000000]              
+	// float                                           lineSlope;                                        		// 0x0044 (0x0004) [0x0000000000000000]              
+	// float                                           lineConstant;                                     		// 0x0048 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  ScreenDir;                                        		// 0x004C (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.DrawMICMarker
+// [0x00024002] 
+struct ATrHUD_execDrawMICMarker_Parms
+{
+	class UMaterialInstanceConstant*                   MarkerMIC;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     Placement;                                        		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	class UCanvas*                                     DrawCanvas;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector2D                                   MarkerSize;                                       		// 0x0014 (0x0008) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     markText;                                         		// 0x001C (0x000C) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
+	unsigned long                                      bFriend : 1;                                      		// 0x0028 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	float                                              distScale;                                        		// 0x002C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	struct FVector                                     ReturnValue;                                      		// 0x0030 (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// float                                           XL;                                               		// 0x003C (0x0004) [0x0000000000000000]              
+	// float                                           YL;                                               		// 0x0040 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.DrawHealthBar
+// [0x00020002] 
+struct ATrHUD_execDrawHealthBar_Parms
+{
+	class UMaterialInstanceConstant*                   HealthBarMIC;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bFriend : 1;                                      		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	struct FVector                                     Placement;                                        		// 0x0008 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	class UCanvas*                                     DrawCanvas;                                       		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              PlacementX;                                       		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              PlacementY;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Width;                                            		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Height;                                           		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.DrawSmallText
+// [0x00022002] 
+struct ATrHUD_execDrawSmallText_Parms
+{
+	struct FString                                     ShowText;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	unsigned long                                      bFriend : 1;                                      		// 0x000C (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	struct FVector                                     Placement;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	class UCanvas*                                     DrawCanvas;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// float                                           XL;                                               		// 0x0020 (0x0004) [0x0000000000000000]              
+	// float                                           YL;                                               		// 0x0024 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.DrawColoredMarkerText
+// [0x00024002] 
+struct ATrHUD_execDrawColoredMarkerText_Parms
+{
+	struct FString                                     ShowText;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FColor                                      TextColor;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     Placement;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	class UCanvas*                                     DrawCanvas;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              ScaleX;                                           		// 0x0020 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	float                                              ScaleY;                                           		// 0x0024 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	struct FVector                                     ReturnValue;                                      		// 0x0028 (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// float                                           XL;                                               		// 0x0034 (0x0004) [0x0000000000000000]              
+	// float                                           YL;                                               		// 0x0038 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.DrawMarkerText
+// [0x00024002] 
+struct ATrHUD_execDrawMarkerText_Parms
+{
+	struct FString                                     ShowText;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	unsigned long                                      bFriend : 1;                                      		// 0x000C (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	struct FVector                                     Placement;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	class UCanvas*                                     DrawCanvas;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bBuddy : 1;                                       		// 0x0020 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	struct FVector                                     ReturnValue;                                      		// 0x0024 (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// float                                           XL;                                               		// 0x0030 (0x0004) [0x0000000000000000]              
+	// float                                           YL;                                               		// 0x0034 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.DrawRotatedMarker
+// [0x00024002] 
+struct ATrHUD_execDrawRotatedMarker_Parms
+{
+	class UTexture2D*                                  Marker;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     Placement;                                        		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FRotator                                    Rot;                                              		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	class UCanvas*                                     DrawCanvas;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     markText;                                         		// 0x0020 (0x000C) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
+	unsigned long                                      bFriend : 1;                                      		// 0x002C (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	float                                              Alpha;                                            		// 0x0030 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	float                                              distScale;                                        		// 0x0034 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	struct FVector                                     ReturnValue;                                      		// 0x0038 (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// float                                           XL;                                               		// 0x0044 (0x0004) [0x0000000000000000]              
+	// float                                           YL;                                               		// 0x0048 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.DrawMarker
+// [0x00824002] 
+struct ATrHUD_execDrawMarker_Parms
+{
+	class UTexture2D*                                  Marker;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     Placement;                                        		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	class UCanvas*                                     DrawCanvas;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     markText;                                         		// 0x0014 (0x000C) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
+	unsigned long                                      bFriend : 1;                                      		// 0x0020 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	float                                              Alpha;                                            		// 0x0024 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	float                                              distScale;                                        		// 0x0028 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	struct FVector                                     ReturnValue;                                      		// 0x002C (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// float                                           XL;                                               		// 0x0038 (0x0004) [0x0000000000000000]              
+	// float                                           YL;                                               		// 0x003C (0x0004) [0x0000000000000000]              
+	// struct FLinearColor                             Blend;                                            		// 0x0040 (0x0010) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.CheckCrosshairOnFriendly
+// [0x00820002] 
+struct ATrHUD_execCheckCrosshairOnFriendly_Parms
+{
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FVector                                  HitLocation;                                      		// 0x0004 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  HitNormal;                                        		// 0x0010 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  StartTrace;                                       		// 0x001C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  EndTrace;                                         		// 0x0028 (0x000C) [0x0000000000000000]              
+	// class AActor*                                   HitActor;                                         		// 0x0034 (0x0004) [0x0000000000000000]              
+	// class AUTVehicle*                               V;                                                		// 0x0038 (0x0004) [0x0000000000000000]              
+	// class AUTWeapon*                                W;                                                		// 0x003C (0x0004) [0x0000000000000000]              
+	// class ATrDevice*                                TrD;                                              		// 0x0040 (0x0004) [0x0000000000000000]              
+	// int                                             SeatIndex;                                        		// 0x0044 (0x0004) [0x0000000000000000]              
+	// class APawn*                                    MyPawnOwner;                                      		// 0x0048 (0x0004) [0x0000000000000000]              
+	// class APawn*                                    Tracer;                                           		// 0x004C (0x0004) [0x0000000000000000]              
+	// class APawn*                                    HitPawn;                                          		// 0x0050 (0x0004) [0x0000000000000000]              
+	// struct FRotator                                 tmpRotation;                                      		// 0x0054 (0x000C) [0x0000000000000000]              
+	// struct FImpactInfo                              HitInfo;                                          		// 0x0060 (0x0050) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.ClearCrosshairOnFriendly
+// [0x00020002] 
+struct ATrHUD_execClearCrosshairOnFriendly_Parms
+{
+};
+
+// Function TribesGame.TrHUD.CompleteTeamSelectionMenuClose
+// [0x00020002] 
+struct ATrHUD_execCompleteTeamSelectionMenuClose_Parms
+{
+};
+
+// Function TribesGame.TrHUD.CompleteVehicleMenuClose
+// [0x00020002] 
+struct ATrHUD_execCompleteVehicleMenuClose_Parms
+{
+};
+
+// Function TribesGame.TrHUD.RemoveMovies
+// [0x00020002] 
+struct ATrHUD_execRemoveMovies_Parms
+{
+};
+
+// Function TribesGame.TrHUD.HideMenus
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execHideMenus_Parms
+{
+};
+
+// Function TribesGame.TrHUD.RestoreHUDState
+// [0x00020002] 
+struct ATrHUD_execRestoreHUDState_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ResolutionChanged
+// [0x00020002] 
+struct ATrHUD_execResolutionChanged_Parms
+{
+	// unsigned long                                   bNeedScoreboard : 1;                              		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
+	// unsigned long                                   bNeedTeamSelectionMenu : 1;                       		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
+};
+
+// Function TribesGame.TrHUD.RabbitScoreboardActivePlayer
+// [0x00020002] 
+struct ATrHUD_execRabbitScoreboardActivePlayer_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bVisible : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.TeamScoreboardActivePlayer
+// [0x00020002] 
+struct ATrHUD_execTeamScoreboardActivePlayer_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.RabbitScoreboardUpdateTime
+// [0x00020000] 
+struct ATrHUD_execRabbitScoreboardUpdateTime_Parms
+{
+	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.TeamScoreboardUpdateTime
+// [0x00020002] 
+struct ATrHUD_execTeamScoreboardUpdateTime_Parms
+{
+	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.TeamScoreboardUpdateTeamScore
+// [0x00020002] 
+struct ATrHUD_execTeamScoreboardUpdateTeamScore_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.RabbitScoreboardUpdateSlot
+// [0x00020002] 
+struct ATrHUD_execRabbitScoreboardUpdateSlot_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Kills;                                            		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Assists;                                          		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Ping;                                             		// 0x0034 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     ClassAbb;                                         		// 0x0040 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                Rank;                                             		// 0x004C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                RankIcon;                                         		// 0x0050 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.TeamScoreboardUpdateSlot
+// [0x00020002] 
+struct ATrHUD_execTeamScoreboardUpdateSlot_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Kills;                                            		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Assists;                                          		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Ping;                                             		// 0x0034 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     ClassAbb;                                         		// 0x0040 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                Rank;                                             		// 0x004C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                RankIcon;                                         		// 0x0050 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.RabbitScoreboardShow
+// [0x00020002] 
+struct ATrHUD_execRabbitScoreboardShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.TeamScoreboardShow
+// [0x00020002] 
+struct ATrHUD_execTeamScoreboardShow_Parms
+{
+	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.UpdateHUDCredits
+// [0x00020002] 
+struct ATrHUD_execUpdateHUDCredits_Parms
+{
+	int                                                changeAmount;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                newTotal;                                         		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.UpdateRespawnTimer
+// [0x00020002] 
+struct ATrHUD_execUpdateRespawnTimer_Parms
+{
+	int                                                TimeRemaining;                                    		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.UpdateRespawnText
+// [0x00020002] 
+struct ATrHUD_execUpdateRespawnText_Parms
+{
+	struct FString                                     Text;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.ShowCenterHUDElements
+// [0x00020002] 
+struct ATrHUD_execShowCenterHUDElements_Parms
+{
+	unsigned long                                      bShow : 1;                                        		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.ShowHUDPlayerAlive
+// [0x00020002] 
+struct ATrHUD_execShowHUDPlayerAlive_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ShowHUDPlayerSpawning
+// [0x00020002] 
+struct ATrHUD_execShowHUDPlayerSpawning_Parms
+{
+};
+
+// Function TribesGame.TrHUD.HideHUDElements
+// [0x00024002] 
+struct ATrHUD_execHideHUDElements_Parms
+{
+	unsigned long                                      bShowStats : 1;                                   		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	unsigned long                                      bForceCredits : 1;                                		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.ClearSpectatorHUDCache
+// [0x00020002] 
+struct ATrHUD_execClearSpectatorHUDCache_Parms
+{
+};
+
+// Function TribesGame.TrHUD.CreateSpectatorHUDCache
+// [0x00020002] 
+struct ATrHUD_execCreateSpectatorHUDCache_Parms
+{
+};
+
+// Function TribesGame.TrHUD.OnSpectate
+// [0x00020002] 
+struct ATrHUD_execOnSpectate_Parms
+{
+	unsigned long                                      bUpdateTeamState : 1;                             		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.AddFlyingIcon
+// [0x00024002] 
+struct ATrHUD_execAddFlyingIcon_Parms
+{
+	int                                                iconNumber;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Description;                                      		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Points;                                           		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                bIsBadge;                                         		// 0x001C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.AddUpdateToKillMessage
+// [0x00020002] 
+struct ATrHUD_execAddUpdateToKillMessage_Parms
+{
+	int                                                RankIcon;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                PlayerIcon;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     PlayerName;                                       		// 0x0008 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Message;                                          		// 0x0014 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.ClearHelpText
+// [0x00020002] 
+struct ATrHUD_execClearHelpText_Parms
+{
+};
+
+// Function TribesGame.TrHUD.AddToHelpText
+// [0x00020002] 
+struct ATrHUD_execAddToHelpText_Parms
+{
+	struct FString                                     Title;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     Body;                                             		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	float                                              PictureIndex;                                     		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     footer;                                           		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	struct FString                                     SuppressString;                                   		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.HideVGSMenu
+// [0x00020002] 
+struct ATrHUD_execHideVGSMenu_Parms
+{
+};
+
+// Function TribesGame.TrHUD.UpdateVGSMenu
+// [0x00020002] 
+struct ATrHUD_execUpdateVGSMenu_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ClearPromptPanelMessage
+// [0x00020002] 
+struct ATrHUD_execClearPromptPanelMessage_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.ClearHeroStatus
+// [0x00020002] 
+struct ATrHUD_execClearHeroStatus_Parms
+{
+};
+
+// Function TribesGame.TrHUD.AddToHeroStatus
+// [0x00020002] 
+struct ATrHUD_execAddToHeroStatus_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	float                                              ShowTime;                                         		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.ClearPromptPanel
+// [0x00020002] 
+struct ATrHUD_execClearPromptPanel_Parms
+{
+};
+
+// Function TribesGame.TrHUD.AddToPromptPanelTime
+// [0x00020002] 
+struct ATrHUD_execAddToPromptPanelTime_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	float                                              EndTime;                                          		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      Priority;                                         		// 0x0010 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.AddToPromptPanel
+// [0x00020002] 
+struct ATrHUD_execAddToPromptPanel_Parms
+{
+	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	unsigned char                                      Priority;                                         		// 0x000C (0x0001) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.AddUpdateToCombatLog
+// [0x00020002] 
+struct ATrHUD_execAddUpdateToCombatLog_Parms
+{
+	int                                                CombatType;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Aggressor;                                        		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	int                                                WeaponIcon;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     Victim;                                           		// 0x0014 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.SetPowerOscillation
+// [0x00020002] 
+struct ATrHUD_execSetPowerOscillation_Parms
+{
+	unsigned long                                      bEnable : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.ToggleTeamSelectionMenu
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execToggleTeamSelectionMenu_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ToggleVehicleMenu
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execToggleVehicleMenu_Parms
+{
+	// class ATrPawn*                                  MyPawnOwner;                                      		// 0x0000 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.ToggleMovieHUD
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execToggleMovieHUD_Parms
+{
+};
+
+// Function TribesGame.TrHUD.TogglePauseMenu
+// [0x00020002] 
+struct ATrHUD_execTogglePauseMenu_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ToggleSkiEffect
+// [0x00020002] 
+struct ATrHUD_execToggleSkiEffect_Parms
+{
+	unsigned long                                      bEnabled : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	float                                              fSpeed;                                           		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.ScaleformJoystickInputEvent
+// [0x00020000] 
+struct ATrHUD_execScaleformJoystickInputEvent_Parms
+{
+	float                                              leftAngle;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              rightAngle;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.FadeInSummary
+// [0x00020002] 
+struct ATrHUD_execFadeInSummary_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ShowEnding
+// [0x00020002] 
+struct ATrHUD_execShowEnding_Parms
+{
+	// int                                             endingType;                                       		// 0x0000 (0x0004) [0x0000000000000000]              
+	// struct FString                                  Message;                                          		// 0x0004 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.PlayMatchOver
+// [0x00020002] 
+struct ATrHUD_execPlayMatchOver_Parms
+{
+	int                                                Winner;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     WinnerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrHUD.ShowRoundEnding
+// [0x00020002] 
+struct ATrHUD_execShowRoundEnding_Parms
+{
+};
+
+// Function TribesGame.TrHUD.PlayRoundOver
+// [0x00020002] 
+struct ATrHUD_execPlayRoundOver_Parms
+{
+	int                                                WinningTeam;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.Fade
+// [0x00024202] ( FUNC_Exec )
+struct ATrHUD_execFade_Parms
+{
+	float                                              FadeTarget;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              FadeSpeed;                                        		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              bForceFadeInStartAlpha;                           		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.FadeInTimer
+// [0x00020002] 
+struct ATrHUD_execFadeInTimer_Parms
+{
+};
+
+// Function TribesGame.TrHUD.OnUpdatedGraphicsSettings
+// [0x00020002] 
+struct ATrHUD_execOnUpdatedGraphicsSettings_Parms
+{
+};
+
+// Function TribesGame.TrHUD.InitializeGameHUD
+// [0x00020002] 
+struct ATrHUD_execInitializeGameHUD_Parms
+{
+	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class ATrGameObjective*                         TrGO;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class UOnlineSubsystem*                         OnlineSystem;                                     		// 0x000C (0x0004) [0x0000000000000000]              
+	// class UOnlineChatInterface*                     ChatInterface;                                    		// 0x0010 (0x0008) [0x0000000000000000]              
+	// class ATrCTFBase*                               CTFBase;                                          		// 0x0018 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrHUD.PostBeginPlay
+// [0x00020102] 
+struct ATrHUD_execPostBeginPlay_Parms
+{
+};
+
+// Function TribesGame.TrHUD.SetShowScores
+// [0x00020202] ( FUNC_Exec )
+struct ATrHUD_execSetShowScores_Parms
+{
+	unsigned long                                      bEnableShowScores : 1;                            		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	// unsigned long                                   bTeamGame : 1;                                    		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
+};
+
+// Function TribesGame.TrHUD.ShowSpectatorControls
+// [0x00024202] ( FUNC_Exec )
+struct ATrHUD_execShowSpectatorControls_Parms
+{
+	unsigned long                                      bForceEnabled : 1;                                		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+};
+
+// Function TribesGame.TrHUD.CreateHUDMovie
+// [0x00020002] 
+struct ATrHUD_execCreateHUDMovie_Parms
+{
+};
+
+// Function TribesGame.TrHUD.ShowDebugInfo
+// [0x00420002] 
+struct ATrHUD_execShowDebugInfo_Parms
+{
+	float                                              out_YL;                                           		// 0x0000 (0x0004) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	float                                              out_YPos;                                         		// 0x0004 (0x0004) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             I;                                                		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
 // Function TribesGame.TrKeyBindings.SaveInterceptKeys
 // [0x00020002] 
 struct UTrKeyBindings_execSaveInterceptKeys_Parms
@@ -14419,6 +17288,9 @@ struct ATrLaserTarget_execRenderForTeammate_Parms
 	// struct FVector                                  AimScreenLoc;                                     		// 0x005C (0x000C) [0x0000000000000000]              
 	// struct FVector                                  TargetPos;                                        		// 0x0068 (0x000C) [0x0000000000000000]              
 	// struct FVector                                  TargetDir;                                        		// 0x0074 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  InheritVelocity;                                  		// 0x0080 (0x000C) [0x0000000000000000]              
+	// float                                           InheritPct;                                       		// 0x008C (0x0004) [0x0000000000000000]              
+	// float                                           ForwardPct;                                       		// 0x0090 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrLaserTarget.RenderForOwner
@@ -16028,6 +18900,7 @@ struct ATrPlayerReplicationInfo_execSetActiveEquip_Parms
 {
 	unsigned char                                      EquipId;                                          		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	int                                                ItemId;                                           		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// unsigned char                                   ArmorType;                                        		// 0x0008 (0x0001) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerReplicationInfo.GetEquipPointByWeaponId
@@ -16044,7 +18917,7 @@ struct ATrPlayerReplicationInfo_execGetEquipPointByWeaponId_Parms
 struct ATrPlayerReplicationInfo_execGetEquipDevice_Parms
 {
 	class UClass*                                      FamilyInfo;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned char                                      equipSlot;                                        		// 0x0004 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      EquipSlot;                                        		// 0x0004 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	class UClass*                                      ReturnValue;                                      		// 0x0008 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 	// int                                             I;                                                		// 0x000C (0x0004) [0x0000000000000000]              
 	// class UClass*                                   skinClass;                                        		// 0x0010 (0x0004) [0x0000000000000000]              
@@ -16059,7 +18932,7 @@ struct ATrPlayerReplicationInfo_execResolveDefaultEquip_Parms
 {
 	class UClass*                                      FamilyInfo;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// int                                             equipSlot;                                        		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             EquipSlot;                                        		// 0x0008 (0x0004) [0x0000000000000000]              
 	// class UClass*                                   device;                                           		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
@@ -16106,12 +18979,20 @@ struct ATrPlayerReplicationInfo_execVerifyAndLoadCharacter_Parms
 struct ATrPlayerReplicationInfo_execSwapToPendingCharClass_Parms
 {
 	unsigned long                                      bIsRespawn : 1;                                   		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// struct FString                                  ClassString;                                      		// 0x0008 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0014 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  TRP;                                              		// 0x0018 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerController*                      PlayerOwner;                                      		// 0x001C (0x0004) [0x0000000000000000]              
-	// class UClass*                                   FamilyInfo;                                       		// 0x0020 (0x0004) [0x0000000000000000]              
+	unsigned long                                      bCanSwapArmor : 1;                                		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
+	// struct FString                                  ClassString;                                      		// 0x000C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0018 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TRP;                                              		// 0x001C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      PlayerOwner;                                      		// 0x0020 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   FamilyInfo;                                       		// 0x0024 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrPlayerReplicationInfo.GetPendingArmorType
+// [0x00020902] ( FUNC_Event )
+struct ATrPlayerReplicationInfo_eventGetPendingArmorType_Parms
+{
+	unsigned char                                      ReturnValue;                                      		// 0x0000 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function TribesGame.TrPlayerReplicationInfo.GetArmorType
@@ -16372,12 +19253,13 @@ struct ATrProjectile_execClientCheckFastSpawnExplode_Parms
 };
 
 // Function TribesGame.TrProjectile.ApplyInheritance
-// [0x00020102] 
+// [0x00820102] 
 struct ATrProjectile_execApplyInheritance_Parms
 {
 	struct FVector                                     ProjectileDir;                                    		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	// float                                           InheritPct;                                       		// 0x000C (0x0004) [0x0000000000000000]              
 	// float                                           ForwardPct;                                       		// 0x0010 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  OwnerVelocity;                                    		// 0x0014 (0x000C) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrProjectile.InitProjectile
@@ -16570,6 +19452,7 @@ struct ATrProj_Grenade_execProcessTouch_Parms
 	struct FVector                                     HitLocation;                                      		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	struct FVector                                     HitNormal;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	// class ATrGameObjective*                         TrGO;                                             		// 0x001C (0x0004) [0x0000000000000000]              
+	// class APawn*                                    P;                                                		// 0x0020 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrProj_Grenade.HitWall
@@ -16579,6 +19462,12 @@ struct ATrProj_Grenade_eventHitWall_Parms
 	struct FVector                                     HitNormal;                                        		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	class AActor*                                      Wall;                                             		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	class UPrimitiveComponent*                         WallComp;                                         		// 0x0010 (0x0004) [0x0000000004000080]              ( CPF_Parm | CPF_EditInline )
+};
+
+// Function TribesGame.TrProj_Grenade.PawnExplosionTime
+// [0x00020100] 
+struct ATrProj_Grenade_execPawnExplosionTime_Parms
+{
 };
 
 // Function TribesGame.TrProj_Grenade.Timer
@@ -17679,10 +20568,11 @@ struct UTrQueueManager_execMapSortA_Parms
 };
 
 // Function TribesGame.TrQueueManager.SortOn
-// [0x00020002] 
+// [0x00024002] 
 struct UTrQueueManager_execSortOn_Parms
 {
 	struct FString                                     SortName;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	unsigned long                                      bUpdateSort : 1;                                  		// 0x000C (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
 };
 
 // Function TribesGame.TrQueueManager.ServerSort
@@ -19285,9 +22175,6 @@ struct UTrUser_execNeedToSeeNewBundle_Parms
 {
 	int                                                ItemId;                                           		// 0x0000 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
-	// int                                             J;                                                		// 0x000C (0x0004) [0x0000000000000000]              
-	// unsigned long                                   bFound : 1;                                       		// 0x0010 (0x0004) [0x0000000000000000] [0x00000001] 
 };
 
 // Function TribesGame.TrUser.NeedToSeeAnyNewItem
@@ -19295,9 +22182,6 @@ struct UTrUser_execNeedToSeeNewBundle_Parms
 struct UTrUser_execNeedToSeeAnyNewItem_Parms
 {
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// int                                             Index;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
-	// int                                             Count;                                            		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrUser.NeedsToSeeNewBundle
@@ -19306,7 +22190,6 @@ struct UTrUser_execNeedsToSeeNewBundle_Parms
 {
 	int                                                ItemId;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrUser.NeedsToSeeNewItem
@@ -19315,7 +22198,6 @@ struct UTrUser_execNeedsToSeeNewItem_Parms
 {
 	int                                                EquipId;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrUser.NeedsToSeeNewItemsType
@@ -20248,8 +23130,13 @@ struct ATrVehicle_execDied_Parms
 	// int                                             I;                                                		// 0x0018 (0x0004) [0x0000000000000000]              
 	// class ATrPawn*                                  aPawn;                                            		// 0x001C (0x0004) [0x0000000000000000]              
 	// class ATrPlayerController*                      KillerPC;                                         		// 0x0020 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0024 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         VM;                                               		// 0x0028 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrVehicle.DoesVehicleHaveEjectionSeat
+// [0x00020002] 
+struct ATrVehicle_execDoesVehicleHaveEjectionSeat_Parms
+{
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function TribesGame.TrVehicle.SendLockOnMessage
@@ -21203,6 +24090,26 @@ struct UGFxTrPage_execNewClassEquip_Parms
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
+// Function TribesGame.GFxTrPage.FillLoadoutDescription
+// [0x00020002] 
+struct UGFxTrPage_execFillLoadoutDescription_Parms
+{
+	class UGFxObject*                                  DataList;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UGFxObject*                                  ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FString                                  typeInfo;                                         		// 0x0008 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FString                                  typeLoadout;                                      		// 0x0014 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// class UGFxObject*                               Obj;                                              		// 0x0020 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   FamilyInfo;                                       		// 0x0024 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrPage.GetEquipName
+// [0x00020000] 
+struct UGFxTrPage_execGetEquipName_Parms
+{
+	int                                                equipType;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+};
+
 // Function TribesGame.GFxTrPage.FillEquipTypes
 // [0x00020002] 
 struct UGFxTrPage_execFillEquipTypes_Parms
@@ -21213,6 +24120,7 @@ struct UGFxTrPage_execFillEquipTypes_Parms
 	// class UGFxObject*                               Obj;                                              		// 0x000C (0x0004) [0x0000000000000000]              
 	// class UClass*                                   skinClass;                                        		// 0x0010 (0x0004) [0x0000000000000000]              
 	// class UClass*                                   equipClass;                                       		// 0x0014 (0x0004) [0x0000000000000000]              
+	// int                                             equipType;                                        		// 0x0018 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.GFxTrPage.FillClass
@@ -21526,2737 +24434,103 @@ struct UTrVGSCommandList_execInit_Parms
 {
 };
 
-// Function TribesGame.GfxTrHud.SetSoundAccoladeDelegate
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execSetSoundAccoladeDelegate_Parms
-{
-	struct FScriptDelegate                             InDelegate;                                       		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetLoadVGSMenuDelegate
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execSetLoadVGSMenuDelegate_Parms
-{
-	struct FScriptDelegate                             InDelegate;                                       		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.AddFlyingIcon
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execAddFlyingIcon_Parms
-{
-	int                                                iconNumber;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Description;                                      		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Points;                                           		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                bIsBadge;                                         		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetFontIndex
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execSetFontIndex_Parms
-{
-	int                                                FontIdx;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.HideSpectatorFloatCameraPanel
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideSpectatorFloatCameraPanel_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowSpectatorFloatCameraPanel
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execShowSpectatorFloatCameraPanel_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.HideSpectatorObjectivePanel
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideSpectatorObjectivePanel_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowSpectatorObjectivePanel
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execShowSpectatorObjectivePanel_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.HideSpectatorBookmark
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideSpectatorBookmark_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowSpectatorBookmark
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execShowSpectatorBookmark_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.HideSpectatorVehicle
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideSpectatorVehicle_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowSpectatorVehicle
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execShowSpectatorVehicle_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.HideSpectatorPlayer
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideSpectatorPlayer_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowSpectatorPlayer
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execShowSpectatorPlayer_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowKillCamInfo
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execShowKillCamInfo_Parms
-{
-	class UGFxObject*                                  Data;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.AddUpdateToKillMessage
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execAddUpdateToKillMessage_Parms
-{
-	int                                                RankIcon;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                PlayerIcon;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     PlayerName;                                       		// 0x0008 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Message;                                          		// 0x0014 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.AddUpdateToCombatLog
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execAddUpdateToCombatLog_Parms
-{
-	int                                                CombatType;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Aggressor;                                        		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                WeaponIcon;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Victim;                                           		// 0x0014 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.UpdateTutorial
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execUpdateTutorial_Parms
-{
-	struct FString                                     Title;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Body;                                             		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	float                                              Icon;                                             		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     footer;                                           		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Suppress;                                         		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetHUDStageSize
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execSetHUDStageSize_Parms
-{
-	int                                                HUDOriginX;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                HUDOriginY;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Width;                                            		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Height;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamScoreboardUpdateTeamScore
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execTeamScoreboardUpdateTeamScore_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.RabbitScoreboardUpdateTime
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execRabbitScoreboardUpdateTime_Parms
-{
-	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.TeamScoreboardUpdateTime
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execTeamScoreboardUpdateTime_Parms
-{
-	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.TeamScoreboardActivePlayer
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execTeamScoreboardActivePlayer_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.RemoveFromPromptPanel
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execRemoveFromPromptPanel_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.AddtoPromptPanelAS
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execAddtoPromptPanelAS_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.UpdateChatLogInput
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execUpdateChatLogInput_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetPowerOscillation
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execSetPowerOscillation_Parms
-{
-	unsigned long                                      bEnable : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateChatLog
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execUpdateChatLog_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                ChannelColor;                                     		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bPublic : 1;                                      		// 0x0010 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ASSetHeading
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execASSetHeading_Parms
-{
-	int                                                Heading;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ShowEnding
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execShowEnding_Parms
-{
-	int                                                Winner;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateVGSMenuList
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execUpdateVGSMenuList_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.HideKillCamInfo
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideKillCamInfo_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.HideFlagCarried
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideFlagCarried_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowFlagCarried
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execShowFlagCarried_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.HideTutorial
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideTutorial_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.HideVGSMenu
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideVGSMenu_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.HideChatLog
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execHideChatLog_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowChatLog
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execShowChatLog_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowSpectatorControls
+// Function TribesGame.GFxTrWeaponInventory.OnReloaded
 // [0x00020002] 
-struct UGfxTrHud_execShowSpectatorControls_Parms
-{
-	unsigned long                                      bShowControls : 1;                                		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorFloatCameraPanel_Description
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorFloatCameraPanel_Description_Parms
-{
-	struct FString                                     Description;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorFloatCameraPanel_Name
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorFloatCameraPanel_Name_Parms
-{
-	struct FString                                     FloatCameraName;                                  		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorObjectivePanel_HealthFillBar
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorObjectivePanel_HealthFillBar_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Health;                                           		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorObjectivePanel_ObjectiveDescription
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorObjectivePanel_ObjectiveDescription_Parms
-{
-	struct FString                                     ObjectiveDescription;                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorObjectivePanel_ObjectiveName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorObjectivePanel_ObjectiveName_Parms
-{
-	struct FString                                     ObjectiveName;                                    		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorBookmarkPanel_BookmarkName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorBookmarkPanel_BookmarkName_Parms
-{
-	struct FString                                     BookmarkName;                                     		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_Selected
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_Selected_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SkiIndicatorSpeed
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_SkiIndicatorSpeed_Parms
-{
-	struct FString                                     Speed;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SkiIndicatorFillBar
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_SkiIndicatorFillBar_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SecondaryWeaponVisible
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_SecondaryWeaponVisible_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SecondaryWeaponReady
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_SecondaryWeaponReady_Parms
-{
-	int                                                Ready;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_SecondaryWeaponName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_SecondaryWeaponName_Parms
-{
-	struct FString                                     SecondaryWeaponName;                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_PrimaryWeaponVisible
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_PrimaryWeaponVisible_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_PrimaryWeaponReady
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_PrimaryWeaponReady_Parms
-{
-	int                                                Ready;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_PrimaryWeaponName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_PrimaryWeaponName_Parms
-{
-	struct FString                                     PrimaryWeaponName;                                		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_Energy
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_Energy_Parms
-{
-	struct FString                                     Energy;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_EnergyFillBar
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_EnergyFillBar_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_Health
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_Health_Parms
-{
-	struct FString                                     Health;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_HealthFillBar
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_HealthFillBar_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_PassengerName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_PassengerName_Parms
-{
-	struct FString                                     PassengerName;                                    		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_DriverName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_DriverName_Parms
-{
-	struct FString                                     DriverName;                                       		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_VehicleName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_VehicleName_Parms
-{
-	struct FString                                     VehicleName;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorVehiclePanel_FlagCarried
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorVehiclePanel_FlagCarried_Parms
-{
-	unsigned long                                      bCarried : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Selected
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_Selected_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_SkiIndicatorSpeed
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_SkiIndicatorSpeed_Parms
-{
-	struct FString                                     Speed;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_SkiIndicatorFillBar
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_SkiIndicatorFillBar_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Perk2Name
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_Perk2Name_Parms
-{
-	struct FString                                     PerkName;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Perk2Icon
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_Perk2Icon_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Perk1Name
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_Perk1Name_Parms
-{
-	struct FString                                     PerkName;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Perk1Icon
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_Perk1Icon_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PackName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_PackName_Parms
-{
-	struct FString                                     PackName;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PackAmmo
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_PackAmmo_Parms
-{
-	struct FString                                     PackAmmo;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PackIcon
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_PackIcon_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_OffhandName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_OffhandName_Parms
-{
-	struct FString                                     OffhandName;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_OffhandAmmo
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_OffhandAmmo_Parms
-{
-	struct FString                                     OffhandAmmo;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_OffhandIcon
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_OffhandIcon_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_SecondaryAmmoCount
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_SecondaryAmmoCount_Parms
-{
-	struct FString                                     SecondaryAmmoCount;                               		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_SecondaryWeaponName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_SecondaryWeaponName_Parms
-{
-	struct FString                                     SecondaryWeaponName;                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PrimaryAmmoCount
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_PrimaryAmmoCount_Parms
-{
-	struct FString                                     PrimaryAmmoCount;                                 		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PrimaryWeaponName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_PrimaryWeaponName_Parms
-{
-	struct FString                                     PrimaryWeaponName;                                		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Energy
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_Energy_Parms
-{
-	struct FString                                     Energy;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_EnergyFillBar
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_EnergyFillBar_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_Health
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_Health_Parms
-{
-	struct FString                                     Health;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_HealthFillBar
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_HealthFillBar_Parms
-{
-	int                                                FrameIndex;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_NextRegen
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_NextRegen_Parms
-{
-	struct FString                                     NextRegen;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_ClassName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_ClassName_Parms
-{
-	struct FString                                     ClassName;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_PlayerName
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_PlayerName_Parms
-{
-	struct FString                                     PlayerName;                                       		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetSpectatorPlayerPanel_FlagCarried
-// [0x00020002] 
-struct UGfxTrHud_execSetSpectatorPlayerPanel_FlagCarried_Parms
-{
-	unsigned long                                      bCarried : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.GetWeaponNameFromDamageType
-// [0x00020002] 
-struct UGfxTrHud_execGetWeaponNameFromDamageType_Parms
-{
-	class ATrPlayerReplicationInfo*                    PRI;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UClass*                                      FamilyInfo;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UClass*                                      KillDamageType;                                   		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     ReturnValue;                                      		// 0x000C (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
-	// class UClass*                                   device;                                           		// 0x0018 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.CreateKillCamInfo
-// [0x00020002] 
-struct UGfxTrHud_execCreateKillCamInfo_Parms
-{
-	class ATrPlayerReplicationInfo*                    KillerPRI;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class ATrPlayerReplicationInfo*                    VictimPRI;                                        		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UClass*                                      KillDamageType;                                   		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// int                                             RankIcon;                                         		// 0x000C (0x0004) [0x0000000000000000]              
-	// int                                             stateType;                                        		// 0x0010 (0x0004) [0x0000000000000000]              
-	// int                                             classIcon;                                        		// 0x0014 (0x0004) [0x0000000000000000]              
-	// int                                             perk1Icon;                                        		// 0x0018 (0x0004) [0x0000000000000000]              
-	// int                                             perk2Icon;                                        		// 0x001C (0x0004) [0x0000000000000000]              
-	// struct FString                                  Health;                                           		// 0x0020 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  RankName;                                         		// 0x002C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  ClassName;                                        		// 0x0038 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  perk1Name;                                        		// 0x0044 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  perk2Name;                                        		// 0x0050 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  PlayerName;                                       		// 0x005C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  WeaponName;                                       		// 0x0068 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  infoString;                                       		// 0x0074 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// class UClass*                                   RankInfo;                                         		// 0x0080 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   perkAClass;                                       		// 0x0084 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   perkBClass;                                       		// 0x0088 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   FamilyInfo;                                       		// 0x008C (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.HideGlobalAlert
-// [0x00020002] 
-struct UGfxTrHud_execHideGlobalAlert_Parms
+struct UGFxTrWeaponInventory_execOnReloaded_Parms
 {
 };
 
-// Function TribesGame.GfxTrHud.SetGlobalAlert
-// [0x00020002] 
-struct UGfxTrHud_execSetGlobalAlert_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.RetrieveGFxObject
-// [0x00420002] 
-struct UGfxTrHud_execRetrieveGFxObject_Parms
-{
-	class UGFxObject*                                  Obj;                                              		// 0x0000 (0x0004) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	struct FString                                     ObjName;                                          		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	class UGFxObject*                                  ReturnValue;                                      		// 0x0010 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateCallIn
-// [0x00020002] 
-struct UGfxTrHud_execUpdateCallIn_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bEnable : 1;                                      		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	unsigned long                                      bAvailable : 1;                                   		// 0x0008 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SoundAccolade
-// [0x00020002] 
-struct UGfxTrHud_execSoundAccolade_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.UpdateOwnedItem
+// Function TribesGame.GFxTrWeaponInventory.OnReloading
 // [0x00024002] 
-struct UGfxTrHud_execUpdateOwnedItem_Parms
+struct UGFxTrWeaponInventory_execOnReloading_Parms
 {
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bVisible : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	int                                                FrameId;                                          		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	float                                              fReloadTime;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bActive : 1;                                      		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	int                                                nReloadAmmo;                                      		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 };
 
-// Function TribesGame.GfxTrHud.UpdateOffhand
-// [0x00024002] 
-struct UGfxTrHud_execUpdateOffhand_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bVisible : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	int                                                FrameId;                                          		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	int                                                Count;                                            		// 0x000C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateVehicleSeat
-// [0x00020002] 
-struct UGfxTrHud_execUpdateVehicleSeat_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                FrameId;                                          		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateVehicleEnergy
-// [0x00020002] 
-struct UGfxTrHud_execUpdateVehicleEnergy_Parms
-{
-	float                                              Energy;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                FrameId;                                          		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateVehicleHealth
-// [0x00020002] 
-struct UGfxTrHud_execUpdateVehicleHealth_Parms
-{
-	int                                                Health;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                FrameId;                                          		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateVehicleStats
-// [0x00024002] 
-struct UGfxTrHud_execUpdateVehicleStats_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	int                                                FrameId;                                          		// 0x0004 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateTeamStats
-// [0x00020002] 
-struct UGfxTrHud_execUpdateTeamStats_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateSkiLevel
-// [0x00020002] 
-struct UGfxTrHud_execUpdateSkiLevel_Parms
-{
-	int                                                Level;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateSkiing
-// [0x00020002] 
-struct UGfxTrHud_execUpdateSkiing_Parms
-{
-	unsigned long                                      bSkiing : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateFlagInHand
-// [0x00020002] 
-struct UGfxTrHud_execUpdateFlagInHand_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateCredits
-// [0x00020002] 
-struct UGfxTrHud_execUpdateCredits_Parms
-{
-	int                                                Credits;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.RabbitScoreboardShow
-// [0x00020002] 
-struct UGfxTrHud_execRabbitScoreboardShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamScoreboardShow
-// [0x00020002] 
-struct UGfxTrHud_execTeamScoreboardShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.CaHEnemyPointBreak
-// [0x00020002] 
-struct UGfxTrHud_execCaHEnemyPointBreak_Parms
-{
-	struct FString                                     Value;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.CaHFriendlyPointBreak
-// [0x00020002] 
-struct UGfxTrHud_execCaHFriendlyPointBreak_Parms
-{
-	struct FString                                     Value;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.CaHPointUpdate
-// [0x00020002] 
-struct UGfxTrHud_execCaHPointUpdate_Parms
-{
-	struct FString                                     PointName;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                PointType;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                PctHeld;                                          		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.CaHUpdate
-// [0x00020002] 
-struct UGfxTrHud_execCaHUpdate_Parms
-{
-	int                                                FriendlyHeld;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                FriendlyPoints;                                   		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                FriendlyPct;                                      		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                EnemyHeld;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                EnemyPoints;                                      		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                EnemyPct;                                         		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     GenTime;                                          		// 0x0018 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.CaHControlPointEShow
-// [0x00020002] 
-struct UGfxTrHud_execCaHControlPointEShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.CaHControlPointDShow
-// [0x00020002] 
-struct UGfxTrHud_execCaHControlPointDShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.CaHControlPointCShow
-// [0x00020002] 
-struct UGfxTrHud_execCaHControlPointCShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.CaHControlPointBShow
-// [0x00020002] 
-struct UGfxTrHud_execCaHControlPointBShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.CaHControlPointAShow
-// [0x00020002] 
-struct UGfxTrHud_execCaHControlPointAShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.CaHStatsShow
-// [0x00020002] 
-struct UGfxTrHud_execCaHStatsShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.DaDUpdateEnemyStats
-// [0x00020002] 
-struct UGfxTrHud_execDaDUpdateEnemyStats_Parms
-{
-	int                                                bGenOnline;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     RemainingGenTime;                                 		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                CapAOnline;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                CapBOnline;                                       		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                CapCOnline;                                       		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                CoreHealth;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.DaDUpdateFriendlyStats
-// [0x00020002] 
-struct UGfxTrHud_execDaDUpdateFriendlyStats_Parms
-{
-	int                                                bGenOnline;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     RemainingGenTime;                                 		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                CapAOnline;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                CapBOnline;                                       		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                CapCOnline;                                       		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                CoreHealth;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.DaDStatsShow
-// [0x00020002] 
-struct UGfxTrHud_execDaDStatsShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ASC_EnemyArenaLivesUpdate
-// [0x00020002] 
-struct UGfxTrHud_execASC_EnemyArenaLivesUpdate_Parms
-{
-	int                                                val;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ASC_FriendlyArenaLivesUpdate
-// [0x00020002] 
-struct UGfxTrHud_execASC_FriendlyArenaLivesUpdate_Parms
-{
-	int                                                val;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ArenaStatsUpdateTeamScore
-// [0x00020002] 
-struct UGfxTrHud_execArenaStatsUpdateTeamScore_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ASC_EnemyArenaPointBreak
-// [0x00020002] 
-struct UGfxTrHud_execASC_EnemyArenaPointBreak_Parms
-{
-	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.ASC_FriendlyArenaPointBreak
-// [0x00020002] 
-struct UGfxTrHud_execASC_FriendlyArenaPointBreak_Parms
-{
-	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.ArenaStatsPointBreak
-// [0x00020002] 
-struct UGfxTrHud_execArenaStatsPointBreak_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     val;                                              		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.ArenaStatsShow
-// [0x00020002] 
-struct UGfxTrHud_execArenaStatsShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ArenaStatsUpdateEnemyRoundScore
-// [0x00020002] 
-struct UGfxTrHud_execArenaStatsUpdateEnemyRoundScore_Parms
-{
-	int                                                Score;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ArenaStatsUpdateFriendlyRoundScore
-// [0x00020002] 
-struct UGfxTrHud_execArenaStatsUpdateFriendlyRoundScore_Parms
-{
-	int                                                Score;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ArenaStatsUpdateRoundCount
-// [0x00020002] 
-struct UGfxTrHud_execArenaStatsUpdateRoundCount_Parms
-{
-	int                                                RoundNum;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ArenaStatsUpdateTime
-// [0x00020002] 
-struct UGfxTrHud_execArenaStatsUpdateTime_Parms
-{
-	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.ArenaUpdateManGraphic
-// [0x00020002] 
-struct UGfxTrHud_execArenaUpdateManGraphic_Parms
-{
-	class UGFxObject*                                  Obj;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Path;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                Index;                                            		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamRabbitStatsShow
-// [0x00020002] 
-struct UGfxTrHud_execTeamRabbitStatsShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamRabbitStatsUpdateTime
-// [0x00020002] 
-struct UGfxTrHud_execTeamRabbitStatsUpdateTime_Parms
-{
-	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.HideNotification
-// [0x00020002] 
-struct UGfxTrHud_execHideNotification_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.ShowNotification
-// [0x00020002] 
-struct UGfxTrHud_execShowNotification_Parms
-{
-	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Val2;                                             		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.ASC_EnemyTDMPointBreak
-// [0x00020002] 
-struct UGfxTrHud_execASC_EnemyTDMPointBreak_Parms
-{
-	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.ASC_FriendlyTDMPointBreak
-// [0x00020002] 
-struct UGfxTrHud_execASC_FriendlyTDMPointBreak_Parms
-{
-	struct FString                                     val;                                              		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.TeamRabbitStatsPointBreak
-// [0x00020002] 
-struct UGfxTrHud_execTeamRabbitStatsPointBreak_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     val;                                              		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.ASC_EnemyTDMScoreUpdate
-// [0x00020002] 
-struct UGfxTrHud_execASC_EnemyTDMScoreUpdate_Parms
-{
-	int                                                val;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ASC_FriendlyTDMScoreUpdate
-// [0x00020002] 
-struct UGfxTrHud_execASC_FriendlyTDMScoreUpdate_Parms
-{
-	int                                                val;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamRabbitStatsUpdateTeamScore
-// [0x00020002] 
-struct UGfxTrHud_execTeamRabbitStatsUpdateTeamScore_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamRabbitStatsUpdateFlagStatus
-// [0x00020002] 
-struct UGfxTrHud_execTeamRabbitStatsUpdateFlagStatus_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamCTFStatsShow
+// Function TribesGame.GFxTrWeaponInventory.StopTimerInactiveReload
 // [0x00020002] 
-struct UGfxTrHud_execTeamCTFStatsShow_Parms
+struct UGFxTrWeaponInventory_execStopTimerInactiveReload_Parms
 {
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 };
 
-// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateTime
+// Function TribesGame.GFxTrWeaponInventory.StartTimerInactiveReload
 // [0x00020002] 
-struct UGfxTrHud_execTeamCTFStatsUpdateTime_Parms
+struct UGFxTrWeaponInventory_execStartTimerInactiveReload_Parms
 {
-	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+	float                                              fInactiveReloadTime;                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             Ammo;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
 };
 
-// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateTeamScore
+// Function TribesGame.GFxTrWeaponInventory.SetPosX
 // [0x00020002] 
-struct UGfxTrHud_execTeamCTFStatsUpdateTeamScore_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateFlagStatus
-// [0x00020002] 
-struct UGfxTrHud_execTeamCTFStatsUpdateFlagStatus_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bAtBase : 1;                                      		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateFlagReturnTime
-// [0x00020002] 
-struct UGfxTrHud_execTeamCTFStatsUpdateFlagReturnTime_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Time;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateGeneratorTimer
-// [0x00020002] 
-struct UGfxTrHud_execTeamCTFStatsUpdateGeneratorTimer_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Time;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.TeamCTFStatsUpdateGeneratorStatus
-// [0x00020002] 
-struct UGfxTrHud_execTeamCTFStatsUpdateGeneratorStatus_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bPowered : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.RabbitLeaderboardUpdateTime
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execRabbitLeaderboardUpdateTime_Parms
-{
-	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.RabbitLeaderboardUpdateSlot
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execRabbitLeaderboardUpdateSlot_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.RabbitLeaderboardShow
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execRabbitLeaderboardShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.RabbitScoreboardActivePlayer
-// [0x00020002] 
-struct UGfxTrHud_execRabbitScoreboardActivePlayer_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bVisible : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.RabbitScoreboardUpdateSlot
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execRabbitScoreboardUpdateSlot_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Kills;                                            		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Assists;                                          		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Ping;                                             		// 0x0034 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     ClassAbb;                                         		// 0x0040 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                Rank;                                             		// 0x004C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                RankIcon;                                         		// 0x0050 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TeamScoreboardUpdateSlot
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execTeamScoreboardUpdateSlot_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Kills;                                            		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Assists;                                          		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Ping;                                             		// 0x0034 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     ClassAbb;                                         		// 0x0040 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                Rank;                                             		// 0x004C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                RankIcon;                                         		// 0x0050 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetOwnership
-// [0x00020002] 
-struct UGfxTrHud_execSetOwnership_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.UpdateEnergy
-// [0x00420002] 
-struct UGfxTrHud_execUpdateEnergy_Parms
-{
-	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	float                                              NewEnergy;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              EnergyMax;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.TickGhostHealth
-// [0x00020002] 
-struct UGfxTrHud_execTickGhostHealth_Parms
-{
-	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// int                                             healthFrame;                                      		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.UpdateHealth
-// [0x00420002] 
-struct UGfxTrHud_execUpdateHealth_Parms
-{
-	struct FHeEnDisplay                                Info;                                             		// 0x0000 (0x0024) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	float                                              NewHealth;                                        		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              HealthMax;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// float                                           nearDeath;                                        		// 0x002C (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.DisplayHit
-// [0x00820002] 
-struct UGfxTrHud_execDisplayHit_Parms
-{
-	struct FVector                                     HitDir;                                           		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Damage;                                           		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UClass*                                      DamageType;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// struct FVector                                  Loc;                                              		// 0x0014 (0x000C) [0x0000000000000000]              
-	// struct FRotator                                 Rot;                                              		// 0x0020 (0x000C) [0x0000000000000000]              
-	// float                                           DirOfHit;                                         		// 0x002C (0x0004) [0x0000000000000000]              
-	// struct FVector                                  AxisX;                                            		// 0x0030 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  AxisY;                                            		// 0x003C (0x000C) [0x0000000000000000]              
-	// struct FVector                                  AxisZ;                                            		// 0x0048 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  ShotDirection;                                    		// 0x0054 (0x000C) [0x0000000000000000]              
-	// unsigned long                                   bIsInFront : 1;                                   		// 0x0060 (0x0004) [0x0000000000000000] [0x00000001] 
-	// struct FVector2D                                AngularDist;                                      		// 0x0064 (0x0008) [0x0000000000000000]              
-	// int                                             HitDirIndex;                                      		// 0x006C (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.ApplyNearDeathEffect
-// [0x00020002] 
-struct UGfxTrHud_execApplyNearDeathEffect_Parms
-{
-	float                                              Value;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ApplyDirectionalDamageEffect
-// [0x00020002] 
-struct UGfxTrHud_execApplyDirectionalDamageEffect_Parms
-{
-	int                                                EffectIndex;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              addValue;                                         		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.PlayDamageEffectWithNoDirectionalIndicator
-// [0x00020002] 
-struct UGfxTrHud_execPlayDamageEffectWithNoDirectionalIndicator_Parms
-{
-	float                                              Amount;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ChangeDamageEffectParameter
-// [0x00020002] 
-struct UGfxTrHud_execChangeDamageEffectParameter_Parms
-{
-	struct FName                                       ParamName;                                        		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
-	float                                              changeValue;                                      		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x000C (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// float                                           Value;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.TickDirectionalDamageEffect
-// [0x00020002] 
-struct UGfxTrHud_execTickDirectionalDamageEffect_Parms
-{
-	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// float                                           tickDecrement;                                    		// 0x0004 (0x0004) [0x0000000000000000]              
-	// struct FName                                    ParamName;                                        		// 0x0008 (0x0008) [0x0000000000000000]              
-	// unsigned long                                   bFoundNonZero : 1;                                		// 0x0010 (0x0004) [0x0000000000000000] [0x00000001] 
-};
-
-// Function TribesGame.GfxTrHud.TickHud
-// [0x00020002] 
-struct UGfxTrHud_execTickHud_Parms
-{
-	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// int                                             S;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
-	// int                                             Ammo;                                             		// 0x000C (0x0004) [0x0000000000000000]              
-	// float                                           Rotation;                                         		// 0x0010 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  TRP;                                              		// 0x0014 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  SpectateViewingPawn;                              		// 0x0018 (0x0004) [0x0000000000000000]              
-	// class ATrVehicle*                               TRV;                                              		// 0x001C (0x0004) [0x0000000000000000]              
-	// class ATrVehicle*                               SpectateViewingVehicle;                           		// 0x0020 (0x0004) [0x0000000000000000]              
-	// class ATrDevice*                                trDev;                                            		// 0x0024 (0x0004) [0x0000000000000000]              
-	// class ATrDevice*                                device[ 0x3 ];                                    		// 0x0028 (0x000C) [0x0000000000000000]              
-	// class ATrDevice_LaserTargeter*                  TrDevLaser;                                       		// 0x0034 (0x0004) [0x0000000000000000]              
-	// class ATrVehicleWeapon*                         TRVW;                                             		// 0x0038 (0x0004) [0x0000000000000000]              
-	// class ATrWeaponPawn*                            TRWP;                                             		// 0x003C (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 PRI;                                              		// 0x0040 (0x0004) [0x0000000000000000]              
-	// int                                             currentPercent;                                   		// 0x0044 (0x0004) [0x0000000000000000]              
-	// int                                             currentPercentReload;                             		// 0x0048 (0x0004) [0x0000000000000000]              
-	// int                                             skiSpeedStep;                                     		// 0x004C (0x0004) [0x0000000000000000]              
-	// class ATrCamera_SpectatorBookmark*              SpectateViewingBookmark;                          		// 0x0050 (0x0004) [0x0000000000000000]              
-	// class AActor*                                   SpectateObjectiveActor;                           		// 0x0054 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.GetFrameNumberForVehicle
-// [0x00020002] 
-struct UGfxTrHud_execGetFrameNumberForVehicle_Parms
-{
-	class ATrVehicle*                                  V;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.GfxTrHud.ConfigureSkiSpeedSteps
-// [0x00020002] 
-struct UGfxTrHud_execConfigureSkiSpeedSteps_Parms
-{
-	float                                              SoftCap;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// int                                             stepAmount;                                       		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.GetSkiSpeedStep
-// [0x00020002] 
-struct UGfxTrHud_execGetSkiSpeedStep_Parms
-{
-	float                                              Speed;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.ForceHealthUpdate
-// [0x00020002] 
-struct UGfxTrHud_execForceHealthUpdate_Parms
-{
-	int                                                NewHealth;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                NewMaxHealth;                                     		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ClearStats
-// [0x00824002] 
-struct UGfxTrHud_execClearStats_Parms
-{
-	unsigned long                                      clearScores : 1;                                  		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// struct FASDisplayInfo                           DI;                                               		// 0x0004 (0x002C) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.SetAmmoCountTF
-// [0x00020002] 
-struct UGfxTrHud_execSetAmmoCountTF_Parms
-{
-	class AWeapon*                                     Wep;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Ammo;                                             		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	// class ATrDevice*                                Dev;                                              		// 0x0010 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.registerHUDView
-// [0x00020002] 
-struct UGfxTrHud_execregisterHUDView_Parms
-{
-	class UGFxObject*                                  MovieClip;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      secondPass : 1;                                   		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateHUDCredits
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execUpdateHUDCredits_Parms
-{
-	int                                                changeAmount;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                newTotal;                                         		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.UpdateRespawnTimer
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execUpdateRespawnTimer_Parms
-{
-	int                                                TimeRemaining;                                    		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetRespawnText
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execSetRespawnText_Parms
-{
-	struct FString                                     Text;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.UpdateRespawnText
-// [0x00020002] 
-struct UGfxTrHud_execUpdateRespawnText_Parms
-{
-	struct FString                                     Text;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.SetScoreboardTitle
-// [0x00020002] 
-struct UGfxTrHud_execSetScoreboardTitle_Parms
-{
-	struct FString                                     sValue;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     sServer;                                          		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.UpdateCreditsAndStreaks
-// [0x00020002] 
-struct UGfxTrHud_execUpdateCreditsAndStreaks_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ShowCenterHUDElements
-// [0x00020002] 
-struct UGfxTrHud_execShowCenterHUDElements_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ConfigureHUDState
-// [0x00024003] ( FUNC_Final )
-struct UGfxTrHud_execConfigureHUDState_Parms
-{
-	unsigned long                                      bAlive : 1;                                       		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	unsigned long                                      bReady : 1;                                       		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	unsigned long                                      bForceCredits : 1;                                		// 0x0008 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// unsigned long                                   bVisible : 1;                                     		// 0x000C (0x0004) [0x0000000000000000] [0x00000001] 
-};
-
-// Function TribesGame.GfxTrHud.ConfigureSpectatorHUD
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execConfigureSpectatorHUD_Parms
-{
-	unsigned long                                      bIsNeutral : 1;                                   		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SystemEnableNotifies
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execSystemEnableNotifies_Parms
-{
-	unsigned long                                      bEnable : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ShouldShowSpectatorReticule
-// [0x00020002] 
-struct UGfxTrHud_execShouldShowSpectatorReticule_Parms
-{
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.GfxTrHud.SetPlayerClassObjects
-// [0x00020000] 
-struct UGfxTrHud_execSetPlayerClassObjects_Parms
-{
-	struct FString                                     ClassName;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                PerkIcon1;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                PerkIcon2;                                        		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetPlayerTeamIcon
-// [0x00020000] 
-struct UGfxTrHud_execSetPlayerTeamIcon_Parms
-{
-	int                                                Team;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetPlayerRankIcon
-// [0x00020000] 
-struct UGfxTrHud_execSetPlayerRankIcon_Parms
-{
-	int                                                IconIndex;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.SetSpeedometer
-// [0x00020002] 
-struct UGfxTrHud_execSetSpeedometer_Parms
-{
-	int                                                Speed;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.ClearHeroStatus
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execClearHeroStatus_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.UpdateHeroStatus
-// [0x00020003] ( FUNC_Final )
-struct UGfxTrHud_execUpdateHeroStatus_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	float                                              ShowTime;                                         		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.AddToPromptPanelTime
-// [0x00020002] 
-struct UGfxTrHud_execAddToPromptPanelTime_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	float                                              EndTime;                                          		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned char                                      messagePriority;                                  		// 0x0010 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.AddVGSEntry
-// [0x00020002] 
-struct UGfxTrHud_execAddVGSEntry_Parms
-{
-	struct FString                                     Command;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	unsigned long                                      bBold : 1;                                        		// 0x000C (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.LoadVGSMenu
-// [0x00020002] 
-struct UGfxTrHud_execLoadVGSMenu_Parms
-{
-	class UGFxObject*                                  List;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// int                                             ClassId;                                          		// 0x0008 (0x0004) [0x0000000000000000]              
-	// struct FString                                  loadoutName;                                      		// 0x000C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// class UTrPlayerInput*                           TrPI;                                             		// 0x0018 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   FamilyInfo;                                       		// 0x001C (0x0004) [0x0000000000000000]              
-	// class UClass*                                   InfoList;                                         		// 0x0020 (0x0004) [0x0000000000000000]              
-	// TArray< unsigned char >                         GametypeSpecificCommands;                         		// 0x0024 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// TArray< class UClass* >                         VGSNodeChildrenClasses;                           		// 0x0030 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.ClearPromptPanelMessage
-// [0x00020002] 
-struct UGfxTrHud_execClearPromptPanelMessage_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GfxTrHud.ClearPromptPanel
-// [0x00020002] 
-struct UGfxTrHud_execClearPromptPanel_Parms
-{
-};
-
-// Function TribesGame.GfxTrHud.Init
-// [0x00024002] 
-struct UGfxTrHud_execInit_Parms
-{
-	class ULocalPlayer*                                Player;                                           		// 0x0000 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GfxTrHud.registerReticules
-// [0x00020002] 
-struct UGfxTrHud_execregisterReticules_Parms
-{
-	class UGFxTrReticules*                             MC;                                               		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GfxTrHud.Start
-// [0x00024002] 
-struct UGfxTrHud_execStart_Parms
+struct UGFxTrWeaponInventory_execSetPosX_Parms
 {
-	unsigned long                                      StartPaused : 1;                                  		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	float                                              fX;                                               		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
-// Function TribesGame.GfxTrHud.DelegateSoundAccolade
-// [0x00120000] 
-struct UGfxTrHud_execDelegateSoundAccolade_Parms
+// Function TribesGame.GFxTrWeaponInventory.OnInactiveReload
+// [0x00020002] 
+struct UGFxTrWeaponInventory_execOnInactiveReload_Parms
 {
 };
 
-// Function TribesGame.GfxTrHud.DelegateLoadVGSMenu
-// [0x00120000] 
-struct UGfxTrHud_execDelegateLoadVGSMenu_Parms
-{
-	class UGFxObject*                                  List;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrReticules.UpdateReticule
+// Function TribesGame.GFxTrWeaponInventory.OnDeactivated
 // [0x00024002] 
-struct UGFxTrReticules_execUpdateReticule_Parms
+struct UGFxTrWeaponInventory_execOnDeactivated_Parms
 {
-	class APawn*                                       pPawn;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bForceUpdate : 1;                                 		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// class ATrDevice*                                Dev;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class ATrVehicleWeapon*                         vw;                                               		// 0x000C (0x0004) [0x0000000000000000]              
-	// class ATrPlayerController*                      TrPC;                                             		// 0x0010 (0x0004) [0x0000000000000000]              
-	// unsigned long                                   bShouldBeVisibileThisTick : 1;                    		// 0x0014 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   bFlashReticule : 1;                               		// 0x0018 (0x0004) [0x0000000000000000] [0x00000001] 
+	float                                              fInactiveReloadTime;                              		// 0x0000 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 };
 
-// Function TribesGame.GFxTrReticules.SetReticuleVisible
+// Function TribesGame.GFxTrWeaponInventory.OnActivated
 // [0x00020002] 
-struct UGFxTrReticules_execSetReticuleVisible_Parms
+struct UGFxTrWeaponInventory_execOnActivated_Parms
 {
-	unsigned long                                      bNewVisible : 1;                                  		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 };
 
-// Function TribesGame.GFxTrReticules.Init
+// Function TribesGame.GFxTrWeaponInventory.UpdateAmmo
 // [0x00020002] 
-struct UGFxTrReticules_execInit_Parms
+struct UGFxTrWeaponInventory_execUpdateAmmo_Parms
+{
+	// int                                             Ammo;                                             		// 0x0000 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrWeaponInventory.UpdateKeybinding
+// [0x00020002] 
+struct UGFxTrWeaponInventory_execUpdateKeybinding_Parms
+{
+};
+
+// Function TribesGame.GFxTrWeaponInventory.Update
+// [0x00020002] 
+struct UGFxTrWeaponInventory_execUpdate_Parms
+{
+	class ATrDevice*                                   Weapon;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// unsigned long                                   Visible : 1;                                      		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
+};
+
+// Function TribesGame.GFxTrWeaponInventory.Initialize
+// [0x00020002] 
+struct UGFxTrWeaponInventory_execInitialize_Parms
 {
 	class UGfxTrHud*                                   H;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0004 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 };
 
-// Function TribesGame.GFxTrReticules.SetGenericPowerupPercentage
-// [0x00020002] 
-struct UGFxTrReticules_execSetGenericPowerupPercentage_Parms
+// Function TribesGame.GFxTrWeaponInventory.ShowReloaded
+// [0x00020003] ( FUNC_Final )
+struct UGFxTrWeaponInventory_execShowReloaded_Parms
 {
-	int                                                pPercentage;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
-// Function TribesGame.GFxTrReticules.SetVehiclePowerupPercentage
-// [0x00020002] 
-struct UGFxTrReticules_execSetVehiclePowerupPercentage_Parms
+// Function TribesGame.GFxTrWeaponInventory.ShowReloading
+// [0x00020003] ( FUNC_Final )
+struct UGFxTrWeaponInventory_execShowReloading_Parms
 {
-	int                                                pPercentage;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrReticules.SetLaserPowerupPercentage
-// [0x00020002] 
-struct UGFxTrReticules_execSetLaserPowerupPercentage_Parms
-{
-	int                                                pPercentage;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrReticules.SetPowerupPercentage
-// [0x00020002] 
-struct UGFxTrReticules_execSetPowerupPercentage_Parms
-{
-	int                                                pPercentage;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrReticules.SetVehicleAmmoClip
-// [0x00020002] 
-struct UGFxTrReticules_execSetVehicleAmmoClip_Parms
-{
-	struct FString                                     AmmoCount;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GFxTrReticules.EnableVehicleAmmoClip
-// [0x00020002] 
-struct UGFxTrReticules_execEnableVehicleAmmoClip_Parms
-{
-};
-
-// Function TribesGame.GFxTrReticules.DisableVehicleAmmoClip
-// [0x00020002] 
-struct UGFxTrReticules_execDisableVehicleAmmoClip_Parms
-{
-};
-
-// Function TribesGame.GFxTrReticules.CallShowHit
-// [0x00020002] 
-struct UGFxTrReticules_execCallShowHit_Parms
-{
-};
-
-// Function TribesGame.GFxTrReticules.CallSetAccuracy
-// [0x00020002] 
-struct UGFxTrReticules_execCallSetAccuracy_Parms
-{
-	int                                                nAccuracy;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrReticules.GetCurrentReticuleIndex
-// [0x00020002] 
-struct UGFxTrReticules_execGetCurrentReticuleIndex_Parms
-{
-	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.GFxTrReticules.SetCustomReticule
-// [0x00020002] 
-struct UGFxTrReticules_execSetCustomReticule_Parms
-{
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class ATrDevice*                                device;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class UGFxObject*                               Data;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerController*                      TrPC;                                             		// 0x000C (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GFxTrReticules.ChangeReticule
-// [0x00020002] 
-struct UGFxTrReticules_execChangeReticule_Parms
-{
-	int                                                nIndex;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrReticules.CallSetReticuleDepth
-// [0x00820002] 
-struct UGFxTrReticules_execCallSetReticuleDepth_Parms
-{
-	float                                              fDepth;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// struct FMatrix                                  DepthMatrix;                                      		// 0x0010 (0x0040) [0x0000000000000000]              
-};
-
-// Function TribesGame.GFxTrReticules.ASC_SetCustomReticule
-// [0x00020002] 
-struct UGFxTrReticules_execASC_SetCustomReticule_Parms
-{
-	class UGFxObject*                                  Data;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrReticules.CallSetReticuleColor
-// [0x00020002] 
-struct UGFxTrReticules_execCallSetReticuleColor_Parms
-{
-	int                                                nType;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrReticules.CallShowReticule
-// [0x00020002] 
-struct UGFxTrReticules_execCallShowReticule_Parms
-{
-	int                                                nIndex;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.UpdateOwnedItems
-// [0x00020002] 
-struct ATrHUD_execUpdateOwnedItems_Parms
-{
-	// unsigned long                                   bUpdate : 1;                                      		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
-	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// int                                             drawnItems;                                       		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.MineReplicated
-// [0x00020002] 
-struct ATrHUD_execMineReplicated_Parms
-{
-	class ATrProj_Mine*                                NewMine;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.DeployableReplicated
-// [0x00020002] 
-struct ATrHUD_execDeployableReplicated_Parms
-{
-	class ATrDeployable*                               NewDep;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.ClearQueuedAccoladesTimer
-// [0x00020002] 
-struct ATrHUD_execClearQueuedAccoladesTimer_Parms
-{
-};
-
-// Function TribesGame.TrHUD.RunQueuedAccoladesTimer
-// [0x00020002] 
-struct ATrHUD_execRunQueuedAccoladesTimer_Parms
-{
-	unsigned long                                      bIsBadge : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	// float                                           waitTime;                                         		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.CheckQueuedAccolades
-// [0x00020002] 
-struct ATrHUD_execCheckQueuedAccolades_Parms
-{
-};
-
-// Function TribesGame.TrHUD.QueueAccolade
-// [0x00824002] 
-struct ATrHUD_execQueueAccolade_Parms
-{
-	int                                                Icon;                                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Title;                                            		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Subtitle;                                         		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	unsigned long                                      bIsBadge : 1;                                     		// 0x001C (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// struct FQueuedAccolade                          Accolade;                                         		// 0x0020 (0x0020) [0x0000000000400000]              ( CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.PlayAward
-// [0x00020002] 
-struct ATrHUD_execPlayAward_Parms
-{
-	class UCanvas*                                     DrawCanvas;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// float                                           Progress;                                         		// 0x0004 (0x0004) [0x0000000000000000]              
-	// float                                           timelinePercent;                                  		// 0x0008 (0x0004) [0x0000000000000000]              
-	// float                                           Scale;                                            		// 0x000C (0x0004) [0x0000000000000000]              
-	// float                                           scaledSize;                                       		// 0x0010 (0x0004) [0x0000000000000000]              
-	// float                                           scaledHeight;                                     		// 0x0014 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.PostRenderFor
-// [0x00020902] ( FUNC_Event )
-struct ATrHUD_eventPostRenderFor_Parms
-{
-	class APlayerController*                           PC;                                               		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UCanvas*                                     DrawCanvas;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     CameraPosition;                                   		// 0x0008 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     CameraDir;                                        		// 0x0014 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.Tick
-// [0x00020902] ( FUNC_Event )
-struct ATrHUD_eventTick_Parms
-{
-	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.UpdateOverheadNumbers
-// [0x00820002] 
-struct ATrHUD_execUpdateOverheadNumbers_Parms
-{
-	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// int                                             I;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// float                                           AccumulatedTime;                                  		// 0x0008 (0x0004) [0x0000000000000000]              
-	// float                                           ScalingPeakTime;                                  		// 0x000C (0x0004) [0x0000000000000000]              
-	// float                                           Alpha;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
-	// struct FVector                                  ViewLocation;                                     		// 0x0014 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  OverheadNumberLocation;                           		// 0x0020 (0x000C) [0x0000000000000000]              
-	// struct FRotator                                 ViewRotation;                                     		// 0x002C (0x000C) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.AddOverheadNumber
-// [0x00820002] 
-struct ATrHUD_execAddOverheadNumber_Parms
-{
-	int                                                Value;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector4                                    WorldLocation;                                    		// 0x0010 (0x0010) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bShieldDamage : 1;                                		// 0x0020 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	// struct FOverheadNumber                          NewOverheadNumber;                                		// 0x0030 (0x0030) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.TestNumber
-// [0x00020200] ( FUNC_Exec )
-struct ATrHUD_execTestNumber_Parms
-{
-	int                                                Value;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.OnViewTargetChange
-// [0x00020002] 
-struct ATrHUD_execOnViewTargetChange_Parms
-{
-	class AActor*                                      NewViewTarget;                                    		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.HideAllSpectatorPanels
-// [0x00020002] 
-struct ATrHUD_execHideAllSpectatorPanels_Parms
-{
-};
-
-// Function TribesGame.TrHUD.UpdateSpectatorFloatCameraPanel
-// [0x00020002] 
-struct ATrHUD_execUpdateSpectatorFloatCameraPanel_Parms
-{
-};
-
-// Function TribesGame.TrHUD.HideSpectatorFloatCameraPanel
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execHideSpectatorFloatCameraPanel_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ShowSpectatorFloatCameraPanel
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execShowSpectatorFloatCameraPanel_Parms
-{
-};
-
-// Function TribesGame.TrHUD.UpdateSpectatorObjectivePanel
-// [0x00020002] 
-struct ATrHUD_execUpdateSpectatorObjectivePanel_Parms
-{
-	class AActor*                                      ObjectiveActor;                                   		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// int                                             ObjectiveHealth;                                  		// 0x0004 (0x0004) [0x0000000000000000]              
-	// int                                             ObjectiveHealthMax;                               		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.HideSpectatorObjectivePanel
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execHideSpectatorObjectivePanel_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ShowSpectatorObjectivePanel
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execShowSpectatorObjectivePanel_Parms
-{
-};
-
-// Function TribesGame.TrHUD.UpdateSpectatorBookmarkPanel
-// [0x00020002] 
-struct ATrHUD_execUpdateSpectatorBookmarkPanel_Parms
-{
-	class ATrCamera_SpectatorBookmark*                 BookMark;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.HideSpectatorBookmark
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execHideSpectatorBookmark_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ShowSpectatorBookmark
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execShowSpectatorBookmark_Parms
-{
-};
-
-// Function TribesGame.TrHUD.UpdateSpectatorVehiclePanel
-// [0x00020002] 
-struct ATrHUD_execUpdateSpectatorVehiclePanel_Parms
-{
-	class ATrVehicle*                                  ViewTargetVehicle;                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// class APlayerReplicationInfo*                   DriverPRI;                                        		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class APlayerReplicationInfo*                   PassengerPRI;                                     		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.HideSpectatorVehicle
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execHideSpectatorVehicle_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ShowSpectatorVehicle
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execShowSpectatorVehicle_Parms
-{
-};
-
-// Function TribesGame.TrHUD.UpdateSpectatorPlayerPanel
-// [0x00020002] 
-struct ATrHUD_execUpdateSpectatorPlayerPanel_Parms
-{
-	class ATrPawn*                                     ViewTargetTrPawn;                                 		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// struct FString                                  perk1Name;                                        		// 0x0004 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  perk2Name;                                        		// 0x0010 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// class UClass*                                   perkAClass;                                       		// 0x001C (0x0004) [0x0000000000000000]              
-	// class UClass*                                   perkBClass;                                       		// 0x0020 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   FamilyInfo;                                       		// 0x0024 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 ViewTargetPRI;                                    		// 0x0028 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.HideSpectatorPlayer
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execHideSpectatorPlayer_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ShowSpectatorPlayer
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execShowSpectatorPlayer_Parms
-{
-};
-
-// Function TribesGame.TrHUD.EnableGameTypeHUD
-// [0x00020002] 
-struct ATrHUD_execEnableGameTypeHUD_Parms
-{
-};
-
-// Function TribesGame.TrHUD.KickVoteMessage
-// [0x00020002] 
-struct ATrHUD_execKickVoteMessage_Parms
-{
-	unsigned long                                      bComplete : 1;                                    		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	struct FString                                     Message;                                          		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.HideGlobalAlert
-// [0x00020002] 
-struct ATrHUD_execHideGlobalAlert_Parms
-{
-};
-
-// Function TribesGame.TrHUD.SetPlayerClassObjects
-// [0x00020002] 
-struct ATrHUD_execSetPlayerClassObjects_Parms
-{
-	struct FString                                     ClassName;                                        		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                PerkIcon1;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                PerkIcon2;                                        		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.SendLocalMessageToChat
-// [0x00020002] 
-struct ATrHUD_execSendLocalMessageToChat_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	// class ULocalPlayer*                             LP;                                               		// 0x000C (0x0004) [0x0000000000000000]              
-	// class UTrGameViewportClient*                    trvpc;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.SendLocalMessageToGlobalAlert
-// [0x00020002] 
-struct ATrHUD_execSendLocalMessageToGlobalAlert_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.StripTag
-// [0x00020002] 
-struct ATrHUD_execStripTag_Parms
-{
-	struct FString                                     sValue;                                           		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     ReturnValue;                                      		// 0x000C (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
-	// int                                             I;                                                		// 0x0018 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.ChatMessageReceived
-// [0x00820002] 
-struct ATrHUD_execChatMessageReceived_Parms
-{
-	int                                                Channel;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Sender;                                           		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Message;                                          		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	// TArray< class APlayerReplicationInfo* >         PRIArray;                                         		// 0x001C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// unsigned long                                   isOnSameTeam : 1;                                 		// 0x0028 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   isPublicChat : 1;                                 		// 0x002C (0x0004) [0x0000000000000000] [0x00000001] 
-	// int                                             ChatColorIdx;                                     		// 0x0030 (0x0004) [0x0000000000000000]              
-	// class APlayerReplicationInfo*                   CurrPRI;                                          		// 0x0034 (0x0004) [0x0000000000000000]              
-	// class ULocalPlayer*                             LP;                                               		// 0x0038 (0x0004) [0x0000000000000000]              
-	// class UTrGameViewportClient*                    trvpc;                                            		// 0x003C (0x0004) [0x0000000000000000]              
-	// struct FColor                                   ChatColor;                                        		// 0x0040 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.LocalizedMessage
-// [0x00024002] 
-struct ATrHUD_execLocalizedMessage_Parms
-{
-	class UClass*                                      InMessageClass;                                   		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class APlayerReplicationInfo*                      RelatedPRI;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class APlayerReplicationInfo*                      RelatedPRI01;                                     		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     CriticalString;                                   		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                Switch;                                           		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Position;                                         		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Lifetime;                                         		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                FontSize;                                         		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FColor                                      DrawColor;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UObject*                                     OptionalObject;                                   		// 0x002C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	// int                                             WeaponIcon;                                       		// 0x0030 (0x0004) [0x0000000000000000]              
-	// int                                             FriendlyType;                                     		// 0x0034 (0x0004) [0x0000000000000000]              
-	// struct FString                                  KillerName;                                       		// 0x0038 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  VictimName;                                       		// 0x0044 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0050 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   KillDamageType;                                   		// 0x0054 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.UpdateWhiteoutEffect
-// [0x00020002] 
-struct ATrHUD_execUpdateWhiteoutEffect_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ClearWhiteout
-// [0x00020002] 
-struct ATrHUD_execClearWhiteout_Parms
-{
-};
-
-// Function TribesGame.TrHUD.Whiteout
-// [0x00020002] 
-struct ATrHUD_execWhiteout_Parms
-{
-	float                                              Speed;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Amount;                                           		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.UpdateFumbledFlagEffect
-// [0x00020002] 
-struct ATrHUD_execUpdateFumbledFlagEffect_Parms
-{
-};
-
-// Function TribesGame.TrHUD.FumbleFlag
-// [0x00020002] 
-struct ATrHUD_execFumbleFlag_Parms
-{
-	float                                              Speed;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.UpdateFadeEffect
-// [0x00020002] 
-struct ATrHUD_execUpdateFadeEffect_Parms
-{
-	// float                                           CurrentParamValue;                                		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.UpdateJammerEffect
-// [0x00020002] 
-struct ATrHUD_execUpdateJammerEffect_Parms
-{
-	// class ATrPawn*                                  P;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// float                                           StartupParamValue;                                		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.PulseShieldEffect
-// [0x00020002] 
-struct ATrHUD_execPulseShieldEffect_Parms
-{
-};
-
-// Function TribesGame.TrHUD.UpdateShieldEffect
-// [0x00020002] 
-struct ATrHUD_execUpdateShieldEffect_Parms
-{
-	// class ATrPawn*                                  P;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// float                                           StartupParamValue;                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// float                                           HitParamValue;                                    		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.UpdateInvulnerableEfect
-// [0x00020002] 
-struct ATrHUD_execUpdateInvulnerableEfect_Parms
-{
-	// class ATrPawn*                                  P;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// float                                           StartupParamValue;                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// float                                           OpacityParamValue;                                		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.PulsePickupFlashEffect
-// [0x00020002] 
-struct ATrHUD_execPulsePickupFlashEffect_Parms
-{
-	float                                              PulseAmount;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              PulseSpeed;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.UpdatePickupFlashEffect
-// [0x00020002] 
-struct ATrHUD_execUpdatePickupFlashEffect_Parms
-{
-	// float                                           ParamValue;                                       		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.UpdateSkiEffect
-// [0x00020002] 
-struct ATrHUD_execUpdateSkiEffect_Parms
-{
-	// float                                           Intensity;                                        		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.GetRemainingEnemyGeneratorRestoreTime
-// [0x00020002] 
-struct ATrHUD_execGetRemainingEnemyGeneratorRestoreTime_Parms
-{
-	float                                              ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrHUD.GetRemainingFriendlyGeneratorRestoreTime
-// [0x00020002] 
-struct ATrHUD_execGetRemainingFriendlyGeneratorRestoreTime_Parms
-{
-	float                                              ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrHUD.PostRender
-// [0x00020802] ( FUNC_Event )
-struct ATrHUD_eventPostRender_Parms
-{
-};
-
-// Function TribesGame.TrHUD.GetEdgeScreenCoordinates
-// [0x00C22002] 
-struct ATrHUD_execGetEdgeScreenCoordinates_Parms
-{
-	class UCanvas*                                     inCanvas;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     CameraPosition;                                   		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     CameraDir;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     ObjectLocation;                                   		// 0x001C (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     ScreenLocation;                                   		// 0x0028 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0034 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// unsigned long                                   bBehindCamera : 1;                                		// 0x0038 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   bAlongScreenEdges : 1;                            		// 0x003C (0x0004) [0x0000000000000000] [0x00000001] 
-	// int                                             minScrCoordValue;                                 		// 0x0040 (0x0004) [0x0000000000000000]              
-	// float                                           lineSlope;                                        		// 0x0044 (0x0004) [0x0000000000000000]              
-	// float                                           lineConstant;                                     		// 0x0048 (0x0004) [0x0000000000000000]              
-	// struct FVector                                  ScreenDir;                                        		// 0x004C (0x000C) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.DrawMICMarker
-// [0x00024002] 
-struct ATrHUD_execDrawMICMarker_Parms
-{
-	class UMaterialInstanceConstant*                   MarkerMIC;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     Placement;                                        		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	class UCanvas*                                     DrawCanvas;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector2D                                   MarkerSize;                                       		// 0x0014 (0x0008) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     markText;                                         		// 0x001C (0x000C) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
-	unsigned long                                      bFriend : 1;                                      		// 0x0028 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	float                                              distScale;                                        		// 0x002C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	struct FVector                                     ReturnValue;                                      		// 0x0030 (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// float                                           XL;                                               		// 0x003C (0x0004) [0x0000000000000000]              
-	// float                                           YL;                                               		// 0x0040 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.DrawHealthBar
-// [0x00020002] 
-struct ATrHUD_execDrawHealthBar_Parms
-{
-	class UMaterialInstanceConstant*                   HealthBarMIC;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bFriend : 1;                                      		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	struct FVector                                     Placement;                                        		// 0x0008 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	class UCanvas*                                     DrawCanvas;                                       		// 0x0014 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              PlacementX;                                       		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              PlacementY;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Width;                                            		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Height;                                           		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.DrawSmallText
-// [0x00022002] 
-struct ATrHUD_execDrawSmallText_Parms
-{
-	struct FString                                     ShowText;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	unsigned long                                      bFriend : 1;                                      		// 0x000C (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	struct FVector                                     Placement;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	class UCanvas*                                     DrawCanvas;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// float                                           XL;                                               		// 0x0020 (0x0004) [0x0000000000000000]              
-	// float                                           YL;                                               		// 0x0024 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.DrawColoredMarkerText
-// [0x00024002] 
-struct ATrHUD_execDrawColoredMarkerText_Parms
-{
-	struct FString                                     ShowText;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FColor                                      TextColor;                                        		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     Placement;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	class UCanvas*                                     DrawCanvas;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              ScaleX;                                           		// 0x0020 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	float                                              ScaleY;                                           		// 0x0024 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	struct FVector                                     ReturnValue;                                      		// 0x0028 (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// float                                           XL;                                               		// 0x0034 (0x0004) [0x0000000000000000]              
-	// float                                           YL;                                               		// 0x0038 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.DrawMarkerText
-// [0x00024002] 
-struct ATrHUD_execDrawMarkerText_Parms
-{
-	struct FString                                     ShowText;                                         		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	unsigned long                                      bFriend : 1;                                      		// 0x000C (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	struct FVector                                     Placement;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	class UCanvas*                                     DrawCanvas;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bBuddy : 1;                                       		// 0x0020 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	struct FVector                                     ReturnValue;                                      		// 0x0024 (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// float                                           XL;                                               		// 0x0030 (0x0004) [0x0000000000000000]              
-	// float                                           YL;                                               		// 0x0034 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.DrawRotatedMarker
-// [0x00024002] 
-struct ATrHUD_execDrawRotatedMarker_Parms
-{
-	class UTexture2D*                                  Marker;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     Placement;                                        		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FRotator                                    Rot;                                              		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	class UCanvas*                                     DrawCanvas;                                       		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     markText;                                         		// 0x0020 (0x000C) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
-	unsigned long                                      bFriend : 1;                                      		// 0x002C (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	float                                              Alpha;                                            		// 0x0030 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	float                                              distScale;                                        		// 0x0034 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	struct FVector                                     ReturnValue;                                      		// 0x0038 (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// float                                           XL;                                               		// 0x0044 (0x0004) [0x0000000000000000]              
-	// float                                           YL;                                               		// 0x0048 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.DrawMarker
-// [0x00824002] 
-struct ATrHUD_execDrawMarker_Parms
-{
-	class UTexture2D*                                  Marker;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     Placement;                                        		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	class UCanvas*                                     DrawCanvas;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     markText;                                         		// 0x0014 (0x000C) [0x0000000000400090]              ( CPF_OptionalParm | CPF_Parm | CPF_NeedCtorLink )
-	unsigned long                                      bFriend : 1;                                      		// 0x0020 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	float                                              Alpha;                                            		// 0x0024 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	float                                              distScale;                                        		// 0x0028 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	struct FVector                                     ReturnValue;                                      		// 0x002C (0x000C) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// float                                           XL;                                               		// 0x0038 (0x0004) [0x0000000000000000]              
-	// float                                           YL;                                               		// 0x003C (0x0004) [0x0000000000000000]              
-	// struct FLinearColor                             Blend;                                            		// 0x0040 (0x0010) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.CheckCrosshairOnFriendly
-// [0x00820002] 
-struct ATrHUD_execCheckCrosshairOnFriendly_Parms
-{
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// struct FVector                                  HitLocation;                                      		// 0x0004 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  HitNormal;                                        		// 0x0010 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  StartTrace;                                       		// 0x001C (0x000C) [0x0000000000000000]              
-	// struct FVector                                  EndTrace;                                         		// 0x0028 (0x000C) [0x0000000000000000]              
-	// class AActor*                                   HitActor;                                         		// 0x0034 (0x0004) [0x0000000000000000]              
-	// class AUTVehicle*                               V;                                                		// 0x0038 (0x0004) [0x0000000000000000]              
-	// class AUTWeapon*                                W;                                                		// 0x003C (0x0004) [0x0000000000000000]              
-	// class ATrDevice*                                TrD;                                              		// 0x0040 (0x0004) [0x0000000000000000]              
-	// int                                             SeatIndex;                                        		// 0x0044 (0x0004) [0x0000000000000000]              
-	// class APawn*                                    MyPawnOwner;                                      		// 0x0048 (0x0004) [0x0000000000000000]              
-	// class APawn*                                    Tracer;                                           		// 0x004C (0x0004) [0x0000000000000000]              
-	// class APawn*                                    HitPawn;                                          		// 0x0050 (0x0004) [0x0000000000000000]              
-	// struct FRotator                                 tmpRotation;                                      		// 0x0054 (0x000C) [0x0000000000000000]              
-	// struct FImpactInfo                              HitInfo;                                          		// 0x0060 (0x0050) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.ClearCrosshairOnFriendly
-// [0x00020002] 
-struct ATrHUD_execClearCrosshairOnFriendly_Parms
-{
-};
-
-// Function TribesGame.TrHUD.CompleteTeamSelectionMenuClose
-// [0x00020002] 
-struct ATrHUD_execCompleteTeamSelectionMenuClose_Parms
-{
-};
-
-// Function TribesGame.TrHUD.CompleteVehicleMenuClose
-// [0x00020002] 
-struct ATrHUD_execCompleteVehicleMenuClose_Parms
-{
-};
-
-// Function TribesGame.TrHUD.RemoveMovies
-// [0x00020002] 
-struct ATrHUD_execRemoveMovies_Parms
-{
-};
-
-// Function TribesGame.TrHUD.HideMenus
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execHideMenus_Parms
-{
-};
-
-// Function TribesGame.TrHUD.RestoreHUDState
-// [0x00020002] 
-struct ATrHUD_execRestoreHUDState_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ResolutionChanged
-// [0x00020002] 
-struct ATrHUD_execResolutionChanged_Parms
-{
-	// unsigned long                                   bNeedScoreboard : 1;                              		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
-	// unsigned long                                   bNeedTeamSelectionMenu : 1;                       		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
-};
-
-// Function TribesGame.TrHUD.RabbitScoreboardActivePlayer
-// [0x00020002] 
-struct ATrHUD_execRabbitScoreboardActivePlayer_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bVisible : 1;                                     		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.TeamScoreboardActivePlayer
-// [0x00020002] 
-struct ATrHUD_execTeamScoreboardActivePlayer_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.RabbitScoreboardUpdateTime
-// [0x00020000] 
-struct ATrHUD_execRabbitScoreboardUpdateTime_Parms
-{
-	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.TeamScoreboardUpdateTime
-// [0x00020002] 
-struct ATrHUD_execTeamScoreboardUpdateTime_Parms
-{
-	struct FString                                     Time;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.TeamScoreboardUpdateTeamScore
-// [0x00020002] 
-struct ATrHUD_execTeamScoreboardUpdateTeamScore_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                Score;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.RabbitScoreboardUpdateSlot
-// [0x00020002] 
-struct ATrHUD_execRabbitScoreboardUpdateSlot_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Kills;                                            		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Assists;                                          		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Ping;                                             		// 0x0034 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     ClassAbb;                                         		// 0x0040 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                Rank;                                             		// 0x004C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                RankIcon;                                         		// 0x0050 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.TeamScoreboardUpdateSlot
-// [0x00020002] 
-struct ATrHUD_execTeamScoreboardUpdateSlot_Parms
-{
-	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     PlayerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Score;                                            		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Kills;                                            		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Assists;                                          		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Ping;                                             		// 0x0034 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     ClassAbb;                                         		// 0x0040 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                Rank;                                             		// 0x004C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                RankIcon;                                         		// 0x0050 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.RabbitScoreboardShow
-// [0x00020002] 
-struct ATrHUD_execRabbitScoreboardShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.TeamScoreboardShow
-// [0x00020002] 
-struct ATrHUD_execTeamScoreboardShow_Parms
-{
-	unsigned long                                      bVisible : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.UpdateHUDCredits
-// [0x00020002] 
-struct ATrHUD_execUpdateHUDCredits_Parms
-{
-	int                                                changeAmount;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                newTotal;                                         		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.UpdateRespawnTimer
-// [0x00020002] 
-struct ATrHUD_execUpdateRespawnTimer_Parms
-{
-	int                                                TimeRemaining;                                    		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.UpdateRespawnText
-// [0x00020002] 
-struct ATrHUD_execUpdateRespawnText_Parms
-{
-	struct FString                                     Text;                                             		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.ShowCenterHUDElements
-// [0x00020002] 
-struct ATrHUD_execShowCenterHUDElements_Parms
-{
-	unsigned long                                      bShow : 1;                                        		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.ShowHUDPlayerAlive
-// [0x00020002] 
-struct ATrHUD_execShowHUDPlayerAlive_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ShowHUDPlayerSpawning
-// [0x00020002] 
-struct ATrHUD_execShowHUDPlayerSpawning_Parms
-{
-};
-
-// Function TribesGame.TrHUD.HideHUDElements
-// [0x00024002] 
-struct ATrHUD_execHideHUDElements_Parms
-{
-	unsigned long                                      bShowStats : 1;                                   		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	unsigned long                                      bForceCredits : 1;                                		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.ClearSpectatorHUDCache
-// [0x00020002] 
-struct ATrHUD_execClearSpectatorHUDCache_Parms
-{
-};
-
-// Function TribesGame.TrHUD.CreateSpectatorHUDCache
-// [0x00020002] 
-struct ATrHUD_execCreateSpectatorHUDCache_Parms
-{
-};
-
-// Function TribesGame.TrHUD.OnSpectate
-// [0x00020002] 
-struct ATrHUD_execOnSpectate_Parms
-{
-	unsigned long                                      bUpdateTeamState : 1;                             		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.AddFlyingIcon
-// [0x00024002] 
-struct ATrHUD_execAddFlyingIcon_Parms
-{
-	int                                                iconNumber;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Description;                                      		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Points;                                           		// 0x0010 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                bIsBadge;                                         		// 0x001C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.AddUpdateToKillMessage
-// [0x00020002] 
-struct ATrHUD_execAddUpdateToKillMessage_Parms
-{
-	int                                                RankIcon;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	int                                                PlayerIcon;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     PlayerName;                                       		// 0x0008 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Message;                                          		// 0x0014 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.ClearHelpText
-// [0x00020002] 
-struct ATrHUD_execClearHelpText_Parms
-{
-};
-
-// Function TribesGame.TrHUD.AddToHelpText
-// [0x00020002] 
-struct ATrHUD_execAddToHelpText_Parms
-{
-	struct FString                                     Title;                                            		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     Body;                                             		// 0x000C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	float                                              PictureIndex;                                     		// 0x0018 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     footer;                                           		// 0x001C (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	struct FString                                     SuppressString;                                   		// 0x0028 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.HideVGSMenu
-// [0x00020002] 
-struct ATrHUD_execHideVGSMenu_Parms
-{
-};
-
-// Function TribesGame.TrHUD.UpdateVGSMenu
-// [0x00020002] 
-struct ATrHUD_execUpdateVGSMenu_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ClearPromptPanelMessage
-// [0x00020002] 
-struct ATrHUD_execClearPromptPanelMessage_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.ClearHeroStatus
-// [0x00020002] 
-struct ATrHUD_execClearHeroStatus_Parms
-{
-};
-
-// Function TribesGame.TrHUD.AddToHeroStatus
-// [0x00020002] 
-struct ATrHUD_execAddToHeroStatus_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	float                                              ShowTime;                                         		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.ClearPromptPanel
-// [0x00020002] 
-struct ATrHUD_execClearPromptPanel_Parms
-{
-};
-
-// Function TribesGame.TrHUD.AddToPromptPanelTime
-// [0x00020002] 
-struct ATrHUD_execAddToPromptPanelTime_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	float                                              EndTime;                                          		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned char                                      Priority;                                         		// 0x0010 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.AddToPromptPanel
-// [0x00020002] 
-struct ATrHUD_execAddToPromptPanel_Parms
-{
-	struct FString                                     Message;                                          		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	unsigned char                                      Priority;                                         		// 0x000C (0x0001) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.AddUpdateToCombatLog
-// [0x00020002] 
-struct ATrHUD_execAddUpdateToCombatLog_Parms
-{
-	int                                                CombatType;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Aggressor;                                        		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-	int                                                WeaponIcon;                                       		// 0x0010 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     Victim;                                           		// 0x0014 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.SetPowerOscillation
-// [0x00020002] 
-struct ATrHUD_execSetPowerOscillation_Parms
-{
-	unsigned long                                      bEnable : 1;                                      		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.ToggleTeamSelectionMenu
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execToggleTeamSelectionMenu_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ToggleVehicleMenu
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execToggleVehicleMenu_Parms
-{
-	// class ATrPawn*                                  MyPawnOwner;                                      		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.ToggleMovieHUD
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execToggleMovieHUD_Parms
-{
-};
-
-// Function TribesGame.TrHUD.TogglePauseMenu
-// [0x00020002] 
-struct ATrHUD_execTogglePauseMenu_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ToggleSkiEffect
-// [0x00020002] 
-struct ATrHUD_execToggleSkiEffect_Parms
-{
-	unsigned long                                      bEnabled : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	float                                              fSpeed;                                           		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.ScaleformJoystickInputEvent
-// [0x00020000] 
-struct ATrHUD_execScaleformJoystickInputEvent_Parms
-{
-	float                                              leftAngle;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              rightAngle;                                       		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.FadeInSummary
-// [0x00020002] 
-struct ATrHUD_execFadeInSummary_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ShowEnding
-// [0x00020002] 
-struct ATrHUD_execShowEnding_Parms
-{
-	// int                                             endingType;                                       		// 0x0000 (0x0004) [0x0000000000000000]              
-	// struct FString                                  Message;                                          		// 0x0004 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.PlayMatchOver
-// [0x00020002] 
-struct ATrHUD_execPlayMatchOver_Parms
-{
-	int                                                Winner;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     WinnerName;                                       		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.TrHUD.ShowRoundEnding
-// [0x00020002] 
-struct ATrHUD_execShowRoundEnding_Parms
-{
-};
-
-// Function TribesGame.TrHUD.PlayRoundOver
-// [0x00020002] 
-struct ATrHUD_execPlayRoundOver_Parms
-{
-	int                                                WinningTeam;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.Fade
-// [0x00024202] ( FUNC_Exec )
-struct ATrHUD_execFade_Parms
-{
-	float                                              FadeTarget;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              FadeSpeed;                                        		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              bForceFadeInStartAlpha;                           		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.FadeInTimer
-// [0x00020002] 
-struct ATrHUD_execFadeInTimer_Parms
-{
-};
-
-// Function TribesGame.TrHUD.OnUpdatedGraphicsSettings
-// [0x00020002] 
-struct ATrHUD_execOnUpdatedGraphicsSettings_Parms
-{
-};
-
-// Function TribesGame.TrHUD.InitializeGameHUD
-// [0x00020002] 
-struct ATrHUD_execInitializeGameHUD_Parms
-{
-	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrGameObjective*                         TrGO;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class UOnlineSubsystem*                         OnlineSystem;                                     		// 0x000C (0x0004) [0x0000000000000000]              
-	// class UOnlineChatInterface*                     ChatInterface;                                    		// 0x0010 (0x0008) [0x0000000000000000]              
-	// class ATrCTFBase*                               CTFBase;                                          		// 0x0018 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrHUD.PostBeginPlay
-// [0x00020102] 
-struct ATrHUD_execPostBeginPlay_Parms
-{
-};
-
-// Function TribesGame.TrHUD.SetShowScores
-// [0x00020202] ( FUNC_Exec )
-struct ATrHUD_execSetShowScores_Parms
-{
-	unsigned long                                      bEnableShowScores : 1;                            		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	// unsigned long                                   bTeamGame : 1;                                    		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
-};
-
-// Function TribesGame.TrHUD.ShowSpectatorControls
-// [0x00024202] ( FUNC_Exec )
-struct ATrHUD_execShowSpectatorControls_Parms
-{
-	unsigned long                                      bForceEnabled : 1;                                		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-};
-
-// Function TribesGame.TrHUD.CreateHUDMovie
-// [0x00020002] 
-struct ATrHUD_execCreateHUDMovie_Parms
-{
-};
-
-// Function TribesGame.TrHUD.ShowDebugInfo
-// [0x00420002] 
-struct ATrHUD_execShowDebugInfo_Parms
-{
-	float                                              out_YL;                                           		// 0x0000 (0x0004) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	float                                              out_YPos;                                         		// 0x0004 (0x0004) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
-	// int                                             I;                                                		// 0x000C (0x0004) [0x0000000000000000]              
+	float                                              Duration;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                AmmoCount;                                        		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function TribesGame.TrVGSNode.GetGametypeSpecificChildrenNodes
@@ -24318,6 +24592,64 @@ struct ATrCamera_SpectatorBookmark_execGetSpectatorName_Parms
 struct ATrCamera_SpectatorBookmark_execGetDescription_Parms
 {
 	struct FString                                     ReturnValue;                                      		// 0x0000 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.TrDevice_LaserTargeter.UpdateTarget
+// [0x00020102] 
+struct ATrDevice_LaserTargeter_execUpdateTarget_Parms
+{
+	unsigned long                                      hasHitSomething : 1;                              		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
+	struct FVector                                     End;                                              		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	// class ATrPawn*                                  POwner;                                           		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_LaserTargeter.UpdateLaserEffect
+// [0x00820102] 
+struct ATrDevice_LaserTargeter_execUpdateLaserEffect_Parms
+{
+	// unsigned long                                   hasLaserHit : 1;                                  		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
+	// struct FVector                                  Start;                                            		// 0x0004 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  End;                                              		// 0x0010 (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_LaserTargeter.SpawnLaserEffect
+// [0x00820102] 
+struct ATrDevice_LaserTargeter_execSpawnLaserEffect_Parms
+{
+	// unsigned long                                   hasLaserHit : 1;                                  		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
+	// class ATrPawn*                                  POwner;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  Start;                                            		// 0x0008 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  End;                                              		// 0x0014 (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_LaserTargeter.KillLaserEffect
+// [0x00020102] 
+struct ATrDevice_LaserTargeter_execKillLaserEffect_Parms
+{
+};
+
+// Function TribesGame.TrDevice_LaserTargeter.GetLaserStartAndEnd
+// [0x00C20102] 
+struct ATrDevice_LaserTargeter_execGetLaserStartAndEnd_Parms
+{
+	struct FVector                                     StartLocation;                                    		// 0x0000 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	struct FVector                                     EndLocation;                                      		// 0x000C (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0018 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FVector                                  StartTrace;                                       		// 0x001C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  EndTrace;                                         		// 0x0028 (0x000C) [0x0000000000000000]              
+	// struct FImpactInfo                              TestImpact;                                       		// 0x0034 (0x0050) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_LaserTargeter.OnStartConstantFire
+// [0x00020102] 
+struct ATrDevice_LaserTargeter_execOnStartConstantFire_Parms
+{
+};
+
+// Function TribesGame.TrDevice_LaserTargeter.OnEndConstantFire
+// [0x00020102] 
+struct ATrDevice_LaserTargeter_execOnEndConstantFire_Parms
+{
 };
 
 // Function TribesGame.TrDevice_Pack.SendToFiringState
@@ -26189,23 +26521,12 @@ struct UGFxTrPage_Class_execGetEquipName_Parms
 	// class UClass*                                   equip;                                            		// 0x0014 (0x0004) [0x0000000000000000]              
 };
 
-// Function TribesGame.GFxTrPage_Class.GetArmorName
-// [0x00020002] 
-struct UGFxTrPage_Class_execGetArmorName_Parms
-{
-	class UClass*                                      FamilyInfo;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
-};
-
 // Function TribesGame.GFxTrPage_Class.FillDescription
 // [0x00020002] 
 struct UGFxTrPage_Class_execFillDescription_Parms
 {
 	class UGFxObject*                                  DataList;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	class UGFxObject*                                  ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// struct FString                                  Loadout;                                          		// 0x0008 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// class UGFxObject*                               Obj;                                              		// 0x0014 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   FamilyInfo;                                       		// 0x0018 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.GFxTrPage_Class.CheckDescription
@@ -26252,6 +26573,7 @@ struct UGFxTrPage_Class_execSpecialAction_Parms
 	class UGFxTrAction*                                Action;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	// int                                             EquipId;                                          		// 0x0004 (0x0004) [0x0000000000000000]              
 	// int                                             equipType;                                        		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             equipSearchType;                                  		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.GFxTrPage_Class.FillData
@@ -26306,14 +26628,6 @@ struct UGFxTrPage_Classes_execGetEquipName_Parms
 	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 	// int                                             EquipId;                                          		// 0x0010 (0x0004) [0x0000000000000000]              
 	// class UClass*                                   equip;                                            		// 0x0014 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GFxTrPage_Classes.GetArmorName
-// [0x00020002] 
-struct UGFxTrPage_Classes_execGetArmorName_Parms
-{
-	class UClass*                                      FamilyInfo;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
 };
 
 // Function TribesGame.GFxTrPage_Classes.FillDescription
@@ -26474,23 +26788,12 @@ struct UGFxTrPage_Loadouts_execGetEquipName_Parms
 	// class UClass*                                   equip;                                            		// 0x0014 (0x0004) [0x0000000000000000]              
 };
 
-// Function TribesGame.GFxTrPage_Loadouts.GetArmorName
-// [0x00020002] 
-struct UGFxTrPage_Loadouts_execGetArmorName_Parms
-{
-	class UClass*                                      FamilyInfo;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
-};
-
 // Function TribesGame.GFxTrPage_Loadouts.FillDescription
 // [0x00020002] 
 struct UGFxTrPage_Loadouts_execFillDescription_Parms
 {
 	class UGFxObject*                                  DataList;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	class UGFxObject*                                  ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// struct FString                                  Loadout;                                          		// 0x0008 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// class UGFxObject*                               Obj;                                              		// 0x0014 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   FamilyInfo;                                       		// 0x0018 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.GFxTrPage_Loadouts.CheckDescription
@@ -27184,10 +27487,11 @@ struct UGFxTrPage_Equip_execFillOption_Parms
 {
 	int                                                ActionIndex;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	class UGFxObject*                                  ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// int                                             Level;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
-	// int                                             EquipId;                                          		// 0x000C (0x0004) [0x0000000000000000]              
-	// class UGFxObject*                               Obj;                                              		// 0x0010 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   equip;                                            		// 0x0014 (0x0004) [0x0000000000000000]              
+	// unsigned long                                   isWeaponLocked : 1;                               		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
+	// int                                             Level;                                            		// 0x000C (0x0004) [0x0000000000000000]              
+	// int                                             EquipId;                                          		// 0x0010 (0x0004) [0x0000000000000000]              
+	// class UGFxObject*                               Obj;                                              		// 0x0014 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   equip;                                            		// 0x0018 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.GFxTrPage_Equip.FillData
@@ -27223,6 +27527,7 @@ struct UGFxTrPage_Equip_execTakeAction_Parms
 	int                                                ActionIndex;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	class UGFxObject*                                  DataList;                                         		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                ReturnValue;                                      		// 0x0008 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class UGFxTrPage*                               BackPage;                                         		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.GFxTrPage_Equip.SetActiveEquip
@@ -27294,6 +27599,103 @@ struct ATrPlayerVoice_execPlaySoundEx_Parms
 	class APlayerReplicationInfo*                      InstigatorPRI;                                    		// 0x0008 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	// int                                             I;                                                		// 0x000C (0x0004) [0x0000000000000000]              
 	// class USoundCue*                                SoundToPlay;                                      		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.PopupComplete
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execPopupComplete_Parms
+{
+	int                                                Action;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     TextInput;                                        		// 0x0004 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.PopupData
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execPopupData_Parms
+{
+	class UGFxObject*                                  Obj;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.HelpButton
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execHelpButton_Parms
+{
+	int                                                ActionIndex;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             EquipId;                                          		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   skinClass;                                        		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   FamilyInfo;                                       		// 0x000C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      TrPC;                                             		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.GetEquipName
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execGetEquipName_Parms
+{
+	int                                                equipType;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+	// int                                             EquipId;                                          		// 0x0010 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   equip;                                            		// 0x0014 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.FillDescription
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execFillDescription_Parms
+{
+	class UGFxObject*                                  DataList;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UGFxObject*                                  ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.CheckDescription
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execCheckDescription_Parms
+{
+	class UGFxObject*                                  DataList;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class UGFxObject*                               Obj;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class UGFxObject*                               descObj;                                          		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.FillOption
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execFillOption_Parms
+{
+	int                                                ActionIndex;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UGFxObject*                                  ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class UGFxObject*                               Obj;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             Category;                                         		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.GetFilterTitle
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execGetFilterTitle_Parms
+{
+	int                                                Filter;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FString                                     ReturnValue;                                      		// 0x0004 (0x000C) [0x0000000000400580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm | CPF_NeedCtorLink )
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.SpecialAction
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execSpecialAction_Parms
+{
+	class UGFxTrAction*                                Action;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             EquipId;                                          		// 0x0004 (0x0004) [0x0000000000000000]              
+	// int                                             Filter;                                           		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.FillData
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execFillData_Parms
+{
+	class UGFxObject*                                  DataList;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             EquipId;                                          		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   skinClass;                                        		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   FamilyInfo;                                       		// 0x000C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      TrPC;                                             		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrPage_EquipSubitem.FillSubItems
+// [0x00020002] 
+struct UGFxTrPage_EquipSubitem_execFillSubItems_Parms
+{
 };
 
 // Function TribesGame.GFxTrPage_Extras.PopupComplete
@@ -29458,85 +29860,33 @@ struct UGFxTrPage_QuickMatch_execGetMesh_Parms
 	unsigned char                                      ReturnValue;                                      		// 0x0004 (0x0001) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
-// Function TribesGame.GFxTrPage_RoamArena.ShowModel
+// Function TribesGame.GFxTrPage_Roam.ShowModel
 // [0x00020002] 
-struct UGFxTrPage_RoamArena_execShowModel_Parms
+struct UGFxTrPage_Roam_execShowModel_Parms
 {
 	// class ATrEntryPlayerController*                 TrEPC;                                            		// 0x0000 (0x0004) [0x0000000000000000]              
 };
 
-// Function TribesGame.GFxTrPage_RoamArena.JoinLocalGame
+// Function TribesGame.GFxTrPage_Roam.JoinLocalGame
 // [0x00020002] 
-struct UGFxTrPage_RoamArena_execJoinLocalGame_Parms
+struct UGFxTrPage_Roam_execJoinLocalGame_Parms
 {
 	struct FString                                     SessionName;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
 };
 
-// Function TribesGame.GFxTrPage_RoamArena.SpecialAction
+// Function TribesGame.GFxTrPage_Roam.SpecialAction
 // [0x00020002] 
-struct UGFxTrPage_RoamArena_execSpecialAction_Parms
+struct UGFxTrPage_Roam_execSpecialAction_Parms
 {
 	class UGFxTrAction*                                Action;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
-// Function TribesGame.GFxTrPage_RoamArena.Initialize
+// Function TribesGame.GFxTrPage_Roam.Initialize
 // [0x00020002] 
-struct UGFxTrPage_RoamArena_execInitialize_Parms
+struct UGFxTrPage_Roam_execInitialize_Parms
 {
-};
-
-// Function TribesGame.GFxTrPage_RoamCAH.ShowModel
-// [0x00020002] 
-struct UGFxTrPage_RoamCAH_execShowModel_Parms
-{
-	// class ATrEntryPlayerController*                 TrEPC;                                            		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GFxTrPage_RoamCAH.JoinLocalGame
-// [0x00020002] 
-struct UGFxTrPage_RoamCAH_execJoinLocalGame_Parms
-{
-	struct FString                                     SessionName;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GFxTrPage_RoamCAH.SpecialAction
-// [0x00020002] 
-struct UGFxTrPage_RoamCAH_execSpecialAction_Parms
-{
-	class UGFxTrAction*                                Action;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrPage_RoamCAH.Initialize
-// [0x00020002] 
-struct UGFxTrPage_RoamCAH_execInitialize_Parms
-{
-};
-
-// Function TribesGame.GFxTrPage_RoamCTF.ShowModel
-// [0x00020002] 
-struct UGFxTrPage_RoamCTF_execShowModel_Parms
-{
-	// class ATrEntryPlayerController*                 TrEPC;                                            		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GFxTrPage_RoamCTF.JoinLocalGame
-// [0x00020002] 
-struct UGFxTrPage_RoamCTF_execJoinLocalGame_Parms
-{
-	struct FString                                     SessionName;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GFxTrPage_RoamCTF.SpecialAction
-// [0x00020002] 
-struct UGFxTrPage_RoamCTF_execSpecialAction_Parms
-{
-	class UGFxTrAction*                                Action;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrPage_RoamCTF.Initialize
-// [0x00020002] 
-struct UGFxTrPage_RoamCTF_execInitialize_Parms
-{
+	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
+	// struct FString                                  CompositedMap;                                    		// 0x0004 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 };
 
 // Function TribesGame.GFxTrPage_RoamingMatch.ShowModel
@@ -29549,60 +29899,6 @@ struct UGFxTrPage_RoamingMatch_execShowModel_Parms
 // Function TribesGame.GFxTrPage_RoamingMatch.Initialize
 // [0x00020002] 
 struct UGFxTrPage_RoamingMatch_execInitialize_Parms
-{
-};
-
-// Function TribesGame.GFxTrPage_RoamRabbit.ShowModel
-// [0x00020002] 
-struct UGFxTrPage_RoamRabbit_execShowModel_Parms
-{
-	// class ATrEntryPlayerController*                 TrEPC;                                            		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GFxTrPage_RoamRabbit.JoinLocalGame
-// [0x00020002] 
-struct UGFxTrPage_RoamRabbit_execJoinLocalGame_Parms
-{
-	struct FString                                     SessionName;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GFxTrPage_RoamRabbit.SpecialAction
-// [0x00020002] 
-struct UGFxTrPage_RoamRabbit_execSpecialAction_Parms
-{
-	class UGFxTrAction*                                Action;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrPage_RoamRabbit.Initialize
-// [0x00020002] 
-struct UGFxTrPage_RoamRabbit_execInitialize_Parms
-{
-};
-
-// Function TribesGame.GFxTrPage_RoamTDM.ShowModel
-// [0x00020002] 
-struct UGFxTrPage_RoamTDM_execShowModel_Parms
-{
-	// class ATrEntryPlayerController*                 TrEPC;                                            		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.GFxTrPage_RoamTDM.JoinLocalGame
-// [0x00020002] 
-struct UGFxTrPage_RoamTDM_execJoinLocalGame_Parms
-{
-	struct FString                                     SessionName;                                      		// 0x0000 (0x000C) [0x0000000000400080]              ( CPF_Parm | CPF_NeedCtorLink )
-};
-
-// Function TribesGame.GFxTrPage_RoamTDM.SpecialAction
-// [0x00020002] 
-struct UGFxTrPage_RoamTDM_execSpecialAction_Parms
-{
-	class UGFxTrAction*                                Action;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.GFxTrPage_RoamTDM.Initialize
-// [0x00020002] 
-struct UGFxTrPage_RoamTDM_execInitialize_Parms
 {
 };
 
@@ -32243,7 +32539,7 @@ struct ATrPlayerPawn_execTick_Parms
 // [0x00020102] 
 struct ATrPlayerPawn_execPlayReload_Parms
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	// class ATrInventoryManager*                      trim;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
 	// class ATrDevice*                                TrD;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
 	// class ATrPlayerController*                      TrPC;                                             		// 0x000C (0x0004) [0x0000000000000000]              
@@ -32662,11 +32958,13 @@ struct UTrValueModifier_execLogModifiedValues_Parms
 };
 
 // Function TribesGame.TrValueModifier.MergeModification
-// [0x00020102] 
+// [0x00024102] 
 struct UTrValueModifier_execMergeModification_Parms
 {
 	int                                                ModType;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	float                                              Value;                                            		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                EquipSlot;                                        		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// unsigned char                                   EquipIndex;                                       		// 0x000C (0x0001) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrValueModifier.MergeClass
@@ -32693,7 +32991,7 @@ struct UTrValueModifier_execReset_Parms
 // [0x002200C2] 
 struct ATrInventoryManager_execServerAutoFireWeapon_Parms
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function TribesGame.TrInventoryManager.SwitchToPreviousWeapon
@@ -32706,7 +33004,7 @@ struct ATrInventoryManager_execSwitchToPreviousWeapon_Parms
 // [0x00020102] 
 struct ATrInventoryManager_execSwitchWeaponByEquipPoint_Parms
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	// class ATrDevice*                                EndWeapon;                                        		// 0x0004 (0x0004) [0x0000000000000000]              
 	// class ATrDevice*                                StartWeapon;                                      		// 0x0008 (0x0004) [0x0000000000000000]              
 };
@@ -32715,7 +33013,7 @@ struct ATrInventoryManager_execSwitchWeaponByEquipPoint_Parms
 // [0x00020102] 
 struct ATrInventoryManager_execAutoFireWeapon_Parms
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	// class ATrDevice_AutoFire*                       AutoDevice;                                       		// 0x0004 (0x0004) [0x0000000000000000]              
 	// class ATrDevice*                                StartWeapon;                                      		// 0x0008 (0x0004) [0x0000000000000000]              
 	// class ATrPawn*                                  TRP;                                              		// 0x000C (0x0004) [0x0000000000000000]              
@@ -32801,10 +33099,19 @@ struct ATrInventoryManager_execGetDeviceByWeaponClass_Parms
 // [0x00020102] 
 struct ATrInventoryManager_execGetDeviceByEquipPoint_Parms
 {
-	unsigned char                                      EquipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	unsigned char                                      equipPoint;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	class ATrDevice*                                   ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 	// TArray< class ATrDevice* >                      WeaponList;                                       		// 0x0008 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 	// int                                             I;                                                		// 0x0014 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrInventoryManager.HasInventoryOfClass
+// [0x00020002] 
+struct ATrInventoryManager_execHasInventoryOfClass_Parms
+{
+	class UClass*                                      InvClass;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class AInventory*                                  ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class AInventory*                               Inv;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrInventoryManager.ReplicatedEvent
@@ -33083,7 +33390,7 @@ struct ATrHelpTextManager_execFormatText_Parms
 	// TArray< struct FString >                        Pieces;                                           		// 0x0018 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 	// int                                             I;                                                		// 0x0024 (0x0004) [0x0000000000000000]              
 	// struct FString                                  BindName;                                         		// 0x0028 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  CommandString;                                    		// 0x0034 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FString                                  commandString;                                    		// 0x0034 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 	// struct FString                                  ReturnString;                                     		// 0x0040 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 	// class ATrPlayerController*                      TrPC;                                             		// 0x004C (0x0004) [0x0000000000000000]              
 };
@@ -33492,9 +33799,10 @@ struct ATrDevice_ChainGun_execGetBuildUpTime_Parms
 	class APlayerReplicationInfo*                      PRI;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	unsigned long                                      bForInterpSpeed : 1;                              		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 	float                                              ReturnValue;                                      		// 0x0008 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x000C (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         VM;                                               		// 0x0010 (0x0004) [0x0000000000000000]              
-	// float                                           BuildupTime;                                      		// 0x0014 (0x0004) [0x0000000000000000]              
+	// unsigned char                                   equipPoint;                                       		// 0x000C (0x0001) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
+	// class UTrValueModifier*                         VM;                                               		// 0x0014 (0x0004) [0x0000000000000000]              
+	// float                                           BuildupTime;                                      		// 0x0018 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice_ChainGun.UpdateSoundModulation
@@ -33544,16 +33852,324 @@ struct ATrAttachment_ChainGun_MKD_eventPostInitAnimTree_Parms
 	// class APlayerReplicationInfo*                   PRI;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
-// Function TribesGame.TrDevice_CustomEagle.InstantFire
+// Function TribesGame.TrDevice_TC24.CustomFire
 // [0x00020102] 
-struct ATrDevice_CustomEagle_execInstantFire_Parms
+struct ATrDevice_TC24_execCustomFire_Parms
+{
+	// int                                             ShotCount;                                        		// 0x0000 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_TC24.ConsumeAmmo
+// [0x00020102] 
+struct ATrDevice_TC24_execConsumeAmmo_Parms
+{
+	unsigned char                                      FireModeNum;                                      		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrAttachment_RepairTool.StopThirdPersonFireEffects
+// [0x00020902] ( FUNC_Event )
+struct ATrAttachment_RepairTool_eventStopThirdPersonFireEffects_Parms
 {
 };
 
-// Function TribesGame.TrDevice_Eagle.InstantFire
+// Function TribesGame.TrAttachment_RepairTool.ThirdPersonFireEffects
 // [0x00020102] 
-struct ATrDevice_Eagle_execInstantFire_Parms
+struct ATrAttachment_RepairTool_execThirdPersonFireEffects_Parms
 {
+	struct FVector                                     HitLocation;                                      		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	// class ATrPawn*                                  POwner;                                           		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrAttachment_RepairTool.PlayImpactEffects
+// [0x00820102] 
+struct ATrAttachment_RepairTool_execPlayImpactEffects_Parms
+{
+	struct FVector                                     HitLocation;                                      		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	// class APawn*                                    POwner;                                           		// 0x000C (0x0004) [0x0000000000000000]              
+	// class ATrDevice_RepairTool*                     repairWeapon;                                     		// 0x0010 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  EffectLocation;                                   		// 0x0014 (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrAttachment_RepairTool.UpdateRepairEffect
+// [0x00020102] 
+struct ATrAttachment_RepairTool_execUpdateRepairEffect_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     HitLocation;                                      		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     HitNormal;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrAttachment_RepairTool.SpawnRepairEffect
+// [0x00020102] 
+struct ATrAttachment_RepairTool_execSpawnRepairEffect_Parms
+{
+	struct FVector                                     HitLocation;                                      		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     HitNormal;                                        		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrAttachment_RepairTool.KillRepairEffect
+// [0x00020102] 
+struct ATrAttachment_RepairTool_execKillRepairEffect_Parms
+{
+};
+
+// Function TribesGame.TrDevice_RepairTool.EnableWeaponReadyToFire
+// [0x00020022] 
+struct ATrDevice_RepairTool_execEnableWeaponReadyToFire_Parms
+{
+};
+
+// Function TribesGame.TrDevice_RepairTool.HasAnyAmmo
+// [0x00020102] 
+struct ATrDevice_RepairTool_execHasAnyAmmo_Parms
+{
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrDevice_RepairTool.ModifyInstantHitDamage
+// [0x00020002] 
+struct ATrDevice_RepairTool_execModifyInstantHitDamage_Parms
+{
+	unsigned char                                      FiringMode;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Damage;                                           		// 0x0054 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              ReturnValue;                                      		// 0x0058 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// unsigned long                                   bIsFriendly : 1;                                  		// 0x005C (0x0004) [0x0000000000000000] [0x00000001] 
+	// float                                           BaseRepair;                                       		// 0x0060 (0x0004) [0x0000000000000000]              
+	// class APawn*                                    PHit;                                             		// 0x0064 (0x0004) [0x0000000000000000]              
+	// class ATrGameObjective*                         GOHit;                                            		// 0x0068 (0x0004) [0x0000000000000000]              
+	// class ATrDeployable_Turret*                     TurretHit;                                        		// 0x006C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerPawn*                            PPHit;                                            		// 0x0070 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0074 (0x0004) [0x0000000000000000]              
+	// class ATrVehicle*                               VHit;                                             		// 0x0078 (0x0004) [0x0000000000000000]              
+	// class UTrValueModifier*                         VM;                                               		// 0x007C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.UpdateDamageMaterial
+// [0x00020102] 
+struct ATrDevice_RepairTool_execUpdateDamageMaterial_Parms
+{
+	// class USkeletalMesh*                            SMesh;                                            		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  POwner;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.UpdateRepairEffect
+// [0x00820102] 
+struct ATrDevice_RepairTool_execUpdateRepairEffect_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// unsigned long                                   hasRepairHit : 1;                                 		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
+	// struct FVector                                  End;                                              		// 0x0008 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  Tangent;                                          		// 0x0014 (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.SpawnRepairEffect
+// [0x00820102] 
+struct ATrDevice_RepairTool_execSpawnRepairEffect_Parms
+{
+	// unsigned long                                   hasRepairHit : 1;                                 		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
+	// class USkeletalMeshComponent*                   MeshAttach;                                       		// 0x0004 (0x0004) [0x0000000004000000]              ( CPF_EditInline )
+	// class ATrPlayerController*                      PController;                                      		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  POwner;                                           		// 0x000C (0x0004) [0x0000000000000000]              
+	// struct FVector                                  End;                                              		// 0x0010 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  Tangent;                                          		// 0x001C (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.HasViewModeSwitched
+// [0x00020102] 
+struct ATrDevice_RepairTool_execHasViewModeSwitched_Parms
+{
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class ATrPlayerController*                      PController;                                      		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  POwner;                                           		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.KillRepairEffect
+// [0x00020102] 
+struct ATrDevice_RepairTool_execKillRepairEffect_Parms
+{
+};
+
+// Function TribesGame.TrDevice_RepairTool.GetRepairEndAndTangent
+// [0x00C24102] 
+struct ATrDevice_RepairTool_execGetRepairEndAndTangent_Parms
+{
+	struct FVector                                     EndLocation;                                      		// 0x0000 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	struct FVector                                     Tangent;                                          		// 0x000C (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	class AActor*                                      HitActor;                                         		// 0x0018 (0x0004) [0x0000000000000190]              ( CPF_OptionalParm | CPF_Parm | CPF_OutParm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x001C (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FVector                                  StartTrace;                                       		// 0x0020 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  EndTrace;                                         		// 0x002C (0x000C) [0x0000000000000000]              
+	// struct FImpactInfo                              TestImpact;                                       		// 0x0038 (0x0050) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.ProcessInstantHit_Internal
+// [0x00024102] 
+struct ATrDevice_RepairTool_execProcessInstantHit_Internal_Parms
+{
+	unsigned char                                      FiringMode;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bHeadShot : 1;                                    		// 0x0054 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// class ATrPawn*                                  POwner;                                           		// 0x0058 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.InstantFire
+// [0x00820102] 
+struct ATrDevice_RepairTool_execInstantFire_Parms
+{
+	// struct FVector                                  StartTrace;                                       		// 0x0000 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  EndTrace;                                         		// 0x000C (0x000C) [0x0000000000000000]              
+	// TArray< struct FImpactInfo >                    ImpactList;                                       		// 0x0018 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FImpactInfo                              RealImpact;                                       		// 0x0024 (0x0050) [0x0000000000000000]              
+	// struct FImpactInfo                              NearImpact;                                       		// 0x0074 (0x0050) [0x0000000000000000]              
+	// int                                             I;                                                		// 0x00C4 (0x0004) [0x0000000000000000]              
+	// int                                             FinalImpactIndex;                                 		// 0x00C8 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.OnStartConstantFire
+// [0x00020102] 
+struct ATrDevice_RepairTool_execOnStartConstantFire_Parms
+{
+};
+
+// Function TribesGame.TrDevice_RepairTool.OnEndConstantFire
+// [0x00020102] 
+struct ATrDevice_RepairTool_execOnEndConstantFire_Parms
+{
+	// class ATrPawn*                                  TRP;                                              		// 0x0000 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.GetAmmoCount
+// [0x00020102] 
+struct ATrDevice_RepairTool_execGetAmmoCount_Parms
+{
+	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrDevice_RepairTool.GetActorHealth
+// [0x00020102] 
+struct ATrDevice_RepairTool_execGetActorHealth_Parms
+{
+	class AActor*                                      HitActor;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class APawn*                                    PHit;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class ATrGameObjective*                         GOHit;                                            		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_RepairTool.CanActorBeRepaired
+// [0x00020102] 
+struct ATrDevice_RepairTool_execCanActorBeRepaired_Parms
+{
+	class AActor*                                      HitActor;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrDevice_ElfProjector.OnEndConstantFire
+// [0x00020102] 
+struct ATrDevice_ElfProjector_execOnEndConstantFire_Parms
+{
+};
+
+// Function TribesGame.TrDevice_ElfProjector.UpdateRepairEffect
+// [0x00820102] 
+struct ATrDevice_ElfProjector_execUpdateRepairEffect_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// unsigned long                                   hasRepairHit : 1;                                 		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
+	// struct FVector                                  End;                                              		// 0x0008 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  Tangent;                                          		// 0x0014 (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_ElfProjector.ModifyInstantHitDamage
+// [0x00020002] 
+struct ATrDevice_ElfProjector_execModifyInstantHitDamage_Parms
+{
+	unsigned char                                      FiringMode;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000080]              ( CPF_Parm )
+	float                                              Damage;                                           		// 0x0054 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              ReturnValue;                                      		// 0x0058 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// float                                           BaseRepair;                                       		// 0x005C (0x0004) [0x0000000000000000]              
+	// class ATrDeployable_Turret*                     TurretHit;                                        		// 0x0060 (0x0004) [0x0000000000000000]              
+	// class ATrGameObjective*                         GOHit;                                            		// 0x0064 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  PawnHit;                                          		// 0x0068 (0x0004) [0x0000000000000000]              
+	// class ATrVehicle*                               VHit;                                             		// 0x006C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_ElfProjector.GetRepairEndAndTangent
+// [0x00C24102] 
+struct ATrDevice_ElfProjector_execGetRepairEndAndTangent_Parms
+{
+	struct FVector                                     EndLocation;                                      		// 0x0000 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	struct FVector                                     Tangent;                                          		// 0x000C (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
+	class AActor*                                      HitActor;                                         		// 0x0018 (0x0004) [0x0000000000000190]              ( CPF_OptionalParm | CPF_Parm | CPF_OutParm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x001C (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FBox                                     BBox;                                             		// 0x0020 (0x001C) [0x0000000000000000]              
+	// struct FVector                                  StartTrace;                                       		// 0x003C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  EndTrace;                                         		// 0x0048 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  HitNormal;                                        		// 0x0054 (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_ElfProjector.ServerSetImpact
+// [0x002200C2] 
+struct ATrDevice_ElfProjector_execServerSetImpact_Parms
+{
+	class AActor*                                      HitActor;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrDevice_ElfProjector.SetImpact
+// [0x00020102] 
+struct ATrDevice_ElfProjector_execSetImpact_Parms
+{
+	class AActor*                                      HitActor;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrDevice_ElfProjector.ProcessInstantHit_Internal
+// [0x00024102] 
+struct ATrDevice_ElfProjector_execProcessInstantHit_Internal_Parms
+{
+	unsigned char                                      FiringMode;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      bHeadShot : 1;                                    		// 0x0054 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// class ATrPawn*                                  POwner;                                           		// 0x0058 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_ElfProjector.InstantFire_RepairTool
+// [0x00820102] 
+struct ATrDevice_ElfProjector_execInstantFire_RepairTool_Parms
+{
+	// struct FVector                                  StartTrace;                                       		// 0x0000 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  EndTrace;                                         		// 0x000C (0x000C) [0x0000000000000000]              
+	// TArray< struct FImpactInfo >                    ImpactList;                                       		// 0x0018 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FImpactInfo                              RealImpact;                                       		// 0x0024 (0x0050) [0x0000000000000000]              
+	// struct FImpactInfo                              NearImpact;                                       		// 0x0074 (0x0050) [0x0000000000000000]              
+	// int                                             I;                                                		// 0x00C4 (0x0004) [0x0000000000000000]              
+	// int                                             FinalImpactIndex;                                 		// 0x00C8 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_ElfProjector.InstantFire
+// [0x00820102] 
+struct ATrDevice_ElfProjector_execInstantFire_Parms
+{
+	// struct FBox                                     BBox;                                             		// 0x0000 (0x001C) [0x0000000000000000]              
+	// struct FImpactInfo                              Impact;                                           		// 0x001C (0x0050) [0x0000000000000000]              
+	// class APawn*                                    P;                                                		// 0x006C (0x0004) [0x0000000000000000]              
+	// struct FVector                                  StartTrace;                                       		// 0x0070 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  EndTrace;                                         		// 0x007C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  HitNormal;                                        		// 0x0088 (0x000C) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrDevice_ElfProjector.PostBeginPlay
+// [0x00020102] 
+struct ATrDevice_ElfProjector_execPostBeginPlay_Parms
+{
+};
+
+// Function TribesGame.TrDevice_ElfProjector.CanActorBeRepaired
+// [0x00020102] 
+struct ATrDevice_ElfProjector_execCanActorBeRepaired_Parms
+{
+	class AActor*                                      HitActor;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function TribesGame.TrDevice_H1.PlayReloadAnim
@@ -33618,18 +34234,15 @@ struct ATrDevice_H1_execModifyInstantHitDamage_Parms
 	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000080]              ( CPF_Parm )
 	float                                              Damage;                                           		// 0x0054 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	float                                              ReturnValue;                                      		// 0x0058 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class ATrPawn*                                  TrPawnVictim;                                     		// 0x005C (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  TrPawnInstigator;                                 		// 0x0060 (0x0004) [0x0000000000000000]              
+	// float                                           EnergyOnFire;                                     		// 0x005C (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TrPawnVictim;                                     		// 0x0060 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TrPawnInstigator;                                 		// 0x0064 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice_H1.InstantFire
 // [0x00020102] 
 struct ATrDevice_H1_execInstantFire_Parms
 {
-	// class ATrPawn*                                  TRP;                                              		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         VM;                                               		// 0x0008 (0x0004) [0x0000000000000000]              
-	// float                                           VMMultiplier;                                     		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice_HeavyBoltLauncher.OnSwitchAwayFromWeapon
@@ -33986,7 +34599,7 @@ struct ATrDevice_Melee_execHasAmmo_Parms
 };
 
 // Function TribesGame.TrDevice_Melee.CalcAmountToLoad
-// [0x00020002] 
+// [0x00020102] 
 struct ATrDevice_Melee_execCalcAmountToLoad_Parms
 {
 	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
@@ -34009,26 +34622,6 @@ struct ATrDevice_Melee_execOwningClientPlayHit_Parms
 	// class ATrPawn*                                  TrPawnInstigator;                                 		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
-// Function TribesGame.TrDevice_NovaColt.StartFire
-// [0x00020102] 
-struct ATrDevice_NovaColt_execStartFire_Parms
-{
-	unsigned char                                      FireModeNum;                                      		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrDevice_NovaColt.FireAmmunition
-// [0x00020102] 
-struct ATrDevice_NovaColt_execFireAmmunition_Parms
-{
-};
-
-// Function TribesGame.TrDevice_NovaColt.ShouldRefire
-// [0x00020102] 
-struct ATrDevice_NovaColt_execShouldRefire_Parms
-{
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
 // Function TribesGame.TrDevice_NovaSlug.StartFire
 // [0x00020102] 
 struct ATrDevice_NovaSlug_execStartFire_Parms
@@ -34039,12 +34632,6 @@ struct ATrDevice_NovaSlug_execStartFire_Parms
 // Function TribesGame.TrDevice_NovaSlug.FireAmmunition
 // [0x00020102] 
 struct ATrDevice_NovaSlug_execFireAmmunition_Parms
-{
-};
-
-// Function TribesGame.TrDevice_NovaSlug.InstantFire
-// [0x00020102] 
-struct ATrDevice_NovaSlug_execInstantFire_Parms
 {
 };
 
@@ -34226,198 +34813,6 @@ struct ATrDevice_RemoteArxBuster_execSetArxIdle_Parms
 {
 	unsigned long                                      bEnabled : 1;                                     		// 0x0000 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 	// class ATrPawn*                                  POwner;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrAttachment_RepairTool.StopThirdPersonFireEffects
-// [0x00020902] ( FUNC_Event )
-struct ATrAttachment_RepairTool_eventStopThirdPersonFireEffects_Parms
-{
-};
-
-// Function TribesGame.TrAttachment_RepairTool.ThirdPersonFireEffects
-// [0x00020102] 
-struct ATrAttachment_RepairTool_execThirdPersonFireEffects_Parms
-{
-	struct FVector                                     HitLocation;                                      		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrPawn*                                  POwner;                                           		// 0x000C (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrAttachment_RepairTool.PlayImpactEffects
-// [0x00820102] 
-struct ATrAttachment_RepairTool_execPlayImpactEffects_Parms
-{
-	struct FVector                                     HitLocation;                                      		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	// class APawn*                                    POwner;                                           		// 0x000C (0x0004) [0x0000000000000000]              
-	// class ATrDevice_RepairTool*                     repairWeapon;                                     		// 0x0010 (0x0004) [0x0000000000000000]              
-	// struct FVector                                  EffectLocation;                                   		// 0x0014 (0x000C) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrAttachment_RepairTool.UpdateRepairEffect
-// [0x00020102] 
-struct ATrAttachment_RepairTool_execUpdateRepairEffect_Parms
-{
-	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     HitLocation;                                      		// 0x0004 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     HitNormal;                                        		// 0x0010 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrAttachment_RepairTool.SpawnRepairEffect
-// [0x00020102] 
-struct ATrAttachment_RepairTool_execSpawnRepairEffect_Parms
-{
-	struct FVector                                     HitLocation;                                      		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     HitNormal;                                        		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
-};
-
-// Function TribesGame.TrAttachment_RepairTool.KillRepairEffect
-// [0x00020102] 
-struct ATrAttachment_RepairTool_execKillRepairEffect_Parms
-{
-};
-
-// Function TribesGame.TrDevice_RepairTool.HasAnyAmmo
-// [0x00020102] 
-struct ATrDevice_RepairTool_execHasAnyAmmo_Parms
-{
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrDevice_RepairTool.ModifyInstantHitDamage
-// [0x00020002] 
-struct ATrDevice_RepairTool_execModifyInstantHitDamage_Parms
-{
-	unsigned char                                      FiringMode;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000080]              ( CPF_Parm )
-	float                                              Damage;                                           		// 0x0054 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              ReturnValue;                                      		// 0x0058 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// unsigned long                                   bIsFriendly : 1;                                  		// 0x005C (0x0004) [0x0000000000000000] [0x00000001] 
-	// float                                           BaseRepair;                                       		// 0x0060 (0x0004) [0x0000000000000000]              
-	// class APawn*                                    PHit;                                             		// 0x0064 (0x0004) [0x0000000000000000]              
-	// class ATrGameObjective*                         GOHit;                                            		// 0x0068 (0x0004) [0x0000000000000000]              
-	// class ATrDeployable_Turret*                     TurretHit;                                        		// 0x006C (0x0004) [0x0000000000000000]              
-	// class ATrPlayerPawn*                            PPHit;                                            		// 0x0070 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0074 (0x0004) [0x0000000000000000]              
-	// class ATrVehicle*                               VHit;                                             		// 0x0078 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         VM;                                               		// 0x007C (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.UpdateDamageMaterial
-// [0x00020102] 
-struct ATrDevice_RepairTool_execUpdateDamageMaterial_Parms
-{
-	// class USkeletalMesh*                            SMesh;                                            		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  POwner;                                           		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.UpdateRepairEffect
-// [0x00820102] 
-struct ATrDevice_RepairTool_execUpdateRepairEffect_Parms
-{
-	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// unsigned long                                   hasRepairHit : 1;                                 		// 0x0004 (0x0004) [0x0000000000000000] [0x00000001] 
-	// struct FVector                                  End;                                              		// 0x0008 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  Tangent;                                          		// 0x0014 (0x000C) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.SpawnRepairEffect
-// [0x00820102] 
-struct ATrDevice_RepairTool_execSpawnRepairEffect_Parms
-{
-	// unsigned long                                   hasRepairHit : 1;                                 		// 0x0000 (0x0004) [0x0000000000000000] [0x00000001] 
-	// class USkeletalMeshComponent*                   MeshAttach;                                       		// 0x0004 (0x0004) [0x0000000004000000]              ( CPF_EditInline )
-	// class ATrPlayerController*                      PController;                                      		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  POwner;                                           		// 0x000C (0x0004) [0x0000000000000000]              
-	// struct FVector                                  End;                                              		// 0x0010 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  Tangent;                                          		// 0x001C (0x000C) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.HasViewModeSwitched
-// [0x00020102] 
-struct ATrDevice_RepairTool_execHasViewModeSwitched_Parms
-{
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class ATrPlayerController*                      PController;                                      		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  POwner;                                           		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.KillRepairEffect
-// [0x00020102] 
-struct ATrDevice_RepairTool_execKillRepairEffect_Parms
-{
-};
-
-// Function TribesGame.TrDevice_RepairTool.GetRepairEndAndTangent
-// [0x00C24102] 
-struct ATrDevice_RepairTool_execGetRepairEndAndTangent_Parms
-{
-	struct FVector                                     EndLocation;                                      		// 0x0000 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	struct FVector                                     Tangent;                                          		// 0x000C (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	class AActor*                                      HitActor;                                         		// 0x0018 (0x0004) [0x0000000000000190]              ( CPF_OptionalParm | CPF_Parm | CPF_OutParm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x001C (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// struct FVector                                  StartTrace;                                       		// 0x0020 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  EndTrace;                                         		// 0x002C (0x000C) [0x0000000000000000]              
-	// struct FImpactInfo                              TestImpact;                                       		// 0x0038 (0x0050) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.ProcessInstantHit_Internal
-// [0x00024102] 
-struct ATrDevice_RepairTool_execProcessInstantHit_Internal_Parms
-{
-	unsigned char                                      FiringMode;                                       		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      bHeadShot : 1;                                    		// 0x0054 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
-	// class ATrPawn*                                  POwner;                                           		// 0x0058 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.InstantFire
-// [0x00820102] 
-struct ATrDevice_RepairTool_execInstantFire_Parms
-{
-	// struct FVector                                  StartTrace;                                       		// 0x0000 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  EndTrace;                                         		// 0x000C (0x000C) [0x0000000000000000]              
-	// TArray< struct FImpactInfo >                    ImpactList;                                       		// 0x0018 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FImpactInfo                              RealImpact;                                       		// 0x0024 (0x0050) [0x0000000000000000]              
-	// struct FImpactInfo                              NearImpact;                                       		// 0x0074 (0x0050) [0x0000000000000000]              
-	// int                                             I;                                                		// 0x00C4 (0x0004) [0x0000000000000000]              
-	// int                                             FinalImpactIndex;                                 		// 0x00C8 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.OnStartConstantFire
-// [0x00020102] 
-struct ATrDevice_RepairTool_execOnStartConstantFire_Parms
-{
-};
-
-// Function TribesGame.TrDevice_RepairTool.OnEndConstantFire
-// [0x00020102] 
-struct ATrDevice_RepairTool_execOnEndConstantFire_Parms
-{
-	// class ATrPawn*                                  TRP;                                              		// 0x0000 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.GetAmmoCount
-// [0x00020102] 
-struct ATrDevice_RepairTool_execGetAmmoCount_Parms
-{
-	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrDevice_RepairTool.GetActorHealth
-// [0x00020102] 
-struct ATrDevice_RepairTool_execGetActorHealth_Parms
-{
-	class AActor*                                      HitActor;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	float                                              ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class APawn*                                    PHit;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class ATrGameObjective*                         GOHit;                                            		// 0x000C (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDevice_RepairTool.CanActorBeRepaired
-// [0x00020102] 
-struct ATrDevice_RepairTool_execCanActorBeRepaired_Parms
-{
-	class AActor*                                      HitActor;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function TribesGame.TrDevice_S22Rifle.InstantFire
@@ -34603,14 +34998,6 @@ struct ATrDevice_SaberLauncher_eventReplicatedEvent_Parms
 	struct FName                                       VarName;                                          		// 0x0000 (0x0008) [0x0000000000000080]              ( CPF_Parm )
 };
 
-// Function TribesGame.TrDevice_SN7.ProjectileFire
-// [0x00020102] 
-struct ATrDevice_SN7_execProjectileFire_Parms
-{
-	class AProjectile*                                 ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class AProjectile*                              ProjRet;                                          		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
 // Function TribesGame.TrDevice_SniperRifle.StopScopeRechargeSound
 // [0x00020102] 
 struct ATrDevice_SniperRifle_execStopScopeRechargeSound_Parms
@@ -34675,12 +35062,6 @@ struct ATrDevice_SniperRifle_execOnSwitchAwayFromWeapon_Parms
 // Function TribesGame.TrDevice_SniperRifle.OnSwitchToWeapon
 // [0x00020102] 
 struct ATrDevice_SniperRifle_execOnSwitchToWeapon_Parms
-{
-};
-
-// Function TribesGame.TrDevice_Sparrow.InstantFire
-// [0x00020102] 
-struct ATrDevice_Sparrow_execInstantFire_Parms
 {
 };
 
@@ -34750,14 +35131,6 @@ struct ATrDevice_ThrowingKnives_execStartFire_Parms
 // [0x00020102] 
 struct ATrDevice_ThrowingKnives_execFireAmmunition_Parms
 {
-};
-
-// Function TribesGame.TrDevice_ThrowingKnives.ProjectileFire
-// [0x00020102] 
-struct ATrDevice_ThrowingKnives_execProjectileFire_Parms
-{
-	class AProjectile*                                 ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class AProjectile*                              ProjRet;                                          		// 0x0004 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice_ThrowingKnives.PlayWeaponEquip
@@ -36136,7 +36509,7 @@ struct UTrPromptMessage_execFormatText_Parms
 	// TArray< struct FString >                        Pieces;                                           		// 0x001C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 	// int                                             I;                                                		// 0x0028 (0x0004) [0x0000000000000000]              
 	// struct FString                                  BindName;                                         		// 0x002C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FString                                  CommandString;                                    		// 0x0038 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	// struct FString                                  commandString;                                    		// 0x0038 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 	// struct FString                                  ReturnString;                                     		// 0x0044 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 };
 
@@ -36176,9 +36549,10 @@ struct ATrSubDevice_execCalcWeaponFire_Parms
 	struct FVector                                     EndTrace;                                         		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	TArray< struct FImpactInfo >                       ImpactList;                                       		// 0x0018 (0x000C) [0x0000000000400190]              ( CPF_OptionalParm | CPF_Parm | CPF_OutParm | CPF_NeedCtorLink )
 	struct FVector                                     Extent;                                           		// 0x0024 (0x000C) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	struct FImpactInfo                                 ReturnValue;                                      		// 0x0030 (0x0050) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// struct FImpactInfo                              traceImpact;                                      		// 0x0080 (0x0050) [0x0000000000000000]              
-	// class ATrDeployable*                            depOwner;                                         		// 0x00D0 (0x0004) [0x0000000000000000]              
+	int                                                ExtraTraceFlags;                                  		// 0x0030 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	struct FImpactInfo                                 ReturnValue;                                      		// 0x0034 (0x0050) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// struct FImpactInfo                              traceImpact;                                      		// 0x0084 (0x0050) [0x0000000000000000]              
+	// class ATrDeployable*                            depOwner;                                         		// 0x00D4 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrSubDevice.Reset
@@ -36250,45 +36624,6 @@ struct ATrBaseTurret_Neutral_execGetMarker_Parms
 struct ATrBaseTurret_Neutral_execShouldShowHelpText_Parms
 {
 	unsigned char                                      HelpTextType;                                     		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrDeployable_DropJammer.GetMarker
-// [0x00020102] 
-struct ATrDeployable_DropJammer_execGetMarker_Parms
-{
-	class UTexture2D*                                  ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrDeployable_DropJammer.RemoveDetectedPawn
-// [0x00020002] 
-struct ATrDeployable_DropJammer_execRemoveDetectedPawn_Parms
-{
-	class APawn*                                       DetectedPawn;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrPawn*                                  TRP;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDeployable_DropJammer.AddDetectedPawn
-// [0x00020002] 
-struct ATrDeployable_DropJammer_execAddDetectedPawn_Parms
-{
-	class APawn*                                       DetectedPawn;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrPawn*                                  TRP;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDeployable_DropJammer.OnPowerStatusChanged
-// [0x00020102] 
-struct ATrDeployable_DropJammer_execOnPowerStatusChanged_Parms
-{
-	// class APawn*                                    P;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  TRP;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrDeployable_DropJammer.ShouldDetectPawn
-// [0x00020002] 
-struct ATrDeployable_DropJammer_execShouldDetectPawn_Parms
-{
-	class APawn*                                       P;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
@@ -37290,10 +37625,9 @@ struct ATrCollisionProxy_Flag_eventTouch_Parms
 	class UPrimitiveComponent*                         OtherComp;                                        		// 0x0004 (0x0004) [0x0000000004000080]              ( CPF_Parm | CPF_EditInline )
 	struct FVector                                     HitLocation;                                      		// 0x0008 (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	struct FVector                                     HitNormal;                                        		// 0x0014 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrPawn*                                  TRP;                                              		// 0x0020 (0x0004) [0x0000000000000000]              
-	// class ATrFlagBase*                              Flag;                                             		// 0x0024 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0028 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         TrVM;                                             		// 0x002C (0x0004) [0x0000000000000000]              
+	// class UClass*                                   TrFI;                                             		// 0x0020 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TRP;                                              		// 0x0024 (0x0004) [0x0000000000000000]              
+	// class ATrFlagBase*                              Flag;                                             		// 0x0028 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrCollisionProxy_Pickup.Touch
@@ -37541,15 +37875,24 @@ struct ATrDevice_Blink_execGetBlinkImpulse_Parms
 	// class UTrValueModifier*                         VM;                                               		// 0x0020 (0x0004) [0x0000000000000000]              
 };
 
-// Function TribesGame.TrDevice_Blink.OnBlink
+// Function TribesGame.TrDevice_Blink.IsRageBlink
 // [0x00020102] 
+struct ATrDevice_Blink_execIsRageBlink_Parms
+{
+	class ATrPawn*                                     TRP;                                              		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrDevice_Blink.OnBlink
+// [0x00024102] 
 struct ATrDevice_Blink_execOnBlink_Parms
 {
 	float                                              PercentEffectiveness;                             		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// float                                           VMMultiplier;                                     		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         VM;                                               		// 0x000C (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  aPawn;                                            		// 0x0010 (0x0004) [0x0000000000000000]              
+	unsigned long                                      wasRage : 1;                                      		// 0x0004 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// float                                           VMMultiplier;                                     		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x000C (0x0004) [0x0000000000000000]              
+	// class UTrValueModifier*                         VM;                                               		// 0x0010 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  aPawn;                                            		// 0x0014 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice_Blink.ToggleActivate
@@ -38836,6 +39179,63 @@ struct ATrDemoRecSpectator_eventPostBeginPlay_Parms
 {
 };
 
+// Function TribesGame.TrStationCollision.CheckCanPawnUseStationNow
+// [0x00020002] 
+struct ATrStationCollision_execCheckCanPawnUseStationNow_Parms
+{
+	class ATrPawn*                                     P;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrStationCollision.UnTouch
+// [0x00020902] ( FUNC_Event )
+struct ATrStationCollision_eventUnTouch_Parms
+{
+	class AActor*                                      Other;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class ATrPawn*                                  P;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrStation*                               Station;                                          		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrStationCollision.Touch
+// [0x00020902] ( FUNC_Event )
+struct ATrStationCollision_eventTouch_Parms
+{
+	class AActor*                                      Other;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UPrimitiveComponent*                         OtherComp;                                        		// 0x0004 (0x0004) [0x0000000004000080]              ( CPF_Parm | CPF_EditInline )
+	struct FVector                                     HitLocation;                                      		// 0x0008 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     HitNormal;                                        		// 0x0014 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	// class ATrPawn*                                  P;                                                		// 0x0020 (0x0004) [0x0000000000000000]              
+	// class ATrGameObjective*                         GameObjective;                                    		// 0x0024 (0x0004) [0x0000000000000000]              
+	// class ATrStation*                               Station;                                          		// 0x0028 (0x0004) [0x0000000000000000]              
+	// class ATrDeployable_DropJammer*                 DropStation;                                      		// 0x002C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      TrPC;                                             		// 0x0030 (0x0004) [0x0000000000000000]              
+	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x0034 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrStationCollision.PostBeginPlay
+// [0x00020902] ( FUNC_Event )
+struct ATrStationCollision_eventPostBeginPlay_Parms
+{
+};
+
+// Function TribesGame.TrStationCollision.GetPawnsInStation
+// [0x00020102] 
+struct ATrStationCollision_execGetPawnsInStation_Parms
+{
+	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrInventoryStationCollision.CheckCanPawnUseStationNow
+// [0x00020002] 
+struct ATrInventoryStationCollision_execCheckCanPawnUseStationNow_Parms
+{
+	class ATrPawn*                                     P;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
+	// float                                           TimeSinceLastVisit;                               		// 0x000C (0x0004) [0x0000000000000000]              
+	// class ATrPlayerController*                      TrPC;                                             		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
 // Function TribesGame.TrDeployable_ForceField.GetMarker
 // [0x00020102] 
 struct ATrDeployable_ForceField_execGetMarker_Parms
@@ -39063,23 +39463,19 @@ struct ATrProj_Spinfusor_execSpawnFlightEffects_Parms
 {
 };
 
-// Function TribesGame.TrEffect_MaxPowerPoolBuff.Remove
-// [0x00020002] 
-struct UTrEffect_MaxPowerPoolBuff_execRemove_Parms
+// Function TribesGame.TrProj_TC24.Destroyed
+// [0x00020102] 
+struct ATrProj_TC24_execDestroyed_Parms
 {
-	class AActor*                                      Target;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrHUD*                                   TrH;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  aPawn;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
-// Function TribesGame.TrEffect_MaxPowerPoolBuff.Apply
-// [0x00024002] 
-struct UTrEffect_MaxPowerPoolBuff_execApply_Parms
+// Function TribesGame.TrProj_TC24.HitWall
+// [0x00020902] ( FUNC_Event )
+struct ATrProj_TC24_eventHitWall_Parms
 {
-	class AActor*                                      Target;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	// class ATrPawn*                                  aPawn;                                            		// 0x0054 (0x0004) [0x0000000000000000]              
-	// class ATrHUD*                                   TrH;                                              		// 0x0058 (0x0004) [0x0000000000000000]              
+	struct FVector                                     HitNormal;                                        		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	class AActor*                                      Wall;                                             		// 0x000C (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class UPrimitiveComponent*                         WallComp;                                         		// 0x0010 (0x0004) [0x0000000004000080]              ( CPF_Parm | CPF_EditInline )
 };
 
 // Function TribesGame.TrEffect_PowerPoolBuff.Remove
@@ -39147,7 +39543,8 @@ struct UTrEffect_HeavyShield_execApply_Parms
 {
 	class AActor*                                      Target;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	// class ATrPawn*                                  aPawn;                                            		// 0x0054 (0x0004) [0x0000000000000000]              
+	// float                                           ShieldAbsorb;                                     		// 0x0054 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  aPawn;                                            		// 0x0058 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrProj_HeavySpinfusor.SpawnFlightEffects
@@ -39166,6 +39563,15 @@ struct ATrProj_Twinfusor_execSpawnFlightEffects_Parms
 // [0x00020102] 
 struct ATrProj_HeavyTwinfusor_execSpawnFlightEffects_Parms
 {
+};
+
+// Function TribesGame.TrDevice_Stealth.CanBeActive
+// [0x00020102] 
+struct ATrDevice_Stealth_execCanBeActive_Parms
+{
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class ATrPawn*                                  TRP;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice_Stealth.PostBeginPlay
@@ -39268,6 +39674,25 @@ struct ATrProj_LightTwinfusor_execSpawnFlightEffects_Parms
 {
 };
 
+// Function TribesGame.TrEffect_MaxPowerPoolBuff.Remove
+// [0x00020002] 
+struct UTrEffect_MaxPowerPoolBuff_execRemove_Parms
+{
+	class AActor*                                      Target;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// class ATrHUD*                                   TrH;                                              		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  aPawn;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrEffect_MaxPowerPoolBuff.Apply
+// [0x00024002] 
+struct UTrEffect_MaxPowerPoolBuff_execApply_Parms
+{
+	class AActor*                                      Target;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// class ATrPawn*                                  aPawn;                                            		// 0x0054 (0x0004) [0x0000000000000000]              
+	// class ATrHUD*                                   TrH;                                              		// 0x0058 (0x0004) [0x0000000000000000]              
+};
+
 // Function TribesGame.TrEffect_MinorPowerPoolBuff.Remove
 // [0x00020002] 
 struct UTrEffect_MinorPowerPoolBuff_execRemove_Parms
@@ -39361,6 +39786,29 @@ struct ATrProj_PlasmaCannon_execSpawnFlightEffects_Parms
 // Function TribesGame.TrProj_PlasmaGun.SpawnFlightEffects
 // [0x00020102] 
 struct ATrProj_PlasmaGun_execSpawnFlightEffects_Parms
+{
+};
+
+// Function TribesGame.TrProj_RemoteArxBuster.GetExplosionSound
+// [0x00020102] 
+struct ATrProj_RemoteArxBuster_execGetExplosionSound_Parms
+{
+	class UPhysicalMaterial*                           HitMaterial;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class AActor*                                      HitActor;                                         		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class USoundCue*                                   ReturnValue;                                      		// 0x0008 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrProj_RemoteArxBuster.SpawnExplosionEffects
+// [0x00020102] 
+struct ATrProj_RemoteArxBuster_execSpawnExplosionEffects_Parms
+{
+	struct FVector                                     HitLocation;                                      		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     HitNormal;                                        		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
+};
+
+// Function TribesGame.TrProj_RemoteArxBuster.OnBaseChanged
+// [0x00020902] ( FUNC_Event )
+struct ATrProj_RemoteArxBuster_eventOnBaseChanged_Parms
 {
 };
 
@@ -39774,16 +40222,17 @@ struct ATrProj_StealthSpinfusor_execSpawnFlightEffects_Parms
 {
 };
 
-// Function TribesGame.TrProj_TC24.Destroyed
-// [0x00020102] 
-struct ATrProj_TC24_execDestroyed_Parms
-{
-};
-
 // Function TribesGame.TrProj_Thumper.Destroyed
 // [0x00020102] 
 struct ATrProj_Thumper_execDestroyed_Parms
 {
+};
+
+// Function TribesGame.TrVehicle_GravCycle.DoesVehicleHaveEjectionSeat
+// [0x00020002] 
+struct ATrVehicle_GravCycle_execDoesVehicleHaveEjectionSeat_Parms
+{
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function TribesGame.TrVehicleWeapon_BeowulfGunner.Activate
@@ -41152,55 +41601,6 @@ struct ATrInventory_execDropFrom_Parms
 	struct FVector                                     StartLocation;                                    		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	struct FVector                                     StartVelocity;                                    		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
 	// struct FVector                                  NewVelocity;                                      		// 0x0018 (0x000C) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrStationCollision.CheckCanPawnUseStationNow
-// [0x00020002] 
-struct ATrStationCollision_execCheckCanPawnUseStationNow_Parms
-{
-	class ATrPawn*                                     P;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrStationCollision.UnTouch
-// [0x00020902] ( FUNC_Event )
-struct ATrStationCollision_eventUnTouch_Parms
-{
-	class AActor*                                      Other;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrPawn*                                  P;                                                		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class ATrStation*                               Station;                                          		// 0x0008 (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrStationCollision.Touch
-// [0x00020902] ( FUNC_Event )
-struct ATrStationCollision_eventTouch_Parms
-{
-	class AActor*                                      Other;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class UPrimitiveComponent*                         OtherComp;                                        		// 0x0004 (0x0004) [0x0000000004000080]              ( CPF_Parm | CPF_EditInline )
-	struct FVector                                     HitLocation;                                      		// 0x0008 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	struct FVector                                     HitNormal;                                        		// 0x0014 (0x000C) [0x0000000000000080]              ( CPF_Parm )
-	// class ATrPawn*                                  P;                                                		// 0x0020 (0x0004) [0x0000000000000000]              
-	// class ATrStation*                               Station;                                          		// 0x0024 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerController*                      TrPC;                                             		// 0x0028 (0x0004) [0x0000000000000000]              
-	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x002C (0x0004) [0x0000000000000000]              
-};
-
-// Function TribesGame.TrStationCollision.GetPawnsInStation
-// [0x00020102] 
-struct ATrStationCollision_execGetPawnsInStation_Parms
-{
-	int                                                ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-};
-
-// Function TribesGame.TrInventoryStationCollision.CheckCanPawnUseStationNow
-// [0x00020002] 
-struct ATrInventoryStationCollision_execCheckCanPawnUseStationNow_Parms
-{
-	class ATrPawn*                                     P;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
-	// float                                           TimeSinceLastVisit;                               		// 0x000C (0x0004) [0x0000000000000000]              
-	// class ATrPlayerController*                      TrPC;                                             		// 0x0010 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrStationMessage.ClientReceive

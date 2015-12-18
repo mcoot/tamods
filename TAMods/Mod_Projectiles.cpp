@@ -1,47 +1,5 @@
 #include "Mods.h"
 
-static CustomProjectile *fired_proj = NULL;
-static APawn *proj_instigator = NULL;
-
-bool TrProj_ReplicatedEvent_POST(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	ATrProjectile *that = (ATrProjectile *)dwCallingObject;
-	static FName particleSystemComponent = FName("ParticleSystemComponent0");
-
-	if (proj_instigator && that->Instigator == proj_instigator)
-	{
-		auto it = g_config.proj_class_to_custom_proj.find((int) that->Class);
-		if (it == g_config.proj_class_to_custom_proj.end() || !it->second)
-			return false;
-		if (!it->second->custom_ps)
-			return false;
-		Hooks::lock();
-		that->ProjFlightTemplate = it->second->custom_ps;
-		for (int i = that->Components.Count - 1; i >= 0; i--)
-		{
-			if (that->Components(i)->TemplateName == particleSystemComponent)
-			{
-				that->DetachComponent(that->Components(i));
-				break;
-			}
-		}
-		that->SpawnFlightEffects();
-		Hooks::unlock();
-	}
-	return false;
-}
-
-bool TrDev_WeaponFiring(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	ATrDevice *that = (ATrDevice *)dwCallingObject;
-
-	Hooks::lock();
-	if (that->ShouldRefire())
-		proj_instigator = that->Instigator;
-	Hooks::unlock();
-	return false;
-}
-
 struct DelayedProjectile
 {
 	ATrDevice *device;
@@ -120,7 +78,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 						delayed_projs[i].rotation = SpawnRotation;
 						delayed_projs[i].spawn_tag = that->Name;
 						delayed_projs[i].delay = ping * 0.5f * g_config.bulletPingMultiplier + g_config.bulletSpawnDelay;
-						delayed_projs[i].proj_flight_template = fired_proj ? fired_proj->custom_ps : NULL;
+						delayed_projs[i].proj_flight_template = NULL;
 						break;
 					}
 				}
@@ -140,7 +98,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 			bSpawnedSimProjectile = true;
 		}
 	}
-	if (that->Role == 3 /* ROLE_Authority */ || bTether)
+	if (that->Role == ROLE_Authority || bTether)
 	{
 		RealStartLoc = that->GetPhysicalFireStartLoc(FVector());
 		SpawnedProjectile = (ATrProjectile *) that->Spawn(SpawnClass, that->Instigator, that->Name, RealStartLoc, FRotator(), NULL, 0);
@@ -148,13 +106,13 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 		{
 			SpawnedProjectile->InitProjectile(Geom::rotationToVector(that->GetAdjustedAim(RealStartLoc)), InitClass);
 			SpawnedProjectile->m_SpawnedEquipPoint = that->r_eEquipAt;
-			if (that->WorldInfo->NetMode != 1 /* NM_DedicatedServer */ && ((ATrProjectile *)ProjectileClass->Default)->m_bSimulateAutonomousProjectiles && bSpawnedSimProjectile)
+			if (that->WorldInfo->NetMode != NM_DedicatedServer && ((ATrProjectile *)ProjectileClass->Default)->m_bSimulateAutonomousProjectiles && bSpawnedSimProjectile)
 				SpawnedProjectile->SetHidden(true);
 			if (bTether && that->Instigator)
 			{
 				SpawnedProjectile->r_nTetherId = (that->DBWeaponId << 4) + that->m_nTetherCounter;
 				that->m_nTetherCounter = (that->m_nTetherCounter + 1) % 100;
-				if (that->WorldInfo->NetMode == 3 /* NM_Client */ && SpawnedProjectile->Role == 3 /* ROLE_Authority */ && TrPC)
+				if (that->WorldInfo->NetMode == NM_Client && SpawnedProjectile->Role == ROLE_Authority && TrPC)
 				{
 					TrPC->AddProjectileToTetherList(SpawnedProjectile);
 					SpawnedProjectile->SetTickGroup(2);
@@ -180,13 +138,13 @@ void Weapon_FireAmmunition(ATrDevice *that)
 
 	switch (that->WeaponFireTypes.Data[that->CurrentFireMode])
 	{
-	case 0: // EWFT_InstantHit
+	case EWFT_InstantHit:
 		that->InstantFire();
 		break;
-	case 1: // EWFT_Projectile
+	case EWFT_Projectile:
 		TrDev_ProjectileFire(that);
 		break;
-	case 2: // EWFT_Custom
+	case EWFT_Custom:
 		that->CustomFire();
 		break;
 	}
@@ -251,35 +209,16 @@ void TrDev_LAR_FireAmmunition(ATrDevice_LightAssaultRifle *that)
 		that->FireAmmunition();
 }
 
-bool TrDev_WeaponConstantFiring_RefireCheckTimer_POST()
-{
-	if (fired_proj)
-	{
-		fired_proj->default_proj->ProjFlightTemplate = fired_proj->default_ps;
-		fired_proj = NULL;
-	}
-	return false;
-}
-
 bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
 	AUTPlayerController *pc = (AUTPlayerController *)that->Instigator->Controller;
 
-	if (pc && pc->WorldInfo->NetMode == 0 /* NM_Standalone */)
+	if (pc && pc->WorldInfo->NetMode == NM_Standalone)
 		return false;
 
 	Hooks::lock();
 	if (that->ShouldRefire()) {
-		// Retrieve default object for the projectile that will be fired
-		auto it = g_config.wep_id_to_custom_proj.find(that->DBWeaponId);
-		if (it != g_config.wep_id_to_custom_proj.end() && it->second)
-		{
-			fired_proj = it->second;
-			fired_proj->default_proj->ProjFlightTemplate = fired_proj->custom_ps;
-			proj_instigator = that->Instigator;
-		}
-
 		if (that->IsA(ATrDevice_LightAssaultRifle::StaticClass()))
 			TrDev_LAR_FireAmmunition((ATrDevice_LightAssaultRifle *) that);
 		else
@@ -287,14 +226,13 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObjec
 		that->OnTickConstantFire();
 		if (pc && pc->Player && pc->Player->IsA(ULocalPlayer::StaticClass()) && that->CurrentFireMode < that->FireCameraAnim.Count && that->FireCameraAnim.Data[that->CurrentFireMode])
 			pc->PlayCameraAnim(that->FireCameraAnim.Data[that->CurrentFireMode], that->GetZoomedState() > 1 ? pc->eventGetFOVAngle() / pc->DefaultFOV : 1.0f, 0.0f, 0.0f, 0.0f, 0, 0);
-		TrDev_WeaponConstantFiring_RefireCheckTimer_POST();
 		Hooks::unlock();
 		return true;
 	}
 	that->GotoState(that->m_PostFireState, FName(), 0, 0);
 	if (!that->HasAnyAmmo())
 	{
-		if (that->WorldInfo->NetMode == 1 /* NM_DedicatedServer */ || that->WorldInfo->NetMode == 0 /* NM_Standalone */)
+		if (that->WorldInfo->NetMode == NM_DedicatedServer || that->WorldInfo->NetMode == NM_Standalone)
 			that->WeaponPlaySound(that->m_DryFireSoundCue, 0.0f, false);
 		if (that->m_DeviceAnimNode)
 			that->m_DeviceAnimNode->PlayDryFire();
@@ -308,7 +246,7 @@ bool TrDev_WeaponConstantFiring_BeginState(int ID, UObject *dwCallingObject, UFu
 	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
 	AUTPlayerController *pc = (AUTPlayerController *)that->Instigator->Controller;
 
-	if (pc && pc->WorldInfo->NetMode == 0 /* NM_Standalone */)
+	if (pc && pc->WorldInfo->NetMode == NM_Standalone)
 		return false;
 
 	TrDev_WeaponConstantFiring_RefireCheckTimer(0, dwCallingObject, NULL, NULL, NULL);

@@ -4,7 +4,7 @@ bool TrHudWrapper_destroyed(int ID, UObject *dwCallingObject, UFunction* pFuncti
 {
 	AUTGFxHudWrapper *that = (AUTGFxHudWrapper *)dwCallingObject;
 
-	if (Utils::tr_pc && Utils::tr_pc->WorldInfo->NetMode == 0 /* NM_Standalone */)
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo->NetMode == NM_Standalone)
 	{
 		Logger::log("Not cleaning up, roam map");
 		return false;
@@ -183,40 +183,6 @@ void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale
 	canvas->CurY = old_cury;
 }
 
-void myDraw(ATrHUD *that)
-{
-	/*
-	static UTexture2D *ret40 = UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I40");
-	static UTexture2D *ret44 = UObject::FindObject<UTexture2D>("Texture2D TribesHud.tr_reticules_I44");
-	static UTexture2D *ntex = NULL;
-
-	if (!ntex)
-	{
-		ntex = Texture::clone(ret40);
-		FTextureResource *nres = (FTextureResource *)ntex->Resource.Dummy;
-		FTextureResource *res44 = (FTextureResource *)ret44->Resource.Dummy;
-		FTextureResource *res40 = (FTextureResource *)ret40->Resource.Dummy;
-		FUnknownStruct1 *nstruct1 = (FUnknownStruct1 *)(nres->unknown_struct1 - 4);
-		FUnknownStruct1 *struct144 = (FUnknownStruct1 *)(res44->unknown_struct1 - 4);
-		FUnknownStruct1 *struct140 = (FUnknownStruct1 *)(res40->unknown_struct1 - 4);
-		unsigned char *data = (unsigned char *)struct140->ptr->pixel_data;
-		for (int i = 0; i < 100; i++)
-			data[i] = (i * 3) % 256;
-	}
-	//drawTexture(that->Canvas, ret40, 5, 5);
-	//drawTexture(that->Canvas, ntex, 10 + ret40->SizeX, 5);
-	*/
-
-	UCanvas *canvas = that->Canvas;
-	int reticule_id = that->m_GFxHud->Reticules->m_nCurrentReticuleIndex;
-
-	if (g_config.customCrosshairs[reticule_id])
-	{
-		UTexture2D *tex = g_config.customCrosshairs[reticule_id];
-		drawTexture(canvas, tex, (canvas->SizeX * .5f) - (tex->SizeX * .5f), (canvas->SizeY * .5f) - (tex->SizeY * .5f), 1.0f);
-	}
-}
-
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	static FColor rainbow_cols[] = {
@@ -303,8 +269,6 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	UpdateLocationOverheadNumbers(that);
 	UpdateRouteOverheadNumbers(that);
 	that->UpdateOwnedItems();
-
-	myDraw(that);
 
 	if (that->bRestoreHUDState)
 	{
@@ -409,23 +373,6 @@ bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject
 	}
 
 	return false;
-}
-
-bool GFxTrScenePS_LoadPlayerMiscData(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	UGFxTrScene_PlayerSummary_execLoadPlayerMiscData_Parms *params = (UGFxTrScene_PlayerSummary_execLoadPlayerMiscData_Parms *)pParams;
-	UGFxTrScene_PlayerSummary *that = (UGFxTrScene_PlayerSummary *)dwCallingObject;
-
-	that->MiscDataCount = 0;
-	that->MiscDataList = params->List;
-	that->AddMiscData();
-
-	if (that->RankBase + that->RankGained > CONST_RANK_XP49)
-	{
-		that->MiscDataList->SetElementMemberString(0, L"rankPercentStart", L"1.0");
-		that->MiscDataList->SetElementMemberString(0, L"rankPercentEnd", L"1.0");
-	}
-	return true;
 }
 
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)

@@ -1,9 +1,9 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
-# File: OnlineSubsystemMcts_functions.h
+# File: OnlineSubsystemMcts_functions.cpp
 # ========================================================================================= #
 # Credits: uNrEaL, Tamimego, SystemFiles, R00T88, _silencer, the1domo, K@N@VEL
 # Thanks: HOOAH07, lowHertz
@@ -14,6 +14,7 @@
 #ifdef _MSC_VER
 	#pragma pack ( push, 0x4 )
 #endif
+
 #include "../SdkHeaders.h"
 
 /*
@@ -25,7 +26,7 @@
 UClass* UMctsOnlineSettings::pClassPointer = NULL;
 UClass* UOnlineGameInterfaceMcts::pClassPointer = NULL;
 UClass* UOnlineSubsystemMcts::pClassPointer = NULL;
-UClass* UOnlineVoiceInterfaceMcts::pClassPointer = NULL; 
+UClass* UOnlineVoiceInterfaceMcts::pClassPointer = NULL;
 
 /*
 # ========================================================================================= #
@@ -45,7 +46,7 @@ bool UOnlineGameInterfaceMcts::QueryNonAdvertisedData ( int StartAt, int NumberT
 	static UFunction* pFnQueryNonAdvertisedData = NULL;
 
 	if ( ! pFnQueryNonAdvertisedData )
-		pFnQueryNonAdvertisedData = (UFunction*) UObject::GObjObjects()->Data[ 162966 ];
+		pFnQueryNonAdvertisedData = (UFunction*) UObject::GObjObjects()->Data[ 163403 ];
 
 	UOnlineGameInterfaceMcts_execQueryNonAdvertisedData_Parms QueryNonAdvertisedData_Parms;
 	QueryNonAdvertisedData_Parms.StartAt = StartAt;
@@ -66,7 +67,7 @@ void UOnlineGameInterfaceMcts::ClearUnregisterPlayerCompleteDelegate ( struct FS
 	static UFunction* pFnClearUnregisterPlayerCompleteDelegate = NULL;
 
 	if ( ! pFnClearUnregisterPlayerCompleteDelegate )
-		pFnClearUnregisterPlayerCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 162963 ];
+		pFnClearUnregisterPlayerCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163400 ];
 
 	UOnlineGameInterfaceMcts_execClearUnregisterPlayerCompleteDelegate_Parms ClearUnregisterPlayerCompleteDelegate_Parms;
 	memcpy ( &ClearUnregisterPlayerCompleteDelegate_Parms.UnregisterPlayerCompleteDelegate, &UnregisterPlayerCompleteDelegate, 0xC );
@@ -84,7 +85,7 @@ void UOnlineGameInterfaceMcts::AddUnregisterPlayerCompleteDelegate ( struct FScr
 	static UFunction* pFnAddUnregisterPlayerCompleteDelegate = NULL;
 
 	if ( ! pFnAddUnregisterPlayerCompleteDelegate )
-		pFnAddUnregisterPlayerCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 162961 ];
+		pFnAddUnregisterPlayerCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163398 ];
 
 	UOnlineGameInterfaceMcts_execAddUnregisterPlayerCompleteDelegate_Parms AddUnregisterPlayerCompleteDelegate_Parms;
 	memcpy ( &AddUnregisterPlayerCompleteDelegate_Parms.UnregisterPlayerCompleteDelegate, &UnregisterPlayerCompleteDelegate, 0xC );
@@ -104,7 +105,7 @@ void UOnlineGameInterfaceMcts::OnUnregisterPlayerComplete ( struct FName Session
 	static UFunction* pFnOnUnregisterPlayerComplete = NULL;
 
 	if ( ! pFnOnUnregisterPlayerComplete )
-		pFnOnUnregisterPlayerComplete = (UFunction*) UObject::GObjObjects()->Data[ 162888 ];
+		pFnOnUnregisterPlayerComplete = (UFunction*) UObject::GObjObjects()->Data[ 163325 ];
 
 	UOnlineGameInterfaceMcts_execOnUnregisterPlayerComplete_Parms OnUnregisterPlayerComplete_Parms;
 	memcpy ( &OnUnregisterPlayerComplete_Parms.SessionName, &SessionName, 0x8 );
@@ -126,7 +127,7 @@ bool UOnlineGameInterfaceMcts::UnregisterPlayer ( struct FName SessionName, stru
 	static UFunction* pFnUnregisterPlayer = NULL;
 
 	if ( ! pFnUnregisterPlayer )
-		pFnUnregisterPlayer = (UFunction*) UObject::GObjObjects()->Data[ 162954 ];
+		pFnUnregisterPlayer = (UFunction*) UObject::GObjObjects()->Data[ 163391 ];
 
 	UOnlineGameInterfaceMcts_execUnregisterPlayer_Parms UnregisterPlayer_Parms;
 	memcpy ( &UnregisterPlayer_Parms.SessionName, &SessionName, 0x8 );
@@ -151,7 +152,7 @@ void UOnlineGameInterfaceMcts::ClearRegisterPlayerCompleteDelegate ( struct FScr
 	static UFunction* pFnClearRegisterPlayerCompleteDelegate = NULL;
 
 	if ( ! pFnClearRegisterPlayerCompleteDelegate )
-		pFnClearRegisterPlayerCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 162951 ];
+		pFnClearRegisterPlayerCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163388 ];
 
 	UOnlineGameInterfaceMcts_execClearRegisterPlayerCompleteDelegate_Parms ClearRegisterPlayerCompleteDelegate_Parms;
 	memcpy ( &ClearRegisterPlayerCompleteDelegate_Parms.RegisterPlayerCompleteDelegate, &RegisterPlayerCompleteDelegate, 0xC );
@@ -169,7 +170,7 @@ void UOnlineGameInterfaceMcts::AddRegisterPlayerCompleteDelegate ( struct FScrip
 	static UFunction* pFnAddRegisterPlayerCompleteDelegate = NULL;
 
 	if ( ! pFnAddRegisterPlayerCompleteDelegate )
-		pFnAddRegisterPlayerCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 162949 ];
+		pFnAddRegisterPlayerCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163386 ];
 
 	UOnlineGameInterfaceMcts_execAddRegisterPlayerCompleteDelegate_Parms AddRegisterPlayerCompleteDelegate_Parms;
 	memcpy ( &AddRegisterPlayerCompleteDelegate_Parms.RegisterPlayerCompleteDelegate, &RegisterPlayerCompleteDelegate, 0xC );
@@ -189,7 +190,7 @@ void UOnlineGameInterfaceMcts::OnRegisterPlayerComplete ( struct FName SessionNa
 	static UFunction* pFnOnRegisterPlayerComplete = NULL;
 
 	if ( ! pFnOnRegisterPlayerComplete )
-		pFnOnRegisterPlayerComplete = (UFunction*) UObject::GObjObjects()->Data[ 162885 ];
+		pFnOnRegisterPlayerComplete = (UFunction*) UObject::GObjObjects()->Data[ 163322 ];
 
 	UOnlineGameInterfaceMcts_execOnRegisterPlayerComplete_Parms OnRegisterPlayerComplete_Parms;
 	memcpy ( &OnRegisterPlayerComplete_Parms.SessionName, &SessionName, 0x8 );
@@ -212,7 +213,7 @@ bool UOnlineGameInterfaceMcts::RegisterPlayer ( struct FName SessionName, struct
 	static UFunction* pFnRegisterPlayer = NULL;
 
 	if ( ! pFnRegisterPlayer )
-		pFnRegisterPlayer = (UFunction*) UObject::GObjObjects()->Data[ 162941 ];
+		pFnRegisterPlayer = (UFunction*) UObject::GObjObjects()->Data[ 163378 ];
 
 	UOnlineGameInterfaceMcts_execRegisterPlayer_Parms RegisterPlayer_Parms;
 	memcpy ( &RegisterPlayer_Parms.SessionName, &SessionName, 0x8 );
@@ -240,7 +241,7 @@ bool UOnlineGameInterfaceMcts::AcceptGameInvite ( unsigned char LocalUserNum, st
 	static UFunction* pFnAcceptGameInvite = NULL;
 
 	if ( ! pFnAcceptGameInvite )
-		pFnAcceptGameInvite = (UFunction*) UObject::GObjObjects()->Data[ 162937 ];
+		pFnAcceptGameInvite = (UFunction*) UObject::GObjObjects()->Data[ 163374 ];
 
 	UOnlineGameInterfaceMcts_execAcceptGameInvite_Parms AcceptGameInvite_Parms;
 	AcceptGameInvite_Parms.LocalUserNum = LocalUserNum;
@@ -265,7 +266,7 @@ void UOnlineGameInterfaceMcts::OnGameInviteAccepted ( struct FOnlineGameSearchRe
 	static UFunction* pFnOnGameInviteAccepted = NULL;
 
 	if ( ! pFnOnGameInviteAccepted )
-		pFnOnGameInviteAccepted = (UFunction*) UObject::GObjObjects()->Data[ 162882 ];
+		pFnOnGameInviteAccepted = (UFunction*) UObject::GObjObjects()->Data[ 163319 ];
 
 	UOnlineGameInterfaceMcts_execOnGameInviteAccepted_Parms OnGameInviteAccepted_Parms;
 
@@ -286,7 +287,7 @@ void UOnlineGameInterfaceMcts::ClearGameInviteAcceptedDelegate ( unsigned char L
 	static UFunction* pFnClearGameInviteAcceptedDelegate = NULL;
 
 	if ( ! pFnClearGameInviteAcceptedDelegate )
-		pFnClearGameInviteAcceptedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 162932 ];
+		pFnClearGameInviteAcceptedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163369 ];
 
 	UOnlineGameInterfaceMcts_execClearGameInviteAcceptedDelegate_Parms ClearGameInviteAcceptedDelegate_Parms;
 	ClearGameInviteAcceptedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -306,7 +307,7 @@ void UOnlineGameInterfaceMcts::AddGameInviteAcceptedDelegate ( unsigned char Loc
 	static UFunction* pFnAddGameInviteAcceptedDelegate = NULL;
 
 	if ( ! pFnAddGameInviteAcceptedDelegate )
-		pFnAddGameInviteAcceptedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 162929 ];
+		pFnAddGameInviteAcceptedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163366 ];
 
 	UOnlineGameInterfaceMcts_execAddGameInviteAcceptedDelegate_Parms AddGameInviteAcceptedDelegate_Parms;
 	AddGameInviteAcceptedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -326,7 +327,7 @@ class UOnlineGameSettings* UOnlineGameInterfaceMcts::GetGameSettings ( struct FN
 	static UFunction* pFnGetGameSettings = NULL;
 
 	if ( ! pFnGetGameSettings )
-		pFnGetGameSettings = (UFunction*) UObject::GObjObjects()->Data[ 162925 ];
+		pFnGetGameSettings = (UFunction*) UObject::GObjObjects()->Data[ 163362 ];
 
 	UOnlineGameInterfaceMcts_execGetGameSettings_Parms GetGameSettings_Parms;
 	memcpy ( &GetGameSettings_Parms.SessionName, &SessionName, 0x8 );
@@ -349,7 +350,7 @@ bool UOnlineGameInterfaceMcts::UpdateOnlineGame ( struct FName SessionName, clas
 	static UFunction* pFnUpdateOnlineGame = NULL;
 
 	if ( ! pFnUpdateOnlineGame )
-		pFnUpdateOnlineGame = (UFunction*) UObject::GObjObjects()->Data[ 162920 ];
+		pFnUpdateOnlineGame = (UFunction*) UObject::GObjObjects()->Data[ 163357 ];
 
 	UOnlineGameInterfaceMcts_execUpdateOnlineGame_Parms UpdateOnlineGame_Parms;
 	memcpy ( &UpdateOnlineGame_Parms.SessionName, &SessionName, 0x8 );
@@ -375,7 +376,7 @@ bool UOnlineGameInterfaceMcts::MatchLockIn ( )
 	static UFunction* pFnMatchLockIn = NULL;
 
 	if ( ! pFnMatchLockIn )
-		pFnMatchLockIn = (UFunction*) UObject::GObjObjects()->Data[ 162918 ];
+		pFnMatchLockIn = (UFunction*) UObject::GObjObjects()->Data[ 163355 ];
 
 	UOnlineGameInterfaceMcts_execMatchLockIn_Parms MatchLockIn_Parms;
 
@@ -398,7 +399,7 @@ bool UOnlineGameInterfaceMcts::MatchAcceptInvite ( )
 	static UFunction* pFnMatchAcceptInvite = NULL;
 
 	if ( ! pFnMatchAcceptInvite )
-		pFnMatchAcceptInvite = (UFunction*) UObject::GObjObjects()->Data[ 162916 ];
+		pFnMatchAcceptInvite = (UFunction*) UObject::GObjObjects()->Data[ 163353 ];
 
 	UOnlineGameInterfaceMcts_execMatchAcceptInvite_Parms MatchAcceptInvite_Parms;
 
@@ -422,7 +423,7 @@ bool UOnlineGameInterfaceMcts::MatchChooseSkin ( int nSkinId )
 	static UFunction* pFnMatchChooseSkin = NULL;
 
 	if ( ! pFnMatchChooseSkin )
-		pFnMatchChooseSkin = (UFunction*) UObject::GObjObjects()->Data[ 162913 ];
+		pFnMatchChooseSkin = (UFunction*) UObject::GObjObjects()->Data[ 163350 ];
 
 	UOnlineGameInterfaceMcts_execMatchChooseSkin_Parms MatchChooseSkin_Parms;
 	MatchChooseSkin_Parms.nSkinId = nSkinId;
@@ -447,7 +448,7 @@ bool UOnlineGameInterfaceMcts::MatchChooseClass ( int nClassId )
 	static UFunction* pFnMatchChooseClass = NULL;
 
 	if ( ! pFnMatchChooseClass )
-		pFnMatchChooseClass = (UFunction*) UObject::GObjObjects()->Data[ 162910 ];
+		pFnMatchChooseClass = (UFunction*) UObject::GObjObjects()->Data[ 163347 ];
 
 	UOnlineGameInterfaceMcts_execMatchChooseClass_Parms MatchChooseClass_Parms;
 	MatchChooseClass_Parms.nClassId = nClassId;
@@ -472,7 +473,7 @@ bool UOnlineGameInterfaceMcts::MatchQueueLeave ( int nQueueId )
 	static UFunction* pFnMatchQueueLeave = NULL;
 
 	if ( ! pFnMatchQueueLeave )
-		pFnMatchQueueLeave = (UFunction*) UObject::GObjObjects()->Data[ 162907 ];
+		pFnMatchQueueLeave = (UFunction*) UObject::GObjObjects()->Data[ 163344 ];
 
 	UOnlineGameInterfaceMcts_execMatchQueueLeave_Parms MatchQueueLeave_Parms;
 	MatchQueueLeave_Parms.nQueueId = nQueueId;
@@ -497,7 +498,7 @@ bool UOnlineGameInterfaceMcts::MatchQueueJoin ( int nQueueId )
 	static UFunction* pFnMatchQueueJoin = NULL;
 
 	if ( ! pFnMatchQueueJoin )
-		pFnMatchQueueJoin = (UFunction*) UObject::GObjObjects()->Data[ 162904 ];
+		pFnMatchQueueJoin = (UFunction*) UObject::GObjObjects()->Data[ 163341 ];
 
 	UOnlineGameInterfaceMcts_execMatchQueueJoin_Parms MatchQueueJoin_Parms;
 	MatchQueueJoin_Parms.nQueueId = nQueueId;
@@ -521,7 +522,7 @@ void UOnlineGameInterfaceMcts::EndGame ( int nWaitSeconds )
 	static UFunction* pFnEndGame = NULL;
 
 	if ( ! pFnEndGame )
-		pFnEndGame = (UFunction*) UObject::GObjObjects()->Data[ 162902 ];
+		pFnEndGame = (UFunction*) UObject::GObjObjects()->Data[ 163339 ];
 
 	UOnlineGameInterfaceMcts_execEndGame_Parms EndGame_Parms;
 	EndGame_Parms.nWaitSeconds = nWaitSeconds;
@@ -543,7 +544,7 @@ void UOnlineGameInterfaceMcts::HoldInvites ( unsigned long bHold )
 	static UFunction* pFnHoldInvites = NULL;
 
 	if ( ! pFnHoldInvites )
-		pFnHoldInvites = (UFunction*) UObject::GObjObjects()->Data[ 162900 ];
+		pFnHoldInvites = (UFunction*) UObject::GObjObjects()->Data[ 163337 ];
 
 	UOnlineGameInterfaceMcts_execHoldInvites_Parms HoldInvites_Parms;
 	HoldInvites_Parms.bHold = bHold;
@@ -566,7 +567,7 @@ void UOnlineGameInterfaceMcts::SealMatch ( unsigned long bSeal, unsigned long bL
 	static UFunction* pFnSealMatch = NULL;
 
 	if ( ! pFnSealMatch )
-		pFnSealMatch = (UFunction*) UObject::GObjObjects()->Data[ 162897 ];
+		pFnSealMatch = (UFunction*) UObject::GObjObjects()->Data[ 163334 ];
 
 	UOnlineGameInterfaceMcts_execSealMatch_Parms SealMatch_Parms;
 	SealMatch_Parms.bSeal = bSeal;
@@ -589,7 +590,7 @@ int UOnlineSubsystemMcts::GetLocale ( )
 	static UFunction* pFnGetLocale = NULL;
 
 	if ( ! pFnGetLocale )
-		pFnGetLocale = (UFunction*) UObject::GObjObjects()->Data[ 163493 ];
+		pFnGetLocale = (UFunction*) UObject::GObjObjects()->Data[ 163930 ];
 
 	UOnlineSubsystemMcts_execGetLocale_Parms GetLocale_Parms;
 
@@ -608,7 +609,7 @@ void UOnlineSubsystemMcts::SetNetworkNotificationPosition ( unsigned char NewPos
 	static UFunction* pFnSetNetworkNotificationPosition = NULL;
 
 	if ( ! pFnSetNetworkNotificationPosition )
-		pFnSetNetworkNotificationPosition = (UFunction*) UObject::GObjObjects()->Data[ 163491 ];
+		pFnSetNetworkNotificationPosition = (UFunction*) UObject::GObjObjects()->Data[ 163928 ];
 
 	UOnlineSubsystemMcts_execSetNetworkNotificationPosition_Parms SetNetworkNotificationPosition_Parms;
 	SetNetworkNotificationPosition_Parms.NewPos = NewPos;
@@ -627,7 +628,7 @@ bool UOnlineSubsystemMcts::ShowLoginUI ( unsigned long bShowOnlineOnly )
 	static UFunction* pFnShowLoginUI = NULL;
 
 	if ( ! pFnShowLoginUI )
-		pFnShowLoginUI = (UFunction*) UObject::GObjObjects()->Data[ 163488 ];
+		pFnShowLoginUI = (UFunction*) UObject::GObjObjects()->Data[ 163925 ];
 
 	UOnlineSubsystemMcts_execShowLoginUI_Parms ShowLoginUI_Parms;
 	ShowLoginUI_Parms.bShowOnlineOnly = bShowOnlineOnly;
@@ -648,7 +649,7 @@ bool UOnlineSubsystemMcts::ShowFriendsUI ( unsigned char LocalUserNum )
 	static UFunction* pFnShowFriendsUI = NULL;
 
 	if ( ! pFnShowFriendsUI )
-		pFnShowFriendsUI = (UFunction*) UObject::GObjObjects()->Data[ 163485 ];
+		pFnShowFriendsUI = (UFunction*) UObject::GObjObjects()->Data[ 163922 ];
 
 	UOnlineSubsystemMcts_execShowFriendsUI_Parms ShowFriendsUI_Parms;
 	ShowFriendsUI_Parms.LocalUserNum = LocalUserNum;
@@ -670,7 +671,7 @@ bool UOnlineSubsystemMcts::DeleteMessage ( unsigned char LocalUserNum, int Messa
 	static UFunction* pFnDeleteMessage = NULL;
 
 	if ( ! pFnDeleteMessage )
-		pFnDeleteMessage = (UFunction*) UObject::GObjObjects()->Data[ 163481 ];
+		pFnDeleteMessage = (UFunction*) UObject::GObjObjects()->Data[ 163918 ];
 
 	UOnlineSubsystemMcts_execDeleteMessage_Parms DeleteMessage_Parms;
 	DeleteMessage_Parms.LocalUserNum = LocalUserNum;
@@ -692,7 +693,7 @@ void UOnlineSubsystemMcts::ClearReadAchievementsCompleteDelegate ( unsigned char
 	static UFunction* pFnClearReadAchievementsCompleteDelegate = NULL;
 
 	if ( ! pFnClearReadAchievementsCompleteDelegate )
-		pFnClearReadAchievementsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163478 ];
+		pFnClearReadAchievementsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163915 ];
 
 	UOnlineSubsystemMcts_execClearReadAchievementsCompleteDelegate_Parms ClearReadAchievementsCompleteDelegate_Parms;
 	ClearReadAchievementsCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -712,7 +713,7 @@ void UOnlineSubsystemMcts::AddReadAchievementsCompleteDelegate ( unsigned char L
 	static UFunction* pFnAddReadAchievementsCompleteDelegate = NULL;
 
 	if ( ! pFnAddReadAchievementsCompleteDelegate )
-		pFnAddReadAchievementsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163475 ];
+		pFnAddReadAchievementsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163912 ];
 
 	UOnlineSubsystemMcts_execAddReadAchievementsCompleteDelegate_Parms AddReadAchievementsCompleteDelegate_Parms;
 	AddReadAchievementsCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -731,7 +732,7 @@ void UOnlineSubsystemMcts::OnReadAchievementsComplete ( int TitleId )
 	static UFunction* pFnOnReadAchievementsComplete = NULL;
 
 	if ( ! pFnOnReadAchievementsComplete )
-		pFnOnReadAchievementsComplete = (UFunction*) UObject::GObjObjects()->Data[ 162992 ];
+		pFnOnReadAchievementsComplete = (UFunction*) UObject::GObjObjects()->Data[ 163429 ];
 
 	UOnlineSubsystemMcts_execOnReadAchievementsComplete_Parms OnReadAchievementsComplete_Parms;
 	OnReadAchievementsComplete_Parms.TitleId = TitleId;
@@ -750,7 +751,7 @@ void UOnlineSubsystemMcts::ClearUnlockAchievementCompleteDelegate ( unsigned cha
 	static UFunction* pFnClearUnlockAchievementCompleteDelegate = NULL;
 
 	if ( ! pFnClearUnlockAchievementCompleteDelegate )
-		pFnClearUnlockAchievementCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163471 ];
+		pFnClearUnlockAchievementCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163908 ];
 
 	UOnlineSubsystemMcts_execClearUnlockAchievementCompleteDelegate_Parms ClearUnlockAchievementCompleteDelegate_Parms;
 	ClearUnlockAchievementCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -770,7 +771,7 @@ void UOnlineSubsystemMcts::AddUnlockAchievementCompleteDelegate ( unsigned char 
 	static UFunction* pFnAddUnlockAchievementCompleteDelegate = NULL;
 
 	if ( ! pFnAddUnlockAchievementCompleteDelegate )
-		pFnAddUnlockAchievementCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163468 ];
+		pFnAddUnlockAchievementCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163905 ];
 
 	UOnlineSubsystemMcts_execAddUnlockAchievementCompleteDelegate_Parms AddUnlockAchievementCompleteDelegate_Parms;
 	AddUnlockAchievementCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -789,7 +790,7 @@ void UOnlineSubsystemMcts::OnUnlockAchievementComplete ( unsigned long bWasSucce
 	static UFunction* pFnOnUnlockAchievementComplete = NULL;
 
 	if ( ! pFnOnUnlockAchievementComplete )
-		pFnOnUnlockAchievementComplete = (UFunction*) UObject::GObjObjects()->Data[ 162994 ];
+		pFnOnUnlockAchievementComplete = (UFunction*) UObject::GObjObjects()->Data[ 163431 ];
 
 	UOnlineSubsystemMcts_execOnUnlockAchievementComplete_Parms OnUnlockAchievementComplete_Parms;
 	OnUnlockAchievementComplete_Parms.bWasSuccessful = bWasSuccessful;
@@ -810,7 +811,7 @@ unsigned char UOnlineSubsystemMcts::GetAchievements ( unsigned char LocalUserNum
 	static UFunction* pFnGetAchievements = NULL;
 
 	if ( ! pFnGetAchievements )
-		pFnGetAchievements = (UFunction*) UObject::GObjObjects()->Data[ 163461 ];
+		pFnGetAchievements = (UFunction*) UObject::GObjObjects()->Data[ 163898 ];
 
 	UOnlineSubsystemMcts_execGetAchievements_Parms GetAchievements_Parms;
 	GetAchievements_Parms.LocalUserNum = LocalUserNum;
@@ -838,7 +839,7 @@ bool UOnlineSubsystemMcts::ReadAchievements ( unsigned char LocalUserNum, int Ti
 	static UFunction* pFnReadAchievements = NULL;
 
 	if ( ! pFnReadAchievements )
-		pFnReadAchievements = (UFunction*) UObject::GObjObjects()->Data[ 163455 ];
+		pFnReadAchievements = (UFunction*) UObject::GObjObjects()->Data[ 163892 ];
 
 	UOnlineSubsystemMcts_execReadAchievements_Parms ReadAchievements_Parms;
 	ReadAchievements_Parms.LocalUserNum = LocalUserNum;
@@ -863,7 +864,7 @@ bool UOnlineSubsystemMcts::UnlockAchievement ( unsigned char LocalUserNum, int A
 	static UFunction* pFnUnlockAchievement = NULL;
 
 	if ( ! pFnUnlockAchievement )
-		pFnUnlockAchievement = (UFunction*) UObject::GObjObjects()->Data[ 163451 ];
+		pFnUnlockAchievement = (UFunction*) UObject::GObjObjects()->Data[ 163888 ];
 
 	UOnlineSubsystemMcts_execUnlockAchievement_Parms UnlockAchievement_Parms;
 	UnlockAchievement_Parms.LocalUserNum = LocalUserNum;
@@ -885,7 +886,7 @@ void UOnlineSubsystemMcts::ClearFriendMessageReceivedDelegate ( unsigned char Lo
 	static UFunction* pFnClearFriendMessageReceivedDelegate = NULL;
 
 	if ( ! pFnClearFriendMessageReceivedDelegate )
-		pFnClearFriendMessageReceivedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163448 ];
+		pFnClearFriendMessageReceivedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163885 ];
 
 	UOnlineSubsystemMcts_execClearFriendMessageReceivedDelegate_Parms ClearFriendMessageReceivedDelegate_Parms;
 	ClearFriendMessageReceivedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -905,7 +906,7 @@ void UOnlineSubsystemMcts::AddFriendMessageReceivedDelegate ( unsigned char Loca
 	static UFunction* pFnAddFriendMessageReceivedDelegate = NULL;
 
 	if ( ! pFnAddFriendMessageReceivedDelegate )
-		pFnAddFriendMessageReceivedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163445 ];
+		pFnAddFriendMessageReceivedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163882 ];
 
 	UOnlineSubsystemMcts_execAddFriendMessageReceivedDelegate_Parms AddFriendMessageReceivedDelegate_Parms;
 	AddFriendMessageReceivedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -927,7 +928,7 @@ void UOnlineSubsystemMcts::OnFriendMessageReceived ( unsigned char LocalUserNum,
 	static UFunction* pFnOnFriendMessageReceived = NULL;
 
 	if ( ! pFnOnFriendMessageReceived )
-		pFnOnFriendMessageReceived = (UFunction*) UObject::GObjObjects()->Data[ 162996 ];
+		pFnOnFriendMessageReceived = (UFunction*) UObject::GObjObjects()->Data[ 163433 ];
 
 	UOnlineSubsystemMcts_execOnFriendMessageReceived_Parms OnFriendMessageReceived_Parms;
 	OnFriendMessageReceived_Parms.LocalUserNum = LocalUserNum;
@@ -949,7 +950,7 @@ void UOnlineSubsystemMcts::GetFriendMessages ( unsigned char LocalUserNum, TArra
 	static UFunction* pFnGetFriendMessages = NULL;
 
 	if ( ! pFnGetFriendMessages )
-		pFnGetFriendMessages = (UFunction*) UObject::GObjObjects()->Data[ 163437 ];
+		pFnGetFriendMessages = (UFunction*) UObject::GObjObjects()->Data[ 163874 ];
 
 	UOnlineSubsystemMcts_execGetFriendMessages_Parms GetFriendMessages_Parms;
 	GetFriendMessages_Parms.LocalUserNum = LocalUserNum;
@@ -970,7 +971,7 @@ void UOnlineSubsystemMcts::ClearJoinFriendGameCompleteDelegate ( struct FScriptD
 	static UFunction* pFnClearJoinFriendGameCompleteDelegate = NULL;
 
 	if ( ! pFnClearJoinFriendGameCompleteDelegate )
-		pFnClearJoinFriendGameCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163435 ];
+		pFnClearJoinFriendGameCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163872 ];
 
 	UOnlineSubsystemMcts_execClearJoinFriendGameCompleteDelegate_Parms ClearJoinFriendGameCompleteDelegate_Parms;
 	memcpy ( &ClearJoinFriendGameCompleteDelegate_Parms.JoinFriendGameCompleteDelegate, &JoinFriendGameCompleteDelegate, 0xC );
@@ -988,7 +989,7 @@ void UOnlineSubsystemMcts::AddJoinFriendGameCompleteDelegate ( struct FScriptDel
 	static UFunction* pFnAddJoinFriendGameCompleteDelegate = NULL;
 
 	if ( ! pFnAddJoinFriendGameCompleteDelegate )
-		pFnAddJoinFriendGameCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163433 ];
+		pFnAddJoinFriendGameCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163870 ];
 
 	UOnlineSubsystemMcts_execAddJoinFriendGameCompleteDelegate_Parms AddJoinFriendGameCompleteDelegate_Parms;
 	memcpy ( &AddJoinFriendGameCompleteDelegate_Parms.JoinFriendGameCompleteDelegate, &JoinFriendGameCompleteDelegate, 0xC );
@@ -1006,7 +1007,7 @@ void UOnlineSubsystemMcts::OnJoinFriendGameComplete ( unsigned long bWasSuccessf
 	static UFunction* pFnOnJoinFriendGameComplete = NULL;
 
 	if ( ! pFnOnJoinFriendGameComplete )
-		pFnOnJoinFriendGameComplete = (UFunction*) UObject::GObjObjects()->Data[ 162998 ];
+		pFnOnJoinFriendGameComplete = (UFunction*) UObject::GObjObjects()->Data[ 163435 ];
 
 	UOnlineSubsystemMcts_execOnJoinFriendGameComplete_Parms OnJoinFriendGameComplete_Parms;
 	OnJoinFriendGameComplete_Parms.bWasSuccessful = bWasSuccessful;
@@ -1026,7 +1027,7 @@ bool UOnlineSubsystemMcts::JoinFriendGame ( unsigned char LocalUserNum, struct F
 	static UFunction* pFnJoinFriendGame = NULL;
 
 	if ( ! pFnJoinFriendGame )
-		pFnJoinFriendGame = (UFunction*) UObject::GObjObjects()->Data[ 163428 ];
+		pFnJoinFriendGame = (UFunction*) UObject::GObjObjects()->Data[ 163865 ];
 
 	UOnlineSubsystemMcts_execJoinFriendGame_Parms JoinFriendGame_Parms;
 	JoinFriendGame_Parms.LocalUserNum = LocalUserNum;
@@ -1048,7 +1049,7 @@ void UOnlineSubsystemMcts::ClearReceivedGameInviteDelegate ( unsigned char Local
 	static UFunction* pFnClearReceivedGameInviteDelegate = NULL;
 
 	if ( ! pFnClearReceivedGameInviteDelegate )
-		pFnClearReceivedGameInviteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163425 ];
+		pFnClearReceivedGameInviteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163862 ];
 
 	UOnlineSubsystemMcts_execClearReceivedGameInviteDelegate_Parms ClearReceivedGameInviteDelegate_Parms;
 	ClearReceivedGameInviteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1068,7 +1069,7 @@ void UOnlineSubsystemMcts::AddReceivedGameInviteDelegate ( unsigned char LocalUs
 	static UFunction* pFnAddReceivedGameInviteDelegate = NULL;
 
 	if ( ! pFnAddReceivedGameInviteDelegate )
-		pFnAddReceivedGameInviteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163422 ];
+		pFnAddReceivedGameInviteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163859 ];
 
 	UOnlineSubsystemMcts_execAddReceivedGameInviteDelegate_Parms AddReceivedGameInviteDelegate_Parms;
 	AddReceivedGameInviteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1088,7 +1089,7 @@ void UOnlineSubsystemMcts::OnReceivedGameInvite ( unsigned char LocalUserNum, st
 	static UFunction* pFnOnReceivedGameInvite = NULL;
 
 	if ( ! pFnOnReceivedGameInvite )
-		pFnOnReceivedGameInvite = (UFunction*) UObject::GObjObjects()->Data[ 163000 ];
+		pFnOnReceivedGameInvite = (UFunction*) UObject::GObjObjects()->Data[ 163437 ];
 
 	UOnlineSubsystemMcts_execOnReceivedGameInvite_Parms OnReceivedGameInvite_Parms;
 	OnReceivedGameInvite_Parms.LocalUserNum = LocalUserNum;
@@ -1110,7 +1111,7 @@ bool UOnlineSubsystemMcts::SendGameInviteToFriends ( unsigned char LocalUserNum,
 	static UFunction* pFnSendGameInviteToFriends = NULL;
 
 	if ( ! pFnSendGameInviteToFriends )
-		pFnSendGameInviteToFriends = (UFunction*) UObject::GObjObjects()->Data[ 163414 ];
+		pFnSendGameInviteToFriends = (UFunction*) UObject::GObjObjects()->Data[ 163851 ];
 
 	UOnlineSubsystemMcts_execSendGameInviteToFriends_Parms SendGameInviteToFriends_Parms;
 	SendGameInviteToFriends_Parms.LocalUserNum = LocalUserNum;
@@ -1135,7 +1136,7 @@ bool UOnlineSubsystemMcts::SendGameInviteToFriend ( unsigned char LocalUserNum, 
 	static UFunction* pFnSendGameInviteToFriend = NULL;
 
 	if ( ! pFnSendGameInviteToFriend )
-		pFnSendGameInviteToFriend = (UFunction*) UObject::GObjObjects()->Data[ 163409 ];
+		pFnSendGameInviteToFriend = (UFunction*) UObject::GObjObjects()->Data[ 163846 ];
 
 	UOnlineSubsystemMcts_execSendGameInviteToFriend_Parms SendGameInviteToFriend_Parms;
 	SendGameInviteToFriend_Parms.LocalUserNum = LocalUserNum;
@@ -1160,7 +1161,7 @@ bool UOnlineSubsystemMcts::SendMessageToFriend ( unsigned char LocalUserNum, str
 	static UFunction* pFnSendMessageToFriend = NULL;
 
 	if ( ! pFnSendMessageToFriend )
-		pFnSendMessageToFriend = (UFunction*) UObject::GObjObjects()->Data[ 163404 ];
+		pFnSendMessageToFriend = (UFunction*) UObject::GObjObjects()->Data[ 163841 ];
 
 	UOnlineSubsystemMcts_execSendMessageToFriend_Parms SendMessageToFriend_Parms;
 	SendMessageToFriend_Parms.LocalUserNum = LocalUserNum;
@@ -1183,7 +1184,7 @@ void UOnlineSubsystemMcts::ClearFriendInviteReceivedDelegate ( unsigned char Loc
 	static UFunction* pFnClearFriendInviteReceivedDelegate = NULL;
 
 	if ( ! pFnClearFriendInviteReceivedDelegate )
-		pFnClearFriendInviteReceivedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163401 ];
+		pFnClearFriendInviteReceivedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163838 ];
 
 	UOnlineSubsystemMcts_execClearFriendInviteReceivedDelegate_Parms ClearFriendInviteReceivedDelegate_Parms;
 	ClearFriendInviteReceivedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1203,7 +1204,7 @@ void UOnlineSubsystemMcts::AddFriendInviteReceivedDelegate ( unsigned char Local
 	static UFunction* pFnAddFriendInviteReceivedDelegate = NULL;
 
 	if ( ! pFnAddFriendInviteReceivedDelegate )
-		pFnAddFriendInviteReceivedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163398 ];
+		pFnAddFriendInviteReceivedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163835 ];
 
 	UOnlineSubsystemMcts_execAddFriendInviteReceivedDelegate_Parms AddFriendInviteReceivedDelegate_Parms;
 	AddFriendInviteReceivedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1225,7 +1226,7 @@ void UOnlineSubsystemMcts::OnFriendInviteReceived ( unsigned char LocalUserNum, 
 	static UFunction* pFnOnFriendInviteReceived = NULL;
 
 	if ( ! pFnOnFriendInviteReceived )
-		pFnOnFriendInviteReceived = (UFunction*) UObject::GObjObjects()->Data[ 163002 ];
+		pFnOnFriendInviteReceived = (UFunction*) UObject::GObjObjects()->Data[ 163439 ];
 
 	UOnlineSubsystemMcts_execOnFriendInviteReceived_Parms OnFriendInviteReceived_Parms;
 	OnFriendInviteReceived_Parms.LocalUserNum = LocalUserNum;
@@ -1248,7 +1249,7 @@ bool UOnlineSubsystemMcts::RemoveFriend ( unsigned char LocalUserNum, struct FUn
 	static UFunction* pFnRemoveFriend = NULL;
 
 	if ( ! pFnRemoveFriend )
-		pFnRemoveFriend = (UFunction*) UObject::GObjObjects()->Data[ 163390 ];
+		pFnRemoveFriend = (UFunction*) UObject::GObjObjects()->Data[ 163827 ];
 
 	UOnlineSubsystemMcts_execRemoveFriend_Parms RemoveFriend_Parms;
 	RemoveFriend_Parms.LocalUserNum = LocalUserNum;
@@ -1271,7 +1272,7 @@ bool UOnlineSubsystemMcts::DenyFriendInvite ( unsigned char LocalUserNum, struct
 	static UFunction* pFnDenyFriendInvite = NULL;
 
 	if ( ! pFnDenyFriendInvite )
-		pFnDenyFriendInvite = (UFunction*) UObject::GObjObjects()->Data[ 163386 ];
+		pFnDenyFriendInvite = (UFunction*) UObject::GObjObjects()->Data[ 163823 ];
 
 	UOnlineSubsystemMcts_execDenyFriendInvite_Parms DenyFriendInvite_Parms;
 	DenyFriendInvite_Parms.LocalUserNum = LocalUserNum;
@@ -1294,7 +1295,7 @@ bool UOnlineSubsystemMcts::AcceptFriendInvite ( unsigned char LocalUserNum, stru
 	static UFunction* pFnAcceptFriendInvite = NULL;
 
 	if ( ! pFnAcceptFriendInvite )
-		pFnAcceptFriendInvite = (UFunction*) UObject::GObjObjects()->Data[ 163382 ];
+		pFnAcceptFriendInvite = (UFunction*) UObject::GObjObjects()->Data[ 163819 ];
 
 	UOnlineSubsystemMcts_execAcceptFriendInvite_Parms AcceptFriendInvite_Parms;
 	AcceptFriendInvite_Parms.LocalUserNum = LocalUserNum;
@@ -1316,7 +1317,7 @@ void UOnlineSubsystemMcts::ClearAddFriendByNameCompleteDelegate ( unsigned char 
 	static UFunction* pFnClearAddFriendByNameCompleteDelegate = NULL;
 
 	if ( ! pFnClearAddFriendByNameCompleteDelegate )
-		pFnClearAddFriendByNameCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163379 ];
+		pFnClearAddFriendByNameCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163816 ];
 
 	UOnlineSubsystemMcts_execClearAddFriendByNameCompleteDelegate_Parms ClearAddFriendByNameCompleteDelegate_Parms;
 	ClearAddFriendByNameCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1336,7 +1337,7 @@ void UOnlineSubsystemMcts::AddAddFriendByNameCompleteDelegate ( unsigned char Lo
 	static UFunction* pFnAddAddFriendByNameCompleteDelegate = NULL;
 
 	if ( ! pFnAddAddFriendByNameCompleteDelegate )
-		pFnAddAddFriendByNameCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163376 ];
+		pFnAddAddFriendByNameCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163813 ];
 
 	UOnlineSubsystemMcts_execAddAddFriendByNameCompleteDelegate_Parms AddAddFriendByNameCompleteDelegate_Parms;
 	AddAddFriendByNameCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1355,7 +1356,7 @@ void UOnlineSubsystemMcts::OnAddFriendByNameComplete ( unsigned long bWasSuccess
 	static UFunction* pFnOnAddFriendByNameComplete = NULL;
 
 	if ( ! pFnOnAddFriendByNameComplete )
-		pFnOnAddFriendByNameComplete = (UFunction*) UObject::GObjObjects()->Data[ 163004 ];
+		pFnOnAddFriendByNameComplete = (UFunction*) UObject::GObjObjects()->Data[ 163441 ];
 
 	UOnlineSubsystemMcts_execOnAddFriendByNameComplete_Parms OnAddFriendByNameComplete_Parms;
 	OnAddFriendByNameComplete_Parms.bWasSuccessful = bWasSuccessful;
@@ -1376,7 +1377,7 @@ bool UOnlineSubsystemMcts::AddFriendByName ( unsigned char LocalUserNum, struct 
 	static UFunction* pFnAddFriendByName = NULL;
 
 	if ( ! pFnAddFriendByName )
-		pFnAddFriendByName = (UFunction*) UObject::GObjObjects()->Data[ 163370 ];
+		pFnAddFriendByName = (UFunction*) UObject::GObjObjects()->Data[ 163807 ];
 
 	UOnlineSubsystemMcts_execAddFriendByName_Parms AddFriendByName_Parms;
 	AddFriendByName_Parms.LocalUserNum = LocalUserNum;
@@ -1401,7 +1402,7 @@ bool UOnlineSubsystemMcts::AddFriend ( unsigned char LocalUserNum, struct FUniqu
 	static UFunction* pFnAddFriend = NULL;
 
 	if ( ! pFnAddFriend )
-		pFnAddFriend = (UFunction*) UObject::GObjObjects()->Data[ 163365 ];
+		pFnAddFriend = (UFunction*) UObject::GObjObjects()->Data[ 163802 ];
 
 	UOnlineSubsystemMcts_execAddFriend_Parms AddFriend_Parms;
 	AddFriend_Parms.LocalUserNum = LocalUserNum;
@@ -1424,7 +1425,7 @@ struct FString UOnlineSubsystemMcts::GetKeyboardInputResults ( unsigned char* bW
 	static UFunction* pFnGetKeyboardInputResults = NULL;
 
 	if ( ! pFnGetKeyboardInputResults )
-		pFnGetKeyboardInputResults = (UFunction*) UObject::GObjObjects()->Data[ 163362 ];
+		pFnGetKeyboardInputResults = (UFunction*) UObject::GObjObjects()->Data[ 163799 ];
 
 	UOnlineSubsystemMcts_execGetKeyboardInputResults_Parms GetKeyboardInputResults_Parms;
 
@@ -1446,7 +1447,7 @@ void UOnlineSubsystemMcts::ClearKeyboardInputDoneDelegate ( struct FScriptDelega
 	static UFunction* pFnClearKeyboardInputDoneDelegate = NULL;
 
 	if ( ! pFnClearKeyboardInputDoneDelegate )
-		pFnClearKeyboardInputDoneDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163360 ];
+		pFnClearKeyboardInputDoneDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163797 ];
 
 	UOnlineSubsystemMcts_execClearKeyboardInputDoneDelegate_Parms ClearKeyboardInputDoneDelegate_Parms;
 	memcpy ( &ClearKeyboardInputDoneDelegate_Parms.InputDelegate, &InputDelegate, 0xC );
@@ -1464,7 +1465,7 @@ void UOnlineSubsystemMcts::AddKeyboardInputDoneDelegate ( struct FScriptDelegate
 	static UFunction* pFnAddKeyboardInputDoneDelegate = NULL;
 
 	if ( ! pFnAddKeyboardInputDoneDelegate )
-		pFnAddKeyboardInputDoneDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163358 ];
+		pFnAddKeyboardInputDoneDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163795 ];
 
 	UOnlineSubsystemMcts_execAddKeyboardInputDoneDelegate_Parms AddKeyboardInputDoneDelegate_Parms;
 	memcpy ( &AddKeyboardInputDoneDelegate_Parms.InputDelegate, &InputDelegate, 0xC );
@@ -1482,7 +1483,7 @@ void UOnlineSubsystemMcts::OnKeyboardInputComplete ( unsigned long bWasSuccessfu
 	static UFunction* pFnOnKeyboardInputComplete = NULL;
 
 	if ( ! pFnOnKeyboardInputComplete )
-		pFnOnKeyboardInputComplete = (UFunction*) UObject::GObjObjects()->Data[ 162990 ];
+		pFnOnKeyboardInputComplete = (UFunction*) UObject::GObjObjects()->Data[ 163427 ];
 
 	UOnlineSubsystemMcts_execOnKeyboardInputComplete_Parms OnKeyboardInputComplete_Parms;
 	OnKeyboardInputComplete_Parms.bWasSuccessful = bWasSuccessful;
@@ -1507,7 +1508,7 @@ bool UOnlineSubsystemMcts::ShowKeyboardUI ( unsigned char LocalUserNum, struct F
 	static UFunction* pFnShowKeyboardUI = NULL;
 
 	if ( ! pFnShowKeyboardUI )
-		pFnShowKeyboardUI = (UFunction*) UObject::GObjObjects()->Data[ 163348 ];
+		pFnShowKeyboardUI = (UFunction*) UObject::GObjObjects()->Data[ 163785 ];
 
 	UOnlineSubsystemMcts_execShowKeyboardUI_Parms ShowKeyboardUI_Parms;
 	ShowKeyboardUI_Parms.LocalUserNum = LocalUserNum;
@@ -1536,7 +1537,7 @@ void UOnlineSubsystemMcts::SetOnlineStatus ( unsigned char LocalUserNum, int Sta
 	static UFunction* pFnSetOnlineStatus = NULL;
 
 	if ( ! pFnSetOnlineStatus )
-		pFnSetOnlineStatus = (UFunction*) UObject::GObjObjects()->Data[ 163341 ];
+		pFnSetOnlineStatus = (UFunction*) UObject::GObjObjects()->Data[ 163778 ];
 
 	UOnlineSubsystemMcts_execSetOnlineStatus_Parms SetOnlineStatus_Parms;
 	SetOnlineStatus_Parms.LocalUserNum = LocalUserNum;
@@ -1565,7 +1566,7 @@ unsigned char UOnlineSubsystemMcts::GetFriendsList ( unsigned char LocalUserNum,
 	static UFunction* pFnGetFriendsList = NULL;
 
 	if ( ! pFnGetFriendsList )
-		pFnGetFriendsList = (UFunction*) UObject::GObjObjects()->Data[ 163334 ];
+		pFnGetFriendsList = (UFunction*) UObject::GObjObjects()->Data[ 163771 ];
 
 	UOnlineSubsystemMcts_execGetFriendsList_Parms GetFriendsList_Parms;
 	GetFriendsList_Parms.LocalUserNum = LocalUserNum;
@@ -1591,7 +1592,7 @@ void UOnlineSubsystemMcts::ClearReadFriendsCompleteDelegate ( unsigned char Loca
 	static UFunction* pFnClearReadFriendsCompleteDelegate = NULL;
 
 	if ( ! pFnClearReadFriendsCompleteDelegate )
-		pFnClearReadFriendsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163331 ];
+		pFnClearReadFriendsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163768 ];
 
 	UOnlineSubsystemMcts_execClearReadFriendsCompleteDelegate_Parms ClearReadFriendsCompleteDelegate_Parms;
 	ClearReadFriendsCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1611,7 +1612,7 @@ void UOnlineSubsystemMcts::AddReadFriendsCompleteDelegate ( unsigned char LocalU
 	static UFunction* pFnAddReadFriendsCompleteDelegate = NULL;
 
 	if ( ! pFnAddReadFriendsCompleteDelegate )
-		pFnAddReadFriendsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163328 ];
+		pFnAddReadFriendsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163765 ];
 
 	UOnlineSubsystemMcts_execAddReadFriendsCompleteDelegate_Parms AddReadFriendsCompleteDelegate_Parms;
 	AddReadFriendsCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1630,7 +1631,7 @@ void UOnlineSubsystemMcts::OnReadFriendsComplete ( unsigned long bWasSuccessful 
 	static UFunction* pFnOnReadFriendsComplete = NULL;
 
 	if ( ! pFnOnReadFriendsComplete )
-		pFnOnReadFriendsComplete = (UFunction*) UObject::GObjObjects()->Data[ 163007 ];
+		pFnOnReadFriendsComplete = (UFunction*) UObject::GObjObjects()->Data[ 163444 ];
 
 	UOnlineSubsystemMcts_execOnReadFriendsComplete_Parms OnReadFriendsComplete_Parms;
 	OnReadFriendsComplete_Parms.bWasSuccessful = bWasSuccessful;
@@ -1651,7 +1652,7 @@ bool UOnlineSubsystemMcts::ReadFriendsList ( unsigned char LocalUserNum, int Cou
 	static UFunction* pFnReadFriendsList = NULL;
 
 	if ( ! pFnReadFriendsList )
-		pFnReadFriendsList = (UFunction*) UObject::GObjObjects()->Data[ 163322 ];
+		pFnReadFriendsList = (UFunction*) UObject::GObjObjects()->Data[ 163759 ];
 
 	UOnlineSubsystemMcts_execReadFriendsList_Parms ReadFriendsList_Parms;
 	ReadFriendsList_Parms.LocalUserNum = LocalUserNum;
@@ -1674,7 +1675,7 @@ void UOnlineSubsystemMcts::ClearFriendsChangeDelegate ( unsigned char LocalUserN
 	static UFunction* pFnClearFriendsChangeDelegate = NULL;
 
 	if ( ! pFnClearFriendsChangeDelegate )
-		pFnClearFriendsChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163319 ];
+		pFnClearFriendsChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163756 ];
 
 	UOnlineSubsystemMcts_execClearFriendsChangeDelegate_Parms ClearFriendsChangeDelegate_Parms;
 	ClearFriendsChangeDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1694,7 +1695,7 @@ void UOnlineSubsystemMcts::AddFriendsChangeDelegate ( unsigned char LocalUserNum
 	static UFunction* pFnAddFriendsChangeDelegate = NULL;
 
 	if ( ! pFnAddFriendsChangeDelegate )
-		pFnAddFriendsChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163316 ];
+		pFnAddFriendsChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163753 ];
 
 	UOnlineSubsystemMcts_execAddFriendsChangeDelegate_Parms AddFriendsChangeDelegate_Parms;
 	AddFriendsChangeDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1712,7 +1713,7 @@ void UOnlineSubsystemMcts::OnFriendsChange ( )
 	static UFunction* pFnOnFriendsChange = NULL;
 
 	if ( ! pFnOnFriendsChange )
-		pFnOnFriendsChange = (UFunction*) UObject::GObjObjects()->Data[ 163009 ];
+		pFnOnFriendsChange = (UFunction*) UObject::GObjObjects()->Data[ 163446 ];
 
 	UOnlineSubsystemMcts_execOnFriendsChange_Parms OnFriendsChange_Parms;
 
@@ -1730,7 +1731,7 @@ void UOnlineSubsystemMcts::ClearWritePlayerStorageCompleteDelegate ( unsigned ch
 	static UFunction* pFnClearWritePlayerStorageCompleteDelegate = NULL;
 
 	if ( ! pFnClearWritePlayerStorageCompleteDelegate )
-		pFnClearWritePlayerStorageCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163313 ];
+		pFnClearWritePlayerStorageCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163750 ];
 
 	UOnlineSubsystemMcts_execClearWritePlayerStorageCompleteDelegate_Parms ClearWritePlayerStorageCompleteDelegate_Parms;
 	ClearWritePlayerStorageCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1750,7 +1751,7 @@ void UOnlineSubsystemMcts::AddWritePlayerStorageCompleteDelegate ( unsigned char
 	static UFunction* pFnAddWritePlayerStorageCompleteDelegate = NULL;
 
 	if ( ! pFnAddWritePlayerStorageCompleteDelegate )
-		pFnAddWritePlayerStorageCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163310 ];
+		pFnAddWritePlayerStorageCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163747 ];
 
 	UOnlineSubsystemMcts_execAddWritePlayerStorageCompleteDelegate_Parms AddWritePlayerStorageCompleteDelegate_Parms;
 	AddWritePlayerStorageCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1770,7 +1771,7 @@ void UOnlineSubsystemMcts::OnWritePlayerStorageComplete ( unsigned char LocalUse
 	static UFunction* pFnOnWritePlayerStorageComplete = NULL;
 
 	if ( ! pFnOnWritePlayerStorageComplete )
-		pFnOnWritePlayerStorageComplete = (UFunction*) UObject::GObjObjects()->Data[ 163011 ];
+		pFnOnWritePlayerStorageComplete = (UFunction*) UObject::GObjObjects()->Data[ 163448 ];
 
 	UOnlineSubsystemMcts_execOnWritePlayerStorageComplete_Parms OnWritePlayerStorageComplete_Parms;
 	OnWritePlayerStorageComplete_Parms.LocalUserNum = LocalUserNum;
@@ -1792,7 +1793,7 @@ bool UOnlineSubsystemMcts::WritePlayerStorage ( unsigned char LocalUserNum, clas
 	static UFunction* pFnWritePlayerStorage = NULL;
 
 	if ( ! pFnWritePlayerStorage )
-		pFnWritePlayerStorage = (UFunction*) UObject::GObjObjects()->Data[ 163303 ];
+		pFnWritePlayerStorage = (UFunction*) UObject::GObjObjects()->Data[ 163740 ];
 
 	UOnlineSubsystemMcts_execWritePlayerStorage_Parms WritePlayerStorage_Parms;
 	WritePlayerStorage_Parms.LocalUserNum = LocalUserNum;
@@ -1815,7 +1816,7 @@ class UOnlinePlayerStorage* UOnlineSubsystemMcts::GetPlayerStorage ( unsigned ch
 	static UFunction* pFnGetPlayerStorage = NULL;
 
 	if ( ! pFnGetPlayerStorage )
-		pFnGetPlayerStorage = (UFunction*) UObject::GObjObjects()->Data[ 163300 ];
+		pFnGetPlayerStorage = (UFunction*) UObject::GObjObjects()->Data[ 163737 ];
 
 	UOnlineSubsystemMcts_execGetPlayerStorage_Parms GetPlayerStorage_Parms;
 	GetPlayerStorage_Parms.LocalUserNum = LocalUserNum;
@@ -1836,7 +1837,7 @@ void UOnlineSubsystemMcts::ClearReadPlayerStorageForNetIdCompleteDelegate ( stru
 	static UFunction* pFnClearReadPlayerStorageForNetIdCompleteDelegate = NULL;
 
 	if ( ! pFnClearReadPlayerStorageForNetIdCompleteDelegate )
-		pFnClearReadPlayerStorageForNetIdCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163297 ];
+		pFnClearReadPlayerStorageForNetIdCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163734 ];
 
 	UOnlineSubsystemMcts_execClearReadPlayerStorageForNetIdCompleteDelegate_Parms ClearReadPlayerStorageForNetIdCompleteDelegate_Parms;
 	memcpy ( &ClearReadPlayerStorageForNetIdCompleteDelegate_Parms.NetId, &NetId, 0x8 );
@@ -1856,7 +1857,7 @@ void UOnlineSubsystemMcts::AddReadPlayerStorageForNetIdCompleteDelegate ( struct
 	static UFunction* pFnAddReadPlayerStorageForNetIdCompleteDelegate = NULL;
 
 	if ( ! pFnAddReadPlayerStorageForNetIdCompleteDelegate )
-		pFnAddReadPlayerStorageForNetIdCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163294 ];
+		pFnAddReadPlayerStorageForNetIdCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163731 ];
 
 	UOnlineSubsystemMcts_execAddReadPlayerStorageForNetIdCompleteDelegate_Parms AddReadPlayerStorageForNetIdCompleteDelegate_Parms;
 	memcpy ( &AddReadPlayerStorageForNetIdCompleteDelegate_Parms.NetId, &NetId, 0x8 );
@@ -1876,7 +1877,7 @@ void UOnlineSubsystemMcts::OnReadPlayerStorageForNetIdComplete ( struct FUniqueN
 	static UFunction* pFnOnReadPlayerStorageForNetIdComplete = NULL;
 
 	if ( ! pFnOnReadPlayerStorageForNetIdComplete )
-		pFnOnReadPlayerStorageForNetIdComplete = (UFunction*) UObject::GObjObjects()->Data[ 163013 ];
+		pFnOnReadPlayerStorageForNetIdComplete = (UFunction*) UObject::GObjObjects()->Data[ 163450 ];
 
 	UOnlineSubsystemMcts_execOnReadPlayerStorageForNetIdComplete_Parms OnReadPlayerStorageForNetIdComplete_Parms;
 	memcpy ( &OnReadPlayerStorageForNetIdComplete_Parms.NetId, &NetId, 0x8 );
@@ -1898,7 +1899,7 @@ bool UOnlineSubsystemMcts::ReadPlayerStorageForNetId ( unsigned char LocalUserNu
 	static UFunction* pFnReadPlayerStorageForNetId = NULL;
 
 	if ( ! pFnReadPlayerStorageForNetId )
-		pFnReadPlayerStorageForNetId = (UFunction*) UObject::GObjObjects()->Data[ 163287 ];
+		pFnReadPlayerStorageForNetId = (UFunction*) UObject::GObjObjects()->Data[ 163724 ];
 
 	UOnlineSubsystemMcts_execReadPlayerStorageForNetId_Parms ReadPlayerStorageForNetId_Parms;
 	ReadPlayerStorageForNetId_Parms.LocalUserNum = LocalUserNum;
@@ -1921,7 +1922,7 @@ void UOnlineSubsystemMcts::ClearReadPlayerStorageCompleteDelegate ( unsigned cha
 	static UFunction* pFnClearReadPlayerStorageCompleteDelegate = NULL;
 
 	if ( ! pFnClearReadPlayerStorageCompleteDelegate )
-		pFnClearReadPlayerStorageCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163284 ];
+		pFnClearReadPlayerStorageCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163721 ];
 
 	UOnlineSubsystemMcts_execClearReadPlayerStorageCompleteDelegate_Parms ClearReadPlayerStorageCompleteDelegate_Parms;
 	ClearReadPlayerStorageCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1941,7 +1942,7 @@ void UOnlineSubsystemMcts::AddReadPlayerStorageCompleteDelegate ( unsigned char 
 	static UFunction* pFnAddReadPlayerStorageCompleteDelegate = NULL;
 
 	if ( ! pFnAddReadPlayerStorageCompleteDelegate )
-		pFnAddReadPlayerStorageCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163281 ];
+		pFnAddReadPlayerStorageCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163718 ];
 
 	UOnlineSubsystemMcts_execAddReadPlayerStorageCompleteDelegate_Parms AddReadPlayerStorageCompleteDelegate_Parms;
 	AddReadPlayerStorageCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -1961,7 +1962,7 @@ void UOnlineSubsystemMcts::OnReadPlayerStorageComplete ( unsigned char LocalUser
 	static UFunction* pFnOnReadPlayerStorageComplete = NULL;
 
 	if ( ! pFnOnReadPlayerStorageComplete )
-		pFnOnReadPlayerStorageComplete = (UFunction*) UObject::GObjObjects()->Data[ 163015 ];
+		pFnOnReadPlayerStorageComplete = (UFunction*) UObject::GObjObjects()->Data[ 163452 ];
 
 	UOnlineSubsystemMcts_execOnReadPlayerStorageComplete_Parms OnReadPlayerStorageComplete_Parms;
 	OnReadPlayerStorageComplete_Parms.LocalUserNum = LocalUserNum;
@@ -1983,7 +1984,7 @@ bool UOnlineSubsystemMcts::ReadPlayerStorage ( unsigned char LocalUserNum, class
 	static UFunction* pFnReadPlayerStorage = NULL;
 
 	if ( ! pFnReadPlayerStorage )
-		pFnReadPlayerStorage = (UFunction*) UObject::GObjObjects()->Data[ 163274 ];
+		pFnReadPlayerStorage = (UFunction*) UObject::GObjObjects()->Data[ 163711 ];
 
 	UOnlineSubsystemMcts_execReadPlayerStorage_Parms ReadPlayerStorage_Parms;
 	ReadPlayerStorage_Parms.LocalUserNum = LocalUserNum;
@@ -2006,7 +2007,7 @@ void UOnlineSubsystemMcts::ClearWriteProfileSettingsCompleteDelegate ( unsigned 
 	static UFunction* pFnClearWriteProfileSettingsCompleteDelegate = NULL;
 
 	if ( ! pFnClearWriteProfileSettingsCompleteDelegate )
-		pFnClearWriteProfileSettingsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163271 ];
+		pFnClearWriteProfileSettingsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163708 ];
 
 	UOnlineSubsystemMcts_execClearWriteProfileSettingsCompleteDelegate_Parms ClearWriteProfileSettingsCompleteDelegate_Parms;
 	ClearWriteProfileSettingsCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -2026,7 +2027,7 @@ void UOnlineSubsystemMcts::AddWriteProfileSettingsCompleteDelegate ( unsigned ch
 	static UFunction* pFnAddWriteProfileSettingsCompleteDelegate = NULL;
 
 	if ( ! pFnAddWriteProfileSettingsCompleteDelegate )
-		pFnAddWriteProfileSettingsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163268 ];
+		pFnAddWriteProfileSettingsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163705 ];
 
 	UOnlineSubsystemMcts_execAddWriteProfileSettingsCompleteDelegate_Parms AddWriteProfileSettingsCompleteDelegate_Parms;
 	AddWriteProfileSettingsCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -2046,7 +2047,7 @@ void UOnlineSubsystemMcts::OnWriteProfileSettingsComplete ( unsigned char LocalU
 	static UFunction* pFnOnWriteProfileSettingsComplete = NULL;
 
 	if ( ! pFnOnWriteProfileSettingsComplete )
-		pFnOnWriteProfileSettingsComplete = (UFunction*) UObject::GObjObjects()->Data[ 163017 ];
+		pFnOnWriteProfileSettingsComplete = (UFunction*) UObject::GObjObjects()->Data[ 163454 ];
 
 	UOnlineSubsystemMcts_execOnWriteProfileSettingsComplete_Parms OnWriteProfileSettingsComplete_Parms;
 	OnWriteProfileSettingsComplete_Parms.LocalUserNum = LocalUserNum;
@@ -2066,7 +2067,7 @@ void UOnlineSubsystemMcts::ClearReadProfileSettingsCompleteDelegate ( unsigned c
 	static UFunction* pFnClearReadProfileSettingsCompleteDelegate = NULL;
 
 	if ( ! pFnClearReadProfileSettingsCompleteDelegate )
-		pFnClearReadProfileSettingsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163263 ];
+		pFnClearReadProfileSettingsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163700 ];
 
 	UOnlineSubsystemMcts_execClearReadProfileSettingsCompleteDelegate_Parms ClearReadProfileSettingsCompleteDelegate_Parms;
 	ClearReadProfileSettingsCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -2086,7 +2087,7 @@ void UOnlineSubsystemMcts::AddReadProfileSettingsCompleteDelegate ( unsigned cha
 	static UFunction* pFnAddReadProfileSettingsCompleteDelegate = NULL;
 
 	if ( ! pFnAddReadProfileSettingsCompleteDelegate )
-		pFnAddReadProfileSettingsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163260 ];
+		pFnAddReadProfileSettingsCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163697 ];
 
 	UOnlineSubsystemMcts_execAddReadProfileSettingsCompleteDelegate_Parms AddReadProfileSettingsCompleteDelegate_Parms;
 	AddReadProfileSettingsCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -2106,7 +2107,7 @@ void UOnlineSubsystemMcts::OnReadProfileSettingsComplete ( unsigned char LocalUs
 	static UFunction* pFnOnReadProfileSettingsComplete = NULL;
 
 	if ( ! pFnOnReadProfileSettingsComplete )
-		pFnOnReadProfileSettingsComplete = (UFunction*) UObject::GObjObjects()->Data[ 163019 ];
+		pFnOnReadProfileSettingsComplete = (UFunction*) UObject::GObjObjects()->Data[ 163456 ];
 
 	UOnlineSubsystemMcts_execOnReadProfileSettingsComplete_Parms OnReadProfileSettingsComplete_Parms;
 	OnReadProfileSettingsComplete_Parms.LocalUserNum = LocalUserNum;
@@ -2125,7 +2126,7 @@ void UOnlineSubsystemMcts::ClearMutingChangeDelegate ( struct FScriptDelegate Mu
 	static UFunction* pFnClearMutingChangeDelegate = NULL;
 
 	if ( ! pFnClearMutingChangeDelegate )
-		pFnClearMutingChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163256 ];
+		pFnClearMutingChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163693 ];
 
 	UOnlineSubsystemMcts_execClearMutingChangeDelegate_Parms ClearMutingChangeDelegate_Parms;
 	memcpy ( &ClearMutingChangeDelegate_Parms.MutingDelegate, &MutingDelegate, 0xC );
@@ -2143,7 +2144,7 @@ void UOnlineSubsystemMcts::AddMutingChangeDelegate ( struct FScriptDelegate Muti
 	static UFunction* pFnAddMutingChangeDelegate = NULL;
 
 	if ( ! pFnAddMutingChangeDelegate )
-		pFnAddMutingChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163254 ];
+		pFnAddMutingChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163691 ];
 
 	UOnlineSubsystemMcts_execAddMutingChangeDelegate_Parms AddMutingChangeDelegate_Parms;
 	memcpy ( &AddMutingChangeDelegate_Parms.MutingDelegate, &MutingDelegate, 0xC );
@@ -2160,7 +2161,7 @@ void UOnlineSubsystemMcts::OnMutingChange ( )
 	static UFunction* pFnOnMutingChange = NULL;
 
 	if ( ! pFnOnMutingChange )
-		pFnOnMutingChange = (UFunction*) UObject::GObjObjects()->Data[ 163021 ];
+		pFnOnMutingChange = (UFunction*) UObject::GObjObjects()->Data[ 163458 ];
 
 	UOnlineSubsystemMcts_execOnMutingChange_Parms OnMutingChange_Parms;
 
@@ -2178,7 +2179,7 @@ class UOnlineProfileSettings* UOnlineSubsystemMcts::GetProfileSettings ( unsigne
 	static UFunction* pFnGetProfileSettings = NULL;
 
 	if ( ! pFnGetProfileSettings )
-		pFnGetProfileSettings = (UFunction*) UObject::GObjObjects()->Data[ 163251 ];
+		pFnGetProfileSettings = (UFunction*) UObject::GObjObjects()->Data[ 163688 ];
 
 	UOnlineSubsystemMcts_execGetProfileSettings_Parms GetProfileSettings_Parms;
 	GetProfileSettings_Parms.LocalUserNum = LocalUserNum;
@@ -2200,7 +2201,7 @@ bool UOnlineSubsystemMcts::WriteProfileSettings ( unsigned char LocalUserNum, cl
 	static UFunction* pFnWriteProfileSettings = NULL;
 
 	if ( ! pFnWriteProfileSettings )
-		pFnWriteProfileSettings = (UFunction*) UObject::GObjObjects()->Data[ 163247 ];
+		pFnWriteProfileSettings = (UFunction*) UObject::GObjObjects()->Data[ 163684 ];
 
 	UOnlineSubsystemMcts_execWriteProfileSettings_Parms WriteProfileSettings_Parms;
 	WriteProfileSettings_Parms.LocalUserNum = LocalUserNum;
@@ -2223,7 +2224,7 @@ bool UOnlineSubsystemMcts::ReadProfileSettings ( unsigned char LocalUserNum, cla
 	static UFunction* pFnReadProfileSettings = NULL;
 
 	if ( ! pFnReadProfileSettings )
-		pFnReadProfileSettings = (UFunction*) UObject::GObjObjects()->Data[ 163243 ];
+		pFnReadProfileSettings = (UFunction*) UObject::GObjObjects()->Data[ 163680 ];
 
 	UOnlineSubsystemMcts_execReadProfileSettings_Parms ReadProfileSettings_Parms;
 	ReadProfileSettings_Parms.LocalUserNum = LocalUserNum;
@@ -2244,7 +2245,7 @@ void UOnlineSubsystemMcts::ClearLoginCancelledDelegate ( struct FScriptDelegate 
 	static UFunction* pFnClearLoginCancelledDelegate = NULL;
 
 	if ( ! pFnClearLoginCancelledDelegate )
-		pFnClearLoginCancelledDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163241 ];
+		pFnClearLoginCancelledDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163678 ];
 
 	UOnlineSubsystemMcts_execClearLoginCancelledDelegate_Parms ClearLoginCancelledDelegate_Parms;
 	memcpy ( &ClearLoginCancelledDelegate_Parms.CancelledDelegate, &CancelledDelegate, 0xC );
@@ -2262,7 +2263,7 @@ void UOnlineSubsystemMcts::AddLoginCancelledDelegate ( struct FScriptDelegate Ca
 	static UFunction* pFnAddLoginCancelledDelegate = NULL;
 
 	if ( ! pFnAddLoginCancelledDelegate )
-		pFnAddLoginCancelledDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163239 ];
+		pFnAddLoginCancelledDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163676 ];
 
 	UOnlineSubsystemMcts_execAddLoginCancelledDelegate_Parms AddLoginCancelledDelegate_Parms;
 	memcpy ( &AddLoginCancelledDelegate_Parms.CancelledDelegate, &CancelledDelegate, 0xC );
@@ -2279,7 +2280,7 @@ void UOnlineSubsystemMcts::OnLoginCancelled ( )
 	static UFunction* pFnOnLoginCancelled = NULL;
 
 	if ( ! pFnOnLoginCancelled )
-		pFnOnLoginCancelled = (UFunction*) UObject::GObjObjects()->Data[ 163023 ];
+		pFnOnLoginCancelled = (UFunction*) UObject::GObjObjects()->Data[ 163460 ];
 
 	UOnlineSubsystemMcts_execOnLoginCancelled_Parms OnLoginCancelled_Parms;
 
@@ -2297,7 +2298,7 @@ void UOnlineSubsystemMcts::ClearLoginStatusChangeDelegate ( struct FScriptDelega
 	static UFunction* pFnClearLoginStatusChangeDelegate = NULL;
 
 	if ( ! pFnClearLoginStatusChangeDelegate )
-		pFnClearLoginStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163236 ];
+		pFnClearLoginStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163673 ];
 
 	UOnlineSubsystemMcts_execClearLoginStatusChangeDelegate_Parms ClearLoginStatusChangeDelegate_Parms;
 	memcpy ( &ClearLoginStatusChangeDelegate_Parms.LoginStatusDelegate, &LoginStatusDelegate, 0xC );
@@ -2317,7 +2318,7 @@ void UOnlineSubsystemMcts::AddLoginStatusChangeDelegate ( struct FScriptDelegate
 	static UFunction* pFnAddLoginStatusChangeDelegate = NULL;
 
 	if ( ! pFnAddLoginStatusChangeDelegate )
-		pFnAddLoginStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163233 ];
+		pFnAddLoginStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163670 ];
 
 	UOnlineSubsystemMcts_execAddLoginStatusChangeDelegate_Parms AddLoginStatusChangeDelegate_Parms;
 	memcpy ( &AddLoginStatusChangeDelegate_Parms.LoginStatusDelegate, &LoginStatusDelegate, 0xC );
@@ -2337,7 +2338,7 @@ void UOnlineSubsystemMcts::OnLoginStatusChange ( unsigned char NewStatus, struct
 	static UFunction* pFnOnLoginStatusChange = NULL;
 
 	if ( ! pFnOnLoginStatusChange )
-		pFnOnLoginStatusChange = (UFunction*) UObject::GObjObjects()->Data[ 163025 ];
+		pFnOnLoginStatusChange = (UFunction*) UObject::GObjObjects()->Data[ 163462 ];
 
 	UOnlineSubsystemMcts_execOnLoginStatusChange_Parms OnLoginStatusChange_Parms;
 	OnLoginStatusChange_Parms.NewStatus = NewStatus;
@@ -2357,7 +2358,7 @@ unsigned char UOnlineSubsystemMcts::CanCommunicate ( unsigned char LocalUserNum 
 	static UFunction* pFnCanCommunicate = NULL;
 
 	if ( ! pFnCanCommunicate )
-		pFnCanCommunicate = (UFunction*) UObject::GObjObjects()->Data[ 163228 ];
+		pFnCanCommunicate = (UFunction*) UObject::GObjObjects()->Data[ 163665 ];
 
 	UOnlineSubsystemMcts_execCanCommunicate_Parms CanCommunicate_Parms;
 	CanCommunicate_Parms.LocalUserNum = LocalUserNum;
@@ -2383,7 +2384,7 @@ bool UOnlineSubsystemMcts::IsMuted ( unsigned char LocalUserNum, struct FUniqueN
 	static UFunction* pFnIsMuted = NULL;
 
 	if ( ! pFnIsMuted )
-		pFnIsMuted = (UFunction*) UObject::GObjObjects()->Data[ 163224 ];
+		pFnIsMuted = (UFunction*) UObject::GObjObjects()->Data[ 163661 ];
 
 	UOnlineSubsystemMcts_execIsMuted_Parms IsMuted_Parms;
 	IsMuted_Parms.LocalUserNum = LocalUserNum;
@@ -2406,7 +2407,7 @@ int UOnlineSubsystemMcts::GetCharacterIdFromClassId ( struct FQWord UniqueId, in
 	static UFunction* pFnGetCharacterIdFromClassId = NULL;
 
 	if ( ! pFnGetCharacterIdFromClassId )
-		pFnGetCharacterIdFromClassId = (UFunction*) UObject::GObjObjects()->Data[ 163220 ];
+		pFnGetCharacterIdFromClassId = (UFunction*) UObject::GObjObjects()->Data[ 163657 ];
 
 	UOnlineSubsystemMcts_execGetCharacterIdFromClassId_Parms GetCharacterIdFromClassId_Parms;
 	memcpy ( &GetCharacterIdFromClassId_Parms.UniqueId, &UniqueId, 0x8 );
@@ -2432,7 +2433,7 @@ void UOnlineSubsystemMcts::NotifyTeamChange ( struct FQWord PlayerUid, unsigned 
 	static UFunction* pFnNotifyTeamChange = NULL;
 
 	if ( ! pFnNotifyTeamChange )
-		pFnNotifyTeamChange = (UFunction*) UObject::GObjObjects()->Data[ 163217 ];
+		pFnNotifyTeamChange = (UFunction*) UObject::GObjObjects()->Data[ 163654 ];
 
 	UOnlineSubsystemMcts_execNotifyTeamChange_Parms NotifyTeamChange_Parms;
 	memcpy ( &NotifyTeamChange_Parms.PlayerUid, &PlayerUid, 0x8 );
@@ -2457,7 +2458,7 @@ bool UOnlineSubsystemMcts::ReadPlayerProfileData ( struct FQWord UniqueId, class
 	static UFunction* pFnReadPlayerProfileData = NULL;
 
 	if ( ! pFnReadPlayerProfileData )
-		pFnReadPlayerProfileData = (UFunction*) UObject::GObjObjects()->Data[ 163213 ];
+		pFnReadPlayerProfileData = (UFunction*) UObject::GObjObjects()->Data[ 163650 ];
 
 	UOnlineSubsystemMcts_execReadPlayerProfileData_Parms ReadPlayerProfileData_Parms;
 	memcpy ( &ReadPlayerProfileData_Parms.UniqueId, &UniqueId, 0x8 );
@@ -2484,7 +2485,7 @@ bool UOnlineSubsystemMcts::WritePlayerProfileData ( struct FQWord UniqueId, clas
 	static UFunction* pFnWritePlayerProfileData = NULL;
 
 	if ( ! pFnWritePlayerProfileData )
-		pFnWritePlayerProfileData = (UFunction*) UObject::GObjObjects()->Data[ 163209 ];
+		pFnWritePlayerProfileData = (UFunction*) UObject::GObjObjects()->Data[ 163646 ];
 
 	UOnlineSubsystemMcts_execWritePlayerProfileData_Parms WritePlayerProfileData_Parms;
 	memcpy ( &WritePlayerProfileData_Parms.UniqueId, &UniqueId, 0x8 );
@@ -2509,7 +2510,7 @@ int UOnlineSubsystemMcts::ReadActiveCharacterClass ( )
 	static UFunction* pFnReadActiveCharacterClass = NULL;
 
 	if ( ! pFnReadActiveCharacterClass )
-		pFnReadActiveCharacterClass = (UFunction*) UObject::GObjObjects()->Data[ 163207 ];
+		pFnReadActiveCharacterClass = (UFunction*) UObject::GObjObjects()->Data[ 163644 ];
 
 	UOnlineSubsystemMcts_execReadActiveCharacterClass_Parms ReadActiveCharacterClass_Parms;
 
@@ -2532,7 +2533,7 @@ void UOnlineSubsystemMcts::ReadCharacterClasses ( TArray< int >* CharList )
 	static UFunction* pFnReadCharacterClasses = NULL;
 
 	if ( ! pFnReadCharacterClasses )
-		pFnReadCharacterClasses = (UFunction*) UObject::GObjObjects()->Data[ 163204 ];
+		pFnReadCharacterClasses = (UFunction*) UObject::GObjObjects()->Data[ 163641 ];
 
 	UOnlineSubsystemMcts_execReadCharacterClasses_Parms ReadCharacterClasses_Parms;
 
@@ -2556,7 +2557,7 @@ void UOnlineSubsystemMcts::WriteActiveCharacterClass ( int ClassId )
 	static UFunction* pFnWriteActiveCharacterClass = NULL;
 
 	if ( ! pFnWriteActiveCharacterClass )
-		pFnWriteActiveCharacterClass = (UFunction*) UObject::GObjObjects()->Data[ 163202 ];
+		pFnWriteActiveCharacterClass = (UFunction*) UObject::GObjObjects()->Data[ 163639 ];
 
 	UOnlineSubsystemMcts_execWriteActiveCharacterClass_Parms WriteActiveCharacterClass_Parms;
 	WriteActiveCharacterClass_Parms.ClassId = ClassId;
@@ -2579,7 +2580,7 @@ void UOnlineSubsystemMcts::SendPrivateChatMessage ( struct FString PlayerName, s
 	static UFunction* pFnSendPrivateChatMessage = NULL;
 
 	if ( ! pFnSendPrivateChatMessage )
-		pFnSendPrivateChatMessage = (UFunction*) UObject::GObjObjects()->Data[ 163199 ];
+		pFnSendPrivateChatMessage = (UFunction*) UObject::GObjObjects()->Data[ 163636 ];
 
 	UOnlineSubsystemMcts_execSendPrivateChatMessage_Parms SendPrivateChatMessage_Parms;
 	memcpy ( &SendPrivateChatMessage_Parms.PlayerName, &PlayerName, 0xC );
@@ -2603,7 +2604,7 @@ void UOnlineSubsystemMcts::SendChatMessage ( int Channel, struct FString Message
 	static UFunction* pFnSendChatMessage = NULL;
 
 	if ( ! pFnSendChatMessage )
-		pFnSendChatMessage = (UFunction*) UObject::GObjObjects()->Data[ 163196 ];
+		pFnSendChatMessage = (UFunction*) UObject::GObjObjects()->Data[ 163633 ];
 
 	UOnlineSubsystemMcts_execSendChatMessage_Parms SendChatMessage_Parms;
 	SendChatMessage_Parms.Channel = Channel;
@@ -2626,7 +2627,7 @@ void UOnlineSubsystemMcts::ClearChatMessageDelegate ( struct FScriptDelegate Cha
 	static UFunction* pFnClearChatMessageDelegate = NULL;
 
 	if ( ! pFnClearChatMessageDelegate )
-		pFnClearChatMessageDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163193 ];
+		pFnClearChatMessageDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163630 ];
 
 	UOnlineSubsystemMcts_execClearChatMessageDelegate_Parms ClearChatMessageDelegate_Parms;
 	memcpy ( &ClearChatMessageDelegate_Parms.ChatDelegate, &ChatDelegate, 0xC );
@@ -2644,7 +2645,7 @@ void UOnlineSubsystemMcts::AddChatMessageDelegate ( struct FScriptDelegate ChatD
 	static UFunction* pFnAddChatMessageDelegate = NULL;
 
 	if ( ! pFnAddChatMessageDelegate )
-		pFnAddChatMessageDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163191 ];
+		pFnAddChatMessageDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163628 ];
 
 	UOnlineSubsystemMcts_execAddChatMessageDelegate_Parms AddChatMessageDelegate_Parms;
 	memcpy ( &AddChatMessageDelegate_Parms.ChatDelegate, &ChatDelegate, 0xC );
@@ -2664,7 +2665,7 @@ void UOnlineSubsystemMcts::OnChatMessage ( int Channel, struct FString Sender, s
 	static UFunction* pFnOnChatMessage = NULL;
 
 	if ( ! pFnOnChatMessage )
-		pFnOnChatMessage = (UFunction*) UObject::GObjObjects()->Data[ 162987 ];
+		pFnOnChatMessage = (UFunction*) UObject::GObjObjects()->Data[ 163424 ];
 
 	UOnlineSubsystemMcts_execOnChatMessage_Parms OnChatMessage_Parms;
 	OnChatMessage_Parms.Channel = Channel;
@@ -2684,7 +2685,7 @@ void UOnlineSubsystemMcts::ClearStorageDeviceChangeDelegate ( struct FScriptDele
 	static UFunction* pFnClearStorageDeviceChangeDelegate = NULL;
 
 	if ( ! pFnClearStorageDeviceChangeDelegate )
-		pFnClearStorageDeviceChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163186 ];
+		pFnClearStorageDeviceChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163623 ];
 
 	UOnlineSubsystemMcts_execClearStorageDeviceChangeDelegate_Parms ClearStorageDeviceChangeDelegate_Parms;
 	memcpy ( &ClearStorageDeviceChangeDelegate_Parms.StorageDeviceChangeDelegate, &StorageDeviceChangeDelegate, 0xC );
@@ -2702,7 +2703,7 @@ void UOnlineSubsystemMcts::AddStorageDeviceChangeDelegate ( struct FScriptDelega
 	static UFunction* pFnAddStorageDeviceChangeDelegate = NULL;
 
 	if ( ! pFnAddStorageDeviceChangeDelegate )
-		pFnAddStorageDeviceChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163184 ];
+		pFnAddStorageDeviceChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163621 ];
 
 	UOnlineSubsystemMcts_execAddStorageDeviceChangeDelegate_Parms AddStorageDeviceChangeDelegate_Parms;
 	memcpy ( &AddStorageDeviceChangeDelegate_Parms.StorageDeviceChangeDelegate, &StorageDeviceChangeDelegate, 0xC );
@@ -2719,7 +2720,7 @@ void UOnlineSubsystemMcts::OnStorageDeviceChange ( )
 	static UFunction* pFnOnStorageDeviceChange = NULL;
 
 	if ( ! pFnOnStorageDeviceChange )
-		pFnOnStorageDeviceChange = (UFunction*) UObject::GObjObjects()->Data[ 163028 ];
+		pFnOnStorageDeviceChange = (UFunction*) UObject::GObjObjects()->Data[ 163465 ];
 
 	UOnlineSubsystemMcts_execOnStorageDeviceChange_Parms OnStorageDeviceChange_Parms;
 
@@ -2736,7 +2737,7 @@ unsigned char UOnlineSubsystemMcts::GetNATType ( )
 	static UFunction* pFnGetNATType = NULL;
 
 	if ( ! pFnGetNATType )
-		pFnGetNATType = (UFunction*) UObject::GObjObjects()->Data[ 163182 ];
+		pFnGetNATType = (UFunction*) UObject::GObjObjects()->Data[ 163619 ];
 
 	UOnlineSubsystemMcts_execGetNATType_Parms GetNATType_Parms;
 
@@ -2759,7 +2760,7 @@ void UOnlineSubsystemMcts::ClearConnectionStatusChangeDelegate ( struct FScriptD
 	static UFunction* pFnClearConnectionStatusChangeDelegate = NULL;
 
 	if ( ! pFnClearConnectionStatusChangeDelegate )
-		pFnClearConnectionStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163179 ];
+		pFnClearConnectionStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163616 ];
 
 	UOnlineSubsystemMcts_execClearConnectionStatusChangeDelegate_Parms ClearConnectionStatusChangeDelegate_Parms;
 	memcpy ( &ClearConnectionStatusChangeDelegate_Parms.ConnectionStatusDelegate, &ConnectionStatusDelegate, 0xC );
@@ -2777,7 +2778,7 @@ void UOnlineSubsystemMcts::AddConnectionStatusChangeDelegate ( struct FScriptDel
 	static UFunction* pFnAddConnectionStatusChangeDelegate = NULL;
 
 	if ( ! pFnAddConnectionStatusChangeDelegate )
-		pFnAddConnectionStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163177 ];
+		pFnAddConnectionStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163614 ];
 
 	UOnlineSubsystemMcts_execAddConnectionStatusChangeDelegate_Parms AddConnectionStatusChangeDelegate_Parms;
 	memcpy ( &AddConnectionStatusChangeDelegate_Parms.ConnectionStatusDelegate, &ConnectionStatusDelegate, 0xC );
@@ -2795,7 +2796,7 @@ void UOnlineSubsystemMcts::OnConnectionStatusChange ( unsigned char ConnectionSt
 	static UFunction* pFnOnConnectionStatusChange = NULL;
 
 	if ( ! pFnOnConnectionStatusChange )
-		pFnOnConnectionStatusChange = (UFunction*) UObject::GObjObjects()->Data[ 162972 ];
+		pFnOnConnectionStatusChange = (UFunction*) UObject::GObjObjects()->Data[ 163409 ];
 
 	UOnlineSubsystemMcts_execOnConnectionStatusChange_Parms OnConnectionStatusChange_Parms;
 	OnConnectionStatusChange_Parms.ConnectionStatus = ConnectionStatus;
@@ -2814,7 +2815,7 @@ bool UOnlineSubsystemMcts::IsControllerConnected ( int ControllerId )
 	static UFunction* pFnIsControllerConnected = NULL;
 
 	if ( ! pFnIsControllerConnected )
-		pFnIsControllerConnected = (UFunction*) UObject::GObjObjects()->Data[ 163173 ];
+		pFnIsControllerConnected = (UFunction*) UObject::GObjObjects()->Data[ 163610 ];
 
 	UOnlineSubsystemMcts_execIsControllerConnected_Parms IsControllerConnected_Parms;
 	IsControllerConnected_Parms.ControllerId = ControllerId;
@@ -2838,7 +2839,7 @@ void UOnlineSubsystemMcts::ClearControllerChangeDelegate ( struct FScriptDelegat
 	static UFunction* pFnClearControllerChangeDelegate = NULL;
 
 	if ( ! pFnClearControllerChangeDelegate )
-		pFnClearControllerChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163171 ];
+		pFnClearControllerChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163608 ];
 
 	UOnlineSubsystemMcts_execClearControllerChangeDelegate_Parms ClearControllerChangeDelegate_Parms;
 	memcpy ( &ClearControllerChangeDelegate_Parms.ControllerChangeDelegate, &ControllerChangeDelegate, 0xC );
@@ -2856,7 +2857,7 @@ void UOnlineSubsystemMcts::AddControllerChangeDelegate ( struct FScriptDelegate 
 	static UFunction* pFnAddControllerChangeDelegate = NULL;
 
 	if ( ! pFnAddControllerChangeDelegate )
-		pFnAddControllerChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163169 ];
+		pFnAddControllerChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163606 ];
 
 	UOnlineSubsystemMcts_execAddControllerChangeDelegate_Parms AddControllerChangeDelegate_Parms;
 	memcpy ( &AddControllerChangeDelegate_Parms.ControllerChangeDelegate, &ControllerChangeDelegate, 0xC );
@@ -2875,7 +2876,7 @@ void UOnlineSubsystemMcts::OnControllerChange ( int ControllerId, unsigned long 
 	static UFunction* pFnOnControllerChange = NULL;
 
 	if ( ! pFnOnControllerChange )
-		pFnOnControllerChange = (UFunction*) UObject::GObjObjects()->Data[ 163031 ];
+		pFnOnControllerChange = (UFunction*) UObject::GObjObjects()->Data[ 163468 ];
 
 	UOnlineSubsystemMcts_execOnControllerChange_Parms OnControllerChange_Parms;
 	OnControllerChange_Parms.ControllerId = ControllerId;
@@ -2894,7 +2895,7 @@ unsigned char UOnlineSubsystemMcts::GetNetworkNotificationPosition ( )
 	static UFunction* pFnGetNetworkNotificationPosition = NULL;
 
 	if ( ! pFnGetNetworkNotificationPosition )
-		pFnGetNetworkNotificationPosition = (UFunction*) UObject::GObjObjects()->Data[ 163165 ];
+		pFnGetNetworkNotificationPosition = (UFunction*) UObject::GObjObjects()->Data[ 163602 ];
 
 	UOnlineSubsystemMcts_execGetNetworkNotificationPosition_Parms GetNetworkNotificationPosition_Parms;
 
@@ -2913,7 +2914,7 @@ void UOnlineSubsystemMcts::ClearExternalUIChangeDelegate ( struct FScriptDelegat
 	static UFunction* pFnClearExternalUIChangeDelegate = NULL;
 
 	if ( ! pFnClearExternalUIChangeDelegate )
-		pFnClearExternalUIChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163163 ];
+		pFnClearExternalUIChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163600 ];
 
 	UOnlineSubsystemMcts_execClearExternalUIChangeDelegate_Parms ClearExternalUIChangeDelegate_Parms;
 	memcpy ( &ClearExternalUIChangeDelegate_Parms.ExternalUIDelegate, &ExternalUIDelegate, 0xC );
@@ -2931,7 +2932,7 @@ void UOnlineSubsystemMcts::AddExternalUIChangeDelegate ( struct FScriptDelegate 
 	static UFunction* pFnAddExternalUIChangeDelegate = NULL;
 
 	if ( ! pFnAddExternalUIChangeDelegate )
-		pFnAddExternalUIChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163161 ];
+		pFnAddExternalUIChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163598 ];
 
 	UOnlineSubsystemMcts_execAddExternalUIChangeDelegate_Parms AddExternalUIChangeDelegate_Parms;
 	memcpy ( &AddExternalUIChangeDelegate_Parms.ExternalUIDelegate, &ExternalUIDelegate, 0xC );
@@ -2949,7 +2950,7 @@ void UOnlineSubsystemMcts::OnExternalUIChange ( unsigned long bIsOpening )
 	static UFunction* pFnOnExternalUIChange = NULL;
 
 	if ( ! pFnOnExternalUIChange )
-		pFnOnExternalUIChange = (UFunction*) UObject::GObjObjects()->Data[ 163033 ];
+		pFnOnExternalUIChange = (UFunction*) UObject::GObjObjects()->Data[ 163470 ];
 
 	UOnlineSubsystemMcts_execOnExternalUIChange_Parms OnExternalUIChange_Parms;
 	OnExternalUIChange_Parms.bIsOpening = bIsOpening;
@@ -2967,7 +2968,7 @@ void UOnlineSubsystemMcts::ClearLinkStatusChangeDelegate ( struct FScriptDelegat
 	static UFunction* pFnClearLinkStatusChangeDelegate = NULL;
 
 	if ( ! pFnClearLinkStatusChangeDelegate )
-		pFnClearLinkStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163157 ];
+		pFnClearLinkStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163594 ];
 
 	UOnlineSubsystemMcts_execClearLinkStatusChangeDelegate_Parms ClearLinkStatusChangeDelegate_Parms;
 	memcpy ( &ClearLinkStatusChangeDelegate_Parms.LinkStatusDelegate, &LinkStatusDelegate, 0xC );
@@ -2985,7 +2986,7 @@ void UOnlineSubsystemMcts::AddLinkStatusChangeDelegate ( struct FScriptDelegate 
 	static UFunction* pFnAddLinkStatusChangeDelegate = NULL;
 
 	if ( ! pFnAddLinkStatusChangeDelegate )
-		pFnAddLinkStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163155 ];
+		pFnAddLinkStatusChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163592 ];
 
 	UOnlineSubsystemMcts_execAddLinkStatusChangeDelegate_Parms AddLinkStatusChangeDelegate_Parms;
 	memcpy ( &AddLinkStatusChangeDelegate_Parms.LinkStatusDelegate, &LinkStatusDelegate, 0xC );
@@ -3003,7 +3004,7 @@ void UOnlineSubsystemMcts::OnLinkStatusChange ( unsigned long bIsConnected )
 	static UFunction* pFnOnLinkStatusChange = NULL;
 
 	if ( ! pFnOnLinkStatusChange )
-		pFnOnLinkStatusChange = (UFunction*) UObject::GObjObjects()->Data[ 162984 ];
+		pFnOnLinkStatusChange = (UFunction*) UObject::GObjObjects()->Data[ 163421 ];
 
 	UOnlineSubsystemMcts_execOnLinkStatusChange_Parms OnLinkStatusChange_Parms;
 	OnLinkStatusChange_Parms.bIsConnected = bIsConnected;
@@ -3021,7 +3022,7 @@ bool UOnlineSubsystemMcts::HasLinkConnection ( )
 	static UFunction* pFnHasLinkConnection = NULL;
 
 	if ( ! pFnHasLinkConnection )
-		pFnHasLinkConnection = (UFunction*) UObject::GObjObjects()->Data[ 163152 ];
+		pFnHasLinkConnection = (UFunction*) UObject::GObjObjects()->Data[ 163589 ];
 
 	UOnlineSubsystemMcts_execHasLinkConnection_Parms HasLinkConnection_Parms;
 
@@ -3045,7 +3046,7 @@ struct FUniqueNetId UOnlineSubsystemMcts::eventGetPlayerUniqueNetIdFromIndex ( i
 	static UFunction* pFnGetPlayerUniqueNetIdFromIndex = NULL;
 
 	if ( ! pFnGetPlayerUniqueNetIdFromIndex )
-		pFnGetPlayerUniqueNetIdFromIndex = (UFunction*) UObject::GObjObjects()->Data[ 163148 ];
+		pFnGetPlayerUniqueNetIdFromIndex = (UFunction*) UObject::GObjObjects()->Data[ 163585 ];
 
 	UOnlineSubsystemMcts_eventGetPlayerUniqueNetIdFromIndex_Parms GetPlayerUniqueNetIdFromIndex_Parms;
 	GetPlayerUniqueNetIdFromIndex_Parms.UserIndex = UserIndex;
@@ -3066,7 +3067,7 @@ struct FString UOnlineSubsystemMcts::eventGetPlayerNicknameFromIndex ( int UserI
 	static UFunction* pFnGetPlayerNicknameFromIndex = NULL;
 
 	if ( ! pFnGetPlayerNicknameFromIndex )
-		pFnGetPlayerNicknameFromIndex = (UFunction*) UObject::GObjObjects()->Data[ 163145 ];
+		pFnGetPlayerNicknameFromIndex = (UFunction*) UObject::GObjObjects()->Data[ 163582 ];
 
 	UOnlineSubsystemMcts_eventGetPlayerNicknameFromIndex_Parms GetPlayerNicknameFromIndex_Parms;
 	GetPlayerNicknameFromIndex_Parms.UserIndex = UserIndex;
@@ -3086,7 +3087,7 @@ bool UOnlineSubsystemMcts::NeedEULA ( )
 	static UFunction* pFnNeedEULA = NULL;
 
 	if ( ! pFnNeedEULA )
-		pFnNeedEULA = (UFunction*) UObject::GObjObjects()->Data[ 163143 ];
+		pFnNeedEULA = (UFunction*) UObject::GObjObjects()->Data[ 163580 ];
 
 	UOnlineSubsystemMcts_execNeedEULA_Parms NeedEULA_Parms;
 
@@ -3109,7 +3110,7 @@ void UOnlineSubsystemMcts::ClearLoginChangeDelegate ( struct FScriptDelegate Log
 	static UFunction* pFnClearLoginChangeDelegate = NULL;
 
 	if ( ! pFnClearLoginChangeDelegate )
-		pFnClearLoginChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163140 ];
+		pFnClearLoginChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163577 ];
 
 	UOnlineSubsystemMcts_execClearLoginChangeDelegate_Parms ClearLoginChangeDelegate_Parms;
 	memcpy ( &ClearLoginChangeDelegate_Parms.LoginDelegate, &LoginDelegate, 0xC );
@@ -3127,7 +3128,7 @@ void UOnlineSubsystemMcts::AddLoginChangeDelegate ( struct FScriptDelegate Login
 	static UFunction* pFnAddLoginChangeDelegate = NULL;
 
 	if ( ! pFnAddLoginChangeDelegate )
-		pFnAddLoginChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163138 ];
+		pFnAddLoginChangeDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163575 ];
 
 	UOnlineSubsystemMcts_execAddLoginChangeDelegate_Parms AddLoginChangeDelegate_Parms;
 	memcpy ( &AddLoginChangeDelegate_Parms.LoginDelegate, &LoginDelegate, 0xC );
@@ -3145,7 +3146,7 @@ struct FString UOnlineSubsystemMcts::GetPlayerMctsName ( )
 	static UFunction* pFnGetPlayerMctsName = NULL;
 
 	if ( ! pFnGetPlayerMctsName )
-		pFnGetPlayerMctsName = (UFunction*) UObject::GObjObjects()->Data[ 163136 ];
+		pFnGetPlayerMctsName = (UFunction*) UObject::GObjObjects()->Data[ 163573 ];
 
 	UOnlineSubsystemMcts_execGetPlayerMctsName_Parms GetPlayerMctsName_Parms;
 
@@ -3170,7 +3171,7 @@ bool UOnlineSubsystemMcts::AreAnyFriends ( unsigned char LocalUserNum, TArray< s
 	static UFunction* pFnAreAnyFriends = NULL;
 
 	if ( ! pFnAreAnyFriends )
-		pFnAreAnyFriends = (UFunction*) UObject::GObjObjects()->Data[ 163131 ];
+		pFnAreAnyFriends = (UFunction*) UObject::GObjObjects()->Data[ 163568 ];
 
 	UOnlineSubsystemMcts_execAreAnyFriends_Parms AreAnyFriends_Parms;
 	AreAnyFriends_Parms.LocalUserNum = LocalUserNum;
@@ -3199,7 +3200,7 @@ bool UOnlineSubsystemMcts::IsFriend ( unsigned char LocalUserNum, struct FUnique
 	static UFunction* pFnIsFriend = NULL;
 
 	if ( ! pFnIsFriend )
-		pFnIsFriend = (UFunction*) UObject::GObjObjects()->Data[ 163127 ];
+		pFnIsFriend = (UFunction*) UObject::GObjObjects()->Data[ 163564 ];
 
 	UOnlineSubsystemMcts_execIsFriend_Parms IsFriend_Parms;
 	IsFriend_Parms.LocalUserNum = LocalUserNum;
@@ -3225,7 +3226,7 @@ unsigned char UOnlineSubsystemMcts::CanShowPresenceInformation ( unsigned char L
 	static UFunction* pFnCanShowPresenceInformation = NULL;
 
 	if ( ! pFnCanShowPresenceInformation )
-		pFnCanShowPresenceInformation = (UFunction*) UObject::GObjObjects()->Data[ 163124 ];
+		pFnCanShowPresenceInformation = (UFunction*) UObject::GObjObjects()->Data[ 163561 ];
 
 	UOnlineSubsystemMcts_execCanShowPresenceInformation_Parms CanShowPresenceInformation_Parms;
 	CanShowPresenceInformation_Parms.LocalUserNum = LocalUserNum;
@@ -3246,7 +3247,7 @@ unsigned char UOnlineSubsystemMcts::CanViewPlayerProfiles ( unsigned char LocalU
 	static UFunction* pFnCanViewPlayerProfiles = NULL;
 
 	if ( ! pFnCanViewPlayerProfiles )
-		pFnCanViewPlayerProfiles = (UFunction*) UObject::GObjObjects()->Data[ 163121 ];
+		pFnCanViewPlayerProfiles = (UFunction*) UObject::GObjObjects()->Data[ 163558 ];
 
 	UOnlineSubsystemMcts_execCanViewPlayerProfiles_Parms CanViewPlayerProfiles_Parms;
 	CanViewPlayerProfiles_Parms.LocalUserNum = LocalUserNum;
@@ -3267,7 +3268,7 @@ unsigned char UOnlineSubsystemMcts::CanPurchaseContent ( unsigned char LocalUser
 	static UFunction* pFnCanPurchaseContent = NULL;
 
 	if ( ! pFnCanPurchaseContent )
-		pFnCanPurchaseContent = (UFunction*) UObject::GObjObjects()->Data[ 163118 ];
+		pFnCanPurchaseContent = (UFunction*) UObject::GObjObjects()->Data[ 163555 ];
 
 	UOnlineSubsystemMcts_execCanPurchaseContent_Parms CanPurchaseContent_Parms;
 	CanPurchaseContent_Parms.LocalUserNum = LocalUserNum;
@@ -3288,7 +3289,7 @@ unsigned char UOnlineSubsystemMcts::CanDownloadUserContent ( unsigned char Local
 	static UFunction* pFnCanDownloadUserContent = NULL;
 
 	if ( ! pFnCanDownloadUserContent )
-		pFnCanDownloadUserContent = (UFunction*) UObject::GObjObjects()->Data[ 163115 ];
+		pFnCanDownloadUserContent = (UFunction*) UObject::GObjObjects()->Data[ 163552 ];
 
 	UOnlineSubsystemMcts_execCanDownloadUserContent_Parms CanDownloadUserContent_Parms;
 	CanDownloadUserContent_Parms.LocalUserNum = LocalUserNum;
@@ -3309,7 +3310,7 @@ unsigned char UOnlineSubsystemMcts::CanPlayOnline ( unsigned char LocalUserNum )
 	static UFunction* pFnCanPlayOnline = NULL;
 
 	if ( ! pFnCanPlayOnline )
-		pFnCanPlayOnline = (UFunction*) UObject::GObjObjects()->Data[ 163112 ];
+		pFnCanPlayOnline = (UFunction*) UObject::GObjObjects()->Data[ 163549 ];
 
 	UOnlineSubsystemMcts_execCanPlayOnline_Parms CanPlayOnline_Parms;
 	CanPlayOnline_Parms.LocalUserNum = LocalUserNum;
@@ -3334,7 +3335,7 @@ struct FString UOnlineSubsystemMcts::GetPlayerNickname ( unsigned char LocalUser
 	static UFunction* pFnGetPlayerNickname = NULL;
 
 	if ( ! pFnGetPlayerNickname )
-		pFnGetPlayerNickname = (UFunction*) UObject::GObjObjects()->Data[ 163109 ];
+		pFnGetPlayerNickname = (UFunction*) UObject::GObjObjects()->Data[ 163546 ];
 
 	UOnlineSubsystemMcts_execGetPlayerNickname_Parms GetPlayerNickname_Parms;
 	GetPlayerNickname_Parms.LocalUserNum = LocalUserNum;
@@ -3356,7 +3357,7 @@ bool UOnlineSubsystemMcts::GetUniquePlayerId ( unsigned char LocalUserNum, struc
 	static UFunction* pFnGetUniquePlayerId = NULL;
 
 	if ( ! pFnGetUniquePlayerId )
-		pFnGetUniquePlayerId = (UFunction*) UObject::GObjObjects()->Data[ 163105 ];
+		pFnGetUniquePlayerId = (UFunction*) UObject::GObjObjects()->Data[ 163542 ];
 
 	UOnlineSubsystemMcts_execGetUniquePlayerId_Parms GetUniquePlayerId_Parms;
 	GetUniquePlayerId_Parms.LocalUserNum = LocalUserNum;
@@ -3380,7 +3381,7 @@ bool UOnlineSubsystemMcts::IsLocalLogin ( unsigned char LocalUserNum )
 	static UFunction* pFnIsLocalLogin = NULL;
 
 	if ( ! pFnIsLocalLogin )
-		pFnIsLocalLogin = (UFunction*) UObject::GObjObjects()->Data[ 163102 ];
+		pFnIsLocalLogin = (UFunction*) UObject::GObjObjects()->Data[ 163539 ];
 
 	UOnlineSubsystemMcts_execIsLocalLogin_Parms IsLocalLogin_Parms;
 	IsLocalLogin_Parms.LocalUserNum = LocalUserNum;
@@ -3401,7 +3402,7 @@ bool UOnlineSubsystemMcts::IsGuestLogin ( unsigned char LocalUserNum )
 	static UFunction* pFnIsGuestLogin = NULL;
 
 	if ( ! pFnIsGuestLogin )
-		pFnIsGuestLogin = (UFunction*) UObject::GObjObjects()->Data[ 163099 ];
+		pFnIsGuestLogin = (UFunction*) UObject::GObjObjects()->Data[ 163536 ];
 
 	UOnlineSubsystemMcts_execIsGuestLogin_Parms IsGuestLogin_Parms;
 	IsGuestLogin_Parms.LocalUserNum = LocalUserNum;
@@ -3422,7 +3423,7 @@ unsigned char UOnlineSubsystemMcts::GetLoginStatus ( unsigned char LocalUserNum 
 	static UFunction* pFnGetLoginStatus = NULL;
 
 	if ( ! pFnGetLoginStatus )
-		pFnGetLoginStatus = (UFunction*) UObject::GObjObjects()->Data[ 163096 ];
+		pFnGetLoginStatus = (UFunction*) UObject::GObjObjects()->Data[ 163533 ];
 
 	UOnlineSubsystemMcts_execGetLoginStatus_Parms GetLoginStatus_Parms;
 	GetLoginStatus_Parms.LocalUserNum = LocalUserNum;
@@ -3447,7 +3448,7 @@ void UOnlineSubsystemMcts::ClearLogoutCompletedDelegate ( unsigned char LocalUse
 	static UFunction* pFnClearLogoutCompletedDelegate = NULL;
 
 	if ( ! pFnClearLogoutCompletedDelegate )
-		pFnClearLogoutCompletedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163092 ];
+		pFnClearLogoutCompletedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163529 ];
 
 	UOnlineSubsystemMcts_execClearLogoutCompletedDelegate_Parms ClearLogoutCompletedDelegate_Parms;
 	ClearLogoutCompletedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -3467,7 +3468,7 @@ void UOnlineSubsystemMcts::AddLogoutCompletedDelegate ( unsigned char LocalUserN
 	static UFunction* pFnAddLogoutCompletedDelegate = NULL;
 
 	if ( ! pFnAddLogoutCompletedDelegate )
-		pFnAddLogoutCompletedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163089 ];
+		pFnAddLogoutCompletedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163526 ];
 
 	UOnlineSubsystemMcts_execAddLogoutCompletedDelegate_Parms AddLogoutCompletedDelegate_Parms;
 	AddLogoutCompletedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -3486,7 +3487,7 @@ void UOnlineSubsystemMcts::OnLogoutCompleted ( unsigned long bWasSuccessful )
 	static UFunction* pFnOnLogoutCompleted = NULL;
 
 	if ( ! pFnOnLogoutCompleted )
-		pFnOnLogoutCompleted = (UFunction*) UObject::GObjObjects()->Data[ 162981 ];
+		pFnOnLogoutCompleted = (UFunction*) UObject::GObjObjects()->Data[ 163418 ];
 
 	UOnlineSubsystemMcts_execOnLogoutCompleted_Parms OnLogoutCompleted_Parms;
 	OnLogoutCompleted_Parms.bWasSuccessful = bWasSuccessful;
@@ -3505,7 +3506,7 @@ bool UOnlineSubsystemMcts::Logout ( unsigned char LocalUserNum )
 	static UFunction* pFnLogout = NULL;
 
 	if ( ! pFnLogout )
-		pFnLogout = (UFunction*) UObject::GObjObjects()->Data[ 163085 ];
+		pFnLogout = (UFunction*) UObject::GObjObjects()->Data[ 163522 ];
 
 	UOnlineSubsystemMcts_execLogout_Parms Logout_Parms;
 	Logout_Parms.LocalUserNum = LocalUserNum;
@@ -3530,7 +3531,7 @@ void UOnlineSubsystemMcts::ClearLoginFailedDelegate ( unsigned char LocalUserNum
 	static UFunction* pFnClearLoginFailedDelegate = NULL;
 
 	if ( ! pFnClearLoginFailedDelegate )
-		pFnClearLoginFailedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163081 ];
+		pFnClearLoginFailedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163518 ];
 
 	UOnlineSubsystemMcts_execClearLoginFailedDelegate_Parms ClearLoginFailedDelegate_Parms;
 	ClearLoginFailedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -3550,7 +3551,7 @@ void UOnlineSubsystemMcts::AddLoginFailedDelegate ( unsigned char LocalUserNum, 
 	static UFunction* pFnAddLoginFailedDelegate = NULL;
 
 	if ( ! pFnAddLoginFailedDelegate )
-		pFnAddLoginFailedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163078 ];
+		pFnAddLoginFailedDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163515 ];
 
 	UOnlineSubsystemMcts_execAddLoginFailedDelegate_Parms AddLoginFailedDelegate_Parms;
 	AddLoginFailedDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -3570,7 +3571,7 @@ void UOnlineSubsystemMcts::OnLoginFailed ( unsigned char LocalUserNum, unsigned 
 	static UFunction* pFnOnLoginFailed = NULL;
 
 	if ( ! pFnOnLoginFailed )
-		pFnOnLoginFailed = (UFunction*) UObject::GObjObjects()->Data[ 162978 ];
+		pFnOnLoginFailed = (UFunction*) UObject::GObjObjects()->Data[ 163415 ];
 
 	UOnlineSubsystemMcts_execOnLoginFailed_Parms OnLoginFailed_Parms;
 	OnLoginFailed_Parms.LocalUserNum = LocalUserNum;
@@ -3589,7 +3590,7 @@ bool UOnlineSubsystemMcts::AutoLogin ( )
 	static UFunction* pFnAutoLogin = NULL;
 
 	if ( ! pFnAutoLogin )
-		pFnAutoLogin = (UFunction*) UObject::GObjObjects()->Data[ 163074 ];
+		pFnAutoLogin = (UFunction*) UObject::GObjObjects()->Data[ 163511 ];
 
 	UOnlineSubsystemMcts_execAutoLogin_Parms AutoLogin_Parms;
 
@@ -3616,7 +3617,7 @@ bool UOnlineSubsystemMcts::RequestNewPlayer ( unsigned char LocalUserNum, struct
 	static UFunction* pFnRequestNewPlayer = NULL;
 
 	if ( ! pFnRequestNewPlayer )
-		pFnRequestNewPlayer = (UFunction*) UObject::GObjObjects()->Data[ 163068 ];
+		pFnRequestNewPlayer = (UFunction*) UObject::GObjObjects()->Data[ 163505 ];
 
 	UOnlineSubsystemMcts_execRequestNewPlayer_Parms RequestNewPlayer_Parms;
 	RequestNewPlayer_Parms.LocalUserNum = LocalUserNum;
@@ -3647,7 +3648,7 @@ bool UOnlineSubsystemMcts::Login ( unsigned char LocalUserNum, struct FString Lo
 	static UFunction* pFnLogin = NULL;
 
 	if ( ! pFnLogin )
-		pFnLogin = (UFunction*) UObject::GObjObjects()->Data[ 163062 ];
+		pFnLogin = (UFunction*) UObject::GObjObjects()->Data[ 163499 ];
 
 	UOnlineSubsystemMcts_execLogin_Parms Login_Parms;
 	Login_Parms.LocalUserNum = LocalUserNum;
@@ -3674,7 +3675,7 @@ void UOnlineSubsystemMcts::OnLoginChange ( unsigned char LocalUserNum )
 	static UFunction* pFnOnLoginChange = NULL;
 
 	if ( ! pFnOnLoginChange )
-		pFnOnLoginChange = (UFunction*) UObject::GObjObjects()->Data[ 162975 ];
+		pFnOnLoginChange = (UFunction*) UObject::GObjObjects()->Data[ 163412 ];
 
 	UOnlineSubsystemMcts_execOnLoginChange_Parms OnLoginChange_Parms;
 	OnLoginChange_Parms.LocalUserNum = LocalUserNum;
@@ -3692,7 +3693,7 @@ bool UOnlineSubsystemMcts::eventInit ( )
 	static UFunction* pFnInit = NULL;
 
 	if ( ! pFnInit )
-		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 163059 ];
+		pFnInit = (UFunction*) UObject::GObjObjects()->Data[ 163496 ];
 
 	UOnlineSubsystemMcts_eventInit_Parms Init_Parms;
 
@@ -3716,7 +3717,7 @@ bool UOnlineVoiceInterfaceMcts::UnmuteAll ( unsigned char LocalUserNum )
 	static UFunction* pFnUnmuteAll = NULL;
 
 	if ( ! pFnUnmuteAll )
-		pFnUnmuteAll = (UFunction*) UObject::GObjObjects()->Data[ 163597 ];
+		pFnUnmuteAll = (UFunction*) UObject::GObjObjects()->Data[ 164034 ];
 
 	UOnlineVoiceInterfaceMcts_execUnmuteAll_Parms UnmuteAll_Parms;
 	UnmuteAll_Parms.LocalUserNum = LocalUserNum;
@@ -3738,7 +3739,7 @@ bool UOnlineVoiceInterfaceMcts::MuteAll ( unsigned char LocalUserNum, unsigned l
 	static UFunction* pFnMuteAll = NULL;
 
 	if ( ! pFnMuteAll )
-		pFnMuteAll = (UFunction*) UObject::GObjObjects()->Data[ 163593 ];
+		pFnMuteAll = (UFunction*) UObject::GObjObjects()->Data[ 164030 ];
 
 	UOnlineVoiceInterfaceMcts_execMuteAll_Parms MuteAll_Parms;
 	MuteAll_Parms.LocalUserNum = LocalUserNum;
@@ -3761,7 +3762,7 @@ bool UOnlineVoiceInterfaceMcts::SetSpeechRecognitionObject ( unsigned char Local
 	static UFunction* pFnSetSpeechRecognitionObject = NULL;
 
 	if ( ! pFnSetSpeechRecognitionObject )
-		pFnSetSpeechRecognitionObject = (UFunction*) UObject::GObjObjects()->Data[ 163589 ];
+		pFnSetSpeechRecognitionObject = (UFunction*) UObject::GObjObjects()->Data[ 164026 ];
 
 	UOnlineVoiceInterfaceMcts_execSetSpeechRecognitionObject_Parms SetSpeechRecognitionObject_Parms;
 	SetSpeechRecognitionObject_Parms.LocalUserNum = LocalUserNum;
@@ -3788,7 +3789,7 @@ bool UOnlineVoiceInterfaceMcts::SelectVocabulary ( unsigned char LocalUserNum, i
 	static UFunction* pFnSelectVocabulary = NULL;
 
 	if ( ! pFnSelectVocabulary )
-		pFnSelectVocabulary = (UFunction*) UObject::GObjObjects()->Data[ 163585 ];
+		pFnSelectVocabulary = (UFunction*) UObject::GObjObjects()->Data[ 164022 ];
 
 	UOnlineVoiceInterfaceMcts_execSelectVocabulary_Parms SelectVocabulary_Parms;
 	SelectVocabulary_Parms.LocalUserNum = LocalUserNum;
@@ -3814,7 +3815,7 @@ void UOnlineVoiceInterfaceMcts::ClearRecognitionCompleteDelegate ( unsigned char
 	static UFunction* pFnClearRecognitionCompleteDelegate = NULL;
 
 	if ( ! pFnClearRecognitionCompleteDelegate )
-		pFnClearRecognitionCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163581 ];
+		pFnClearRecognitionCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 164018 ];
 
 	UOnlineVoiceInterfaceMcts_execClearRecognitionCompleteDelegate_Parms ClearRecognitionCompleteDelegate_Parms;
 	ClearRecognitionCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -3834,7 +3835,7 @@ void UOnlineVoiceInterfaceMcts::AddRecognitionCompleteDelegate ( unsigned char L
 	static UFunction* pFnAddRecognitionCompleteDelegate = NULL;
 
 	if ( ! pFnAddRecognitionCompleteDelegate )
-		pFnAddRecognitionCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163578 ];
+		pFnAddRecognitionCompleteDelegate = (UFunction*) UObject::GObjObjects()->Data[ 164015 ];
 
 	UOnlineVoiceInterfaceMcts_execAddRecognitionCompleteDelegate_Parms AddRecognitionCompleteDelegate_Parms;
 	AddRecognitionCompleteDelegate_Parms.LocalUserNum = LocalUserNum;
@@ -3852,7 +3853,7 @@ void UOnlineVoiceInterfaceMcts::OnRecognitionComplete ( )
 	static UFunction* pFnOnRecognitionComplete = NULL;
 
 	if ( ! pFnOnRecognitionComplete )
-		pFnOnRecognitionComplete = (UFunction*) UObject::GObjObjects()->Data[ 163502 ];
+		pFnOnRecognitionComplete = (UFunction*) UObject::GObjObjects()->Data[ 163939 ];
 
 	UOnlineVoiceInterfaceMcts_execOnRecognitionComplete_Parms OnRecognitionComplete_Parms;
 
@@ -3871,7 +3872,7 @@ bool UOnlineVoiceInterfaceMcts::GetRecognitionResults ( unsigned char LocalUserN
 	static UFunction* pFnGetRecognitionResults = NULL;
 
 	if ( ! pFnGetRecognitionResults )
-		pFnGetRecognitionResults = (UFunction*) UObject::GObjObjects()->Data[ 163573 ];
+		pFnGetRecognitionResults = (UFunction*) UObject::GObjObjects()->Data[ 164010 ];
 
 	UOnlineVoiceInterfaceMcts_execGetRecognitionResults_Parms GetRecognitionResults_Parms;
 	GetRecognitionResults_Parms.LocalUserNum = LocalUserNum;
@@ -3899,7 +3900,7 @@ bool UOnlineVoiceInterfaceMcts::StopSpeechRecognition ( unsigned char LocalUserN
 	static UFunction* pFnStopSpeechRecognition = NULL;
 
 	if ( ! pFnStopSpeechRecognition )
-		pFnStopSpeechRecognition = (UFunction*) UObject::GObjObjects()->Data[ 163570 ];
+		pFnStopSpeechRecognition = (UFunction*) UObject::GObjObjects()->Data[ 164007 ];
 
 	UOnlineVoiceInterfaceMcts_execStopSpeechRecognition_Parms StopSpeechRecognition_Parms;
 	StopSpeechRecognition_Parms.LocalUserNum = LocalUserNum;
@@ -3924,7 +3925,7 @@ bool UOnlineVoiceInterfaceMcts::StartSpeechRecognition ( unsigned char LocalUser
 	static UFunction* pFnStartSpeechRecognition = NULL;
 
 	if ( ! pFnStartSpeechRecognition )
-		pFnStartSpeechRecognition = (UFunction*) UObject::GObjObjects()->Data[ 163567 ];
+		pFnStartSpeechRecognition = (UFunction*) UObject::GObjObjects()->Data[ 164004 ];
 
 	UOnlineVoiceInterfaceMcts_execStartSpeechRecognition_Parms StartSpeechRecognition_Parms;
 	StartSpeechRecognition_Parms.LocalUserNum = LocalUserNum;
@@ -3948,7 +3949,7 @@ void UOnlineVoiceInterfaceMcts::StopNetworkedVoice ( unsigned char LocalUserNum 
 	static UFunction* pFnStopNetworkedVoice = NULL;
 
 	if ( ! pFnStopNetworkedVoice )
-		pFnStopNetworkedVoice = (UFunction*) UObject::GObjObjects()->Data[ 163565 ];
+		pFnStopNetworkedVoice = (UFunction*) UObject::GObjObjects()->Data[ 164002 ];
 
 	UOnlineVoiceInterfaceMcts_execStopNetworkedVoice_Parms StopNetworkedVoice_Parms;
 	StopNetworkedVoice_Parms.LocalUserNum = LocalUserNum;
@@ -3970,7 +3971,7 @@ void UOnlineVoiceInterfaceMcts::StartNetworkedVoice ( unsigned char LocalUserNum
 	static UFunction* pFnStartNetworkedVoice = NULL;
 
 	if ( ! pFnStartNetworkedVoice )
-		pFnStartNetworkedVoice = (UFunction*) UObject::GObjObjects()->Data[ 163563 ];
+		pFnStartNetworkedVoice = (UFunction*) UObject::GObjObjects()->Data[ 164000 ];
 
 	UOnlineVoiceInterfaceMcts_execStartNetworkedVoice_Parms StartNetworkedVoice_Parms;
 	StartNetworkedVoice_Parms.LocalUserNum = LocalUserNum;
@@ -3992,7 +3993,7 @@ void UOnlineVoiceInterfaceMcts::ClearPlayerTalkingDelegate ( struct FScriptDeleg
 	static UFunction* pFnClearPlayerTalkingDelegate = NULL;
 
 	if ( ! pFnClearPlayerTalkingDelegate )
-		pFnClearPlayerTalkingDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163560 ];
+		pFnClearPlayerTalkingDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163997 ];
 
 	UOnlineVoiceInterfaceMcts_execClearPlayerTalkingDelegate_Parms ClearPlayerTalkingDelegate_Parms;
 	memcpy ( &ClearPlayerTalkingDelegate_Parms.TalkerDelegate, &TalkerDelegate, 0xC );
@@ -4010,7 +4011,7 @@ void UOnlineVoiceInterfaceMcts::AddPlayerTalkingDelegate ( struct FScriptDelegat
 	static UFunction* pFnAddPlayerTalkingDelegate = NULL;
 
 	if ( ! pFnAddPlayerTalkingDelegate )
-		pFnAddPlayerTalkingDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163557 ];
+		pFnAddPlayerTalkingDelegate = (UFunction*) UObject::GObjObjects()->Data[ 163994 ];
 
 	UOnlineVoiceInterfaceMcts_execAddPlayerTalkingDelegate_Parms AddPlayerTalkingDelegate_Parms;
 	memcpy ( &AddPlayerTalkingDelegate_Parms.TalkerDelegate, &TalkerDelegate, 0xC );
@@ -4029,7 +4030,7 @@ void UOnlineVoiceInterfaceMcts::OnPlayerTalkingStateChange ( struct FUniqueNetId
 	static UFunction* pFnOnPlayerTalkingStateChange = NULL;
 
 	if ( ! pFnOnPlayerTalkingStateChange )
-		pFnOnPlayerTalkingStateChange = (UFunction*) UObject::GObjObjects()->Data[ 163505 ];
+		pFnOnPlayerTalkingStateChange = (UFunction*) UObject::GObjObjects()->Data[ 163942 ];
 
 	UOnlineVoiceInterfaceMcts_execOnPlayerTalkingStateChange_Parms OnPlayerTalkingStateChange_Parms;
 	memcpy ( &OnPlayerTalkingStateChange_Parms.Player, &Player, 0x8 );
@@ -4051,7 +4052,7 @@ bool UOnlineVoiceInterfaceMcts::UnmuteRemoteTalker ( unsigned char LocalUserNum,
 	static UFunction* pFnUnmuteRemoteTalker = NULL;
 
 	if ( ! pFnUnmuteRemoteTalker )
-		pFnUnmuteRemoteTalker = (UFunction*) UObject::GObjObjects()->Data[ 163550 ];
+		pFnUnmuteRemoteTalker = (UFunction*) UObject::GObjObjects()->Data[ 163987 ];
 
 	UOnlineVoiceInterfaceMcts_execUnmuteRemoteTalker_Parms UnmuteRemoteTalker_Parms;
 	UnmuteRemoteTalker_Parms.LocalUserNum = LocalUserNum;
@@ -4080,7 +4081,7 @@ bool UOnlineVoiceInterfaceMcts::MuteRemoteTalker ( unsigned char LocalUserNum, s
 	static UFunction* pFnMuteRemoteTalker = NULL;
 
 	if ( ! pFnMuteRemoteTalker )
-		pFnMuteRemoteTalker = (UFunction*) UObject::GObjObjects()->Data[ 163545 ];
+		pFnMuteRemoteTalker = (UFunction*) UObject::GObjObjects()->Data[ 163982 ];
 
 	UOnlineVoiceInterfaceMcts_execMuteRemoteTalker_Parms MuteRemoteTalker_Parms;
 	MuteRemoteTalker_Parms.LocalUserNum = LocalUserNum;
@@ -4109,7 +4110,7 @@ bool UOnlineVoiceInterfaceMcts::SetRemoteTalkerPriority ( unsigned char LocalUse
 	static UFunction* pFnSetRemoteTalkerPriority = NULL;
 
 	if ( ! pFnSetRemoteTalkerPriority )
-		pFnSetRemoteTalkerPriority = (UFunction*) UObject::GObjObjects()->Data[ 163540 ];
+		pFnSetRemoteTalkerPriority = (UFunction*) UObject::GObjObjects()->Data[ 163977 ];
 
 	UOnlineVoiceInterfaceMcts_execSetRemoteTalkerPriority_Parms SetRemoteTalkerPriority_Parms;
 	SetRemoteTalkerPriority_Parms.LocalUserNum = LocalUserNum;
@@ -4136,7 +4137,7 @@ bool UOnlineVoiceInterfaceMcts::IsHeadsetPresent ( unsigned char LocalUserNum )
 	static UFunction* pFnIsHeadsetPresent = NULL;
 
 	if ( ! pFnIsHeadsetPresent )
-		pFnIsHeadsetPresent = (UFunction*) UObject::GObjObjects()->Data[ 163537 ];
+		pFnIsHeadsetPresent = (UFunction*) UObject::GObjObjects()->Data[ 163974 ];
 
 	UOnlineVoiceInterfaceMcts_execIsHeadsetPresent_Parms IsHeadsetPresent_Parms;
 	IsHeadsetPresent_Parms.LocalUserNum = LocalUserNum;
@@ -4161,7 +4162,7 @@ bool UOnlineVoiceInterfaceMcts::IsRemotePlayerTalking ( struct FUniqueNetId Play
 	static UFunction* pFnIsRemotePlayerTalking = NULL;
 
 	if ( ! pFnIsRemotePlayerTalking )
-		pFnIsRemotePlayerTalking = (UFunction*) UObject::GObjObjects()->Data[ 163534 ];
+		pFnIsRemotePlayerTalking = (UFunction*) UObject::GObjObjects()->Data[ 163971 ];
 
 	UOnlineVoiceInterfaceMcts_execIsRemotePlayerTalking_Parms IsRemotePlayerTalking_Parms;
 	memcpy ( &IsRemotePlayerTalking_Parms.PlayerID, &PlayerID, 0x8 );
@@ -4186,7 +4187,7 @@ bool UOnlineVoiceInterfaceMcts::IsLocalPlayerTalking ( unsigned char LocalUserNu
 	static UFunction* pFnIsLocalPlayerTalking = NULL;
 
 	if ( ! pFnIsLocalPlayerTalking )
-		pFnIsLocalPlayerTalking = (UFunction*) UObject::GObjObjects()->Data[ 163531 ];
+		pFnIsLocalPlayerTalking = (UFunction*) UObject::GObjObjects()->Data[ 163968 ];
 
 	UOnlineVoiceInterfaceMcts_execIsLocalPlayerTalking_Parms IsLocalPlayerTalking_Parms;
 	IsLocalPlayerTalking_Parms.LocalUserNum = LocalUserNum;
@@ -4211,7 +4212,7 @@ bool UOnlineVoiceInterfaceMcts::UnregisterRemoteTalker ( struct FUniqueNetId Pla
 	static UFunction* pFnUnregisterRemoteTalker = NULL;
 
 	if ( ! pFnUnregisterRemoteTalker )
-		pFnUnregisterRemoteTalker = (UFunction*) UObject::GObjObjects()->Data[ 163528 ];
+		pFnUnregisterRemoteTalker = (UFunction*) UObject::GObjObjects()->Data[ 163965 ];
 
 	UOnlineVoiceInterfaceMcts_execUnregisterRemoteTalker_Parms UnregisterRemoteTalker_Parms;
 	memcpy ( &UnregisterRemoteTalker_Parms.PlayerID, &PlayerID, 0x8 );
@@ -4236,7 +4237,7 @@ bool UOnlineVoiceInterfaceMcts::RegisterRemoteTalker ( struct FUniqueNetId Playe
 	static UFunction* pFnRegisterRemoteTalker = NULL;
 
 	if ( ! pFnRegisterRemoteTalker )
-		pFnRegisterRemoteTalker = (UFunction*) UObject::GObjObjects()->Data[ 163525 ];
+		pFnRegisterRemoteTalker = (UFunction*) UObject::GObjObjects()->Data[ 163962 ];
 
 	UOnlineVoiceInterfaceMcts_execRegisterRemoteTalker_Parms RegisterRemoteTalker_Parms;
 	memcpy ( &RegisterRemoteTalker_Parms.PlayerID, &PlayerID, 0x8 );
@@ -4261,7 +4262,7 @@ bool UOnlineVoiceInterfaceMcts::UnregisterLocalTalker ( unsigned char LocalUserN
 	static UFunction* pFnUnregisterLocalTalker = NULL;
 
 	if ( ! pFnUnregisterLocalTalker )
-		pFnUnregisterLocalTalker = (UFunction*) UObject::GObjObjects()->Data[ 163522 ];
+		pFnUnregisterLocalTalker = (UFunction*) UObject::GObjObjects()->Data[ 163959 ];
 
 	UOnlineVoiceInterfaceMcts_execUnregisterLocalTalker_Parms UnregisterLocalTalker_Parms;
 	UnregisterLocalTalker_Parms.LocalUserNum = LocalUserNum;
@@ -4286,7 +4287,7 @@ bool UOnlineVoiceInterfaceMcts::RegisterLocalTalker ( unsigned char LocalUserNum
 	static UFunction* pFnRegisterLocalTalker = NULL;
 
 	if ( ! pFnRegisterLocalTalker )
-		pFnRegisterLocalTalker = (UFunction*) UObject::GObjObjects()->Data[ 163519 ];
+		pFnRegisterLocalTalker = (UFunction*) UObject::GObjObjects()->Data[ 163956 ];
 
 	UOnlineVoiceInterfaceMcts_execRegisterLocalTalker_Parms RegisterLocalTalker_Parms;
 	RegisterLocalTalker_Parms.LocalUserNum = LocalUserNum;

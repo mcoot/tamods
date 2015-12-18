@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: OnlineSubsystemMcts_classes.h
@@ -30,22 +30,22 @@
 */
 
 // Enum OnlineSubsystemMcts.OnlineGameInterfaceMcts.EMctsMatchmakingType
-/*enum EMctsMatchmakingType
+enum EMctsMatchmakingType
 {
 	SMT_Invalid                                        = 0,
 	SMT_LAN                                            = 1,
 	SMT_Internet                                       = 2,
 	SMT_MAX                                            = 3
-};*/
+};
 
 // Enum OnlineSubsystemMcts.OnlineVoiceInterfaceMcts.EMuteType
-/*enum EMuteType
+enum EMuteType
 {
 	MUTE_None                                          = 0,
 	MUTE_AllButFriends                                 = 1,
 	MUTE_All                                           = 2,
 	MUTE_MAX                                           = 3
-};*/
+};
 
 
 /*
@@ -73,8 +73,6 @@ public:
 	};
 
 };
-
-// UClass* UMctsOnlineSettings::pClassPointer = NULL;
 
 // Class OnlineSubsystemMcts.OnlineGameInterfaceMcts
 // 0x0058 (0x020C - 0x01B4)
@@ -129,8 +127,6 @@ public:
 	void HoldInvites ( unsigned long bHold );
 	void SealMatch ( unsigned long bSeal, unsigned long bLateSeal );
 };
-
-// UClass* UOnlineGameInterfaceMcts::pClassPointer = NULL;
 
 // Class OnlineSubsystemMcts.OnlineSubsystemMcts
 // 0x0218 (0x030C - 0x00F4)
@@ -351,8 +347,6 @@ public:
 	bool eventInit ( );
 };
 
-// UClass* UOnlineSubsystemMcts::pClassPointer = NULL;
-
 // Class OnlineSubsystemMcts.OnlineVoiceInterfaceMcts
 // 0x0058 (0x0094 - 0x003C)
 class UOnlineVoiceInterfaceMcts : public UObject
@@ -406,8 +400,6 @@ public:
 	bool UnregisterLocalTalker ( unsigned char LocalUserNum );
 	bool RegisterLocalTalker ( unsigned char LocalUserNum );
 };
-
-// UClass* UOnlineVoiceInterfaceMcts::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER

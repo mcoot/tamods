@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: SdkHeaders.h
@@ -10,11 +10,6 @@
 # Forums: www.uc-forum.com, www.gamedeception.net
 #############################################################################################
 */
-/*
-# ========================================================================================= #
-# Defines
-# ========================================================================================= #
-*/
 
 #pragma once
 
@@ -23,8 +18,14 @@
 #include <cstdio>
 #include <Windows.h>
 
-#define GObjects			0x013CECF8
-#define GNames				0x0138C9E8
+/*
+# ========================================================================================= #
+# Defines
+# ========================================================================================= #
+*/
+
+#define GObjects			0x013CFD78
+#define GNames				0x0138DA68
 
 /*
 # ========================================================================================= #
@@ -44,7 +45,7 @@ public:
 	{ 
 		Data = NULL; 
 		Count = Max = 0; 
-	};
+	}; 
 
 	TArray(const TArray &arr)
 	{
@@ -55,7 +56,7 @@ public:
 		Max = arr.Max;
 	}
 
-public:
+public: 
 	int Num() 
 	{ 
 		return this->Count; 
@@ -89,14 +90,14 @@ public:
 	const T& operator() ( int i ) const 
 	{ 
 		return this->Data[ i ]; 
-	}; 
+	};
 
-	void Add (T InputData ) 
+	void Add ( T InputData ) 
 	{ 
 		Data = (T*) realloc ( Data, sizeof ( T ) * ( Count + 1 ) ); 
 		Data[ Count++ ] = InputData; 
-		Max = Count;
-	}; 
+		Max = Count; 
+	};
 
 	void Remove(int i)
 	{
@@ -109,7 +110,7 @@ public:
 		free ( Data ); 
 		Data = NULL;
 		Count = Max = 0; 
-	}; 
+	};
 }; 
 
 struct FNameEntry 
@@ -214,52 +215,39 @@ struct FScriptDelegate
 #include "SDK_HEADERS\Core_structs.h"
 #include "SDK_HEADERS\Core_classes.h"
 #include "SDK_HEADERS\Core_f_structs.h"
-// #include "SDK_HEADERS\Core_functions.h"
 #include "SDK_HEADERS\Engine_structs.h"
 #include "SDK_HEADERS\Engine_classes.h"
 #include "SDK_HEADERS\Engine_f_structs.h"
-// #include "SDK_HEADERS\Engine_functions.h"
 #include "SDK_HEADERS\GameFramework_structs.h"
 #include "SDK_HEADERS\GameFramework_classes.h"
 #include "SDK_HEADERS\GameFramework_f_structs.h"
-// #include "SDK_HEADERS\GameFramework_functions.h"
 #include "SDK_HEADERS\UDKBase_structs.h"
 #include "SDK_HEADERS\UDKBase_classes.h"
 #include "SDK_HEADERS\UDKBase_f_structs.h"
-// #include "SDK_HEADERS\UDKBase_functions.h"
 #include "SDK_HEADERS\GFxUI_structs.h"
 #include "SDK_HEADERS\GFxUI_classes.h"
 #include "SDK_HEADERS\GFxUI_f_structs.h"
-// #include "SDK_HEADERS\GFxUI_functions.h"
 #include "SDK_HEADERS\UTGame_structs.h"
 #include "SDK_HEADERS\UTGame_classes.h"
 #include "SDK_HEADERS\UTGame_f_structs.h"
-// #include "SDK_HEADERS\UTGame_functions.h"
 #include "SDK_HEADERS\IpDrv_structs.h"
 #include "SDK_HEADERS\IpDrv_classes.h"
 #include "SDK_HEADERS\IpDrv_f_structs.h"
-// #include "SDK_HEADERS\IpDrv_functions.h"
 #include "SDK_HEADERS\PlatformCommon_structs.h"
 #include "SDK_HEADERS\PlatformCommon_classes.h"
 #include "SDK_HEADERS\PlatformCommon_f_structs.h"
-// #include "SDK_HEADERS\PlatformCommon_functions.h"
 #include "SDK_HEADERS\TribesGame_structs.h"
 #include "SDK_HEADERS\TribesGame_classes.h"
 #include "SDK_HEADERS\TribesGame_f_structs.h"
-// #include "SDK_HEADERS\TribesGame_functions.h"
 #include "SDK_HEADERS\XAudio2_structs.h"
 #include "SDK_HEADERS\XAudio2_classes.h"
 #include "SDK_HEADERS\XAudio2_f_structs.h"
-// #include "SDK_HEADERS\XAudio2_functions.h"
 #include "SDK_HEADERS\WinDrv_structs.h"
 #include "SDK_HEADERS\WinDrv_classes.h"
 #include "SDK_HEADERS\WinDrv_f_structs.h"
-// #include "SDK_HEADERS\WinDrv_functions.h"
 #include "SDK_HEADERS\OnlineSubsystemMcts_structs.h"
 #include "SDK_HEADERS\OnlineSubsystemMcts_classes.h"
 #include "SDK_HEADERS\OnlineSubsystemMcts_f_structs.h"
-// #include "SDK_HEADERS\OnlineSubsystemMcts_functions.h"
 #include "SDK_HEADERS\TribesGameContent_structs.h"
 #include "SDK_HEADERS\TribesGameContent_classes.h"
 #include "SDK_HEADERS\TribesGameContent_f_structs.h"
-// #include "SDK_HEADERS\TribesGameContent_functions.h"

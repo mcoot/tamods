@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: Core_classes.h
@@ -46,34 +46,34 @@
 */
 
 // Enum Core.Object.EDebugBreakType
-/*enum EDebugBreakType
+enum EDebugBreakType
 {
 	DEBUGGER_NativeOnly                                = 0,
 	DEBUGGER_ScriptOnly                                = 1,
 	DEBUGGER_Both                                      = 2,
 	DEBUGGER_MAX                                       = 3
-};*/
+};
 
 // Enum Core.Object.EAutomatedRunResult
-/*enum EAutomatedRunResult
+enum EAutomatedRunResult
 {
 	ARR_Unknown                                        = 0,
 	ARR_OOM                                            = 1,
 	ARR_Passed                                         = 2,
 	ARR_MAX                                            = 3
-};*/
+};
 
 // Enum Core.Object.EAspectRatioAxisConstraint
-/*enum EAspectRatioAxisConstraint
+enum EAspectRatioAxisConstraint
 {
 	AspectRatio_MaintainYFOV                           = 0,
 	AspectRatio_MaintainXFOV                           = 1,
 	AspectRatio_MajorAxisFOV                           = 2,
 	AspectRatio_MAX                                    = 3
-};*/
+};
 
 // Enum Core.Object.EInterpCurveMode
-/*enum EInterpCurveMode
+enum EInterpCurveMode
 {
 	CIM_Linear                                         = 0,
 	CIM_CurveAuto                                      = 1,
@@ -82,19 +82,19 @@
 	CIM_CurveBreak                                     = 4,
 	CIM_CurveAutoClamped                               = 5,
 	CIM_MAX                                            = 6
-};*/
+};
 
 // Enum Core.Object.EInterpMethodType
-/*enum EInterpMethodType
+enum EInterpMethodType
 {
 	IMT_UseFixedTangentEvalAndNewAutoTangents          = 0,
 	IMT_UseFixedTangentEval                            = 1,
 	IMT_UseBrokenTangentEval                           = 2,
 	IMT_MAX                                            = 3
-};*/
+};
 
 // Enum Core.Object.EAxis
-/*enum EAxis
+enum EAxis
 {
 	AXIS_NONE                                          = 0,
 	AXIS_X                                             = 1,
@@ -102,10 +102,10 @@
 	AXIS_BLANK                                         = 3,
 	AXIS_Z                                             = 4,
 	AXIS_MAX                                           = 5
-};*/
+};
 
 // Enum Core.Object.ETickingGroup
-/*enum ETickingGroup
+enum ETickingGroup
 {
 	TG_PreAsyncWork                                    = 0,
 	TG_DuringAsyncWork                                 = 1,
@@ -113,7 +113,7 @@
 	TG_PostUpdateWork                                  = 3,
 	TG_EffectsUpdateWork                               = 4,
 	TG_MAX                                             = 5
-};*/
+};
 
 // Enum Core.Object.EInputEvent
 enum EInputEvent
@@ -127,7 +127,7 @@ enum EInputEvent
 };
 
 // Enum Core.Object.AlphaBlendType
-/*enum AlphaBlendType
+enum AlphaBlendType
 {
 	ABT_Linear                                         = 0,
 	ABT_Cubic                                          = 1,
@@ -137,10 +137,10 @@ enum EInputEvent
 	ABT_EaseInOutExponent4                             = 5,
 	ABT_EaseInOutExponent5                             = 6,
 	ABT_MAX                                            = 7
-};*/
+};
 
 // Enum Core.DistributionVector.EDistributionVectorLockFlags
-/*enum EDistributionVectorLockFlags
+enum EDistributionVectorLockFlags
 {
 	EDVLF_None                                         = 0,
 	EDVLF_XY                                           = 1,
@@ -148,16 +148,16 @@ enum EInputEvent
 	EDVLF_YZ                                           = 3,
 	EDVLF_XYZ                                          = 4,
 	EDVLF_MAX                                          = 5
-};*/
+};
 
 // Enum Core.DistributionVector.EDistributionVectorMirrorFlags
-/*enum EDistributionVectorMirrorFlags
+enum EDistributionVectorMirrorFlags
 {
 	EDVMF_Same                                         = 0,
 	EDVMF_Different                                    = 1,
 	EDVMF_Mirror                                       = 2,
 	EDVMF_MAX                                          = 3
-};*/
+};
 
 
 /*
@@ -194,37 +194,39 @@ public:
 	char* GetName(); 
 	char* GetNameCPP(); 
 	char* GetFullName(); 
-	
+
 	std::string GetStringClassName();
 	std::string GetStringName();
 	std::string GetStringFullName();
 
 	template< class T > static T* FindObject(const char* ObjectFullName)
-	{
-		while (!UObject::GObjObjects())
-			Sleep(100);
+	  { 
+	    while ( ! UObject::GObjObjects() ) 
+	      Sleep ( 100 ); 
 
-		while (!FName::Names())
-			Sleep(100);
+	    while ( ! FName::Names() ) 
+	      Sleep( 100 ); 
 
-		for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
-		{
-			UObject* Object = UObject::GObjObjects()->Data[i];
+	    for ( int i = 0; i < UObject::GObjObjects()->Count; ++i ) 
+	      { 
+		UObject* Object = UObject::GObjObjects()->Data[ i ]; 
 
-			// skip no T class objects 
-			if
-				(
-				!Object
-				|| !Object->IsA(T::StaticClass())
-				)
-				continue;
+		// skip no T class objects 
+		if 
+		  ( 
+		   ! Object 
+		   ||	! Object->IsA ( T::StaticClass() ) 
+		    ) 
+		  continue; 
 
-			// check 
-			if (!_stricmp(Object->GetFullName(), ObjectFullName))
-				return (T*)Object;
-		}
-		return NULL;
-	}
+		// check 
+		if ( ! _stricmp ( Object->GetFullName(), ObjectFullName ) ) 
+		  return (T*) Object; 
+	      } 
+
+	    return NULL; 
+	  } 
+
 
 	static UClass* FindClass ( char* ClassFullName ); 
 
@@ -531,75 +533,73 @@ public:
 	bool Not_PreBool ( unsigned long A );
 
 	// Virtual Functions
-	virtual void VirtualFunction00 ( );																			// 0x004A5590 (0x00)
-	virtual void VirtualFunction01 ( );																			// 0x004640E0 (0x04)
-	virtual void VirtualFunction02 ( );																			// 0x004625C0 (0x08)
-	virtual void VirtualFunction03 ( );																			// 0x00CE3210 (0x0C)
-	virtual void VirtualFunction04 ( );																			// 0x00740230 (0x10)
-	virtual void VirtualFunction05 ( );																			// 0x00D9C7F0 (0x14)
-	virtual void VirtualFunction06 ( );																			// 0x00499320 (0x18)
-	virtual void VirtualFunction07 ( );																			// 0x00499380 (0x1C)
-	virtual void VirtualFunction08 ( );																			// 0x0043F020 (0x20)
-	virtual void VirtualFunction09 ( );																			// 0x0049B350 (0x24)
-	virtual void VirtualFunction10 ( );																			// 0x004A5590 (0x28)
-	virtual void VirtualFunction11 ( );																			// 0x00495570 (0x2C)
-	virtual void VirtualFunction12 ( );																			// 0x00459560 (0x30)
-	virtual void VirtualFunction13 ( );																			// 0x00460BA0 (0x34)
-	virtual void VirtualFunction14 ( );																			// 0x00494D00 (0x38)
-	virtual void VirtualFunction15 ( );																			// 0x0042D9A0 (0x3C)
-	virtual void VirtualFunction16 ( );																			// 0x00D9C7F0 (0x40)
-	virtual void VirtualFunction17 ( );																			// 0x00495EF0 (0x44)
-	virtual void VirtualFunction18 ( );																			// 0x00494A90 (0x48)
-	virtual void VirtualFunction19 ( );																			// 0x00499060 (0x4C)
-	virtual void VirtualFunction20 ( );																			// 0x00495FC0 (0x50)
-	virtual void VirtualFunction21 ( );																			// 0x00494C60 (0x54)
-	virtual void VirtualFunction22 ( );																			// 0x00494AB0 (0x58)
-	virtual void VirtualFunction23 ( );																			// 0x00494C90 (0x5C)
-	virtual void VirtualFunction24 ( );																			// 0x00D9C7F0 (0x60)
-	virtual void VirtualFunction25 ( );																			// 0x00D9C7F0 (0x64)
-	virtual void VirtualFunction26 ( );																			// 0x00494AA0 (0x68)
-	virtual void VirtualFunction27 ( );																			// 0x00494AB0 (0x6C)
-	virtual void VirtualFunction28 ( );																			// 0x00494C90 (0x70)
-	virtual void VirtualFunction29 ( );																			// 0x00494AB0 (0x74)
-	virtual void VirtualFunction30 ( );																			// 0x00494C90 (0x78)
-	virtual void VirtualFunction31 ( );																			// 0x00497530 (0x7C)
-	virtual void VirtualFunction32 ( );																			// 0x004960B0 (0x80)
-	virtual void VirtualFunction33 ( );																			// 0x00496260 (0x84)
-	virtual void VirtualFunction34 ( );																			// 0x00D9C7F0 (0x88)
-	virtual void VirtualFunction35 ( );																			// 0x00454710 (0x8C)
-	virtual void VirtualFunction36 ( );																			// 0x004A2570 (0x90)
-	virtual void VirtualFunction37 ( );																			// 0x00406760 (0x94)
-	virtual void VirtualFunction38 ( );																			// 0x00406790 (0x98)
-	virtual void VirtualFunction39 ( );																			// 0x004067C0 (0x9C)
-	virtual void VirtualFunction40 ( );																			// 0x00407720 (0xA0)
-	virtual void VirtualFunction41 ( );																			// 0x00E31DF0 (0xA4)
-	virtual void VirtualFunction42 ( );																			// 0x00E29300 (0xA8)
-	virtual void VirtualFunction43 ( );																			// 0x00E29300 (0xAC)
-	virtual void VirtualFunction44 ( );																			// 0x00D9C7F0 (0xB0)
-	virtual void VirtualFunction45 ( );																			// 0x00E31DF0 (0xB4)
-	virtual void VirtualFunction46 ( );																			// 0x008DDD60 (0xB8)
-	virtual void VirtualFunction47 ( );																			// 0x008E8C10 (0xBC)
-	virtual void VirtualFunction48 ( );																			// 0x00454790 (0xC0)
-	virtual void VirtualFunction49 ( );																			// 0x0045CCF0 (0xC4)
-	virtual void VirtualFunction50 ( );																			// 0x00740230 (0xC8)
-	virtual void VirtualFunction51 ( );																			// 0x00740230 (0xCC)
-	virtual void VirtualFunction52 ( );																			// 0x0043EF10 (0xD0)
-	virtual void VirtualFunction53 ( );																			// 0x00462470 (0xD4)
-	virtual void VirtualFunction54 ( );																			// 0x00496E60 (0xD8)
-	virtual void VirtualFunction55 ( );																			// 0x00C9B970 (0xDC)
-	virtual void VirtualFunction56 ( );																			// 0x00494C40 (0xE0)
-	virtual void VirtualFunction57 ( );																			// 0x0042BE60 (0xE4)
-	virtual void VirtualFunction58 ( );																			// 0x004A1F30 (0xE8)
-	virtual void VirtualFunction59 ( );																			// 0x00E31DF0 (0xEC)
-	virtual void VirtualFunction60 ( );																			// 0x004041E0 (0xF0)
-	virtual void VirtualFunction61 ( );																			// 0x00404200 (0xF4)
-	virtual void VirtualFunction62 ( );																			// 0x004A3BD0 (0xF8)
-	virtual void VirtualFunction63 ( );																			// 0x00494AC0 (0xFC)
-	virtual void VirtualFunction64 ( );																			// 0x0045F910 (0x100)
-	virtual void ProcessEvent ( class UFunction* pFunction, void* pParms, void* pResult = NULL );				// 0x00458840 (0x104)
+	virtual void VirtualFunction00 ( );																			// 0x0074F5D0 (0x00)
+	virtual void VirtualFunction01 ( );																			// 0x004620C0 (0x04)
+	virtual void VirtualFunction02 ( );																			// 0x004605E0 (0x08)
+	virtual void VirtualFunction03 ( );																			// 0x004019F0 (0x0C)
+	virtual void VirtualFunction04 ( );																			// 0x00AC5A20 (0x10)
+	virtual void VirtualFunction05 ( );																			// 0x00AC3040 (0x14)
+	virtual void VirtualFunction06 ( );																			// 0x004975C0 (0x18)
+	virtual void VirtualFunction07 ( );																			// 0x00497620 (0x1C)
+	virtual void VirtualFunction08 ( );																			// 0x0043D0E0 (0x20)
+	virtual void VirtualFunction09 ( );																			// 0x00499540 (0x24)
+	virtual void VirtualFunction10 ( );																			// 0x0074F5D0 (0x28)
+	virtual void VirtualFunction11 ( );																			// 0x00493870 (0x2C)
+	virtual void VirtualFunction12 ( );																			// 0x00457650 (0x30)
+	virtual void VirtualFunction13 ( );																			// 0x0045EBC0 (0x34)
+	virtual void VirtualFunction14 ( );																			// 0x00492FF0 (0x38)
+	virtual void VirtualFunction15 ( );																			// 0x0042BAE0 (0x3C)
+	virtual void VirtualFunction16 ( );																			// 0x00AC3040 (0x40)
+	virtual void VirtualFunction17 ( );																			// 0x004941F0 (0x44)
+	virtual void VirtualFunction18 ( );																			// 0x00492D80 (0x48)
+	virtual void VirtualFunction19 ( );																			// 0x00497300 (0x4C)
+	virtual void VirtualFunction20 ( );																			// 0x004942C0 (0x50)
+	virtual void VirtualFunction21 ( );																			// 0x00492F50 (0x54)
+	virtual void VirtualFunction22 ( );																			// 0x00492DA0 (0x58)
+	virtual void VirtualFunction23 ( );																			// 0x00492F80 (0x5C)
+	virtual void VirtualFunction24 ( );																			// 0x00AC3040 (0x60)
+	virtual void VirtualFunction25 ( );																			// 0x00AC3040 (0x64)
+	virtual void VirtualFunction26 ( );																			// 0x00492D90 (0x68)
+	virtual void VirtualFunction27 ( );																			// 0x00492DA0 (0x6C)
+	virtual void VirtualFunction28 ( );																			// 0x00492F80 (0x70)
+	virtual void VirtualFunction29 ( );																			// 0x00492DA0 (0x74)
+	virtual void VirtualFunction30 ( );																			// 0x00492F80 (0x78)
+	virtual void VirtualFunction31 ( );																			// 0x00495830 (0x7C)
+	virtual void VirtualFunction32 ( );																			// 0x004943B0 (0x80)
+	virtual void VirtualFunction33 ( );																			// 0x00494560 (0x84)
+	virtual void VirtualFunction34 ( );																			// 0x00AC3040 (0x88)
+	virtual void VirtualFunction35 ( );																			// 0x00452790 (0x8C)
+	virtual void VirtualFunction36 ( );																			// 0x004A0640 (0x90)
+	virtual void VirtualFunction37 ( );																			// 0x00403F50 (0x94)
+	virtual void VirtualFunction38 ( );																			// 0x00403F80 (0x98)
+	virtual void VirtualFunction39 ( );																			// 0x00403FB0 (0x9C)
+	virtual void VirtualFunction40 ( );																			// 0x00404F10 (0xA0)
+	virtual void VirtualFunction41 ( );																			// 0x005897F0 (0xA4)
+	virtual void VirtualFunction42 ( );																			// 0x004FC210 (0xA8)
+	virtual void VirtualFunction43 ( );																			// 0x004FC210 (0xAC)
+	virtual void VirtualFunction44 ( );																			// 0x00AC3040 (0xB0)
+	virtual void VirtualFunction45 ( );																			// 0x005897F0 (0xB4)
+	virtual void VirtualFunction46 ( );																			// 0x008E09B0 (0xB8)
+	virtual void VirtualFunction47 ( );																			// 0x008EB500 (0xBC)
+	virtual void VirtualFunction48 ( );																			// 0x00452810 (0xC0)
+	virtual void VirtualFunction49 ( );																			// 0x0045AEE0 (0xC4)
+	virtual void VirtualFunction50 ( );																			// 0x00AC5A20 (0xC8)
+	virtual void VirtualFunction51 ( );																			// 0x00AC5A20 (0xCC)
+	virtual void VirtualFunction52 ( );																			// 0x0043CFD0 (0xD0)
+	virtual void VirtualFunction53 ( );																			// 0x00460490 (0xD4)
+	virtual void VirtualFunction54 ( );																			// 0x00495160 (0xD8)
+	virtual void VirtualFunction55 ( );																			// 0x00401650 (0xDC)
+	virtual void VirtualFunction56 ( );																			// 0x00492F30 (0xE0)
+	virtual void VirtualFunction57 ( );																			// 0x0042A050 (0xE4)
+	virtual void VirtualFunction58 ( );																			// 0x004A0000 (0xE8)
+	virtual void VirtualFunction59 ( );																			// 0x005897F0 (0xEC)
+	virtual void VirtualFunction60 ( );																			// 0x00401A00 (0xF0)
+	virtual void VirtualFunction61 ( );																			// 0x00401A20 (0xF4)
+	virtual void VirtualFunction62 ( );																			// 0x004A1CA0 (0xF8)
+	virtual void VirtualFunction63 ( );																			// 0x00492DB0 (0xFC)
+	virtual void VirtualFunction64 ( );																			// 0x0045D910 (0x100)
+	virtual void ProcessEvent ( class UFunction* pFunction, void* pParms, void* pResult = NULL );				// 0x004568C0 (0x104)
 };
-
-// UClass* UObject::pClassPointer = NULL;
 
 // Class Core.TextBuffer
 // 0x0024 (0x0060 - 0x003C)
@@ -622,8 +622,6 @@ public:
 
 };
 
-// UClass* UTextBuffer::pClassPointer = NULL;
-
 // Class Core.Subsystem
 // 0x0004 (0x0040 - 0x003C)
 class USubsystem : public UObject
@@ -644,8 +642,6 @@ public:
 	};
 
 };
-
-// UClass* USubsystem::pClassPointer = NULL;
 
 // Class Core.System
 // 0x00BC (0x00FC - 0x0040)
@@ -686,8 +682,6 @@ public:
 
 };
 
-// UClass* USystem::pClassPointer = NULL;
-
 // Class Core.PackageMap
 // 0x0084 (0x00C0 - 0x003C)
 class UPackageMap : public UObject
@@ -708,8 +702,6 @@ public:
 	};
 
 };
-
-// UClass* UPackageMap::pClassPointer = NULL;
 
 // Class Core.ObjectSerializer
 // 0x000C (0x0048 - 0x003C)
@@ -732,8 +724,6 @@ public:
 
 };
 
-// UClass* UObjectSerializer::pClassPointer = NULL;
-
 // Class Core.ObjectRedirector
 // 0x0004 (0x0040 - 0x003C)
 class UObjectRedirector : public UObject
@@ -754,8 +744,6 @@ public:
 	};
 
 };
-
-// UClass* UObjectRedirector::pClassPointer = NULL;
 
 // Class Core.MetaData
 // 0x003C (0x0078 - 0x003C)
@@ -778,8 +766,6 @@ public:
 
 };
 
-// UClass* UMetaData::pClassPointer = NULL;
-
 // Class Core.Linker
 // 0x012C (0x0168 - 0x003C)
 class ULinker : public UObject
@@ -800,8 +786,6 @@ public:
 	};
 
 };
-
-// UClass* ULinker::pClassPointer = NULL;
 
 // Class Core.LinkerSave
 // 0x00A0 (0x0208 - 0x0168)
@@ -824,8 +808,6 @@ public:
 
 };
 
-// UClass* ULinkerSave::pClassPointer = NULL;
-
 // Class Core.LinkerLoad
 // 0x05BC (0x0724 - 0x0168)
 class ULinkerLoad : public ULinker
@@ -847,8 +829,6 @@ public:
 
 };
 
-// UClass* ULinkerLoad::pClassPointer = NULL;
-
 // Class Core.Interface
 // 0x0000 (0x003C - 0x003C)
 class UInterface : public UObject
@@ -869,13 +849,12 @@ public:
 
 };
 
-// UClass* UInterface::pClassPointer = NULL;
-
 // Class Core.Field
 // 0x0004 (0x0040 - 0x003C)
 class UField : public UObject
 {
 public:
+	class UField*                                      SuperField;                                       		// NOT AUTO-GENERATED PROPERTY 
 	class UField*                                      Next;                                             		// NOT AUTO-GENERATED PROPERTY 
 
 private:
@@ -892,18 +871,12 @@ public:
 
 };
 
-// UClass* UField::pClassPointer = NULL;
-
 // Class Core.Struct
 // 0x0050 (0x0090 - 0x0040)
 class UStruct : public UField
 {
 public:
-unsigned char											UnknownData00[ 0x8 ];									 // NOT AUTO-GENERATED PROPERTY 
-class UField*											SuperField;												 // NOT AUTO-GENERATED PROPERTY 
-class UField*											Children;												 // NOT AUTO-GENERATED PROPERTY 
-unsigned long											PropertySize;											 // NOT AUTO-GENERATED PROPERTY 
-unsigned char											UnknownData01[ 0x3C ];									 // NOT AUTO-GENERATED PROPERTY 
+	unsigned char                                      UnknownData00[ 0x50 ];                            		// 0x0040 (0x0050) MISSED OFFSET
 
 private:
 	static UClass* pClassPointer;
@@ -918,8 +891,6 @@ public:
 	};
 
 };
-
-// UClass* UStruct::pClassPointer = NULL;
 
 // Class Core.ScriptStruct
 // 0x001C (0x00AC - 0x0090)
@@ -942,22 +913,20 @@ public:
 
 };
 
-// UClass* UScriptStruct::pClassPointer = NULL;
-
 // Class Core.Function
 // 0x0020 (0x00B0 - 0x0090)
 class UFunction : public UStruct
 {
 public:
-	unsigned long										FunctionFlags;		                              		// NOT AUTO-GENERATED PROPERTY 
-	unsigned short										iNative;			                              		// NOT AUTO-GENERATED PROPERTY 
-	unsigned short										RepOffset;			                              		// NOT AUTO-GENERATED PROPERTY 
-	struct FName										FriendlyName;		                              		// NOT AUTO-GENERATED PROPERTY 
-	unsigned short										NumParms;			                              		// NOT AUTO-GENERATED PROPERTY 
-	unsigned short										ParmsSize;			                              		// NOT AUTO-GENERATED PROPERTY 
-	unsigned long										ReturnValueOffset;	                              		// NOT AUTO-GENERATED PROPERTY 
-	unsigned char										UnknownData001;		                              		// NOT AUTO-GENERATED PROPERTY 
-	void*												Func;				                              		// NOT AUTO-GENERATED PROPERTY 
+	unsigned long                                      FunctionFlags;                                    		// NOT AUTO-GENERATED PROPERTY 
+	unsigned long                                      iNative;                                          		// NOT AUTO-GENERATED PROPERTY 
+	unsigned long                                      RepOffset;                                        		// NOT AUTO-GENERATED PROPERTY 
+	unsigned char                                      OperPrecedence;                                   		// NOT AUTO-GENERATED PROPERTY 
+	struct FName                                       FriendlyName;                                     		// NOT AUTO-GENERATED PROPERTY 
+	unsigned char                                      NumParms;                                         		// NOT AUTO-GENERATED PROPERTY 
+	unsigned long                                      ParmsSize;                                        		// NOT AUTO-GENERATED PROPERTY 
+	unsigned long                                      ReturnValueOffset;                                		// NOT AUTO-GENERATED PROPERTY 
+	void*                                              Func;                                             		// NOT AUTO-GENERATED PROPERTY 
 
 private:
 	static UClass* pClassPointer;
@@ -972,8 +941,6 @@ public:
 	};
 
 };
-
-// UClass* UFunction::pClassPointer = NULL;
 
 // Class Core.Property
 // 0x0040 (0x0080 - 0x0040)
@@ -996,8 +963,6 @@ public:
 
 };
 
-// UClass* UProperty::pClassPointer = NULL;
-
 // Class Core.StructProperty
 // 0x0004 (0x0084 - 0x0080)
 class UStructProperty : public UProperty
@@ -1019,8 +984,6 @@ public:
 
 };
 
-// UClass* UStructProperty::pClassPointer = NULL;
-
 // Class Core.StrProperty
 // 0x0000 (0x0080 - 0x0080)
 class UStrProperty : public UProperty
@@ -1040,8 +1003,6 @@ public:
 	};
 
 };
-
-// UClass* UStrProperty::pClassPointer = NULL;
 
 // Class Core.ObjectProperty
 // 0x0004 (0x0084 - 0x0080)
@@ -1064,8 +1025,6 @@ public:
 
 };
 
-// UClass* UObjectProperty::pClassPointer = NULL;
-
 // Class Core.ComponentProperty
 // 0x0000 (0x0084 - 0x0084)
 class UComponentProperty : public UObjectProperty
@@ -1085,8 +1044,6 @@ public:
 	};
 
 };
-
-// UClass* UComponentProperty::pClassPointer = NULL;
 
 // Class Core.ClassProperty
 // 0x0004 (0x0088 - 0x0084)
@@ -1109,8 +1066,6 @@ public:
 
 };
 
-// UClass* UClassProperty::pClassPointer = NULL;
-
 // Class Core.NameProperty
 // 0x0000 (0x0080 - 0x0080)
 class UNameProperty : public UProperty
@@ -1130,8 +1085,6 @@ public:
 	};
 
 };
-
-// UClass* UNameProperty::pClassPointer = NULL;
 
 // Class Core.MapProperty
 // 0x0008 (0x0088 - 0x0080)
@@ -1154,8 +1107,6 @@ public:
 
 };
 
-// UClass* UMapProperty::pClassPointer = NULL;
-
 // Class Core.IntProperty
 // 0x0000 (0x0080 - 0x0080)
 class UIntProperty : public UProperty
@@ -1175,8 +1126,6 @@ public:
 	};
 
 };
-
-// UClass* UIntProperty::pClassPointer = NULL;
 
 // Class Core.InterfaceProperty
 // 0x0004 (0x0084 - 0x0080)
@@ -1199,8 +1148,6 @@ public:
 
 };
 
-// UClass* UInterfaceProperty::pClassPointer = NULL;
-
 // Class Core.FloatProperty
 // 0x0000 (0x0080 - 0x0080)
 class UFloatProperty : public UProperty
@@ -1220,8 +1167,6 @@ public:
 	};
 
 };
-
-// UClass* UFloatProperty::pClassPointer = NULL;
 
 // Class Core.DelegateProperty
 // 0x0008 (0x0088 - 0x0080)
@@ -1244,8 +1189,6 @@ public:
 
 };
 
-// UClass* UDelegateProperty::pClassPointer = NULL;
-
 // Class Core.ByteProperty
 // 0x0004 (0x0084 - 0x0080)
 class UByteProperty : public UProperty
@@ -1266,8 +1209,6 @@ public:
 	};
 
 };
-
-// UClass* UByteProperty::pClassPointer = NULL;
 
 // Class Core.BoolProperty
 // 0x0004 (0x0084 - 0x0080)
@@ -1290,8 +1231,6 @@ public:
 
 };
 
-// UClass* UBoolProperty::pClassPointer = NULL;
-
 // Class Core.ArrayProperty
 // 0x0004 (0x0084 - 0x0080)
 class UArrayProperty : public UProperty
@@ -1312,8 +1251,6 @@ public:
 	};
 
 };
-
-// UClass* UArrayProperty::pClassPointer = NULL;
 
 // Class Core.Enum
 // 0x000C (0x004C - 0x0040)
@@ -1336,8 +1273,6 @@ public:
 
 };
 
-// UClass* UEnum::pClassPointer = NULL;
-
 // Class Core.Const
 // 0x000C (0x004C - 0x0040)
 class UConst : public UField
@@ -1358,8 +1293,6 @@ public:
 	};
 
 };
-
-// UClass* UConst::pClassPointer = NULL;
 
 // Class Core.Factory
 // 0x0034 (0x0070 - 0x003C)
@@ -1391,8 +1324,6 @@ public:
 
 };
 
-// UClass* UFactory::pClassPointer = NULL;
-
 // Class Core.TextBufferFactory
 // 0x0000 (0x0070 - 0x0070)
 class UTextBufferFactory : public UFactory
@@ -1412,8 +1343,6 @@ public:
 	};
 
 };
-
-// UClass* UTextBufferFactory::pClassPointer = NULL;
 
 // Class Core.Exporter
 // 0x0028 (0x0064 - 0x003C)
@@ -1439,8 +1368,6 @@ public:
 
 };
 
-// UClass* UExporter::pClassPointer = NULL;
-
 // Class Core.Component
 // 0x000C (0x0048 - 0x003C)
 class UComponent : public UObject
@@ -1462,8 +1389,6 @@ public:
 	};
 
 };
-
-// UClass* UComponent::pClassPointer = NULL;
 
 // Class Core.DistributionVector
 // 0x0008 (0x0050 - 0x0048)
@@ -1489,8 +1414,6 @@ public:
 	struct FVector GetVectorValue ( float F, int LastExtreme );
 };
 
-// UClass* UDistributionVector::pClassPointer = NULL;
-
 // Class Core.DistributionFloat
 // 0x0008 (0x0050 - 0x0048)
 class UDistributionFloat : public UComponent
@@ -1514,8 +1437,6 @@ public:
 
 	float GetFloatValue ( float F );
 };
-
-// UClass* UDistributionFloat::pClassPointer = NULL;
 
 // Class Core.Commandlet
 // 0x0040 (0x007C - 0x003C)
@@ -1548,8 +1469,6 @@ public:
 	int eventMain ( struct FString Params );
 };
 
-// UClass* UCommandlet::pClassPointer = NULL;
-
 // Class Core.HelpCommandlet
 // 0x0000 (0x007C - 0x007C)
 class UHelpCommandlet : public UCommandlet
@@ -1570,8 +1489,6 @@ public:
 
 	int eventMain ( struct FString Params );
 };
-
-// UClass* UHelpCommandlet::pClassPointer = NULL;
 
 // Class Core.State
 // 0x0048 (0x00D8 - 0x0090)
@@ -1594,8 +1511,6 @@ public:
 
 };
 
-// UClass* UState::pClassPointer = NULL;
-
 // Class Core.Package
 // 0x00AC (0x00E8 - 0x003C)
 class UPackage : public UObject
@@ -1617,16 +1532,14 @@ public:
 
 };
 
-// UClass* UPackage::pClassPointer = NULL;
-
 // Class Core.Class
 // 0x00FC (0x01D4 - 0x00D8)
 class UClass : public UState
 {
 public:
-	unsigned char                                      UnknownData00[0x88];                                     // 0x00D8 (0x0088)
+	unsigned char                                      UnknownData00[0x84];                                     // 0x00D8 (0x0088)
 	UObject                                            *Default;                                                // 0x0160 (0x0004)
-	unsigned char                                      UnknownData01[0x70];                                     // 0x0164 (0x0070)
+	unsigned char                                      UnknownData01[0x74];                                     // 0x0164 (0x0070)
 
 private:
 	static UClass* pClassPointer;
@@ -1641,8 +1554,6 @@ public:
 	};
 
 };
-
-// UClass* UClass::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER

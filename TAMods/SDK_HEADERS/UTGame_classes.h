@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.0.1268.1) SDK
+# Tribes Ascend (1.1.2860.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: UTGame_classes.h
@@ -166,26 +166,26 @@
 */
 
 // Enum UTGame.UTPlayerController.EWeaponHand
-/*enum EWeaponHand
+enum EWeaponHand
 {
 	HAND_Right                                         = 0,
 	HAND_Left                                          = 1,
 	HAND_Centered                                      = 2,
 	HAND_Hidden                                        = 3,
 	HAND_MAX                                           = 4
-};*/
+};
 
 // Enum UTGame.UTPlayerController.EPawnShadowMode
-/*enum EPawnShadowMode
+enum EPawnShadowMode
 {
 	SHADOW_None                                        = 0,
 	SHADOW_Self                                        = 1,
 	SHADOW_All                                         = 2,
 	SHADOW_MAX                                         = 3
-};*/
+};
 
 // Enum UTGame.UTPlayerController.EAutoObjectivePreference
-/*enum EAutoObjectivePreference
+enum EAutoObjectivePreference
 {
 	AOP_Disabled                                       = 0,
 	AOP_NoPreference                                   = 1,
@@ -194,28 +194,28 @@
 	AOP_OrbRunner                                      = 4,
 	AOP_SpecialOps                                     = 5,
 	AOP_MAX                                            = 6
-};*/
+};
 
 // Enum UTGame.UTPlayerController.EUTVehicleControls
-/*enum EUTVehicleControls
+enum EUTVehicleControls
 {
 	UTVC_Simple                                        = 0,
 	UTVC_Normal                                        = 1,
 	UTVC_Advanced                                      = 2,
 	UTVC_MAX                                           = 3
-};*/
+};
 
 // Enum UTGame.UTGFxTweenableMoviePlayer.TweenType
-/*enum TweenType
+enum TweenType
 {
 	TWEEN_EaseOut                                      = 0,
 	TWEEN_EaseIn                                       = 1,
 	TWEEN_Linear                                       = 2,
 	TWEEN_MAX                                          = 3
-};*/
+};
 
 // Enum UTGame.GFxUDKFrontEnd_JoinGame.EQueryCompletionAction
-/*enum EQueryCompletionAction
+enum EQueryCompletionAction
 {
 	QUERYACTION_None                                   = 0,
 	QUERYACTION_Default                                = 1,
@@ -223,10 +223,10 @@
 	QUERYACTION_JoinServer                             = 3,
 	QUERYACTION_RefreshAll                             = 4,
 	QUERYACTION_MAX                                    = 5
-};*/
+};
 
 // Enum UTGame.GFxUIFrontEnd_TitleScreen.MenuButtonsType
-/*enum MenuButtonsType
+enum MenuButtonsType
 {
 	MENU_BTN_CAMPAIGN                                  = 0,
 	MENU_BTN_INSTANTACTION                             = 1,
@@ -237,39 +237,39 @@
 	MENU_BTN_LOGOUT                                    = 6,
 	MENU_BTN_SELECT                                    = 7,
 	MENU_BTN_MAX                                       = 8
-};*/
+};
 
 // Enum UTGame.UTVehicle.EAIVehiclePurpose
-/*enum EAIVehiclePurpose
+enum EAIVehiclePurpose
 {
 	AIP_Offensive                                      = 0,
 	AIP_Defensive                                      = 1,
 	AIP_Any                                            = 2,
 	AIP_MAX                                            = 3
-};*/
+};
 
 // Enum UTGame.UTWeapon.EZoomState
-/*enum EZoomState
+enum EZoomState
 {
 	ZST_NotZoomed                                      = 0,
 	ZST_ZoomingOut                                     = 1,
 	ZST_ZoomingIn                                      = 2,
 	ZST_Zoomed                                         = 3,
 	ZST_MAX                                            = 4
-};*/
+};
 
 // Enum UTGame.UTWeapon.AmmoWidgetDisplayStyle
-/*enum AmmoWidgetDisplayStyle
+enum AmmoWidgetDisplayStyle
 {
 	EAWDS_Numeric                                      = 0,
 	EAWDS_BarGraph                                     = 1,
 	EAWDS_Both                                         = 2,
 	EAWDS_None                                         = 3,
 	EAWDS_MAX                                          = 4
-};*/
+};
 
 // Enum UTGame.UTPawn.EWeapAnimType
-/*enum EWeapAnimType
+enum EWeapAnimType
 {
 	EWAT_Default                                       = 0,
 	EWAT_Pistol                                        = 1,
@@ -277,37 +277,37 @@
 	EWAT_ShoulderRocket                                = 3,
 	EWAT_Stinger                                       = 4,
 	EWAT_MAX                                           = 5
-};*/
+};
 
 // Enum UTGame.UTGame.EVoiceChannel
-/*enum EVoiceChannel
+enum EVoiceChannel
 {
 	VC_Spectators                                      = 0,
 	VC_Team1                                           = 1,
 	VC_Team2                                           = 2,
 	VC_MAX                                             = 3
-};*/
+};
 
 // Enum UTGame.UTGameReplicationInfo.EFlagState
-/*enum EFlagState
+enum EFlagState
 {
 	FLAG_Home                                          = 0,
 	FLAG_HeldFriendly                                  = 1,
 	FLAG_HeldEnemy                                     = 2,
 	FLAG_Down                                          = 3,
 	FLAG_MAX                                           = 4
-};*/
+};
 
 // Enum UTGame.UTDefensePoint.EDefensePriority
-/*enum EDefensePriority
+enum EDefensePriority
 {
 	DEFPRI_Low                                         = 0,
 	DEFPRI_High                                        = 1,
 	DEFPRI_MAX                                         = 2
-};*/
+};
 
 // Enum UTGame.UTMusicManager.EMusicState
-/*enum EMusicState
+enum EMusicState
 {
 	MST_Ambient                                        = 0,
 	MST_Tension                                        = 1,
@@ -315,7 +315,7 @@
 	MST_Action                                         = 3,
 	MST_Victory                                        = 4,
 	MST_MAX                                            = 5
-};*/
+};
 
 
 /*
@@ -434,8 +434,6 @@ public:
 	bool IsStandalone ( );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTGameObjective::pClassPointer = NULL;
 
 // Class UTGame.UTPawn
 // 0x0250 (0x08A4 - 0x0654)
@@ -745,7 +743,83 @@ public:
 	void AdjustPPEffects ( class AUTPlayerController* PC, unsigned long bRemove );
 };
 
-// UClass* AUTPawn::pClassPointer = NULL;
+// Class UTGame.GFxMinimapHud
+// 0x0100 (0x027C - 0x017C)
+class UGFxMinimapHud : public UGFxMoviePlayer
+{
+public:
+	class AWorldInfo*                                  ThisWorld;                                        		// 0x017C (0x0004) [0x0000000000000000]              
+	class UGFxMinimap*                                 Minimap;                                          		// 0x0180 (0x0004) [0x0000000000000000]              
+	float                                              Radius;                                           		// 0x0184 (0x0004) [0x0000000000000000]              
+	float                                              CurZoomf;                                         		// 0x0188 (0x0004) [0x0000000000000000]              
+	float                                              NormalZoomf;                                      		// 0x018C (0x0004) [0x0000000000000000]              
+	float                                              MaxZoomf;                                         		// 0x0190 (0x0004) [0x0000000000000000]              
+	float                                              MinZoomf;                                         		// 0x0194 (0x0004) [0x0000000000000000]              
+	struct FHeEnDisplay                                PlayerHE;                                         		// 0x0198 (0x0024) [0x0000000000000000]              
+	struct FHeEnDisplay                                VehicleHE;                                        		// 0x01BC (0x0024) [0x0000000000000000]              
+	class UGFxObject*                                  LogMC;                                            		// 0x01E0 (0x0004) [0x0000000000000000]              
+	TArray< struct FMessageRow >                       Messages;                                         		// 0x01E4 (0x000C) [0x0000000000500000]              ( CPF_NeedCtorLink )
+	TArray< struct FMessageRow >                       FreeMessages;                                     		// 0x01F0 (0x000C) [0x0000000000500000]              ( CPF_NeedCtorLink )
+	float                                              MessageHeight;                                    		// 0x01FC (0x0004) [0x0000000000000000]              
+	int                                                NumMessages;                                      		// 0x0200 (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  PlayerStatsMC;                                    		// 0x0204 (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  TeamStatsMC;                                      		// 0x0208 (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  TimeTF;                                           		// 0x020C (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  CenterTextMC;                                     		// 0x0210 (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  CenterTextTF;                                     		// 0x0214 (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  EnemyNameTF;                                      		// 0x0218 (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  OffhandsAndFlagMC;                                		// 0x021C (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  CreditsAndStreaksMC;                              		// 0x0220 (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  HitLocMC[ 0x8 ];                                  		// 0x0224 (0x0020) [0x0000000000000000]              
+	class UGFxObject*                                  MultiKillN_TF;                                    		// 0x0244 (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  MultiKillMsg_TF;                                  		// 0x0248 (0x0004) [0x0000000000000000]              
+	class UGFxObject*                                  MultiKillMC;                                      		// 0x024C (0x0004) [0x0000000000000000]              
+	class AUTVehicle*                                  LastVehicle;                                      		// 0x0250 (0x0004) [0x0000000000000000]              
+	class AUTWeapon*                                   LastWeapon;                                       		// 0x0254 (0x0004) [0x0000000000000000]              
+	int                                                LastAmmoCount;                                    		// 0x0258 (0x0004) [0x0000000000000000]              
+	int                                                LastScore[ 0x2 ];                                 		// 0x025C (0x0008) [0x0000000000000000]              
+	unsigned char                                      LastFlagHome[ 0x2 ];                              		// 0x0264 (0x0002) [0x0000000000000000]              
+	class AUTPlayerReplicationInfo*                    LastEnemy;                                        		// 0x0268 (0x0004) [0x0000000000000000]              
+	class AUTPlayerReplicationInfo*                    LastFlagCarrier[ 0x2 ];                           		// 0x026C (0x0008) [0x0000000000000000]              
+	class AUTGameReplicationInfo*                      GRI;                                              		// 0x0274 (0x0004) [0x0000000000000000]              
+	unsigned long                                      bIsTeamHUD : 1;                                   		// 0x0278 (0x0004) [0x0000000000000000] [0x00000001] 
+	unsigned long                                      bDrawWeaponCrosshairs : 1;                        		// 0x0278 (0x0004) [0x0000000000000000] [0x00000002] 
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1472 ];
+
+		return pClassPointer;
+	};
+
+	void AddDeathMessage ( class APlayerReplicationInfo* Killer, class APlayerReplicationInfo* Killed, class UClass* Dmg );
+	struct FString GetRank ( class APlayerReplicationInfo* PRI );
+	void SetCenterText ( struct FString Text );
+	void ShowMultiKill ( int N, struct FString msg );
+	void DisplayHit ( struct FVector HitDir, int Damage, class UClass* DamageType );
+	void MinimapZoomIn ( );
+	void MinimapZoomOut ( );
+	void ToggleCrosshair ( unsigned long bToggle );
+	void TickHud ( float DeltaTime );
+	void UpdateGameHUD ( class AUTPlayerReplicationInfo* PRI );
+	void AddMessage ( struct FString Type, struct FString msg );
+	void RemoveMessage ( );
+	void ClearStats ( unsigned long clearScores );
+	struct FString FormatTime ( int Seconds );
+	void UpdateEnergy ( float NewEnergy, float EnergyMax, struct FHeEnDisplay* Info );
+	void UpdateHealth ( float NewHealth, float HealthMax, struct FHeEnDisplay* Info );
+	void LoadHeEn ( struct FString Base, struct FHeEnDisplay* Info );
+	void Init ( class ULocalPlayer* Player );
+	class UGFxObject* InitMessageRow ( );
+	class UGFxObject* CreateMessageRow ( );
+	void SetAmmoCountTF ( class AWeapon* Wep, struct FString Ammo );
+	void registerMiniMapView ( class UGFxMinimap* MC, float R );
+};
 
 // Class UTGame.UTCarriedObject
 // 0x00EC (0x0304 - 0x0218)
@@ -796,7 +870,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1472 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1473 ];
 
 		return pClassPointer;
 	};
@@ -839,8 +913,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AUTCarriedObject::pClassPointer = NULL;
-
 // Class UTGame.UTConsole
 // 0x0004 (0x01C8 - 0x01C4)
 class UUTConsole : public UConsole
@@ -855,7 +927,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1473 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1474 ];
 
 		return pClassPointer;
 	};
@@ -864,8 +936,6 @@ public:
 	bool InputKey ( int ControllerId, struct FName Key, unsigned char Event, float AmountDepressed, unsigned long bGamepad );
 	bool AnyBrowserOpen ( );
 };
-
-// UClass* UUTConsole::pClassPointer = NULL;
 
 // Class UTGame.UTDamageType
 // 0x00C8 (0x012C - 0x0064)
@@ -933,7 +1003,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1474 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1475 ];
 
 		return pClassPointer;
 	};
@@ -960,8 +1030,6 @@ public:
 	struct FString SuicideMessage ( class APlayerReplicationInfo* Victim );
 	struct FString DeathMessage ( class APlayerReplicationInfo* Killer, class APlayerReplicationInfo* Victim );
 };
-
-// UClass* UUTDamageType::pClassPointer = NULL;
 
 // Class UTGame.UTFamilyInfo
 // 0x0160 (0x019C - 0x003C)
@@ -1020,7 +1088,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1475 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1476 ];
 
 		return pClassPointer;
 	};
@@ -1034,8 +1102,6 @@ public:
 	class UMaterialInterface* GetFirstPersonArmsMaterial ( int TeamNum );
 	class USkeletalMesh* GetFirstPersonArms ( );
 };
-
-// UClass* UUTFamilyInfo::pClassPointer = NULL;
 
 // Class UTGame.UTGame
 // 0x0168 (0x04EC - 0x0384)
@@ -1144,7 +1210,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1476 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1477 ];
 
 		return pClassPointer;
 	};
@@ -1251,8 +1317,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AUTGame::pClassPointer = NULL;
-
 // Class UTGame.UTDeathmatch
 // 0x0000 (0x04EC - 0x04EC)
 class AUTDeathmatch : public AUTGame
@@ -1266,7 +1330,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1477 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1478 ];
 
 		return pClassPointer;
 	};
@@ -1274,8 +1338,6 @@ public:
 	int GetHandicapNeed ( class APawn* Other );
 	bool WantsPickups ( class AUTBot* B );
 };
-
-// UClass* AUTDeathmatch::pClassPointer = NULL;
 
 // Class UTGame.UTTeamGame
 // 0x0048 (0x0534 - 0x04EC)
@@ -1305,7 +1367,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1478 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1479 ];
 
 		return pClassPointer;
 	};
@@ -1352,8 +1414,6 @@ public:
 	void PreBeginPlay ( );
 };
 
-// UClass* AUTTeamGame::pClassPointer = NULL;
-
 // Class UTGame.UTEntryGame
 // 0x0000 (0x0534 - 0x0534)
 class AUTEntryGame : public AUTTeamGame
@@ -1367,7 +1427,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1479 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1480 ];
 
 		return pClassPointer;
 	};
@@ -1376,8 +1436,6 @@ public:
 	void StartMatch ( );
 	bool NeedPlayers ( );
 };
-
-// UClass* AUTEntryGame::pClassPointer = NULL;
 
 // Class UTGame.UTGameReplicationInfo
 // 0x0050 (0x0280 - 0x0230)
@@ -1408,7 +1466,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1480 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1481 ];
 
 		return pClassPointer;
 	};
@@ -1432,7 +1490,105 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AUTGameReplicationInfo::pClassPointer = NULL;
+// Class UTGame.UTHUDBase
+// 0x0060 (0x05F8 - 0x0598)
+class AUTHUDBase : public AUDKHUD
+{
+public:
+	class UGFxUI_PauseMenu*                            PauseMenuMovie;                                   		// 0x0598 (0x0004) [0x0000000000000000]              
+	class UClass*                                      MusicManagerClass;                                		// 0x059C (0x0004) [0x0000000000000000]              
+	class AUTPlayerController*                         UTPlayerOwner;                                    		// 0x05A0 (0x0004) [0x0000000000000000]              
+	class AUTGameReplicationInfo*                      UTGRI;                                            		// 0x05A4 (0x0004) [0x0000000000000000]              
+	unsigned long                                      bIsSplitScreen : 1;                               		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000001] 
+	unsigned long                                      bEnableActorOverlays : 1;                         		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000002] 
+	unsigned long                                      bCrosshairShow : 1;                               		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000004] 
+	unsigned long                                      bCrosshairOnFriendly : 1;                         		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000008] 
+	unsigned long                                      bGreenCrosshair : 1;                              		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000010] 
+	struct FTextureCoordinates                         ToolTipSepCoords;                                 		// 0x05AC (0x0010) [0x0000000000000000]              
+	float                                              LastTimeTooltipDrawn;                             		// 0x05BC (0x0004) [0x0000000000000000]              
+	class UTexture2D*                                  IconHudTexture;                                   		// 0x05C0 (0x0004) [0x0000000000000002]              ( CPF_Const )
+	struct FString                                     ConsoleIconFontClassName;                         		// 0x05C4 (0x000C) [0x0000000000404000]              ( CPF_Config | CPF_NeedCtorLink )
+	float                                              ConfiguredCrosshairScaling;                       		// 0x05D0 (0x0004) [0x0000000000000000]              
+	float                                              LastPickupTime;                                   		// 0x05D4 (0x0004) [0x0000000000000000]              
+	struct FColor                                      BlackColor;                                       		// 0x05D8 (0x0004) [0x0000000000000002]              ( CPF_Const )
+	struct FColor                                      GoldColor;                                        		// 0x05DC (0x0004) [0x0000000000000002]              ( CPF_Const )
+	struct FColor                                      LightGoldColor;                                   		// 0x05E0 (0x0004) [0x0000000000000002]              ( CPF_Const )
+	struct FColor                                      LightGreenColor;                                  		// 0x05E4 (0x0004) [0x0000000000000002]              ( CPF_Const )
+	float                                              ResolutionScale;                                  		// 0x05E8 (0x0004) [0x0000000000000000]              
+	float                                              ResolutionScaleX;                                 		// 0x05EC (0x0004) [0x0000000000000000]              
+	int                                                ViewX;                                            		// 0x05F0 (0x0004) [0x0000000000000000]              
+	int                                                ViewY;                                            		// 0x05F4 (0x0004) [0x0000000000000000]              
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1482 ];
+
+		return pClassPointer;
+	};
+
+	void DrawShadowedRotatedTile ( class UTexture2D* Tex, struct FRotator Rot, float X, float Y, float XL, float YL, float U, float V, float UL, float VL, struct FColor TileColor, unsigned long bScaleToRes );
+	void DrawShadowedStretchedTile ( class UTexture2D* Tex, float X, float Y, float XL, float YL, float U, float V, float UL, float VL, struct FColor TileColor, unsigned long bScaleToRes );
+	void DrawShadowedTile ( class UTexture2D* Tex, float X, float Y, float XL, float YL, float U, float V, float UL, float VL, struct FColor TileColor, unsigned long bScaleToRes );
+	void ClearCrosshairOnFriendly ( );
+	bool CheckCrosshairOnFriendly ( );
+	void DrawToolTip ( class UCanvas* Cvs, class APlayerController* PC, struct FString Command, float X, float Y, float U, float V, float UL, float VL, float ResScale, class UTexture2D* IconTexture, float Alpha );
+	int GetLocalPlayerOwnerIndex ( );
+	void ReleaseShowScores ( );
+	void CompletePauseMenuClose ( );
+	void TogglePauseMenu ( );
+	void CloseOtherMenus ( );
+	void SetVisible ( unsigned long bNewVisible );
+	void RemoveMovies ( );
+	void eventPostRender ( );
+	void DisplayHit ( struct FVector HitDir, int Damage, class UClass* DamageType );
+	void ResolutionChanged ( );
+	void ShowMenu ( );
+	void eventTimer ( );
+	void PostBeginPlay ( );
+};
+
+// Class UTGame.UTGFxHudWrapper
+// 0x000C (0x0604 - 0x05F8)
+class AUTGFxHudWrapper : public AUTHUDBase
+{
+public:
+	class UGFxMinimapHud*                              HudMovie;                                         		// 0x05F8 (0x0004) [0x0000000000000000]              
+	class UGFxProjectedUI*                             InventoryMovie;                                   		// 0x05FC (0x0004) [0x0000000000000000]              
+	class UClass*                                      MinimapHUDClass;                                  		// 0x0600 (0x0004) [0x0000000000000000]              
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1483 ];
+
+		return pClassPointer;
+	};
+
+	void CompleteCloseTimer ( );
+	void CompleteCloseInventory ( );
+	void AddConsoleMessage ( struct FString M, class UClass* InMessageClass, class APlayerReplicationInfo* PRI, float Lifetime );
+	void LocalizedMessage ( class UClass* InMessageClass, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, struct FString CriticalString, int Switch, float Position, float Lifetime, int FontSize, struct FColor DrawColor, class UObject* OptionalObject );
+	void eventDrawHUD ( );
+	void eventPostRender ( );
+	void ResolutionChanged ( );
+	void CloseOtherMenus ( );
+	void DisplayHit ( struct FVector HitDir, int Damage, class UClass* DamageType );
+	void SetVisible ( unsigned long bNewVisible );
+	int GetLocalPlayerOwnerIndex ( );
+	void CreateHUDMovie ( );
+	void PostBeginPlay ( );
+	void RemoveMovies ( );
+	void eventDestroyed ( );
+};
 
 // Class UTGame.UTPlayerController
 // 0x00D8 (0x0884 - 0x07AC)
@@ -1513,7 +1669,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1481 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1484 ];
 
 		return pClassPointer;
 	};
@@ -1696,8 +1852,6 @@ public:
 	void ServerThrowWeapon ( );
 };
 
-// UClass* AUTPlayerController::pClassPointer = NULL;
-
 // Class UTGame.UTEntryPlayerController
 // 0x0014 (0x0898 - 0x0884)
 class AUTEntryPlayerController : public AUTPlayerController
@@ -1714,7 +1868,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1482 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1485 ];
 
 		return pClassPointer;
 	};
@@ -1733,8 +1887,6 @@ public:
 	void RestorePostProcessing ( );
 	void eventInitInputSystem ( );
 };
-
-// UClass* AUTEntryPlayerController::pClassPointer = NULL;
 
 // Class UTGame.UTPlayerReplicationInfo
 // 0x00F9 (0x0389 - 0x0290)
@@ -1773,7 +1925,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1483 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1486 ];
 
 		return pClassPointer;
 	};
@@ -1804,8 +1956,6 @@ public:
 	bool ShouldBroadCastWelcomeMessage ( unsigned long bExiting );
 	bool IsLocalPlayerPRI ( );
 };
-
-// UClass* AUTPlayerReplicationInfo::pClassPointer = NULL;
 
 // Class UTGame.UTProjectile
 // 0x0050 (0x02A8 - 0x0258)
@@ -1845,7 +1995,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1484 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1487 ];
 
 		return pClassPointer;
 	};
@@ -1877,8 +2027,6 @@ public:
 	void eventLanded ( struct FVector HitNormal, class AActor* FloorActor );
 	void eventCreateProjectileLight ( );
 };
-
-// UClass* AUTProjectile::pClassPointer = NULL;
 
 // Class UTGame.UTVehicle
 // 0x030C (0x0AD4 - 0x07C8)
@@ -2057,7 +2205,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1485 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1488 ];
 
 		return pClassPointer;
 	};
@@ -2253,8 +2401,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AUTVehicle::pClassPointer = NULL;
-
 // Class UTGame.UTWeapon
 // 0x02D4 (0x05C4 - 0x02F0)
 class AUTWeapon : public AUDKWeapon
@@ -2399,7 +2545,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1486 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1489 ];
 
 		return pClassPointer;
 	};
@@ -2521,8 +2667,6 @@ public:
 	void ServerStartFire ( unsigned char FireModeNum );
 };
 
-// UClass* AUTWeapon::pClassPointer = NULL;
-
 // Class UTGame.UTVehicleWeapon
 // 0x00B4 (0x0678 - 0x05C4)
 class AUTVehicleWeapon : public AUTWeapon
@@ -2555,7 +2699,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1487 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1490 ];
 
 		return pClassPointer;
 	};
@@ -2591,8 +2735,6 @@ public:
 	void DrawKillIcon ( class UCanvas* Canvas, float ScreenX, float ScreenY, float HUDScaleX, float HUDScaleY );
 	bool CanHitDesiredTarget ( struct FVector SocketLocation, struct FRotator SocketRotation, struct FVector DesiredAimPoint, class AActor* TargetActor, struct FVector* RealAimPoint );
 };
-
-// UClass* AUTVehicleWeapon::pClassPointer = NULL;
 
 // Class UTGame.UTWeaponAttachment
 // 0x00E1 (0x02C1 - 0x01E0)
@@ -2637,7 +2779,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1488 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1491 ];
 
 		return pClassPointer;
 	};
@@ -2668,8 +2810,6 @@ public:
 	void eventPostBeginPlay ( );
 };
 
-// UClass* AUTWeaponAttachment::pClassPointer = NULL;
-
 // Class UTGame.UTWeaponPawn
 // 0x0000 (0x0628 - 0x0628)
 class AUTWeaponPawn : public AUDKWeaponPawn
@@ -2683,7 +2823,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1489 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1492 ];
 
 		return pClassPointer;
 	};
@@ -2722,8 +2862,6 @@ public:
 	struct FName GetVehicleDrivingStatName ( );
 };
 
-// UClass* AUTWeaponPawn::pClassPointer = NULL;
-
 // Class UTGame.UTTeamInfo
 // 0x005C (0x0258 - 0x01FC)
 class AUTTeamInfo : public ATeamInfo
@@ -2744,7 +2882,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36047 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36066 ];
 
 		return pClassPointer;
 	};
@@ -2764,8 +2902,6 @@ public:
 	void eventReplicatedEvent ( struct FName VarName );
 };
 
-// UClass* AUTTeamInfo::pClassPointer = NULL;
-
 // Class UTGame.UTUIDataStore_StringAliasBindingsMap
 // 0x0000 (0x0110 - 0x0110)
 class UUTUIDataStore_StringAliasBindingsMap : public UUDKUIDataStore_StringAliasBindingMap
@@ -2779,14 +2915,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36056 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36075 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataStore_StringAliasBindingsMap::pClassPointer = NULL;
 
 // Class UTGame.UTLocalMessage
 // 0x0014 (0x0064 - 0x0050)
@@ -2806,7 +2940,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36175 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36194 ];
 
 		return pClassPointer;
 	};
@@ -2818,8 +2952,6 @@ public:
 	class USoundNodeWave* AnnouncementSound ( int MessageIndex, class UObject* OptionalObject, class APlayerController* PC );
 	unsigned char AnnouncementLevel ( unsigned char MessageIndex );
 };
-
-// UClass* UUTLocalMessage::pClassPointer = NULL;
 
 // Class UTGame.UTVehicleCantCarryFlagMessage
 // 0x0010 (0x0074 - 0x0064)
@@ -2836,7 +2968,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36174 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36193 ];
 
 		return pClassPointer;
 	};
@@ -2846,8 +2978,6 @@ public:
 	class USoundNodeWave* AnnouncementSound ( int MessageIndex, class UObject* OptionalObject, class APlayerController* PC );
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTVehicleCantCarryFlagMessage::pClassPointer = NULL;
 
 // Class UTGame.UTIdleKickWarningMessage
 // 0x0000 (0x0064 - 0x0064)
@@ -2862,15 +2992,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36243 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36262 ];
 
 		return pClassPointer;
 	};
 
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTIdleKickWarningMessage::pClassPointer = NULL;
 
 // Class UTGame.UTEmitter
 // 0x0000 (0x01EC - 0x01EC)
@@ -2885,7 +3013,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36286 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36305 ];
 
 		return pClassPointer;
 	};
@@ -2894,8 +3022,6 @@ public:
 	void eventSetTemplate ( class UParticleSystem* NewTemplate, unsigned long bDestroyOnFinish );
 	class UParticleSystem* GetTemplateForDistance ( struct FVector SpawnLocation, class AWorldInfo* WI, TArray< struct FDistanceBasedParticleTemplate >* TemplateList );
 };
-
-// UClass* AUTEmitter::pClassPointer = NULL;
 
 // Class UTGame.UTReplicatedEmitter
 // 0x0008 (0x01F4 - 0x01EC)
@@ -2912,15 +3038,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36285 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36304 ];
 
 		return pClassPointer;
 	};
 
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTReplicatedEmitter::pClassPointer = NULL;
 
 // Class UTGame.UTWillowWhisp
 // 0x00BC (0x02B0 - 0x01F4)
@@ -2938,7 +3062,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36284 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36303 ];
 
 		return pClassPointer;
 	};
@@ -2949,8 +3073,6 @@ public:
 	void eventSetInitialState ( );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTWillowWhisp::pClassPointer = NULL;
 
 // Class UTGame.UTObjectiveSpecificMessage
 // 0x0000 (0x0064 - 0x0064)
@@ -2965,7 +3087,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36290 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36309 ];
 
 		return pClassPointer;
 	};
@@ -2976,8 +3098,6 @@ public:
 	class USoundNodeWave* AnnouncementSound ( int MessageIndex, class UObject* OptionalObject, class APlayerController* PC );
 	struct FObjectiveAnnouncementInfo GetObjectiveAnnouncement ( unsigned char MessageIndex, class UObject* Objective, class APlayerController* PC );
 };
-
-// UClass* UUTObjectiveSpecificMessage::pClassPointer = NULL;
 
 // Class UTGame.UTObjectiveAnnouncement
 // 0x0000 (0x0064 - 0x0064)
@@ -2992,7 +3112,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36289 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36308 ];
 
 		return pClassPointer;
 	};
@@ -3001,8 +3121,6 @@ public:
 	bool ShouldBeRemoved ( class AUTQueuedAnnouncement* MyAnnouncement, class UClass* NewAnnouncementClass, int NewMessageIndex );
 	struct FObjectiveAnnouncementInfo GetObjectiveAnnouncement ( unsigned char MessageIndex, class UObject* Objective, class APlayerController* PC );
 };
-
-// UClass* UUTObjectiveAnnouncement::pClassPointer = NULL;
 
 // Class UTGame.UTTeamGameMessage
 // 0x0040 (0x00A4 - 0x0064)
@@ -3024,7 +3142,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36300 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36319 ];
 
 		return pClassPointer;
 	};
@@ -3036,72 +3154,6 @@ public:
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTTeamGameMessage::pClassPointer = NULL;
-
-// Class UTGame.UTHUDBase
-// 0x0060 (0x05F8 - 0x0598)
-class AUTHUDBase : public AUDKHUD
-{
-public:
-	class UGFxUI_PauseMenu*                            PauseMenuMovie;                                   		// 0x0598 (0x0004) [0x0000000000000000]              
-	class UClass*                                      MusicManagerClass;                                		// 0x059C (0x0004) [0x0000000000000000]              
-	class AUTPlayerController*                         UTPlayerOwner;                                    		// 0x05A0 (0x0004) [0x0000000000000000]              
-	class AUTGameReplicationInfo*                      UTGRI;                                            		// 0x05A4 (0x0004) [0x0000000000000000]              
-	unsigned long                                      bIsSplitScreen : 1;                               		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000001] 
-	unsigned long                                      bEnableActorOverlays : 1;                         		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000002] 
-	unsigned long                                      bCrosshairShow : 1;                               		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000004] 
-	unsigned long                                      bCrosshairOnFriendly : 1;                         		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000008] 
-	unsigned long                                      bGreenCrosshair : 1;                              		// 0x05A8 (0x0004) [0x0000000000000000] [0x00000010] 
-	struct FTextureCoordinates                         ToolTipSepCoords;                                 		// 0x05AC (0x0010) [0x0000000000000000]              
-	float                                              LastTimeTooltipDrawn;                             		// 0x05BC (0x0004) [0x0000000000000000]              
-	class UTexture2D*                                  IconHudTexture;                                   		// 0x05C0 (0x0004) [0x0000000000000002]              ( CPF_Const )
-	struct FString                                     ConsoleIconFontClassName;                         		// 0x05C4 (0x000C) [0x0000000000404000]              ( CPF_Config | CPF_NeedCtorLink )
-	float                                              ConfiguredCrosshairScaling;                       		// 0x05D0 (0x0004) [0x0000000000000000]              
-	float                                              LastPickupTime;                                   		// 0x05D4 (0x0004) [0x0000000000000000]              
-	struct FColor                                      BlackColor;                                       		// 0x05D8 (0x0004) [0x0000000000000002]              ( CPF_Const )
-	struct FColor                                      GoldColor;                                        		// 0x05DC (0x0004) [0x0000000000000002]              ( CPF_Const )
-	struct FColor                                      LightGoldColor;                                   		// 0x05E0 (0x0004) [0x0000000000000002]              ( CPF_Const )
-	struct FColor                                      LightGreenColor;                                  		// 0x05E4 (0x0004) [0x0000000000000002]              ( CPF_Const )
-	float                                              ResolutionScale;                                  		// 0x05E8 (0x0004) [0x0000000000000000]              
-	float                                              ResolutionScaleX;                                 		// 0x05EC (0x0004) [0x0000000000000000]              
-	int                                                ViewX;                                            		// 0x05F0 (0x0004) [0x0000000000000000]              
-	int                                                ViewY;                                            		// 0x05F4 (0x0004) [0x0000000000000000]              
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36321 ];
-
-		return pClassPointer;
-	};
-
-	void DrawShadowedRotatedTile ( class UTexture2D* Tex, struct FRotator Rot, float X, float Y, float XL, float YL, float U, float V, float UL, float VL, struct FColor TileColor, unsigned long bScaleToRes );
-	void DrawShadowedStretchedTile ( class UTexture2D* Tex, float X, float Y, float XL, float YL, float U, float V, float UL, float VL, struct FColor TileColor, unsigned long bScaleToRes );
-	void DrawShadowedTile ( class UTexture2D* Tex, float X, float Y, float XL, float YL, float U, float V, float UL, float VL, struct FColor TileColor, unsigned long bScaleToRes );
-	void ClearCrosshairOnFriendly ( );
-	bool CheckCrosshairOnFriendly ( );
-	void DrawToolTip ( class UCanvas* Cvs, class APlayerController* PC, struct FString Command, float X, float Y, float U, float V, float UL, float VL, float ResScale, class UTexture2D* IconTexture, float Alpha );
-	int GetLocalPlayerOwnerIndex ( );
-	void ReleaseShowScores ( );
-	void CompletePauseMenuClose ( );
-	void TogglePauseMenu ( );
-	void CloseOtherMenus ( );
-	void SetVisible ( unsigned long bNewVisible );
-	void RemoveMovies ( );
-	void eventPostRender ( );
-	void DisplayHit ( struct FVector HitDir, int Damage, class UClass* DamageType );
-	void ResolutionChanged ( );
-	void ShowMenu ( );
-	void eventTimer ( );
-	void PostBeginPlay ( );
-};
-
-// UClass* AUTHUDBase::pClassPointer = NULL;
 
 // Class UTGame.UTTimerMessage
 // 0x000C (0x0070 - 0x0064)
@@ -3117,7 +3169,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36325 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36343 ];
 
 		return pClassPointer;
 	};
@@ -3127,8 +3179,6 @@ public:
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTTimerMessage::pClassPointer = NULL;
 
 // Class UTGame.UTStartupMessage
 // 0x006C (0x00D0 - 0x0064)
@@ -3146,7 +3196,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36326 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36344 ];
 
 		return pClassPointer;
 	};
@@ -3154,8 +3204,6 @@ public:
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTStartupMessage::pClassPointer = NULL;
 
 // Class UTGame.UTPickupFactory
 // 0x003C (0x03B4 - 0x0378)
@@ -3179,7 +3227,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36496 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36514 ];
 
 		return pClassPointer;
 	};
@@ -3203,8 +3251,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AUTPickupFactory::pClassPointer = NULL;
-
 // Class UTGame.UTWeaponPickupFactory
 // 0x001C (0x03D0 - 0x03B4)
 class AUTWeaponPickupFactory : public AUTPickupFactory
@@ -3224,7 +3270,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36495 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36513 ];
 
 		return pClassPointer;
 	};
@@ -3246,8 +3292,6 @@ public:
 	void SetPickupVisible ( );
 	void InitializePickup ( );
 };
-
-// UClass* AUTWeaponPickupFactory::pClassPointer = NULL;
 
 // Class UTGame.UTWeaponLocker
 // 0x0088 (0x043C - 0x03B4)
@@ -3279,7 +3323,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36498 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36516 ];
 
 		return pClassPointer;
 	};
@@ -3303,8 +3347,6 @@ public:
 	bool ShouldCamp ( class AUTBot* B, float MaxWait );
 	void eventSetInitialState ( );
 };
-
-// UClass* AUTWeaponLocker::pClassPointer = NULL;
 
 // Class UTGame.UTMusicManager
 // 0x0050 (0x0230 - 0x01E0)
@@ -3334,7 +3376,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36549 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36567 ];
 
 		return pClassPointer;
 	};
@@ -3349,8 +3391,6 @@ public:
 	void StartMusic ( );
 	void eventPostBeginPlay ( );
 };
-
-// UClass* AUTMusicManager::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_PlayCameraAnim
 // 0x0014 (0x00FC - 0x00E8)
@@ -3370,15 +3410,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36603 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36621 ];
 
 		return pClassPointer;
 	};
 
 	int eventGetObjClassVersion ( );
 };
-
-// UClass* UUTSeqAct_PlayCameraAnim::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_StopCameraAnim
 // 0x0004 (0x00EC - 0x00E8)
@@ -3394,15 +3432,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36611 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36629 ];
 
 		return pClassPointer;
 	};
 
 	int eventGetObjClassVersion ( );
 };
-
-// UClass* UUTSeqAct_StopCameraAnim::pClassPointer = NULL;
 
 // Class UTGame.UTInventoryManager
 // 0x001C (0x0218 - 0x01FC)
@@ -3422,7 +3458,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36615 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36633 ];
 
 		return pClassPointer;
 	};
@@ -3456,8 +3492,6 @@ public:
 	void ClientSyncWeapon ( class AWeapon* NewWeapon );
 };
 
-// UClass* AUTInventoryManager::pClassPointer = NULL;
-
 // Class UTGame.UTWeaponKillRewardMessage
 // 0x0020 (0x0084 - 0x0064)
 class UUTWeaponKillRewardMessage : public UUTLocalMessage
@@ -3473,7 +3507,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36770 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36788 ];
 
 		return pClassPointer;
 	};
@@ -3482,8 +3516,6 @@ public:
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTWeaponKillRewardMessage::pClassPointer = NULL;
 
 // Class UTGame.UTAnnouncer
 // 0x0038 (0x0218 - 0x01E0)
@@ -3508,7 +3540,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36856 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36874 ];
 
 		return pClassPointer;
 	};
@@ -3520,8 +3552,6 @@ public:
 	void PostBeginPlay ( );
 	void Destroyed ( );
 };
-
-// UClass* AUTAnnouncer::pClassPointer = NULL;
 
 // Class UTGame.UTCheatManager
 // 0x0008 (0x0064 - 0x005C)
@@ -3538,7 +3568,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36967 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36985 ];
 
 		return pClassPointer;
 	};
@@ -3569,8 +3599,6 @@ public:
 	void ViewFlag ( );
 };
 
-// UClass* UUTCheatManager::pClassPointer = NULL;
-
 // Class UTGame.DemoRecSpectator
 // 0x000C (0x0890 - 0x0884)
 class ADemoRecSpectator : public AUTPlayerController
@@ -3589,7 +3617,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36968 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 36986 ];
 
 		return pClassPointer;
 	};
@@ -3609,8 +3637,6 @@ public:
 	void eventPostBeginPlay ( );
 };
 
-// UClass* ADemoRecSpectator::pClassPointer = NULL;
-
 // Class UTGame.ForcedDirVolume
 // 0x0000 (0x0270 - 0x0270)
 class AForcedDirVolume : public AUDKForcedDirectionVolume
@@ -3624,14 +3650,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37026 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37044 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AForcedDirVolume::pClassPointer = NULL;
 
 // Class UTGame.GFxMinimap
 // 0x00BC (0x0134 - 0x0078)
@@ -3667,7 +3691,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37029 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37047 ];
 
 		return pClassPointer;
 	};
@@ -3680,8 +3704,6 @@ public:
 	void UpdateData ( );
 	void Init ( class UGFxMinimapHud* H );
 };
-
-// UClass* UGFxMinimap::pClassPointer = NULL;
 
 // Class UTGame.UTMapInfo
 // 0x00C8 (0x0108 - 0x0040)
@@ -3728,7 +3750,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37053 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37071 ];
 
 		return pClassPointer;
 	};
@@ -3748,88 +3770,6 @@ public:
 	void VerifyMapExtent ( );
 };
 
-// UClass* UUTMapInfo::pClassPointer = NULL;
-
-// Class UTGame.GFxMinimapHud
-// 0x0100 (0x027C - 0x017C)
-class UGFxMinimapHud : public UGFxMoviePlayer
-{
-public:
-	class AWorldInfo*                                  ThisWorld;                                        		// 0x017C (0x0004) [0x0000000000000000]              
-	class UGFxMinimap*                                 Minimap;                                          		// 0x0180 (0x0004) [0x0000000000000000]              
-	float                                              Radius;                                           		// 0x0184 (0x0004) [0x0000000000000000]              
-	float                                              CurZoomf;                                         		// 0x0188 (0x0004) [0x0000000000000000]              
-	float                                              NormalZoomf;                                      		// 0x018C (0x0004) [0x0000000000000000]              
-	float                                              MaxZoomf;                                         		// 0x0190 (0x0004) [0x0000000000000000]              
-	float                                              MinZoomf;                                         		// 0x0194 (0x0004) [0x0000000000000000]              
-	struct FHeEnDisplay                                PlayerHE;                                         		// 0x0198 (0x0024) [0x0000000000000000]              
-	struct FHeEnDisplay                                VehicleHE;                                        		// 0x01BC (0x0024) [0x0000000000000000]              
-	class UGFxObject*                                  LogMC;                                            		// 0x01E0 (0x0004) [0x0000000000000000]              
-	TArray< struct FMessageRow >                       Messages;                                         		// 0x01E4 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	TArray< struct FMessageRow >                       FreeMessages;                                     		// 0x01F0 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	float                                              MessageHeight;                                    		// 0x01FC (0x0004) [0x0000000000000000]              
-	int                                                NumMessages;                                      		// 0x0200 (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  PlayerStatsMC;                                    		// 0x0204 (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  TeamStatsMC;                                      		// 0x0208 (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  TimeTF;                                           		// 0x020C (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  CenterTextMC;                                     		// 0x0210 (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  CenterTextTF;                                     		// 0x0214 (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  EnemyNameTF;                                      		// 0x0218 (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  OffhandsAndFlagMC;                                		// 0x021C (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  CreditsAndStreaksMC;                              		// 0x0220 (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  HitLocMC[ 0x8 ];                                  		// 0x0224 (0x0020) [0x0000000000000000]              
-	class UGFxObject*                                  MultiKillN_TF;                                    		// 0x0244 (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  MultiKillMsg_TF;                                  		// 0x0248 (0x0004) [0x0000000000000000]              
-	class UGFxObject*                                  MultiKillMC;                                      		// 0x024C (0x0004) [0x0000000000000000]              
-	class AUTVehicle*                                  LastVehicle;                                      		// 0x0250 (0x0004) [0x0000000000000000]              
-	class AUTWeapon*                                   LastWeapon;                                       		// 0x0254 (0x0004) [0x0000000000000000]              
-	int                                                LastAmmoCount;                                    		// 0x0258 (0x0004) [0x0000000000000000]              
-	int                                                LastScore[ 0x2 ];                                 		// 0x025C (0x0008) [0x0000000000000000]              
-	unsigned char                                      LastFlagHome[ 0x2 ];                              		// 0x0264 (0x0002) [0x0000000000000000]              
-	class AUTPlayerReplicationInfo*                    LastEnemy;                                        		// 0x0268 (0x0004) [0x0000000000000000]              
-	class AUTPlayerReplicationInfo*                    LastFlagCarrier[ 0x2 ];                           		// 0x026C (0x0008) [0x0000000000000000]              
-	class AUTGameReplicationInfo*                      GRI;                                              		// 0x0274 (0x0004) [0x0000000000000000]              
-	unsigned long                                      bIsTeamHUD : 1;                                   		// 0x0278 (0x0004) [0x0000000000000000] [0x00000001] 
-	unsigned long                                      bDrawWeaponCrosshairs : 1;                        		// 0x0278 (0x0004) [0x0000000000000000] [0x00000002] 
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37056 ];
-
-		return pClassPointer;
-	};
-
-	void AddDeathMessage ( class APlayerReplicationInfo* Killer, class APlayerReplicationInfo* Killed, class UClass* Dmg );
-	struct FString GetRank ( class APlayerReplicationInfo* PRI );
-	void SetCenterText ( struct FString Text );
-	void ShowMultiKill ( int N, struct FString msg );
-	void DisplayHit ( struct FVector HitDir, int Damage, class UClass* DamageType );
-	void MinimapZoomIn ( );
-	void MinimapZoomOut ( );
-	void ToggleCrosshair ( unsigned long bToggle );
-	void TickHud ( float DeltaTime );
-	void UpdateGameHUD ( class AUTPlayerReplicationInfo* PRI );
-	void AddMessage ( struct FString Type, struct FString msg );
-	void RemoveMessage ( );
-	void ClearStats ( unsigned long clearScores );
-	struct FString FormatTime ( int Seconds );
-	void UpdateEnergy ( float NewEnergy, float EnergyMax, struct FHeEnDisplay* Info );
-	void UpdateHealth ( float NewHealth, float HealthMax, struct FHeEnDisplay* Info );
-	void LoadHeEn ( struct FString Base, struct FHeEnDisplay* Info );
-	void Init ( class ULocalPlayer* Player );
-	class UGFxObject* InitMessageRow ( );
-	class UGFxObject* CreateMessageRow ( );
-	void SetAmmoCountTF ( class AWeapon* Wep, struct FString Ammo );
-	void registerMiniMapView ( class UGFxMinimap* MC, float R );
-};
-
-// UClass* UGFxMinimapHud::pClassPointer = NULL;
-
 // Class UTGame.UTGFxTweenableMoviePlayer
 // 0x000C (0x0188 - 0x017C)
 class UUTGFxTweenableMoviePlayer : public UGFxMoviePlayer
@@ -3844,7 +3784,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37281 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37297 ];
 
 		return pClassPointer;
 	};
@@ -3856,8 +3796,6 @@ public:
 	void ProcessTweenCallback ( struct FString Callback, class UGFxObject* TargetMC );
 	void TweenTo ( class UGFxObject* MC, float Duration, struct FString Member, float Target, unsigned char NewTweenType, struct FString Callback );
 };
-
-// UClass* UUTGFxTweenableMoviePlayer::pClassPointer = NULL;
 
 // Class UTGame.GFxProjectedUI
 // 0x0108 (0x0290 - 0x0188)
@@ -3919,7 +3857,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37323 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37339 ];
 
 		return pClassPointer;
 	};
@@ -3957,8 +3895,6 @@ public:
 	bool Start ( unsigned long StartPaused );
 };
 
-// UClass* UGFxProjectedUI::pClassPointer = NULL;
-
 // Class UTGame.GFxUI_InventoryButton
 // 0x0010 (0x0094 - 0x0084)
 class UGFxUI_InventoryButton : public UGFxClikWidget
@@ -3974,7 +3910,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37326 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37342 ];
 
 		return pClassPointer;
 	};
@@ -3982,48 +3918,6 @@ public:
 	void SetIconMC ( class UGFxObject* iconClip );
 	void SetContent ( struct FString newContent );
 };
-
-// UClass* UGFxUI_InventoryButton::pClassPointer = NULL;
-
-// Class UTGame.UTGFxHudWrapper
-// 0x000C (0x0604 - 0x05F8)
-class AUTGFxHudWrapper : public AUTHUDBase
-{
-public:
-	class UGFxMinimapHud*                              HudMovie;                                         		// 0x05F8 (0x0004) [0x0000000000000000]              
-	class UGFxProjectedUI*                             InventoryMovie;                                   		// 0x05FC (0x0004) [0x0000000000000000]              
-	class UClass*                                      MinimapHUDClass;                                  		// 0x0600 (0x0004) [0x0000000000000000]              
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37389 ];
-
-		return pClassPointer;
-	};
-
-	void CompleteCloseTimer ( );
-	void CompleteCloseInventory ( );
-	void AddConsoleMessage ( struct FString M, class UClass* InMessageClass, class APlayerReplicationInfo* PRI, float Lifetime );
-	void LocalizedMessage ( class UClass* InMessageClass, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, struct FString CriticalString, int Switch, float Position, float Lifetime, int FontSize, struct FColor DrawColor, class UObject* OptionalObject );
-	void eventDrawHUD ( );
-	void eventPostRender ( );
-	void ResolutionChanged ( );
-	void CloseOtherMenus ( );
-	void DisplayHit ( struct FVector HitDir, int Damage, class UClass* DamageType );
-	void SetVisible ( unsigned long bNewVisible );
-	int GetLocalPlayerOwnerIndex ( );
-	void CreateHUDMovie ( );
-	void PostBeginPlay ( );
-	void RemoveMovies ( );
-	void eventDestroyed ( );
-};
-
-// UClass* AUTGFxHudWrapper::pClassPointer = NULL;
 
 // Class UTGame.UTItemPickupFactory
 // 0x0020 (0x03D4 - 0x03B4)
@@ -4042,7 +3936,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37462 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37477 ];
 
 		return pClassPointer;
 	};
@@ -4054,8 +3948,6 @@ public:
 	struct FString GetLocalString ( int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01 );
 	void InitializePickup ( );
 };
-
-// UClass* AUTItemPickupFactory::pClassPointer = NULL;
 
 // Class UTGame.UTHealthPickupFactory
 // 0x0008 (0x03DC - 0x03D4)
@@ -4072,7 +3964,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37461 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37476 ];
 
 		return pClassPointer;
 	};
@@ -4082,8 +3974,6 @@ public:
 	void SpawnCopyFor ( class APawn* Recipient );
 	void UpdateHUD ( class AUTHUD* H );
 };
-
-// UClass* AUTHealthPickupFactory::pClassPointer = NULL;
 
 // Class UTGame.UTArmorPickupFactory
 // 0x0004 (0x03D8 - 0x03D4)
@@ -4099,7 +3989,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37465 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37480 ];
 
 		return pClassPointer;
 	};
@@ -4111,8 +4001,6 @@ public:
 	void PostBeginPlay ( );
 	void UpdateHUD ( class AUTHUD* H );
 };
-
-// UClass* AUTArmorPickupFactory::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd
 // 0x0078 (0x01F4 - 0x017C)
@@ -4149,7 +4037,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37467 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37482 ];
 
 		return pClassPointer;
 	};
@@ -4183,8 +4071,6 @@ public:
 	void EscapeDelegate ( );
 };
 
-// UClass* UGFxUDKFrontEnd::pClassPointer = NULL;
-
 // Class UTGame.GFxUIView
 // 0x0004 (0x007C - 0x0078)
 class UGFxUIView : public UGFxObject
@@ -4199,7 +4085,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37474 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37489 ];
 
 		return pClassPointer;
 	};
@@ -4214,8 +4100,6 @@ public:
 	class AUDKPlayerController* GetUDKPlayerOwner ( int PlayerIndex );
 	class ULocalPlayer* GetPlayerOwner ( int PlayerIndex );
 };
-
-// UClass* UGFxUIView::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_View
 // 0x000C (0x0088 - 0x007C)
@@ -4232,7 +4116,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37473 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37488 ];
 
 		return pClassPointer;
 	};
@@ -4249,8 +4133,6 @@ public:
 	void OnTopMostView ( unsigned long bPlayOpenAnimation );
 	void OnViewLoaded ( );
 };
-
-// UClass* UGFxUDKFrontEnd_View::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_Dialog
 // 0x0020 (0x00A8 - 0x0088)
@@ -4271,7 +4153,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37481 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37496 ];
 
 		return pClassPointer;
 	};
@@ -4287,8 +4169,6 @@ public:
 	void OnViewClosed ( );
 	void AcceptDelegate ( struct FEventData ev );
 };
-
-// UClass* UGFxUDKFrontEnd_Dialog::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_PasswordDialog
 // 0x000C (0x00B4 - 0x00A8)
@@ -4306,7 +4186,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37480 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37495 ];
 
 		return pClassPointer;
 	};
@@ -4321,8 +4201,6 @@ public:
 	void OnTopMostView ( unsigned long bPlayOpenAnimation );
 };
 
-// UClass* UGFxUDKFrontEnd_PasswordDialog::pClassPointer = NULL;
-
 // Class UTGame.GFxUDKFrontEnd_ErrorDialog
 // 0x0000 (0x00A8 - 0x00A8)
 class UGFxUDKFrontEnd_ErrorDialog : public UGFxUDKFrontEnd_Dialog
@@ -4336,7 +4214,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37483 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37498 ];
 
 		return pClassPointer;
 	};
@@ -4348,8 +4226,6 @@ public:
 	void SetTitle ( struct FString Title );
 	void OnTopMostView ( unsigned long bPlayOpenAnimation );
 };
-
-// UClass* UGFxUDKFrontEnd_ErrorDialog::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_JoinDialog
 // 0x0010 (0x00B8 - 0x00A8)
@@ -4368,7 +4244,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37485 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37500 ];
 
 		return pClassPointer;
 	};
@@ -4380,8 +4256,6 @@ public:
 	void DisableSubComponents ( unsigned long bDisableComponents );
 	void OnTopMostView ( unsigned long bPlayOpenAnimation );
 };
-
-// UClass* UGFxUDKFrontEnd_JoinDialog::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_FilterDialog
 // 0x0034 (0x00DC - 0x00A8)
@@ -4405,7 +4279,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37487 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37502 ];
 
 		return pClassPointer;
 	};
@@ -4425,8 +4299,6 @@ public:
 	void OnSwitchedGameType ( );
 };
 
-// UClass* UGFxUDKFrontEnd_FilterDialog::pClassPointer = NULL;
-
 // Class UTGame.GFxUDKFrontEnd_InfoDialog
 // 0x0000 (0x00A8 - 0x00A8)
 class UGFxUDKFrontEnd_InfoDialog : public UGFxUDKFrontEnd_Dialog
@@ -4440,7 +4312,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37489 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37504 ];
 
 		return pClassPointer;
 	};
@@ -4454,8 +4326,6 @@ public:
 	void OnTopMostView ( unsigned long bPlayOpenAnimation );
 	void OnViewClosed ( );
 };
-
-// UClass* UGFxUDKFrontEnd_InfoDialog::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_Screen
 // 0x0054 (0x00DC - 0x0088)
@@ -4481,7 +4351,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37492 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37507 ];
 
 		return pClassPointer;
 	};
@@ -4490,8 +4360,6 @@ public:
 	void UpdateHelpButtonImages ( );
 	void FocusIn_BackButton ( struct FEventData ev );
 };
-
-// UClass* UGFxUDKFrontEnd_Screen::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_JoinGame
 // 0x009C (0x0178 - 0x00DC)
@@ -4543,7 +4411,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37491 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37506 ];
 
 		return pClassPointer;
 	};
@@ -4594,8 +4462,6 @@ public:
 	void OnViewLoaded ( );
 };
 
-// UClass* UGFxUDKFrontEnd_JoinGame::pClassPointer = NULL;
-
 // Class UTGame.GFxUDKFrontEnd_SettingsBase
 // 0x0028 (0x0104 - 0x00DC)
 class UGFxUDKFrontEnd_SettingsBase : public UGFxUDKFrontEnd_Screen
@@ -4615,7 +4481,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37495 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37510 ];
 
 		return pClassPointer;
 	};
@@ -4640,8 +4506,6 @@ public:
 	void OnViewLoaded ( );
 };
 
-// UClass* UGFxUDKFrontEnd_SettingsBase::pClassPointer = NULL;
-
 // Class UTGame.GFxUDKFrontEnd_ServerSettings
 // 0x0004 (0x0108 - 0x0104)
 class UGFxUDKFrontEnd_ServerSettings : public UGFxUDKFrontEnd_SettingsBase
@@ -4656,7 +4520,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37494 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37509 ];
 
 		return pClassPointer;
 	};
@@ -4668,8 +4532,6 @@ public:
 	void OnOptionChanged ( struct FEventData ev );
 	void SetSelectedOptionSet ( );
 };
-
-// UClass* UGFxUDKFrontEnd_ServerSettings::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_Settings
 // 0x0000 (0x0104 - 0x0104)
@@ -4684,7 +4546,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37497 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37512 ];
 
 		return pClassPointer;
 	};
@@ -4693,8 +4555,6 @@ public:
 	void UpdateListDataProvider ( );
 	void SetSelectedOptionSet ( );
 };
-
-// UClass* UGFxUDKFrontEnd_Settings::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_Mutators
 // 0x0040 (0x011C - 0x00DC)
@@ -4719,7 +4579,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37499 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37514 ];
 
 		return pClassPointer;
 	};
@@ -4747,8 +4607,6 @@ public:
 	void OnViewLoaded ( );
 };
 
-// UClass* UGFxUDKFrontEnd_Mutators::pClassPointer = NULL;
-
 // Class UTGame.GFxUDKFrontEnd_GameMode
 // 0x003C (0x0118 - 0x00DC)
 class UGFxUDKFrontEnd_GameMode : public UGFxUDKFrontEnd_Screen
@@ -4771,7 +4629,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37501 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37516 ];
 
 		return pClassPointer;
 	};
@@ -4789,8 +4647,6 @@ public:
 	void OnTopMostView ( unsigned long bPlayOpenAnimation );
 	void OnViewLoaded ( );
 };
-
-// UClass* UGFxUDKFrontEnd_GameMode::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_MapSelect
 // 0x0020 (0x00FC - 0x00DC)
@@ -4811,7 +4667,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37503 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37518 ];
 
 		return pClassPointer;
 	};
@@ -4831,8 +4687,6 @@ public:
 	void OnTopMostView ( unsigned long bPlayOpenAnimation );
 	void OnViewLoaded ( );
 };
-
-// UClass* UGFxUDKFrontEnd_MapSelect::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_LaunchGame
 // 0x00A4 (0x0180 - 0x00DC)
@@ -4876,7 +4730,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37506 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37521 ];
 
 		return pClassPointer;
 	};
@@ -4898,8 +4752,6 @@ public:
 	void OnViewLoaded ( );
 };
 
-// UClass* UGFxUDKFrontEnd_LaunchGame::pClassPointer = NULL;
-
 // Class UTGame.GFxUDKFrontEnd_HostGame
 // 0x0000 (0x0180 - 0x0180)
 class UGFxUDKFrontEnd_HostGame : public UGFxUDKFrontEnd_LaunchGame
@@ -4913,7 +4765,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37505 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37520 ];
 
 		return pClassPointer;
 	};
@@ -4929,8 +4781,6 @@ public:
 	void OnTopMostView ( unsigned long bPlayOpenAnimation );
 	void OnViewActivated ( );
 };
-
-// UClass* UGFxUDKFrontEnd_HostGame::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_Multiplayer
 // 0x0018 (0x00F4 - 0x00DC)
@@ -4949,7 +4799,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37508 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37523 ];
 
 		return pClassPointer;
 	};
@@ -4967,8 +4817,6 @@ public:
 	void OnViewLoaded ( );
 };
 
-// UClass* UGFxUDKFrontEnd_Multiplayer::pClassPointer = NULL;
-
 // Class UTGame.GFxUDKFrontEnd_InstantAction
 // 0x0000 (0x0180 - 0x0180)
 class UGFxUDKFrontEnd_InstantAction : public UGFxUDKFrontEnd_LaunchGame
@@ -4982,7 +4830,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37510 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37525 ];
 
 		return pClassPointer;
 	};
@@ -4990,8 +4838,6 @@ public:
 	void OnStartGame_Confirm ( );
 	void OnViewActivated ( );
 };
-
-// UClass* UGFxUDKFrontEnd_InstantAction::pClassPointer = NULL;
 
 // Class UTGame.GFxUDKFrontEnd_MainMenu
 // 0x001D (0x00F9 - 0x00DC)
@@ -5012,7 +4858,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37512 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37527 ];
 
 		return pClassPointer;
 	};
@@ -5034,8 +4880,6 @@ public:
 	void OnViewLoaded ( );
 };
 
-// UClass* UGFxUDKFrontEnd_MainMenu::pClassPointer = NULL;
-
 // Class UTGame.UTDataStore_GameSearchDM
 // 0x0014 (0x00C0 - 0x00AC)
 class UUTDataStore_GameSearchDM : public UUDKDataStore_GameSearchBase
@@ -5052,7 +4896,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37803 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37818 ];
 
 		return pClassPointer;
 	};
@@ -5065,8 +4909,6 @@ public:
 	bool eventSubmitGameSearch ( unsigned char ControllerIndex, unsigned long bInvalidateExistingSearchResults );
 	void eventRegistered ( class ULocalPlayer* PlayerOwner );
 };
-
-// UClass* UUTDataStore_GameSearchDM::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataStore_MenuItems
 // 0x0000 (0x00F4 - 0x00F4)
@@ -5081,14 +4923,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37805 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37820 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataStore_MenuItems::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataStore_StringList
 // 0x0000 (0x008C - 0x008C)
@@ -5103,14 +4943,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37807 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37822 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataStore_StringList::pClassPointer = NULL;
 
 // Class UTGame.UTUIResourceDataProvider
 // 0x0000 (0x0098 - 0x0098)
@@ -5125,14 +4963,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37881 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37896 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIResourceDataProvider::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_GameModeInfo
 // 0x007C (0x0114 - 0x0098)
@@ -5160,14 +4996,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37880 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37895 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataProvider_GameModeInfo::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_MapInfo
 // 0x0000 (0x00CC - 0x00CC)
@@ -5182,7 +5016,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 37985 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38000 ];
 
 		return pClassPointer;
 	};
@@ -5190,8 +5024,6 @@ public:
 	bool SupportedByCurrentGameMode ( );
 	bool eventShouldBeFiltered ( );
 };
-
-// UClass* UUTUIDataProvider_MapInfo::pClassPointer = NULL;
 
 // Class UTGame.UTGameSettingsCommon
 // 0x0008 (0x00B4 - 0x00AC)
@@ -5208,7 +5040,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38059 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38074 ];
 
 		return pClassPointer;
 	};
@@ -5221,8 +5053,6 @@ public:
 	void SetOfficialMutatorBitmask ( int MutatorBitmask );
 	void SetCustomMapName ( struct FString MapName );
 };
-
-// UClass* UUTGameSettingsCommon::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_SearchResult
 // 0x0000 (0x00BC - 0x00BC)
@@ -5237,14 +5067,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38282 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38297 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataProvider_SearchResult::pClassPointer = NULL;
 
 // Class UTGame.UTBot
 // 0x01B4 (0x061C - 0x0468)
@@ -5351,7 +5179,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38440 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38455 ];
 
 		return pClassPointer;
 	};
@@ -5508,8 +5336,6 @@ public:
 	void EnemyJustTeleported ( );
 };
 
-// UClass* AUTBot::pClassPointer = NULL;
-
 // Class UTGame.UTVictoryMessage
 // 0x0018 (0x007C - 0x0064)
 class UUTVictoryMessage : public UUTLocalMessage
@@ -5524,7 +5350,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38444 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38459 ];
 
 		return pClassPointer;
 	};
@@ -5534,8 +5360,6 @@ public:
 	class USoundNodeWave* AnnouncementSound ( int MessageIndex, class UObject* OptionalObject, class APlayerController* PC );
 	unsigned char AnnouncementLevel ( unsigned char MessageIndex );
 };
-
-// UClass* UUTVictoryMessage::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_Mutator
 // 0x0034 (0x00CC - 0x0098)
@@ -5556,7 +5380,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38582 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38597 ];
 
 		return pClassPointer;
 	};
@@ -5564,8 +5388,6 @@ public:
 	bool eventSupportsCurrentGameMode ( );
 	bool eventShouldBeFiltered ( );
 };
-
-// UClass* UUTUIDataProvider_Mutator::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_MenuOption
 // 0x0000 (0x00F0 - 0x00F0)
@@ -5580,14 +5402,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38700 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38715 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataProvider_MenuOption::pClassPointer = NULL;
 
 // Class UTGame.GFxUI_PauseMenu
 // 0x0038 (0x01C0 - 0x0188)
@@ -5612,7 +5432,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38826 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38841 ];
 
 		return pClassPointer;
 	};
@@ -5626,8 +5446,6 @@ public:
 	void OnPressResumeButton ( struct FEventData ev );
 	bool Start ( unsigned long StartPaused );
 };
-
-// UClass* UGFxUI_PauseMenu::pClassPointer = NULL;
 
 // Class UTGame.GFxUIFrontEnd_TitleScreen
 // 0x0041 (0x01BD - 0x017C)
@@ -5655,7 +5473,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38852 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38867 ];
 
 		return pClassPointer;
 	};
@@ -5667,8 +5485,6 @@ public:
 	bool eventFilterButtonInput ( int ControllerId, struct FName ButtonName, unsigned char InputEvent );
 	bool Start ( unsigned long StartPaused );
 };
-
-// UClass* UGFxUIFrontEnd_TitleScreen::pClassPointer = NULL;
 
 // Class UTGame.SeqAct_UTCrowdSpawner
 // 0x0000 (0x0150 - 0x0150)
@@ -5683,14 +5499,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38883 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38898 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* USeqAct_UTCrowdSpawner::pClassPointer = NULL;
 
 // Class UTGame.UTActorFactoryAI
 // 0x0004 (0x0088 - 0x0084)
@@ -5707,15 +5521,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38885 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38900 ];
 
 		return pClassPointer;
 	};
 
 	void eventPostCreateActor ( class AActor* NewActor );
 };
-
-// UClass* UUTActorFactoryAI::pClassPointer = NULL;
 
 // Class UTGame.UTSquadAI
 // 0x0090 (0x02AC - 0x021C)
@@ -5751,7 +5563,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38893 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38908 ];
 
 		return pClassPointer;
 	};
@@ -5844,8 +5656,6 @@ public:
 	void Reset ( );
 };
 
-// UClass* AUTSquadAI::pClassPointer = NULL;
-
 // Class UTGame.UTActorFactoryPickup
 // 0x0004 (0x0060 - 0x005C)
 class UUTActorFactoryPickup : public UActorFactory
@@ -5860,15 +5670,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38895 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38910 ];
 
 		return pClassPointer;
 	};
 
 	void eventPostCreateActor ( class AActor* NewActor );
 };
-
-// UClass* UUTActorFactoryPickup::pClassPointer = NULL;
 
 // Class UTGame.UTDroppedPickup
 // 0x0014 (0x0204 - 0x01F0)
@@ -5888,7 +5696,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38901 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38916 ];
 
 		return pClassPointer;
 	};
@@ -5898,8 +5706,6 @@ public:
 	void eventSetPickupMesh ( class UPrimitiveComponent* NewPickupMesh );
 	void eventPreBeginPlay ( );
 };
-
-// UClass* AUTDroppedPickup::pClassPointer = NULL;
 
 // Class UTGame.UTActorFactoryTeamStaticMesh
 // 0x0000 (0x006C - 0x006C)
@@ -5914,14 +5720,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38903 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38918 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTActorFactoryTeamStaticMesh::pClassPointer = NULL;
 
 // Class UTGame.UTTeamStaticMesh
 // 0x0010 (0x01F8 - 0x01E8)
@@ -5938,7 +5742,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38905 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38920 ];
 
 		return pClassPointer;
 	};
@@ -5946,8 +5750,6 @@ public:
 	void SetTeamNum ( unsigned char NewTeam );
 	void eventPreBeginPlay ( );
 };
-
-// UClass* AUTTeamStaticMesh::pClassPointer = NULL;
 
 // Class UTGame.UTActorFactoryUTKActor
 // 0x0000 (0x0098 - 0x0098)
@@ -5962,14 +5764,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38906 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38921 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTActorFactoryUTKActor::pClassPointer = NULL;
 
 // Class UTGame.UTKActor
 // 0x0000 (0x0310 - 0x0310)
@@ -5984,14 +5784,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38908 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38923 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTKActor::pClassPointer = NULL;
 
 // Class UTGame.UTActorFactoryVehicle
 // 0x0005 (0x0065 - 0x0060)
@@ -6009,15 +5807,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38909 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38924 ];
 
 		return pClassPointer;
 	};
 
 	void eventPostCreateActor ( class AActor* NewActor );
 };
-
-// UClass* UUTActorFactoryVehicle::pClassPointer = NULL;
 
 // Class UTGame.UTGib
 // 0x0068 (0x0248 - 0x01E0)
@@ -6051,7 +5847,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38948 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38963 ];
 
 		return pClassPointer;
 	};
@@ -6071,8 +5867,6 @@ public:
 	void SetTexturesToBeResident ( float TimeToBeResident );
 	void eventPreBeginPlay ( );
 };
-
-// UClass* AUTGib::pClassPointer = NULL;
 
 // Class UTGame.UTGib_Vehicle
 // 0x0024 (0x026C - 0x0248)
@@ -6095,7 +5889,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38988 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39003 ];
 
 		return pClassPointer;
 	};
@@ -6103,8 +5897,6 @@ public:
 	void ActivateGibExplosionEffect ( );
 	void eventPostBeginPlay ( );
 };
-
-// UClass* AUTGib_Vehicle::pClassPointer = NULL;
 
 // Class UTGame.UTVehicleDeathPiece
 // 0x0004 (0x0270 - 0x026C)
@@ -6120,15 +5912,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 38987 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39002 ];
 
 		return pClassPointer;
 	};
 
 	void eventPreBeginPlay ( );
 };
-
-// UClass* AUTVehicleDeathPiece::pClassPointer = NULL;
 
 // Class UTGame.UTVehicleFactory
 // 0x0018 (0x02FC - 0x02E4)
@@ -6151,7 +5941,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39023 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39038 ];
 
 		return pClassPointer;
 	};
@@ -6168,8 +5958,6 @@ public:
 	void AddToClosestObjective ( );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTVehicleFactory::pClassPointer = NULL;
 
 // Class UTGame.UTConsolePlayerController
 // 0x001C (0x08A0 - 0x0884)
@@ -6188,7 +5976,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39117 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39132 ];
 
 		return pClassPointer;
 	};
@@ -6203,8 +5991,6 @@ public:
 	bool AimingHelp ( unsigned long bInstantHit );
 	void UpdateRotation ( float DeltaTime );
 };
-
-// UClass* AUTConsolePlayerController::pClassPointer = NULL;
 
 // Class UTGame.UTHUD
 // 0x0488 (0x0A80 - 0x05F8)
@@ -6401,7 +6187,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39138 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39153 ];
 
 		return pClassPointer;
 	};
@@ -6451,8 +6237,6 @@ public:
 	void DrawTileCentered ( class UTexture2D* Tex, float XL, float YL, float U, float V, float UL, float VL, struct FLinearColor C );
 };
 
-// UClass* AUTHUD::pClassPointer = NULL;
-
 // Class UTGame.UTParticleSystemComponent
 // 0x0000 (0x02F4 - 0x02F4)
 class UUTParticleSystemComponent : public UUDKParticleSystemComponent
@@ -6466,14 +6250,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39176 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39191 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTParticleSystemComponent::pClassPointer = NULL;
 
 // Class UTGame.UTAnimNodeSequence
 // 0x0000 (0x0150 - 0x0150)
@@ -6488,14 +6270,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39190 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39205 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimNodeSequence::pClassPointer = NULL;
 
 // Class UTGame.UTVehicleMessage
 // 0x0030 (0x0094 - 0x0064)
@@ -6514,7 +6294,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39197 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39212 ];
 
 		return pClassPointer;
 	};
@@ -6525,8 +6305,6 @@ public:
 	unsigned char AnnouncementLevel ( unsigned char MessageIndex );
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTVehicleMessage::pClassPointer = NULL;
 
 // Class UTGame.UTLockWarningMessage
 // 0x0020 (0x0084 - 0x0064)
@@ -6545,7 +6323,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39430 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39445 ];
 
 		return pClassPointer;
 	};
@@ -6554,8 +6332,6 @@ public:
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	unsigned char AnnouncementLevel ( unsigned char MessageIndex );
 };
-
-// UClass* UUTLockWarningMessage::pClassPointer = NULL;
 
 // Class UTGame.UTSeqEvent_VehicleFactory
 // 0x0004 (0x0104 - 0x0100)
@@ -6571,15 +6347,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39471 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39486 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqEvent_VehicleFactory::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_Burning
 // 0x0000 (0x012C - 0x012C)
@@ -6594,7 +6368,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39579 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39594 ];
 
 		return pClassPointer;
 	};
@@ -6602,8 +6376,6 @@ public:
 	float GetHitEffectDuration ( class APawn* P, float Damage );
 	void SpawnHitEffect ( class APawn* P, float Damage, struct FVector Momentum, struct FName BoneName, struct FVector HitLocation );
 };
-
-// UClass* UUTDmgType_Burning::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_ScorpionSelfDestruct
 // 0x0004 (0x0130 - 0x012C)
@@ -6619,15 +6391,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39578 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39593 ];
 
 		return pClassPointer;
 	};
 
 	int IncrementKills ( class AUTPlayerReplicationInfo* KillerPRI );
 };
-
-// UClass* UUTDmgType_ScorpionSelfDestruct::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_TurretConstrained
 // 0x0000 (0x0144 - 0x0144)
@@ -6642,14 +6412,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39597 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39612 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_TurretConstrained::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_VehicleCollision
 // 0x0000 (0x012C - 0x012C)
@@ -6664,14 +6432,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39820 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39835 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTDmgType_VehicleCollision::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_Damage
 // 0x0000 (0x0178 - 0x0178)
@@ -6686,7 +6452,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39862 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39877 ];
 
 		return pClassPointer;
 	};
@@ -6694,8 +6460,6 @@ public:
 	void eventBreakApartOnDeath ( struct FVector PartLocation, unsigned long bIsVisible );
 	void eventBreakApart ( struct FVector PartLocation, unsigned long bIsVisible );
 };
-
-// UClass* UUTSkelControl_Damage::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_VehicleExplosion
 // 0x0000 (0x012C - 0x012C)
@@ -6710,14 +6474,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39873 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39888 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTDmgType_VehicleExplosion::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_ExitVehicle
 // 0x0000 (0x00E8 - 0x00E8)
@@ -6732,14 +6494,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 39992 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40007 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_ExitVehicle::pClassPointer = NULL;
 
 // Class UTGame.VehicleMovementEffect
 // 0x0000 (0x01FC - 0x01FC)
@@ -6754,14 +6514,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40005 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40020 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AVehicleMovementEffect::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_RanOver
 // 0x0004 (0x0130 - 0x012C)
@@ -6777,7 +6535,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40086 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40101 ];
 
 		return pClassPointer;
 	};
@@ -6786,8 +6544,6 @@ public:
 	void SmallReward ( class AUTPlayerController* Killer, int KillCount );
 	int IncrementKills ( class AUTPlayerReplicationInfo* KillerPRI );
 };
-
-// UClass* UUTDmgType_RanOver::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_Drowned
 // 0x0000 (0x012C - 0x012C)
@@ -6802,14 +6558,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40087 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40102 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTDmgType_Drowned::pClassPointer = NULL;
 
 // Class UTGame.UTRocketExplosionLight
 // 0x0000 (0x0270 - 0x0270)
@@ -6824,14 +6578,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40088 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40103 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTRocketExplosionLight::pClassPointer = NULL;
 
 // Class UTGame.UTGib_VehiclePiece
 // 0x0000 (0x026C - 0x026C)
@@ -6846,15 +6598,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40089 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40104 ];
 
 		return pClassPointer;
 	};
 
 	void eventPreBeginPlay ( );
 };
-
-// UClass* AUTGib_VehiclePiece::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_Pancake
 // 0x0000 (0x0130 - 0x0130)
@@ -6869,15 +6619,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40092 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40107 ];
 
 		return pClassPointer;
 	};
 
 	void SmallReward ( class AUTPlayerController* Killer, int KillCount );
 };
-
-// UClass* UUTDmgType_Pancake::pClassPointer = NULL;
 
 // Class UTGame.UTAirVehicle
 // 0x0018 (0x0AEC - 0x0AD4)
@@ -6896,7 +6644,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40093 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40108 ];
 
 		return pClassPointer;
 	};
@@ -6906,8 +6654,6 @@ public:
 	void SetDriving ( unsigned long bNewDriving );
 	void eventLockOnWarning ( class AUDKProjectile* IncomingMissile );
 };
-
-// UClass* AUTAirVehicle::pClassPointer = NULL;
 
 // Class UTGame.UTAmbientSoundComponent
 // 0x0000 (0x0218 - 0x0218)
@@ -6922,15 +6668,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40126 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40141 ];
 
 		return pClassPointer;
 	};
 
 	void eventOcclusionChanged ( unsigned long bNowOccluded );
 };
-
-// UClass* UUTAmbientSoundComponent::pClassPointer = NULL;
 
 // Class UTGame.UTInventory
 // 0x0004 (0x0230 - 0x022C)
@@ -6946,7 +6690,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40218 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40233 ];
 
 		return pClassPointer;
 	};
@@ -6957,8 +6701,6 @@ public:
 	void ClientLostItem ( );
 	void AddWeaponOverlay ( class AUTGameReplicationInfo* GRI );
 };
-
-// UClass* AUTInventory::pClassPointer = NULL;
 
 // Class UTGame.UTPickupInventory
 // 0x0000 (0x0230 - 0x0230)
@@ -6973,15 +6715,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40217 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40232 ];
 
 		return pClassPointer;
 	};
 
 	float BotDesireability ( class AActor* PickupHolder, class APawn* P, class AController* C );
 };
-
-// UClass* AUTPickupInventory::pClassPointer = NULL;
 
 // Class UTGame.UTPickupMessage
 // 0x0000 (0x0064 - 0x0064)
@@ -6996,15 +6736,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40219 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40234 ];
 
 		return pClassPointer;
 	};
 
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTPickupMessage::pClassPointer = NULL;
 
 // Class UTGame.UTAmmoPickupFactory
 // 0x0008 (0x03DC - 0x03D4)
@@ -7021,7 +6759,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40220 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40235 ];
 
 		return pClassPointer;
 	};
@@ -7030,8 +6768,6 @@ public:
 	void UpdateHUD ( class AUTHUD* H );
 	void SpawnCopyFor ( class APawn* Recipient );
 };
-
-// UClass* AUTAmmoPickupFactory::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendBase
 // 0x0000 (0x0128 - 0x0128)
@@ -7046,14 +6782,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40259 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40274 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendBase::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByDriving
 // 0x0000 (0x0104 - 0x0104)
@@ -7068,14 +6802,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40261 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40276 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByDriving::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByFall
 // 0x0000 (0x0144 - 0x0144)
@@ -7090,14 +6822,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40263 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40278 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByFall::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByFlying
 // 0x0000 (0x014C - 0x014C)
@@ -7112,14 +6842,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40265 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40280 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByFlying::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByHoverboarding
 // 0x0000 (0x0134 - 0x0134)
@@ -7134,14 +6862,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40267 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40282 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByHoverboarding::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByHoverboardTilt
 // 0x0000 (0x0114 - 0x0114)
@@ -7156,14 +6882,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40269 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40284 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByHoverboardTilt::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByHoverboardTurn
 // 0x0000 (0x0100 - 0x0100)
@@ -7178,14 +6902,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40271 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40286 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByHoverboardTurn::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByHoverJump
 // 0x0000 (0x0144 - 0x0144)
@@ -7200,14 +6922,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40273 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40288 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByHoverJump::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByIdle
 // 0x0000 (0x0128 - 0x0128)
@@ -7222,14 +6942,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40275 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40290 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByIdle::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByPhysics
 // 0x0000 (0x0168 - 0x0168)
@@ -7244,14 +6962,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40277 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40292 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByPhysics::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByPhysicsVolume
 // 0x0000 (0x0138 - 0x0138)
@@ -7266,14 +6982,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40279 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40294 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByPhysicsVolume::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByPosture
 // 0x0000 (0x0128 - 0x0128)
@@ -7288,14 +7002,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40281 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40296 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendByPosture::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendBySlotActive
 // 0x0000 (0x0130 - 0x0130)
@@ -7310,14 +7022,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40283 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40298 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendBySlotActive::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendBySpeed
 // 0x0000 (0x010C - 0x010C)
@@ -7332,172 +7042,16 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40285 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40300 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTAnimBlendBySpeed::pClassPointer = NULL;
 
 // Class UTGame.UTAnimBlendByTurnInPlace
 // 0x0000 (0x0134 - 0x0134)
 class UUTAnimBlendByTurnInPlace : public UUDKAnimBlendByTurnInPlace
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40287 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTAnimBlendByTurnInPlace::pClassPointer = NULL;
-
-// Class UTGame.UTAnimBlendByVehicle
-// 0x0000 (0x0130 - 0x0130)
-class UUTAnimBlendByVehicle : public UUDKAnimBlendByVehicle
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40289 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTAnimBlendByVehicle::pClassPointer = NULL;
-
-// Class UTGame.UTAnimBlendByWeapon
-// 0x0000 (0x013C - 0x013C)
-class UUTAnimBlendByWeapon : public UUDKAnimBlendByWeapon
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40291 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTAnimBlendByWeapon::pClassPointer = NULL;
-
-// Class UTGame.UTAnimBlendByWeapType
-// 0x0000 (0x012C - 0x012C)
-class UUTAnimBlendByWeapType : public UUDKAnimBlendByWeapType
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40293 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTAnimBlendByWeapType::pClassPointer = NULL;
-
-// Class UTGame.UTAnimNodeCopyBoneTranslation
-// 0x0000 (0x0148 - 0x0148)
-class UUTAnimNodeCopyBoneTranslation : public UUDKAnimNodeCopyBoneTranslation
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40295 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTAnimNodeCopyBoneTranslation::pClassPointer = NULL;
-
-// Class UTGame.UTAnimNodeFramePlayer
-// 0x0000 (0x0140 - 0x0140)
-class UUTAnimNodeFramePlayer : public UUDKAnimNodeFramePlayer
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40297 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTAnimNodeFramePlayer::pClassPointer = NULL;
-
-// Class UTGame.UTAnimNodeJumpLeanOffset
-// 0x0000 (0x0168 - 0x0168)
-class UUTAnimNodeJumpLeanOffset : public UUDKAnimNodeJumpLeanOffset
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40299 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTAnimNodeJumpLeanOffset::pClassPointer = NULL;
-
-// Class UTGame.UTAnimNodeSequenceByBoneRotation
-// 0x0000 (0x0158 - 0x0158)
-class UUTAnimNodeSequenceByBoneRotation : public UUDKAnimNodeSequenceByBoneRotation
 {
 public:
 
@@ -7515,11 +7069,9 @@ public:
 
 };
 
-// UClass* UUTAnimNodeSequenceByBoneRotation::pClassPointer = NULL;
-
-// Class UTGame.UTAnimNodeSeqWeap
-// 0x0000 (0x0178 - 0x0178)
-class UUTAnimNodeSeqWeap : public UUDKAnimNodeSeqWeap
+// Class UTGame.UTAnimBlendByVehicle
+// 0x0000 (0x0130 - 0x0130)
+class UUTAnimBlendByVehicle : public UUDKAnimBlendByVehicle
 {
 public:
 
@@ -7537,7 +7089,145 @@ public:
 
 };
 
-// UClass* UUTAnimNodeSeqWeap::pClassPointer = NULL;
+// Class UTGame.UTAnimBlendByWeapon
+// 0x0000 (0x013C - 0x013C)
+class UUTAnimBlendByWeapon : public UUDKAnimBlendByWeapon
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40306 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTAnimBlendByWeapType
+// 0x0000 (0x012C - 0x012C)
+class UUTAnimBlendByWeapType : public UUDKAnimBlendByWeapType
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40308 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTAnimNodeCopyBoneTranslation
+// 0x0000 (0x0148 - 0x0148)
+class UUTAnimNodeCopyBoneTranslation : public UUDKAnimNodeCopyBoneTranslation
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40310 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTAnimNodeFramePlayer
+// 0x0000 (0x0140 - 0x0140)
+class UUTAnimNodeFramePlayer : public UUDKAnimNodeFramePlayer
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40312 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTAnimNodeJumpLeanOffset
+// 0x0000 (0x0168 - 0x0168)
+class UUTAnimNodeJumpLeanOffset : public UUDKAnimNodeJumpLeanOffset
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40314 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTAnimNodeSequenceByBoneRotation
+// 0x0000 (0x0158 - 0x0158)
+class UUTAnimNodeSequenceByBoneRotation : public UUDKAnimNodeSequenceByBoneRotation
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40317 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTAnimNodeSeqWeap
+// 0x0000 (0x0178 - 0x0178)
+class UUTAnimNodeSeqWeap : public UUDKAnimNodeSeqWeap
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40319 ];
+
+		return pClassPointer;
+	};
+
+};
 
 // Class UTGame.UTQueuedAnnouncement
 // 0x0014 (0x01F4 - 0x01E0)
@@ -7557,14 +7247,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40313 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40328 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTQueuedAnnouncement::pClassPointer = NULL;
 
 // Class UTGame.UTVoice
 // 0x0080 (0x00E4 - 0x0064)
@@ -7595,7 +7283,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40336 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40351 ];
 
 		return pClassPointer;
 	};
@@ -7626,8 +7314,6 @@ public:
 	int GetAckMessageIndex ( class AController* Sender, class APlayerReplicationInfo* Recipient, struct FName MessageType );
 };
 
-// UClass* UUTVoice::pClassPointer = NULL;
-
 // Class UTGame.UTScriptedVoiceMessage
 // 0x0000 (0x0064 - 0x0064)
 class UUTScriptedVoiceMessage : public UUTLocalMessage
@@ -7641,7 +7327,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40337 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40352 ];
 
 		return pClassPointer;
 	};
@@ -7651,8 +7337,6 @@ public:
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	class USoundNodeWave* AnnouncementSound ( int MessageIndex, class UObject* OptionalObject, class APlayerController* PC );
 };
-
-// UClass* UUTScriptedVoiceMessage::pClassPointer = NULL;
 
 // Class UTGame.UTAreaNamingVolume
 // 0x0000 (0x020C - 0x020C)
@@ -7667,14 +7351,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40353 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40368 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTAreaNamingVolume::pClassPointer = NULL;
 
 // Class UTGame.UTArmorPickupLight
 // 0x0000 (0x01E8 - 0x01E8)
@@ -7689,14 +7371,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40393 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40408 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTArmorPickupLight::pClassPointer = NULL;
 
 // Class UTGame.UTAutoCrouchVolume
 // 0x0000 (0x020C - 0x020C)
@@ -7711,7 +7391,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40396 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40411 ];
 
 		return pClassPointer;
 	};
@@ -7721,8 +7401,6 @@ public:
 	void SetCrouch ( class APawn* P, unsigned char bCrouch );
 	void eventTouch ( class AActor* Other, class UPrimitiveComponent* OtherComp, struct FVector HitLocation, struct FVector HitNormal );
 };
-
-// UClass* AUTAutoCrouchVolume::pClassPointer = NULL;
 
 // Class UTGame.UTAvoidMarker
 // 0x0004 (0x01E4 - 0x01E0)
@@ -7738,15 +7416,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40418 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40433 ];
 
 		return pClassPointer;
 	};
 
 	void eventTouch ( class AActor* Other, class UPrimitiveComponent* OtherComp, struct FVector HitLocation, struct FVector HitNormal );
 };
-
-// UClass* AUTAvoidMarker::pClassPointer = NULL;
 
 // Class UTGame.UTDefensePoint
 // 0x002C (0x02E8 - 0x02BC)
@@ -7772,7 +7448,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40942 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 40957 ];
 
 		return pClassPointer;
 	};
@@ -7784,8 +7460,6 @@ public:
 	void FreePoint ( );
 	void Reset ( );
 };
-
-// UClass* AUTDefensePoint::pClassPointer = NULL;
 
 // Class UTGame.UTBeamWeapon
 // 0x005C (0x0620 - 0x05C4)
@@ -7808,7 +7482,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41031 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41046 ];
 
 		return pClassPointer;
 	};
@@ -7821,8 +7495,6 @@ public:
 	void KillBeamEmitter ( );
 	void AddBeamEmitter ( );
 };
-
-// UClass* AUTBeamWeapon::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_PlayAnim
 // 0x000C (0x00F4 - 0x00E8)
@@ -7839,14 +7511,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41259 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41274 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_PlayAnim::pClassPointer = NULL;
 
 // Class UTGame.UTCharInfo
 // 0x0024 (0x0060 - 0x003C)
@@ -7866,7 +7536,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41262 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41277 ];
 
 		return pClassPointer;
 	};
@@ -7874,8 +7544,6 @@ public:
 	struct FString GetRandomCharClassName ( );
 	class UClass* FindFamilyInfo ( struct FString InFamilyID );
 };
-
-// UClass* UUTCharInfo::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_Encroached
 // 0x0000 (0x012C - 0x012C)
@@ -7890,14 +7558,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41301 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41316 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTDmgType_Encroached::pClassPointer = NULL;
 
 // Class UTGame.UTPawnSoundGroup
 // 0x006C (0x00A8 - 0x003C)
@@ -7931,7 +7597,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41463 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41478 ];
 
 		return pClassPointer;
 	};
@@ -7955,8 +7621,6 @@ public:
 	void PlayInstagibSound ( class APawn* P );
 };
 
-// UClass* UUTPawnSoundGroup::pClassPointer = NULL;
-
 // Class UTGame.UTPhysicalMaterialProperty
 // 0x0008 (0x0044 - 0x003C)
 class UUTPhysicalMaterialProperty : public UPhysicalMaterialPropertyBase
@@ -7971,14 +7635,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41470 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41485 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTPhysicalMaterialProperty::pClassPointer = NULL;
 
 // Class UTGame.UTEmit_HitEffect
 // 0x0000 (0x01EC - 0x01EC)
@@ -7993,7 +7655,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41810 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41825 ];
 
 		return pClassPointer;
 	};
@@ -8001,8 +7663,6 @@ public:
 	void PawnBaseDied ( );
 	void AttachTo ( class APawn* P, struct FName NewBoneName );
 };
-
-// UClass* AUTEmit_HitEffect::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_UseHoverboard
 // 0x0004 (0x00EC - 0x00E8)
@@ -8018,15 +7678,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41833 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41848 ];
 
 		return pClassPointer;
 	};
 
 	int eventGetObjClassVersion ( );
 };
-
-// UClass* UUTSeqAct_UseHoverboard::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_InfiniteAmmo
 // 0x0004 (0x00EC - 0x00E8)
@@ -8042,14 +7700,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41880 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 41895 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_InfiniteAmmo::pClassPointer = NULL;
 
 // Class UTGame.UTClientSideWeaponPawn
 // 0x0000 (0x0628 - 0x0628)
@@ -8064,7 +7720,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42027 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42042 ];
 
 		return pClassPointer;
 	};
@@ -8074,8 +7730,6 @@ public:
 	void AttachDriver ( class APawn* P );
 	void PreBeginPlay ( );
 };
-
-// UClass* AUTClientSideWeaponPawn::pClassPointer = NULL;
 
 // Class UTGame.UTWaterVolume
 // 0x000C (0x0268 - 0x025C)
@@ -8093,7 +7747,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42126 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42141 ];
 
 		return pClassPointer;
 	};
@@ -8101,8 +7755,6 @@ public:
 	void PlayEntrySplash ( class AActor* Other );
 	void eventTouch ( class AActor* Other, class UPrimitiveComponent* OtherComp, struct FVector HitLocation, struct FVector HitNormal );
 };
-
-// UClass* AUTWaterVolume::pClassPointer = NULL;
 
 // Class UTGame.UTBeamWeaponAttachment
 // 0x002F (0x02F0 - 0x02C1)
@@ -8122,7 +7774,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42148 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42163 ];
 
 		return pClassPointer;
 	};
@@ -8131,8 +7783,6 @@ public:
 	void HideEmitter ( int Index, unsigned long bHide );
 	void AddBeamEmitter ( );
 };
-
-// UClass* AUTBeamWeaponAttachment::pClassPointer = NULL;
 
 // Class UTGame.UTTimedPowerup
 // 0x0040 (0x0270 - 0x0230)
@@ -8157,7 +7807,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42305 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42320 ];
 
 		return pClassPointer;
 	};
@@ -8177,8 +7827,6 @@ public:
 	void eventTick ( float DeltaTime );
 };
 
-// UClass* AUTTimedPowerup::pClassPointer = NULL;
-
 // Class UTGame.UTSeqAct_AIStartFireAt
 // 0x0001 (0x00E9 - 0x00E8)
 class UUTSeqAct_AIStartFireAt : public USequenceAction
@@ -8193,14 +7841,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42355 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42370 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_AIStartFireAt::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_AIStopFire
 // 0x0000 (0x00E8 - 0x00E8)
@@ -8215,14 +7861,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42361 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42376 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_AIStopFire::pClassPointer = NULL;
 
 // Class UTGame.UTHoldSpot
 // 0x0008 (0x02F0 - 0x02E8)
@@ -8239,7 +7883,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42392 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42407 ];
 
 		return pClassPointer;
 	};
@@ -8250,8 +7894,6 @@ public:
 	class AActor* GetMoveTarget ( );
 	void PreBeginPlay ( );
 };
-
-// UClass* AUTHoldSpot::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_AIFreeze
 // 0x0004 (0x00EC - 0x00E8)
@@ -8267,14 +7909,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42783 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 42798 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_AIFreeze::pClassPointer = NULL;
 
 // Class UTGame.UTLastSecondMessage
 // 0x0018 (0x007C - 0x0064)
@@ -8291,7 +7931,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43466 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43481 ];
 
 		return pClassPointer;
 	};
@@ -8299,8 +7939,6 @@ public:
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTLastSecondMessage::pClassPointer = NULL;
 
 // Class UTGame.UTCarriedObjectMessage
 // 0x00A8 (0x010C - 0x0064)
@@ -8330,7 +7968,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43557 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43572 ];
 
 		return pClassPointer;
 	};
@@ -8345,8 +7983,6 @@ public:
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
 
-// UClass* UUTCarriedObjectMessage::pClassPointer = NULL;
-
 // Class UTGame.UTCicadaRocketExplosionLight
 // 0x0000 (0x0270 - 0x0270)
 class UUTCicadaRocketExplosionLight : public UUDKExplosionLight
@@ -8360,14 +7996,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43697 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43712 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTCicadaRocketExplosionLight::pClassPointer = NULL;
 
 // Class UTGame.UTPlayerInput
 // 0x0009 (0x03E5 - 0x03DC)
@@ -8385,14 +8019,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43849 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43864 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTPlayerInput::pClassPointer = NULL;
 
 // Class UTGame.UTConsolePlayerInput
 // 0x00C7 (0x04AC - 0x03E5)
@@ -8460,7 +8092,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43848 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 43863 ];
 
 		return pClassPointer;
 	};
@@ -8476,8 +8108,6 @@ public:
 	void eventPostBeginPlay ( );
 };
 
-// UClass* UUTConsolePlayerInput::pClassPointer = NULL;
-
 // Class UTGame.UTSeqEvent_FlagEvent
 // 0x0000 (0x0100 - 0x0100)
 class UUTSeqEvent_FlagEvent : public USequenceEvent
@@ -8491,7 +8121,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44207 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44222 ];
 
 		return pClassPointer;
 	};
@@ -8499,8 +8129,6 @@ public:
 	int eventGetObjClassVersion ( );
 	void Trigger ( struct FName EventType, class AController* EventInstigator );
 };
-
-// UClass* UUTSeqEvent_FlagEvent::pClassPointer = NULL;
 
 // Class UTGame.UTCTFBase
 // 0x0054 (0x045C - 0x0408)
@@ -8530,7 +8158,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44223 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44238 ];
 
 		return pClassPointer;
 	};
@@ -8545,8 +8173,6 @@ public:
 	class AActor* eventGetBestViewTarget ( );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTCTFBase::pClassPointer = NULL;
 
 // Class UTGame.UTCTFGame
 // 0x000C (0x0540 - 0x0534)
@@ -8563,7 +8189,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44243 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44258 ];
 
 		return pClassPointer;
 	};
@@ -8580,8 +8206,6 @@ public:
 	void SetEndGameFocus ( class APlayerReplicationInfo* Winner );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTCTFGame::pClassPointer = NULL;
 
 // Class UTGame.UTCTFFlag
 // 0x0038 (0x033C - 0x0304)
@@ -8608,7 +8232,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44269 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44284 ];
 
 		return pClassPointer;
 	};
@@ -8630,8 +8254,6 @@ public:
 	void eventReplicatedEvent ( struct FName VarName );
 };
 
-// UClass* AUTCTFFlag::pClassPointer = NULL;
-
 // Class UTGame.UTCTFSquadAI
 // 0x0028 (0x02D4 - 0x02AC)
 class AUTCTFSquadAI : public AUTSquadAI
@@ -8651,7 +8273,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44301 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44316 ];
 
 		return pClassPointer;
 	};
@@ -8683,8 +8305,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AUTCTFSquadAI::pClassPointer = NULL;
-
 // Class UTGame.UTTeamAI
 // 0x00BC (0x02A0 - 0x01E4)
 class AUTTeamAI : public AUDKTeamOwnedInfo
@@ -8713,7 +8333,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44303 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44318 ];
 
 		return pClassPointer;
 	};
@@ -8746,8 +8366,6 @@ public:
 	void PostBeginPlay ( );
 };
 
-// UClass* AUTTeamAI::pClassPointer = NULL;
-
 // Class UTGame.UTDMRoster
 // 0x0008 (0x0260 - 0x0258)
 class AUTDMRoster : public AUTTeamInfo
@@ -8763,15 +8381,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44571 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44586 ];
 
 		return pClassPointer;
 	};
 
 	bool AddToTeam ( class AController* Other );
 };
-
-// UClass* AUTDMRoster::pClassPointer = NULL;
 
 // Class UTGame.UTMutator
 // 0x0000 (0x01F4 - 0x01F4)
@@ -8786,7 +8402,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44574 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44589 ];
 
 		return pClassPointer;
 	};
@@ -8796,8 +8412,6 @@ public:
 	class AUTMutator* GetNextUTMutator ( );
 	bool MutatorIsAllowed ( );
 };
-
-// UClass* AUTMutator::pClassPointer = NULL;
 
 // Class UTGame.UTKillingSpreeMessage
 // 0x00E4 (0x0148 - 0x0064)
@@ -8820,7 +8434,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44590 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44605 ];
 
 		return pClassPointer;
 	};
@@ -8830,8 +8444,6 @@ public:
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	int GetFontSize ( int Switch, class APlayerReplicationInfo* RelatedPRI1, class APlayerReplicationInfo* RelatedPRI2, class APlayerReplicationInfo* LocalPlayer );
 };
-
-// UClass* UUTKillingSpreeMessage::pClassPointer = NULL;
 
 // Class UTGame.UTSeqEvent_GameEnded
 // 0x0008 (0x0108 - 0x0100)
@@ -8848,7 +8460,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44622 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44637 ];
 
 		return pClassPointer;
 	};
@@ -8856,8 +8468,6 @@ public:
 	int eventGetObjClassVersion ( );
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqEvent_GameEnded::pClassPointer = NULL;
 
 // Class UTGame.UTKillsRemainingMessage
 // 0x0030 (0x0094 - 0x0064)
@@ -8874,7 +8484,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44771 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44786 ];
 
 		return pClassPointer;
 	};
@@ -8883,8 +8493,6 @@ public:
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTKillsRemainingMessage::pClassPointer = NULL;
 
 // Class UTGame.UTDeathMessage
 // 0x001C (0x0080 - 0x0064)
@@ -8902,7 +8510,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44866 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44881 ];
 
 		return pClassPointer;
 	};
@@ -8911,8 +8519,6 @@ public:
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	struct FColor GetConsoleColor ( class APlayerReplicationInfo* RelatedPRI );
 };
-
-// UClass* UUTDeathMessage::pClassPointer = NULL;
 
 // Class UTGame.UTGameSettingsDM
 // 0x0000 (0x00B4 - 0x00B4)
@@ -8927,14 +8533,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44872 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44887 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGameSettingsDM::pClassPointer = NULL;
 
 // Class UTGame.UTTeamPlayerStart
 // 0x0000 (0x02D0 - 0x02D0)
@@ -8949,14 +8553,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 44986 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45001 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTTeamPlayerStart::pClassPointer = NULL;
 
 // Class UTGame.UTTeamHUD
 // 0x0038 (0x0AB8 - 0x0A80)
@@ -8980,7 +8582,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45093 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45108 ];
 
 		return pClassPointer;
 	};
@@ -8992,8 +8594,6 @@ public:
 	void DisplayTeamScore ( );
 	void DisplayScoring ( );
 };
-
-// UClass* AUTTeamHUD::pClassPointer = NULL;
 
 // Class UTGame.UTGameSettingsTDM
 // 0x0000 (0x00B4 - 0x00B4)
@@ -9008,14 +8608,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45094 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45109 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGameSettingsTDM::pClassPointer = NULL;
 
 // Class UTGame.UTCTFTeamAI
 // 0x000C (0x02AC - 0x02A0)
@@ -9033,7 +8631,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45100 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45115 ];
 
 		return pClassPointer;
 	};
@@ -9041,8 +8639,6 @@ public:
 	class AUTGameObjective* GetPriorityFreelanceObjectiveFor ( class AUTSquadAI* InFreelanceSquad );
 	class AUTSquadAI* AddSquadWithLeader ( class AController* C, class AUTGameObjective* O );
 };
-
-// UClass* AUTCTFTeamAI::pClassPointer = NULL;
 
 // Class UTGame.UTTeamDeathMessage
 // 0x0000 (0x0080 - 0x0080)
@@ -9057,14 +8653,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45161 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45176 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTTeamDeathMessage::pClassPointer = NULL;
 
 // Class UTGame.UTGameSettingsCTF
 // 0x0000 (0x00B4 - 0x00B4)
@@ -9079,14 +8673,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45162 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45177 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGameSettingsCTF::pClassPointer = NULL;
 
 // Class UTGame.UTSayMsg
 // 0x0008 (0x006C - 0x0064)
@@ -9103,15 +8695,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45473 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45487 ];
 
 		return pClassPointer;
 	};
 
 	struct FColor GetConsoleColor ( class APlayerReplicationInfo* RelatedPRI );
 };
-
-// UClass* UUTSayMsg::pClassPointer = NULL;
 
 // Class UTGame.UTTeamSayMsg
 // 0x0000 (0x0064 - 0x0064)
@@ -9126,14 +8716,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45474 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45488 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTTeamSayMsg::pClassPointer = NULL;
 
 // Class UTGame.UTGameViewportClient
 // 0x006C (0x0198 - 0x012C)
@@ -9154,7 +8742,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45506 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45520 ];
 
 		return pClassPointer;
 	};
@@ -9166,8 +8754,6 @@ public:
 	void DrawTransition ( class UCanvas* Canvas );
 	void eventPostRender ( class UCanvas* Canvas );
 };
-
-// UClass* UUTGameViewportClient::pClassPointer = NULL;
 
 // Class UTGame.UTWeaponSwitchMessage
 // 0x0000 (0x0064 - 0x0064)
@@ -9182,15 +8768,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45523 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45537 ];
 
 		return pClassPointer;
 	};
 
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTWeaponSwitchMessage::pClassPointer = NULL;
 
 // Class UTGame.UTPowerupPickupFactory
 // 0x0000 (0x03B4 - 0x03B4)
@@ -9205,7 +8789,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45785 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45799 ];
 
 		return pClassPointer;
 	};
@@ -9213,8 +8797,6 @@ public:
 	void SpawnCopyFor ( class APawn* Recipient );
 	void AddWeaponOverlay ( class AUTGameReplicationInfo* GRI );
 };
-
-// UClass* AUTPowerupPickupFactory::pClassPointer = NULL;
 
 // Class UTGame.UTCTFHUD
 // 0x000A (0x0AC2 - 0x0AB8)
@@ -9231,7 +8813,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45838 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45852 ];
 
 		return pClassPointer;
 	};
@@ -9241,8 +8823,6 @@ public:
 	void Timer ( );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTCTFHUD::pClassPointer = NULL;
 
 // Class UTGame.UTCTFHUDMessage
 // 0x002C (0x0090 - 0x0064)
@@ -9262,7 +8842,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45845 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 45859 ];
 
 		return pClassPointer;
 	};
@@ -9271,8 +8851,6 @@ public:
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	struct FColor GetColor ( int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTCTFHUDMessage::pClassPointer = NULL;
 
 // Class UTGame.UTWeaponRewardMessage
 // 0x00B0 (0x0114 - 0x0064)
@@ -9289,7 +8867,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46609 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46623 ];
 
 		return pClassPointer;
 	};
@@ -9298,8 +8876,6 @@ public:
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTWeaponRewardMessage::pClassPointer = NULL;
 
 // Class UTGame.UTDataStore_GameSearchPersonal
 // 0x00B8 (0x0164 - 0x00AC)
@@ -9316,7 +8892,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46617 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46631 ];
 
 		return pClassPointer;
 	};
@@ -9333,8 +8909,6 @@ public:
 	bool HasOutstandingQueries ( unsigned long bRestrictCheckToSelf );
 };
 
-// UClass* UUTDataStore_GameSearchPersonal::pClassPointer = NULL;
-
 // Class UTGame.UTDataStore_GameSearchHistory
 // 0x0008 (0x016C - 0x0164)
 class UUTDataStore_GameSearchHistory : public UUTDataStore_GameSearchPersonal
@@ -9350,7 +8924,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46616 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46630 ];
 
 		return pClassPointer;
 	};
@@ -9358,8 +8932,6 @@ public:
 	bool HasOutstandingQueries ( unsigned long bRestrictCheckToSelf );
 	void eventRegistered ( class ULocalPlayer* PlayerOwner );
 };
-
-// UClass* UUTDataStore_GameSearchHistory::pClassPointer = NULL;
 
 // Class UTGame.UTDataStore_GameSearchFavorites
 // 0x0004 (0x0168 - 0x0164)
@@ -9375,15 +8947,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46641 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46655 ];
 
 		return pClassPointer;
 	};
 
 	bool HasOutstandingQueries ( unsigned long bRestrictCheckToSelf );
 };
-
-// UClass* UUTDataStore_GameSearchFavorites::pClassPointer = NULL;
 
 // Class UTGame.UTGameSearchCommon
 // 0x0000 (0x00EC - 0x00EC)
@@ -9398,14 +8968,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46683 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46697 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGameSearchCommon::pClassPointer = NULL;
 
 // Class UTGame.UTGameSearchPersonal
 // 0x0000 (0x00EC - 0x00EC)
@@ -9420,14 +8988,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46682 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46696 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGameSearchPersonal::pClassPointer = NULL;
 
 // Class UTGame.UTGameSettingsPersonal
 // 0x0000 (0x00B4 - 0x00B4)
@@ -9442,14 +9008,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46739 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46753 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGameSettingsPersonal::pClassPointer = NULL;
 
 // Class UTGame.UTDataStore_GameSettingsDM
 // 0x0000 (0x008C - 0x008C)
@@ -9464,14 +9028,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46747 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46761 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTDataStore_GameSettingsDM::pClassPointer = NULL;
 
 // Class UTGame.UTGameSettingsVCTF
 // 0x0000 (0x00B4 - 0x00B4)
@@ -9486,14 +9048,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46749 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46763 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGameSettingsVCTF::pClassPointer = NULL;
 
 // Class UTGame.UTWeaponKillMessage
 // 0x0000 (0x0064 - 0x0064)
@@ -9508,14 +9068,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46774 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46788 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTWeaponKillMessage::pClassPointer = NULL;
 
 // Class UTGame.UTKillerMessage
 // 0x0054 (0x00B8 - 0x0064)
@@ -9537,15 +9095,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46773 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46787 ];
 
 		return pClassPointer;
 	};
 
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTKillerMessage::pClassPointer = NULL;
 
 // Class UTGame.UTMultiKillMessage
 // 0x0050 (0x00B4 - 0x0064)
@@ -9562,7 +9118,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46777 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46791 ];
 
 		return pClassPointer;
 	};
@@ -9574,8 +9130,6 @@ public:
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTMultiKillMessage::pClassPointer = NULL;
 
 // Class UTGame.UTVictimMessage
 // 0x0060 (0x00C4 - 0x0064)
@@ -9598,15 +9152,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46779 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46793 ];
 
 		return pClassPointer;
 	};
 
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTVictimMessage::pClassPointer = NULL;
 
 // Class UTGame.UTDecalManager
 // 0x0000 (0x0210 - 0x0210)
@@ -9621,15 +9173,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46783 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46797 ];
 
 		return pClassPointer;
 	};
 
 	bool CanSpawnDecals ( );
 };
-
-// UClass* AUTDecalManager::pClassPointer = NULL;
 
 // Class UTGame.UTEmit_BodyFlame
 // 0x0000 (0x01EC - 0x01EC)
@@ -9644,14 +9194,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46812 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46826 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTEmit_BodyFlame::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_Lava
 // 0x0000 (0x012C - 0x012C)
@@ -9666,14 +9214,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46831 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46845 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTDmgType_Lava::pClassPointer = NULL;
 
 // Class UTGame.UTVehicleKillMessage
 // 0x0080 (0x00E4 - 0x0064)
@@ -9690,7 +9236,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46843 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46857 ];
 
 		return pClassPointer;
 	};
@@ -9699,8 +9245,6 @@ public:
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTVehicleKillMessage::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_SpaceDeath
 // 0x0000 (0x012C - 0x012C)
@@ -9715,14 +9259,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46865 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46879 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTDmgType_SpaceDeath::pClassPointer = NULL;
 
 // Class UTGame.UTDmgType_Telefrag
 // 0x0000 (0x012C - 0x012C)
@@ -9737,14 +9279,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46869 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46883 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTDmgType_Telefrag::pClassPointer = NULL;
 
 // Class UTGame.UTDMSquad
 // 0x0000 (0x02AC - 0x02AC)
@@ -9759,7 +9299,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46923 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 46937 ];
 
 		return pClassPointer;
 	};
@@ -9781,8 +9321,6 @@ public:
 	void DisplayDebug ( class AHUD* HUD, float* YL, float* YPos );
 };
 
-// UClass* AUTDMSquad::pClassPointer = NULL;
-
 // Class UTGame.UTDroppedItemPickup
 // 0x0008 (0x020C - 0x0204)
 class AUTDroppedItemPickup : public AUTDroppedPickup
@@ -9798,7 +9336,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47010 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47024 ];
 
 		return pClassPointer;
 	};
@@ -9810,8 +9348,6 @@ public:
 	void eventSetPickupMesh ( class UPrimitiveComponent* NewPickupMesh );
 	float BotDesireability ( class APawn* Bot, class AController* C );
 };
-
-// UClass* AUTDroppedItemPickup::pClassPointer = NULL;
 
 // Class UTGame.UTDummyPawn
 // 0x0004 (0x08A8 - 0x08A4)
@@ -9827,7 +9363,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47030 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47044 ];
 
 		return pClassPointer;
 	};
@@ -9842,8 +9378,6 @@ public:
 	void WeaponFired ( class AWeapon* InWeapon, unsigned long bViaReplication, struct FVector HitLocation );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTDummyPawn::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_DummyWeaponFire
 // 0x002C (0x0124 - 0x00F8)
@@ -9867,7 +9401,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47032 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47046 ];
 
 		return pClassPointer;
 	};
@@ -9876,8 +9410,6 @@ public:
 	void NotifyDummyFire ( );
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqAct_DummyWeaponFire::pClassPointer = NULL;
 
 // Class UTGame.UTDynamicWaterVolume
 // 0x0000 (0x0268 - 0x0268)
@@ -9892,14 +9424,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47089 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47103 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTDynamicWaterVolume::pClassPointer = NULL;
 
 // Class UTGame.UTEmit_BloodSpray
 // 0x0000 (0x01EC - 0x01EC)
@@ -9914,14 +9444,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47114 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47128 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTEmit_BloodSpray::pClassPointer = NULL;
 
 // Class UTGame.UTEmit_HeadShotHelmet
 // 0x0000 (0x01F4 - 0x01F4)
@@ -9936,14 +9464,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47124 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47138 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTEmit_HeadShotHelmet::pClassPointer = NULL;
 
 // Class UTGame.UTEmit_VehicleHit
 // 0x0000 (0x01EC - 0x01EC)
@@ -9958,14 +9484,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47127 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47141 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTEmit_VehicleHit::pClassPointer = NULL;
 
 // Class UTGame.UTEmitCameraEffect
 // 0x0000 (0x01F4 - 0x01F4)
@@ -9980,14 +9504,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47130 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47144 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTEmitCameraEffect::pClassPointer = NULL;
 
 // Class UTGame.UTEntryHUD
 // 0x0000 (0x0468 - 0x0468)
@@ -10002,15 +9524,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47147 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47161 ];
 
 		return pClassPointer;
 	};
 
 	void eventPostRender ( );
 };
-
-// UClass* AUTEntryHUD::pClassPointer = NULL;
 
 // Class UTGame.UTFirstBloodMessage
 // 0x000C (0x0070 - 0x0064)
@@ -10026,7 +9546,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47239 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47253 ];
 
 		return pClassPointer;
 	};
@@ -10034,8 +9554,6 @@ public:
 	void ClientReceive ( class APlayerController* P, int Switch, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTFirstBloodMessage::pClassPointer = NULL;
 
 // Class UTGame.UTGameInteraction
 // 0x0000 (0x0160 - 0x0160)
@@ -10050,14 +9568,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47255 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47269 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGameInteraction::pClassPointer = NULL;
 
 // Class UTGame.UTGibStaticMeshComponent
 // 0x0000 (0x0260 - 0x0260)
@@ -10072,14 +9588,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47627 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47640 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGibStaticMeshComponent::pClassPointer = NULL;
 
 // Class UTGame.UTGibSkeletalMeshComponent
 // 0x0000 (0x05E5 - 0x05E5)
@@ -10094,14 +9608,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47636 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47649 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGibSkeletalMeshComponent::pClassPointer = NULL;
 
 // Class UTGame.UTGreenMuzzleFlashLight
 // 0x0000 (0x0270 - 0x0270)
@@ -10116,14 +9628,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47695 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47708 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTGreenMuzzleFlashLight::pClassPointer = NULL;
 
 // Class UTGame.UTHealthPickupLight
 // 0x0000 (0x01E8 - 0x01E8)
@@ -10138,14 +9648,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47727 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47740 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTHealthPickupLight::pClassPointer = NULL;
 
 // Class UTGame.UTHoverWheel
 // 0x0000 (0x0120 - 0x0120)
@@ -10160,14 +9668,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47742 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47755 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTHoverWheel::pClassPointer = NULL;
 
 // Class UTGame.UTHugeExplosionLight
 // 0x0000 (0x0270 - 0x0270)
@@ -10182,14 +9688,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47744 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47757 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTHugeExplosionLight::pClassPointer = NULL;
 
 // Class UTGame.UTRotatingDroppedPickup
 // 0x0004 (0x0208 - 0x0204)
@@ -10205,15 +9709,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47766 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47779 ];
 
 		return pClassPointer;
 	};
 
 	void eventTick ( float DeltaTime );
 };
-
-// UClass* AUTRotatingDroppedPickup::pClassPointer = NULL;
 
 // Class UTGame.UTJumpLiftExit
 // 0x0000 (0x02C0 - 0x02C0)
@@ -10228,7 +9730,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47867 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47880 ];
 
 		return pClassPointer;
 	};
@@ -10237,8 +9739,6 @@ public:
 	void WaitForLift ( class APawn* Other );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTJumpLiftExit::pClassPointer = NULL;
 
 // Class UTGame.UTKillZVolume
 // 0x0004 (0x0250 - 0x024C)
@@ -10254,7 +9754,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47952 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 47965 ];
 
 		return pClassPointer;
 	};
@@ -10264,8 +9764,6 @@ public:
 	void eventPawnEnteredVolume ( class APawn* Other );
 	void eventActorEnteredVolume ( class AActor* Other );
 };
-
-// UClass* AUTKillZVolume::pClassPointer = NULL;
 
 // Class UTGame.UTKismetAnnouncement
 // 0x0000 (0x0064 - 0x0064)
@@ -10280,7 +9778,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48002 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48015 ];
 
 		return pClassPointer;
 	};
@@ -10288,8 +9786,6 @@ public:
 	unsigned char AnnouncementLevel ( unsigned char MessageIndex );
 	struct FObjectiveAnnouncementInfo GetObjectiveAnnouncement ( unsigned char MessageIndex, class UObject* Objective, class APlayerController* PC );
 };
-
-// UClass* UUTKismetAnnouncement::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_PlayAnnouncement
 // 0x0010 (0x00F8 - 0x00E8)
@@ -10305,15 +9801,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48006 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48019 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqAct_PlayAnnouncement::pClassPointer = NULL;
 
 // Class UTGame.UTLavaVolume
 // 0x0000 (0x025C - 0x025C)
@@ -10328,14 +9822,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48032 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48045 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTLavaVolume::pClassPointer = NULL;
 
 // Class UTGame.UTLeviathanMuzzleFlashLight
 // 0x0000 (0x0270 - 0x0270)
@@ -10350,14 +9842,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48035 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48048 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTLeviathanMuzzleFlashLight::pClassPointer = NULL;
 
 // Class UTGame.UTLinkBeamLight
 // 0x0004 (0x01E4 - 0x01E0)
@@ -10373,14 +9863,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48037 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48050 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTLinkBeamLight::pClassPointer = NULL;
 
 // Class UTGame.UTLinkGunMuzzleFlashLight
 // 0x0018 (0x0288 - 0x0270)
@@ -10397,15 +9885,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48041 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48054 ];
 
 		return pClassPointer;
 	};
 
 	void SetTeam ( unsigned char NewTeam );
 };
-
-// UClass* UUTLinkGunMuzzleFlashLight::pClassPointer = NULL;
 
 // Class UTGame.UTMapMusicInfo
 // 0x0000 (0x00DC - 0x00DC)
@@ -10420,14 +9906,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48098 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48111 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTMapMusicInfo::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_Arena
 // 0x000C (0x0200 - 0x01F4)
@@ -10443,7 +9927,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48307 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48320 ];
 
 		return pClassPointer;
 	};
@@ -10452,8 +9936,6 @@ public:
 	bool CheckReplacement ( class AActor* Other );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTMutator_Arena::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_BigHead
 // 0x0000 (0x01F4 - 0x01F4)
@@ -10468,15 +9950,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48318 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48331 ];
 
 		return pClassPointer;
 	};
 
 	void ModifyPlayer ( class APawn* P );
 };
-
-// UClass* AUTMutator_BigHead::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_FriendlyFire
 // 0x0004 (0x01F8 - 0x01F4)
@@ -10492,7 +9972,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48322 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48335 ];
 
 		return pClassPointer;
 	};
@@ -10500,8 +9980,6 @@ public:
 	void InitMutator ( struct FString Options, struct FString* ErrorMessage );
 	bool MutatorIsAllowed ( );
 };
-
-// UClass* AUTMutator_FriendlyFire::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_LowGrav
 // 0x0004 (0x01F8 - 0x01F4)
@@ -10517,15 +9995,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48330 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48343 ];
 
 		return pClassPointer;
 	};
 
 	void InitMutator ( struct FString Options, struct FString* ErrorMessage );
 };
-
-// UClass* AUTMutator_LowGrav::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_NoHoverboard
 // 0x0000 (0x01F4 - 0x01F4)
@@ -10540,15 +10016,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48336 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48349 ];
 
 		return pClassPointer;
 	};
 
 	void InitMutator ( struct FString Options, struct FString* ErrorMessage );
 };
-
-// UClass* AUTMutator_NoHoverboard::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_NoPowerups
 // 0x0000 (0x01F4 - 0x01F4)
@@ -10563,15 +10037,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48341 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48354 ];
 
 		return pClassPointer;
 	};
 
 	bool CheckReplacement ( class AActor* Other );
 };
-
-// UClass* AUTMutator_NoPowerups::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_Slomo
 // 0x0004 (0x01F8 - 0x01F4)
@@ -10587,15 +10059,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48347 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48360 ];
 
 		return pClassPointer;
 	};
 
 	void InitMutator ( struct FString Options, struct FString* ErrorMessage );
 };
-
-// UClass* AUTMutator_Slomo::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_SlowTimeKills
 // 0x000C (0x0200 - 0x01F4)
@@ -10613,7 +10083,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48353 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48366 ];
 
 		return pClassPointer;
 	};
@@ -10622,8 +10092,6 @@ public:
 	void ScoreKill ( class AController* Killer, class AController* Killed );
 	bool MutatorIsAllowed ( );
 };
-
-// UClass* AUTMutator_SlowTimeKills::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_SpeedFreak
 // 0x0004 (0x01F8 - 0x01F4)
@@ -10639,15 +10107,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48368 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48381 ];
 
 		return pClassPointer;
 	};
 
 	void InitMutator ( struct FString Options, struct FString* ErrorMessage );
 };
-
-// UClass* AUTMutator_SpeedFreak::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_SuperBerserk
 // 0x0000 (0x01F4 - 0x01F4)
@@ -10662,7 +10128,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48374 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48387 ];
 
 		return pClassPointer;
 	};
@@ -10670,8 +10136,6 @@ public:
 	bool CheckReplacement ( class AActor* Other );
 	void ModifyPlayer ( class APawn* Other );
 };
-
-// UClass* AUTMutator_SuperBerserk::pClassPointer = NULL;
 
 // Class UTGame.UTMutator_WeaponsRespawn
 // 0x0000 (0x01F4 - 0x01F4)
@@ -10686,15 +10150,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48383 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48396 ];
 
 		return pClassPointer;
 	};
 
 	void InitMutator ( struct FString Options, struct FString* ErrorMessage );
 };
-
-// UClass* AUTMutator_WeaponsRespawn::pClassPointer = NULL;
 
 // Class UTGame.UTPortal
 // 0x0000 (0x0200 - 0x0200)
@@ -10709,14 +10171,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48600 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48613 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTPortal::pClassPointer = NULL;
 
 // Class UTGame.UTRocketLight
 // 0x0000 (0x0270 - 0x0270)
@@ -10731,14 +10191,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48732 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48745 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTRocketLight::pClassPointer = NULL;
 
 // Class UTGame.UTRocketMuzzleFlashLight
 // 0x0000 (0x0270 - 0x0270)
@@ -10753,14 +10211,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48734 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48747 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTRocketMuzzleFlashLight::pClassPointer = NULL;
 
 // Class UTGame.UTScavengerMessage
 // 0x000C (0x0070 - 0x0064)
@@ -10776,15 +10232,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48749 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48762 ];
 
 		return pClassPointer;
 	};
 
 	struct FString GetString ( int Switch, unsigned long bPRI1HUD, class APlayerReplicationInfo* RelatedPRI, class APlayerReplicationInfo* RelatedPRI01, class UObject* OptionalObject );
 };
-
-// UClass* UUTScavengerMessage::pClassPointer = NULL;
 
 // Class UTGame.UTScout
 // 0x0000 (0x051C - 0x051C)
@@ -10799,14 +10253,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48760 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48773 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTScout::pClassPointer = NULL;
 
 // Class UTGame.UTScriptedBotVolume
 // 0x0000 (0x024C - 0x024C)
@@ -10821,15 +10273,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48763 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48776 ];
 
 		return pClassPointer;
 	};
 
 	void eventPawnLeavingVolume ( class APawn* Other );
 };
-
-// UClass* AUTScriptedBotVolume::pClassPointer = NULL;
 
 // Class UTGame.UTSD_SpawnedKActor
 // 0x0000 (0x02D8 - 0x02D8)
@@ -10844,14 +10294,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48791 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48804 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTSD_SpawnedKActor::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_ActivateRocketBoosters
 // 0x0000 (0x00E8 - 0x00E8)
@@ -10866,14 +10314,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48795 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48808 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_ActivateRocketBoosters::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_AddNamedBot
 // 0x001C (0x0104 - 0x00E8)
@@ -10893,7 +10339,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48797 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48810 ];
 
 		return pClassPointer;
 	};
@@ -10901,8 +10347,6 @@ public:
 	int eventGetObjClassVersion ( );
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqAct_AddNamedBot::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_ChangeTeam
 // 0x0001 (0x00E9 - 0x00E8)
@@ -10918,15 +10362,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48811 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48824 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqAct_ChangeTeam::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_EnterVehicle
 // 0x0004 (0x00EC - 0x00E8)
@@ -10942,15 +10384,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48831 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48844 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqAct_EnterVehicle::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_GetTeamNum
 // 0x0004 (0x00EC - 0x00E8)
@@ -10966,15 +10406,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48840 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48853 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqAct_GetTeamNum::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_HoverboardSpinJump
 // 0x0004 (0x00EC - 0x00E8)
@@ -10990,14 +10428,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48845 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48858 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_HoverboardSpinJump::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_ReturnCTFFlag
 // 0x0004 (0x00EC - 0x00E8)
@@ -11013,15 +10449,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48856 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48869 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqAct_ReturnCTFFlag::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_ScriptedVoiceMessage
 // 0x0010 (0x00F8 - 0x00E8)
@@ -11038,7 +10472,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48862 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48875 ];
 
 		return pClassPointer;
 	};
@@ -11046,8 +10480,6 @@ public:
 	int eventGetObjClassVersion ( );
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqAct_ScriptedVoiceMessage::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_SelfDestruct
 // 0x0000 (0x00E8 - 0x00E8)
@@ -11062,14 +10494,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48873 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48886 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_SelfDestruct::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_SetBotsMustComplete
 // 0x0000 (0x00E8 - 0x00E8)
@@ -11084,14 +10514,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48875 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48888 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSeqAct_SetBotsMustComplete::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_SetVisibilityModifier
 // 0x0004 (0x00EC - 0x00E8)
@@ -11107,15 +10535,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48877 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48890 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqAct_SetVisibilityModifier::pClassPointer = NULL;
 
 // Class UTGame.UTSeqAct_SpawnProjectile
 // 0x0004 (0x00EC - 0x00E8)
@@ -11123,29 +10549,6 @@ class UUTSeqAct_SpawnProjectile : public USequenceAction
 {
 public:
 	class UClass*                                      ProjectileClass;                                  		// 0x00E8 (0x0004) [0x0000000000000001]              ( CPF_Edit )
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48882 ];
-
-		return pClassPointer;
-	};
-
-	void eventActivated ( );
-};
-
-// UClass* UUTSeqAct_SpawnProjectile::pClassPointer = NULL;
-
-// Class UTGame.UTSeqAct_ToggleAnnouncements
-// 0x0000 (0x00E8 - 0x00E8)
-class UUTSeqAct_ToggleAnnouncements : public USequenceAction
-{
-public:
 
 private:
 	static UClass* pClassPointer;
@@ -11162,7 +10565,26 @@ public:
 	void eventActivated ( );
 };
 
-// UClass* UUTSeqAct_ToggleAnnouncements::pClassPointer = NULL;
+// Class UTGame.UTSeqAct_ToggleAnnouncements
+// 0x0000 (0x00E8 - 0x00E8)
+class UUTSeqAct_ToggleAnnouncements : public USequenceAction
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48908 ];
+
+		return pClassPointer;
+	};
+
+	void eventActivated ( );
+};
 
 // Class UTGame.UTSeqCond_CheckWeapon
 // 0x0008 (0x00D8 - 0x00D0)
@@ -11179,15 +10601,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48902 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48915 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqCond_CheckWeapon::pClassPointer = NULL;
 
 // Class UTGame.UTSeqCond_DoTutorial
 // 0x0000 (0x00D0 - 0x00D0)
@@ -11202,15 +10622,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48910 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48923 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqCond_DoTutorial::pClassPointer = NULL;
 
 // Class UTGame.UTSeqCond_HasInventory
 // 0x000C (0x00DC - 0x00D0)
@@ -11229,15 +10647,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48915 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48928 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqCond_HasInventory::pClassPointer = NULL;
 
 // Class UTGame.UTSeqCond_IsCarryingFlag
 // 0x0008 (0x00D8 - 0x00D0)
@@ -11254,15 +10670,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48925 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48938 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqCond_IsCarryingFlag::pClassPointer = NULL;
 
 // Class UTGame.UTSeqCond_IsConsole
 // 0x0000 (0x00D0 - 0x00D0)
@@ -11277,15 +10691,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48934 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48947 ];
 
 		return pClassPointer;
 	};
 
 	void eventActivated ( );
 };
-
-// UClass* UUTSeqCond_IsConsole::pClassPointer = NULL;
 
 // Class UTGame.UTSeqCond_IsUsingWeapon
 // 0x000C (0x00DC - 0x00D0)
@@ -11304,7 +10716,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48937 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48950 ];
 
 		return pClassPointer;
 	};
@@ -11312,121 +10724,9 @@ public:
 	void eventActivated ( );
 };
 
-// UClass* UUTSeqCond_IsUsingWeapon::pClassPointer = NULL;
-
 // Class UTGame.UTSeqEvent_ObjectiveCompleted
 // 0x0000 (0x0100 - 0x0100)
 class UUTSeqEvent_ObjectiveCompleted : public USequenceEvent
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48963 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTSeqEvent_ObjectiveCompleted::pClassPointer = NULL;
-
-// Class UTGame.UTSeqEvent_SkipCinematic
-// 0x0000 (0x0100 - 0x0100)
-class UUTSeqEvent_SkipCinematic : public USequenceEvent
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48965 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTSeqEvent_SkipCinematic::pClassPointer = NULL;
-
-// Class UTGame.UTShockBallLight
-// 0x0000 (0x0248 - 0x0248)
-class UUTShockBallLight : public UPointLightComponent
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48970 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTShockBallLight::pClassPointer = NULL;
-
-// Class UTGame.UTShockComboExplosionLight
-// 0x0000 (0x0270 - 0x0270)
-class UUTShockComboExplosionLight : public UUDKExplosionLight
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48972 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTShockComboExplosionLight::pClassPointer = NULL;
-
-// Class UTGame.UTShockImpactLight
-// 0x0000 (0x0270 - 0x0270)
-class UUTShockImpactLight : public UUDKExplosionLight
-{
-public:
-
-private:
-	static UClass* pClassPointer;
-
-public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48974 ];
-
-		return pClassPointer;
-	};
-
-};
-
-// UClass* UUTShockImpactLight::pClassPointer = NULL;
-
-// Class UTGame.UTShockMuzzleFlashLight
-// 0x0000 (0x0270 - 0x0270)
-class UUTShockMuzzleFlashLight : public UUDKExplosionLight
 {
 public:
 
@@ -11444,7 +10744,105 @@ public:
 
 };
 
-// UClass* UUTShockMuzzleFlashLight::pClassPointer = NULL;
+// Class UTGame.UTSeqEvent_SkipCinematic
+// 0x0000 (0x0100 - 0x0100)
+class UUTSeqEvent_SkipCinematic : public USequenceEvent
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48978 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTShockBallLight
+// 0x0000 (0x0248 - 0x0248)
+class UUTShockBallLight : public UPointLightComponent
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48983 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTShockComboExplosionLight
+// 0x0000 (0x0270 - 0x0270)
+class UUTShockComboExplosionLight : public UUDKExplosionLight
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48985 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTShockImpactLight
+// 0x0000 (0x0270 - 0x0270)
+class UUTShockImpactLight : public UUDKExplosionLight
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48987 ];
+
+		return pClassPointer;
+	};
+
+};
+
+// Class UTGame.UTShockMuzzleFlashLight
+// 0x0000 (0x0270 - 0x0270)
+class UUTShockMuzzleFlashLight : public UUDKExplosionLight
+{
+public:
+
+private:
+	static UClass* pClassPointer;
+
+public:
+	static UClass* StaticClass()
+	{
+		if ( ! pClassPointer )
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48989 ];
+
+		return pClassPointer;
+	};
+
+};
 
 // Class UTGame.UTSimpleDestroyable
 // 0x003C (0x0254 - 0x0218)
@@ -11473,7 +10871,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48978 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 48991 ];
 
 		return pClassPointer;
 	};
@@ -11485,8 +10883,6 @@ public:
 	void GoBoom ( );
 	void PostBeginPlay ( );
 };
-
-// UClass* AUTSimpleDestroyable::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_CantileverBeam
 // 0x0000 (0x017C - 0x017C)
@@ -11501,14 +10897,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49030 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49043 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_CantileverBeam::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_CicadaEngine
 // 0x0024 (0x0110 - 0x00EC)
@@ -11532,15 +10926,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49032 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49045 ];
 
 		return pClassPointer;
 	};
 
 	void eventTickSkelControl ( float DeltaTime, class USkeletalMeshComponent* SkelComp );
 };
-
-// UClass* UUTSkelControl_CicadaEngine::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_DamageHinge
 // 0x0000 (0x018C - 0x018C)
@@ -11555,7 +10947,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49058 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49071 ];
 
 		return pClassPointer;
 	};
@@ -11563,8 +10955,6 @@ public:
 	void eventBreakApartOnDeath ( struct FVector PartLocation, unsigned long bIsVisible );
 	void eventBreakApart ( struct FVector PartLocation, unsigned long bIsVisible );
 };
-
-// UClass* UUTSkelControl_DamageHinge::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_DamageSpring
 // 0x0000 (0x01C0 - 0x01C0)
@@ -11579,7 +10969,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49068 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49081 ];
 
 		return pClassPointer;
 	};
@@ -11587,8 +10977,6 @@ public:
 	void eventBreakApartOnDeath ( struct FVector PartLocation, unsigned long bIsVisible );
 	void eventBreakApart ( struct FVector PartLocation, unsigned long bIsVisible );
 };
-
-// UClass* UUTSkelControl_DamageSpring::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_HoverboardSuspension
 // 0x0000 (0x0110 - 0x0110)
@@ -11603,14 +10991,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49078 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49091 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_HoverboardSuspension::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_HoverboardSwing
 // 0x0000 (0x0110 - 0x0110)
@@ -11625,14 +11011,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49080 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49093 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_HoverboardSwing::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_HoverboardVibration
 // 0x0000 (0x0100 - 0x0100)
@@ -11647,14 +11031,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49082 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49095 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_HoverboardVibration::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_HugGround
 // 0x0000 (0x0110 - 0x0110)
@@ -11669,14 +11051,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49084 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49097 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_HugGround::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_JetThruster
 // 0x000C (0x00F8 - 0x00EC)
@@ -11694,15 +11074,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49086 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49099 ];
 
 		return pClassPointer;
 	};
 
 	void eventTickSkelControl ( float DeltaTime, class USkeletalMeshComponent* SkelComp );
 };
-
-// UClass* UUTSkelControl_JetThruster::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_LockRotation
 // 0x0000 (0x00E4 - 0x00E4)
@@ -11717,14 +11095,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49098 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49111 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_LockRotation::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_LookAt
 // 0x0000 (0x0150 - 0x0150)
@@ -11739,14 +11115,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49100 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49113 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_LookAt::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_MantaBlade
 // 0x0000 (0x0100 - 0x0100)
@@ -11761,14 +11135,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49102 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49115 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_MantaBlade::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_MantaFlaps
 // 0x0000 (0x010C - 0x010C)
@@ -11783,14 +11155,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49104 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49117 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_MantaFlaps::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_MassBoneScaling
 // 0x0000 (0x00C8 - 0x00C8)
@@ -11805,14 +11175,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49106 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49119 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_MassBoneScaling::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_Oscillate
 // 0x0018 (0x0104 - 0x00EC)
@@ -11831,15 +11199,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49108 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49121 ];
 
 		return pClassPointer;
 	};
 
 	void eventTickSkelControl ( float DeltaTime, class USkeletalMeshComponent* SkelComp );
 };
-
-// UClass* UUTSkelControl_Oscillate::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_Rotate
 // 0x0000 (0x0104 - 0x0104)
@@ -11854,14 +11220,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49117 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49130 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_Rotate::pClassPointer = NULL;
 
 // Class UTGame.UTSkelControl_SpinControl
 // 0x0000 (0x00FC - 0x00FC)
@@ -11876,14 +11240,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49119 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49132 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTSkelControl_SpinControl::pClassPointer = NULL;
 
 // Class UTGame.UTSlimeVolume
 // 0x0000 (0x025C - 0x025C)
@@ -11898,14 +11260,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49122 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49135 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTSlimeVolume::pClassPointer = NULL;
 
 // Class UTGame.UTStingerMuzzleFlashLight
 // 0x0000 (0x0270 - 0x0270)
@@ -11920,14 +11280,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49147 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49160 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTStingerMuzzleFlashLight::pClassPointer = NULL;
 
 // Class UTGame.UTTeleporterCustomMesh
 // 0x0010 (0x02F0 - 0x02E0)
@@ -11946,7 +11304,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49207 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49220 ];
 
 		return pClassPointer;
 	};
@@ -11954,8 +11312,6 @@ public:
 	void eventTouch ( class AActor* Other, class UPrimitiveComponent* OtherComp, struct FVector HitLocation, struct FVector HitNormal );
 	bool eventAccept ( class AActor* Incoming, class AActor* Source );
 };
-
-// UClass* AUTTeleporterCustomMesh::pClassPointer = NULL;
 
 // Class UTGame.UTTrajectoryReachSpec
 // 0x0000 (0x0090 - 0x0090)
@@ -11970,14 +11326,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49310 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49323 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTTrajectoryReachSpec::pClassPointer = NULL;
 
 // Class UTGame.UTTurretMuzzleFlashLight
 // 0x0000 (0x0270 - 0x0270)
@@ -11992,14 +11346,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49312 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49325 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTTurretMuzzleFlashLight::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_KeyBinding
 // 0x0010 (0x00A8 - 0x0098)
@@ -12016,14 +11368,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49323 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49336 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataProvider_KeyBinding::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_MultiplayerMenuItem
 // 0x0010 (0x00A8 - 0x0098)
@@ -12040,15 +11390,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49338 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49351 ];
 
 		return pClassPointer;
 	};
 
 	bool eventShouldBeFiltered ( );
 };
-
-// UClass* UUTUIDataProvider_MultiplayerMenuItem::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_ServerDetails
 // 0x0000 (0x0060 - 0x0060)
@@ -12063,14 +11411,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49358 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49371 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataProvider_ServerDetails::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_SettingsMenuItem
 // 0x0010 (0x00A8 - 0x0098)
@@ -12087,15 +11433,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49360 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49373 ];
 
 		return pClassPointer;
 	};
 
 	bool eventShouldBeFiltered ( );
 };
-
-// UClass* UUTUIDataProvider_SettingsMenuItem::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_SimpleElementProvider
 // 0x0000 (0x005C - 0x005C)
@@ -12110,14 +11454,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49366 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49379 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataProvider_SimpleElementProvider::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_StringArray
 // 0x0000 (0x0068 - 0x0068)
@@ -12132,14 +11474,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49368 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49381 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataProvider_StringArray::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataProvider_Weapon
 // 0x0030 (0x00C8 - 0x0098)
@@ -12158,14 +11498,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49370 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49383 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataProvider_Weapon::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataStore_Options
 // 0x0000 (0x010C - 0x010C)
@@ -12180,14 +11518,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49377 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49390 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataStore_Options::pClassPointer = NULL;
 
 // Class UTGame.UTUIDataStore_StringAliasMap
 // 0x0000 (0x00C8 - 0x00C8)
@@ -12202,14 +11538,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49380 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49393 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTUIDataStore_StringAliasMap::pClassPointer = NULL;
 
 // Class UTGame.UTVehicleCTFGame
 // 0x0000 (0x0540 - 0x0540)
@@ -12224,15 +11558,13 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49407 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49420 ];
 
 		return pClassPointer;
 	};
 
 	bool AllowMutator ( struct FString MutatorClassName );
 };
-
-// UClass* AUTVehicleCTFGame::pClassPointer = NULL;
 
 // Class UTGame.UTVehicleCTFHUD
 // 0x0000 (0x0AC2 - 0x0AC2)
@@ -12247,14 +11579,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49412 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49425 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTVehicleCTFHUD::pClassPointer = NULL;
 
 // Class UTGame.UTVehicleScorpionWheel
 // 0x0000 (0x0120 - 0x0120)
@@ -12269,14 +11599,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49532 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49545 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* UUTVehicleScorpionWheel::pClassPointer = NULL;
 
 // Class UTGame.UTVehicleShield
 // 0x0018 (0x01FC - 0x01E4)
@@ -12297,7 +11625,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49534 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 49547 ];
 
 		return pClassPointer;
 	};
@@ -12306,8 +11634,6 @@ public:
 	void ShieldFullyOnline ( );
 	void SetActive ( unsigned long bNowActive );
 };
-
-// UClass* AUTVehicleShield::pClassPointer = NULL;
 
 // Class UTGame.UTWeaponLockerPickupLight
 // 0x0000 (0x01E8 - 0x01E8)
@@ -12322,14 +11648,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 50057 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 50070 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTWeaponLockerPickupLight::pClassPointer = NULL;
 
 // Class UTGame.UTWeaponPickupLight
 // 0x0000 (0x01E8 - 0x01E8)
@@ -12344,14 +11668,12 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 50120 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 50133 ];
 
 		return pClassPointer;
 	};
 
 };
-
-// UClass* AUTWeaponPickupLight::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER
