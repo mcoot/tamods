@@ -60,11 +60,11 @@ void onDLLProcessAttach()
 
 		// Bullet customization
 		// Chain
-		//Hooks::add(&TrDev_WeaponConstantFiring_BeginState, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
-		//Hooks::add(&TrDev_WeaponConstantFiring_RefireCheckTimer, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
+		Hooks::add(&TrDev_WeaponConstantFiring_BeginState, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
+		Hooks::add(&TrDev_WeaponConstantFiring_RefireCheckTimer, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
 
 		// Magic chain
-		//Hooks::add(&TrPC_PlayerTick, "Function TribesGame.TrPlayerController.PlayerTick");
+		Hooks::add(&TrPC_PlayerTick, "Function TribesGame.TrPlayerController.PlayerTick");
 
 		// Custom console commands
 		Hooks::add(&TrChatConsole_Open_InputKey, "Function TrChatConsole.Open.InputKey");

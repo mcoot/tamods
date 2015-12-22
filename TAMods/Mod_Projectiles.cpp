@@ -267,6 +267,8 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 	ATrPlayerController_eventPlayerTick_Parms *params = (ATrPlayerController_eventPlayerTick_Parms *) pParams;
 
+	Hooks::lock();
+
 	// Mouse sensitivity
 	if (!g_config.useFOVScaling)
 	{
@@ -282,8 +284,6 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 	else
 		that->PlayerInput->bEnableFOVScaling = 1;
 
-
-	Hooks::lock();
 	Utils::tr_pc = that;
 
 	routeTickRecord(that);
