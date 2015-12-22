@@ -18,7 +18,7 @@
 #include "../SdkHeaders.h"
 #include "../Utils.h"
 
-std::string FKeyBind::getCommand() const { return ""; }// Utils::f2std(*(const_cast<FString *>(&Command))); }
+std::string FKeyBind::getCommand() const { return Utils::f2std(*(const_cast<FString *>(&Command))); }
 
 /*
 # ========================================================================================= #

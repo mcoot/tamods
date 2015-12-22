@@ -127,7 +127,6 @@ static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 						std::wstring wdmgText = std::wstring(g_config.damageNumberCustomText.begin(), g_config.damageNumberCustomText.end());
 						wsprintf(buff, wdmgText.c_str());
 					}
-						
 					
 					that->DrawColoredMarkerText(buff, curr.CurrentColor, overhead_number_location, that->Canvas, curr.CurrentScale, curr.CurrentScale);
 				}
@@ -136,52 +135,6 @@ static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 	}
 }
 
-static void Scoreboard_Fix(UTrScoreboard *that)
-{
-	for (int i = 0; i < 32; i++)
-	{
-		FTrScoreSlot &slot = that->ScoreboardSlots[i];
-		FString fname = slot.PlayerName;
-		if (!fname.Count)
-			continue;
-		std::wstring name(fname.Data);
-
-		if (name.size() == 0)
-			continue;
-		unsigned int pos = name.find(L"\\");
-		if (pos != std::wstring::npos)
-		{
-			FString clean;
-			for (int c = 0; c < slot.PlayerName.Count; c++)
-			{
-				if (slot.PlayerName.Data[c] == L'\\')
-					clean.Add(L'/');
-				else
-					clean.Add(slot.PlayerName.Data[c]);
-			}
-			if (that->bTeamGame)
-			{
-				UGfxTrHud *mp = that->m_MoviePlayer;
-				if (i < 16 && mp->TeamScoreboard_Red_PlayerNameTF[i])
-					mp->TeamScoreboard_Red_PlayerNameTF[i]->SetText(clean, NULL);
-				else if (i >= 16 && mp->TeamScoreboard_Blue_PlayerNameTF[i - 16])
-					mp->TeamScoreboard_Blue_PlayerNameTF[i - 16]->SetText(clean, NULL);
-			}
-		}
-	}
-}
-
-void drawTexture(UCanvas *canvas, UTexture2D *tex, float x, float y, float scale = 1.0f)
-{
-	float old_curx = canvas->CurX;
-	float old_cury = canvas->CurY;
-
-	canvas->CurX = x;
-	canvas->CurY = y;
-	canvas->DrawTile(tex, (float) tex->SizeX * scale, (float) tex->SizeY * scale, 0, 0, (float) tex->SizeX, (float) tex->SizeY, {1.0f, 1.0f, 1.0f, 1.0f}, 0, 0/*2 == alpha*/);
-	canvas->CurX = old_curx;
-	canvas->CurY = old_cury;
-}
 
 bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
@@ -227,10 +180,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	Hooks::lock();
 
 	if (that->Scoreboard && that->Scoreboard->bIsActive)
-	{
 		that->Scoreboard->Tick(that->RenderDelta);
-		Scoreboard_Fix(that->Scoreboard);
-	}
 	if (that->HUDTeamCTFStats && that->HUDTeamCTFStats->bIsActive)
 		that->HUDTeamCTFStats->Tick();
 	if (that->RabbitLeaderboard && that->RabbitLeaderboard->bIsActive)
@@ -281,6 +231,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 			that->LastChangeResCheckTime = (int)that->WorldInfo->TimeSeconds;
 		}
 	}
+	that->UpdateDebugDraws();
 	Hooks::unlock(); 
 	return true;
 }
@@ -391,7 +342,7 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 	UGFxObject *timer = that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer;
 
 	// while playing online, only show the stopwatch, don't replace the normal game time
-	if (g_config.stopwatchRunning || that->WorldInfo->NetMode == 0)
+	if (g_config.stopwatchRunning || (that->WorldInfo && that->WorldInfo->NetMode == 0))
 	{
 		float worldseconds = that->WorldInfo->RealTimeSeconds;
 

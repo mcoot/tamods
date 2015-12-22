@@ -73,20 +73,6 @@ void onDLLProcessAttach()
 
 	// Pass true to log hookable functions
 	Hooks::init(true);
-
-	UGfxTrHud *def = UObject::FindObject<UGfxTrHud>("GfxTrHud TribesGame.Default__GfxTrHud");
-	TArray<UObject*> *objs = UObject::GObjObjects();
-	for (int i = 0; i < objs->Count; i++)
-	{
-		UObject *obj = (*objs)(i);
-
-		if (obj->IsA(UGfxTrHud::StaticClass()))
-		{
-			Logger::log("%d: %p vs %p", i, obj->StaticClass()->Default, def);
-			for (int j = 0; j < 0xF0; j += 4)
-				Logger::log("\t%08x: %08x", j, ((int *)(UGfxTrHud::StaticClass()->UnknownData00 + j))[0]);
-		}
-	}
 }
 
 void onDLLProcessDetach()

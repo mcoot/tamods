@@ -13,9 +13,7 @@
 
 #pragma once
 
-#include <cstdlib>
 #include <cstring>
-#include <cstdio>
 #include <Windows.h>
 
 /*
@@ -49,7 +47,7 @@ public:
 
 	TArray(const TArray &arr)
 	{
-		Data = (T *) malloc(arr.Count * sizeof(T));
+		Data = (T *)malloc(arr.Count * sizeof(T));
 		if (Data)
 			memcpy(Data, arr.Data, arr.Count * sizeof(T));
 		Count = arr.Count;
@@ -60,6 +58,11 @@ public:
 	int Num() 
 	{ 
 		return this->Count; 
+	}; 
+
+	T& operator() ( int i ) 
+	{ 
+		return this->Data[ i ]; 
 	}; 
 
 	T *Get(int i)
@@ -82,22 +85,17 @@ public:
 		this->Data[i] = val;
 	};
 
-	T& operator() ( int i ) 
-	{ 
-		return this->Data[ i ]; 
-	}; 
-
 	const T& operator() ( int i ) const 
 	{ 
 		return this->Data[ i ]; 
-	};
+	}; 
 
 	void Add ( T InputData ) 
 	{ 
 		Data = (T*) realloc ( Data, sizeof ( T ) * ( Count + 1 ) ); 
 		Data[ Count++ ] = InputData; 
 		Max = Count; 
-	};
+	}; 
 
 	void Remove(int i)
 	{
@@ -108,9 +106,9 @@ public:
 	void Clear() 
 	{ 
 		free ( Data ); 
-		Data = NULL;
+		Data = NULL; 
 		Count = Max = 0; 
-	};
+	}; 
 }; 
 
 struct FNameEntry 
@@ -132,7 +130,7 @@ struct FName
 
 	FName ( const char* FindName ) 
 	{ 
-		static TArray< int > NameCache;
+		static TArray< int > NameCache; 
 		Index = 0;
 
 		for ( int i = 0; i < NameCache.Count; ++i ) 

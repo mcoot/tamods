@@ -670,12 +670,12 @@ struct FOverheadNumber
 	struct FColor                                      CurrentColor;                                     		// 0x0020 (0x0004) [0x0000000000000000]              
 	float                                              CurrentScale;                                     		// 0x0024 (0x0004) [0x0000000000000000]              
 	unsigned long                                      bShieldDamage : 1;                                		// 0x0028 (0x0004) [0x0000000000000000] [0x00000001] 
-	int												   muthaFuckingPaddingFuckThisShit;
+	int												   padding;
 
 	bool isShieldDamage() const { return bShieldDamage; }
 	void setShieldDamage(bool b) { bShieldDamage = b; }
 	FOverheadNumber(int pNum, float pTime, FVector4 pLoc, bool pIsShield)
-		: NumberValue(pNum), RemainingTime(pTime), WorldSpaceLocation(pLoc), CurrentColor({255, 255, 255, 255}), bShieldDamage(pIsShield)
+		: NumberValue(pNum), RemainingTime(pTime), WorldSpaceLocation(pLoc), CurrentColor({ 255, 255, 255, 255 }), bShieldDamage(pIsShield)
 	{}
 };
 

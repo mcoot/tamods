@@ -199,35 +199,34 @@ public:
 	std::string GetStringName();
 	std::string GetStringFullName();
 
-	template< class T > static T* FindObject(const char* ObjectFullName)
-	  { 
-	    while ( ! UObject::GObjObjects() ) 
-	      Sleep ( 100 ); 
-
-	    while ( ! FName::Names() ) 
-	      Sleep( 100 ); 
-
-	    for ( int i = 0; i < UObject::GObjObjects()->Count; ++i ) 
-	      { 
-		UObject* Object = UObject::GObjObjects()->Data[ i ]; 
-
-		// skip no T class objects 
-		if 
-		  ( 
-		   ! Object 
-		   ||	! Object->IsA ( T::StaticClass() ) 
-		    ) 
-		  continue; 
-
-		// check 
-		if ( ! _stricmp ( Object->GetFullName(), ObjectFullName ) ) 
-		  return (T*) Object; 
-	      } 
-
-	    return NULL; 
-	  } 
-
-
+	template< class T > static T* FindObject ( const char* ObjectFullName ) 
+	{ 
+		while ( ! UObject::GObjObjects() ) 
+			Sleep ( 100 ); 
+	
+		while ( ! FName::Names() ) 
+			Sleep( 100 ); 
+	
+		for ( int i = 0; i < UObject::GObjObjects()->Count; ++i ) 
+		{ 
+			UObject* Object = UObject::GObjObjects()->Data[ i ]; 
+	
+			// skip no T class objects 
+			if 
+			( 
+					! Object 
+				||	! Object->IsA ( T::StaticClass() ) 
+			) 
+				continue; 
+	
+			// check 
+			if ( ! _stricmp ( Object->GetFullName(), ObjectFullName ) ) 
+				return (T*) Object; 
+		} 
+	
+		return NULL; 
+	} 
+	
 	static UClass* FindClass ( char* ClassFullName ); 
 
 	bool IsA ( UClass* pClass ); 
@@ -854,8 +853,7 @@ public:
 class UField : public UObject
 {
 public:
-	class UField*                                      SuperField;                                       		// NOT AUTO-GENERATED PROPERTY 
-	class UField*                                      Next;                                             		// NOT AUTO-GENERATED PROPERTY 
+	class UField*										Next;                                             		// NOT AUTO-GENERATED PROPERTY 
 
 private:
 	static UClass* pClassPointer;
@@ -876,7 +874,11 @@ public:
 class UStruct : public UField
 {
 public:
-	unsigned char                                      UnknownData00[ 0x50 ];                            		// 0x0040 (0x0050) MISSED OFFSET
+	unsigned char										UnknownData00[0x8];	                                	// NOT AUTO-GENERATED PROPERTY 
+	class UField*										SuperField;			                                	// NOT AUTO-GENERATED PROPERTY 
+	class UField*										Children;			                                	// NOT AUTO-GENERATED PROPERTY 
+	unsigned long										PropertySize;		                                	// NOT AUTO-GENERATED PROPERTY 
+	unsigned char										UnknownData01[0x3C];                                	// NOT AUTO-GENERATED PROPERTY 
 
 private:
 	static UClass* pClassPointer;
@@ -918,15 +920,15 @@ public:
 class UFunction : public UStruct
 {
 public:
-	unsigned long                                      FunctionFlags;                                    		// NOT AUTO-GENERATED PROPERTY 
-	unsigned long                                      iNative;                                          		// NOT AUTO-GENERATED PROPERTY 
-	unsigned long                                      RepOffset;                                        		// NOT AUTO-GENERATED PROPERTY 
-	unsigned char                                      OperPrecedence;                                   		// NOT AUTO-GENERATED PROPERTY 
-	struct FName                                       FriendlyName;                                     		// NOT AUTO-GENERATED PROPERTY 
-	unsigned char                                      NumParms;                                         		// NOT AUTO-GENERATED PROPERTY 
-	unsigned long                                      ParmsSize;                                        		// NOT AUTO-GENERATED PROPERTY 
-	unsigned long                                      ReturnValueOffset;                                		// NOT AUTO-GENERATED PROPERTY 
-	void*                                              Func;                                             		// NOT AUTO-GENERATED PROPERTY 
+	unsigned long										FunctionFlags;		                                	// NOT AUTO-GENERATED PROPERTY 
+	unsigned short										iNative;			                                	// NOT AUTO-GENERATED PROPERTY 
+	unsigned short										RepOffset;			                                	// NOT AUTO-GENERATED PROPERTY 
+	struct FName										FriendlyName;		                                	// NOT AUTO-GENERATED PROPERTY 
+	unsigned short										NumParms;			                                	// NOT AUTO-GENERATED PROPERTY 
+	unsigned short										ParmsSize;			                                	// NOT AUTO-GENERATED PROPERTY 
+	unsigned long										ReturnValueOffset;	                                	// NOT AUTO-GENERATED PROPERTY 
+	unsigned char										UnknownData00[0x04];                                	// NOT AUTO-GENERATED PROPERTY 
+	void*												Func;				                                	// NOT AUTO-GENERATED PROPERTY 
 
 private:
 	static UClass* pClassPointer;
@@ -1537,9 +1539,10 @@ public:
 class UClass : public UState
 {
 public:
-	unsigned char                                      UnknownData00[0x84];                                     // 0x00D8 (0x0088)
-	UObject                                            *Default;                                                // 0x0160 (0x0004)
-	unsigned char                                      UnknownData01[0x74];                                     // 0x0164 (0x0070)
+	unsigned char										UnknownData00[0x88];                                	// NOT AUTO-GENERATED PROPERTY 
+	UObject												*Default;			                                	// NOT AUTO-GENERATED PROPERTY 
+	unsigned char										UnknownData01[0x64];                                	// NOT AUTO-GENERATED PROPERTY 
+	TArray<int>											UnknownTArray;		                                	// NOT AUTO-GENERATED PROPERTY 
 
 private:
 	static UClass* pClassPointer;

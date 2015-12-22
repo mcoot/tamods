@@ -3087,7 +3087,7 @@ enum DAMAGE_INFO_TYPE
 };
 
 // Enum TribesGame.TrObject.TR_HIDEABLE_HUD_ELEMENT
-/*enum TR_HIDEABLE_HUD_ELEMENT
+enum TR_HIDEABLE_HUD_ELEMENT
 {
 	DeviceBar                                          = 0,
 	BuffBar                                            = 1,
@@ -3101,9 +3101,9 @@ enum DAMAGE_INFO_TYPE
 	OmegaAlert                                         = 9,
 	AgentInfo                                          = 10,
 	QuestTracking                                      = 11,
-	AllElements                                        = 12,
+	HUD_ELEMENT_AllElements                            = 12,
 	TR_HIDEABLE_HUD_ELEMENT_MAX                        = 13
-};*/
+};
 
 // Enum TribesGame.TrObject.GAME_TYPE
 enum GAME_TYPE
