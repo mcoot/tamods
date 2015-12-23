@@ -1,5 +1,12 @@
 #include "Mods.h"
 
+bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	Utils::tr_pc = (ATrPlayerController *)dwCallingObject;
+
+	return false;
+}
+
 bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	Utils::tr_gvc = (UTrGameViewportClient *)dwCallingObject;
@@ -48,7 +55,9 @@ bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFuncti
 	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
 	UTrChatConsole_execInputKey_Parms *params = (UTrChatConsole_execInputKey_Parms *)pParams;
 
-	Utils::tr_pc = that->m_TrPC;
+	if (that->m_TrPC)
+		Utils::tr_pc = that->m_TrPC;
+
 	for (int i = 0; i < 3; i++)
 		mods[i].update(params->Key, (EInputEvent)params->Event);
 
@@ -169,7 +178,7 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
 	ATrDevice_eventSetPosition_Parms *params = (ATrDevice_eventSetPosition_Parms *)pParams;
 
-	return false;
+	//return false;
 
 	FVector DrawOffset, ViewOffset, FinalSmallWeaponsOffset, FinalLocation, X, Y, Z;
 	unsigned char CurrentHand;

@@ -55,16 +55,17 @@ bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFuncti
 
 void savesToSpawns()
 {
+	if (!Utils::tr_pc)
+		return;
+
 	savesReset();
 
-	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
-
-	ANavigationPoint *nav = pc->WorldInfo->NavigationPointList;
+	ANavigationPoint *nav = Utils::tr_pc->WorldInfo->NavigationPointList;
 
 	size_t i = 0;
 	while (nav)
 	{
-		if (nav->IsA(APlayerStart::StaticClass()) && ((APlayerStart *)nav)->TeamIndex == pc->GetTeamNum())
+		if (nav->IsA(APlayerStart::StaticClass()) && ((APlayerStart *)nav)->TeamIndex == Utils::tr_pc->GetTeamNum())
 		{
 			if (i >= saves.size())
 				break;
@@ -109,35 +110,31 @@ void stopwatch()
 
 void stopwatchStart()
 {
-	ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
+	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
+		return;
 
-	if (TrPC && TrPC->WorldInfo)
+	if (g_config.stopwatchRunning)
 	{
-		if (g_config.stopwatchRunning)
-		{
-			g_config.stopwatchDisplayTime("Restarted - ", TrPC->WorldInfo->RealTimeSeconds);
-			g_config.stopwatchPrintSummary();
-		}
-		else
-			g_config.stopwatchRunning = true;
-
-		g_config.stopwatchStartTime = TrPC->WorldInfo->RealTimeSeconds;
+		g_config.stopwatchDisplayTime("Restarted - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
+		g_config.stopwatchPrintSummary();
 	}
+	else
+		g_config.stopwatchRunning = true;
+
+	g_config.stopwatchStartTime = Utils::tr_pc->WorldInfo->RealTimeSeconds;
 }
 
 void stopwatchStop()
 {
-	ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
+	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
+		return;
 
-	if (TrPC && TrPC->WorldInfo)
+	if (g_config.stopwatchRunning)
 	{
-		if (g_config.stopwatchRunning)
-		{
-			g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
-			g_config.stopwatchPrintSummary();
-			g_config.stopwatchStartTime = 0;
-			g_config.stopwatchRunning = 0;
-		}
+		g_config.stopwatchDisplayTime("Stopped - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
+		g_config.stopwatchPrintSummary();
+		g_config.stopwatchStartTime = 0;
+		g_config.stopwatchRunning = 0;
 	}
 }
 
@@ -154,23 +151,22 @@ void stopwatchReset()
 
 void savesSave(int n)
 {
+	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
+		return;
+
 	// Is the specified slot in range?
 	if (n > 0 && (size_t)n <= saves.size())
 	{
-		ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
-		ACameraActor *Cam = (ACameraActor *)TrPC->ViewTarget;
-		ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
+		ACameraActor *Cam = (ACameraActor *)Utils::tr_pc->ViewTarget;
+		ATrPawn *TrPawn = (ATrPawn *)Utils::tr_pc->Pawn;
 		playerState &state = saves.at(n - 1);
 
-		if (!TrPC || !TrPC->WorldInfo)
-			return;
-
-		state.timeStamp = TrPC->WorldInfo->RealTimeSeconds;
+		state.timeStamp = Utils::tr_pc->WorldInfo->RealTimeSeconds;
 
 		state.loc = Cam->Location;
 		state.vel = Cam->Velocity;
 		state.phys = Cam->Physics;
-		state.rot = TrPC->Rotation;
+		state.rot = Utils::tr_pc->Rotation;
 
 		if (!TrPawn) // Without a pawn we must be spectating or are not on a server
 		{
@@ -203,18 +199,20 @@ void savesSave(int n)
 
 void savesRecall(int n, bool tpOnly)
 {
+	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
+		return;
+
 	// Is the specified slot in range?
 	if (n > 0 && (size_t)n <= saves.size())
 	{
 		// Is data stored at that slot?
 		if (saves.at(n - 1).loc.X)
 		{
-			ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
-			ACameraActor *Cam = (ACameraActor *)TrPC->ViewTarget;
-			ATrPawn *TrPawn = (ATrPawn *)TrPC->Pawn;
+			ACameraActor *Cam = (ACameraActor *)Utils::tr_pc->ViewTarget;
+			ATrPawn *TrPawn = (ATrPawn *)Utils::tr_pc->Pawn;
 			playerState &state = saves.at(n - 1);
 
-			if (!TrPC || !Cam || !TrPC->WorldInfo || TrPC->WorldInfo->NetMode != 0)
+			if (!Cam || Utils::tr_pc->WorldInfo->NetMode != 0)
 				return;
 
 			if (!tpOnly && state.hasFlag && state.teamNum != TrPawn->GetTeamNum())
@@ -227,7 +225,7 @@ void savesRecall(int n, bool tpOnly)
 			routeStopReplay();
 
 			Cam->SetLocation(state.loc);
-			TrPC->SetRotation(state.rot);
+			Utils::tr_pc->SetRotation(state.rot);
 
 			if (!TrPawn) return;
 
@@ -238,7 +236,7 @@ void savesRecall(int n, bool tpOnly)
 				TrPawn->Velocity = { 0.0f, 0.0f, 0.0f };
 
 				if (g_config.stopwatchRunning)
-					g_config.stopwatchDisplayTime("Stopped - ", TrPC->WorldInfo->RealTimeSeconds);
+					g_config.stopwatchDisplayTime("Stopped - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
 
 				stopwatchReset(); // /tp always resets the stopwatch
 
@@ -251,7 +249,7 @@ void savesRecall(int n, bool tpOnly)
 				TrPawn->Velocity = state.vel;
 
 				//Restore stopwatch state
-				float time = TrPC->WorldInfo->RealTimeSeconds;
+				float time = Utils::tr_pc->WorldInfo->RealTimeSeconds;
 				float timeDiff = time - state.timeStamp;
 				g_config.stopwatchStartTime = state.stopwatchStartTime > 0.0f ? state.stopwatchStartTime + timeDiff : 0.0f;
 				g_config.stopwatchGrabHealth = state.grabHealth;
@@ -259,7 +257,7 @@ void savesRecall(int n, bool tpOnly)
 				g_config.stopwatchGrabTime = state.grabTime > 0.0f ? state.grabTime + timeDiff : 0.0f;
 				g_config.stopwatchRunning = state.stopwatchRunning;
 
-				TrPawn->m_fLastDamagerTimeStamp = state.lastDamagedTime + timeDiff * TrPC->WorldInfo->TimeDilation;
+				TrPawn->m_fLastDamagerTimeStamp = state.lastDamagedTime + timeDiff * Utils::tr_pc->WorldInfo->TimeDilation;
 				TrPawn->m_fCurrentPowerPool = state.energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state.energy;
 
 				if (state.health <= 0 || state.health > TrPawn->HealthMax)
@@ -268,12 +266,12 @@ void savesRecall(int n, bool tpOnly)
 					TrPawn->Health = state.health;
 
 				// Give the player the flag if he had it at this state
-				if (state.hasFlag && !((ATrPlayerReplicationInfo *)TrPC->PlayerReplicationInfo)->bHasFlag)
+				if (state.hasFlag && !((ATrPlayerReplicationInfo *)Utils::tr_pc->PlayerReplicationInfo)->bHasFlag)
 				{
-					if (TrPC->PlayerReplicationInfo && TrPC->WorldInfo->GRI)
+					if (Utils::tr_pc->PlayerReplicationInfo && Utils::tr_pc->WorldInfo->GRI)
 					{
 						g_config.stopwatchFlagRecall = true;
-						((ATrGameReplicationInfo *)TrPC->WorldInfo->GRI)->m_Flags[!state.teamNum]->SetHolder(TrPC);
+						((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[!state.teamNum]->SetHolder(Utils::tr_pc);
 					}
 				}
 				//Utils::printConsole("Restored state #" + std::to_string(n));

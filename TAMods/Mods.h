@@ -12,6 +12,9 @@
 extern Config g_config;
 extern Stats g_stats;
 
+// Reliably set Utils::tr_pc
+bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
 // Damage numbers
 bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrHudWrapper_destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

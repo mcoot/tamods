@@ -93,13 +93,12 @@ void routeRec()
 
 void routeStartRec()
 {
-	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
-	ATrPawn *pawn = (ATrPawn *)pc->Pawn;
-
-	if (!pawn)
+	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
 
-	if (pawn->IsA(ATrVehicle::StaticClass()))
+	ATrPawn *pawn = (ATrPawn *)Utils::tr_pc->Pawn;
+
+	if (!pawn || pawn->IsA(ATrVehicle::StaticClass()))
 		return;
 
 	routeReset();
@@ -107,7 +106,7 @@ void routeStartRec()
 	Utils::notify("Route recorder", "Recording started");
 
 	// Meta data
-	mapName = Utils::f2std(pawn->WorldInfo->GetMapName(false));
+	mapName = Utils::f2std(Utils::tr_pc->WorldInfo->GetMapName(false));
 	mapName.erase(std::remove(mapName.begin(), mapName.end(), ' '), mapName.end());
 	classID = ((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetPlayerClassId();
 	classAbbr = Utils::f2std(((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetCurrentClassAbb());
@@ -117,7 +116,7 @@ void routeStartRec()
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), ' '), playerName.end());
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), '\\'), playerName.end());
 
-	route.insert(route.begin(), { pawn->WorldInfo->RealTimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation.Pitch,
+	route.insert(route.begin(), { Utils::tr_pc->WorldInfo->RealTimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation.Pitch,
 		pawn->GetALocalPlayerController()->Rotation.Yaw, pawn->Physics, pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
 	recording = true;
@@ -139,7 +138,7 @@ void routeTickRecord(ATrPlayerController* pc)
 	{
 		ATrPawn *pawn = (ATrPawn *)pc->Pawn;
 
-		if (!pawn)
+		if (!pawn || !pc->WorldInfo)
 			return;
 
 		if (pawn->IsA(ATrVehicle::StaticClass()))
@@ -162,14 +161,15 @@ void routeTickRecord(ATrPlayerController* pc)
 
 static ATrPlayerController_Training* spawnPawn()
 {
-	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+	if (!Utils::tr_pc)
+		return false;
 
 	// Create one bot
 	static ATrPlayerController_Training *spawned;
 	
 	if (!spawned)
 	{
-		spawned = (ATrPlayerController_Training *)pc->Spawn(ATrPlayerController_Training::StaticClass(), pc, FName(0), pc->Location, pc->Rotation, NULL, 0);
+		spawned = (ATrPlayerController_Training *)Utils::tr_pc->Spawn(ATrPlayerController_Training::StaticClass(), Utils::tr_pc, FName(0), Utils::tr_pc->Location, Utils::tr_pc->Rotation, NULL, 0);
 
 		spawned->PlayerReplicationInfo->PlayerName = L"Replay Bot";
 		spawned->PlayerReplicationInfo->bIsInactive = true; // Only with this set to true the bot shows up on the scoreboard
@@ -184,7 +184,7 @@ static ATrPlayerController_Training* spawnPawn()
 	{
 		// Update the class of the bot to the one used in the replay
 		ATrPlayerReplicationInfo *rep = (ATrPlayerReplicationInfo *)spawned->PlayerReplicationInfo;
-		rep->m_CurrentBaseClass = pc->m_TrInventoryHelper->GetFamilyClass(classID);
+		rep->m_CurrentBaseClass = Utils::tr_pc->m_TrInventoryHelper->GetFamilyClass(classID);
 		rep->m_PendingBaseClass = rep->m_CurrentBaseClass;
 	}
 
@@ -228,7 +228,7 @@ void routeStartReplay(float startTime)
 	if (g_config.routeBotReplay)
 		replayPC = spawnPawn();
 	else
-		replayPC = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+		replayPC = Utils::tr_pc;
 	
 	ATrPawn *pawn;
 	if (replayPC)
@@ -487,9 +487,10 @@ template<typename T> std::istream & binary_read(std::istream& stream, T& value)
 // Reloads the list of files for the current map
 static void reloadRouteList()
 {
-	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
+	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
+		return;
 
-	std::string curr_map_name = Utils::f2std(pc->WorldInfo->GetMapName(false));
+	std::string curr_map_name = Utils::f2std(Utils::tr_pc->WorldInfo->GetMapName(false));
 	curr_map_name.erase(std::remove(curr_map_name.begin(), curr_map_name.end(), ' '), curr_map_name.end());
 
 	std::wstring stemp = std::wstring(routedir.begin(), routedir.end());
@@ -556,14 +557,13 @@ LuaRef routeGetAll()
 
 LuaRef routeGetEnemyRoutes()
 {
-	ATrPlayerController *pc = (ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor;
-	ATrPawn *pawn = (ATrPawn *)pc->Pawn;
-
 	reloadRouteList();
 	LuaRef out = newTable(g_config.lua.getState());
 
-	if (!pawn)
+	if (!Utils::tr_pc || !Utils::tr_pc->Pawn)
 		return out;
+
+	ATrPawn *pawn = (ATrPawn *)Utils::tr_pc->Pawn;
 
 	for (size_t i = 0; i < files.size(); i++)
 	{
