@@ -31,12 +31,39 @@ FVector Geom::sub(const FVector &vec1, const FVector &vec2)
 	return result;
 }
 
+FVector Geom::sub(const FVector &vec1, float val)
+{
+	FVector result;
+	result.X = vec1.X - val;
+	result.Y = vec1.Y - val;
+	result.Z = vec1.Z - val;
+	return result;
+}
+
 FVector Geom::add(const FVector &vec1, const FVector &vec2)
 {
 	FVector result;
 	result.X = vec1.X + vec2.X;
 	result.Y = vec1.Y + vec2.Y;
 	result.Z = vec1.Z + vec2.Z;
+	return result;
+}
+
+FVector Geom::add(const FVector &vec1, float val)
+{
+	FVector result;
+	result.X = vec1.X + val;
+	result.Y = vec1.Y + val;
+	result.Z = vec1.Z + val;
+	return result;
+}
+
+FVector Geom::mult(const FVector &vec1, float val)
+{
+	FVector result;
+	result.X = vec1.X * val;
+	result.Y = vec1.Y * val;
+	result.Z = vec1.Z * val;
 	return result;
 }
 

@@ -8,6 +8,7 @@ struct DelayedProjectile
 	APawn *instigator;
 	FVector location;
 	FRotator rotation;
+	FVector owner_velocity;
 	FName spawn_tag;
 	float delay;
 	UParticleSystem *proj_flight_template;
@@ -15,15 +16,25 @@ struct DelayedProjectile
 
 DelayedProjectile delayed_projs[50] = { 0 };
 
+void MC_KillProjectiles()
+{
+	for (int i = 0; i < 50; i++)
+	{
+		DelayedProjectile &curr_proj = delayed_projs[i];
+
+		curr_proj.delay = 0.0f;
+	}
+}
+
 static void PostInitProjectile(ATrProjectile *that, const FVector &direction, float speed = 0.0f)
 {
 	if (speed == 0.0f)
 		that->Speed = that->MaxSpeed;
 	else
-		that->Speed = speed;
+		that->Speed = min(speed, that->MaxSpeed);
 	that->Velocity = Geom::scale(direction, that->Speed);
 	that->Velocity.Z += that->TossZ;
-	if (that->m_bTether && that->Role == 3 /* ROLE_Authority */ && that->WorldInfo->NetMode == 3 /* NM_Client */)
+	if (that->m_bTether && that->Role == ROLE_Authority && that->WorldInfo->NetMode == NM_Client)
 		that->Velocity = Geom::scale(Geom::normal(that->Velocity), that->m_fClientSimulatedSpeed);
 	that->m_vAccelDirection = Geom::normal(that->Velocity);
 	that->ApplyInheritance(direction);
@@ -49,14 +60,14 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 		bTether = ((ATrProjectile *)ProjectileClass->Default)->m_bTether;
 	if (that->Instigator)
 		TrPC = (ATrPlayerController *)that->Instigator->Controller;
-	if (that->WorldInfo->NetMode != 1 /* NM_DedicatedServer */ && ((ATrProjectile *) ProjectileClass->Default)->m_bSimulateAutonomousProjectiles && TrPC)
+	if (that->WorldInfo->NetMode != NM_DedicatedServer && ((ATrProjectile *) ProjectileClass->Default)->m_bSimulateAutonomousProjectiles && TrPC)
 	{
-		if (g_config.useMagicChain || TrPC->m_bAllowSimulatedProjectiles || that->WorldInfo->NetMode == 0 /* NM_Standalone */)
+		if (g_config.useMagicChain || TrPC->m_bAllowSimulatedProjectiles || that->WorldInfo->NetMode == NM_Standalone)
 		{
 			RealStartLoc = that->GetClientSideProjectileFireStartLoc(FVector());
 			TraceStart = that->GetPhysicalFireStartLoc(FVector());
 
-			if (g_config.centerBulletSpawn || that->Trace(RealStartLoc, TraceStart, true, FVector(1.0f, 0.0f, 0.0f), 0, &HitLocation, &HitNormal, &HitInfo))
+			if (g_config.centerBulletSpawn || that->Trace(RealStartLoc, TraceStart, true, FVector(0.0f, 0.0f, 0.0f), CONST_TRACEFLAG_Bullet, &HitLocation, &HitNormal, &HitInfo))
 				RealStartLoc = TraceStart;
 
 			SpawnRotation = that->GetAdjustedAim(RealStartLoc);
@@ -76,6 +87,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 						delayed_projs[i].instigator = that->Instigator;
 						delayed_projs[i].location = RealStartLoc;
 						delayed_projs[i].rotation = SpawnRotation;
+						delayed_projs[i].owner_velocity = that->Instigator->Velocity;
 						delayed_projs[i].spawn_tag = that->Name;
 						delayed_projs[i].delay = ping * 0.5f * g_config.bulletPingMultiplier + g_config.bulletSpawnDelay;
 						delayed_projs[i].proj_flight_template = NULL;
@@ -107,7 +119,7 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 			SpawnedProjectile->InitProjectile(Geom::rotationToVector(that->GetAdjustedAim(RealStartLoc)), InitClass);
 			SpawnedProjectile->m_SpawnedEquipPoint = that->r_eEquipAt;
 			if (that->WorldInfo->NetMode != NM_DedicatedServer && ((ATrProjectile *)ProjectileClass->Default)->m_bSimulateAutonomousProjectiles && bSpawnedSimProjectile)
-				SpawnedProjectile->SetHidden(true);
+				SpawnedProjectile->SetHidden(g_config.bulletSpawnDelay == 0.01f);
 			if (bTether && that->Instigator)
 			{
 				SpawnedProjectile->r_nTetherId = (that->DBWeaponId << 4) + that->m_nTetherCounter;
@@ -302,11 +314,22 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 			{
 				ATrProjectile *default_proj = (ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default;
 				UParticleSystem *spawn_ps, *init_ps;
-				FVector &loc = curr_proj.location;
+				FVector loc = curr_proj.location;
 				FVector dir = Geom::rotationToVector(curr_proj.rotation);
 				float delay = -curr_proj.delay + g_config.bulletSpawnDelay;
 				float dist = 0;
-				float speed = 0;
+				float speed = g_config.useSmallBullets ? default_proj->MaxSpeed : 1.0f;
+
+				FVector Velocity = Geom::mult(dir, speed);
+				Velocity.Z += default_proj->TossZ;
+				FVector m_vAccelDirection = Geom::normal(Velocity);
+
+				FVector OwnerVelocity = curr_proj.owner_velocity;
+				float ForwardPct = min(Geom::dot(Geom::normal(OwnerVelocity), Geom::normal(dir)), default_proj->m_fMaxProjInheritPct);
+				float InheritPct = max(default_proj->m_fProjInheritVelocityPct, ForwardPct);
+				FVector InheritedVelocity = Geom::mult(OwnerVelocity, InheritPct);
+
+				Velocity = Geom::add(Velocity, InheritedVelocity);
 
 				if (g_config.useSmallBullets)
 				{
@@ -315,10 +338,10 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 				}
 				else
 				{
-					float v0 = 1.0f;
+					float v0 = speed;				// Initial speed
 					float vmax = default_proj->MaxSpeed;
-					float a = 100000.0f; // default_proj->AccelRate
-					float tmax = (vmax - v0) / a;
+					float a = 100000.0f;			// default_proj->AccelRate;
+					float tmax = (vmax - v0) / a;	// Time before speed reaches MaxSpeed
 
 					if (delay < tmax)
 					{
@@ -333,9 +356,9 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 						speed = vmax;
 					}
 				}
-				loc.X += dir.X * dist;
-				loc.Y += dir.Y * dist;
-				loc.Z += dir.Z * dist;
+				loc = Geom::add(loc, Geom::mult(InheritedVelocity, delay));
+				loc = Geom::add(loc, Geom::mult(m_vAccelDirection, dist));
+
 				if (curr_proj.proj_flight_template)
 				{
 					spawn_ps = ((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate;
@@ -356,9 +379,6 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 					else
 						proj->InitProjectile(dir, curr_proj.init_class);
 					PostInitProjectile(proj, dir, speed);
-
-					if (proj->Speed > proj->MaxSpeed)
-						proj->Speed = proj->MaxSpeed;
 				}
 				if (curr_proj.proj_flight_template)
 				{

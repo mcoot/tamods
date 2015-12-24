@@ -59,6 +59,7 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObjec
 
 // Magic chain
 bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+void MC_KillProjectiles();
 
 // Lua console command
 bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
