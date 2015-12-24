@@ -203,6 +203,9 @@ bool UTCarriedObject_Held_BeginState(int id, UObject *dwCallingObject, UFunction
 		return false;
 	}
 
+	if (!Utils::tr_pc)
+		return false;
+
 	AUTCarriedObject *that = (AUTCarriedObject *)dwCallingObject;
 	UObject_eventBeginState_Parms *params = (UObject_eventBeginState_Parms *)pParams;
 
@@ -211,12 +214,12 @@ bool UTCarriedObject_Held_BeginState(int id, UObject *dwCallingObject, UFunction
 	if (prevstate == "Home") // Home -> Held = Grab
 	{
 		if (that->HolderPRI)
-			((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 0, that->HolderPRI, NULL, that->Team);
+			Utils::tr_pc->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 0, that->HolderPRI, NULL, that->Team);
 	}
 	else if (prevstate == "Dropped") // Dropped -> Held = Pickup
 	{
 		if (that->HolderPRI)
-			((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 1, that->HolderPRI, NULL, that->Team);
+			Utils::tr_pc->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 1, that->HolderPRI, NULL, that->Team);
 	}
 
 	return false;
@@ -224,6 +227,9 @@ bool UTCarriedObject_Held_BeginState(int id, UObject *dwCallingObject, UFunction
 
 bool UTCarriedObject_Held_EndState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	if (!Utils::tr_pc)
+		return false;
+
 	AUTCarriedObject *that = (AUTCarriedObject *)dwCallingObject;
 	UObject_eventEndState_Parms *params = (UObject_eventEndState_Parms *)pParams;
 
@@ -232,12 +238,12 @@ bool UTCarriedObject_Held_EndState(int id, UObject *dwCallingObject, UFunction* 
 	if (nextstate == "Home") // Held -> Home = Cap
 	{
 		if (that->HolderPRI)
-			((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 2, that->HolderPRI, NULL, that->Team);
+			Utils::tr_pc->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 2, that->HolderPRI, NULL, that->Team);
 	}
 	else if (nextstate == "Dropped") // Held -> Dropped = Drop (duh)
 	{
 		if (that->HolderPRI)
-			((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 4, that->HolderPRI, NULL, that->Team);
+			Utils::tr_pc->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 4, that->HolderPRI, NULL, that->Team);
 	}
 	return false;
 }
@@ -249,14 +255,16 @@ bool UTCarriedObject_Dropped_BeginState(int id, UObject *dwCallingObject, UFunct
 
 bool UTCarriedObject_Dropped_EndState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	if (!Utils::tr_pc)
+		return false;
+
 	AUTCarriedObject *that = (AUTCarriedObject *)dwCallingObject;
 	UObject_eventEndState_Parms *params = (UObject_eventEndState_Parms *)pParams;
 
 	std::string nextstate = params->NextStateName.GetName();
 
 	if (nextstate == "Home") // Dropped -> Home = Return
-	{
-		((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor)->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 3, NULL, NULL, that->Team);
-	}
+		Utils::tr_pc->eventReceiveLocalizedMessage(UTrCTFMessage::StaticClass(), 3, NULL, NULL, that->Team);
+
 	return false;
 }

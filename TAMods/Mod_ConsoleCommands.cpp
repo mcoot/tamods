@@ -51,12 +51,10 @@ void togglePower()
 
 void returnFlags()
 {
-	ATrPlayerController *TrPC = ((ATrPlayerController *)Utils::engine->GamePlayers.Data[0]->Actor);
-
-	if (!TrPC || !TrPC->WorldInfo)
+	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
 
-	AGameInfo *gi = TrPC->WorldInfo->Game;
+	AGameInfo *gi = Utils::tr_pc->WorldInfo->Game;
 
 	// is there a better way get the current gametype?
 	if (gi && gi->IsA(ATrGame_TRCTF::StaticClass()))
@@ -100,7 +98,7 @@ namespace consoleHelpText
 		"   Toggles the stopwatch on and off (Alias: /sw)\n"
 		" /stopwatch start\n"
 		"   Starts/restarts the stopwatch\n"
-		" /stopwatch stops\n"
+		" /stopwatch stop\n"
 		"   Stops the stopwatch\n";
 	std::string roammap = "\n"
 		"Roaming map commands:\n"
@@ -208,12 +206,10 @@ static bool execConsoleCommand(const std::wstring &line)
 	// Command to save the current player state (location, velocity etc.)
 	else if (line.substr(0, 11) == L"/state save" || line.substr(0, 5) == L"/save")
 	{
-		if (Utils::tr_pc)
-		{
-			unsigned char n = line.substr(0, 11) == L"/state save" ? 12 : 6;
-			// Without a slot number we just use slot 1
-			savesSaveTo(line.size() > n ? line[n] - '0' : 1);
-		}
+		unsigned char n = line.substr(0, 11) == L"/state save" ? 12 : 6;
+		// Without a slot number we just use slot 1
+		savesSaveTo(line.size() > n ? line[n] - '0' : 1);
+
 		return true;
 	}
 	// Command to teleport to a saved location
