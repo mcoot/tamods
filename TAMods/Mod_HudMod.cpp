@@ -333,6 +333,7 @@ bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction
 		g_stats.printStats();
 		g_stats.resetStats();
 	}
+	MC_KillProjectiles();
 	return(false);
 }
 
