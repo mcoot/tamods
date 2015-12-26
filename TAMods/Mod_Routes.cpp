@@ -106,8 +106,7 @@ void routeStartRec()
 	Utils::notify("Route recorder", "Recording started");
 
 	// Meta data
-	mapName = Utils::f2std(Utils::tr_pc->WorldInfo->GetMapName(false));
-	mapName.erase(std::remove(mapName.begin(), mapName.end(), ' '), mapName.end());
+	mapName = Utils::f2std(Utils::tr_pc->WorldInfo->GetURLMap());
 	classID = ((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetPlayerClassId();
 	classAbbr = Utils::f2std(((ATrPlayerReplicationInfo *)pawn->PlayerReplicationInfo)->GetCurrentClassAbb());
 	teamNum = pawn->GetTeamNum();
@@ -490,8 +489,7 @@ static void reloadRouteList()
 	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
 
-	std::string curr_map_name = Utils::f2std(Utils::tr_pc->WorldInfo->GetMapName(false));
-	curr_map_name.erase(std::remove(curr_map_name.begin(), curr_map_name.end(), ' '), curr_map_name.end());
+	std::string curr_map_name = Utils::f2std(Utils::tr_pc->WorldInfo->GetURLMap());
 
 	std::wstring stemp = std::wstring(routedir.begin(), routedir.end());
 	LPCWSTR sw = stemp.c_str();

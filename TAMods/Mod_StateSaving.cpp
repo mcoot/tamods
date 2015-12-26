@@ -222,7 +222,9 @@ void savesRecall(int n, bool tpOnly)
 			}
 
 			routeStopRec();
-			routeStopReplay();
+
+			if (!g_config.routeBotReplay)
+				routeStopReplay();
 
 			Cam->SetLocation(state.loc);
 			Utils::tr_pc->SetRotation(state.rot);
