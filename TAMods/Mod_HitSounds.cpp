@@ -1,15 +1,12 @@
 #include "Mods.h"
 
-clock_t lastHitSound = 0;
-int totalDamage;
+static clock_t lastHitSound = 0;
+static unsigned int totalDamage = 0;
+static int midairKill = false;
 
 void playHitSound(bool bShieldDamage, int *dmg)
 {
-	//Utils::console("%d Hit for %d dmg", *t, *dmg);
-
-	if (!g_config.audioEngine.audioAvailable()
-		|| !g_config.s_hitSound.audioAvailable()
-		|| g_config.hitSoundMode < 1
+	if (g_config.hitSoundMode < 1
 		|| !dmg 
 		|| *dmg <= 0
 		|| bShieldDamage)
@@ -38,24 +35,21 @@ void playHitSound(bool bShieldDamage, int *dmg)
 		else if (pitch < g_config.hitSoundPitchMin)
 			pitch = g_config.hitSoundPitchMin;
 	}
-
 	g_config.s_hitSound.Play(pitch);
 }
 
 void playHeadShotSound()
 {
-	if (!g_config.audioEngine.audioAvailable()
-		|| !g_config.s_headShot.audioAvailable()
-		|| !g_config.customHeadShotSound)
-		return;
-
-	g_config.s_headShot.Play();
+	if (g_config.customHeadShotSound)
+		g_config.s_headShot.Play();
 }
 
 bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (g_config.customBluePlateSound && g_config.audioEngine.audioAvailable() && g_config.s_bluePlate.audioAvailable())
+	midairKill = true;
+	if (g_config.customBluePlateSound)
 	{
+		g_config.s_hitSound.Stop();
 		g_config.s_bluePlate.Play();
 		return true;
 	}
@@ -64,8 +58,10 @@ bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction*
 
 bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (g_config.customAirMailSound && g_config.audioEngine.audioAvailable() && g_config.s_airMail.audioAvailable())
+	midairKill = true;
+	if (g_config.customAirMailSound)
 	{
+		g_config.s_hitSound.Stop();
 		g_config.s_airMail.Play();
 		return true;
 	}
@@ -77,10 +73,15 @@ bool TrPRI_ReplicatedEvent(int id, UObject *dwCallingObject, UFunction* pFunctio
 	ATrPlayerReplicationInfo *pri = (ATrPlayerReplicationInfo *)dwCallingObject;
 	ATrPlayerReplicationInfo_eventReplicatedEvent_Parms *params = (ATrPlayerReplicationInfo_eventReplicatedEvent_Parms *)pParams;
 
-	if (g_config.customKillSound && pri->IsLocalPlayerPRI() && std::string(params->VarName.GetName()) == "m_nKills")
+	if (pri->IsLocalPlayerPRI() && std::string(params->VarName.GetName()) == "m_nKills")
 	{
-		if (!g_config.s_bluePlate.CurrentlyPlaying() && !g_config.s_airMail.CurrentlyPlaying())
+		if (g_config.customKillSound && !midairKill)
+		{
+			g_config.s_hitSound.Stop();
 			g_config.s_killSound.Play();
+		}
+		else
+			midairKill = false;
 	}
 	return false;
 }
