@@ -20,17 +20,25 @@ struct Hook
 	Hooks::Order order;
 	UClass *calling_class;
 
-private:
+public:
 	static int _total_hooks;
 };
+
+// Table of native functions
+UObjectNative *GNatives = (UObjectNative *)0x01340C40;
 
 int Hook::_total_hooks = 0;
 static std::map<UFunction *, std::pair<Hook, Hook>> _hooks;
 static bool _print_hookable = true;
 static bool _lock = false;
-ProcessEventFunction pProcessEvent = NULL;
+UObject *pCallObject;
+static ProcessEventFunction pProcessEvent = NULL;
 
-VOID __stdcall NakedFunction(UFunction*, PVOID, PVOID) { }
+void Hooks::FFrame::Step(UObject *Context, void *result)
+{
+	int b = *Code++;
+	(Context->*GNatives[b])(*this, result);
+}
 
 bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *pResult, Hook &hook)
 {
@@ -50,7 +58,8 @@ bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *
 	return false;
 }
 
-UObject *pCallObject;
+void __stdcall NakedFunction(UFunction *, void *, void *) { }
+
 void __stdcall ProxyFunction(UFunction *pFunction, void *pParms, void *pResult)
 {
 	__asm pushad;

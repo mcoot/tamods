@@ -146,6 +146,9 @@ void Config::reset()
 	showMineIcon      = true;
 	showSensorIcon    = true;
 
+	// HUD scaling
+	textScale		  = 1.0f;
+
 	//Stats
 	recordStats = false;
 
@@ -588,6 +591,9 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showVehicleIcon);
 	SET_VARIABLE(bool, showMineIcon);
 	SET_VARIABLE(bool, showSensorIcon);
+
+	// HUD scaling
+	SET_VARIABLE(float, textScale);
 
 	// VGS Mute
 	SET_VARIABLE(bool, muteVGS),

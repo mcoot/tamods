@@ -161,8 +161,9 @@ struct FName
 	}; 
 
 	char* GetName() 
-	{ 
-		return this->Names()->Data[ Index ]->Name; 
+	{
+		char *ret = this->Names()->Data[Index]->Name;
+		return ret ? ret : "(null)";
 	}; 
 
 	bool operator == ( const FName& A ) const 

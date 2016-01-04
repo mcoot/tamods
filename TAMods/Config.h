@@ -255,6 +255,9 @@ public:
 	bool showMineIcon;
 	bool showSensorIcon;
 
+	// HUD scaling
+	float textScale;
+
 	//Stats
 	bool recordStats;
 

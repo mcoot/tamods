@@ -1,5 +1,83 @@
 #include "dllmain.h"
 
+/*
+typedef void(*Native)(FFrame &, void *);
+
+static Native orig_func = NULL;
+static UFunction *pFnDrawHealthBar;
+static UFunction *pFnTakeDamage;
+static UFunction *pFnDrawMarkerText;
+
+UObject *thatPtr;
+void __stdcall myfunc(FFrame *frame, void *result)
+{
+	__asm pushad;
+	__asm mov thatPtr, ecx;
+
+	Hooks::lock();
+	ATrHUD *that = (ATrHUD *)thatPtr;
+
+	FString ShowText;
+	DWORD bFriend;
+	FVector Placement;
+	UCanvas *DrawCanvas;
+	DWORD bBuddy = 0;
+
+	frame->Step(frame->Object, &ShowText);
+	frame->Step(frame->Object, &bFriend);
+	frame->Step(frame->Object, &Placement);
+	frame->Step(frame->Object, &DrawCanvas);
+	frame->Step(frame->Object, &bBuddy);
+	Logger::log("Code(%d): %08x", ((char *)frame->Code)[0], ((int *)frame->Code)[0]);
+	frame->Code++;*/
+	//if (*frame->Code == 0x41 /* EX_DebugInfo */)
+	/*	frame->Step(frame->Object, NULL);
+
+	float XL, YL;
+
+	DrawCanvas->Font = (UFont *)UObject::GObjObjects()->Data[34200];
+	DrawCanvas->SetPos(Placement.X, Placement.Y, Placement.Z);
+	DrawCanvas->StrLen(ShowText, &XL, &YL);
+	XL *= g_config.textScale;
+	YL *= g_config.textScale;
+	if (bBuddy)
+		DrawCanvas->DrawColor = bFriend ? Utils::rgb(75, 255, 80) : Utils::rgb(255, 185, 23);
+	else
+		DrawCanvas->DrawColor = bFriend ? ((ATrHUD *)(ATrHUD::StaticClass()->Default))->ColorFriend : ((ATrHUD *)(ATrHUD::StaticClass()->Default))->ColorEnemy;
+	DrawCanvas->SetPos(Placement.X - (XL * 0.5f), Placement.Y - (YL * 0.5f), Placement.Z);
+	DrawCanvas->DrawTextW(ShowText, true, g_config.textScale, g_config.textScale, &that->m_nNameFontRenderInfo);
+	*(FVector *)result = Placement;
+	Hooks::unlock();
+}
+*/
+
+extern const char Function_TribesGame_TrHUD_DrawMarkerText[] = "Function TribesGame.TrHUD.DrawMarkerText";
+void customDrawText(UObject *dwCallingObject, void *pParams, void *result)
+{
+	ATrHUD *that = (ATrHUD *)dwCallingObject;
+	ATrHUD_execDrawMarkerText_Parms *params = (ATrHUD_execDrawMarkerText_Parms *)pParams;
+
+	float XL, YL;
+
+	params->DrawCanvas->Font = (UFont *)UObject::GObjObjects()->Data[34200];
+	params->DrawCanvas->SetPos(params->Placement.X, params->Placement.Y, params->Placement.Z);
+	params->DrawCanvas->StrLen(params->ShowText, &XL, &YL);
+	XL *= g_config.textScale;
+	YL *= g_config.textScale;
+	if (params->bBuddy)
+		params->DrawCanvas->DrawColor = params->bFriend ? Utils::rgb(75, 255, 80) : Utils::rgb(255, 185, 23);
+	else
+		params->DrawCanvas->DrawColor = params->bFriend ? ((ATrHUD *)(ATrHUD::StaticClass()->Default))->ColorFriend : ((ATrHUD *)(ATrHUD::StaticClass()->Default))->ColorEnemy;
+	params->DrawCanvas->SetPos(params->Placement.X - (XL * 0.5f), params->Placement.Y - (YL * 0.5f), params->Placement.Z);
+	params->DrawCanvas->DrawTextW(params->ShowText, true, g_config.textScale, g_config.textScale, &that->m_nNameFontRenderInfo);
+	*(FVector *)result = params->Placement;
+
+	/*Logger::log("ID    : %d", ID);
+	Logger::log("Object@ %p", dwCallingObject);
+	Logger::log("      : %s", dwCallingObject->GetFullName());
+	Logger::log("Func  : %s", pFunction->GetFullName());*/
+}
+
 void onDLLProcessAttach()
 {
 	/*
@@ -70,7 +148,16 @@ void onDLLProcessAttach()
 		// Custom console commands
 		Hooks::add(&TrChatConsole_Open_InputKey, "Function TrChatConsole.Open.InputKey");
 		Hooks::add(&TrChatConsole_Typing_InputKey, "Function TrChatConsole.Typing.InputKey");
+
+		Logger::log("Default params size: %d", sizeof(ATrHUD_execDrawMarkerText_Parms));
+		addUScriptHook<&customDrawText, Function_TribesGame_TrHUD_DrawMarkerText>();
 	}
+
+	/*pFnDrawMarkerText = (UFunction*)UObject::GObjObjects()->Data[72198];
+
+	orig_func = (Native)pFnDrawMarkerText->Func;
+	pFnDrawMarkerText->Func = myfunc;
+	pFnDrawMarkerText->iNative = 0x666;*/
 
 	// Pass true to log hookable functions
 	Hooks::init(true);
