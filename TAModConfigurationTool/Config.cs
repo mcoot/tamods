@@ -300,7 +300,15 @@ namespace TAModConfigurationTool
 
             if (!System.IO.File.Exists(configPath + configFile))
             {
-                System.IO.File.WriteAllText(configPath + configFile, "");
+                try
+                {
+                    System.IO.File.WriteAllText(configPath + configFile, "");
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    MessageBox.Show(String.Format("Unable to access config path at {0}", configPath));
+                    return false;
+                }
             }
 
             // Run the lua script
