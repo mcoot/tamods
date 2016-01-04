@@ -857,6 +857,10 @@ static FVector hud_getPlayerPos(ATrHUD *hud)
 	return out;
 }
 
+static void config_placeholder()
+{
+}
+
 void Lua::init()
 {
 	getGlobalNamespace(_state).
@@ -902,6 +906,21 @@ void Lua::init()
 			addFunction("size", &TArray<FOverheadNumber>::Num).
 			addFunction("get", &TArray<FOverheadNumber>::Get).
 		endClass().
+
+		// Loadouts placeholders
+		addFunction("equipment", &config_placeholder).
+		addFunction("setLoadout", &config_placeholder).
+
+		// Custom crosshairs placeholders
+		addFunction("crosshair", &config_placeholder).
+		addFunction("crosshairs", &config_placeholder).
+		addFunction("setCrosshairs", &config_placeholder).
+
+		// Custom projectiles placeholders
+		addFunction("getProjectile", &config_placeholder).
+		addFunction("setProjectile", &config_placeholder).
+		addFunction("cloneProjectile", &config_placeholder).
+		addFunction("setProjectileColor", &config_placeholder).
 
 		// HUD/Mute
 
