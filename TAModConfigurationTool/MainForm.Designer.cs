@@ -214,6 +214,20 @@
             this.btnProjectileSwapDelete = new System.Windows.Forms.Button();
             this.btnProjectileSwapSave = new System.Windows.Forms.Button();
             this.listProjectileSwap = new System.Windows.Forms.ListBox();
+            this.tabCapping = new TAModConfigurationTool.TransTabPage();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.checkRouteDrawETA = new System.Windows.Forms.CheckBox();
+            this.label82 = new System.Windows.Forms.Label();
+            this.checkRouteDrawMarkers = new System.Windows.Forms.CheckBox();
+            this.label80 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.checkRouteCinematicMode = new System.Windows.Forms.CheckBox();
+            this.checkRouteReplayRotation = new System.Windows.Forms.CheckBox();
+            this.label79 = new System.Windows.Forms.Label();
+            this.numRouteETAInterval = new System.Windows.Forms.NumericUpDown();
+            this.label81 = new System.Windows.Forms.Label();
+            this.numRouteDrawInterval = new System.Windows.Forms.NumericUpDown();
+            this.label83 = new System.Windows.Forms.Label();
             this.tabHitSounds = new TAModConfigurationTool.TransTabPage();
             this.btnHitSoundFile = new System.Windows.Forms.Button();
             this.panel18 = new System.Windows.Forms.Panel();
@@ -284,6 +298,10 @@
             this.tabProjSwap.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel16.SuspendLayout();
+            this.tabCapping.SuspendLayout();
+            this.panel21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRouteDrawInterval)).BeginInit();
             this.tabHitSounds.SuspendLayout();
             this.panel18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackHitSoundVolumeSpecific)).BeginInit();
@@ -319,6 +337,7 @@
             this.tabControlMain.Controls.Add(this.tabMute);
             this.tabControlMain.Controls.Add(this.tabProjectiles);
             this.tabControlMain.Controls.Add(this.tabProjSwap);
+            this.tabControlMain.Controls.Add(this.tabCapping);
             this.tabControlMain.Controls.Add(this.tabHitSounds);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2615,6 +2634,206 @@
             this.listProjectileSwap.TabIndex = 7;
             this.listProjectileSwap.SelectedIndexChanged += new System.EventHandler(this.listProjectileSwap_SelectedIndexChanged);
             // 
+            // tabCapping
+            // 
+            this.tabCapping.Controls.Add(this.panel21);
+            this.tabCapping.Location = new System.Drawing.Point(4, 37);
+            this.tabCapping.Name = "tabCapping";
+            this.tabCapping.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCapping.Size = new System.Drawing.Size(1391, 619);
+            this.tabCapping.TabIndex = 8;
+            this.tabCapping.Text = "Capping";
+            this.tabCapping.UseVisualStyleBackColor = true;
+            // 
+            // panel21
+            // 
+            this.panel21.Controls.Add(this.checkRouteDrawETA);
+            this.panel21.Controls.Add(this.label82);
+            this.panel21.Controls.Add(this.checkRouteDrawMarkers);
+            this.panel21.Controls.Add(this.label80);
+            this.panel21.Controls.Add(this.label76);
+            this.panel21.Controls.Add(this.checkRouteCinematicMode);
+            this.panel21.Controls.Add(this.checkRouteReplayRotation);
+            this.panel21.Controls.Add(this.label79);
+            this.panel21.Controls.Add(this.numRouteETAInterval);
+            this.panel21.Controls.Add(this.label81);
+            this.panel21.Controls.Add(this.numRouteDrawInterval);
+            this.panel21.Controls.Add(this.label83);
+            this.panel21.Location = new System.Drawing.Point(7, 8);
+            this.panel21.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel21.Name = "panel21";
+            this.panel21.Size = new System.Drawing.Size(319, 313);
+            this.panel21.TabIndex = 3;
+            // 
+            // checkRouteDrawETA
+            // 
+            this.checkRouteDrawETA.AutoSize = true;
+            this.checkRouteDrawETA.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteDrawETA.Location = new System.Drawing.Point(11, 236);
+            this.checkRouteDrawETA.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkRouteDrawETA.Name = "checkRouteDrawETA";
+            this.checkRouteDrawETA.Size = new System.Drawing.Size(173, 27);
+            this.checkRouteDrawETA.TabIndex = 37;
+            this.checkRouteDrawETA.Text = "Draw ETA Markers";
+            this.checkRouteDrawETA.UseVisualStyleBackColor = true;
+            this.checkRouteDrawETA.CheckedChanged += new System.EventHandler(this.checkRouteDrawETA_CheckedChanged);
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label82.Location = new System.Drawing.Point(5, 126);
+            this.label82.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(182, 32);
+            this.label82.TabIndex = 36;
+            this.label82.Text = "Route Markers";
+            // 
+            // checkRouteDrawMarkers
+            // 
+            this.checkRouteDrawMarkers.AutoSize = true;
+            this.checkRouteDrawMarkers.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteDrawMarkers.Location = new System.Drawing.Point(11, 163);
+            this.checkRouteDrawMarkers.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkRouteDrawMarkers.Name = "checkRouteDrawMarkers";
+            this.checkRouteDrawMarkers.Size = new System.Drawing.Size(190, 27);
+            this.checkRouteDrawMarkers.TabIndex = 35;
+            this.checkRouteDrawMarkers.Text = "Draw Route Markers";
+            this.checkRouteDrawMarkers.UseVisualStyleBackColor = true;
+            this.checkRouteDrawMarkers.CheckedChanged += new System.EventHandler(this.checkRouteDrawMarkers_CheckedChanged);
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label80.Location = new System.Drawing.Point(266, 269);
+            this.label80.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(17, 23);
+            this.label80.TabIndex = 34;
+            this.label80.Text = "s";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label76.Location = new System.Drawing.Point(283, 196);
+            this.label76.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(32, 23);
+            this.label76.TabIndex = 33;
+            this.label76.Text = "ms";
+            // 
+            // checkRouteCinematicMode
+            // 
+            this.checkRouteCinematicMode.AutoSize = true;
+            this.checkRouteCinematicMode.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteCinematicMode.Location = new System.Drawing.Point(10, 81);
+            this.checkRouteCinematicMode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkRouteCinematicMode.Name = "checkRouteCinematicMode";
+            this.checkRouteCinematicMode.Size = new System.Drawing.Size(174, 27);
+            this.checkRouteCinematicMode.TabIndex = 32;
+            this.checkRouteCinematicMode.Text = "Cinematic Replays";
+            this.checkRouteCinematicMode.UseVisualStyleBackColor = true;
+            // 
+            // checkRouteReplayRotation
+            // 
+            this.checkRouteReplayRotation.AutoSize = true;
+            this.checkRouteReplayRotation.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteReplayRotation.Location = new System.Drawing.Point(10, 50);
+            this.checkRouteReplayRotation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkRouteReplayRotation.Name = "checkRouteReplayRotation";
+            this.checkRouteReplayRotation.Size = new System.Drawing.Size(189, 27);
+            this.checkRouteReplayRotation.TabIndex = 31;
+            this.checkRouteReplayRotation.Text = "Lock Replay Camera";
+            this.checkRouteReplayRotation.UseVisualStyleBackColor = true;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label79.Location = new System.Drawing.Point(33, 269);
+            this.label79.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(144, 23);
+            this.label79.TabIndex = 29;
+            this.label79.Text = "ETA Draw Interval";
+            // 
+            // numRouteETAInterval
+            // 
+            this.numRouteETAInterval.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRouteETAInterval.Location = new System.Drawing.Point(185, 267);
+            this.numRouteETAInterval.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numRouteETAInterval.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.numRouteETAInterval.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numRouteETAInterval.Name = "numRouteETAInterval";
+            this.numRouteETAInterval.Size = new System.Drawing.Size(76, 29);
+            this.numRouteETAInterval.TabIndex = 28;
+            this.numRouteETAInterval.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label81.Location = new System.Drawing.Point(16, 196);
+            this.label81.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(161, 23);
+            this.label81.TabIndex = 26;
+            this.label81.Text = "Route Draw Interval";
+            // 
+            // numRouteDrawInterval
+            // 
+            this.numRouteDrawInterval.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRouteDrawInterval.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numRouteDrawInterval.Location = new System.Drawing.Point(185, 194);
+            this.numRouteDrawInterval.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.numRouteDrawInterval.Maximum = new decimal(new int[] {
+            60000,
+            0,
+            0,
+            0});
+            this.numRouteDrawInterval.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numRouteDrawInterval.Name = "numRouteDrawInterval";
+            this.numRouteDrawInterval.Size = new System.Drawing.Size(98, 29);
+            this.numRouteDrawInterval.TabIndex = 25;
+            this.numRouteDrawInterval.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label83.Location = new System.Drawing.Point(4, 5);
+            this.label83.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(246, 40);
+            this.label83.TabIndex = 4;
+            this.label83.Text = "Route Recording";
+            // 
             // tabHitSounds
             // 
             this.tabHitSounds.Controls.Add(this.btnHitSoundFile);
@@ -3024,6 +3243,11 @@
             this.panel7.PerformLayout();
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
+            this.tabCapping.ResumeLayout(false);
+            this.panel21.ResumeLayout(false);
+            this.panel21.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRouteDrawInterval)).EndInit();
             this.tabHitSounds.ResumeLayout(false);
             this.tabHitSounds.PerformLayout();
             this.panel18.ResumeLayout(false);
@@ -3248,6 +3472,20 @@
         private System.Windows.Forms.CheckBox checkMouseDisableFovScaling;
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Panel panel21;
+        private System.Windows.Forms.CheckBox checkRouteCinematicMode;
+        private System.Windows.Forms.CheckBox checkRouteReplayRotation;
+        private System.Windows.Forms.Label label79;
+        private System.Windows.Forms.NumericUpDown numRouteETAInterval;
+        private System.Windows.Forms.Label label81;
+        private System.Windows.Forms.NumericUpDown numRouteDrawInterval;
+        private System.Windows.Forms.Label label83;
+        private TransTabPage tabCapping;
+        private System.Windows.Forms.CheckBox checkRouteDrawETA;
+        private System.Windows.Forms.Label label82;
+        private System.Windows.Forms.CheckBox checkRouteDrawMarkers;
+        private System.Windows.Forms.Label label80;
+        private System.Windows.Forms.Label label76;
     }
 }
 

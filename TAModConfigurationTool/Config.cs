@@ -126,6 +126,12 @@ namespace TAModConfigurationTool
                     }
                 },
 
+                { "Route Recording", new List<string>()
+                    {
+                        "routeDrawInterval", "routeDrawETAInterval", "routeReplayRotation", "routeCinematicMode"
+                    }
+                },
+
                 { "Sounds", new List<string>()
                     {
                         "hitSoundMode", "hitSoundPitchMin", "hitSoundPitchMax", "hitSoundDamageRef", "volumeHitSound",
@@ -245,6 +251,11 @@ namespace TAModConfigurationTool
                 { "centerBulletSpawn", false },
                 { "bulletPingMultiplier", 1.0F },
                 { "bulletSpawnDelay", 0.0F },
+
+                { "routeDrawInterval", 500 },
+                { "routeDrawETAInterval", 5 },
+                { "routeReplayRotation", true },
+                { "routeCinematicMode", false },
                 
             };
 

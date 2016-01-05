@@ -149,6 +149,16 @@ namespace TAModConfigurationTool
             numMouseZoom2Sensitivity.Enabled = false;
             numMouseZoom2Sensitivity.Value = 2.0M;
 
+            // Route Recording
+            checkRouteReplayRotation.Checked = true;
+            checkRouteCinematicMode.Checked = false;
+            checkRouteDrawMarkers.Checked = true;
+            numRouteDrawInterval.Value = 500;
+            checkRouteDrawETA.Checked = true;
+            numRouteETAInterval.Value = 5;
+
+            // Stopwatch
+
             // Colour Settings
             listColorSettings.Items.Clear();
             checkColorSettingOverride.Checked = false;
@@ -305,6 +315,32 @@ namespace TAModConfigurationTool
             numMouseZoomSensitivity.Value = Convert.ToDecimal(config.getConfigVar("sensZoom"));
             numMouseZoom2Sensitivity.Value = Convert.ToDecimal(config.getConfigVar("sensZoooom"));
 
+            // Route Recording
+            checkRouteReplayRotation.Checked = (bool)config.getConfigVar("routeReplayRotation");
+            checkRouteCinematicMode.Checked = (bool)config.getConfigVar("routeCinematicMode");
+            if (Convert.ToInt32(config.getConfigVar("routeDrawInterval")) == 0)
+            {
+                checkRouteDrawMarkers.Checked = false;
+                numRouteDrawInterval.Value = 500;
+            }
+            else
+            {
+                checkRouteDrawMarkers.Checked = true;
+                numRouteDrawInterval.Value = (int)config.getConfigVar("routeDrawInterval");
+            }
+            if (Convert.ToInt32(config.getConfigVar("routeDrawETAInterval")) == 0)
+            {
+                checkRouteDrawETA.Checked = false;
+                numRouteETAInterval.Value = 5;
+            }
+            else
+            {
+                checkRouteDrawETA.Checked = true;
+                numRouteETAInterval.Value = (int)config.getConfigVar("routeDrawETAInterval");
+            }
+
+            // Stopwatch
+
             // Colour Settings
             listColorSettings.Items.Clear();
             checkColorSettingOverride.Checked = false;
@@ -452,6 +488,28 @@ namespace TAModConfigurationTool
             config.setConfigVar("sens", Convert.ToSingle(numMouseSensitivity.Value));
             config.setConfigVar("sensZoom", Convert.ToSingle(numMouseZoomSensitivity.Value));
             config.setConfigVar("sensZoooom", Convert.ToSingle(numMouseZoom2Sensitivity.Value));
+
+            // Route Recording
+            config.setConfigVar("routeReplayRotation", checkRouteReplayRotation.Checked);
+            config.setConfigVar("routeCinematicMode", checkRouteCinematicMode.Checked);
+            if (!checkRouteDrawMarkers.Checked)
+            {
+                config.setConfigVar("routeDrawInterval", 0);
+            }
+            else
+            {
+                config.setConfigVar("routeDrawInterval", (int)numRouteDrawInterval.Value);
+            }
+            if (!checkRouteDrawETA.Checked)
+            {
+                config.setConfigVar("routeDrawETAInterval", 0);
+            }
+            else
+            {
+                config.setConfigVar("routeDrawETAInterval", (int)numRouteETAInterval.Value);
+            }
+
+            // Stopwatch
 
             // Colour Settings
             // Custom Damage Number Colours
@@ -1423,6 +1481,16 @@ namespace TAModConfigurationTool
             numMouseSensitivity.Enabled = checkMouseDisableFovScaling.Checked;
             numMouseZoomSensitivity.Enabled = checkMouseDisableFovScaling.Checked;
             numMouseZoom2Sensitivity.Enabled = checkMouseDisableFovScaling.Checked;
+        }
+
+        private void checkRouteDrawMarkers_CheckedChanged(object sender, EventArgs e)
+        {
+            numRouteDrawInterval.Enabled = checkRouteDrawMarkers.Checked;
+        }
+
+        private void checkRouteDrawETA_CheckedChanged(object sender, EventArgs e)
+        {
+            numRouteETAInterval.Enabled = checkRouteDrawETA.Checked;
         }
 
 
