@@ -156,8 +156,12 @@ namespace TAModConfigurationTool
             numRouteDrawInterval.Value = 500;
             checkRouteDrawETA.Checked = true;
             numRouteETAInterval.Value = 5;
+            checkRouteDrawSavedLocations.Checked = true;
 
             // Stopwatch
+            checkStopwatchStopOnCap.Checked = false;
+            checkStopwatchStopOnDeath.Checked = true;
+            checkStopwatchNotifications.Checked = true;
 
             // Colour Settings
             listColorSettings.Items.Clear();
@@ -326,7 +330,7 @@ namespace TAModConfigurationTool
             else
             {
                 checkRouteDrawMarkers.Checked = true;
-                numRouteDrawInterval.Value = (int)config.getConfigVar("routeDrawInterval");
+                numRouteDrawInterval.Value = Convert.ToInt32(config.getConfigVar("routeDrawInterval"));
             }
             if (Convert.ToInt32(config.getConfigVar("routeDrawETAInterval")) == 0)
             {
@@ -336,10 +340,14 @@ namespace TAModConfigurationTool
             else
             {
                 checkRouteDrawETA.Checked = true;
-                numRouteETAInterval.Value = (int)config.getConfigVar("routeDrawETAInterval");
+                numRouteETAInterval.Value = Convert.ToInt32(config.getConfigVar("routeDrawETAInterval"));
             }
+            checkRouteDrawSavedLocations.Checked = (bool)config.getConfigVar("showSavedLocations");
 
             // Stopwatch
+            checkStopwatchStopOnCap.Checked = (bool)config.getConfigVar("stopwatchStopOnCap");
+            checkStopwatchStopOnDeath.Checked = (bool)config.getConfigVar("stopwatchStopOnDeath");
+            checkStopwatchNotifications.Checked = (bool)config.getConfigVar("stopwatchNotifications");
 
             // Colour Settings
             listColorSettings.Items.Clear();
@@ -508,8 +516,12 @@ namespace TAModConfigurationTool
             {
                 config.setConfigVar("routeDrawETAInterval", (int)numRouteETAInterval.Value);
             }
+            config.setConfigVar("showSavedLocations", checkRouteDrawSavedLocations.Checked);
 
             // Stopwatch
+            config.setConfigVar("stopwatchStopOnCap", checkStopwatchStopOnCap.Checked);
+            config.setConfigVar("stopwatchStopOnDeath", checkStopwatchStopOnDeath.Checked);
+            config.setConfigVar("stopwatchNotifications", checkStopwatchNotifications.Checked);
 
             // Colour Settings
             // Custom Damage Number Colours

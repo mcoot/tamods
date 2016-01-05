@@ -128,7 +128,12 @@ namespace TAModConfigurationTool
 
                 { "Route Recording", new List<string>()
                     {
-                        "routeDrawInterval", "routeDrawETAInterval", "routeReplayRotation", "routeCinematicMode"
+                        "routeDrawInterval", "routeDrawETAInterval", "routeReplayRotation", "routeCinematicMode", "showSavedLocations"
+                    }
+                },
+                { "Stopwatch", new List<string>()
+                    {
+                        "stopwatchStopOnCap", "stopwatchStopOnDeath", "stopwatchNotifications"
                     }
                 },
 
@@ -256,6 +261,11 @@ namespace TAModConfigurationTool
                 { "routeDrawETAInterval", 5 },
                 { "routeReplayRotation", true },
                 { "routeCinematicMode", false },
+                { "showSavedLocations", true },
+
+                { "stopwatchStopOnCap", false },
+                { "stopwatchStopOnDeath", true },
+                { "stopwatchNotifications", true },
                 
             };
 
