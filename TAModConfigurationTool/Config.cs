@@ -85,7 +85,7 @@ namespace TAModConfigurationTool
 
                 { "Display", new List<string>()
                     {
-                        "showWeapon", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax"
+                        "showWeapon", "showBodyMesh", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax"
                     }
                 },
 
@@ -111,6 +111,12 @@ namespace TAModConfigurationTool
                 { "Magic Chain", new List<string>()
                     {
                         "useMagicChain", "useSmallBullets", "centerBulletSpawn", "bulletPingMultiplier", "bulletSpawnDelay"
+                    }
+                },
+
+                { "Mouse Sensitivity", new List<string>()
+                    {
+                        "useFOVScaling", "sens", "sensZoom", "sensZoooom"
                     }
                 },
 
@@ -146,6 +152,7 @@ namespace TAModConfigurationTool
                 { "showErrorNotifications", true },
                 { "recordStats", false },
                 { "showWeapon", true },
+                { "showBodyMesh", true },
                 { "showRainbow", false },
                 { "showCrosshair", true },
                 { "crosshairScale", 1 },
@@ -170,6 +177,11 @@ namespace TAModConfigurationTool
                 { "showVehicleIcon", true },
                 { "showSensorIcon", true },
                 { "showMineIcon", true },
+
+                { "useFOVScaling", true },
+                { "sens", 10.0F },
+                { "sensZoom", 5.0F },
+                { "sensZoooom", 2.0F },
 
                 { "crosshairColor", rgb(255, 255, 255) },
                 { "damageNumbersColorMin", rgb(255, 255, 255) },

@@ -88,6 +88,7 @@ namespace TAModConfigurationTool
             // Display settings
             checkStatsRecord.Checked = false;
             checkShowWeapon.Checked = true;
+            checkShowPlayerModel.Checked = true;
             checkShowCrosshair.Checked = true;
             checkShowFirstPersonAmmo.Checked = false;
             numCrosshairScale.Enabled = true;
@@ -138,6 +139,15 @@ namespace TAModConfigurationTool
             checkMagicChainCenter.Checked = false;
             numMagicChainPingMultiplier.Value = 1.0M;
             numMagicChainSpawnDelay.Value = 0.0M;
+
+            // Mouse Sensitivity
+            checkMouseDisableFovScaling.Checked = false;
+            numMouseSensitivity.Enabled = false;
+            numMouseSensitivity.Value = 10.0M;
+            numMouseZoomSensitivity.Enabled = false;
+            numMouseZoomSensitivity.Value = 5.0M;
+            numMouseZoom2Sensitivity.Enabled = false;
+            numMouseZoom2Sensitivity.Value = 2.0M;
 
             // Colour Settings
             listColorSettings.Items.Clear();
@@ -215,6 +225,7 @@ namespace TAModConfigurationTool
             // Display settings
             checkStatsRecord.Checked = (bool)config.getConfigVar("recordStats");
             checkShowWeapon.Checked = (bool)config.getConfigVar("showWeapon");
+            checkShowPlayerModel.Checked = (bool)config.getConfigVar("showBodyMesh");
             checkShowFirstPersonAmmo.Checked = (bool)config.getConfigVar("showFirstPersonAmmo");
             checkShowCrosshair.Checked = (bool)config.getConfigVar("showCrosshair");
             numCrosshairScale.Value = Convert.ToDecimal(config.getConfigVar("crosshairScale"));
@@ -288,6 +299,12 @@ namespace TAModConfigurationTool
             numMagicChainPingMultiplier.Value = Convert.ToDecimal(config.getConfigVar("bulletPingMultiplier"));
             numMagicChainSpawnDelay.Value = Convert.ToDecimal(config.getConfigVar("bulletSpawnDelay"));
 
+            // Mouse Sensitivity
+            checkMouseDisableFovScaling.Checked = !(bool)config.getConfigVar("useFOVScaling");
+            numMouseSensitivity.Value = Convert.ToDecimal(config.getConfigVar("sens"));
+            numMouseZoomSensitivity.Value = Convert.ToDecimal(config.getConfigVar("sensZoom"));
+            numMouseZoom2Sensitivity.Value = Convert.ToDecimal(config.getConfigVar("sensZoooom"));
+
             // Colour Settings
             listColorSettings.Items.Clear();
             checkColorSettingOverride.Checked = false;
@@ -360,6 +377,7 @@ namespace TAModConfigurationTool
             // Display Settings
             config.setConfigVar("recordStats", checkStatsRecord.Checked);
             config.setConfigVar("showWeapon", checkShowWeapon.Checked);
+            config.setConfigVar("showBodyMesh", checkShowPlayerModel.Checked);
             config.setConfigVar("showFirstPersonAmmo", checkShowFirstPersonAmmo.Checked);
             config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
             config.setConfigVar("crosshairScale", Convert.ToSingle(numCrosshairScale.Value));
@@ -428,6 +446,12 @@ namespace TAModConfigurationTool
             config.setConfigVar("centerBulletSpawn", checkMagicChainCenter.Checked);
             config.setConfigVar("bulletPingMultiplier", Convert.ToSingle(numMagicChainPingMultiplier.Value));
             config.setConfigVar("bulletSpawnDelay", Convert.ToSingle(numMagicChainSpawnDelay.Value));
+
+            // Mouse Sensitivity
+            config.setConfigVar("useFOVScaling", !checkMouseDisableFovScaling.Checked);
+            config.setConfigVar("sens", Convert.ToSingle(numMouseSensitivity.Value));
+            config.setConfigVar("sensZoom", Convert.ToSingle(numMouseZoomSensitivity.Value));
+            config.setConfigVar("sensZoooom", Convert.ToSingle(numMouseZoom2Sensitivity.Value));
 
             // Colour Settings
             // Custom Damage Number Colours
@@ -1392,6 +1416,13 @@ namespace TAModConfigurationTool
             //Execute injection
             //TODO MUCH TESTING, POSSIBLE ISSUES, PROBABLY SHOULD LOCK MAIN APP
             wJect.Start();
+        }
+
+        private void checkMouseDisableFovScaling_CheckedChanged(object sender, EventArgs e)
+        {
+            numMouseSensitivity.Enabled = checkMouseDisableFovScaling.Checked;
+            numMouseZoomSensitivity.Enabled = checkMouseDisableFovScaling.Checked;
+            numMouseZoom2Sensitivity.Enabled = checkMouseDisableFovScaling.Checked;
         }
 
 
