@@ -30,10 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.btnInject = new System.Windows.Forms.Button();
-            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel20 = new System.Windows.Forms.Panel();
@@ -219,7 +215,13 @@
             this.btnProjectileSwapSave = new System.Windows.Forms.Button();
             this.listProjectileSwap = new System.Windows.Forms.ListBox();
             this.tabCapping = new TAModConfigurationTool.TransTabPage();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.checkStopwatchNotifications = new System.Windows.Forms.CheckBox();
+            this.checkStopwatchStopOnDeath = new System.Windows.Forms.CheckBox();
+            this.checkStopwatchStopOnCap = new System.Windows.Forms.CheckBox();
+            this.label89 = new System.Windows.Forms.Label();
             this.panel21 = new System.Windows.Forms.Panel();
+            this.checkRouteDrawSavedLocations = new System.Windows.Forms.CheckBox();
             this.checkRouteDrawETA = new System.Windows.Forms.CheckBox();
             this.label82 = new System.Windows.Forms.Label();
             this.checkRouteDrawMarkers = new System.Windows.Forms.CheckBox();
@@ -252,14 +254,11 @@
             this.selectHitSoundMode = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.panel22 = new System.Windows.Forms.Panel();
-            this.checkStopwatchStopOnDeath = new System.Windows.Forms.CheckBox();
-            this.checkStopwatchStopOnCap = new System.Windows.Forms.CheckBox();
-            this.label89 = new System.Windows.Forms.Label();
-            this.checkStopwatchNotifications = new System.Windows.Forms.CheckBox();
-            this.checkRouteDrawSavedLocations = new System.Windows.Forms.CheckBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.btnInject = new System.Windows.Forms.Button();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel20.SuspendLayout();
@@ -306,6 +305,7 @@
             this.panel7.SuspendLayout();
             this.panel16.SuspendLayout();
             this.tabCapping.SuspendLayout();
+            this.panel22.SuspendLayout();
             this.panel21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteDrawInterval)).BeginInit();
@@ -315,7 +315,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).BeginInit();
-            this.panel22.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -334,46 +334,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1407, 745);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Controls.Add(this.btnInject);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 675);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1399, 65);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(4, 5);
-            this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(138, 48);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
-            // btnInject
-            // 
-            this.btnInject.Enabled = false;
-            this.btnInject.Location = new System.Drawing.Point(150, 5);
-            this.btnInject.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnInject.Name = "btnInject";
-            this.btnInject.Size = new System.Drawing.Size(138, 48);
-            this.btnInject.TabIndex = 2;
-            this.btnInject.Text = "Inject";
-            this.btnInject.UseVisualStyleBackColor = true;
-            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
-            // 
-            // fileHitSound
-            // 
-            this.fileHitSound.Filter = "Wave files|*.wav";
-            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // tabControlMain
             // 
@@ -2693,6 +2653,65 @@
             this.tabCapping.Text = "Capping";
             this.tabCapping.UseVisualStyleBackColor = true;
             // 
+            // panel22
+            // 
+            this.panel22.Controls.Add(this.checkStopwatchNotifications);
+            this.panel22.Controls.Add(this.checkStopwatchStopOnDeath);
+            this.panel22.Controls.Add(this.checkStopwatchStopOnCap);
+            this.panel22.Controls.Add(this.label89);
+            this.panel22.Location = new System.Drawing.Point(334, 8);
+            this.panel22.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(279, 313);
+            this.panel22.TabIndex = 4;
+            // 
+            // checkStopwatchNotifications
+            // 
+            this.checkStopwatchNotifications.AutoSize = true;
+            this.checkStopwatchNotifications.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStopwatchNotifications.Location = new System.Drawing.Point(10, 112);
+            this.checkStopwatchNotifications.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkStopwatchNotifications.Name = "checkStopwatchNotifications";
+            this.checkStopwatchNotifications.Size = new System.Drawing.Size(262, 27);
+            this.checkStopwatchNotifications.TabIndex = 33;
+            this.checkStopwatchNotifications.Text = "Show Stopwatch Notifications";
+            this.checkStopwatchNotifications.UseVisualStyleBackColor = true;
+            // 
+            // checkStopwatchStopOnDeath
+            // 
+            this.checkStopwatchStopOnDeath.AutoSize = true;
+            this.checkStopwatchStopOnDeath.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStopwatchStopOnDeath.Location = new System.Drawing.Point(10, 81);
+            this.checkStopwatchStopOnDeath.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkStopwatchStopOnDeath.Name = "checkStopwatchStopOnDeath";
+            this.checkStopwatchStopOnDeath.Size = new System.Drawing.Size(230, 27);
+            this.checkStopwatchStopOnDeath.TabIndex = 32;
+            this.checkStopwatchStopOnDeath.Text = "Stop Stopwatch on Death";
+            this.checkStopwatchStopOnDeath.UseVisualStyleBackColor = true;
+            // 
+            // checkStopwatchStopOnCap
+            // 
+            this.checkStopwatchStopOnCap.AutoSize = true;
+            this.checkStopwatchStopOnCap.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStopwatchStopOnCap.Location = new System.Drawing.Point(10, 50);
+            this.checkStopwatchStopOnCap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkStopwatchStopOnCap.Name = "checkStopwatchStopOnCap";
+            this.checkStopwatchStopOnCap.Size = new System.Drawing.Size(214, 27);
+            this.checkStopwatchStopOnCap.TabIndex = 31;
+            this.checkStopwatchStopOnCap.Text = "Stop Stopwatch on Cap";
+            this.checkStopwatchStopOnCap.UseVisualStyleBackColor = true;
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label89.Location = new System.Drawing.Point(4, 5);
+            this.label89.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(160, 40);
+            this.label89.TabIndex = 4;
+            this.label89.Text = "Stopwatch";
+            // 
             // panel21
             // 
             this.panel21.Controls.Add(this.checkRouteDrawSavedLocations);
@@ -2713,6 +2732,18 @@
             this.panel21.Name = "panel21";
             this.panel21.Size = new System.Drawing.Size(319, 356);
             this.panel21.TabIndex = 3;
+            // 
+            // checkRouteDrawSavedLocations
+            // 
+            this.checkRouteDrawSavedLocations.AutoSize = true;
+            this.checkRouteDrawSavedLocations.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteDrawSavedLocations.Location = new System.Drawing.Point(10, 112);
+            this.checkRouteDrawSavedLocations.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.checkRouteDrawSavedLocations.Name = "checkRouteDrawSavedLocations";
+            this.checkRouteDrawSavedLocations.Size = new System.Drawing.Size(202, 27);
+            this.checkRouteDrawSavedLocations.TabIndex = 38;
+            this.checkRouteDrawSavedLocations.Text = "Draw Saved Locations";
+            this.checkRouteDrawSavedLocations.UseVisualStyleBackColor = true;
             // 
             // checkRouteDrawETA
             // 
@@ -3168,76 +3199,46 @@
             this.label28.TabIndex = 46;
             this.label28.Text = "Sound Settings";
             // 
-            // panel22
+            // flowLayoutPanel1
             // 
-            this.panel22.Controls.Add(this.checkStopwatchNotifications);
-            this.panel22.Controls.Add(this.checkStopwatchStopOnDeath);
-            this.panel22.Controls.Add(this.checkStopwatchStopOnCap);
-            this.panel22.Controls.Add(this.label89);
-            this.panel22.Location = new System.Drawing.Point(334, 8);
-            this.panel22.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(279, 313);
-            this.panel22.TabIndex = 4;
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Controls.Add(this.btnInject);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 675);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1399, 65);
+            this.flowLayoutPanel1.TabIndex = 1;
             // 
-            // checkStopwatchStopOnDeath
+            // btnSaveConfig
             // 
-            this.checkStopwatchStopOnDeath.AutoSize = true;
-            this.checkStopwatchStopOnDeath.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkStopwatchStopOnDeath.Location = new System.Drawing.Point(10, 81);
-            this.checkStopwatchStopOnDeath.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkStopwatchStopOnDeath.Name = "checkStopwatchStopOnDeath";
-            this.checkStopwatchStopOnDeath.Size = new System.Drawing.Size(230, 27);
-            this.checkStopwatchStopOnDeath.TabIndex = 32;
-            this.checkStopwatchStopOnDeath.Text = "Stop Stopwatch on Death";
-            this.checkStopwatchStopOnDeath.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Location = new System.Drawing.Point(4, 5);
+            this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(138, 48);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
             // 
-            // checkStopwatchStopOnCap
+            // btnInject
             // 
-            this.checkStopwatchStopOnCap.AutoSize = true;
-            this.checkStopwatchStopOnCap.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkStopwatchStopOnCap.Location = new System.Drawing.Point(10, 50);
-            this.checkStopwatchStopOnCap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkStopwatchStopOnCap.Name = "checkStopwatchStopOnCap";
-            this.checkStopwatchStopOnCap.Size = new System.Drawing.Size(214, 27);
-            this.checkStopwatchStopOnCap.TabIndex = 31;
-            this.checkStopwatchStopOnCap.Text = "Stop Stopwatch on Cap";
-            this.checkStopwatchStopOnCap.UseVisualStyleBackColor = true;
+            this.btnInject.Enabled = false;
+            this.btnInject.Location = new System.Drawing.Point(150, 5);
+            this.btnInject.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnInject.Name = "btnInject";
+            this.btnInject.Size = new System.Drawing.Size(138, 48);
+            this.btnInject.TabIndex = 2;
+            this.btnInject.Text = "Inject";
+            this.btnInject.UseVisualStyleBackColor = true;
+            this.btnInject.Visible = false;
+            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
             // 
-            // label89
+            // fileHitSound
             // 
-            this.label89.AutoSize = true;
-            this.label89.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label89.Location = new System.Drawing.Point(4, 5);
-            this.label89.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(160, 40);
-            this.label89.TabIndex = 4;
-            this.label89.Text = "Stopwatch";
-            // 
-            // checkStopwatchNotifications
-            // 
-            this.checkStopwatchNotifications.AutoSize = true;
-            this.checkStopwatchNotifications.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkStopwatchNotifications.Location = new System.Drawing.Point(10, 112);
-            this.checkStopwatchNotifications.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkStopwatchNotifications.Name = "checkStopwatchNotifications";
-            this.checkStopwatchNotifications.Size = new System.Drawing.Size(262, 27);
-            this.checkStopwatchNotifications.TabIndex = 33;
-            this.checkStopwatchNotifications.Text = "Show Stopwatch Notifications";
-            this.checkStopwatchNotifications.UseVisualStyleBackColor = true;
-            // 
-            // checkRouteDrawSavedLocations
-            // 
-            this.checkRouteDrawSavedLocations.AutoSize = true;
-            this.checkRouteDrawSavedLocations.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRouteDrawSavedLocations.Location = new System.Drawing.Point(10, 112);
-            this.checkRouteDrawSavedLocations.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkRouteDrawSavedLocations.Name = "checkRouteDrawSavedLocations";
-            this.checkRouteDrawSavedLocations.Size = new System.Drawing.Size(202, 27);
-            this.checkRouteDrawSavedLocations.TabIndex = 38;
-            this.checkRouteDrawSavedLocations.Text = "Draw Saved Locations";
-            this.checkRouteDrawSavedLocations.UseVisualStyleBackColor = true;
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // MainForm
             // 
@@ -3257,7 +3258,6 @@
             this.Text = "TAMods Configuration Tool vX.X";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
@@ -3325,6 +3325,8 @@
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
             this.tabCapping.ResumeLayout(false);
+            this.panel22.ResumeLayout(false);
+            this.panel22.PerformLayout();
             this.panel21.ResumeLayout(false);
             this.panel21.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).EndInit();
@@ -3337,8 +3339,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).EndInit();
-            this.panel22.ResumeLayout(false);
-            this.panel22.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
