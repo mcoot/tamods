@@ -22,6 +22,11 @@ namespace TAModLauncher
         {
             InitializeComponent();
             this.parent = parent;
+
+            if (!parent.updaterEnabled)
+            {
+                this.selectUpdateChannel.Enabled = false;
+            }
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
