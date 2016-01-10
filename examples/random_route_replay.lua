@@ -1,5 +1,5 @@
 function playRandomEnemyRoute()
-   local routes = routeGetEnemyRoutes()
+   local routes = route.getEnemyRoutes()
    local count = 0
    local chosen_index = 0
    for a, b in pairs(routes) do
