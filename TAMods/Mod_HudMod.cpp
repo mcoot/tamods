@@ -341,56 +341,52 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 {
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 
-	if (!(that->HUDTeamCTFStats
-		&& that->HUDTeamCTFStats->m_MoviePlayer
-		&& that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer))
-		return false;
-
-	UGFxObject *timer = that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer;
-
-	// while playing online, only show the stopwatch, don't replace the normal game time
-	if (g_config.stopwatchRunning || (that->WorldInfo && that->WorldInfo->NetMode == 0))
+	if (that->HUDTeamCTFStats && that->HUDTeamCTFStats->m_MoviePlayer)
 	{
-		float worldseconds = that->WorldInfo->RealTimeSeconds;
+		UGFxObject *timer = that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer;
 
-		if (g_config.stopwatchRunning // Freeze stopwatch time at the moment of a cap
-			&& worldseconds - g_config.stopwatchCapTime < 4.0f // for 4 seconds
-			&& g_config.stopwatchStartTime < g_config.stopwatchCapTime) // Only when stopwatch was started pre-cap
+		// while playing online, only show the stopwatch, don't replace the normal game time
+		if (g_config.stopwatchRunning || (that->WorldInfo && that->WorldInfo->NetMode == 0))
 		{
-			timer->SetFloat(L"textColor", (float)0xF6FC83);
-			worldseconds = g_config.stopwatchCapTime;
+			float worldseconds = that->WorldInfo->RealTimeSeconds;
+
+			if (g_config.stopwatchRunning // Freeze stopwatch time at the moment of a cap
+				&& worldseconds - g_config.stopwatchCapTime < 4.0f // for 4 seconds
+				&& g_config.stopwatchStartTime < g_config.stopwatchCapTime) // Only when stopwatch was started pre-cap
+			{
+				if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);
+				worldseconds = g_config.stopwatchCapTime;
+			}
+			else if (g_config.stopwatchRunning // Freeze stopwatch time at the moment of a grab
+				&& worldseconds - g_config.stopwatchGrabTime < 4.0f // for 4 seconds
+				&& g_config.stopwatchStartTime < g_config.stopwatchGrabTime) // Only when stopwatch was started pre-grab
+			{
+				if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);
+				worldseconds = g_config.stopwatchGrabTime;
+			}
+			else if (timer) timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float)0x0FFF87 : (float)0xDDFFDD);
+
+			if (g_config.stopwatchRunning)
+				worldseconds -= g_config.stopwatchStartTime;
+
+			if (worldseconds < 0.0f) // no back to the future pls
+				stopwatchReset();
+
+			int minutes = (int)worldseconds / 60;
+			int seconds = (int)worldseconds % 60;
+			int tenths = (int)((worldseconds - (int)worldseconds) * 10);
+
+			wchar_t buff[9];
+
+			if (g_config.stopwatchRunning)
+				wsprintf(buff, L"%01d:%02d.%d", minutes, seconds, tenths);
+			else // fix for static roam map time
+				wsprintf(buff, L"%02d:%02d", minutes, seconds);
+
+			that->HUDTeamCTFStats->m_MoviePlayer->TeamCTFStatsUpdateTime(FString(buff));
 		}
-		else if (g_config.stopwatchRunning // Freeze stopwatch time at the moment of a grab
-			&& worldseconds - g_config.stopwatchGrabTime < 4.0f // for 4 seconds
-			&& g_config.stopwatchStartTime < g_config.stopwatchGrabTime) // Only when stopwatch was started pre-grab
-		{
-			timer->SetFloat(L"textColor", (float)0xF6FC83);
-			worldseconds = g_config.stopwatchGrabTime;
-		}
-		else
-			timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float)0x0FFF87 : (float)0xDDFFDD);
-
-		if (g_config.stopwatchRunning)
-			worldseconds -= g_config.stopwatchStartTime;
-
-		if (worldseconds < 0.0f) // no back to the future pls
-			stopwatchReset();
-
-		int minutes = (int)worldseconds / 60;
-		int seconds = (int)worldseconds % 60;
-		int tenths = (int)((worldseconds - (int)worldseconds) * 10);
-
-		wchar_t buff[9];
-
-		if (g_config.stopwatchRunning)
-			wsprintf(buff, L"%01d:%02d.%d", minutes, seconds, tenths);
-		else // fix for static roam map time
-			wsprintf(buff, L"%02d:%02d", minutes, seconds);
-
-		that->HUDTeamCTFStats->m_MoviePlayer->TeamCTFStatsUpdateTime(FString(buff));
+		else if (timer) timer->SetFloat(L"textColor", (float)0xDDFFDD);
 	}
-	else
-		timer->SetFloat(L"textColor", (float)0xDDFFDD);
 
 	return false;
 }
