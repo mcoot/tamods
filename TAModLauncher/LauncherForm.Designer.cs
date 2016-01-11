@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LauncherForm));
             this.btnUpdateLaunch = new System.Windows.Forms.Button();
             this.progressUpdate = new System.Windows.Forms.ProgressBar();
             this.checkAutoUpdate = new System.Windows.Forms.CheckBox();
@@ -38,13 +39,17 @@
             this.btnSettings = new System.Windows.Forms.Button();
             this.timerCheckTribesRunning = new System.Windows.Forms.Timer(this.components);
             this.checkAutoInject = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnAbout = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnUpdateLaunch
             // 
-            this.btnUpdateLaunch.Location = new System.Drawing.Point(549, 132);
+            this.btnUpdateLaunch.Location = new System.Drawing.Point(824, 203);
+            this.btnUpdateLaunch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUpdateLaunch.Name = "btnUpdateLaunch";
-            this.btnUpdateLaunch.Size = new System.Drawing.Size(75, 38);
+            this.btnUpdateLaunch.Size = new System.Drawing.Size(112, 58);
             this.btnUpdateLaunch.TabIndex = 0;
             this.btnUpdateLaunch.Text = "Launch Game";
             this.btnUpdateLaunch.UseVisualStyleBackColor = true;
@@ -52,9 +57,10 @@
             // 
             // progressUpdate
             // 
-            this.progressUpdate.Location = new System.Drawing.Point(12, 132);
+            this.progressUpdate.Location = new System.Drawing.Point(18, 203);
+            this.progressUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.progressUpdate.Name = "progressUpdate";
-            this.progressUpdate.Size = new System.Drawing.Size(531, 38);
+            this.progressUpdate.Size = new System.Drawing.Size(796, 58);
             this.progressUpdate.TabIndex = 2;
             // 
             // checkAutoUpdate
@@ -62,9 +68,10 @@
             this.checkAutoUpdate.AutoSize = true;
             this.checkAutoUpdate.Checked = true;
             this.checkAutoUpdate.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkAutoUpdate.Location = new System.Drawing.Point(12, 109);
+            this.checkAutoUpdate.Location = new System.Drawing.Point(18, 168);
+            this.checkAutoUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkAutoUpdate.Name = "checkAutoUpdate";
-            this.checkAutoUpdate.Size = new System.Drawing.Size(183, 17);
+            this.checkAutoUpdate.Size = new System.Drawing.Size(271, 24);
             this.checkAutoUpdate.TabIndex = 3;
             this.checkAutoUpdate.Text = "Automatically Check For Updates";
             this.checkAutoUpdate.UseVisualStyleBackColor = true;
@@ -72,18 +79,20 @@
             // labelDownload
             // 
             this.labelDownload.AutoSize = true;
-            this.labelDownload.Location = new System.Drawing.Point(12, 173);
+            this.labelDownload.Location = new System.Drawing.Point(18, 266);
+            this.labelDownload.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDownload.Name = "labelDownload";
-            this.labelDownload.Size = new System.Drawing.Size(83, 13);
+            this.labelDownload.Size = new System.Drawing.Size(118, 20);
             this.labelDownload.TabIndex = 4;
             this.labelDownload.Text = "Ready To Play! ";
             this.labelDownload.Visible = false;
             // 
             // btnUpdateCheck
             // 
-            this.btnUpdateCheck.Location = new System.Drawing.Point(198, 105);
+            this.btnUpdateCheck.Location = new System.Drawing.Point(297, 162);
+            this.btnUpdateCheck.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnUpdateCheck.Name = "btnUpdateCheck";
-            this.btnUpdateCheck.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdateCheck.Size = new System.Drawing.Size(112, 35);
             this.btnUpdateCheck.TabIndex = 5;
             this.btnUpdateCheck.Text = "Check Now";
             this.btnUpdateCheck.UseVisualStyleBackColor = true;
@@ -91,9 +100,10 @@
             // 
             // btnReinstall
             // 
-            this.btnReinstall.Location = new System.Drawing.Point(279, 105);
+            this.btnReinstall.Location = new System.Drawing.Point(418, 162);
+            this.btnReinstall.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnReinstall.Name = "btnReinstall";
-            this.btnReinstall.Size = new System.Drawing.Size(81, 23);
+            this.btnReinstall.Size = new System.Drawing.Size(122, 35);
             this.btnReinstall.TabIndex = 6;
             this.btnReinstall.Text = "Reinstall Mod";
             this.btnReinstall.UseVisualStyleBackColor = true;
@@ -101,9 +111,10 @@
             // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(549, 12);
+            this.btnSettings.Location = new System.Drawing.Point(824, 18);
+            this.btnSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(75, 23);
+            this.btnSettings.Size = new System.Drawing.Size(112, 35);
             this.btnSettings.TabIndex = 9;
             this.btnSettings.Text = "Settings";
             this.btnSettings.UseVisualStyleBackColor = true;
@@ -118,19 +129,42 @@
             // checkAutoInject
             // 
             this.checkAutoInject.AutoSize = true;
-            this.checkAutoInject.Location = new System.Drawing.Point(424, 108);
+            this.checkAutoInject.Location = new System.Drawing.Point(636, 166);
+            this.checkAutoInject.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkAutoInject.Name = "checkAutoInject";
-            this.checkAutoInject.Size = new System.Drawing.Size(117, 17);
+            this.checkAutoInject.Size = new System.Drawing.Size(172, 24);
             this.checkAutoInject.TabIndex = 10;
             this.checkAutoInject.Text = "Automatically Inject";
             this.checkAutoInject.UseVisualStyleBackColor = true;
             this.checkAutoInject.CheckedChanged += new System.EventHandler(this.checkAutoInject_CheckedChanged);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::TAModLauncher.Properties.Resources.launcherlogo;
+            this.pictureBox1.Location = new System.Drawing.Point(-2, 2);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(411, 148);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btnAbout
+            // 
+            this.btnAbout.Location = new System.Drawing.Point(824, 61);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(112, 37);
+            this.btnAbout.TabIndex = 12;
+            this.btnAbout.Text = "About";
+            this.btnAbout.UseVisualStyleBackColor = true;
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
+            // 
             // LauncherForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 191);
+            this.ClientSize = new System.Drawing.Size(936, 268);
+            this.Controls.Add(this.btnAbout);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkAutoInject);
             this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnReinstall);
@@ -139,13 +173,17 @@
             this.Controls.Add(this.checkAutoUpdate);
             this.Controls.Add(this.progressUpdate);
             this.Controls.Add(this.btnUpdateLaunch);
-            this.MaximumSize = new System.Drawing.Size(646, 230);
-            this.MinimumSize = new System.Drawing.Size(646, 230);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(958, 324);
+            this.MinimumSize = new System.Drawing.Size(958, 324);
             this.Name = "LauncherForm";
             this.Text = "TAMods Launcher";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LauncherForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LauncherForm_FormClosed);
             this.Load += new System.EventHandler(this.LauncherForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,6 +200,8 @@
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Timer timerCheckTribesRunning;
         private System.Windows.Forms.CheckBox checkAutoInject;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnAbout;
     }
 }
 

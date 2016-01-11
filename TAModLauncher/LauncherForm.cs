@@ -17,6 +17,8 @@ namespace TAModLauncher
 {
     public partial class LauncherForm : Form
     {
+        public bool updaterEnabled = false;
+
         public TAModUpdater updater;
         public TAModLauncherConfig config;
         public DLLInjector injector;
@@ -69,9 +71,18 @@ namespace TAModLauncher
             autoInjectTimer = new GameDetector(autoInjecting, autoInjectDelay, "tribesascend", autoInjectMode);
             checkAutoInject.Checked = autoInjectTimer.Enabled;
 
-            if (checkAutoUpdate.Checked)
+            if (updaterEnabled && checkAutoUpdate.Checked)
             {
                 checkForUpdates();
+            }
+
+            // If updater not enabled, grey out updater gui components
+            if (!updaterEnabled)
+            {
+                progressUpdate.Enabled = false;
+                checkAutoUpdate.Enabled = false;
+                btnUpdateCheck.Enabled = false;
+                btnReinstall.Enabled = false;
             }
 
             // Initialise settings form
@@ -294,16 +305,18 @@ namespace TAModLauncher
                 // Check if game is already running
                 if (injector.DoesProcessExist(tribesProcessName))
                 {
-                    if (injector.HasInjected)
-                    {
-                        EjectMods();
-                        labelDownload.Text = "Mods ejected!";
-                    }
-                    else
-                    {
-                        InjectMods();
-                        labelDownload.Text = "Mods injected!";
-                    }
+                    InjectMods();
+                    labelDownload.Text = "Mods injected!";
+                    //if (injector.HasInjected)
+                    //{
+                    //    EjectMods();
+                    //    labelDownload.Text = "Mods ejected!";
+                    //}
+                    //else
+                    //{
+                    //    InjectMods();
+                    //    labelDownload.Text = "Mods injected!";
+                    //}
                 }
                 else if (!injector.DoesProcessExist("hirezlauncherui"))
                 {
@@ -396,6 +409,12 @@ namespace TAModLauncher
         private void checkAutoInject_CheckedChanged(object sender, EventArgs e)
         {
             autoInjectTimer.Enabled = checkAutoInject.Checked;
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            String msg = "TAMods Launcher v0.5.1\nTAMods v0.5.1 for Tribes Ascend 1.1 Out Of The Blue\n\nFor help with TAMods or the launcher/config tool, post in /r/tribes, or message the devs - /u/Ensiss, /u/Shreq, /u/Dodgesabre, /u/AvianIsTheTerm.";
+            MessageBox.Show(msg, "About");
         }
 
     }

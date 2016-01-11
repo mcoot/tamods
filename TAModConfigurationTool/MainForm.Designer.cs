@@ -1528,6 +1528,7 @@
             // 
             // btnLoadoutDelete
             // 
+            this.btnLoadoutDelete.Enabled = false;
             this.btnLoadoutDelete.Location = new System.Drawing.Point(207, 52);
             this.btnLoadoutDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLoadoutDelete.Name = "btnLoadoutDelete";
@@ -1539,6 +1540,7 @@
             // 
             // btnLoadoutSave
             // 
+            this.btnLoadoutSave.Enabled = false;
             this.btnLoadoutSave.Location = new System.Drawing.Point(14, 52);
             this.btnLoadoutSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnLoadoutSave.Name = "btnLoadoutSave";
@@ -1550,6 +1552,7 @@
             // 
             // listLoadouts
             // 
+            this.listLoadouts.Enabled = false;
             this.listLoadouts.FormattingEnabled = true;
             this.listLoadouts.ItemHeight = 23;
             this.listLoadouts.Location = new System.Drawing.Point(14, 97);
@@ -1588,6 +1591,7 @@
             // 
             // textLoadoutName
             // 
+            this.textLoadoutName.Enabled = false;
             this.textLoadoutName.Location = new System.Drawing.Point(69, 97);
             this.textLoadoutName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textLoadoutName.Name = "textLoadoutName";
@@ -1607,6 +1611,7 @@
             // selectLoadoutNumber
             // 
             this.selectLoadoutNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectLoadoutNumber.Enabled = false;
             this.selectLoadoutNumber.FormattingEnabled = true;
             this.selectLoadoutNumber.Items.AddRange(new object[] {
             "1",
@@ -1648,6 +1653,7 @@
             // selectLoadoutClass
             // 
             this.selectLoadoutClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectLoadoutClass.Enabled = false;
             this.selectLoadoutClass.FormattingEnabled = true;
             this.selectLoadoutClass.Items.AddRange(new object[] {
             "Pathfinder",
@@ -1702,6 +1708,7 @@
             // selectLoadoutPerk2
             // 
             this.selectLoadoutPerk2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectLoadoutPerk2.Enabled = false;
             this.selectLoadoutPerk2.FormattingEnabled = true;
             this.selectLoadoutPerk2.Location = new System.Drawing.Point(8, 406);
             this.selectLoadoutPerk2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1722,6 +1729,7 @@
             // selectLoadoutPerk1
             // 
             this.selectLoadoutPerk1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectLoadoutPerk1.Enabled = false;
             this.selectLoadoutPerk1.FormattingEnabled = true;
             this.selectLoadoutPerk1.Location = new System.Drawing.Point(8, 335);
             this.selectLoadoutPerk1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1742,6 +1750,7 @@
             // selectLoadoutPack
             // 
             this.selectLoadoutPack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectLoadoutPack.Enabled = false;
             this.selectLoadoutPack.FormattingEnabled = true;
             this.selectLoadoutPack.Location = new System.Drawing.Point(8, 268);
             this.selectLoadoutPack.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1762,6 +1771,7 @@
             // selectLoadoutBelt
             // 
             this.selectLoadoutBelt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectLoadoutBelt.Enabled = false;
             this.selectLoadoutBelt.FormattingEnabled = true;
             this.selectLoadoutBelt.Location = new System.Drawing.Point(8, 203);
             this.selectLoadoutBelt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1782,6 +1792,7 @@
             // selectLoadoutSecondary
             // 
             this.selectLoadoutSecondary.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectLoadoutSecondary.Enabled = false;
             this.selectLoadoutSecondary.FormattingEnabled = true;
             this.selectLoadoutSecondary.Location = new System.Drawing.Point(8, 137);
             this.selectLoadoutSecondary.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1802,6 +1813,7 @@
             // selectLoadoutPrimary
             // 
             this.selectLoadoutPrimary.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectLoadoutPrimary.Enabled = false;
             this.selectLoadoutPrimary.FormattingEnabled = true;
             this.selectLoadoutPrimary.Location = new System.Drawing.Point(8, 74);
             this.selectLoadoutPrimary.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1875,6 +1887,7 @@
             // selectCrosshairScoped
             // 
             this.selectCrosshairScoped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairScoped.Enabled = false;
             this.selectCrosshairScoped.FormattingEnabled = true;
             this.selectCrosshairScoped.Location = new System.Drawing.Point(178, 180);
             this.selectCrosshairScoped.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1915,6 +1928,7 @@
             // selectCrosshairNormal
             // 
             this.selectCrosshairNormal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairNormal.Enabled = false;
             this.selectCrosshairNormal.FormattingEnabled = true;
             this.selectCrosshairNormal.Location = new System.Drawing.Point(178, 137);
             this.selectCrosshairNormal.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1925,6 +1939,7 @@
             // selectCrosshairWeapon
             // 
             this.selectCrosshairWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairWeapon.Enabled = false;
             this.selectCrosshairWeapon.FormattingEnabled = true;
             this.selectCrosshairWeapon.Location = new System.Drawing.Point(106, 95);
             this.selectCrosshairWeapon.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -1935,6 +1950,7 @@
             // selectCrosshairClass
             // 
             this.selectCrosshairClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairClass.Enabled = false;
             this.selectCrosshairClass.FormattingEnabled = true;
             this.selectCrosshairClass.Items.AddRange(new object[] {
             "Pathfinder",
@@ -1979,6 +1995,7 @@
             // 
             // btnDeleteCrosshair
             // 
+            this.btnDeleteCrosshair.Enabled = false;
             this.btnDeleteCrosshair.Location = new System.Drawing.Point(198, 54);
             this.btnDeleteCrosshair.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDeleteCrosshair.Name = "btnDeleteCrosshair";
@@ -1990,6 +2007,7 @@
             // 
             // btnSaveCrosshair
             // 
+            this.btnSaveCrosshair.Enabled = false;
             this.btnSaveCrosshair.Location = new System.Drawing.Point(4, 54);
             this.btnSaveCrosshair.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSaveCrosshair.Name = "btnSaveCrosshair";
@@ -2001,6 +2019,7 @@
             // 
             // listCrosshairs
             // 
+            this.listCrosshairs.Enabled = false;
             this.listCrosshairs.FormattingEnabled = true;
             this.listCrosshairs.ItemHeight = 23;
             this.listCrosshairs.Location = new System.Drawing.Point(3, 98);
@@ -2249,6 +2268,7 @@
             // numProjectileSettingIntensity
             // 
             this.numProjectileSettingIntensity.DecimalPlaces = 2;
+            this.numProjectileSettingIntensity.Enabled = false;
             this.numProjectileSettingIntensity.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numProjectileSettingIntensity.Location = new System.Drawing.Point(204, 222);
             this.numProjectileSettingIntensity.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2290,6 +2310,7 @@
             // 
             // colorProjectileSetting
             // 
+            this.colorProjectileSetting.Enabled = false;
             this.colorProjectileSetting.Location = new System.Drawing.Point(15, 191);
             this.colorProjectileSetting.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.colorProjectileSetting.Name = "colorProjectileSetting";
@@ -2330,6 +2351,7 @@
             // selectProjectileSettingWeapon
             // 
             this.selectProjectileSettingWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSettingWeapon.Enabled = false;
             this.selectProjectileSettingWeapon.FormattingEnabled = true;
             this.selectProjectileSettingWeapon.Location = new System.Drawing.Point(106, 95);
             this.selectProjectileSettingWeapon.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2340,6 +2362,7 @@
             // selectProjectileSettingClass
             // 
             this.selectProjectileSettingClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSettingClass.Enabled = false;
             this.selectProjectileSettingClass.FormattingEnabled = true;
             this.selectProjectileSettingClass.Items.AddRange(new object[] {
             "Pathfinder",
@@ -2384,6 +2407,7 @@
             // 
             // btnProjectileSettingDelete
             // 
+            this.btnProjectileSettingDelete.Enabled = false;
             this.btnProjectileSettingDelete.Location = new System.Drawing.Point(198, 54);
             this.btnProjectileSettingDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnProjectileSettingDelete.Name = "btnProjectileSettingDelete";
@@ -2395,6 +2419,7 @@
             // 
             // btnProjectileSettingSave
             // 
+            this.btnProjectileSettingSave.Enabled = false;
             this.btnProjectileSettingSave.Location = new System.Drawing.Point(4, 54);
             this.btnProjectileSettingSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnProjectileSettingSave.Name = "btnProjectileSettingSave";
@@ -2406,6 +2431,7 @@
             // 
             // listProjectileSetting
             // 
+            this.listProjectileSetting.Enabled = false;
             this.listProjectileSetting.FormattingEnabled = true;
             this.listProjectileSetting.ItemHeight = 23;
             this.listProjectileSetting.Location = new System.Drawing.Point(3, 98);
@@ -2471,6 +2497,7 @@
             // selectProjectileSwapWeapon_Swap
             // 
             this.selectProjectileSwapWeapon_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapWeapon_Swap.Enabled = false;
             this.selectProjectileSwapWeapon_Swap.FormattingEnabled = true;
             this.selectProjectileSwapWeapon_Swap.Location = new System.Drawing.Point(106, 228);
             this.selectProjectileSwapWeapon_Swap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2481,6 +2508,7 @@
             // selectProjectileSwapClass_Swap
             // 
             this.selectProjectileSwapClass_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapClass_Swap.Enabled = false;
             this.selectProjectileSwapClass_Swap.FormattingEnabled = true;
             this.selectProjectileSwapClass_Swap.Items.AddRange(new object[] {
             "Pathfinder",
@@ -2556,6 +2584,7 @@
             // selectProjectileSwapWeapon
             // 
             this.selectProjectileSwapWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapWeapon.Enabled = false;
             this.selectProjectileSwapWeapon.FormattingEnabled = true;
             this.selectProjectileSwapWeapon.Location = new System.Drawing.Point(106, 95);
             this.selectProjectileSwapWeapon.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -2566,6 +2595,7 @@
             // selectProjectileSwapClass
             // 
             this.selectProjectileSwapClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapClass.Enabled = false;
             this.selectProjectileSwapClass.FormattingEnabled = true;
             this.selectProjectileSwapClass.Items.AddRange(new object[] {
             "Pathfinder",
@@ -2610,6 +2640,7 @@
             // 
             // btnProjectileSwapDelete
             // 
+            this.btnProjectileSwapDelete.Enabled = false;
             this.btnProjectileSwapDelete.Location = new System.Drawing.Point(198, 54);
             this.btnProjectileSwapDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnProjectileSwapDelete.Name = "btnProjectileSwapDelete";
@@ -2621,6 +2652,7 @@
             // 
             // btnProjectileSwapSave
             // 
+            this.btnProjectileSwapSave.Enabled = false;
             this.btnProjectileSwapSave.Location = new System.Drawing.Point(4, 54);
             this.btnProjectileSwapSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnProjectileSwapSave.Name = "btnProjectileSwapSave";
@@ -2632,6 +2664,7 @@
             // 
             // listProjectileSwap
             // 
+            this.listProjectileSwap.Enabled = false;
             this.listProjectileSwap.FormattingEnabled = true;
             this.listProjectileSwap.ItemHeight = 23;
             this.listProjectileSwap.Location = new System.Drawing.Point(3, 98);
