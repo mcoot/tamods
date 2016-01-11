@@ -1,5 +1,5 @@
 function playRandomEnemyRoute()
-   local routes = routeGetEnemyRoutes()
+   local routes = route.getEnemyRoutes()
    local count = 0
    local chosen_index = 0
    for a, b in pairs(routes) do
@@ -9,9 +9,9 @@ function playRandomEnemyRoute()
    count = 0
    for route_index, name in pairs(routes) do
       if count == chosen_index then
-         routeEnableBot(true)
-         routeLoad(route_index)
-         replay()
+         route.enableBot(true)
+         route.load(route_index)
+         route.replayStart(0.0)
          return
       end
       count = count + 1
