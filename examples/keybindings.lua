@@ -34,9 +34,9 @@ bindKey("L", Input.RELEASED,
 )
 
 -- Bind save
-bindKey("F1", Input.RELEASED, save)
-bindKey("F2", Input.RELEASED, recall)
-bindKey("F3", Input.RELEASED, stopwatch)
+bindKey("F1", Input.RELEASED, state.save)
+bindKey("F2", Input.RELEASED, state.recall)
+bindKey("F3", Input.RELEASED, stopwatch.toggle)
 
 -- Print the original binds for wasd to the console
 -- The console is not working when the dll is just injected to use /rc to see it

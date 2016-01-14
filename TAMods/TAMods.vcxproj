@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="Data.cpp" />
     <ClCompile Include="Geom.cpp" />
     <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="libpng\png.c" />
@@ -202,6 +203,7 @@
   <ItemGroup>
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="Data.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Geom.h" />
     <ClInclude Include="libpng\png.h" />

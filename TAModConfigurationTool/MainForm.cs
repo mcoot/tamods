@@ -88,6 +88,7 @@ namespace TAModConfigurationTool
             // Display settings
             checkStatsRecord.Checked = false;
             checkShowWeapon.Checked = true;
+            checkShowPlayerModel.Checked = true;
             checkShowCrosshair.Checked = true;
             checkShowFirstPersonAmmo.Checked = false;
             numCrosshairScale.Enabled = true;
@@ -138,6 +139,29 @@ namespace TAModConfigurationTool
             checkMagicChainCenter.Checked = false;
             numMagicChainPingMultiplier.Value = 1.0M;
             numMagicChainSpawnDelay.Value = 0.0M;
+
+            // Mouse Sensitivity
+            checkMouseDisableFovScaling.Checked = false;
+            numMouseSensitivity.Enabled = false;
+            numMouseSensitivity.Value = 10.0M;
+            numMouseZoomSensitivity.Enabled = false;
+            numMouseZoomSensitivity.Value = 5.0M;
+            numMouseZoom2Sensitivity.Enabled = false;
+            numMouseZoom2Sensitivity.Value = 2.0M;
+
+            // Route Recording
+            checkRouteReplayRotation.Checked = true;
+            checkRouteCinematicMode.Checked = false;
+            checkRouteDrawMarkers.Checked = true;
+            numRouteDrawInterval.Value = 500;
+            checkRouteDrawETA.Checked = true;
+            numRouteETAInterval.Value = 5;
+            checkRouteDrawSavedLocations.Checked = true;
+
+            // Stopwatch
+            checkStopwatchStopOnCap.Checked = false;
+            checkStopwatchStopOnDeath.Checked = true;
+            checkStopwatchNotifications.Checked = true;
 
             // Colour Settings
             listColorSettings.Items.Clear();
@@ -215,6 +239,7 @@ namespace TAModConfigurationTool
             // Display settings
             checkStatsRecord.Checked = (bool)config.getConfigVar("recordStats");
             checkShowWeapon.Checked = (bool)config.getConfigVar("showWeapon");
+            checkShowPlayerModel.Checked = (bool)config.getConfigVar("showBodyMesh");
             checkShowFirstPersonAmmo.Checked = (bool)config.getConfigVar("showFirstPersonAmmo");
             checkShowCrosshair.Checked = (bool)config.getConfigVar("showCrosshair");
             numCrosshairScale.Value = Convert.ToDecimal(config.getConfigVar("crosshairScale"));
@@ -288,6 +313,42 @@ namespace TAModConfigurationTool
             numMagicChainPingMultiplier.Value = Convert.ToDecimal(config.getConfigVar("bulletPingMultiplier"));
             numMagicChainSpawnDelay.Value = Convert.ToDecimal(config.getConfigVar("bulletSpawnDelay"));
 
+            // Mouse Sensitivity
+            checkMouseDisableFovScaling.Checked = !(bool)config.getConfigVar("useFOVScaling");
+            numMouseSensitivity.Value = Convert.ToDecimal(config.getConfigVar("sens"));
+            numMouseZoomSensitivity.Value = Convert.ToDecimal(config.getConfigVar("sensZoom"));
+            numMouseZoom2Sensitivity.Value = Convert.ToDecimal(config.getConfigVar("sensZoooom"));
+
+            // Route Recording
+            checkRouteReplayRotation.Checked = (bool)config.getConfigVar("routeReplayRotation");
+            checkRouteCinematicMode.Checked = (bool)config.getConfigVar("routeCinematicMode");
+            if (Convert.ToInt32(config.getConfigVar("routeDrawInterval")) == 0)
+            {
+                checkRouteDrawMarkers.Checked = false;
+                numRouteDrawInterval.Value = 500;
+            }
+            else
+            {
+                checkRouteDrawMarkers.Checked = true;
+                numRouteDrawInterval.Value = Convert.ToInt32(config.getConfigVar("routeDrawInterval"));
+            }
+            if (Convert.ToInt32(config.getConfigVar("routeDrawETAInterval")) == 0)
+            {
+                checkRouteDrawETA.Checked = false;
+                numRouteETAInterval.Value = 5;
+            }
+            else
+            {
+                checkRouteDrawETA.Checked = true;
+                numRouteETAInterval.Value = Convert.ToInt32(config.getConfigVar("routeDrawETAInterval"));
+            }
+            checkRouteDrawSavedLocations.Checked = (bool)config.getConfigVar("showSavedLocations");
+
+            // Stopwatch
+            checkStopwatchStopOnCap.Checked = (bool)config.getConfigVar("stopwatchStopOnCap");
+            checkStopwatchStopOnDeath.Checked = (bool)config.getConfigVar("stopwatchStopOnDeath");
+            checkStopwatchNotifications.Checked = (bool)config.getConfigVar("stopwatchNotifications");
+
             // Colour Settings
             listColorSettings.Items.Clear();
             checkColorSettingOverride.Checked = false;
@@ -360,6 +421,7 @@ namespace TAModConfigurationTool
             // Display Settings
             config.setConfigVar("recordStats", checkStatsRecord.Checked);
             config.setConfigVar("showWeapon", checkShowWeapon.Checked);
+            config.setConfigVar("showBodyMesh", checkShowPlayerModel.Checked);
             config.setConfigVar("showFirstPersonAmmo", checkShowFirstPersonAmmo.Checked);
             config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
             config.setConfigVar("crosshairScale", Convert.ToSingle(numCrosshairScale.Value));
@@ -428,6 +490,38 @@ namespace TAModConfigurationTool
             config.setConfigVar("centerBulletSpawn", checkMagicChainCenter.Checked);
             config.setConfigVar("bulletPingMultiplier", Convert.ToSingle(numMagicChainPingMultiplier.Value));
             config.setConfigVar("bulletSpawnDelay", Convert.ToSingle(numMagicChainSpawnDelay.Value));
+
+            // Mouse Sensitivity
+            config.setConfigVar("useFOVScaling", !checkMouseDisableFovScaling.Checked);
+            config.setConfigVar("sens", Convert.ToSingle(numMouseSensitivity.Value));
+            config.setConfigVar("sensZoom", Convert.ToSingle(numMouseZoomSensitivity.Value));
+            config.setConfigVar("sensZoooom", Convert.ToSingle(numMouseZoom2Sensitivity.Value));
+
+            // Route Recording
+            config.setConfigVar("routeReplayRotation", checkRouteReplayRotation.Checked);
+            config.setConfigVar("routeCinematicMode", checkRouteCinematicMode.Checked);
+            if (!checkRouteDrawMarkers.Checked)
+            {
+                config.setConfigVar("routeDrawInterval", 0);
+            }
+            else
+            {
+                config.setConfigVar("routeDrawInterval", (int)numRouteDrawInterval.Value);
+            }
+            if (!checkRouteDrawETA.Checked)
+            {
+                config.setConfigVar("routeDrawETAInterval", 0);
+            }
+            else
+            {
+                config.setConfigVar("routeDrawETAInterval", (int)numRouteETAInterval.Value);
+            }
+            config.setConfigVar("showSavedLocations", checkRouteDrawSavedLocations.Checked);
+
+            // Stopwatch
+            config.setConfigVar("stopwatchStopOnCap", checkStopwatchStopOnCap.Checked);
+            config.setConfigVar("stopwatchStopOnDeath", checkStopwatchStopOnDeath.Checked);
+            config.setConfigVar("stopwatchNotifications", checkStopwatchNotifications.Checked);
 
             // Colour Settings
             // Custom Damage Number Colours
@@ -1392,6 +1486,23 @@ namespace TAModConfigurationTool
             //Execute injection
             //TODO MUCH TESTING, POSSIBLE ISSUES, PROBABLY SHOULD LOCK MAIN APP
             wJect.Start();
+        }
+
+        private void checkMouseDisableFovScaling_CheckedChanged(object sender, EventArgs e)
+        {
+            numMouseSensitivity.Enabled = checkMouseDisableFovScaling.Checked;
+            numMouseZoomSensitivity.Enabled = checkMouseDisableFovScaling.Checked;
+            numMouseZoom2Sensitivity.Enabled = checkMouseDisableFovScaling.Checked;
+        }
+
+        private void checkRouteDrawMarkers_CheckedChanged(object sender, EventArgs e)
+        {
+            numRouteDrawInterval.Enabled = checkRouteDrawMarkers.Checked;
+        }
+
+        private void checkRouteDrawETA_CheckedChanged(object sender, EventArgs e)
+        {
+            numRouteETAInterval.Enabled = checkRouteDrawETA.Checked;
         }
 
 

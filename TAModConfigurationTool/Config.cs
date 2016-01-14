@@ -85,7 +85,7 @@ namespace TAModConfigurationTool
 
                 { "Display", new List<string>()
                     {
-                        "showWeapon", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax"
+                        "showWeapon", "showBodyMesh", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax"
                     }
                 },
 
@@ -114,9 +114,26 @@ namespace TAModConfigurationTool
                     }
                 },
 
+                { "Mouse Sensitivity", new List<string>()
+                    {
+                        "useFOVScaling", "sens", "sensZoom", "sensZoooom"
+                    }
+                },
+
                 { "Roam Map", new List<string>()
                     {
                         "disableBaseTurrets", "disablePower", "maxSpeedWithFlag", "decelerationRateWithFlag"
+                    }
+                },
+
+                { "Route Recording", new List<string>()
+                    {
+                        "routeDrawInterval", "routeDrawETAInterval", "routeReplayRotation", "routeCinematicMode", "showSavedLocations"
+                    }
+                },
+                { "Stopwatch", new List<string>()
+                    {
+                        "stopwatchStopOnCap", "stopwatchStopOnDeath", "stopwatchNotifications"
                     }
                 },
 
@@ -146,6 +163,7 @@ namespace TAModConfigurationTool
                 { "showErrorNotifications", true },
                 { "recordStats", false },
                 { "showWeapon", true },
+                { "showBodyMesh", true },
                 { "showRainbow", false },
                 { "showCrosshair", true },
                 { "crosshairScale", 1 },
@@ -170,6 +188,11 @@ namespace TAModConfigurationTool
                 { "showVehicleIcon", true },
                 { "showSensorIcon", true },
                 { "showMineIcon", true },
+
+                { "useFOVScaling", true },
+                { "sens", 10.0F },
+                { "sensZoom", 5.0F },
+                { "sensZoooom", 2.0F },
 
                 { "crosshairColor", rgb(255, 255, 255) },
                 { "damageNumbersColorMin", rgb(255, 255, 255) },
@@ -233,6 +256,16 @@ namespace TAModConfigurationTool
                 { "centerBulletSpawn", false },
                 { "bulletPingMultiplier", 1.0F },
                 { "bulletSpawnDelay", 0.0F },
+
+                { "routeDrawInterval", 500 },
+                { "routeDrawETAInterval", 5 },
+                { "routeReplayRotation", true },
+                { "routeCinematicMode", false },
+                { "showSavedLocations", true },
+
+                { "stopwatchStopOnCap", false },
+                { "stopwatchStopOnDeath", true },
+                { "stopwatchNotifications", true },
                 
             };
 
@@ -300,7 +333,15 @@ namespace TAModConfigurationTool
 
             if (!System.IO.File.Exists(configPath + configFile))
             {
-                System.IO.File.WriteAllText(configPath + configFile, "");
+                try
+                {
+                    System.IO.File.WriteAllText(configPath + configFile, "");
+                }
+                catch (DirectoryNotFoundException)
+                {
+                    MessageBox.Show(String.Format("Unable to access config path at {0}", configPath));
+                    return false;
+                }
             }
 
             // Run the lua script

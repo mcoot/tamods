@@ -235,7 +235,7 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 	bIsWideScreen = (ViewportSize.Y > 0.f) && (ViewportSize.X / ViewportSize.Y >= 1.6);
 
-	if (TrP->DrivenWeaponPawn.BaseVehicle &&
+	if (TrP->DrivenWeaponPawn.BaseVehicle && TrP->DrivenWeaponPawn.SeatIndex < TrP->DrivenWeaponPawn.BaseVehicle->Seats.Count &&
 		TrP->DrivenWeaponPawn.BaseVehicle->Seats.Data[TrP->DrivenWeaponPawn.SeatIndex].m_bAttachPawnDirectly)
 	{
 		bRidingInVehicle = true;
@@ -342,10 +342,13 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 	if (that->ArmsAnimSet)
 	{
-		params->Holder->ArmsMesh[0]->SetTranslation(DrawOffset);
-		params->Holder->ArmsMesh[1]->SetTranslation(DrawOffset);
+		if (params->Holder->ArmsMesh[0])
+			params->Holder->ArmsMesh[0]->SetTranslation(DrawOffset);
+		if (params->Holder->ArmsMesh[1])
+			params->Holder->ArmsMesh[1]->SetTranslation(DrawOffset);
 	}
 
+	// Crash around this line
 	NewRotation = params->Holder->Controller ? params->Holder->eventGetBaseAimRotation() : params->Holder->Controller->Rotation;
 
 	// Add some rotation leading
