@@ -15,8 +15,6 @@
 	#pragma pack ( push, 0x4 )
 #endif
 
-#include <string>
-
 /*
 # ========================================================================================= #
 # Constants
@@ -949,13 +947,13 @@ public:
 class UProperty : public UField
 {
 public:
-	unsigned long		ArrayDim;									// 0x0040 (0x04)
-	unsigned long		ElementSize;								// 0x0044 (0x04)
-	FQWord				PropertyFlags;								// 0x0048 (0x08)
-	unsigned long		PropertySize;								// 0x0050 (0x04)
-	unsigned char		UnknownData00[0x0C];						// 0x0054 (0x0C)
-	unsigned long		Offset;										// 0x0060 (0x04)
-	unsigned char		UnknownData01[0x1C];						// 0x0064 (0x1C)
+	unsigned long         ArrayDim;               // 0x0040 (0x04)
+	unsigned long         ElementSize;            // 0x0044 (0x04)
+	FQWord                PropertyFlags;          // 0x0048 (0x08)
+	unsigned long         PropertySize;           // 0x0050 (0x04)
+	unsigned char         UnknownData00[0x0C];    // 0x0054 (0x0C)
+	unsigned long         Offset;                 // 0x0060 (0x04)
+	unsigned char         UnknownData01[0x1C];    // 0x0064 (0x1C)
 
 private:
 	static UClass* pClassPointer;
@@ -1223,7 +1221,7 @@ public:
 class UBoolProperty : public UProperty
 {
 public:
-	unsigned long		BitMask;									// 0x0088 (0x04)
+	unsigned long         BitMask;                // 0x0088 (0x04)
 
 private:
 	static UClass* pClassPointer;

@@ -28,6 +28,25 @@ bool TrChatConsoleCommand_quit(int ID, UObject *dwCallingObject, UFunction* pFun
 	return false;
 }
 
+void TrHUD_DrawMarkerText(ATrHUD *that, ATrHUD_execDrawMarkerText_Parms *params, void *result, Hooks::CallInfo *callInfo)
+{
+	static UFont *NameForeground = UObject::FindObject<UFont>("Font Hud_Items.NameForeground");
+	float XL, YL;
+
+	params->DrawCanvas->Font = NameForeground;
+	params->DrawCanvas->SetPos(params->Placement.X, params->Placement.Y, params->Placement.Z);
+	params->DrawCanvas->StrLen(params->ShowText, &XL, &YL);
+	XL *= g_config.textScale;
+	YL *= g_config.textScale;
+	if (params->bBuddy)
+		params->DrawCanvas->DrawColor = params->bFriend ? Utils::rgb(75, 255, 80) : Utils::rgb(255, 185, 23);
+	else
+		params->DrawCanvas->DrawColor = params->bFriend ? ((ATrHUD *)(ATrHUD::StaticClass()->Default))->ColorFriend : ((ATrHUD *)(ATrHUD::StaticClass()->Default))->ColorEnemy;
+	params->DrawCanvas->SetPos(params->Placement.X - (XL * 0.5f), params->Placement.Y - (YL * 0.5f), params->Placement.Z);
+	params->DrawCanvas->DrawTextW(params->ShowText, true, g_config.textScale, g_config.textScale, &that->m_nNameFontRenderInfo);
+	*(FVector *)result = params->Placement;
+}
+
 static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)
 {
 	float accumulated_time, scaling_peak_time, alpha;

@@ -13,6 +13,7 @@
 
 #pragma once
 
+#include <string>
 #include <cstring>
 #include <Windows.h>
 
@@ -161,7 +162,7 @@ struct FName
 	}; 
 
 	char* GetName() 
-	{
+	{ 
 		char *ret = this->Names()->Data[Index]->Name;
 		return ret ? ret : "(null)";
 	}; 

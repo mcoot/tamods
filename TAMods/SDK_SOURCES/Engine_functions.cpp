@@ -29911,6 +29911,8 @@ void UCanvas::DrawText ( struct FString Text, unsigned long CR, float XScale, fl
 	DrawText_Parms.CR = CR;
 	DrawText_Parms.XScale = XScale;
 	DrawText_Parms.YScale = YScale;
+	if (RenderInfo)
+		DrawText_Parms.RenderInfo = *RenderInfo;
 
 	pFnDrawText->FunctionFlags |= ~0x400;
 

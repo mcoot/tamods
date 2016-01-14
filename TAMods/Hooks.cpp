@@ -31,6 +31,7 @@ int Hook::_total_hooks = 0;
 static std::map<UFunction *, std::pair<Hook, Hook>> _hooks;
 static bool _print_hookable = true;
 static bool _lock = false;
+std::map<int, Hooks::CustomParameters> _customHookParameters;
 UObject *pCallObject;
 static ProcessEventFunction pProcessEvent = NULL;
 
