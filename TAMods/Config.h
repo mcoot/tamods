@@ -248,6 +248,7 @@ public:
 	static TogglableIcon togglable_icons[];
 	bool showObjectiveIcon;
 	bool showFlagBaseIcon;
+	bool showFlagHomeBaseIcon;
 	bool showCTFBaseIcon;
 	bool showNuggetIcon;
 	bool showPlayerIcon;

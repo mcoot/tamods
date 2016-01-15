@@ -390,3 +390,13 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 
 	return false;
 }
+
+bool TrFlagBase_PostRenderFor(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	ATrFlagBase *that = (ATrFlagBase *)dwCallingObject;
+
+	if (that->bHome)
+		return !g_config.showFlagHomeBaseIcon;
+	else
+		return !g_config.showFlagBaseIcon;
+}
