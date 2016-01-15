@@ -29916,6 +29916,9 @@ void UCanvas::DrawText ( struct FString Text, unsigned long CR, float XScale, fl
 
 	this->ProcessEvent ( pFnDrawText, &DrawText_Parms, NULL );
 
+	if (RenderInfo)
+		DrawText_Parms.RenderInfo = *RenderInfo;
+
 	pFnDrawText->FunctionFlags |= 0x400;
 
 	if ( RenderInfo )

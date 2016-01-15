@@ -175,10 +175,11 @@ bool TrPowerGenerator_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction*
 
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	if (!g_config.customWeaponOffset)
+		return false;
+
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
 	ATrDevice_eventSetPosition_Parms *params = (ATrDevice_eventSetPosition_Parms *)pParams;
-
-	//return false;
 
 	FVector DrawOffset, ViewOffset, FinalSmallWeaponsOffset, FinalLocation, X, Y, Z;
 	unsigned char CurrentHand;

@@ -6,6 +6,9 @@ namespace Utils
 	UEngine *engine = (UEngine*)(*UObject::GObjObjects())(83295);
 	ATrPlayerController *tr_pc = NULL;
 	UTrGameViewportClient *tr_gvc = NULL;
+	UTexture2D *whiteTexture = UObject::FindObject<UTexture2D>("Texture2D EngineResources.WhiteSquareTexture");
+	UFont *mainFont = UObject::FindObject<UFont>("Font Hud_Items.NameForeground");
+	UFont *consoleFont = UObject::FindObject<UFont>("Font EngineFonts.SmallFont");
 }
 
 FLinearColor Utils::linCol(const FColor &col){
@@ -210,6 +213,105 @@ void Utils::printConsole(const std::string &str, const FColor &col)
 	std::wstring wstr = std::wstring(str.begin(), str.end());
 	wchar_t* wch = (wchar_t *)wstr.c_str();
 	tr_gvc->ChatConsole->OutputTextLine(wch, col);
+}
+
+void Utils::drawText(FString ShowText, FColor TextColor, float PlacementX, float PlacementY, byte Alignment, int DrawShadow, ATrHUD *HUD, float ScaleX, float ScaleY)
+{
+	if (!HUD->Canvas)
+		return;
+
+	UCanvas *DrawCanvas = HUD->Canvas;
+	float xl, yl;
+
+	DrawCanvas->Font = mainFont;
+	DrawCanvas->StrLen(ShowText, &xl, &yl);
+
+	xl *= ScaleX;
+	yl *= ScaleY;
+
+	// 0=left 1=center 2=right
+	if (Alignment == 1)
+		PlacementX -= xl / 2;
+	else if (Alignment == 2)
+		PlacementX -= xl;
+
+	PlacementY -= yl / 2;
+
+	if (DrawShadow != 0)
+	{
+		DrawCanvas->DrawColor = { 0, 0, 0, 255 };
+		DrawCanvas->SetPos(PlacementX + DrawShadow, PlacementY + DrawShadow, 0.0f);
+		DrawCanvas->DrawText(ShowText, true, ScaleX, ScaleY, &HUD->m_nNameFontRenderInfo);
+	}
+	DrawCanvas->DrawColor = TextColor;
+	DrawCanvas->SetPos(PlacementX, PlacementY, 0.0f);
+	DrawCanvas->DrawText(ShowText, true, ScaleX, ScaleY, &HUD->m_nNameFontRenderInfo);
+}
+
+void Utils::drawSmallText(FString ShowText, FColor TextColor, float PlacementX, float PlacementY, byte Alignment, int DrawShadow, ATrHUD *HUD, float ScaleX, float ScaleY)
+{
+	if (!HUD->Canvas)
+		return;
+
+	UCanvas *DrawCanvas = HUD->Canvas;
+	float xl, yl;
+
+	DrawCanvas->Font = consoleFont;
+	DrawCanvas->StrLen(ShowText, &xl, &yl);
+
+	xl *= ScaleX;
+	yl *= ScaleY;
+
+	// 0=left 1=center 2=right
+	if (Alignment == 1)
+		PlacementX -= xl / 2;
+	else if (Alignment == 2)
+		PlacementX -= xl;
+
+	PlacementY -= yl / 2;
+
+	if (DrawShadow != 0)
+	{
+		DrawCanvas->DrawColor = { 0, 0, 0, 255 };
+		DrawCanvas->SetPos(PlacementX + DrawShadow, PlacementY + DrawShadow, 0.0f);
+		DrawCanvas->DrawText(ShowText, true, ScaleX, ScaleY, &HUD->m_nNameFontRenderInfo);
+	}
+	DrawCanvas->DrawColor = TextColor;
+	DrawCanvas->SetPos(PlacementX, PlacementY, 0.0f);
+	DrawCanvas->DrawText(ShowText, true, ScaleX, ScaleY, &HUD->m_nNameFontRenderInfo);
+}
+
+void Utils::drawRect(float x1, float y1, float x2, float y2, FColor DrawColor, UCanvas *DrawCanvas)
+{
+	DrawCanvas->SetDrawColor(DrawColor.R, DrawColor.G, DrawColor.B, DrawColor.A);
+	DrawCanvas->SetPos(x1, y1, 0.0f);
+	DrawCanvas->DrawRect(x2 - x1, y2 - y1, whiteTexture);
+}
+
+void Utils::drawBox(float x1, float y1, float x2, float y2, FColor DrawColor, UCanvas *DrawCanvas)
+{
+	DrawCanvas->SetDrawColor(DrawColor.R, DrawColor.G, DrawColor.B, DrawColor.A);
+	DrawCanvas->SetPos(x1, y1, 0.0f);
+	DrawCanvas->DrawBox(x2 - x1, y2 - y1);
+}
+
+void Utils::drawProgressBar(float x1, float y1, float x2, float y2, FColor DrawColor, byte Direction, float Progress, UCanvas *DrawCanvas)
+{
+	// Direction 0-3 are up/right/down/left
+
+	float width = (x2 - x1) * Progress;
+	float height = (y2 - y1) * Progress;
+
+	if (Direction == 0)
+		y1 = y2 - height;
+	else if (Direction == 1)
+		x2 = x1 + width;
+	else if (Direction == 2)
+		y2 = y1 + height;
+	else
+		x1 = x2 - width;
+
+	drawRect(x1, y1, x2, y2, DrawColor, DrawCanvas);
 }
 
 void Utils::FindObjects(const std::string &needle, CallbackType callback)

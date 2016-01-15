@@ -218,6 +218,7 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	my_UpdateOverheadNumbers(that, that->RenderDelta);
 	UpdateLocationOverheadNumbers(that);
 	UpdateRouteOverheadNumbers(that);
+	drawCustomHUD(that);
 	that->UpdateOwnedItems();
 
 	if (that->bRestoreHUDState)
