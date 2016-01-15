@@ -36,9 +36,20 @@ namespace Utils
 	void printConsole(const std::string &str);
 	void printConsole(const std::string &str, const FColor &col);
 
+	// Canvas drawing
+	void drawText(FString ShowText, FColor TextColor, float PlacementX, float PlacementY, byte Alignment, int DrawShadow, ATrHUD *HUD, float ScaleX, float ScaleY);
+	void drawSmallText(FString ShowText, FColor TextColor, float PlacementX, float PlacementY, byte Alignment, int DrawShadow, ATrHUD *HUD, float ScaleX, float ScaleY);
+	void drawRect(float x1, float y1, float x2, float y2, FColor DrawColor, UCanvas *DrawCanvas);
+	void drawBox(float x1, float y1, float x2, float y2, FColor DrawColor, UCanvas *DrawCanvas);
+	void drawProgressBar(float x1, float y1, float x2, float y2, FColor DrawColor, byte Direction, float Progress, UCanvas *DrawCanvas);
+
 	void FindObjects(const std::string &needle, CallbackType callback);
 
 	extern UEngine *engine;
 	extern ATrPlayerController *tr_pc;
 	extern UTrGameViewportClient *tr_gvc;
+
+	extern UTexture2D *whiteTexture;
+	extern UFont *mainFont;
+	extern UFont *consoleFont;
 };

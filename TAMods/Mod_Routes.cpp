@@ -98,7 +98,7 @@ void routeStartRec()
 
 	ATrPawn *pawn = (ATrPawn *)Utils::tr_pc->Pawn;
 
-	if (!pawn || pawn->IsA(ATrVehicle::StaticClass()))
+	if (!pawn || pawn->m_RidingVehicle || pawn->IsA(ATrVehicle::StaticClass()))
 		return;
 
 	routeReset();
@@ -140,7 +140,7 @@ void routeTickRecord(ATrPlayerController* pc)
 		if (!pawn || !pc->WorldInfo)
 			return;
 
-		if (pawn->IsA(ATrVehicle::StaticClass()))
+		if (pawn->m_RidingVehicle || pawn->IsA(ATrVehicle::StaticClass()))
 		{
 			routeStopRec();
 			return;
@@ -236,7 +236,7 @@ void routeStartReplay(float startTime)
 	if (!replayPC || !pawn)
 		return;
 
-	if (!g_config.routeBotReplay && pawn->IsA(ATrVehicle::StaticClass()))
+	if (!g_config.routeBotReplay && (pawn->m_RidingVehicle || pawn->IsA(ATrVehicle::StaticClass())))
 		return;
 
 	pawn->m_fSplatDamageFromLandMin = 0.0f;

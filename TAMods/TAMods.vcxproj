@@ -159,6 +159,7 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mod_AccoladeSounds.cpp" />
     <ClCompile Include="Mod_ConsoleCommands.cpp" />
+    <ClCompile Include="Mod_CustomHud.cpp" />
     <ClCompile Include="Mod_DamageNumbers.cpp" />
     <ClCompile Include="Mod_FlagEventsCTF.cpp" />
     <ClCompile Include="Mod_General.cpp" />

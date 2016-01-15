@@ -6,7 +6,7 @@ Config::TogglableIcon Config::togglable_icons[] =
 {
 	Config::TogglableIcon(&g_config.showObjectiveIcon, "Function TribesGame.TrGameObjective.PostRenderFor"),
 	Config::TogglableIcon(&g_config.showCTFBaseIcon, "Function TribesGame.TrCTFBase.PostRenderFor"),
-	Config::TogglableIcon(&g_config.showFlagBaseIcon, "Function TribesGame.TrFlagBase.PostRenderFor"),
+	//Config::TogglableIcon(&g_config.showFlagBaseIcon, "Function TribesGame.TrFlagBase.PostRenderFor"),
 	Config::TogglableIcon(&g_config.showNuggetIcon, "Function TribesGame.TrDroppedPickup.PostRenderFor"),
 	Config::TogglableIcon(&g_config.showPlayerIcon, "Function TribesGame.TrPawn.PostRenderFor"),
 	Config::TogglableIcon(&g_config.showVehicleIcon, "Function TribesGame.TrVehicle.PostRenderFor"),
@@ -137,14 +137,15 @@ void Config::reset()
 	volumeFlagBlueDrop    = 0.5f;  volumeFlagRedDrop    = 0.5f;
 
 	// Toggle HUD
-	showObjectiveIcon = true;
-	showFlagBaseIcon  = true;
-	showCTFBaseIcon   = true;
-	showNuggetIcon    = true;
-	showPlayerIcon    = true;
-	showVehicleIcon   = true;
-	showMineIcon      = true;
-	showSensorIcon    = true;
+	showObjectiveIcon    = true;
+	showFlagBaseIcon     = true;
+	showFlagHomeBaseIcon = true;
+	showCTFBaseIcon      = true;
+	showNuggetIcon       = true;
+	showPlayerIcon       = true;
+	showVehicleIcon      = true;
+	showMineIcon         = true;
+	showSensorIcon       = true;
 
 	// HUD scaling
 	textScale		  = 1.0f;
@@ -585,6 +586,7 @@ void Config::setVariables()
 	// Toggle HUD
 	SET_VARIABLE(bool, showObjectiveIcon);
 	SET_VARIABLE(bool, showFlagBaseIcon);
+	SET_VARIABLE(bool, showFlagHomeBaseIcon);
 	SET_VARIABLE(bool, showCTFBaseIcon);
 	SET_VARIABLE(bool, showNuggetIcon);
 	SET_VARIABLE(bool, showPlayerIcon);
