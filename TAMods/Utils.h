@@ -13,6 +13,7 @@ namespace Utils
 	FColor rgb(byte r, byte g, byte b);
 	int rgb2int(const FColor &col);
 	FLinearColor linCol(const FColor &col);
+	FColor lerpColor(const FColor &a, const FColor &b, const float &alpha);
 
 	// String
 	std::string f2std(FString &fstr);
@@ -37,17 +38,21 @@ namespace Utils
 	void printConsole(const std::string &str, const FColor &col);
 
 	// Canvas drawing
-	void drawText(FString ShowText, FColor TextColor, float PlacementX, float PlacementY, byte Alignment, int DrawShadow, ATrHUD *HUD, float ScaleX, float ScaleY);
-	void drawSmallText(FString ShowText, FColor TextColor, float PlacementX, float PlacementY, byte Alignment, int DrawShadow, ATrHUD *HUD, float ScaleX, float ScaleY);
-	void drawRect(float x1, float y1, float x2, float y2, FColor DrawColor, UCanvas *DrawCanvas);
-	void drawBox(float x1, float y1, float x2, float y2, FColor DrawColor, UCanvas *DrawCanvas);
-	void drawProgressBar(float x1, float y1, float x2, float y2, FColor DrawColor, byte Direction, float Progress, UCanvas *DrawCanvas);
+	void drawText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &size);
+	void drawSmallText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &size);
+	void drawRect(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
+	void drawBox(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
+	void drawProgressBar(float x1, float y1, float x2, float y2, const FColor &col, const byte &dir, const float &alpha);
+
+	ATrDevice* getDeviceByEquipPointHelper(unsigned const char &n);
+	ATrDevice* getCurrentDeviceHelper();
 
 	void FindObjects(const std::string &needle, CallbackType callback);
 
 	extern UEngine *engine;
 	extern ATrPlayerController *tr_pc;
 	extern UTrGameViewportClient *tr_gvc;
+	extern ATrHUD *tr_hud;
 
 	extern UTexture2D *whiteTexture;
 	extern UFont *mainFont;

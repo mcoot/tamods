@@ -23,6 +23,7 @@ Config::Config()
 	flagreturned = UObject::FindObject<USoundCue>("SoundCue AUD_MUS_CTF.Stingers.A_CUE_UI_CTF_FlagReturned");
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
+	onDrawCustomHud = NULL;
 	onInputEvent = NULL;
 	reset();
 }
@@ -59,8 +60,10 @@ void Config::reset()
 
 	delete onDamageNumberCreate;
 	delete onDamageNumberUpdate;
+	delete onDrawCustomHud;
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
+	onDrawCustomHud = NULL;
 
 	//Damage Number color variables
 	rainbowBulletInt      = 0;
@@ -594,6 +597,8 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showMineIcon);
 	SET_VARIABLE(bool, showSensorIcon);
 
+	SET_FUNCTION(onDrawCustomHud);
+
 	// HUD scaling
 	SET_VARIABLE(float, textScale);
 
@@ -880,8 +885,14 @@ void Lua::init()
 		endClass().
 		addFunction("rgba", &Utils::rgba).
 		addFunction("rgb", &Utils::rgb).
+		addFunction("lerpColor", &Utils::lerpColor).
 
 		// Damage Numbers
+		beginClass<FVector2D>("Vector2").
+			addData("x", &FVector2D::X).
+			addData("y", &FVector2D::Y).
+		endClass().
+
 		beginClass<FVector>("Vector").
 			addData("x", &FVector::X).
 			addData("y", &FVector::Y).
@@ -933,11 +944,15 @@ void Lua::init()
 		// HUD/Mute
 
 		beginClass<ATrHUD>("HUD").
+			addData("canvas", &ATrHUD::Canvas).
 		endClass().
 		addFunction("project", &hud_project).
 		addFunction("drawDamageNumber", &hud_drawDamageNumber).
 		addFunction("isOnScreen", &hud_isOnScreen).
 		addFunction("getPlayerPos", &hud_getPlayerPos).
+
+		beginClass<UCanvas>("Canvas").
+		endClass().
 
 		beginClass<MutedPlayer>("MutedPlayer").
 			addData("username", &MutedPlayer::username).
@@ -1013,6 +1028,82 @@ void Lua::init()
 		addFunction("toggleTurrets", &toggleTurrets).
 		addFunction("togglePower", &togglePower).
 		addFunction("returnFlags", &returnFlags).
+
+		// Custom HUD drawing functions
+		addFunction("drawText",        &Utils::drawText).
+		addFunction("drawSmallText",   &Utils::drawSmallText).
+		addFunction("drawRect",        &Utils::drawRect).
+		addFunction("drawBox",         &Utils::drawBox).
+		addFunction("drawProgressBar", &Utils::drawProgressBar).
+
+		// Custom HUD getter functions
+		beginNamespace("viewPort").
+			addFunction("size", getViewPortData::size).
+		endNamespace().
+		beginNamespace("player").
+			addFunction("isAlive",        getPlayerData::isAlive).
+			addFunction("isRaged",        getPlayerData::isRaged).
+			addFunction("isVehicle",      getPlayerData::isVehicle).
+			addFunction("isShielded",     getPlayerData::isShielded).
+			addFunction("hasFlag",        getPlayerData::hasFlag).
+			addFunction("energy",         getPlayerData::energy).
+			addFunction("energyMax",      getPlayerData::energyMax).
+			addFunction("energyPct",      getPlayerData::energyPct).
+			addFunction("classId",        getPlayerData::classId).
+			addFunction("health",         getPlayerData::health).
+			addFunction("healthMax",      getPlayerData::healthMax).
+			addFunction("speed",          getPlayerData::speed).
+			addFunction("respawnTime",    getPlayerData::respawnTime).
+			addFunction("numDeployables", getPlayerData::numDeployables).
+			addFunction("numMines",       getPlayerData::numMines).
+			addFunction("teamNum",        getPlayerData::teamNum).
+		endNamespace().
+		beginNamespace("weapon").
+			addFunction("isReadyToFire",      getWeaponData::isReadyToFire).
+			addFunction("isReloading",        getWeaponData::isReloading).
+			addFunction("isPack",             getWeaponData::isPack).
+			addFunction("isPassiveReady",     getWeaponData::isPassiveReady).
+			addFunction("isLowAmmo",          getWeaponData::isLowAmmo).
+			addFunction("ammo",               getWeaponData::ammo).
+			addFunction("ammoMax",            getWeaponData::ammoMax).
+			addFunction("ammoCarried",        getWeaponData::ammoCarried).
+			addFunction("ammoMaxCarried",     getWeaponData::ammoMaxCarried).
+			addFunction("ammoTotal",          getWeaponData::ammoTotal).
+			addFunction("name",               getWeaponData::name).
+		endNamespace().
+		beginNamespace("currentWeapon").
+			addFunction("isReadyToFire",      getCurrentWeaponData::isReadyToFire).
+			addFunction("isReloading",        getCurrentWeaponData::isReloading).
+			addFunction("isPack",             getCurrentWeaponData::isPack).
+			addFunction("isLowAmmo",          getCurrentWeaponData::isLowAmmo).
+			addFunction("ammo",               getCurrentWeaponData::ammo).
+			addFunction("ammoMax",            getCurrentWeaponData::ammoMax).
+			addFunction("ammoCarried",        getCurrentWeaponData::ammoCarried).
+			addFunction("ammoMaxCarried",     getCurrentWeaponData::ammoMaxCarried).
+			addFunction("ammoTotal",          getCurrentWeaponData::ammoTotal).
+			addFunction("equippedAt",         getCurrentWeaponData::equippedAt).
+			addFunction("name",               getCurrentWeaponData::name).
+		endNamespace().
+		beginNamespace("game").
+			addFunction("type",              getGameData::type).
+			addFunction("timeStr",           getGameData::timeStr).
+			addFunction("isOfflinePlay",     getGameData::isOfflinePlay).
+			addFunction("isGameEnd",         getGameData::isGameEnd).
+			addFunction("isGenUp",           getGameData::isGenUp).
+			addFunction("isWarmUp",          getGameData::isWarmUp).
+			addFunction("isOverTime",        getGameData::isOverTime).
+			addFunction("genAutoRepairTime", getGameData::genAutoRepairTime).
+			addFunction("overTimeLimit",     getGameData::overTimeLimit).
+			addFunction("score",             getGameData::score).
+			addFunction("scoreLimit",        getGameData::scoreLimit).
+			addFunction("time",              getGameData::time).
+			addFunction("timeLimit",         getGameData::timeLimit).
+		endNamespace().
+		beginNamespace("flag").
+			addFunction("isHome",     getFlagData::isHome).
+			addFunction("returnTime", getFlagData::returnTime).
+			addFunction("holderName", getFlagData::holderName).
+		endNamespace().
 
 		beginNamespace("config").
 			addFunction("reloadVariables", &config_rereadVariables).

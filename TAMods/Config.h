@@ -8,6 +8,7 @@
 #include "Logger.h"
 #include "Utils.h"
 #include "Data.h"
+#include "DataGetters.h"
 #include "Lua.h"
 #include "Geom.h"
 #include "SdkHeaders.h"
@@ -137,6 +138,8 @@ public:
 	// Lua scripting damage numbers
 	LuaRef *onDamageNumberCreate;
 	LuaRef *onDamageNumberUpdate;
+	// Lua scripting HUD
+	LuaRef *onDrawCustomHud;
 
 	// Custom damage number text
 	std::string damageNumberCustomText;

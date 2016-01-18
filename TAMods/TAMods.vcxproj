@@ -96,6 +96,7 @@
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Data.cpp" />
+    <ClCompile Include="DataGetters.cpp" />
     <ClCompile Include="Geom.cpp" />
     <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="libpng\png.c" />
@@ -159,7 +160,6 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mod_AccoladeSounds.cpp" />
     <ClCompile Include="Mod_ConsoleCommands.cpp" />
-    <ClCompile Include="Mod_CustomHud.cpp" />
     <ClCompile Include="Mod_DamageNumbers.cpp" />
     <ClCompile Include="Mod_FlagEventsCTF.cpp" />
     <ClCompile Include="Mod_General.cpp" />
@@ -205,6 +205,7 @@
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Data.h" />
+    <ClInclude Include="DataGetters.h" />
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="Geom.h" />
     <ClInclude Include="libpng\png.h" />

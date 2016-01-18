@@ -164,6 +164,8 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	};
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 
+	Utils::tr_hud = that;
+
 	// Lock the hook system for performance
 	Hooks::lock();
 
@@ -237,8 +239,19 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	my_UpdateOverheadNumbers(that, that->RenderDelta);
 	UpdateLocationOverheadNumbers(that);
 	UpdateRouteOverheadNumbers(that);
-	drawCustomHUD(that);
 	that->UpdateOwnedItems();
+
+	if (that->Canvas && g_config.onDrawCustomHud && !g_config.onDrawCustomHud->isNil() && g_config.onDrawCustomHud->isFunction())
+	{
+		try
+		{
+			(*g_config.onDrawCustomHud)(that->Canvas->SizeX, that->Canvas->SizeY);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+	}
 
 	if (that->bRestoreHUDState)
 	{
