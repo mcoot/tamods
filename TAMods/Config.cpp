@@ -1041,22 +1041,27 @@ void Lua::init()
 			addFunction("size", getViewPortData::size).
 		endNamespace().
 		beginNamespace("player").
-			addFunction("isAlive",        getPlayerData::isAlive).
-			addFunction("isRaged",        getPlayerData::isRaged).
-			addFunction("isVehicle",      getPlayerData::isVehicle).
-			addFunction("isShielded",     getPlayerData::isShielded).
-			addFunction("hasFlag",        getPlayerData::hasFlag).
-			addFunction("energy",         getPlayerData::energy).
-			addFunction("energyMax",      getPlayerData::energyMax).
-			addFunction("energyPct",      getPlayerData::energyPct).
-			addFunction("classId",        getPlayerData::classId).
-			addFunction("health",         getPlayerData::health).
-			addFunction("healthMax",      getPlayerData::healthMax).
-			addFunction("speed",          getPlayerData::speed).
-			addFunction("respawnTime",    getPlayerData::respawnTime).
-			addFunction("numDeployables", getPlayerData::numDeployables).
-			addFunction("numMines",       getPlayerData::numMines).
-			addFunction("teamNum",        getPlayerData::teamNum).
+			addFunction("name",            getPlayerData::name).
+			addFunction("isAlive",         getPlayerData::isAlive).
+			addFunction("isRaged",         getPlayerData::isRaged).
+			addFunction("isVehicle",       getPlayerData::isVehicle).
+			addFunction("isShielded",      getPlayerData::isShielded).
+			addFunction("hasFlag",         getPlayerData::hasFlag).
+			addFunction("energy",          getPlayerData::energy).
+			addFunction("energyMax",       getPlayerData::energyMax).
+			addFunction("energyPct",       getPlayerData::energyPct).
+			addFunction("ping",            getPlayerData::ping).
+			addFunction("classId",         getPlayerData::classId).
+			addFunction("health",          getPlayerData::health).
+			addFunction("healthMax",       getPlayerData::healthMax).
+			addFunction("speed",           getPlayerData::speed).
+			addFunction("respawnTime",     getPlayerData::respawnTime).
+			addFunction("numDeployables",  getPlayerData::numDeployables).
+			addFunction("numMines",        getPlayerData::numMines).
+			addFunction("score",           getPlayerData::score).
+			addFunction("rabbitRank",      getPlayerData::rabbitRank).
+			addFunction("teamNum",         getPlayerData::teamNum).
+			addFunction("arenaSpawnsLeft", getPlayerData::arenaSpawnsLeft).
 		endNamespace().
 		beginNamespace("weapon").
 			addFunction("isReadyToFire",      getWeaponData::isReadyToFire).
@@ -1074,6 +1079,7 @@ void Lua::init()
 		beginNamespace("currentWeapon").
 			addFunction("isReadyToFire",      getCurrentWeaponData::isReadyToFire).
 			addFunction("isReloading",        getCurrentWeaponData::isReloading).
+			addFunction("isReloaded",         getCurrentWeaponData::isReloaded).
 			addFunction("isPack",             getCurrentWeaponData::isPack).
 			addFunction("isLowAmmo",          getCurrentWeaponData::isLowAmmo).
 			addFunction("ammo",               getCurrentWeaponData::ammo).
@@ -1098,6 +1104,22 @@ void Lua::init()
 			addFunction("scoreLimit",        getGameData::scoreLimit).
 			addFunction("time",              getGameData::time).
 			addFunction("timeLimit",         getGameData::timeLimit).
+		endNamespace().
+		beginNamespace("rabbit").
+			addFunction("leaderBoardScore", getRabbitData::leaderBoardScore).
+			addFunction("leaderBoardName",  getRabbitData::leaderBoardName).
+			addFunction("rabbitName",       getRabbitData::rabbitName).
+		endNamespace().
+		beginNamespace("cah").
+			addFunction("pointsNum",   getCaHData::pointsNum).
+			addFunction("pointsHeld",  getCaHData::pointsHeld).
+			addFunction("pointHolder", getCaHData::pointHolder).
+			addFunction("pointLabel",  getCaHData::pointLabel).
+		endNamespace().
+		beginNamespace("arena").
+			addFunction("round",      getArenaData::round).
+			addFunction("roundScore", getArenaData::roundScore).
+			addFunction("playerStatus", getArenaData::playerStatus).
 		endNamespace().
 		beginNamespace("flag").
 			addFunction("isHome",     getFlagData::isHome).

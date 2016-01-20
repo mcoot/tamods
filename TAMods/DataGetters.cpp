@@ -3,17 +3,15 @@
 
 /*
 	TODO:
-	Rabbit / CaH stats (other gametypes as well?)
-	drawRect kann nicht die groesseren koordinaten zuerst wie drawProgress
+	GameEnded and Overtime display (not so easy to get, probably need to hook some function in order to get it)
 	more helper functions
 	Fix vehicle/seat detection
 	Stopwatch (all data)
 	menuOpen() ?
 	WorldSeconds and DeltaTime ?
-	Game::time() in roammap manuell oder automatisch in der funktion handlen?
 	Stats: Kills / Deaths / K/D / MAs / Streaks / Returns / Grabs
 	Killfeed
-	Chat / VGS / Whisper (prompt info)
+	Chat / VGS / Whisper (prompt info?)
 	Game messages / Flag grabs etc
 	Accolades
 	Kill info
@@ -32,6 +30,13 @@ FVector2D getViewPortData::size()
 	return s;
 }
 /////////////////////////////////////////////////////////////////////////////////////
+std::string getPlayerData::name()
+{
+	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return Utils::f2std(Utils::tr_pc->PlayerReplicationInfo->PlayerName);
+
+	return "";
+}
 bool getPlayerData::isAlive()
 {
 	if (Utils::tr_pc && Utils::tr_pc->Pawn)
@@ -88,6 +93,13 @@ float getPlayerData::energyPct()
 
 	return 0.0f;
 }
+int getPlayerData::ping()
+{
+	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return Utils::tr_pc->PlayerReplicationInfo->Ping * 4;
+
+	return 0;
+}
 int getPlayerData::classId()
 {
 	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
@@ -123,7 +135,7 @@ int getPlayerData::speed()
 int getPlayerData::respawnTime()
 {
 	if (Utils::tr_pc)
-		return Utils::tr_pc->bPreventRespawn ? Utils::tr_pc->m_nRespawnTimeRemaining + 1 : Utils::tr_pc->m_nRespawnTimeRemaining;
+		return Utils::tr_pc->bPreventRespawn ? Utils::tr_pc->m_nRespawnTimeRemaining + 1 : 0;
 
 	return 0;
 }
@@ -138,6 +150,27 @@ int getPlayerData::numMines()
 {
 	if (Utils::tr_pc && Utils::tr_pc->myHUD)
 		return ((ATrHUD *)Utils::tr_pc->myHUD)->m_OwnedMines.Count;
+
+	return 0;
+}
+int getPlayerData::score()
+{
+	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return (int)Utils::tr_pc->PlayerReplicationInfo->Score;
+
+	return 0;
+}
+int getPlayerData::rabbitRank()
+{
+	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return ((ATrPlayerReplicationInfo *)Utils::tr_pc->PlayerReplicationInfo)->m_nRabbitRank;
+
+	return 0;
+}
+int getPlayerData::arenaSpawnsLeft()
+{
+	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return ((ATrPlayerReplicationInfo *)Utils::tr_pc->PlayerReplicationInfo)->r_nArenaSpawnsLeft;
 
 	return 0;
 }
@@ -167,7 +200,7 @@ bool getWeaponData::isPack(unsigned const char &n)
 {
 	ATrDevice *dev = Utils::getDeviceByEquipPointHelper(n);
 
-	if (dev && dev->IsA(ATrDevice_Pack::StaticClass()))
+	if (dev && n == EQP_Pack && dev->IsA(ATrDevice_Pack::StaticClass()))
 		return true;
 
 	return false;
@@ -179,7 +212,7 @@ bool getWeaponData::isPassiveReady(unsigned const char &n)
 	if (!dev) return false;
 
 	// Packs, belt items, out of spare ammo or fully reloaded guns don't passively reload
-	if (n == EQP_Belt || n == EQP_Pack || dev->m_nCarriedAmmo == 0 || dev->m_RemainingAmmoInClip == dev->GetMaxAmmoCount())
+	if (n == EQP_Belt || n == EQP_Pack || dev->m_nCarriedAmmo == 0 || dev->m_RemainingAmmoInClip == dev->MaxAmmoCount)
 		return true;
 
 	// check passive reload time
@@ -259,6 +292,13 @@ bool getCurrentWeaponData::isReloading()
 {
 	ATrDevice *dev = Utils::getCurrentDeviceHelper();
 	if (dev) return dev->r_bIsReloading;
+
+	return false;
+}
+bool getCurrentWeaponData::isReloaded()
+{
+	ATrDevice *dev = Utils::getCurrentDeviceHelper();
+	if (dev) return dev->MaxAmmoCount == dev->m_RemainingAmmoInClip;
 
 	return false;
 }
@@ -343,14 +383,14 @@ std::string getGameData::type()
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GetGameClass())
 		return ((ATrGame *)Utils::tr_pc->WorldInfo->GetGameClass())->GetStringName();
 
-	return "none";
+	return "unknown";
 }
 std::string getGameData::timeStr()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
 	{
 		char c[6];
-		int *time = &Utils::tr_pc->WorldInfo->GRI->RemainingTime;
+		int *time = Utils::tr_pc->WorldInfo->GRI->TimeLimit != 0 ? &Utils::tr_pc->WorldInfo->GRI->RemainingTime : &Utils::tr_pc->WorldInfo->GRI->ElapsedTime;
 		sprintf(c, "%02d:%02d", *time / 60, *time % 60);
 		return c;
 	}
@@ -359,12 +399,12 @@ std::string getGameData::timeStr()
 bool getGameData::isOfflinePlay()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
-		return Utils::tr_pc->WorldInfo->NetMode == 0 ? true : false;
+		return Utils::tr_pc->WorldInfo->NetMode == NM_Standalone ? true : false;
 
 	return true;
 }
 bool getGameData::isGameEnd()
-{
+{ // FIXME: WorldInfo->Game only works offline
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->Game)
 		return Utils::tr_pc->WorldInfo->Game->bGameEnded;
 
@@ -385,7 +425,7 @@ bool getGameData::isWarmUp()
 	return false;
 }
 bool getGameData::isOverTime()
-{
+{ // FIXME: WorldInfo->Game only works offline
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->Game)
 		return Utils::tr_pc->WorldInfo->Game->bOverTime;
 
@@ -409,7 +449,7 @@ int getGameData::overTimeLimit()
 int getGameData::score(unsigned const char &n)
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI &&
-		(unsigned)Utils::tr_pc->WorldInfo->GRI->Teams.Num() > n &&
+		Utils::tr_pc->WorldInfo->GRI->Teams.Num() > n &&
 		Utils::tr_pc->WorldInfo->GRI->Teams.Data[n])
 		return (int)Utils::tr_pc->WorldInfo->GRI->Teams.Data[n]->Score;
 
@@ -426,7 +466,7 @@ int getGameData::scoreLimit()
 int getGameData::time()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
-		return Utils::tr_pc->WorldInfo->GRI->RemainingTime;
+		return Utils::tr_pc->WorldInfo->GRI->TimeLimit != 0 ? Utils::tr_pc->WorldInfo->GRI->RemainingTime : Utils::tr_pc->WorldInfo->GRI->ElapsedTime;
 
 	return 0;
 }
@@ -438,12 +478,141 @@ int getGameData::timeLimit()
 	return 0;
 }
 /////////////////////////////////////////////////////////////////////////////////////
+int getRabbitData::leaderBoardScore(unsigned const char &n)
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+	{
+		ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
+
+		if (gri->m_RabbitLeaderBoard[n])
+			return (int)gri->m_RabbitLeaderBoard[n]->Score;
+	}
+	return 0;
+}
+std::string getRabbitData::leaderBoardName(unsigned const char &n)
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+	{
+		ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
+
+		if (gri->m_RabbitLeaderBoard[n])
+			return Utils::f2std(gri->m_RabbitLeaderBoard[n]->PlayerName);
+	}
+	return "";
+}
+std::string getRabbitData::rabbitName()
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+	{
+		ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
+
+		if (gri->m_CurrentRabbitPRI)
+			return Utils::f2std(gri->m_CurrentRabbitPRI->PlayerName);
+	}
+	return "";
+}
+/////////////////////////////////////////////////////////////////////////////////////
+int getCaHData::pointsNum()
+{
+	if (Utils::tr_pc && Utils::tr_pc->myHUD && ((ATrHUD *)Utils::tr_pc->myHUD)->CaHStats)
+		return ((ATrHUD *)Utils::tr_pc->myHUD)->CaHStats->m_CapturePointData.Count;
+
+	return 0;
+}
+int getCaHData::pointsHeld(unsigned const char &n)
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+	{
+		ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
+
+		if (gri->r_nNumCapturePointsHeld[n])
+			return gri->r_nNumCapturePointsHeld[n];
+	}
+	return 0;
+}
+unsigned char getCaHData::pointHolder(unsigned const char &n)
+{
+	if (Utils::tr_pc && Utils::tr_pc->myHUD && ((ATrHUD *)Utils::tr_pc->myHUD)->CaHStats)
+	{
+		UTrCaHStats *stats = ((ATrHUD *)Utils::tr_pc->myHUD)->CaHStats;
+
+		if (stats->m_CapturePoints.Data[n])
+			return stats->m_CapturePoints.Data[n]->DefenderTeamIndex;
+	}
+	return 255;
+}
+unsigned char getCaHData::pointLabel(unsigned const char &n)
+{
+	if (Utils::tr_pc && Utils::tr_pc->myHUD && ((ATrHUD *)Utils::tr_pc->myHUD)->CaHStats)
+	{
+		UTrCaHStats *stats = ((ATrHUD *)Utils::tr_pc->myHUD)->CaHStats;
+
+		if (stats->m_CapturePointData.Get(n))
+			return stats->m_CapturePointData.Data[n].PointLabel;
+	}
+	return 0;
+}
+/////////////////////////////////////////////////////////////////////////////////////
+int getArenaData::round()
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo->GRI)
+		return ((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->r_nCurrentRound;
+
+	return 0;
+}
+int getArenaData::roundScore(unsigned const char &n)
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo->GRI)
+	{
+		ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
+
+		if (gri->r_nRoundScore[n])
+			return gri->r_nRoundScore[n];
+	}
+	return 0;
+}
+unsigned char getArenaData::playerStatus(unsigned const char &team, unsigned const char &player)
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo->GRI)
+	{
+		ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
+		ATrPlayerReplicationInfo *pri;
+
+		if (team == 0 && gri->r_BEPlayerList[player])
+			pri = gri->r_BEPlayerList[player];
+		else if (gri->r_DSPlayerList[player])
+			pri = gri->r_DSPlayerList[player];
+
+		if (pri && pri->Team && pri->m_nRankNum)
+		{
+			unsigned char statusMask = 1;
+
+			if (!pri->r_bIsCrossedOffArenaList)
+				statusMask += 2;
+			if (pri->r_nArenaSpawnsLeft > 0)
+				statusMask += 4;
+
+			return statusMask;
+		}
+	}
+	return 0;
+}
+/////////////////////////////////////////////////////////////////////////////////////
 bool getFlagData::isHome(unsigned const char &n)
 {
-	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI &&
-		((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[n])
-		return ((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[n]->bHome;
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+	{
+		ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
 
+		if (Utils::tr_pc->WorldInfo->GetGameClass() == ATrGame_TRTeamRabbit::StaticClass() ||
+			gri->GameClass == ATrGame_TRTeamRabbit::StaticClass() ||
+			Utils::tr_pc->WorldInfo->GetGameClass() == ATrGame_TRRabbit::StaticClass() ||
+			gri->GameClass == ATrGame_TRRabbit::StaticClass())
+			return false;
+
+		if (gri->m_Flags[n])
+			return gri->m_Flags[n]->bHome;
+	}
 	return true;
 }
 int getFlagData::returnTime(unsigned const char &n)
@@ -456,28 +625,26 @@ int getFlagData::returnTime(unsigned const char &n)
 }
 std::string getFlagData::holderName(unsigned const char &n)
 {
-	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->Game && Utils::tr_pc->WorldInfo->GRI)
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
 	{
-		AGameInfo *game = Utils::tr_pc->WorldInfo->Game;
+		ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
 
-		/*if ((game->IsA(ATrGame_TRRabbit::StaticClass()) || game->IsA(ATrGame_TRTeamRabbit::StaticClass())) &&
-			((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[0] &&
-			((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[0]->HolderPRI)
-		{
-			Utils::printConsole("Rabbit or TDM");
-			ATrPlayerReplicationInfo *pri = (ATrPlayerReplicationInfo *)((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[0]->HolderPRI;
-			
-			// Enemy holding the flag in these modes means it's ours. Teammate holding it means their flag is held.
-			if (pri->GetTeamNum() != n)
-				return Utils::f2std(pri->PlayerName);
+		if (Utils::tr_pc->WorldInfo->GetGameClass() == ATrGame_TRTeamRabbit::StaticClass() ||
+			gri->GameClass == ATrGame_TRTeamRabbit::StaticClass())
+		{ // TDM
+			if (gri->m_Flags[0] && gri->m_Flags[0]->HolderPRI &&
+				gri->m_Flags[0]->HolderPRI->GetTeamNum() != n)
+				return Utils::f2std(gri->m_Flags[0]->HolderPRI->PlayerName);
 		}
-		else*/ if (((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[n] &&
-			((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[n]->HolderPRI)
-		{
-			Utils::printConsole("CTF or Blitz");
-			return Utils::f2std(((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[n]->HolderPRI->PlayerName);
+		else if (Utils::tr_pc->WorldInfo->GetGameClass() == ATrGame_TRRabbit::StaticClass() ||
+			gri->GameClass == ATrGame_TRRabbit::StaticClass())
+		{ // Rabbit
+			if (gri->m_Flags[0] && gri->m_Flags[0]->HolderPRI)
+				return Utils::f2std(gri->m_Flags[0]->HolderPRI->PlayerName);
 		}
+		// Everything else
+		else if (gri->m_Flags[n] && gri->m_Flags[n]->HolderPRI)
+			return Utils::f2std(gri->m_Flags[n]->HolderPRI->PlayerName);
 	}
-
-	return " ";
+	return "";
 }

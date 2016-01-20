@@ -335,7 +335,7 @@ void Utils::drawProgressBar(float x1, float y1, float x2, float y2, const FColor
 
 ATrDevice* Utils::getDeviceByEquipPointHelper(unsigned const char &n)
 {
-	if (tr_pc && tr_pc->Pawn && tr_pc->Pawn->InvManager)
+	if (tr_pc && tr_pc->Pawn && Utils::tr_pc->Pawn->IsAliveAndWell() && tr_pc->Pawn->InvManager)
 		return ((ATrInventoryManager *)tr_pc->Pawn->InvManager)->GetDeviceByEquipPoint(n);
 
 	return NULL;
@@ -343,7 +343,7 @@ ATrDevice* Utils::getDeviceByEquipPointHelper(unsigned const char &n)
 
 ATrDevice* Utils::getCurrentDeviceHelper()
 {
-	if (tr_pc && tr_pc->Pawn && tr_pc->Pawn->Weapon && !tr_pc->Pawn->Weapon->IsA(ATrVehicleWeapon::StaticClass()))
+	if (tr_pc && tr_pc->Pawn && Utils::tr_pc->Pawn->IsAliveAndWell() && tr_pc->Pawn->Weapon && !tr_pc->Pawn->Weapon->IsA(ATrVehicleWeapon::StaticClass()))
 		return (ATrDevice *)tr_pc->Pawn->Weapon;
 
 	return NULL;

@@ -1,44 +1,72 @@
-cWhite = rgba(255, 255, 255, 255)
-cRed = rgba(255, 0, 0, 255)
+cWhite  = rgba(255, 255, 255, 255)
+cBlack  = rgba(0, 0, 0, 255)
+cRed    = rgba(255, 0, 0, 255)
 cBoxBG1 = rgba(0, 0, 0, 75)
 cBoxBG2 = rgba(0, 0, 0, 50)
 
-teamCols = {}
-teamCols[0] = rgba(255, 23, 23, 150)
-teamCols[1] = rgba(158, 208, 212, 150)
-teamTextCols = {}
+teamCols        = {}
+teamCols[0]     = rgba(255, 23, 23, 150)
+teamCols[1]     = rgba(158, 208, 212, 150)
+teamTextCols    = {}
 teamTextCols[0] = rgba(255, 23, 23, 255)
 teamTextCols[1] = rgba(158, 208, 212, 255)
 
+CaHPointLabels  = {'A','B','C','D','E'}
+
+-- Toggle HUD bound to 'O'
+showHud = true
+bindKey("O", Input.PRESSED, function() showHud = not showHud end)
+
 function onDrawCustomHud(resX, resY)
+	-- Toggle HUD
+	if not showHud then
+		return
+	end
+
 	local centerX = resX / 2
 	local centerY = resY / 2
 	local gameType = game.type()
 	local practiceMode = game.isOfflinePlay()	
 	local myTeam = player.teamNum()
-
-	-- Draw a 128x40 timer background at the top-center of the screen
-	drawRect(centerX - 64, 0, centerX + 64, 40, cBoxBG1)
-	drawText(game.timeStr(), cWhite, resX / 2, 22, 1, 0, 1.7)
+	local myName = player.name()
 
 	-- Our current team is left and blue, while the enemy is red and right
-	-- While spectating (team 255) Blood Eagle is always left
+	-- While spectating (team 255) Blood Eagle is always left/red
 	local leftTeam = myTeam == 1 and 1 or 0
 	local leftCol = myTeam == 255 and 0 or 1
 	local rightTeam = 1 - leftTeam
 	local rightCol = 1 - leftCol
 
-	-- Draw 70x40 team colored score backgrounds
-	-- Left
-	drawRect(centerX - 134, 0, centerX - 64, 40, teamCols[leftCol])
-	drawText(game.score(leftTeam), teamTextCols[leftCol], centerX - 99, 22, 1, 0, 1.5)
-	-- Right
-	drawRect(centerX + 64, 0, centerX + 134, 40, teamCols[rightCol])
-	drawText(game.score(1 - leftTeam), teamTextCols[rightCol], centerX + 99, 22, 1, 0, 1.5)
+	-- Ping display
+	drawSmallText(player.ping() .. " ms", cWhite, resX - 50, 186, 2, 1, 1)
 
-	-- Draw gametype specific info like score, flag status etc.
-	if gameType == "TrGame_TRCTF" or gameType == "TrGame_TrCTFBlitz" then
+	-- Draw the 128x40 timer background at the top-center of the screen
+	drawRect(centerX - 64, 0, centerX + 64, 40, cBoxBG1)
+	drawText(game.timeStr(), cWhite, resX / 2, 22, 1, 0, 1.7)
+
+	-- Draw the currents game status like overtime, warmup etc.
+	if game.isWarmUp() then
+		drawRect(centerX - 35, 40, centerX + 35, 60, cBoxBG2)
+		drawSmallText("WARMUP", cWhite, centerX, 50, 1, 1, 1)
+	end
+
+	-- Draw 70x40 team colored rectangles containing team score, not in rabbit though
+	if gameType ~= "TrGame_TRRabbit" then
+		-- Left
+		drawRect(centerX - 134, 0, centerX - 64, 40, teamCols[leftCol])
+		drawText(game.score(leftTeam), teamTextCols[leftCol], centerX - 99, 22, 1, 0, 1.5)
+		-- Right
+		drawRect(centerX + 64, 0, centerX + 134, 40, teamCols[rightCol])
+		drawText(game.score(rightTeam), teamTextCols[rightCol], centerX + 99, 22, 1, 0, 1.5)
+	end
+
+	if gameType == "TrGame_TRCTF" or gameType == "TrGame_TrCTFBlitz" or gameType == "TrGame_TRTeamRabbit" then
+		------------------------
+		-- CTF, Blitz and TDM --
+		------------------------
+
 		-- Flag status, only if flags aren't home
+		-- Left team
 		if not flag.isHome(leftTeam) then
 			local returnTime = flag.returnTime(leftTeam)
 
@@ -50,6 +78,7 @@ function onDrawCustomHud(resX, resY)
 				drawText(flag.holderName(leftTeam), teamTextCols[rightCol], centerX - 140, 22, 2, 0, 1) 
 			end
 		end
+		-- Right team
 		if not flag.isHome(rightTeam) then
 			local returnTime = flag.returnTime(rightTeam)
 
@@ -62,40 +91,156 @@ function onDrawCustomHud(resX, resY)
 			end
 		end
 
-		-- Generator status
-		if not game.isGenUp(leftTeam) then
-			local genTimer = game.genAutoRepairTime(leftTeam)
-			if genTimer > 0 then
-				-- Display the remaining time until auto repair
-				drawSmallText(genTimer, teamTextCols[leftCol], centerX - 99, 50, 1, 1, 1)
-			else
-				-- Auto repairing is turned off, just display that the generator is down
-				drawSmallText("No Power", teamTextCols[leftCol], centerX - 99, 50, 1, 1, 1)
+		-- Generator status (not for TDM)
+		if gameType == "TrGame_TRCTF" or gameType == "TrGame_TrCTFBlitz" then
+			-- Left
+			if not game.isGenUp(leftTeam) then
+				local genTimer = game.genAutoRepairTime(leftTeam)
+				if genTimer > 0 then
+					-- Display the remaining time until auto repair
+					drawSmallText(genTimer, teamTextCols[leftCol], centerX - 99, 50, 1, 1, 1)
+				else
+					-- Auto repairing is turned off, just display that the generator is down
+					drawSmallText("No Power", teamTextCols[leftCol], centerX - 99, 50, 1, 1, 1)
+				end
+			end
+			-- Right
+			if not game.isGenUp(rightTeam) then
+				local genTimer = game.genAutoRepairTime(rightTeam)
+				if genTimer > 0 then
+					-- Display the remaining time until auto repair
+					drawSmallText(genTimer, teamTextCols[rightCol], centerX + 99, 50, 1, 1, 1)
+				else
+					-- Auto repairing is turned off, just display that the generator is down
+					drawSmallText("No Power", teamTextCols[rightCol], centerX + 99, 50, 1, 1, 1)
+				end
 			end
 		end
-		if not game.isGenUp(rightTeam) then
-			local genTimer = game.genAutoRepairTime(rightTeam)
-			if genTimer > 0 then
-				-- Display the remaining time until auto repair
-				drawSmallText(genTimer, teamTextCols[rightCol], centerX + 99, 50, 1, 1, 1)
-			else
-				-- Auto repairing is turned off, just display that the generator is down
-				drawSmallText("No Power", teamTextCols[rightCol], centerX + 99, 50, 1, 1, 1)
+	elseif gameType == "TrGame_TRRabbit" then
+		------------
+		-- Rabbit --
+		------------
+
+		-- Draw the current rabbit below the game timer, but only if it's not us
+		if not player.hasFlag() then
+			drawText(rabbit.rabbitName(), teamTextCols[0], centerX + 80, 22, 0, 0, 1)
+		end
+		local myRank = player.rabbitRank()
+		local y
+		local color
+		for i = 0,2 do
+			name = rabbit.leaderBoardName(i)
+			if name ~= "" then
+				y = 28 * i + 50
+				drawRect(45, y - 14, 305, y + 12, cBoxBG1)
+				-- Different color if this is us
+				color = i+1 == myRank and teamTextCols[1] or cWhite
+				drawText(i+1 .. ". " .. name, color, 50, y, 0, 0, 1)
+				drawText(rabbit.leaderBoardScore(i), color, 300, y, 2, 0, 1)
+			end
+		end
+		-- If our rank is lower than 3, we are not on the leaderboard, so draw us and our rank below it
+		if myRank > 3 then
+			y = y + 28
+			drawRect(45, y - 14, 305, y + 12, cBoxBG1)
+			drawText(myRank .. ". " .. myName, teamTextCols[1], 50, y, 0, 0, 1)
+			drawText(player.score(), teamTextCols[1], 300, y, 2, 0, 1)
+		end
+	elseif gameType == "TrGame_TrCaH" then
+		----------------------
+		-- Capture and Hold --
+		----------------------
+		local pointsNum = cah.pointsNum()
+
+		local x = centerX + 150
+		local y = 5 
+
+		for i=0,pointsNum-1 do
+			local pointHolder = cah.pointHolder(i)
+			local color
+			local label = cah.pointLabel(i)
+			
+			-- Figure out the holder of the point and which color it should have
+			if pointHolder == 255 then color = rgba(255, 255, 255, 120)
+			elseif pointHolder == leftTeam then color = teamCols[leftCol]
+			else color = teamCols[rightCol] end
+
+			drawRect(x + 38 * label + 3, y, x + 35 + 38 * label, y + 32, color)
+			drawSmallText(CaHPointLabels[label+1], cBlack, x + 38 * label + 19, y + 16, 1, 0, 1)
+		end
+	elseif gameType == "TrGame_TrArena" then
+		-----------
+		-- Arena --
+		-----------
+
+		-- Round scores
+		-- Left team
+		drawRect(centerX - 113, 40, centerX - 86, 60, teamCols[leftCol])
+		drawText(arena.roundScore(leftTeam), teamTextCols[leftCol], centerX - 99, 51, 1, 0, 1)
+		-- Right team
+		drawRect(centerX + 86, 40, centerX + 113, 60, teamCols[rightCol])
+		drawText(arena.roundScore(rightTeam), teamTextCols[rightCol], centerX + 99, 51, 1, 0, 1)
+
+		-- Draw a warning message if we have no respawns left
+		if myTeam ~= 255 and not game.isWarmUp() and player.isAlive() and player.arenaSpawnsLeft() < 1 then
+			drawText("Last live!", cRed, centerX, resY * 0.12, 1, 0, 1.8)
+		end
+
+		-- Draw the lefts teams player mannequins when spawns are empty
+		if game.score(leftTeam) < 1 then
+			local x = centerX - 170
+			local y = 10
+			for i=0,7 do
+				-- playerStatus returns a bitmask where:
+				-- 0: no player, 1: player, 2: alive, 4: has spawns left
+				local ps = arena.playerStatus(leftTeam, i)
+				-- Don't draw anything if this slot has no player
+				if ps > 0 then
+					if ps == 1 then
+						-- Player is benched, only draw an 'x'
+						drawText("X", cWhite, x - 12, y + 14, 1, 0, 1)
+					else
+						-- Player is alive, draw a square representing this player
+						drawRect(x - 24, y, x, y + 24, teamCols[leftCol])
+						-- Player has spawns left, draw a '1' inside his square
+						if ps > 3 then
+							drawText("1", teamTextCols[leftCol], x - 12, y + 14, 1, 0, 1)
+						end
+					end
+					x = x - 26
+				end
+			end
+		end
+		-- Draw the rights teams player mannequins when spawns are empty
+		if game.score(rightTeam) < 1 then
+			local x = centerX + 170
+			local y = 10
+			for i=0,7 do
+				-- playerStatus returns a bitmask where:
+				-- 0: no player, 1: player, 2: alive, 4: has spawns left
+				local ps = arena.playerStatus(rightTeam, i)
+				-- Don't draw anything if this slot has no player
+				if ps > 0 then
+					if ps == 1 then
+						-- Player is benched, only draw an 'x'
+						drawText("X", cWhite, x + 12, y + 14, 1, 0, 1)
+					else
+						-- Player is alive, draw a square representing this player
+						drawRect(x, y, x + 24, y + 24, teamCols[rightCol])
+						-- Player has spawns left, draw a '1' inside his square
+						if ps > 3 then
+							drawText("1", teamTextCols[rightCol], x + 12, y + 14, 1, 0, 1)
+						end
+					end
+					x = x + 26
+				end
 			end
 		end
 	end
-
-	-- Player info
+	-----------------
+	-- Player info --
+	-----------------
 	if player.isAlive() then
-		-- Debugging
-		--string = "Ready:" .. (currentWeapon.isReadyToFire() and "y" or "n") .. " Reloading:" .. (currentWeapon.isReloading(n) and "y" or "n") .. " LowAmmo:" .. (currentWeapon.isLowAmmo(n) and "y" or "n") .. " ammo:" .. currentWeapon.ammo() .. " ammoMax:" .. currentWeapon.ammoMax() .. " ammoCarried:" .. currentWeapon.ammoCarried(n) .. " ammoMaxCarried:" .. currentWeapon.ammoMaxCarried() .. " ammoTotal:" .. currentWeapon.ammoTotal(n)
-		--n = 7
-		--string = "Ready:" .. (weapon.isReadyToFire(n) and "y" or "n") .. " Reloading:" .. (weapon.isReloading(n) and "y" or "n") .. " LowAmmo:" .. (weapon.isLowAmmo(n) and "y" or "n") .. " ammo:" .. weapon.ammo(n) .. " ammoMax:" .. weapon.ammoMax(n) .. " ammoCarried:" .. weapon.ammoCarried(n) .. " ammoMaxCarried:" .. weapon.ammoMaxCarried(n) .. " ammoTotal:" .. weapon.ammoTotal(n)
-		--drawSmallText(string , cWhite, centerX, 150, 1, 1, 1)
-		--n = 6
-		--string = "Ready:" .. (weapon.isReadyToFire(n) and "y" or "n") .. " Reloading:" .. (weapon.isReloading(n) and "y" or "n") .. " LowAmmo:" .. (weapon.isLowAmmo(n) and "y" or "n") .. " ammo:" .. weapon.ammo(n) .. " ammoMax:" .. weapon.ammoMax(n) .. " ammoCarried:" .. weapon.ammoCarried(n) .. " ammoMaxCarried:" .. weapon.ammoMaxCarried(n) .. " ammoTotal:" .. weapon.ammoTotal(n)
-		--drawSmallText(string , cWhite, centerX, 165, 1, 1, 1)
-
 		-- Store the relevant data
 		local health = player.health()
 		local energy = player.energy()
@@ -128,6 +273,9 @@ function onDrawCustomHud(resX, resY)
 		-- If the current gun is not ready to fire, draw a red square at the middle of the screen
 		if currentWeapon.isReloading() then
 			drawRect(centerX - 2, centerY - 2, centerX + 3, centerY + 3, cRed)
+			if currentWeapon.isReloaded() then
+				drawText("cancel reload!", cWhite, 200, 200, 0, 0, 1)
+			end
 		end
 		-- Draw the ammo of the current weapon close to the crosshair
 		if not currentWeapon.isPack() then
@@ -138,9 +286,9 @@ function onDrawCustomHud(resX, resY)
 		-- Heavy (ID 3) has 4 weapons, while light and medium have 3. All classes have belt items and packs
 		local weapons = player.classId() == 3 and { 2,3,4,5,7,6 } or { 2,3,4,7,6 }
 		local current = currentWeapon.equippedAt()
-	
+
 		for i, wep in ipairs(weapons) do
-			if not (wep == 6 and weapon.isPack(6)) then
+			if not ((wep == 6 and weapon.isPack(6)) or weapon.ammo(wep) == -1) then
 				local x
 				local y = (resY / 2 - 100) + 30 * i
 				local col = cWhite
@@ -155,7 +303,7 @@ function onDrawCustomHud(resX, resY)
 				drawRect(4 + x, y, 80 + x, 28 + y, cBoxBG1)
 				drawSmallText(wep == 6 and "Pack" or wep == 7 and "Belt" or i, rgba(255, 255, 255, 100), 8 + x, 10 + y, 0, 0, 1)
 				drawText(weapon.ammoTotal(wep), col, x + 74, y + 16, 2, 0, 1)
-				
+
 				if wep == 7 then
 					for i = 0,player.numMines() - 1 do drawRect(9 + x + 7 * i, 20 + y, 13 + x + 7 * i, 24 + y, teamCols[0]) end
 				elseif wep == 6 then
@@ -166,11 +314,11 @@ function onDrawCustomHud(resX, resY)
 
 		-- Draw a message if we have the flag
 		if player.hasFlag() then
-			drawText("F L A G", rgb(168,234,168), centerX, resY * 0.15, 1, 0, 1.8)
+			drawText("F L A G", rgb(168,234,168), centerX, resY * 0.12, 1, 0, 1.8)
 		end
 		-- Draw a message if we have rage active
 		if player.isRaged() then
-			drawText("R A G E", cRed, centerX, resY * 0.20, 1, 0, 1.8)
+			drawText("R A G E", cRed, centerX, resY * 0.17, 1, 0, 1.8)
 		end
 	else
 		respawnTime = player.respawnTime()

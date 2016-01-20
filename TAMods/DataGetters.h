@@ -8,6 +8,7 @@ namespace getViewPortData
 }
 namespace getPlayerData
 {
+	std::string name();
 	bool isAlive();
 	bool isRaged();
 	bool isVehicle();
@@ -16,6 +17,7 @@ namespace getPlayerData
 	float energy();
 	float energyMax();
 	float energyPct();
+	int ping();
 	int classId();
 	int health();
 	int healthMax();
@@ -23,6 +25,9 @@ namespace getPlayerData
 	int respawnTime();
 	int numDeployables();
 	int numMines();
+	int score();
+	int rabbitRank();
+	int arenaSpawnsLeft();
 	unsigned char teamNum();
 }
 namespace getWeaponData
@@ -43,6 +48,7 @@ namespace getCurrentWeaponData
 {
 	bool isReadyToFire();
 	bool isReloading();
+	bool isReloaded();
 	bool isPack();
 	bool isLowAmmo();
 	int ammo();
@@ -68,6 +74,25 @@ namespace getGameData
 	int scoreLimit();
 	int time();
 	int timeLimit();
+}
+namespace getRabbitData
+{
+	int leaderBoardScore(unsigned const char &n);
+	std::string leaderBoardName(unsigned const char &n);
+	std::string rabbitName();
+}
+namespace getCaHData
+{
+	int pointsNum();
+	int pointsHeld(unsigned const char &n);
+	unsigned char pointHolder(unsigned const char &n);
+	unsigned char pointLabel(unsigned const char &n);
+}
+namespace getArenaData
+{
+	int round();
+	int roundScore(unsigned const char &n);
+	unsigned char playerStatus(unsigned const char &team, unsigned const char &player);
 }
 namespace getFlagData
 {
