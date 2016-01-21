@@ -7,6 +7,8 @@ namespace Utils
 	ATrPlayerController *tr_pc = NULL;
 	UTrGameViewportClient *tr_gvc = NULL;
 	ATrHUD *tr_hud = NULL;
+	AUTHUD *ut_hud = UObject::FindObject<AUTHUD>("UTHUD UTGame.Default__UTHUD");
+
 	UTexture2D *whiteTexture = UObject::FindObject<UTexture2D>("Texture2D EngineResources.WhiteSquareTexture");
 	UFont *mainFont = UObject::FindObject<UFont>("Font Hud_Items.NameForeground");
 	UFont *consoleFont = UObject::FindObject<UFont>("Font EngineFonts.SmallFont");
@@ -221,7 +223,7 @@ void Utils::printConsole(const std::string &str, const FColor &col)
 	tr_gvc->ChatConsole->OutputTextLine(wch, col);
 }
 
-void Utils::drawText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &size)
+void Utils::drawTextMain(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale, const unsigned &size, const unsigned char &fontNum)
 {
 	if (!(tr_hud && tr_hud->Canvas))
 		return;
@@ -232,11 +234,18 @@ void Utils::drawText(const std::string &str, const FColor &col, float x, float y
 	std::wstring wstr = std::wstring(str.begin(), str.end());
 	wchar_t* wch = (wchar_t *)wstr.c_str();
 
-	canvas.Font = mainFont;
+	switch (fontNum)
+	{
+	case 1: canvas.Font = mainFont; break;
+	case 2: canvas.Font = consoleFont; break;
+	case 3: canvas.Font = ut_hud->GetFontSizeIndex(size); break;
+	default: canvas.Font = mainFont;
+	}
+
 	canvas.StrLen(wch, &xl, &yl);
 
-	xl *= size;
-	yl *= size;
+	xl *= scale;
+	yl *= scale;
 
 	// 0=left 1=center 2=right
 	if (align == 1)
@@ -246,51 +255,30 @@ void Utils::drawText(const std::string &str, const FColor &col, float x, float y
 
 	y -= yl / 2;
 
-	//if (shadowSize != 0)
-	//{
-	//	canvas.DrawColor = { 0, 0, 0, 255 };
-	//	canvas.SetPos(x + shadowSize, y + shadowSize, 0.0f);
-	//	canvas.DrawTextW(wch, true, size, size, &tr_hud->m_nNameFontRenderInfo);
-	//}
-	canvas.DrawColor = col;
-	canvas.SetPos(x, y, 0.0f);
-	canvas.DrawTextW(wch, true, size, size, &tr_hud->m_nNameFontRenderInfo);
-}
-
-void Utils::drawSmallText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &size)
-{
-	if (!(tr_hud && tr_hud->Canvas))
-		return;
-
-	UCanvas &canvas = *tr_hud->Canvas;
-	float xl, yl;
-
-	std::wstring wstr = std::wstring(str.begin(), str.end());
-	wchar_t* wch = (wchar_t *)wstr.c_str();
-
-	canvas.Font = consoleFont;
-	canvas.StrLen(wch, &xl, &yl);
-
-	xl *= size;
-	yl *= size;
-
-	// 0=left 1=center 2=right
-	if (align == 1)
-		x -= xl / 2;
-	else if (align == 2)
-		x -= xl;
-
-	y -= yl / 2;
-
-	if (shadowSize != 0)
+	if (fontNum > 1 && shadowSize != 0)
 	{
 		canvas.DrawColor = { 0, 0, 0, 255 };
 		canvas.SetPos(x + shadowSize, y + shadowSize, 0.0f);
-		canvas.DrawTextW(wch, true, size, size, &tr_hud->m_nNameFontRenderInfo);
+		canvas.DrawTextW(wch, true, scale, scale, &tr_hud->m_nNameFontRenderInfo);
 	}
 	canvas.DrawColor = col;
 	canvas.SetPos(x, y, 0.0f);
-	canvas.DrawTextW(wch, true, size, size, &tr_hud->m_nNameFontRenderInfo);
+	canvas.DrawTextW(wch, true, scale, scale, &tr_hud->m_nNameFontRenderInfo);
+}
+
+void Utils::drawText(const std::string &str, const FColor &col, float x, float y, const byte &align, const float &scale)
+{
+	drawTextMain(str, col, x, y, align, 0, scale, 0, 1);
+}
+
+void Utils::drawSmallText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale)
+{
+	drawTextMain(str, col, x, y, align, shadowSize, scale, 0, 2);
+}
+
+void Utils::drawUTText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size)
+{
+	drawTextMain(str, col, x, y, align, shadowSize, 1.0f, size, 3);
 }
 
 void Utils::drawRect(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col)

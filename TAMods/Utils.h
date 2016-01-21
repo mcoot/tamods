@@ -38,8 +38,10 @@ namespace Utils
 	void printConsole(const std::string &str, const FColor &col);
 
 	// Canvas drawing
-	void drawText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &size);
-	void drawSmallText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &size);
+	void drawTextMain(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale, const unsigned &size, const unsigned char &fontNum);
+	void drawText(const std::string &str, const FColor &col, float x, float y, const byte &align, const float &scale);
+	void drawSmallText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale);
+	void drawUTText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size);
 	void drawRect(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 	void drawBox(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 	void drawProgressBar(float x1, float y1, float x2, float y2, const FColor &col, const byte &dir, const float &alpha);
@@ -53,6 +55,7 @@ namespace Utils
 	extern ATrPlayerController *tr_pc;
 	extern UTrGameViewportClient *tr_gvc;
 	extern ATrHUD *tr_hud;
+	extern AUTHUD *ut_hud;
 
 	extern UTexture2D *whiteTexture;
 	extern UFont *mainFont;

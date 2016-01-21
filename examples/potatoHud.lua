@@ -42,7 +42,7 @@ function onDrawCustomHud(resX, resY)
 
 	-- Draw the 128x40 timer background at the top-center of the screen
 	drawRect(centerX - 64, 0, centerX + 64, 40, cBoxBG1)
-	drawText(game.timeStr(), cWhite, resX / 2, 22, 1, 0, 1.7)
+	drawUTText(game.timeStr(), cWhite, resX / 2, 20, 1, 1, 1)
 
 	-- Draw the currents game status like overtime, warmup etc.
 	if game.isWarmUp() then
@@ -54,10 +54,10 @@ function onDrawCustomHud(resX, resY)
 	if gameType ~= "TrGame_TRRabbit" then
 		-- Left
 		drawRect(centerX - 134, 0, centerX - 64, 40, teamCols[leftCol])
-		drawText(game.score(leftTeam), teamTextCols[leftCol], centerX - 99, 22, 1, 0, 1.5)
+		drawText(game.score(leftTeam), teamTextCols[leftCol], centerX - 99, 22, 1, 1.5)
 		-- Right
 		drawRect(centerX + 64, 0, centerX + 134, 40, teamCols[rightCol])
-		drawText(game.score(rightTeam), teamTextCols[rightCol], centerX + 99, 22, 1, 0, 1.5)
+		drawText(game.score(rightTeam), teamTextCols[rightCol], centerX + 99, 22, 1, 1.5)
 	end
 
 	if gameType == "TrGame_TRCTF" or gameType == "TrGame_TrCTFBlitz" or gameType == "TrGame_TRTeamRabbit" then
@@ -72,10 +72,10 @@ function onDrawCustomHud(resX, resY)
 
 			if returnTime > 0 then
 				-- Flag is dropped, display the time until auto return
-				drawText(returnTime, teamTextCols[leftCol], centerX - 140, 22, 2, 0, 1.2) 
+				drawText(returnTime, teamTextCols[leftCol], centerX - 140, 22, 2, 1.2) 
 			else
 				-- Flag is held, display the name of the holder
-				drawText(flag.holderName(leftTeam), teamTextCols[rightCol], centerX - 140, 22, 2, 0, 1) 
+				drawText(flag.holderName(leftTeam), teamTextCols[rightCol], centerX - 140, 22, 2, 1) 
 			end
 		end
 		-- Right team
@@ -84,10 +84,10 @@ function onDrawCustomHud(resX, resY)
 
 			if returnTime > 0 then
 				-- Flag is dropped, display the time until auto return
-				drawText(returnTime, teamTextCols[rightCol], centerX + 140, 22, 0, 0, 1.2) 
+				drawText(returnTime, teamTextCols[rightCol], centerX + 140, 22, 0, 1.2) 
 			else
 				-- Flag is held, display the name of the holder
-				drawText(flag.holderName(rightTeam), teamTextCols[leftCol], centerX + 140, 22, 0, 0, 1) 
+				drawText(flag.holderName(rightTeam), teamTextCols[leftCol], centerX + 140, 22, 0, 1) 
 			end
 		end
 
@@ -123,7 +123,7 @@ function onDrawCustomHud(resX, resY)
 
 		-- Draw the current rabbit below the game timer, but only if it's not us
 		if not player.hasFlag() then
-			drawText(rabbit.rabbitName(), teamTextCols[0], centerX + 80, 22, 0, 0, 1)
+			drawText(rabbit.rabbitName(), teamTextCols[0], centerX + 80, 22, 0, 1)
 		end
 		local myRank = player.rabbitRank()
 		local y
@@ -135,16 +135,16 @@ function onDrawCustomHud(resX, resY)
 				drawRect(45, y - 14, 305, y + 12, cBoxBG1)
 				-- Different color if this is us
 				color = i+1 == myRank and teamTextCols[1] or cWhite
-				drawText(i+1 .. ". " .. name, color, 50, y, 0, 0, 1)
-				drawText(rabbit.leaderBoardScore(i), color, 300, y, 2, 0, 1)
+				drawText(i+1 .. ". " .. name, color, 50, y, 0, 1)
+				drawText(rabbit.leaderBoardScore(i), color, 300, y, 2, 1)
 			end
 		end
 		-- If our rank is lower than 3, we are not on the leaderboard, so draw us and our rank below it
 		if myRank > 3 then
 			y = y + 28
 			drawRect(45, y - 14, 305, y + 12, cBoxBG1)
-			drawText(myRank .. ". " .. myName, teamTextCols[1], 50, y, 0, 0, 1)
-			drawText(player.score(), teamTextCols[1], 300, y, 2, 0, 1)
+			drawText(myRank .. ". " .. myName, teamTextCols[1], 50, y, 0, 1)
+			drawText(player.score(), teamTextCols[1], 300, y, 2, 1)
 		end
 	elseif gameType == "TrGame_TrCaH" then
 		----------------------
@@ -176,14 +176,14 @@ function onDrawCustomHud(resX, resY)
 		-- Round scores
 		-- Left team
 		drawRect(centerX - 113, 40, centerX - 86, 60, teamCols[leftCol])
-		drawText(arena.roundScore(leftTeam), teamTextCols[leftCol], centerX - 99, 51, 1, 0, 1)
+		drawText(arena.roundScore(leftTeam), teamTextCols[leftCol], centerX - 99, 51, 1, 1)
 		-- Right team
 		drawRect(centerX + 86, 40, centerX + 113, 60, teamCols[rightCol])
-		drawText(arena.roundScore(rightTeam), teamTextCols[rightCol], centerX + 99, 51, 1, 0, 1)
+		drawText(arena.roundScore(rightTeam), teamTextCols[rightCol], centerX + 99, 51, 1, 1)
 
 		-- Draw a warning message if we have no respawns left
 		if myTeam ~= 255 and not game.isWarmUp() and player.isAlive() and player.arenaSpawnsLeft() < 1 then
-			drawText("Last live!", cRed, centerX, resY * 0.12, 1, 0, 1.8)
+			drawText("Last live!", cRed, centerX, resY * 0.12, 1, 1.8)
 		end
 
 		-- Draw the lefts teams player mannequins when spawns are empty
@@ -198,13 +198,13 @@ function onDrawCustomHud(resX, resY)
 				if ps > 0 then
 					if ps == 1 then
 						-- Player is benched, only draw an 'x'
-						drawText("X", cWhite, x - 12, y + 14, 1, 0, 1)
+						drawText("X", cWhite, x - 12, y + 14, 1, 1)
 					else
 						-- Player is alive, draw a square representing this player
 						drawRect(x - 24, y, x, y + 24, teamCols[leftCol])
 						-- Player has spawns left, draw a '1' inside his square
 						if ps > 3 then
-							drawText("1", teamTextCols[leftCol], x - 12, y + 14, 1, 0, 1)
+							drawText("1", teamTextCols[leftCol], x - 12, y + 14, 1, 1)
 						end
 					end
 					x = x - 26
@@ -223,13 +223,13 @@ function onDrawCustomHud(resX, resY)
 				if ps > 0 then
 					if ps == 1 then
 						-- Player is benched, only draw an 'x'
-						drawText("X", cWhite, x + 12, y + 14, 1, 0, 1)
+						drawText("X", cWhite, x + 12, y + 14, 1, 1)
 					else
 						-- Player is alive, draw a square representing this player
 						drawRect(x, y, x + 24, y + 24, teamCols[rightCol])
 						-- Player has spawns left, draw a '1' inside his square
 						if ps > 3 then
-							drawText("1", teamTextCols[rightCol], x + 12, y + 14, 1, 0, 1)
+							drawText("1", teamTextCols[rightCol], x + 12, y + 14, 1, 1)
 						end
 					end
 					x = x + 26
@@ -260,13 +260,13 @@ function onDrawCustomHud(resX, resY)
 		drawProgressBar(centerX - 300, resY - 33, centerX - 4, resY - 12, healthCol, 3, healthPct)
 		drawProgressBar(centerX + 4, resY - 33, centerX + 300, resY - 12, energyCol, 1, energyPct)
 		-- Draw the actual numbers
-		drawText(health, healthCol, centerX - 10, resY - 55, 2, 0, 2)
-		drawText(math.floor(energy), energyCol, centerX + 10, resY - 55, 0, 0, 2)
+		drawUTText(health, healthCol, centerX - 10, resY - 55, 2, 2, 2)
+		drawUTText(math.floor(energy), energyCol, centerX + 10, resY - 55, 0, 2, 2)
 
 		-- Draw current speed, but only when not standing still
 		local speed = player.speed()
 		if speed ~= 0 then
-			drawText(speed .. " kph", cWhite, resX - 15, resY / 2, 2, 0, 1)
+			drawText(speed .. " kph", cWhite, resX - 15, resY / 2, 2, 1)
 		end
 
 		-- Weapons and Ammo
@@ -274,7 +274,7 @@ function onDrawCustomHud(resX, resY)
 		if currentWeapon.isReloading() then
 			drawRect(centerX - 2, centerY - 2, centerX + 3, centerY + 3, cRed)
 			if currentWeapon.isReloaded() then
-				drawText("cancel reload!", cWhite, 200, 200, 0, 0, 1)
+				drawText("cancel reload!", rgb(0,255,255), 200, 200, 0, 1)
 			end
 		end
 		-- Draw the ammo of the current weapon close to the crosshair
@@ -302,7 +302,7 @@ function onDrawCustomHud(resX, resY)
 
 				drawRect(4 + x, y, 80 + x, 28 + y, cBoxBG1)
 				drawSmallText(wep == 6 and "Pack" or wep == 7 and "Belt" or i, rgba(255, 255, 255, 100), 8 + x, 10 + y, 0, 0, 1)
-				drawText(weapon.ammoTotal(wep), col, x + 74, y + 16, 2, 0, 1)
+				drawText(weapon.ammoTotal(wep), col, x + 74, y + 16, 2, 1)
 
 				if wep == 7 then
 					for i = 0,player.numMines() - 1 do drawRect(9 + x + 7 * i, 20 + y, 13 + x + 7 * i, 24 + y, teamCols[0]) end
@@ -314,17 +314,18 @@ function onDrawCustomHud(resX, resY)
 
 		-- Draw a message if we have the flag
 		if player.hasFlag() then
-			drawText("F L A G", rgb(168,234,168), centerX, resY * 0.12, 1, 0, 1.8)
+			drawText("F L A G", rgb(168,234,168), centerX, resY * 0.12, 1, 1.8)
 		end
 		-- Draw a message if we have rage active
 		if player.isRaged() then
-			drawText("R A G E", cRed, centerX, resY * 0.17, 1, 0, 1.8)
+			drawText("R A G E", cRed, centerX, resY * 0.16, 1, 1.8)
 		end
 	else
 		respawnTime = player.respawnTime()
 
 		if respawnTime > 0 then
-			drawText(respawnTime, cWhite, centerX, resY * 0.9, 1, 0, 1.5)
+			drawText(respawnTime, cWhite, centerX, resY * 0.9, 1, 1.5)
 		end
 	end
 end
+console("potatoHud loaded")

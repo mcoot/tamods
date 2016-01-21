@@ -1032,6 +1032,7 @@ void Lua::init()
 		// Custom HUD drawing functions
 		addFunction("drawText",        &Utils::drawText).
 		addFunction("drawSmallText",   &Utils::drawSmallText).
+		addFunction("drawUTText",      &Utils::drawUTText).
 		addFunction("drawRect",        &Utils::drawRect).
 		addFunction("drawBox",         &Utils::drawBox).
 		addFunction("drawProgressBar", &Utils::drawProgressBar).

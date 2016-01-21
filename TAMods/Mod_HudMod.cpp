@@ -30,10 +30,9 @@ bool TrChatConsoleCommand_quit(int ID, UObject *dwCallingObject, UFunction* pFun
 
 void TrHUD_DrawMarkerText(ATrHUD *that, ATrHUD_execDrawMarkerText_Parms *params, void *result, Hooks::CallInfo *callInfo)
 {
-	static UFont *NameForeground = UObject::FindObject<UFont>("Font Hud_Items.NameForeground");
 	float XL, YL;
 
-	params->DrawCanvas->Font = NameForeground;
+	params->DrawCanvas->Font = Utils::mainFont;
 	params->DrawCanvas->SetPos(params->Placement.X, params->Placement.Y, params->Placement.Z);
 	params->DrawCanvas->StrLen(params->ShowText, &XL, &YL);
 	XL *= g_config.textScale;
