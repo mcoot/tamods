@@ -4,6 +4,11 @@ Lua::Lua()
 {
 	_state = luaL_newstate();
 	luaL_openlibs(_state);
+	std::string config = Utils::getConfigDir();
+	std::replace(config.begin(), config.end(), '\\', '/');
+	std::string path = "package.path = \"" + config + "?.lua;\" .. package.path";
+	Logger::log("%s", path.c_str());
+	doString(path);
 	init();
 	_initInputEvents();
 }
