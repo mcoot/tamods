@@ -323,17 +323,33 @@ void Utils::drawProgressBar(float x1, float y1, float x2, float y2, const FColor
 
 ATrDevice* Utils::getDeviceByEquipPointHelper(unsigned const char &n)
 {
-	if (tr_pc && tr_pc->Pawn && Utils::tr_pc->Pawn->IsAliveAndWell() && tr_pc->Pawn->InvManager)
-		return ((ATrInventoryManager *)tr_pc->Pawn->InvManager)->GetDeviceByEquipPoint(n);
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return ((ATrInventoryManager *)TrP->InvManager)->GetDeviceByEquipPoint(n);
 
 	return NULL;
 }
 
 ATrDevice* Utils::getCurrentDeviceHelper()
 {
-	if (tr_pc && tr_pc->Pawn && Utils::tr_pc->Pawn->IsAliveAndWell() && tr_pc->Pawn->Weapon && !tr_pc->Pawn->Weapon->IsA(ATrVehicleWeapon::StaticClass()))
-		return (ATrDevice *)tr_pc->Pawn->Weapon;
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return (ATrDevice *)TrP->Weapon;
 
+	return NULL;
+}
+
+ATrPawn* Utils::getPlayerPawn()
+{
+	if (tr_pc && tr_pc->Pawn && Utils::tr_pc->Pawn->IsAliveAndWell())
+	{
+		ATrPawn *TrP = (ATrPawn *)Utils::tr_pc->Pawn;
+
+		if (TrP->Weapon && TrP->Weapon->IsA(ATrVehicleWeapon::StaticClass()))
+			return (ATrPawn *)((ATrVehicle *)TrP)->Driver;
+		else
+			return TrP;
+	}
 	return NULL;
 }
 

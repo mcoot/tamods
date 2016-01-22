@@ -5,6 +5,7 @@
 namespace getViewPortData
 {
 	FVector2D size();
+	bool isMainMenuOpen();
 }
 namespace getPlayerData
 {
@@ -58,6 +59,16 @@ namespace getCurrentWeaponData
 	int ammoTotal();
 	unsigned char equippedAt();
 	std::string name();
+}
+namespace getVehicleData
+{
+	bool seatAvailable();
+	int health();
+	int healthMax();
+	float energyPct();
+	int ammo();
+	int ammoMax();
+	int speed();
 }
 namespace getGameData
 {

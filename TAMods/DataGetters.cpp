@@ -1,13 +1,19 @@
 #include "DataGetters.h"
 #include "Utils.h"
+#include "Geom.h"
 
 /*
 	TODO:
+	acquire t2 sounds :)
+	TrP->IsFirstPerson()
+	draw2dLine function
+	Somehow make certain UI elements hideable which otherwise always show up (ammo counter in 3rd person, rabbit leader board etc)
+		Tie it to the setting for the teamscores. If thats disabled, hide the rest too
+	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
 	GameEnded and Overtime display (not so easy to get, probably need to hook some function in order to get it)
+		Fix respawn time +1 problem (it also shows up when it shouldn't, like pre-game etc)
 	more helper functions
-	Fix vehicle/seat detection
 	Stopwatch (all data)
-	menuOpen() ?
 	WorldSeconds and DeltaTime ?
 	Stats: Kills / Deaths / K/D / MAs / Streaks / Returns / Grabs
 	Killfeed
@@ -16,9 +22,8 @@
 	Accolades
 	Kill info
 	Killer info
-	Vehicle HP energy ammo
 	Spectator stuff -> TrPlayerOwner.InRovingSpectate()? plus team 255
-*/
+	*/
 
 FVector2D getViewPortData::size()
 {
@@ -28,6 +33,13 @@ FVector2D getViewPortData::size()
 	FVector2D s;
 	Utils::tr_gvc->GetViewportSize(&s);
 	return s;
+}
+bool getViewPortData::isMainMenuOpen()
+{
+	if (Utils::tr_hud)
+		return Utils::tr_hud->bIsMainMenuOpen;
+
+	return false;
 }
 /////////////////////////////////////////////////////////////////////////////////////
 std::string getPlayerData::name()
@@ -46,22 +58,27 @@ bool getPlayerData::isAlive()
 }
 bool getPlayerData::isRaged()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn)
-		return ((ATrPawn *)Utils::tr_pc->Pawn)->r_bIsRaged;
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->r_bIsRaged;
 
 	return false;
 }
 bool getPlayerData::isVehicle()
 {
 	if (Utils::tr_pc && Utils::tr_pc->Pawn)
-		return ((ATrPawn *)Utils::tr_pc->Pawn)->m_RidingVehicle || ((ATrPawn *)Utils::tr_pc->Pawn)->IsA(ATrVehicle::StaticClass());
+	{
+		if (Utils::tr_pc->Pawn->IsA(ATrWeaponPawn::StaticClass()) || ((ATrPawn *)Utils::tr_pc->Pawn)->m_RidingVehicle)
+			return true;
+	}
 
 	return false;
 }
 bool getPlayerData::isShielded()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn)
-		return ((ATrPawn *)Utils::tr_pc->Pawn)->r_bIsShielded;
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->r_bIsShielded;
 
 	return false;
 }
@@ -74,22 +91,25 @@ bool getPlayerData::hasFlag()
 }
 float getPlayerData::energy()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn)
-		return ((ATrPawn *)Utils::tr_pc->Pawn)->m_fCurrentPowerPool;
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->m_fCurrentPowerPool;
 
 	return 0.0f;
 }
 float getPlayerData::energyMax()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn)
-		return ((ATrPawn *)Utils::tr_pc->Pawn)->r_fMaxPowerPool;
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->r_fMaxPowerPool;
 
 	return 0.0f;
 }
 float getPlayerData::energyPct()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn)
-		return ((ATrPawn *)Utils::tr_pc->Pawn)->m_fCurrentPowerPool / ((ATrPawn *)Utils::tr_pc->Pawn)->r_fMaxPowerPool;
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->m_fCurrentPowerPool / TrP->r_fMaxPowerPool;
 
 	return 0.0f;
 }
@@ -113,22 +133,25 @@ int getPlayerData::classId()
 }
 int getPlayerData::health()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn)
-		return Utils::tr_pc->Pawn->Health;
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->Health;
 
 	return 0;
 }
 int getPlayerData::healthMax()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn)
-		return Utils::tr_pc->Pawn->HealthMax;
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->HealthMax;
 
 	return 0;
 }
 int getPlayerData::speed()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn && !isVehicle())
-		return ((ATrPawn *)Utils::tr_pc->Pawn)->CalculatePawnSpeed();
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->CalculatePawnSpeed();
 
 	return 0;
 }
@@ -376,6 +399,79 @@ std::string getCurrentWeaponData::name()
 	if (dev) return Utils::f2std(dev->ItemName);
 
 	return "unknown";
+}
+/////////////////////////////////////////////////////////////////////////////////////
+ATrVehicle* getVehicleHelper()
+{
+	if (Utils::tr_pc && Utils::tr_pc->Pawn)
+	{
+		ATrPawn *TrP = (ATrPawn *)Utils::tr_pc->Pawn;
+
+		// All vehicles except gravcycle passenger
+		if (TrP->Weapon && TrP->Weapon->IsA(ATrVehicleWeapon::StaticClass()))
+			return (ATrVehicle *)((ATrVehicleWeapon *)TrP->Weapon)->MyVehicle;
+		// Grav bike passenger
+		else if (TrP->m_RidingVehicle)
+			return TrP->m_RidingVehicle;
+	}
+	return NULL;
+}
+bool getVehicleData::seatAvailable()
+{
+	ATrVehicle *v = getVehicleHelper();
+	if (v) return v->AnySeatAvailable();
+
+	return false;
+}
+int getVehicleData::health()
+{
+	ATrVehicle *v = getVehicleHelper();
+	if (v) return v->Health;
+
+	return 0;
+}
+int getVehicleData::healthMax()
+{
+	ATrVehicle *v = getVehicleHelper();
+	if (v) return v->HealthMax;
+
+	return 0;
+}
+float getVehicleData::energyPct()
+{
+	ATrVehicle *v = getVehicleHelper();
+	if (v) return v->GetPowerPoolPercent();
+
+	return 0.0f;
+}
+int getVehicleData::ammo()
+{
+	if (Utils::tr_pc && Utils::tr_pc->Pawn)
+	{
+		ATrPawn *TrP = (ATrPawn *)Utils::tr_pc->Pawn;
+
+		if (TrP->Weapon && TrP->Weapon->IsA(ATrVehicleWeapon::StaticClass()))
+			return ((ATrVehicleWeapon *)TrP->Weapon)->AmmoCount;
+	}
+	return -1;
+}
+int getVehicleData::ammoMax()
+{
+	if (Utils::tr_pc && Utils::tr_pc->Pawn)
+	{
+		ATrPawn *TrP = (ATrPawn *)Utils::tr_pc->Pawn;
+
+		if (TrP->Weapon && TrP->Weapon->IsA(ATrVehicleWeapon::StaticClass()))
+			return ((ATrVehicleWeapon *)TrP->Weapon)->MaxAmmoCount;
+	}
+	return -1;
+}
+int getVehicleData::speed()
+{
+	ATrVehicle *v = getVehicleHelper();
+	if (v) return (int)(Geom::vSize(v->Velocity) * 0.072f);
+
+	return 0;
 }
 /////////////////////////////////////////////////////////////////////////////////////
 std::string getGameData::type()
