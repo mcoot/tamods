@@ -332,11 +332,6 @@ function onDrawCustomHud(resX, resY)
 			local healthCol = rgba(195, 248, 212, 200)
 			local energyCol = rgba(161, 209, 213, 200)
 			
-			-- Seat display
-			if vehicle.seatAvailable() then
-				drawSmallText("Free seat", cWhite, x - 4, y - 12, 0, 1, 1)
-			end
-
 			-- Health
 			drawRect(x, y, x + 18, y + 88, cBoxBG1)
 			drawBox(x, y, x + 18, y + 88, healthCol)

@@ -7,8 +7,6 @@
 	acquire t2 sounds :)
 	TrP->IsFirstPerson()
 	draw2dLine function
-	Somehow make certain UI elements hideable which otherwise always show up (ammo counter in 3rd person, rabbit leader board etc)
-		Tie it to the setting for the teamscores. If thats disabled, hide the rest too
 	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
 	GameEnded and Overtime display (not so easy to get, probably need to hook some function in order to get it)
 		Fix respawn time +1 problem (it also shows up when it shouldn't, like pre-game etc)

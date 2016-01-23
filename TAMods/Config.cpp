@@ -1093,13 +1093,12 @@ void Lua::init()
 			addFunction("name",               getCurrentWeaponData::name).
 		endNamespace().
 		beginNamespace("vehicle").
-			addFunction("seatAvailable", getVehicleData::seatAvailable).
-			addFunction("health",        getVehicleData::health).
-			addFunction("healthMax",     getVehicleData::healthMax).
-			addFunction("energyPct",     getVehicleData::energyPct).
-			addFunction("ammo",          getVehicleData::ammo).
-			addFunction("ammoMax",       getVehicleData::ammoMax).
-			addFunction("speed",         getVehicleData::speed).
+			addFunction("health",    getVehicleData::health).
+			addFunction("healthMax", getVehicleData::healthMax).
+			addFunction("energyPct", getVehicleData::energyPct).
+			addFunction("ammo",      getVehicleData::ammo).
+			addFunction("ammoMax",   getVehicleData::ammoMax).
+			addFunction("speed",     getVehicleData::speed).
 		endNamespace().
 		beginNamespace("game").
 			addFunction("type",              getGameData::type).
