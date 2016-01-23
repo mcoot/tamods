@@ -48,6 +48,7 @@ namespace Utils
 
 	ATrDevice* getDeviceByEquipPointHelper(unsigned const char &n);
 	ATrDevice* getCurrentDeviceHelper();
+	ATrPawn* getPlayerPawn();
 
 	void FindObjects(const std::string &needle, CallbackType callback);
 

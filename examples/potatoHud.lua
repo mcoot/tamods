@@ -15,11 +15,11 @@ CaHPointLabels  = {'A','B','C','D','E'}
 
 -- Toggle HUD bound to 'O'
 showHud = true
-bindKey("O", Input.PRESSED, function() showHud = not showHud end)
+bindKey("O", Input.PRESSED, function() if not viewPort.isMainMenuOpen() then showHud = not showHud end end)
 
 function onDrawCustomHud(resX, resY)
 	-- Toggle HUD
-	if not showHud then
+	if not showHud or viewPort.isMainMenuOpen() then
 		return
 	end
 
@@ -242,9 +242,10 @@ function onDrawCustomHud(resX, resY)
 	-----------------
 	if player.isAlive() then
 		-- Store the relevant data
+		local isVehicle = player.isVehicle()
 		local health = player.health()
 		local energy = player.energy()
-		local speed = player.speed()
+		local speed = isVehicle and vehicle.speed() or player.speed()
 		local healthPct = health / player.healthMax()
 		local energyPct = player.energyPct()
 		local healthCol = lerpColor(rgba(235, 22, 51, 255), rgba(195, 248, 212, 200), healthPct)
@@ -263,8 +264,7 @@ function onDrawCustomHud(resX, resY)
 		drawUTText(health, healthCol, centerX - 10, resY - 55, 2, 2, 2)
 		drawUTText(math.floor(energy), energyCol, centerX + 10, resY - 55, 0, 2, 2)
 
-		-- Draw current speed, but only when not standing still
-		local speed = player.speed()
+		-- Draw current speed (player or vehicle), but only when not 0
 		if speed ~= 0 then
 			drawText(speed .. " kph", cWhite, resX - 15, resY / 2, 2, 1)
 		end
@@ -278,7 +278,7 @@ function onDrawCustomHud(resX, resY)
 			end
 		end
 		-- Draw the ammo of the current weapon close to the crosshair
-		if not currentWeapon.isPack() then
+		if not currentWeapon.isPack() and (not isVehicle or (isVehicle and vehicle.ammo() < 0)) then
 			drawSmallText(currentWeapon.ammo(), currentWeapon.isLowAmmo() and cRed or cWhite, resX / 2 + 16, resY * 0.6, 1, 1, 1)
 		end
 
@@ -320,8 +320,42 @@ function onDrawCustomHud(resX, resY)
 		if player.isRaged() then
 			drawText("R A G E", cRed, centerX, resY * 0.16, 1, 1.8)
 		end
+
+		-- Vehicle display
+		if isVehicle then
+			local x = resX * 0.65
+			local y = resY - 200
+			local health    = vehicle.health()
+			local healthPct = health / vehicle.healthMax()
+			local energyPct = vehicle.energyPct()
+			local energy    = math.floor(energyPct * 100)
+			local healthCol = rgba(195, 248, 212, 200)
+			local energyCol = rgba(161, 209, 213, 200)
+			
+			-- Seat display
+			if vehicle.seatAvailable() then
+				drawSmallText("Free seat", cWhite, x - 4, y - 12, 0, 1, 1)
+			end
+
+			-- Health
+			drawRect(x, y, x + 18, y + 88, cBoxBG1)
+			drawBox(x, y, x + 18, y + 88, healthCol)
+			drawProgressBar(x + 4, y + 4, x + 14, y + 84, healthCol, 0, healthPct)
+			drawSmallText(health, healthCol, x + 9, y + 98, 1, 1, 1)
+			-- Energy
+			x = x + 35
+			drawRect(x, y, x + 18, y + 88, cBoxBG1)
+			drawBox(x, y, x + 18, y + 88, energyCol)
+			drawProgressBar(x + 4, y + 4, x + 14, y + 84, energyCol, 0, energyPct)
+			drawSmallText(energy, energyCol, x + 9, y + 98, 1, 1, 1)
+
+			-- Ammo, not as gravcycle passenger (-1 ammo) or for the beowulf cannon (1 ammo)
+			if vehicle.ammoMax() > 1 then
+				drawSmallText(vehicle.ammo() .. "/" .. vehicle.ammoMax(), currentWeapon.isLowAmmo() and cRed or cWhite, resX / 2 + 16, resY * 0.6, 1, 1, 1)
+			end
+		end
 	else
-		respawnTime = player.respawnTime()
+		local respawnTime = player.respawnTime()
 
 		if respawnTime > 0 then
 			drawText(respawnTime, cWhite, centerX, resY * 0.9, 1, 1.5)

@@ -1040,6 +1040,7 @@ void Lua::init()
 		// Custom HUD getter functions
 		beginNamespace("viewPort").
 			addFunction("size", getViewPortData::size).
+			addFunction("isMainMenuOpen", getViewPortData::isMainMenuOpen).
 		endNamespace().
 		beginNamespace("player").
 			addFunction("name",            getPlayerData::name).
@@ -1090,6 +1091,15 @@ void Lua::init()
 			addFunction("ammoTotal",          getCurrentWeaponData::ammoTotal).
 			addFunction("equippedAt",         getCurrentWeaponData::equippedAt).
 			addFunction("name",               getCurrentWeaponData::name).
+		endNamespace().
+		beginNamespace("vehicle").
+			addFunction("seatAvailable", getVehicleData::seatAvailable).
+			addFunction("health",        getVehicleData::health).
+			addFunction("healthMax",     getVehicleData::healthMax).
+			addFunction("energyPct",     getVehicleData::energyPct).
+			addFunction("ammo",          getVehicleData::ammo).
+			addFunction("ammoMax",       getVehicleData::ammoMax).
+			addFunction("speed",         getVehicleData::speed).
 		endNamespace().
 		beginNamespace("game").
 			addFunction("type",              getGameData::type).
