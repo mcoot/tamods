@@ -66,9 +66,9 @@ bool getPlayerData::isRaged()
 }
 bool getPlayerData::isVehicle()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn)
+	if (Utils::tr_pc && Utils::tr_pc->Pawn && Utils::tr_pc->Pawn->Weapon)
 	{
-		if (Utils::tr_pc->Pawn->IsA(ATrWeaponPawn::StaticClass()) || ((ATrPawn *)Utils::tr_pc->Pawn)->m_RidingVehicle)
+		if (Utils::tr_pc->Pawn->Weapon->IsA(ATrVehicleWeapon::StaticClass()) || ((ATrPawn *)Utils::tr_pc->Pawn)->m_RidingVehicle)
 			return true;
 	}
 
@@ -415,13 +415,6 @@ ATrVehicle* getVehicleHelper()
 			return TrP->m_RidingVehicle;
 	}
 	return NULL;
-}
-bool getVehicleData::seatAvailable()
-{
-	ATrVehicle *v = getVehicleHelper();
-	if (v) return v->AnySeatAvailable();
-
-	return false;
 }
 int getVehicleData::health()
 {
