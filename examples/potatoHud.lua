@@ -21,6 +21,7 @@ bindKey("O", Input.PRESSED, function() if not viewPort.isMainMenuOpen() then sho
 -- Storage table for the death messages
 deathMessagesMax = 6
 deathMessages = {}
+deathMessagesPersistence = 10
 
 -- Define some strings for the different kill types
 killTypes = {"Exploded","Stickied","Squished","Knifed","Fell","Vehicle","Bullet","Sniped","Rekt","Headshot","Killed","Disked","Turret"}
@@ -30,12 +31,12 @@ function onAddToCombatLog(team, killer, killType, victim)
 	-- 0: killer is in our team
 	-- 1: killer is in the enemy team
 	-- 2: the death message is related to us
-	local t
+        local t = {team = team, time = os.time()}
 
 	if killer == "Suicide" then
-		t = { team, victim .. " suicided" }
+		t.message = victim .. " suicided"
 	else
-		t = { team, killer .. " [" .. killTypes[killType] .. "] " .. victim }
+		t.message = killer .. " [" .. killTypes[killType] .. "] " .. victim
 	end
 
 	-- Append new messages to the end
@@ -72,15 +73,18 @@ function onDrawCustomHud(resX, resY)
 	drawSmallText(player.kills() .. "/" .. player.deaths() .. "/" .. player.assists() .. " - " .. player.ping() .. " ms", cWhite, 10, 15, 0, 1, 1)
 
 	-- Death messages
-	for i = 1,deathMessagesMax do
-		if i <= #deathMessages then
-			local team = deathMessages[i][1]
-			local color = team > 1 and cWhite or teamTextCols[team]
-			drawRect(resX - 350, 19 * i - 9, resX - 50, 9 + 19 * i, cBoxBG2)
-			drawSmallText(deathMessages[i][2], color, resX - 200, 19 * i, 1, 1, 1)
-		else
-			break
-		end
+	local i = 1
+	while i <= #deathMessages do
+	   local item = deathMessages[i]
+	   if os.time() - item.time >= deathMessagesPersistence then
+	      table.remove(deathMessages, i)
+	   else
+	      local team = item.team
+	      local color = team > 1 and cWhite or teamTextCols[team]
+	      drawRect(resX - 350, 19 * i - 9, resX - 50, 9 + 19 * i, cBoxBG2)
+	      drawSmallText(item.message, color, resX - 200, 19 * i, 1, 1, 1)
+	      i = i + 1
+	   end
 	end
 
 	-- Draw the 128x40 timer background at the top-center of the screen
