@@ -24,6 +24,7 @@ Config::Config()
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 	onDrawCustomHud = NULL;
+	onAddToCombatLog = NULL;
 	onInputEvent = NULL;
 	reset();
 }
@@ -61,9 +62,11 @@ void Config::reset()
 	delete onDamageNumberCreate;
 	delete onDamageNumberUpdate;
 	delete onDrawCustomHud;
+	delete onAddToCombatLog;
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 	onDrawCustomHud = NULL;
+	onAddToCombatLog = NULL;
 
 	//Damage Number color variables
 	rainbowBulletInt      = 0;
@@ -597,7 +600,9 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showMineIcon);
 	SET_VARIABLE(bool, showSensorIcon);
 
+	// Custom HUD
 	SET_FUNCTION(onDrawCustomHud);
+	SET_FUNCTION(onAddToCombatLog);
 
 	// HUD scaling
 	SET_VARIABLE(float, textScale);
@@ -1045,6 +1050,7 @@ void Lua::init()
 		beginNamespace("player").
 			addFunction("name",            getPlayerData::name).
 			addFunction("isAlive",         getPlayerData::isAlive).
+			addFunction("isFirstPerson",   getPlayerData::isFirstPerson).
 			addFunction("isRaged",         getPlayerData::isRaged).
 			addFunction("isVehicle",       getPlayerData::isVehicle).
 			addFunction("isShielded",      getPlayerData::isShielded).
@@ -1063,6 +1069,9 @@ void Lua::init()
 			addFunction("score",           getPlayerData::score).
 			addFunction("rabbitRank",      getPlayerData::rabbitRank).
 			addFunction("teamNum",         getPlayerData::teamNum).
+			addFunction("kills",           getPlayerData::kills).
+			addFunction("deaths",          getPlayerData::deaths).
+			addFunction("assists",         getPlayerData::assists).
 			addFunction("arenaSpawnsLeft", getPlayerData::arenaSpawnsLeft).
 		endNamespace().
 		beginNamespace("weapon").
@@ -1104,10 +1113,9 @@ void Lua::init()
 			addFunction("type",              getGameData::type).
 			addFunction("timeStr",           getGameData::timeStr).
 			addFunction("isOfflinePlay",     getGameData::isOfflinePlay).
-			addFunction("isGameEnd",         getGameData::isGameEnd).
+			addFunction("isOver",            getGameData::isOver).
 			addFunction("isGenUp",           getGameData::isGenUp).
 			addFunction("isWarmUp",          getGameData::isWarmUp).
-			addFunction("isOverTime",        getGameData::isOverTime).
 			addFunction("genAutoRepairTime", getGameData::genAutoRepairTime).
 			addFunction("overTimeLimit",     getGameData::overTimeLimit).
 			addFunction("score",             getGameData::score).

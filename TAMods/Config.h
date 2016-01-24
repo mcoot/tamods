@@ -140,6 +140,7 @@ public:
 	LuaRef *onDamageNumberUpdate;
 	// Lua scripting HUD
 	LuaRef *onDrawCustomHud;
+	LuaRef *onAddToCombatLog;
 
 	// Custom damage number text
 	std::string damageNumberCustomText;

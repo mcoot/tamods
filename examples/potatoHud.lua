@@ -1,3 +1,4 @@
+-- Colors
 cWhite  = rgba(255, 255, 255, 255)
 cBlack  = rgba(0, 0, 0, 255)
 cRed    = rgba(255, 0, 0, 255)
@@ -16,6 +17,36 @@ CaHPointLabels  = {'A','B','C','D','E'}
 -- Toggle HUD bound to 'O'
 showHud = true
 bindKey("O", Input.PRESSED, function() if not viewPort.isMainMenuOpen() then showHud = not showHud end end)
+
+-- Storage table for the death messages
+deathMessagesMax = 6
+deathMessages = {}
+
+-- Define some strings for the different kill types
+killTypes = {"Exploded","Stickied","Squished","Knifed","Fell","Vehicle","Bullet","Sniped","Rekt","Headshot","Killed","Disked","Turret"}
+
+function onAddToCombatLog(team, killer, killType, victim)
+	-- team is the sum of:
+	-- 0: killer is in our team
+	-- 1: killer is in the enemy team
+	-- 2: the death message is related to us
+	local t
+
+	if killer == "Suicide" then
+		t = { team, victim .. " suicided" }
+	else
+		t = { team, killer .. " [" .. killTypes[killType] .. "] " .. victim }
+	end
+
+	-- Append new messages to the end
+	table.insert(deathMessages, t)
+
+	-- Keep only n death messages
+	if #deathMessages > deathMessagesMax then
+		-- Remove the oldest death message (first element in the table)
+		table.remove(deathMessages, 1)
+	end
+end
 
 function onDrawCustomHud(resX, resY)
 	-- Toggle HUD
@@ -37,8 +68,20 @@ function onDrawCustomHud(resX, resY)
 	local rightTeam = 1 - leftTeam
 	local rightCol = 1 - leftCol
 
-	-- Ping display
-	drawSmallText(player.ping() .. " ms", cWhite, resX - 50, 186, 2, 1, 1)
+	-- KDA and ping display
+	drawSmallText(player.kills() .. "/" .. player.deaths() .. "/" .. player.assists() .. " - " .. player.ping() .. " ms", cWhite, 10, 15, 0, 1, 1)
+
+	-- Death messages
+	for i = 1,deathMessagesMax do
+		if i <= #deathMessages then
+			local team = deathMessages[i][1]
+			local color = team > 1 and cWhite or teamTextCols[team]
+			drawRect(resX - 350, 19 * i - 9, resX - 50, 9 + 19 * i, cBoxBG2)
+			drawSmallText(deathMessages[i][2], color, resX - 200, 19 * i, 1, 1, 1)
+		else
+			break
+		end
+	end
 
 	-- Draw the 128x40 timer background at the top-center of the screen
 	drawRect(centerX - 64, 0, centerX + 64, 40, cBoxBG1)
@@ -251,15 +294,16 @@ function onDrawCustomHud(resX, resY)
 		local healthCol = lerpColor(rgba(235, 22, 51, 255), rgba(195, 248, 212, 200), healthPct)
 		local energyCol = rgba(161, 209, 213, 200)
 
-		-- Draw 300x25 background rectangles for health and energy
+		-- Health and energy
+		-- Draw a border
+		drawBox(centerX - 302, resY - 35, centerX - 2, resY - 10, healthCol)
+		drawBox(centerX + 2, resY - 35, centerX + 302, resY - 10, energyCol)
+		-- Draw 300x25 background rectangles
 		drawRect(centerX - 302, resY - 35, centerX - 2, resY - 10, cBoxBG2)
 		drawRect(centerX + 2, resY - 35, centerX + 302, resY - 10, cBoxBG2)
-		-- Draw a border around them
-		drawBox(centerX - 302, resY - 35, centerX - 2, resY - 10, cBoxBG1)
-		drawBox(centerX + 2, resY - 35, centerX + 302, resY - 10, cBoxBG1)
 		-- Draw progress bars
-		drawProgressBar(centerX - 300, resY - 33, centerX - 4, resY - 12, healthCol, 3, healthPct)
-		drawProgressBar(centerX + 4, resY - 33, centerX + 300, resY - 12, energyCol, 1, energyPct)
+		drawProgressBar(centerX - 298, resY - 31, centerX - 6, resY - 14, healthCol, 3, healthPct)
+		drawProgressBar(centerX + 6, resY - 31, centerX + 298, resY - 14, energyCol, 1, energyPct)
 		-- Draw the actual numbers
 		drawUTText(health, healthCol, centerX - 10, resY - 55, 2, 2, 2)
 		drawUTText(math.floor(energy), energyCol, centerX + 10, resY - 55, 0, 2, 2)
@@ -270,12 +314,10 @@ function onDrawCustomHud(resX, resY)
 		end
 
 		-- Weapons and Ammo
-		-- If the current gun is not ready to fire, draw a red square at the middle of the screen
-		if currentWeapon.isReloading() then
-			drawRect(centerX - 2, centerY - 2, centerX + 3, centerY + 3, cRed)
-			if currentWeapon.isReloaded() then
-				drawText("cancel reload!", rgb(0,255,255), 200, 200, 0, 1)
-			end
+		-- If the current gun is not ready to fire, draw an indicator around the crosshair
+		if not currentWeapon.isReadyToFire() then
+			local color = currentWeapon.isReloaded() and cRed or cWhite
+			drawText("-        -", color, centerX, centerY, 1, 1.5)
 		end
 		-- Draw the ammo of the current weapon close to the crosshair
 		if not currentWeapon.isPack() and (not isVehicle or (isVehicle and vehicle.ammo() < 0)) then
@@ -357,4 +399,5 @@ function onDrawCustomHud(resX, resY)
 		end
 	end
 end
+
 console("potatoHud loaded")
