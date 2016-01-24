@@ -432,3 +432,35 @@ bool TrFlagBase_PostRenderFor(int id, UObject *dwCallingObject, UFunction* pFunc
 	else
 		return !g_config.showFlagBaseIcon;
 }
+
+void TrRabbitLeaderboard_Show(UTrRabbitLeaderboard *that)
+{	
+	if (Utils::tr_pc && !Utils::tr_pc->m_bShowHUDScores)
+		return;
+	else
+		that->Show();
+}
+
+void GfxTrHUD_UpdateVehicleStats(UGfxTrHud *that, UGfxTrHud_execUpdateVehicleStats_Parms *params)
+{
+	if (that->m_TrPC && !that->m_TrPC->m_bShowHUDHealthBar)
+		params->bVisible = false;
+
+	that->UpdateVehicleStats(params->bVisible, params->FrameId);
+}
+
+void GFxTrReticules_EnableVehicleAmmoClip(UGFxTrReticules *that)
+{
+	if (Utils::tr_pc && !Utils::tr_pc->m_bShowHUDCredits)
+		that->DisableVehicleAmmoClip();
+	else
+		that->EnableVehicleAmmoClip();
+}
+
+void GFxTrReticules_SetVehicleAmmoClip(UGFxTrReticules *that, UGFxTrReticules_execSetVehicleAmmoClip_Parms *params)
+{
+	if (Utils::tr_pc && !Utils::tr_pc->m_bShowHUDCredits)
+		that->DisableVehicleAmmoClip();
+	else
+		that->SetVehicleAmmoClip(params->AmmoCount);
+}

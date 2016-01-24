@@ -1,27 +1,22 @@
 #include "DataGetters.h"
 #include "Utils.h"
 #include "Geom.h"
+#include "Mods.h"
 
 /*
 	TODO:
 	acquire t2 sounds :)
-	TrP->IsFirstPerson()
-	draw2dLine function
-	Somehow make certain UI elements hideable which otherwise always show up (ammo counter in 3rd person, rabbit leader board etc)
-		Tie it to the setting for the teamscores. If thats disabled, hide the rest too
-	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
-	GameEnded and Overtime display (not so easy to get, probably need to hook some function in order to get it)
-		Fix respawn time +1 problem (it also shows up when it shouldn't, like pre-game etc)
-	more helper functions
 	Stopwatch (all data)
-	WorldSeconds and DeltaTime ?
-	Stats: Kills / Deaths / K/D / MAs / Streaks / Returns / Grabs
+	----------------
+	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
+		draw2dLine function
 	Killfeed
 	Chat / VGS / Whisper (prompt info?)
 	Game messages / Flag grabs etc
-	Accolades
 	Kill info
 	Killer info
+	Accolades
+	----------------
 	Spectator stuff -> TrPlayerOwner.InRovingSpectate()? plus team 255
 	*/
 
@@ -56,6 +51,12 @@ bool getPlayerData::isAlive()
 
 	return false;
 }
+bool getPlayerData::isFirstPerson()
+{
+	if (Utils::tr_pc && Utils::tr_pc->Pawn)
+		return Utils::tr_pc->Pawn->IsFirstPerson();
+	return true;
+}
 bool getPlayerData::isRaged()
 {
 	ATrPawn *TrP = Utils::getPlayerPawn();
@@ -66,9 +67,9 @@ bool getPlayerData::isRaged()
 }
 bool getPlayerData::isVehicle()
 {
-	if (Utils::tr_pc && Utils::tr_pc->Pawn)
+	if (Utils::tr_pc && Utils::tr_pc->Pawn && Utils::tr_pc->Pawn->Weapon)
 	{
-		if (Utils::tr_pc->Pawn->IsA(ATrWeaponPawn::StaticClass()) || ((ATrPawn *)Utils::tr_pc->Pawn)->m_RidingVehicle)
+		if (Utils::tr_pc->Pawn->Weapon->IsA(ATrVehicleWeapon::StaticClass()) || ((ATrPawn *)Utils::tr_pc->Pawn)->m_RidingVehicle)
 			return true;
 	}
 
@@ -158,7 +159,7 @@ int getPlayerData::speed()
 int getPlayerData::respawnTime()
 {
 	if (Utils::tr_pc)
-		return Utils::tr_pc->bPreventRespawn ? Utils::tr_pc->m_nRespawnTimeRemaining + 1 : 0;
+		return Utils::tr_pc->bPreventRespawn && Utils::tr_pc->r_fRespawnTime > 0 ? Utils::tr_pc->m_nRespawnTimeRemaining + 1 : 0;
 
 	return 0;
 }
@@ -194,6 +195,27 @@ int getPlayerData::arenaSpawnsLeft()
 {
 	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
 		return ((ATrPlayerReplicationInfo *)Utils::tr_pc->PlayerReplicationInfo)->r_nArenaSpawnsLeft;
+
+	return 0;
+}
+int getPlayerData::kills()
+{
+	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return ((ATrPlayerReplicationInfo *)Utils::tr_pc->PlayerReplicationInfo)->m_nKills;
+
+	return 0;
+}
+int getPlayerData::deaths()
+{
+	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return Utils::tr_pc->PlayerReplicationInfo->Deaths;
+
+	return 0;
+}
+int getPlayerData::assists()
+{
+	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return ((ATrPlayerReplicationInfo *)Utils::tr_pc->PlayerReplicationInfo)->m_nAssists;
 
 	return 0;
 }
@@ -416,13 +438,6 @@ ATrVehicle* getVehicleHelper()
 	}
 	return NULL;
 }
-bool getVehicleData::seatAvailable()
-{
-	ATrVehicle *v = getVehicleHelper();
-	if (v) return v->AnySeatAvailable();
-
-	return false;
-}
 int getVehicleData::health()
 {
 	ATrVehicle *v = getVehicleHelper();
@@ -499,10 +514,10 @@ bool getGameData::isOfflinePlay()
 
 	return true;
 }
-bool getGameData::isGameEnd()
-{ // FIXME: WorldInfo->Game only works offline
-	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->Game)
-		return Utils::tr_pc->WorldInfo->Game->bGameEnded;
+bool getGameData::isOver()
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+		return ((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->bMatchIsOver;
 
 	return false;
 }
@@ -517,13 +532,6 @@ bool getGameData::isWarmUp()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo->GRI)
 		return ((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->bWarmupRound;
-
-	return false;
-}
-bool getGameData::isOverTime()
-{ // FIXME: WorldInfo->Game only works offline
-	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->Game)
-		return Utils::tr_pc->WorldInfo->Game->bOverTime;
 
 	return false;
 }
@@ -743,4 +751,37 @@ std::string getFlagData::holderName(unsigned const char &n)
 			return Utils::f2std(gri->m_Flags[n]->HolderPRI->PlayerName);
 	}
 	return "";
+}
+
+// Custom death messages
+void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Parms *params)
+{
+	// params->CombatType: 0 = Aggressor is from own team. 1 = Aggressor is from enemy team (Suicide is an aggressor)
+	// I forward CombatType as a bitmask where the second bit means the death message is related to us
+	// First bit still means whether the aggressor is an enemy or not, so 2 means we killed someone and 3 we got killed
+	// params->WeaponIcon = CONST_TRICON_KILLTYPE_* (130 - 142)
+
+	if (g_config.onAddToCombatLog && !g_config.onAddToCombatLog->isNil() && g_config.onAddToCombatLog->isFunction())
+	{
+		std::string Aggressor = Utils::f2std(params->Aggressor);
+		std::string Victim = Utils::f2std(params->Victim);
+		unsigned char CombatType = params->CombatType;
+
+		if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		{
+			std::string me = Utils::f2std(Utils::tr_pc->PlayerReplicationInfo->PlayerName);
+			if (Aggressor == me || Victim == me)
+				CombatType |= 2;
+		}
+		try
+		{
+			(*g_config.onAddToCombatLog)(CombatType, Aggressor, params->WeaponIcon - 129, Victim);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+	}
+	if (Utils::tr_pc && Utils::tr_pc->m_bShowHUDCombatLog)
+		that->AddUpdateToCombatLog(params->CombatType, params->Aggressor, params->WeaponIcon, params->Victim);
 }

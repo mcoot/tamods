@@ -11,6 +11,7 @@ namespace getPlayerData
 {
 	std::string name();
 	bool isAlive();
+	bool isFirstPerson();
 	bool isRaged();
 	bool isVehicle();
 	bool isShielded();
@@ -29,6 +30,9 @@ namespace getPlayerData
 	int score();
 	int rabbitRank();
 	int arenaSpawnsLeft();
+	int kills();
+	int deaths();
+	int assists();
 	unsigned char teamNum();
 }
 namespace getWeaponData
@@ -75,10 +79,9 @@ namespace getGameData
 	std::string type();
 	std::string timeStr();
 	bool isOfflinePlay();
-	bool isGameEnd();
+	bool isOver();
 	bool isGenUp(unsigned const char &n);
 	bool isWarmUp();
-	bool isOverTime();
 	int genAutoRepairTime(unsigned const char &n);
 	int overTimeLimit();
 	int score(unsigned const char &n);

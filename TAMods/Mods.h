@@ -27,6 +27,13 @@ bool TrFlagBase_PostRenderFor(int id, UObject *dwCallingObject, UFunction* pFunc
 bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
+// Custom HUD
+void TrRabbitLeaderboard_Show(UTrRabbitLeaderboard *that);
+void GfxTrHUD_UpdateVehicleStats(UGfxTrHud *that, UGfxTrHud_execUpdateVehicleStats_Parms *params);
+void GFxTrReticules_EnableVehicleAmmoClip(UGFxTrReticules *that);
+void GFxTrReticules_SetVehicleAmmoClip(UGFxTrReticules *that, UGFxTrReticules_execSetVehicleAmmoClip_Parms *params);
+void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Parms *params);
+
 // Weapon position
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
