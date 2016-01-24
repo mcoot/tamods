@@ -226,7 +226,10 @@ bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObjec
 	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
 	AUTPlayerController *pc = (AUTPlayerController *)that->Instigator->Controller;
 
-	if (pc && pc->WorldInfo->NetMode == NM_Standalone || that->IsA(ATrDevice_RepairTool::StaticClass()))
+	if (pc && pc->WorldInfo->NetMode == NM_Standalone)
+		return false;
+
+	if (that->IsA(ATrDevice_LaserTargeter::StaticClass()) || that->IsA(ATrDevice_RepairTool::StaticClass()))
 		return false;
 
 	Hooks::lock();
@@ -258,7 +261,10 @@ bool TrDev_WeaponConstantFiring_BeginState(int ID, UObject *dwCallingObject, UFu
 	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
 	AUTPlayerController *pc = (AUTPlayerController *)that->Instigator->Controller;
 
-	if (pc && pc->WorldInfo->NetMode == NM_Standalone || that->IsA(ATrDevice_RepairTool::StaticClass()))
+	if (pc && pc->WorldInfo->NetMode == NM_Standalone)
+		return false;
+
+	if (that->IsA(ATrDevice_LaserTargeter::StaticClass()) || that->IsA(ATrDevice_RepairTool::StaticClass()))
 		return false;
 
 	TrDev_WeaponConstantFiring_RefireCheckTimer(0, dwCallingObject, NULL, NULL, NULL);
