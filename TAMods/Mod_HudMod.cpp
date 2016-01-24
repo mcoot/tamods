@@ -35,14 +35,14 @@ void TrHUD_DrawMarkerText(ATrHUD *that, ATrHUD_execDrawMarkerText_Parms *params,
 	params->DrawCanvas->Font = Utils::mainFont;
 	params->DrawCanvas->SetPos(params->Placement.X, params->Placement.Y, params->Placement.Z);
 	params->DrawCanvas->StrLen(params->ShowText, &XL, &YL);
-	XL *= g_config.textScale;
-	YL *= g_config.textScale;
+	XL *= g_config.IFFScale;
+	YL *= g_config.IFFScale;
 	if (params->bBuddy)
 		params->DrawCanvas->DrawColor = params->bFriend ? Utils::rgb(75, 255, 80) : Utils::rgb(255, 185, 23);
 	else
 		params->DrawCanvas->DrawColor = params->bFriend ? ((ATrHUD *)(ATrHUD::StaticClass()->Default))->ColorFriend : ((ATrHUD *)(ATrHUD::StaticClass()->Default))->ColorEnemy;
 	params->DrawCanvas->SetPos(params->Placement.X - (XL * 0.5f), params->Placement.Y - (YL * 0.5f), params->Placement.Z);
-	params->DrawCanvas->DrawTextW(params->ShowText, true, g_config.textScale, g_config.textScale, &that->m_nNameFontRenderInfo);
+	params->DrawCanvas->DrawTextW(params->ShowText, true, g_config.IFFScale, g_config.IFFScale, &that->m_nNameFontRenderInfo);
 	*(FVector *)result = params->Placement;
 }
 

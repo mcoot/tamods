@@ -260,7 +260,7 @@ public:
 	bool showSensorIcon;
 
 	// HUD scaling
-	float textScale;
+	float IFFScale;
 
 	//Stats
 	bool recordStats;
