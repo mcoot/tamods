@@ -29,13 +29,14 @@ bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject
 
 // Custom HUD
 void TrRabbitLeaderboard_Show(UTrRabbitLeaderboard *that);
-void GfxTrHUD_UpdateVehicleStats(UGfxTrHud *that, UGfxTrHud_execUpdateVehicleStats_Parms *params);
 void GFxTrReticules_EnableVehicleAmmoClip(UGFxTrReticules *that);
 void GFxTrReticules_SetVehicleAmmoClip(UGFxTrReticules *that, UGFxTrReticules_execSetVehicleAmmoClip_Parms *params);
+void GfxTrHud_UpdateVehicleStats(UGfxTrHud *that, UGfxTrHud_execUpdateVehicleStats_Parms *params);
+void GfxTrHud_UpdateChatLog(UGfxTrHud *that, UGfxTrHud_execUpdateChatLog_Parms *params);
 void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Parms *params);
 void TrHUD_AddToHeroStatus(ATrHUD *that, ATrHUD_execAddToHeroStatus_Parms *params);
 void TrHUD_SendLocalMessageToChat(ATrHUD *that, ATrHUD_execSendLocalMessageToChat_Parms *params);
-void GfxTrHud_UpdateChatLog(UGfxTrHud *that, UGfxTrHud_execUpdateChatLog_Parms *params);
+void TrHUD_AddUpdateToKillMessage(ATrHUD *that, ATrHUD_execAddUpdateToKillMessage_Parms *params);
 void TrPC_AddChatToConsole(ATrPlayerController *that, ATrPlayerController_eventAddChatToConsole_Parms *params);
 
 // Weapon position

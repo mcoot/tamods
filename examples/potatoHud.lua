@@ -34,9 +34,19 @@ msgPersistence = 12
 msgBufferGame_endTime = 0
 msgBufferGame_text = nil
 
+-- Kill message
+msgBufferKill_endTime = 0
+msgBufferKill_text = nil
+msgBufferKill_persistence = 3
+
 function onGameMessage(text, persistence)
 	msgBufferGame_text = text
 	msgBufferGame_endTime = os.time() + persistence
+end
+
+function onKillMessage(text, name)
+	msgBufferKill_text = text .. " " .. name
+	msgBufferKill_endTime = os.time() + msgBufferKill_persistence
 end
 
 function onChatMessage(team, channel, sender, text, isVGS)
@@ -68,7 +78,11 @@ function onChatMessage(team, channel, sender, text, isVGS)
 	end
 
 	-- Also draw the message to the console
-	consoleRGB(os.date("[%X] ") .. msg.text, msg.color)
+	if isVGS then
+		consoleRGB(os.date("[%X]   ") .. msg.text, msg.color)
+	else
+		consoleRGB(os.date("[%X] ") .. msg.text, msg.color)
+	end
 
 	-- Append new messages to the end
 	table.insert(msgBuffer, msg)
@@ -123,6 +137,7 @@ function onDrawCustomHud(resX, resY)
 		return
 	end
 
+	local ostime = os.time()
 	local centerX = resX / 2
 	local centerY = resY / 2
 	local gameType = game.type()
@@ -141,8 +156,17 @@ function onDrawCustomHud(resX, resY)
 	drawSmallText(player.kills() .. "/" .. player.deaths() .. "/" .. player.assists() .. " - " .. player.ping() .. " ms", cWhite, resX - 130, resY - 10, 0, 1, 1)
 
 	-- Game messages
-	if os.time() <= msgBufferGame_endTime then
+	if ostime <= msgBufferGame_endTime then
 		drawText(msgBufferGame_text, cWhite, centerX, 150, 1, 1)
+	end
+
+	-- Kill messages
+	if ostime <= msgBufferKill_endTime then
+		local x = centerX
+		local y = resY * 0.86
+		local size = getTextSize(msgBufferKill_text, 1)
+		drawRect(x - 18 - size.x / 2, y - 24, x + 18 + size.x / 2, y + 24, rgba(0, 100, 0, 80))
+		drawText(msgBufferKill_text, rgb(200,80,80), x, y, 1, 1)
 	end
 
 	-- Messages (Chat, VGS, death messages)
@@ -152,7 +176,7 @@ function onDrawCustomHud(resX, resY)
 	local i = 1
 	while i <= #msgBuffer do
 		local item = msgBuffer[i]
-		if os.time() - item.time >= msgPersistence then
+		if ostime - item.time >= msgPersistence then
 			table.remove(msgBuffer, i)
 		else
 			local size = getSmallTextSize(item.text, 1)

@@ -503,7 +503,7 @@ void TrRabbitLeaderboard_Show(UTrRabbitLeaderboard *that)
 		that->Show();
 }
 
-void GfxTrHUD_UpdateVehicleStats(UGfxTrHud *that, UGfxTrHud_execUpdateVehicleStats_Parms *params)
+void GfxTrHud_UpdateVehicleStats(UGfxTrHud *that, UGfxTrHud_execUpdateVehicleStats_Parms *params)
 {
 	if (that->m_TrPC && !that->m_TrPC->m_bShowHUDHealthBar)
 		params->bVisible = false;

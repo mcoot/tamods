@@ -143,6 +143,7 @@ public:
 	LuaRef *onAddToCombatLog;
 	LuaRef *onChatMessage;
 	LuaRef *onGameMessage;
+	LuaRef *onKillMessage;
 
 	// Custom damage number text
 	std::string damageNumberCustomText;

@@ -8,15 +8,13 @@
 	acquire t2 sounds :)
 	Stopwatch (all data)
 	Scoreboard?!
-	Fix private messages appearing twice in the console
 	----------------
 	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
 		draw2dLine function
-	Kill info
 	Killer info?
 	----------------
 	Spectator stuff -> TrPlayerOwner.InRovingSpectate()? plus team 255
-	*/
+*/
 
 FVector2D getViewPortData::size()
 {
@@ -844,4 +842,21 @@ void TrPC_AddChatToConsole(ATrPlayerController *that, ATrPlayerController_eventA
 		return;
 
 	that->eventAddChatToConsole(params->Sender, params->ChatMessage, params->Channel);
+}
+
+void TrHUD_AddUpdateToKillMessage(ATrHUD *that, ATrHUD_execAddUpdateToKillMessage_Parms *params)
+{
+	if (g_config.onKillMessage && !g_config.onKillMessage->isNil() && g_config.onKillMessage->isFunction())
+	{
+		try
+		{
+			(*g_config.onKillMessage)(Utils::f2std(params->Message), Utils::f2std(params->PlayerName));
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+		return;
+	}
+	that->AddUpdateToKillMessage(params->RankIcon, params->PlayerIcon, params->PlayerName, params->Message);
 }

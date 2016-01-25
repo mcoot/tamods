@@ -37,15 +37,16 @@ void onDLLProcessAttach()
 
 		// Custom HUD
 		Hooks::addUScript(&TrRabbitLeaderboard_Show, "Function TribesGame.TrRabbitLeaderboard.Show"); // Hide rabbit leaderboard when T:As team scores HUD option is disabled
-		Hooks::addUScript(&GfxTrHUD_UpdateVehicleStats, "Function TribesGame.GfxTrHUD.UpdateVehicleStats"); // Hide vehicle health/energy when T:As health/energy HUD option is disabled
 		Hooks::addUScript(&GFxTrReticules_EnableVehicleAmmoClip, "Function TribesGame.GfxTrReticules.EnableVehicleAmmoClip"); // Hide ammo clip when Credits/CallIns HUD option is disabled
 		Hooks::addUScript(&GFxTrReticules_SetVehicleAmmoClip, "Function TribesGame.GfxTrReticules.SetVehicleAmmoClip");
+		Hooks::addUScript(&GfxTrHud_UpdateVehicleStats, "Function TribesGame.GfxTrHud.UpdateVehicleStats"); // Hide vehicle health/energy when T:As health/energy HUD option is disabled
+		Hooks::addUScript(&GfxTrHud_UpdateChatLog, "Function TribesGame.GfxTrHud.UpdateChatLog"); // Redirect pending class messages
 		Hooks::addUScript(&TrHUD_AddUpdateToCombatLog, "Function TribesGame.TrHUD.AddUpdateToCombatLog"); // Custom death messages
 		Hooks::addUScript(&TrHUD_AddToHeroStatus, "Function TribesGame.TrHUD.AddToHeroStatus"); // Custom game messages
 		Hooks::addUScript(&TrHUD_SendLocalMessageToChat, "Function TribesGame.TrHUD.SendLocalMessageToChat"); // Redirect flood protection messages
-		Hooks::addUScript(&GfxTrHud_UpdateChatLog, "Function TribesGame.GfxTrHud.UpdateChatLog"); // Redirect pending class messages
+		Hooks::addUScript(&TrHUD_AddUpdateToKillMessage, "Function TribesGame.TrHUD.AddUpdateToKillMessage"); // Custom kill message box
 		Hooks::addUScript(&TrPC_AddChatToConsole, "Function TribesGame.TrPlayerController.AddChatToConsole"); // Prevent whisper messages from showing up in the console if we handle them in lua
-
+		
 		Hooks::add(&TrFlagBase_PostRenderFor, "Function TribesGame.TrFlagBase.PostRenderFor"); // Only show flag icon when it's off-stand
 
 		Hooks::add(&TrHUD_ChatMessageReceived, "Function TribesGame.TrHUD.ChatMessageReceived");

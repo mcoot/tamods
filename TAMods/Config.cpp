@@ -27,6 +27,7 @@ Config::Config()
 	onAddToCombatLog = NULL;
 	onChatMessage = NULL;
 	onGameMessage = NULL;
+	onKillMessage = NULL;
 	onInputEvent = NULL;
 	reset();
 }
@@ -67,12 +68,14 @@ void Config::reset()
 	delete onAddToCombatLog;
 	delete onChatMessage;
 	delete onGameMessage;
+	delete onKillMessage;
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 	onDrawCustomHud = NULL;
 	onAddToCombatLog = NULL;
 	onChatMessage = NULL;
 	onGameMessage = NULL;
+	onKillMessage = NULL;
 
 	//Damage Number color variables
 	rainbowBulletInt      = 0;
@@ -642,6 +645,7 @@ void Config::setVariables()
 	SET_FUNCTION(onAddToCombatLog);
 	SET_FUNCTION(onChatMessage);
 	SET_FUNCTION(onGameMessage);
+	SET_FUNCTION(onKillMessage);
 
 	// HUD scaling
 	SET_VARIABLE(float, IFFScale);
