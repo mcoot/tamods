@@ -25,6 +25,8 @@ Config::Config()
 	onDamageNumberUpdate = NULL;
 	onDrawCustomHud = NULL;
 	onAddToCombatLog = NULL;
+	onChatMessage = NULL;
+	onGameMessage = NULL;
 	onInputEvent = NULL;
 	reset();
 }
@@ -63,10 +65,14 @@ void Config::reset()
 	delete onDamageNumberUpdate;
 	delete onDrawCustomHud;
 	delete onAddToCombatLog;
+	delete onChatMessage;
+	delete onGameMessage;
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 	onDrawCustomHud = NULL;
 	onAddToCombatLog = NULL;
+	onChatMessage = NULL;
+	onGameMessage = NULL;
 
 	//Damage Number color variables
 	rainbowBulletInt      = 0;
@@ -603,6 +609,8 @@ void Config::setVariables()
 	// Custom HUD
 	SET_FUNCTION(onDrawCustomHud);
 	SET_FUNCTION(onAddToCombatLog);
+	SET_FUNCTION(onChatMessage);
+	SET_FUNCTION(onGameMessage);
 
 	// HUD scaling
 	SET_VARIABLE(float, textScale);
@@ -1035,12 +1043,15 @@ void Lua::init()
 		addFunction("returnFlags", &returnFlags).
 
 		// Custom HUD drawing functions
-		addFunction("drawText",        &Utils::drawText).
-		addFunction("drawSmallText",   &Utils::drawSmallText).
-		addFunction("drawUTText",      &Utils::drawUTText).
-		addFunction("drawRect",        &Utils::drawRect).
-		addFunction("drawBox",         &Utils::drawBox).
-		addFunction("drawProgressBar", &Utils::drawProgressBar).
+		addFunction("drawText",         &Utils::drawText).
+		addFunction("drawSmallText",    &Utils::drawSmallText).
+		addFunction("drawUTText",       &Utils::drawUTText).
+		addFunction("getTextSize",      &Utils::getTextSize).
+		addFunction("getSmallTextSize", &Utils::getSmallTextSize).
+		addFunction("getUTTextSize",    &Utils::getUTTextSize).
+		addFunction("drawRect",         &Utils::drawRect).
+		addFunction("drawBox",          &Utils::drawBox).
+		addFunction("drawProgressBar",  &Utils::drawProgressBar).
 
 		// Custom HUD getter functions
 		beginNamespace("viewPort").

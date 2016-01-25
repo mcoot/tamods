@@ -7,15 +7,12 @@
 	TODO:
 	acquire t2 sounds :)
 	Stopwatch (all data)
+	Scoreboard?!
 	----------------
 	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
 		draw2dLine function
-	Killfeed
-	Chat / VGS / Whisper (prompt info?)
-	Game messages / Flag grabs etc
 	Kill info
-	Killer info
-	Accolades
+	Killer info?
 	----------------
 	Spectator stuff -> TrPlayerOwner.InRovingSpectate()? plus team 255
 	*/
@@ -784,4 +781,57 @@ void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Pa
 	}
 	if (Utils::tr_pc && Utils::tr_pc->m_bShowHUDCombatLog)
 		that->AddUpdateToCombatLog(params->CombatType, params->Aggressor, params->WeaponIcon, params->Victim);
+}
+
+void TrHUD_AddToHeroStatus(ATrHUD *that, ATrHUD_execAddToHeroStatus_Parms *params)
+{
+	if (g_config.onGameMessage && !g_config.onGameMessage->isNil() && g_config.onGameMessage->isFunction())
+	{
+		try
+		{
+			(*g_config.onGameMessage)(Utils::f2std(params->Message), params->ShowTime);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+		return;
+	}
+	that->AddToHeroStatus(params->Message, params->ShowTime);
+}
+
+// Flood protection
+void TrHUD_SendLocalMessageToChat(ATrHUD *that, ATrHUD_execSendLocalMessageToChat_Parms *params)
+{
+	if (g_config.onGameMessage && !g_config.onGameMessage->isNil() && g_config.onGameMessage->isFunction())
+	{
+		try
+		{
+			(*g_config.onGameMessage)(Utils::f2std(params->Message), 1);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+		return;
+	}
+	that->SendLocalMessageToChat(params->Message);
+}
+
+// Pending class
+void GfxTrHud_UpdateChatLog(UGfxTrHud *that, UGfxTrHud_execUpdateChatLog_Parms *params)
+{
+	if (g_config.onGameMessage && !g_config.onGameMessage->isNil() && g_config.onGameMessage->isFunction())
+	{
+		try
+		{
+			(*g_config.onGameMessage)(Utils::f2std(params->Message), 1);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+		return;
+	}
+	that->UpdateChatLog(params->Message, params->ChannelColor, params->bPublic);
 }

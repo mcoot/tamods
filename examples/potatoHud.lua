@@ -14,37 +14,106 @@ teamTextCols[1] = rgba(158, 208, 212, 255)
 
 CaHPointLabels  = {'A','B','C','D','E'}
 
+myName = "none"
+myTeam = 255
+leftTeam = 0
+leftCol = 1
+rightTeam = 1
+rightCol = 0
+
 -- Toggle HUD bound to 'O'
 showHud = true
 bindKey("O", Input.PRESSED, function() if not viewPort.isMainMenuOpen() then showHud = not showHud end end)
 
--- Storage table for the death messages
-deathMessagesMax = 6
-deathMessages = {}
+-- Message storage (VGS, chat and death messages)
+msgBuffer = {}
+msgBufferSize = 8
+msgPersistence = 12
+
+-- Just to store one message
+msgBufferGame_endTime = 0
+msgBufferGame_text = nil
+
+function onGameMessage(text, persistence)
+	msgBufferGame_text = text
+	msgBufferGame_endTime = os.time() + persistence
+end
+
+function onChatMessage(team, channel, sender, text, isVGS)
+	--console("t:" .. team .. " c:" .. channel .. " v:" .. (isVGS and "1 -- " or "0 -- ") .. sender .. "> " .. text)
+	local msg = {}
+	msg.time = os.time()
+	msg.isDM = false
+
+	-- Message format
+	if isVGS then
+		msg.text = sender .. " " .. text
+	else
+		msg.text = sender .. "> " .. text
+	end
+
+	if channel == 6 then
+		-- Private messages
+		msg.color = rgb(207,165,101) 
+	elseif channel == 3 then
+		-- Team messages
+		msg.text = "[TEAM] " .. msg.text
+		msg.color = teamTextCols[leftCol]
+	elseif team ~= 255 then
+		-- Global messages
+		msg.color = team == myTeam and teamTextCols[leftCol] or teamTextCols[rightCol]
+	else
+		-- Spectator and other messages
+		msg.color = cWhite
+	end
+
+	-- Also draw the message to the console
+	consoleRGB(os.date("[%X] ") .. msg.text, msg.color)
+
+	-- Append new messages to the end
+	table.insert(msgBuffer, msg)
+
+	-- Keep only n messages
+	if #msgBuffer > msgBufferSize then
+		-- Remove the oldest message if we are over capacity (first element in the table)
+		table.remove(msgBuffer, 1)
+	end
+end
 
 -- Define some strings for the different kill types
-killTypes = {"Exploded","Stickied","Squished","Knifed","Fell","Vehicle","Bullet","Sniped","Rekt","Headshot","Killed","Disked","Turret"}
+killTypes = {"Blasted","Stickied","Squished","Knifed","Fell","Vehicle","Bullet","Sniped","Rekt","Headshot","Killed","Disked","Turret"}
 
 function onAddToCombatLog(team, killer, killType, victim)
 	-- team is the sum of:
 	-- 0: killer is in our team
 	-- 1: killer is in the enemy team
 	-- 2: the death message is related to us
-	local t
+	local msg = {}
+	msg.time = os.time()
+	msg.isDM = true
 
+	-- We don't really need to display Suicide as killer
 	if killer == "Suicide" then
-		t = { team, victim .. " suicided" }
+		msg.text = victim .. " suicided"
 	else
-		t = { team, killer .. " [" .. killTypes[killType] .. "] " .. victim }
+		msg.text = killer .. " |" .. killTypes[killType] .. "| " .. victim
+	end
+
+	if team > 1 then
+		-- We are involved in this death message
+		msg.color = rgb(255,255,0)
+	else
+		-- Others, figure out the corret team color
+		msg.color = team == myTeam and teamTextCols[leftCol] or teamTextCols[rightCol]
 	end
 
 	-- Append new messages to the end
-	table.insert(deathMessages, t)
+	table.insert(msgBuffer, msg)
 
-	-- Keep only n death messages
-	if #deathMessages > deathMessagesMax then
-		-- Remove the oldest death message (first element in the table)
-		table.remove(deathMessages, 1)
+	-- Keep only n messages
+	if #msgBuffer > msgBufferSize then
+		-- Remove the oldest message if we are over capacity (first element in the table)
+		table.remove(msgBuffer, 1)
 	end
 end
 
@@ -58,32 +127,48 @@ function onDrawCustomHud(resX, resY)
 	local centerY = resY / 2
 	local gameType = game.type()
 	local practiceMode = game.isOfflinePlay()	
-	local myTeam = player.teamNum()
-	local myName = player.name()
+	myTeam = player.teamNum()
+	myName = player.name()
 
 	-- Our current team is left and blue, while the enemy is red and right
 	-- While spectating (team 255) Blood Eagle is always left/red
-	local leftTeam = myTeam == 1 and 1 or 0
-	local leftCol = myTeam == 255 and 0 or 1
-	local rightTeam = 1 - leftTeam
-	local rightCol = 1 - leftCol
+	leftTeam = myTeam == 1 and 1 or 0
+	leftCol = myTeam == 255 and 0 or 1
+	rightTeam = 1 - leftTeam
+	rightCol = 1 - leftCol
 
 	-- KDA and ping display
-	drawSmallText(player.kills() .. "/" .. player.deaths() .. "/" .. player.assists() .. " - " .. player.ping() .. " ms", cWhite, 10, 15, 0, 1, 1)
+	drawSmallText(player.kills() .. "/" .. player.deaths() .. "/" .. player.assists() .. " - " .. player.ping() .. " ms", cWhite, resX - 130, resY - 10, 0, 1, 1)
 
-	-- Death messages
-	for i = 1,deathMessagesMax do
-		if i <= #deathMessages then
-			local team = deathMessages[i][1]
-			local color = team > 1 and cWhite or teamTextCols[team]
-			drawRect(resX - 350, 19 * i - 9, resX - 50, 9 + 19 * i, cBoxBG2)
-			drawSmallText(deathMessages[i][2], color, resX - 200, 19 * i, 1, 1, 1)
+	-- Game messages
+	if os.time() <= msgBufferGame_endTime then
+		drawText(msgBufferGame_text, cWhite, centerX, 150, 1, 1)
+	end
+
+	-- Messages (Chat, VGS, death messages)
+	local x = 12
+	local y = resY - 300
+
+	local i = 1
+	while i <= #msgBuffer do
+		local item = msgBuffer[i]
+		if os.time() - item.time >= msgPersistence then
+			table.remove(msgBuffer, i)
 		else
-			break
+			local size = getSmallTextSize(item.text, 1)
+			drawRect(x, y + 22 * i, x + 14 + size.x, y + 20 + 22 * i, cBoxBG1)
+
+			if item.isDM then
+				drawBox(x, y + 22 * i, x + 14 + size.x, y + 20 + 22 * i, rgba(200,200,200,180))
+			end
+
+			drawRect(x, y + 22 * i, x + 3, y + 20 + 22 * i, item.color)
+			drawSmallText(item.text, item.color, x + 8, y + 11 + 22 * i, 0, 1, 1)
+			i = i + 1
 		end
 	end
 
-	-- Draw the 128x40 timer background at the top-center of the screen
+	-- Draw the 128x40 game time at the top-center of the screen
 	drawRect(centerX - 64, 0, centerX + 64, 40, cBoxBG1)
 	drawUTText(game.timeStr(), cWhite, resX / 2, 20, 1, 1, 1)
 
@@ -310,7 +395,7 @@ function onDrawCustomHud(resX, resY)
 
 		-- Draw current speed (player or vehicle), but only when not 0
 		if speed ~= 0 then
-			drawText(speed .. " kph", cWhite, resX - 15, resY / 2, 2, 1)
+			drawText(speed .. " kph", cWhite, resX - 280, resY - 20, 2, 1)
 		end
 
 		-- Weapons and Ammo
@@ -356,11 +441,11 @@ function onDrawCustomHud(resX, resY)
 
 		-- Draw a message if we have the flag
 		if player.hasFlag() then
-			drawText("F L A G", rgb(168,234,168), centerX, resY * 0.12, 1, 1.8)
+			drawText("F L A G", rgb(168,234,168), resX - 25, centerY - 80, 2, 1.8)
 		end
 		-- Draw a message if we have rage active
 		if player.isRaged() then
-			drawText("R A G E", cRed, centerX, resY * 0.16, 1, 1.8)
+			drawText("R A G E", cRed, resX - 25, centerY - 40, 2, 1.8)
 		end
 
 		-- Vehicle display

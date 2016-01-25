@@ -287,11 +287,45 @@ bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFun
 	// Search for the sender in the blacklist
 	for (unsigned i = 0; i < g_config.globalMuteList.size(); i++)
 	{
-		
 		if (sender == g_config.globalMuteList.at(i).username && g_config.globalMuteList.at(i).muteText)
 		{
 			return true;
 		}
+	}
+
+	// Forward chat to Lua customHUD
+	if (g_config.onChatMessage && !g_config.onChatMessage->isNil() && g_config.onChatMessage->isFunction())
+	{
+		unsigned char SenderTeam = 255;
+
+		// Figure out the team of the sender for non personal (pms) and global messages
+		if (params->Channel != GC_CC_PERSONAL && params->Channel != GC_CC_GLOBAL)
+		{
+			if (that->WorldInfo && that->WorldInfo->GRI && that->WorldInfo->GRI->PRIArray.Count)
+			{
+				// The Hirez way of finding the senders team...
+				for (int i = 0; i < that->WorldInfo->GRI->PRIArray.Count; i++)
+				{
+					APlayerReplicationInfo &pri = *that->WorldInfo->GRI->PRIArray.Data[i];
+
+					if (Utils::f2std(that->StripTag(params->Sender)) == Utils::f2std(that->StripTag(pri.PlayerName)))
+					{
+						SenderTeam = pri.GetTeamNum();
+						break;
+					}
+				}
+			}
+		}
+
+		try
+		{
+			(*g_config.onChatMessage)(SenderTeam, (unsigned char)params->Channel, Utils::f2std(params->Sender), Utils::f2std(params->Message), false);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+		return true;
 	}
 
 	return false;
@@ -353,6 +387,34 @@ bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject
 		{
 			return true;
 		}
+	}
+
+	// Forward VGS to Lua customHUD
+	if (g_config.onChatMessage && !g_config.onChatMessage->isNil() && g_config.onChatMessage->isFunction())
+	{
+		if (that->PlayerInput)
+		{
+			FTrVGSCommand vgsCmd = ((UTrPlayerInput *)that->PlayerInput)->m_VGSCommandList->m_CommandList[params->VGSCommandIndex];
+			std::string vgsString = Utils::f2std(vgsCmd.KeyBindPath) + " " + Utils::f2std(vgsCmd.ChatString);
+			try
+			{
+				(*g_config.onChatMessage)(params->PRI->GetTeamNum(),
+					(unsigned char)(vgsCmd.VGSScope == VGSScope_Global ? GC_CC_INSTANCE : GC_CC_LOCAL_TEAM),
+					Utils::f2std(params->PRI->PlayerName), vgsString, true);
+			}
+			catch (const LuaException &e)
+			{
+				Utils::console("LuaException: %s", e.what());
+			}
+		}
+		// Play the VGS sound
+		if (((ATrPlayerReplicationInfo *)params->PRI)->r_VoiceClass)
+		{
+			ATrPlayerVoice *voice = (ATrPlayerVoice *)((ATrPlayerReplicationInfo *)params->PRI)->r_VoiceClass->Default;
+			voice->PlaySoundEx(params->VGSCommandIndex, that, params->PRI);
+		}
+
+		return true;
 	}
 
 	return false;

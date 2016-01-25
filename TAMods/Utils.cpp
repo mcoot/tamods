@@ -281,6 +281,54 @@ void Utils::drawUTText(const std::string &str, const FColor &col, float x, float
 	drawTextMain(str, col, x, y, align, shadowSize, 1.0f, size, 3);
 }
 
+FVector2D Utils::getTextSize(const std::string &str, const float &scale)
+{
+	if (!(tr_hud && tr_hud->Canvas))
+		return{ 0.0f, 0.0f };
+
+	UCanvas &canvas = *tr_hud->Canvas;
+	float xl, yl;
+
+	std::wstring wstr = std::wstring(str.begin(), str.end());
+	wchar_t* wch = (wchar_t *)wstr.c_str();
+
+	canvas.Font = mainFont;
+	canvas.StrLen(wch, &xl, &yl);
+	return{ xl * scale, yl * scale };
+}
+
+FVector2D Utils::getSmallTextSize(const std::string &str, const float &scale)
+{
+	if (!(tr_hud && tr_hud->Canvas))
+		return{ 0.0f, 0.0f };
+
+	UCanvas &canvas = *tr_hud->Canvas;
+	float xl, yl;
+
+	std::wstring wstr = std::wstring(str.begin(), str.end());
+	wchar_t* wch = (wchar_t *)wstr.c_str();
+
+	canvas.Font = consoleFont;
+	canvas.StrLen(wch, &xl, &yl);
+	return{ xl * scale, yl * scale };
+}
+
+FVector2D Utils::getUTTextSize(const std::string &str, const float &size)
+{
+	if (!(tr_hud && tr_hud->Canvas))
+		return{ 0.0f, 0.0f };
+
+	UCanvas &canvas = *tr_hud->Canvas;
+	float xl, yl;
+
+	std::wstring wstr = std::wstring(str.begin(), str.end());
+	wchar_t* wch = (wchar_t *)wstr.c_str();
+
+	canvas.Font = ut_hud->GetFontSizeIndex(size);
+	canvas.StrLen(wch, &xl, &yl);
+	return{ xl, yl };
+}
+
 void Utils::drawRect(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col)
 {
 	if (!(tr_hud && tr_hud->Canvas))
