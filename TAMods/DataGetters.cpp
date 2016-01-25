@@ -8,6 +8,7 @@
 	acquire t2 sounds :)
 	Stopwatch (all data)
 	Scoreboard?!
+	Fix private messages appearing twice in the console
 	----------------
 	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
 		draw2dLine function
@@ -834,4 +835,13 @@ void GfxTrHud_UpdateChatLog(UGfxTrHud *that, UGfxTrHud_execUpdateChatLog_Parms *
 		return;
 	}
 	that->UpdateChatLog(params->Message, params->ChannelColor, params->bPublic);
+}
+
+// Prevent whisper messages from showing up in the console if we handle them in lua
+void TrPC_AddChatToConsole(ATrPlayerController *that, ATrPlayerController_eventAddChatToConsole_Parms *params)
+{
+	if (g_config.onChatMessage && !g_config.onChatMessage->isNil() && g_config.onChatMessage->isFunction())
+		return;
+
+	that->eventAddChatToConsole(params->Sender, params->ChatMessage, params->Channel);
 }
