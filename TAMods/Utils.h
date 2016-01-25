@@ -44,7 +44,7 @@ namespace Utils
 	void drawUTText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size);
 	FVector2D getTextSize(const std::string &str, const float &scale);
 	FVector2D getSmallTextSize(const std::string &str, const float &scale);
-	FVector2D getUTTextSize(const std::string &str, const float &size);
+	FVector2D getUTTextSize(const std::string &str, const int &size);
 	void drawRect(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 	void drawBox(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 	void drawProgressBar(float x1, float y1, float x2, float y2, const FColor &col, const byte &dir, const float &alpha);

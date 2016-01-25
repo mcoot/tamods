@@ -313,7 +313,7 @@ FVector2D Utils::getSmallTextSize(const std::string &str, const float &scale)
 	return{ xl * scale, yl * scale };
 }
 
-FVector2D Utils::getUTTextSize(const std::string &str, const float &size)
+FVector2D Utils::getUTTextSize(const std::string &str, const int &size)
 {
 	if (!(tr_hud && tr_hud->Canvas))
 		return{ 0.0f, 0.0f };

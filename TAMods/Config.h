@@ -264,6 +264,7 @@ public:
 
 	// HUD scaling
 	float IFFScale;
+	bool  showHUDWeapons;
 
 	//Stats
 	bool recordStats;
