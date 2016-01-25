@@ -157,6 +157,11 @@ function onDrawCustomHud(resX, resY)
 	-- KDA and ping display
 	drawSmallText(player.kills() .. "/" .. player.deaths() .. "/" .. player.assists() .. " - " .. player.ping() .. " ms", cWhite, resX - 130, resY - 10, 0, 1, 1)
 
+	-- Stopwatch
+	if stopwatch.isRunning() then
+		drawSmallText(stopwatch.timeStr(), cWhite, resX - 140, 140, 0, 1, 1)
+	end
+
 	-- Spectator list when the scoreboard is visible
 	if viewPort.isScoreboardOpen() then
 		local specs = game.spectators()

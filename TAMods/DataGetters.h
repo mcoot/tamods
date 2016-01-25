@@ -116,3 +116,9 @@ namespace getFlagData
 	int returnTime(unsigned const char &n);
 	std::string holderName(unsigned const char &n);
 }
+namespace getStopwatchData
+{
+	bool isRunning();
+	float time();
+	std::string timeStr();
+}

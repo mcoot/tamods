@@ -1,19 +1,13 @@
 #include "DataGetters.h"
-#include "Utils.h"
-#include "Geom.h"
 #include "Mods.h"
 
 /*
 	TODO:
 	acquire t2 sounds :)
-	Stopwatch (all data)
-	Scoreboard?!
 	----------------
 	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
 		draw2dLine function
 	Killer info?
-	----------------
-	Spectator stuff -> TrPlayerOwner.InRovingSpectate()? plus team 255
 */
 
 FVector2D getViewPortData::size()
@@ -781,6 +775,22 @@ std::string getFlagData::holderName(unsigned const char &n)
 			return Utils::f2std(gri->m_Flags[n]->HolderPRI->PlayerName);
 	}
 	return "";
+}
+/////////////////////////////////////////////////////////////////////////////////////
+bool getStopwatchData::isRunning()
+{
+	return g_config.stopwatchRunning;
+}
+float getStopwatchData::time()
+{
+	return g_config.stopwatchStartTime;
+}
+std::string getStopwatchData::timeStr()
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
+		return Utils::fTime2stopwatch(Utils::tr_pc->WorldInfo->RealTimeSeconds);
+
+	return "00:00.0";
 }
 
 // Custom death messages

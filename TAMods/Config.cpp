@@ -1045,6 +1045,9 @@ void Lua::init()
 			addFunction("toggle", &stopwatch).
 			addFunction("start", &stopwatchStart).
 			addFunction("stop", &stopwatchStop).
+			addFunction("isRunning", &getStopwatchData::isRunning).
+			addFunction("time", &getStopwatchData::time).
+			addFunction("timeStr", &getStopwatchData::timeStr).
 		endNamespace().
 		beginNamespace("state").
 			addFunction("save", &savesSave).

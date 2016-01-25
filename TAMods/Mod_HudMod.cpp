@@ -435,7 +435,7 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 {
 	ATrHUD *that = (ATrHUD *)dwCallingObject;
 
-	if (that->HUDTeamCTFStats && that->HUDTeamCTFStats->m_MoviePlayer)
+	if (that->TrPlayerOwner && that->TrPlayerOwner->m_bShowHUDScores && that->HUDTeamCTFStats && that->HUDTeamCTFStats->m_MoviePlayer)
 	{
 		UGFxObject *timer = that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer;
 
