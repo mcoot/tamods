@@ -41,7 +41,7 @@ static void PostInitProjectile(ATrProjectile *that, const FVector &direction, fl
 	that->Acceleration = Geom::scale(that->m_vAccelDirection, that->AccelRate);
 }
 
-ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
+void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *params, AProjectile **result, Hooks::CallInfo *callInfo)
 {
 	FVector RealStartLoc, TraceStart, HitLocation, HitNormal;
 	FRotator SpawnRotation;
@@ -132,149 +132,9 @@ ATrProjectile *TrDev_ProjectileFire(ATrDevice *that)
 			}
 			that->DestroyOldestProjectileOverLimit(SpawnedProjectile);
 		}
-		return SpawnedProjectile;
+		*result = SpawnedProjectile;
 	}
-	return NULL;
-}
-
-void Weapon_FireAmmunition(ATrDevice *that)
-{
-	that->ConsumeAmmo(that->CurrentFireMode);
-	if (that->IsA(ATrDevice_LightAssaultRifle::StaticClass()))
-	{
-		if (((ATrDevice_LightAssaultRifle *)that)->m_nShotsSoFar == 0)
-			that->PlayFiringSound();
-	}
-	else
-		that->PlayFiringSound();
-
-	switch (that->WeaponFireTypes.Data[that->CurrentFireMode])
-	{
-	case EWFT_InstantHit:
-		that->InstantFire();
-		break;
-	case EWFT_Projectile:
-		TrDev_ProjectileFire(that);
-		break;
-	case EWFT_Custom:
-		that->CustomFire();
-		break;
-	}
-	if (that->Instigator && that->Instigator->Controller->IsA(AAIController::StaticClass()))
-		((AAIController *)that->Instigator->Controller)->NotifyWeaponFired(that, that->CurrentFireMode);
-}
-
-void UTWeapon_FireAmmunition(ATrDevice *that)
-{
-	static FName firedWeapon("FiredWeapon");
-
-	if (that->CurrentFireMode >= that->bZoomedFireMode.Count || that->bZoomedFireMode.Data[that->CurrentFireMode] == 0)
-	{
-		Weapon_FireAmmunition(that);
-		if (that->Instigator && that->Instigator->IsA(AUTPawn::StaticClass()))
-			((AUTPawn *)that->Instigator)->DeactivateSpawnProtection();
-		((AUTInventoryManager *)that->InvManager)->OwnerEvent(firedWeapon);
-	}
-}
-
-void TrDev_FireAmmunition(ATrDevice *that)
-{
-	ATrPawn *P;
-	ATrPlayerController *PC;
-	FVector StartTrace, EndTrace, AimVector;
-	bool bKickedBack;
-
-	if (!that->ReplicateAmmoOnWeaponFire())
-		that->r_bReadyToFire = false;
-	if (!that->m_bAllowHoldDownFire)
-		that->m_bWantsToFire = false;
-	UTWeapon_FireAmmunition(that);
-	that->PlayFireAnimation(0);
-	that->eventCauseMuzzleFlash();
-	that->ShakeView();
-	that->PayAccuracyForShot();
-	that->eventUpdateShotsFired(0);
-	bKickedBack = that->AddKickback();
-	if ((P = (ATrPawn *)that->Instigator))
-	{
-		PC = (ATrPlayerController *)P->Controller;
-		if (bKickedBack && PC && that == P->Weapon)
-		{
-			StartTrace = P->GetWeaponStartTraceLocation(that);
-			AimVector = Geom::rotationToVector(that->GetAimForCamera(StartTrace));
-			EndTrace = Geom::add(StartTrace, Geom::scale(AimVector, that->GetWeaponRange()));
-			
-			FRotator rot = Geom::sub(Geom::vectorToRotation(Geom::normal(Geom::sub(EndTrace, P->GetPawnViewLocation()))), P->eventGetViewRotation());
-			PC->OnKickback(rot, that->m_fKickbackBlendOutTime);
-		}
-	}
-}
-
-void TrDev_LAR_FireAmmunition(ATrDevice_LightAssaultRifle *that)
-{
-	if (that->m_nShotsSoFar < that->m_nShotBurstCount)
-	{
-		TrDev_FireAmmunition(that);
-		++that->m_nShotsSoFar;
-	}
-	else
-		that->FireAmmunition();
-}
-
-bool TrDev_WeaponConstantFiring_RefireCheckTimer(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
-	AUTPlayerController *pc = (AUTPlayerController *)that->Instigator->Controller;
-
-	if (pc && pc->WorldInfo->NetMode == NM_Standalone)
-		return false;
-
-	if (that->IsA(ATrDevice_LaserTargeter::StaticClass()) || that->IsA(ATrDevice_RepairTool::StaticClass()))
-		return false;
-
-	Hooks::lock();
-	if (that->ShouldRefire()) {
-		if (that->IsA(ATrDevice_LightAssaultRifle::StaticClass()))
-			TrDev_LAR_FireAmmunition((ATrDevice_LightAssaultRifle *) that);
-		else
-			TrDev_FireAmmunition(that);
-		that->OnTickConstantFire();
-		if (pc && pc->Player && pc->Player->IsA(ULocalPlayer::StaticClass()) && that->CurrentFireMode < that->FireCameraAnim.Count && that->FireCameraAnim.Data[that->CurrentFireMode])
-			pc->PlayCameraAnim(that->FireCameraAnim.Data[that->CurrentFireMode], that->GetZoomedState() > 1 ? pc->eventGetFOVAngle() / pc->DefaultFOV : 1.0f, 0.0f, 0.0f, 0.0f, 0, 0);
-		Hooks::unlock();
-		return true;
-	}
-	that->GotoState(that->m_PostFireState, FName(), 0, 0);
-	if (!that->HasAnyAmmo())
-	{
-		if (that->WorldInfo->NetMode == NM_DedicatedServer || that->WorldInfo->NetMode == NM_Standalone)
-			that->WeaponPlaySound(that->m_DryFireSoundCue, 0.0f, false);
-		if (that->m_DeviceAnimNode)
-			that->m_DeviceAnimNode->PlayDryFire();
-	}
-	Hooks::unlock();
-	return true;
-}
-
-bool TrDev_WeaponConstantFiring_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	ATrDevice_ConstantFire *that = (ATrDevice_ConstantFire *)dwCallingObject;
-	AUTPlayerController *pc = (AUTPlayerController *)that->Instigator->Controller;
-
-	if (pc && pc->WorldInfo->NetMode == NM_Standalone)
-		return false;
-
-	if (that->IsA(ATrDevice_LaserTargeter::StaticClass()) || that->IsA(ATrDevice_RepairTool::StaticClass()))
-		return false;
-
-	TrDev_WeaponConstantFiring_RefireCheckTimer(0, dwCallingObject, NULL, NULL, NULL);
-	Hooks::lock();
-	that->TimeWeaponFiring(that->CurrentFireMode);
-	that->OnStartConstantFire();
-	if (that->m_bSoundLinkedWithState && !that->m_AudioComponentWeaponLoop->IsPlaying() && that->m_AudioComponentWeaponLoop->FadeOutTargetVolume != 0.0f)
-		that->m_AudioComponentWeaponLoop->FadeIn(that->WeaponFireFadeTime, 1.0f);
-	Hooks::unlock();
-	return true;
+	*result = NULL;
 }
 
 bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
