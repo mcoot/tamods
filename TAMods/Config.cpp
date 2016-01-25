@@ -160,7 +160,7 @@ void Config::reset()
 	showSensorIcon       = true;
 
 	// HUD scaling
-	textScale		  = 1.0f;
+	IFFScale			 = 1.0f;
 
 	//Stats
 	recordStats = false;
@@ -237,6 +237,9 @@ void Config::parseFile()
 
 void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 {
+	static float defaultHealthBarWidth = 0;
+	static float defaultHealthBarHeight = 0;
+
 	if (g_config.shouldReloadTrHud && currHud)
 	{
 		// Ski Bars
@@ -256,10 +259,31 @@ void Config::reloadTrHUD(ATrHUD *currHud, bool updated)
 				default_gfxhud->m_SkiSpeedSteps[i] = val;
 		}
 
-		// Chat color
+		if (!defaultHealthBarWidth)
+		{
+			defaultHealthBarWidth = currHud->m_fHealthBarWidth;
+			defaultHealthBarHeight = currHud->m_fHealthBarHeight;
+		}
+		currHud->m_fHealthBarWidth = defaultHealthBarWidth * IFFScale;
+		currHud->m_fHealthBarHeight = defaultHealthBarHeight * IFFScale;
 		ATrHUD *default_hud = (ATrHUD *)ATrHUD::StaticClass()->Default;
 		if (default_hud)
 		{
+			// IFF scaling
+
+			for (UTexture2D **textureList = &default_hud->MarkerLight; textureList < (UTexture2D **)&default_hud->InfoChatColorIdx; textureList++)
+			{
+				UTexture2D *texture = *textureList;
+				if (texture)
+				{
+					texture->SizeX = (int)(texture->OriginalSizeX * IFFScale);
+					texture->SizeY = (int)(texture->OriginalSizeY * IFFScale);
+				}
+			}
+			default_hud->m_fHealthBarWidth = defaultHealthBarWidth * IFFScale;
+			default_hud->m_fHealthBarHeight = defaultHealthBarHeight * IFFScale;
+
+			// Chat color
 			default_hud->FriendlyChatColor = g_config.friendlyChatColor;
 			default_hud->EnemyChatColor = g_config.enemyChatColor;
 			default_hud->WhisperChatColor = g_config.whisperChatColor;
@@ -613,7 +637,7 @@ void Config::setVariables()
 	SET_FUNCTION(onGameMessage);
 
 	// HUD scaling
-	SET_VARIABLE(float, textScale);
+	SET_VARIABLE(float, IFFScale);
 
 	// VGS Mute
 	SET_VARIABLE(bool, muteVGS),
