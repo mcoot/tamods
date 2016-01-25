@@ -32,6 +32,13 @@ bool getViewPortData::isMainMenuOpen()
 
 	return false;
 }
+bool getViewPortData::isScoreboardOpen()
+{
+	if (Utils::tr_hud && Utils::tr_hud->Scoreboard)
+		return Utils::tr_hud->Scoreboard->bIsActive;
+
+	return false;
+}
 /////////////////////////////////////////////////////////////////////////////////////
 std::string getPlayerData::name()
 {
@@ -502,6 +509,33 @@ std::string getGameData::timeStr()
 		return c;
 	}
 	return "00:00";
+}
+std::string getGameData::spectators()
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+	{
+		TArray<APlayerReplicationInfo *> &priarray = Utils::tr_pc->WorldInfo->GRI->PRIArray;
+		std::string specLine;
+		unsigned char specCount = 0;
+
+		for (int i = 0; i < priarray.Count; i++)
+		{
+			if (priarray.Data[i] && ((ATrPlayerReplicationInfo *)priarray.Data[i])->m_Rank && priarray.Data[i]->GetTeamNum() == 255)
+			{
+				specCount++;
+				if (specCount > 1)
+					specLine.append(", " + Utils::f2std(priarray.Data[i]->PlayerName));
+				else
+					specLine.append(Utils::f2std(priarray.Data[i]->PlayerName));
+			}
+		}
+		if (specCount)
+		{
+			return "(" + std::to_string(specCount) + ") " + specLine;
+		}
+	}
+
+	return "";
 }
 bool getGameData::isOfflinePlay()
 {

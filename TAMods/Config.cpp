@@ -1091,8 +1091,9 @@ void Lua::init()
 
 		// Custom HUD getter functions
 		beginNamespace("viewPort").
-			addFunction("size", getViewPortData::size).
-			addFunction("isMainMenuOpen", getViewPortData::isMainMenuOpen).
+			addFunction("size",             getViewPortData::size).
+			addFunction("isMainMenuOpen",   getViewPortData::isMainMenuOpen).
+			addFunction("isScoreboardOpen", getViewPortData::isScoreboardOpen).
 		endNamespace().
 		beginNamespace("player").
 			addFunction("name",            getPlayerData::name).
@@ -1159,6 +1160,7 @@ void Lua::init()
 		beginNamespace("game").
 			addFunction("type",              getGameData::type).
 			addFunction("timeStr",           getGameData::timeStr).
+			addFunction("spectators",        getGameData::spectators).
 			addFunction("isOfflinePlay",     getGameData::isOfflinePlay).
 			addFunction("isOver",            getGameData::isOver).
 			addFunction("isGenUp",           getGameData::isGenUp).

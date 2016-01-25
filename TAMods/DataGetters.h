@@ -6,6 +6,7 @@ namespace getViewPortData
 {
 	FVector2D size();
 	bool isMainMenuOpen();
+	bool isScoreboardOpen();
 }
 namespace getPlayerData
 {
@@ -78,6 +79,7 @@ namespace getGameData
 {
 	std::string type();
 	std::string timeStr();
+	std::string spectators();
 	bool isOfflinePlay();
 	bool isOver();
 	bool isGenUp(unsigned const char &n);

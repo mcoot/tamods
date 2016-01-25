@@ -11,6 +11,9 @@ teamCols[1]     = rgba(158, 208, 212, 150)
 teamTextCols    = {}
 teamTextCols[0] = rgba(255, 23, 23, 255)
 teamTextCols[1] = rgba(158, 208, 212, 255)
+teamVGSCols     = {}
+teamVGSCols[0]  = rgba(255, 23, 23, 160)
+teamVGSCols[1]  = rgba(158, 208, 212, 160)
 
 CaHPointLabels  = {'A','B','C','D','E'}
 
@@ -50,7 +53,6 @@ function onKillMessage(text, name)
 end
 
 function onChatMessage(team, channel, sender, text, isVGS)
-	--console("t:" .. team .. " c:" .. channel .. " v:" .. (isVGS and "1 -- " or "0 -- ") .. sender .. "> " .. text)
 	local msg = {}
 	msg.time = os.time()
 	msg.isDM = false
@@ -71,7 +73,7 @@ function onChatMessage(team, channel, sender, text, isVGS)
 		msg.color = teamTextCols[leftCol]
 	elseif team ~= 255 then
 		-- Global messages
-		msg.color = team == myTeam and teamTextCols[leftCol] or teamTextCols[rightCol]
+		msg.color = teamTextCols[team == myTeam and leftCol or rightCol]
 	else
 		-- Spectator and other messages
 		msg.color = cWhite
@@ -79,10 +81,10 @@ function onChatMessage(team, channel, sender, text, isVGS)
 
 	-- Also draw the message to the console
 	if isVGS then
-		consoleRGB(os.date("[%X]   ") .. msg.text, msg.color)
-	else
-		consoleRGB(os.date("[%X] ") .. msg.text, msg.color)
+		msg.color = teamVGSCols[team == myTeam and leftCol or rightCol]
 	end
+
+	consoleRGB(os.date("[%X] ") .. msg.text, msg.color)
 
 	-- Append new messages to the end
 	table.insert(msgBuffer, msg)
@@ -155,11 +157,19 @@ function onDrawCustomHud(resX, resY)
 	-- KDA and ping display
 	drawSmallText(player.kills() .. "/" .. player.deaths() .. "/" .. player.assists() .. " - " .. player.ping() .. " ms", cWhite, resX - 130, resY - 10, 0, 1, 1)
 
+	-- Spectator list when the scoreboard is visible
+	if viewPort.isScoreboardOpen() then
+		local specs = game.spectators()
+		if specs ~= "" then
+			drawText("Specs " .. specs, cWhite, centerX, resY * 0.85, 1, 1)
+		end
+	end
+
 	-- Game messages
 	if ostime <= msgBufferGame_endTime then
 		drawText(msgBufferGame_text, cWhite, centerX, 150, 1, 1)
 	end
-
+	
 	-- Kill messages
 	if ostime <= msgBufferKill_endTime then
 		local x = centerX
