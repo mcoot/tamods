@@ -64,12 +64,11 @@ void onDLLProcessAttach()
 		Hooks::add(&TrPC_ClientPlayBluePlateImpact, "Function TribesGame.TrPlayerController.ClientPlayBluePlateImpact");
 		Hooks::add(&TrPC_ClientPlayAirMailImpact, "Function TribesGame.TrPlayerController.ClientPlayAirMailImpact");
 		Hooks::add(&TrPC_ClientQueueAccolade, "Function TribesGame.TrPlayerController.ClientQueueAccolade");
-		Hooks::add(&TrPC_ReceiveLocalizedMessage, "Function TribesGame.TrPlayerController.ReceiveLocalizedMessage");
-		Hooks::add(&UTCarriedObject_Held_BeginState, "Function UTCarriedObject.Held.BeginState");
-		Hooks::add(&UTCarriedObject_Held_EndState, "Function UTCarriedObject.Held.EndState");
-		//Hooks::add(&UTCarriedObject_Dropped_BeginState, "Function UTCarriedObject.Dropped.BeginState");
-		Hooks::add(&UTCarriedObject_Dropped_EndState, "Function UTCarriedObject.Dropped.EndState");
 		Hooks::add(&TrPRI_ReplicatedEvent, "Function TribesGame.TrPlayerReplicationInfo.ReplicatedEvent"); // Kill sounds
+		// Flag event sounds
+		Hooks::addUScript(&TrCTFMessage_ClientReceive, "Function TribesGame.TrCTFMessage.ClientReceive");
+		Hooks::addUScript(&TrCTFHUDMessage_ClientReceive, "Function TribesGame.TrCTFHUDMessage.ClientReceive");
+		Hooks::addUScript(&TrRabbitScoreMessage_ClientReceive, "Function TribesGame.TrRabbitScoreMessage.ClientReceive");
 
 		// Stats
 		Hooks::add(&TrPC_ClientMatchOver, "Function TribesGame.TrPlayerController.ClientMatchOver");

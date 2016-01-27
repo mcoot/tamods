@@ -81,15 +81,15 @@ bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* 
 // Lua keybindings
 bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
-// Sounds
+// Hit and kill sounds
 void playHitSound(bool bShieldDamage, int *dmg);
 void playHeadShotSound();
 bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool TrPC_ReceiveLocalizedMessage(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool UTCarriedObject_Held_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool UTCarriedObject_Held_EndState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool UTCarriedObject_Dropped_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool UTCarriedObject_Dropped_EndState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPRI_ReplicatedEvent(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+// Accolade sounds
+bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+// Flag event sounds
+void TrCTFMessage_ClientReceive(UTrCTFMessage *that, UTrCTFMessage_execClientReceive_Parms *params, void *result, Hooks::CallInfo *callInfo);
+void TrCTFHUDMessage_ClientReceive(UTrCTFHUDMessage *that, UTrCTFHUDMessage_execClientReceive_Parms *params, void *result, Hooks::CallInfo *callInfo);
+void TrRabbitScoreMessage_ClientReceive(UTrRabbitScoreMessage *that, UTrRabbitScoreMessage_execClientReceive_Parms *params, void *result, Hooks::CallInfo *callInfo);

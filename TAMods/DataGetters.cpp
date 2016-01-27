@@ -4,6 +4,7 @@
 /*
 	TODO:
 	acquire t2 sounds :)
+	prompt panel? (saber warning and other messages)
 	----------------
 	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
 		draw2dLine function
@@ -783,12 +784,15 @@ bool getStopwatchData::isRunning()
 }
 float getStopwatchData::time()
 {
-	return g_config.stopwatchStartTime;
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
+		return Utils::tr_pc->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
+	else
+		return 0.0f;
 }
 std::string getStopwatchData::timeStr()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
-		return Utils::fTime2stopwatch(Utils::tr_pc->WorldInfo->RealTimeSeconds);
+		return Utils::fTime2stopwatch(Utils::tr_pc->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime);
 
 	return "00:00.0";
 }

@@ -161,7 +161,7 @@
     <ClCompile Include="Mod_AccoladeSounds.cpp" />
     <ClCompile Include="Mod_ConsoleCommands.cpp" />
     <ClCompile Include="Mod_DamageNumbers.cpp" />
-    <ClCompile Include="Mod_FlagEventsCTF.cpp" />
+    <ClCompile Include="Mod_FlagEventSounds.cpp" />
     <ClCompile Include="Mod_General.cpp" />
     <ClCompile Include="Mod_HitSounds.cpp" />
     <ClCompile Include="Mod_HudMod.cpp" />

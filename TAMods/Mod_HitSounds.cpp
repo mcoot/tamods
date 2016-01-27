@@ -1,11 +1,12 @@
 #include "Mods.h"
 
-static clock_t lastHitSound = 0;
-static unsigned int totalDamage = 0;
-static int midairKill = false;
+static bool midairKill = false;
 
 void playHitSound(bool bShieldDamage, int *dmg)
 {
+	static clock_t lastHitSound = 0;
+	static unsigned int totalDamage = 0;
+
 	if (g_config.hitSoundMode < 1
 		|| !dmg 
 		|| *dmg <= 0

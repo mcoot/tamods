@@ -303,9 +303,6 @@
     <ClCompile Include="Mod_DamageNumbers.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
-    <ClCompile Include="Mod_FlagEventsCTF.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
     <ClCompile Include="Mod_General.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
@@ -335,6 +332,9 @@
     </ClCompile>
     <ClCompile Include="DataGetters.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_FlagEventSounds.cpp">
+      <Filter>Source Files\Mods</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
