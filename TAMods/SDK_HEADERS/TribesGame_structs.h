@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.1.2860.0) SDK
+# Tribes Ascend (1.2.2866.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: TribesGame_structs.h
@@ -279,15 +279,16 @@ struct FRentalItem
 };
 
 // ScriptStruct TribesGame.GFxTrPage_Vehicle.VehicleOption
-// 0x0028
+// 0x002C
 struct FVehicleOption
 {
 	int                                                Cost;                                             		// 0x0000 (0x0004) [0x0000000000000000]              
 	int                                                Icon;                                             		// 0x0004 (0x0004) [0x0000000000000000]              
 	int                                                Count;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
 	int                                                MaxCount;                                         		// 0x000C (0x0004) [0x0000000000000000]              
-	struct FString                                     ClassName;                                        		// 0x0010 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	struct FString                                     DisplayName;                                      		// 0x001C (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	int                                                Generated;                                        		// 0x0010 (0x0004) [0x0000000000000000]              
+	struct FString                                     ClassName;                                        		// 0x0014 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	struct FString                                     DisplayName;                                      		// 0x0020 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 };
 
 // ScriptStruct TribesGame.TrSummaryHelper.MVPAward
@@ -670,7 +671,6 @@ struct FOverheadNumber
 	struct FColor                                      CurrentColor;                                     		// 0x0020 (0x0004) [0x0000000000000000]              
 	float                                              CurrentScale;                                     		// 0x0024 (0x0004) [0x0000000000000000]              
 	unsigned long                                      bShieldDamage : 1;                                		// 0x0028 (0x0004) [0x0000000000000000] [0x00000001] 
-
 	int                                                padding;
 
 	bool isShieldDamage() const { return bShieldDamage; }

@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.1.2860.0) SDK
+# Tribes Ascend (1.2.2866.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: TribesGame_f_structs.h
@@ -234,6 +234,12 @@ struct ATrGameObjective_eventPostRenderFor_Parms
 struct ATrGameObjective_execShouldPostRenderForCaH_Parms
 {
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0000 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
+// Function TribesGame.TrGameObjective.TimerDestroy
+// [0x00020102] 
+struct ATrGameObjective_execTimerDestroy_Parms
+{
 };
 
 // Function TribesGame.TrGameObjective.HideMesh
@@ -1307,12 +1313,13 @@ struct ATrPawn_execDisableJamming_Parms
 };
 
 // Function TribesGame.TrPawn.EnableJamming
-// [0x00020002] 
+// [0x00024002] 
 struct ATrPawn_execEnableJamming_Parms
 {
-	// float                                           JammingRadius;                                    		// 0x0000 (0x0004) [0x0000000000000000]              
-	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0004 (0x0004) [0x0000000000000000]              
-	// class UTrValueModifier*                         VM;                                               		// 0x0008 (0x0004) [0x0000000000000000]              
+	unsigned long                                      bJamOthers : 1;                                   		// 0x0000 (0x0004) [0x0000000000000090] [0x00000001] ( CPF_OptionalParm | CPF_Parm )
+	// float                                           JammingRadius;                                    		// 0x0004 (0x0004) [0x0000000000000000]              
+	// class ATrPlayerReplicationInfo*                 TrPRI;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class UTrValueModifier*                         VM;                                               		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPawn.OnRanOver
@@ -5081,6 +5088,7 @@ struct UGFxTrMenuMoviePlayer_eventAddVehicleMenuOption_Parms
 	int                                                Icon;                                             		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                CountSpawned;                                     		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                CountAllowed;                                     		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                CountGenerated;                                   		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.PullOpenMenu
@@ -7793,8 +7801,9 @@ struct ATrPlayerController_execOpenVehicleMenu_Parms
 	// int                                             J;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
 	// int                                             VehicleCount;                                     		// 0x000C (0x0004) [0x0000000000000000]              
 	// int                                             VehicleMaxAllowed;                                		// 0x0010 (0x0004) [0x0000000000000000]              
-	// class ATrPawn*                                  TRP;                                              		// 0x0014 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   FamilyInfo;                                       		// 0x0018 (0x0004) [0x0000000000000000]              
+	// int                                             VehicleGenerated;                                 		// 0x0014 (0x0004) [0x0000000000000000]              
+	// class ATrPawn*                                  TRP;                                              		// 0x0018 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   FamilyInfo;                                       		// 0x001C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.StartUILoadSummaryTimer
@@ -10266,6 +10275,13 @@ struct ATrPlayerController_execActivateDevice_Parms
 	// class ATrPawn*                                  TRP;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
 };
 
+// Function TribesGame.TrPlayerController.LastWeapon
+// [0x00020202] ( FUNC_Exec )
+struct ATrPlayerController_execLastWeapon_Parms
+{
+	// class ATrInventoryManager*                      invMan;                                           		// 0x0000 (0x0004) [0x0000000000000000]              
+};
+
 // Function TribesGame.TrPlayerController.NextWeapon
 // [0x00020202] ( FUNC_Exec )
 struct ATrPlayerController_execNextWeapon_Parms
@@ -10710,6 +10726,7 @@ struct ATrPlayerController_execAddVehicleMenuOption_Parms
 	int                                                Icon;                                             		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                CountSpawned;                                     		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                CountAllowed;                                     		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	int                                                CountGenerated;                                   		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 };
 
 // Function TribesGame.TrPlayerController.ShowVehicleMenu
@@ -21206,6 +21223,14 @@ struct ATrServerSettingsInfo_execIsCallinAllowed_Parms
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
+// Function TribesGame.TrServerSettingsInfo.GetVehicleTime
+// [0x00020102] 
+struct ATrServerSettingsInfo_execGetVehicleTime_Parms
+{
+	int                                                Index;                                            		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	float                                              ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
 // Function TribesGame.TrServerSettingsInfo.GetVehicleLimit
 // [0x00020102] 
 struct ATrServerSettingsInfo_execGetVehicleLimit_Parms
@@ -25480,7 +25505,8 @@ struct UGFxTrPage_Vehicle_execAddOption_Parms
 	int                                                Icon;                                             		// 0x001C (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                Count;                                            		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	int                                                MaxCount;                                         		// 0x0024 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	// struct FVehicleOption                           vOption;                                          		// 0x0028 (0x0028) [0x0000000000400000]              ( CPF_NeedCtorLink )
+	int                                                Generated;                                        		// 0x0028 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// struct FVehicleOption                           vOption;                                          		// 0x002C (0x002C) [0x0000000000400000]              ( CPF_NeedCtorLink )
 };
 
 // Function TribesGame.GFxTrPage_Vehicle.TakeAction
@@ -34936,15 +34962,13 @@ struct ATrDevice_SaberLauncher_execSetTargetActorMissileLockState_Parms
 };
 
 // Function TribesGame.TrDevice_SaberLauncher.ValidateTrackingTarget
-// [0x00820102] 
+// [0x00020102] 
 struct ATrDevice_SaberLauncher_execValidateTrackingTarget_Parms
 {
 	class AActor*                                      Target;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	unsigned long                                      initialAcquire : 1;                               		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
 	unsigned long                                      ReturnValue : 1;                                  		// 0x0008 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class ATrPawn*                                  TRP;                                              		// 0x000C (0x0004) [0x0000000000000000]              
-	// class ATrVehicle*                               TRV;                                              		// 0x0010 (0x0004) [0x0000000000000000]              
-	// struct FVector                                  EndTrace;                                         		// 0x0014 (0x000C) [0x0000000000000000]              
+	// class ATrVehicle*                               TRV;                                              		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice_SaberLauncher.IsActorInLOS
@@ -35847,6 +35871,25 @@ struct ATrVehicleStation_execGetMarker_Parms
 	class UTexture2D*                                  ReturnValue;                                      		// 0x0000 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
+// Function TribesGame.TrVehicleStation.AddVehicleToCanSpawnList
+// [0x00020002] 
+struct ATrVehicleStation_execAddVehicleToCanSpawnList_Parms
+{
+	unsigned char                                      VehicleType;                                      		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	int                                                Num;                                              		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// int                                             NewNumVehicles;                                   		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             ShiftAmount;                                      		// 0x000C (0x0004) [0x0000000000000000]              
+	// int                                             MaxVehicles;                                      		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrVehicleStation.GetNumVehiclesCanSpawnByType
+// [0x00020102] 
+struct ATrVehicleStation_execGetNumVehiclesCanSpawnByType_Parms
+{
+	unsigned char                                      VehicleType;                                      		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	int                                                ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+};
+
 // Function TribesGame.TrVehicleStation.AddVehicleToPackedList
 // [0x00020002] 
 struct ATrVehicleStation_execAddVehicleToPackedList_Parms
@@ -35872,6 +35915,16 @@ struct ATrVehicleStation_execGetMaxVehicleCountAllowed_Parms
 	unsigned char                                      VehicleType;                                      		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
 	int                                                ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 	// int                                             MaxCount;                                         		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrVehicleStation.GetVehicleSpawnTime
+// [0x00020102] 
+struct ATrVehicleStation_execGetVehicleSpawnTime_Parms
+{
+	unsigned char                                      VehicleType;                                      		// 0x0000 (0x0001) [0x0000000000000080]              ( CPF_Parm )
+	float                                              ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// float                                           Time;                                             		// 0x0008 (0x0004) [0x0000000000000000]              
 	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
@@ -35957,6 +36010,40 @@ struct ATrVehicleStation_execPawnEnteredStation_Parms
 	class ATrPawn*                                     P;                                                		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	// struct FVector                                  Loc;                                              		// 0x0004 (0x000C) [0x0000000000000000]              
 	// class ATrPlayerController*                      C;                                                		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrVehicleStation.TakeDamage
+// [0x00024902] ( FUNC_Event )
+struct ATrVehicleStation_eventTakeDamage_Parms
+{
+	int                                                DamageAmount;                                     		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	class AController*                                 EventInstigator;                                  		// 0x0004 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     HitLocation;                                      		// 0x0008 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     Momentum;                                         		// 0x0014 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	class UClass*                                      DamageType;                                       		// 0x0020 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	struct FTraceHitInfo                               HitInfo;                                          		// 0x0024 (0x001C) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	class AActor*                                      DamageCauser;                                     		// 0x0040 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	// int                                             I;                                                		// 0x0044 (0x0004) [0x0000000000000000]              
+	// int                                             PlayerCount;                                      		// 0x0048 (0x0004) [0x0000000000000000]              
+	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x004C (0x0004) [0x0000000000000000]              
+	// class UClass*                                   TrDamageType;                                     		// 0x0050 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrVehicleStation.Tick
+// [0x00020902] ( FUNC_Event )
+struct ATrVehicleStation_eventTick_Parms
+{
+	float                                              DeltaTime;                                        		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	// unsigned char                                   VehType;                                          		// 0x0004 (0x0001) [0x0000000000000000]              
+	// int                                             I;                                                		// 0x0008 (0x0004) [0x0000000000000000]              
+	// class ATrGameReplicationInfo*                   TrGRI;                                            		// 0x000C (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrVehicleStation.PostBeginPlay
+// [0x00020902] ( FUNC_Event )
+struct ATrVehicleStation_eventPostBeginPlay_Parms
+{
+	// int                                             I;                                                		// 0x0000 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrVehicleStation.PostInitAnimTree

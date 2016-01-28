@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.1.2860.0) SDK
+# Tribes Ascend (1.2.2866.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: TribesGameContent_classes.h
@@ -48,7 +48,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 165098 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 165195 ];
 
 		return pClassPointer;
 	};
