@@ -43,6 +43,13 @@ static void PostInitProjectile(ATrProjectile *that, const FVector &direction, fl
 
 void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *params, AProjectile **result, Hooks::CallInfo *callInfo)
 {
+	// Use default version for offline modes
+	if (that->WorldInfo && that->WorldInfo->NetMode == NM_Standalone)
+	{
+		*result = that->ProjectileFire();
+		return;
+	}
+
 	FVector RealStartLoc, TraceStart, HitLocation, HitNormal;
 	FRotator SpawnRotation;
 	ATrProjectile *SpawnedProjectile;
