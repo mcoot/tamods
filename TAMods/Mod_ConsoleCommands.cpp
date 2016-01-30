@@ -94,6 +94,10 @@ namespace consoleHelpText
 		"   Reloads your TAMods configs (Alias: /rc)\n"
 		" /reload sounds\n"
 		"   Reloads all your custom sounds (Alias: /rs)\n"
+		" /players\n"
+		"   Print all players with their corresponding PlayerID (Alias: /list /playerlist)\n"
+		" /kickvoteid <PlayerID>\n"
+		"   Initiate a kick vote by PlayerID\n"
 		" /stopwatch\n"
 		"   Toggles the stopwatch on and off (Alias: /sw)\n"
 		" /stopwatch start\n"
@@ -177,6 +181,48 @@ static bool execConsoleCommand(const std::wstring &line)
 	else if (line == L"/reload sounds" || line == L"/rs")
 	{
 		g_config.reloadSounds();
+		return true;
+	}
+	else if (line == L"/players" || line == L"/list" || line == L"/playerlist")
+	{
+		if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+		{
+			ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
+
+			for (int i = 0; i < gri->PRIArray.Count; i++)
+				Utils::printConsole(std::to_string(gri->PRIArray.GetStd(i)->PlayerID) + ": " + Utils::f2std(gri->PRIArray.GetStd(i)->PlayerName));
+		}
+		return true;
+	}
+	else if (line.substr(0, 12) == L"/kickvoteid ")
+	{
+		std::stringstream s(std::string(line.begin() + 12, line.end()));
+		int playerId;
+		s >> playerId;
+
+		if (s && playerId)
+		{
+			if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+			{
+				ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
+
+				for (int i = 0; i < gri->PRIArray.Count; i++)
+				{
+					if (gri->PRIArray.GetStd(i)->PlayerID == playerId)
+					{
+						Utils::printConsole("Trying to kick vote " + Utils::f2std(gri->PRIArray.GetStd(i)->PlayerName));
+
+						Utils::tr_pc->RequestKickVote(gri->PRIArray.GetStd(i)->PlayerName);
+
+						return true;
+					}
+				}
+				Utils::printConsole("No player found with that ID");
+			}
+		}
+		else
+			Utils::printConsole("Error: Enter a valid number");
+
 		return true;
 	}
 	else if (line.size() > 13 && line.substr(0, 13) == L"/findobjects ")
