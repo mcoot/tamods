@@ -47,6 +47,7 @@ void savesReset()
 bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	savesReset();
+	// FIXME: this sometimes crashes when loading a (rabbit) map
 	stopwatchReset();
 	routeReset();
 
