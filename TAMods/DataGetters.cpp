@@ -3,12 +3,10 @@
 
 /*
 	TODO:
-	acquire t2 sounds :)
 	prompt panel? (saber warning and other messages)
+	FIXME: pri->m_nRabbitRank is always 0
 	----------------
 	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
-		draw2dLine function
-	Killer info?
 */
 
 FVector2D getViewPortData::size()
