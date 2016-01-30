@@ -86,18 +86,19 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 					ping = (float) 0.001;
 				for (int i = 0; i < 50; i++)
 				{
-					if (delayed_projs[i].delay <= 0.0)
+					DelayedProjectile &delayed = delayed_projs[i];
+					if (delayed.delay <= 0.0)
 					{
-						delayed_projs[i].device = that;
-						delayed_projs[i].spawn_class = SpawnClass;
-						delayed_projs[i].init_class = InitClass;
-						delayed_projs[i].instigator = that->Instigator;
-						delayed_projs[i].location = RealStartLoc;
-						delayed_projs[i].rotation = SpawnRotation;
-						delayed_projs[i].owner_velocity = that->Instigator->Velocity;
-						delayed_projs[i].spawn_tag = that->Name;
-						delayed_projs[i].delay = ping * 0.5f * g_config.bulletPingMultiplier + g_config.bulletSpawnDelay;
-						delayed_projs[i].proj_flight_template = NULL;
+						delayed.device = that;
+						delayed.spawn_class = SpawnClass;
+						delayed.init_class = InitClass;
+						delayed.instigator = that->Instigator;
+						delayed.location = RealStartLoc;
+						delayed.rotation = SpawnRotation;
+						delayed.owner_velocity = that->Instigator->Velocity;
+						delayed.spawn_tag = that->Name;
+						delayed.delay = ping * 0.5f * g_config.bulletPingMultiplier + g_config.bulletSpawnDelay;
+						delayed.proj_flight_template = NULL;
 						break;
 					}
 				}
@@ -126,7 +127,7 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 			SpawnedProjectile->InitProjectile(Geom::rotationToVector(that->GetAdjustedAim(RealStartLoc)), InitClass);
 			SpawnedProjectile->m_SpawnedEquipPoint = that->r_eEquipAt;
 			if (that->WorldInfo->NetMode != NM_DedicatedServer && ((ATrProjectile *)ProjectileClass->Default)->m_bSimulateAutonomousProjectiles && bSpawnedSimProjectile)
-				SpawnedProjectile->SetHidden(g_config.bulletSpawnDelay == 0.01f);
+				SpawnedProjectile->SetHidden(true);
 			if (bTether && that->Instigator)
 			{
 				SpawnedProjectile->r_nTetherId = (that->DBWeaponId << 4) + that->m_nTetherCounter;
@@ -183,6 +184,9 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 		if (curr_proj.delay > 0.0)
 		{
 			curr_proj.delay -= params->DeltaTime;
+			if (!that->Pawn || !that->Pawn->IsAliveAndWell())
+				continue;
+
 			if (curr_proj.delay <= 0.0)
 			{
 				ATrProjectile *default_proj = (ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default;
@@ -244,7 +248,7 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 					else
 						init_ps = NULL;
 				}
-				ATrProjectile *proj = (ATrProjectile *)that->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, loc, curr_proj.rotation, NULL, 0);
+				ATrProjectile *proj = (ATrProjectile *)curr_proj.device->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, loc, curr_proj.rotation, NULL, 0);
 				if (proj)
 				{
 					if (curr_proj.spawn_class == ATrProj_ClientTracer::StaticClass())
