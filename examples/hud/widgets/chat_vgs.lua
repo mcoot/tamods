@@ -6,7 +6,6 @@ local persistence = 12
 function onChatMessage(team, channel, sender, text, is_vgs)
 	local msg = {}
 	msg.time = os.time()
-	msg.is_dm = false
 
 	-- Message format
 	if is_vgs then
@@ -56,10 +55,6 @@ function chat_vgs(x, y)
 		else
 			local size = getSmallTextSize(item.text, 1)
 			drawRect(x, y + 22 * i, x + 14 + size.x, y + 20 + 22 * i, bg_color1)
-
-			if item.is_dm then
-				drawBox(x, y + 22 * i, x + 14 + size.x, y + 20 + 22 * i, rgba(200,200,200,180))
-			end
 
 			drawRect(x, y + 22 * i, x + 3, y + 20 + 22 * i, item.color)
 			drawSmallText(item.text, item.color, x + 8, y + 11 + 22 * i, 0, 1, 1)
