@@ -873,7 +873,6 @@ void TrHUD_SendLocalMessageToChat(ATrHUD *that, ATrHUD_execSendLocalMessageToCha
 // Pending class
 void GfxTrHud_UpdateChatLog(UGfxTrHud *that, UGfxTrHud_execUpdateChatLog_Parms *params)
 {
-	Utils::printConsole("UpdateChatLog for pending class");
 	if (g_config.onGameMessage && !g_config.onGameMessage->isNil() && g_config.onGameMessage->isFunction())
 	{
 		try
