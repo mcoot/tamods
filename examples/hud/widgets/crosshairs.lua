@@ -1,4 +1,4 @@
-local white = rgb(255, 255, 255)
+showCrosshair = false
 
 function crosshairs(x, y)
 
@@ -13,13 +13,12 @@ function crosshairs(x, y)
 	--console(retIndex)
 
 	if retIndex == 21 or retIndex == 22 then -- Snipers
-		-- Snipers
 		draw2dLine(0, y, x * 2, y, xhair_line_color)
 		draw2dLine(x, 0, x, y * 2, xhair_line_color)
 		drawRect(x - 2, y - 2, x + 1, y + 1, xhair_color)
 	else
 		if retIndex == 20 then -- Chain
-			drawRect(x - 2, y - 2, x + 3, y + 3, black)
+			drawRect(x - 2, y - 2, x + 3, y + 3, rgb(0, 0, 0))
 			drawRect(x - 1, y - 1, x + 2, y + 2, xhair_color)
 		else
 			-- Left
