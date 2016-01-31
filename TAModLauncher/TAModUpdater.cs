@@ -20,8 +20,12 @@ namespace TAModLauncher
         public bool doAutoUpdateCheck = true;
 
         // The URL of the download server
-        public string updateUrl = "http://localhost/tamods/version.xml";
-        public string downloadUrl = "http://localhost/tamods";
+        //public string updateUrl = "http://localhost/tamods/version.xml";
+        //public string downloadUrl = "http://localhost/tamods";
+        //public string updateUrl = "file://D:/UserFiles/Documents/GitHub/tamodsupdate/update/version.xml";
+        public string updateUrl = "https://raw.githubusercontent.com/josephspearritt/tamodsupdate/release/version.xml";
+        public string downloadUrl = "https://raw.githubusercontent.com/josephspearritt/tamodsupdate/release";
+        
 
         // The filename of the local and server versioning manifest
         public string localManifestFilename = "version.xml";
