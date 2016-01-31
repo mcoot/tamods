@@ -369,6 +369,14 @@ void Utils::drawProgressBar(float x1, float y1, float x2, float y2, const FColor
 	drawRect(x1, y1, x2, y2, col);
 }
 
+void Utils::draw2dLine(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col)
+{
+	if (!(tr_hud && tr_hud->Canvas))
+		return;
+
+	tr_hud->Canvas->Draw2DLine(x1, y1, x2, y2, col);
+}
+
 ATrDevice* Utils::getDeviceByEquipPointHelper(unsigned const char &n)
 {
 	ATrPawn *TrP = Utils::getPlayerPawn();

@@ -62,6 +62,7 @@ namespace getCurrentWeaponData
 	int ammoCarried();
 	int ammoMaxCarried();
 	int ammoTotal();
+	int reticuleIndex();
 	unsigned char equippedAt();
 	std::string name();
 }

@@ -1,6 +1,6 @@
 function health_energy(x, y)
 	local health_pct = player.health() / player.healthMax()
-	local color = lerpColor(health_color_full, health_color_low, health_pct)
+	local color = lerpColor(health_color_low, health_color_full, health_pct)
 
 	-- Draw borders
 	drawBox(x - 302, y, x - 2, y + 25, color)

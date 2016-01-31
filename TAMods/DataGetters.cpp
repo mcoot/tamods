@@ -404,6 +404,13 @@ int getCurrentWeaponData::ammoTotal()
 	else
 		return dev->m_RemainingAmmoInClip + dev->m_nCarriedAmmo;
 }
+int getCurrentWeaponData::reticuleIndex()
+{
+	if (Utils::tr_pc && Utils::tr_pc->Pawn && Utils::tr_pc->Pawn->Weapon)
+		return ((ATrDevice *)Utils::tr_pc->Pawn->Weapon)->m_nReticuleIndex;
+	else
+		return -1;
+}
 unsigned char getCurrentWeaponData::equippedAt()
 {
 	ATrDevice *dev = Utils::getCurrentDeviceHelper();

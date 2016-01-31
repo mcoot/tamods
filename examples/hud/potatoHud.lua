@@ -3,6 +3,7 @@ require("hud/colors")
 require("hud/widgets/arena_player_spawns")
 require("hud/widgets/arena_round_scores")
 require("hud/widgets/cah_capture_points")
+require("hud/widgets/crosshairs")
 require("hud/widgets/chat_vgs")
 require("hud/widgets/flag_status")
 require("hud/widgets/game_scores")
@@ -97,19 +98,13 @@ function onDrawCustomHud(res_x, res_y)
 			drawText(speed .. " kph", text_color1, res_x - 280, res_y - 20, 2, 1)
 		end
 
-		health_energy(center_x, res_y - 35)
-
-		-- Weapons and Ammo
-		-- If the current gun is not ready to fire, draw an indicator around the crosshair
-		if not currentWeapon.isReadyToFire() then
-			local color = currentWeapon.isReloaded() and text_color3 or text_color1
-			drawText("-        -", color, center_x, center_y, 1, 1.5)
-		end
 		-- Draw the ammo of the current weapon close to the crosshair
 		if not currentWeapon.isPack() and (not in_vehicle or (in_vehicle and vehicle.ammo() < 0)) then
 			drawSmallText(currentWeapon.ammo(), currentWeapon.isLowAmmo() and text_color3 or text_color1, center_x + 16, res_y * 0.6, 1, 1, 1)
 		end
 
+		crosshairs(center_x, center_y)
+		health_energy(center_x, res_y - 35)
 		weapon_list(2, center_y - 100)
 
 		-- Draw a message if we have the flag

@@ -1091,110 +1091,112 @@ void Lua::init()
 		addFunction("drawRect",         &Utils::drawRect).
 		addFunction("drawBox",          &Utils::drawBox).
 		addFunction("drawProgressBar",  &Utils::drawProgressBar).
+		addFunction("draw2dLine",       &Utils::draw2dLine).
 
 		// Custom HUD getter functions
 		beginNamespace("viewPort").
-			addFunction("size",             getViewPortData::size).
-			addFunction("isMainMenuOpen",   getViewPortData::isMainMenuOpen).
-			addFunction("isScoreboardOpen", getViewPortData::isScoreboardOpen).
+			addFunction("size",             &getViewPortData::size).
+			addFunction("isMainMenuOpen",   &getViewPortData::isMainMenuOpen).
+			addFunction("isScoreboardOpen", &getViewPortData::isScoreboardOpen).
 		endNamespace().
 		beginNamespace("player").
-			addFunction("name",            getPlayerData::name).
-			addFunction("isAlive",         getPlayerData::isAlive).
-			addFunction("isFirstPerson",   getPlayerData::isFirstPerson).
-			addFunction("isRaged",         getPlayerData::isRaged).
-			addFunction("isVehicle",       getPlayerData::isVehicle).
-			addFunction("isShielded",      getPlayerData::isShielded).
-			addFunction("hasFlag",         getPlayerData::hasFlag).
-			addFunction("energy",          getPlayerData::energy).
-			addFunction("energyMax",       getPlayerData::energyMax).
-			addFunction("energyPct",       getPlayerData::energyPct).
-			addFunction("ping",            getPlayerData::ping).
-			addFunction("classId",         getPlayerData::classId).
-			addFunction("health",          getPlayerData::health).
-			addFunction("healthMax",       getPlayerData::healthMax).
-			addFunction("speed",           getPlayerData::speed).
-			addFunction("respawnTime",     getPlayerData::respawnTime).
-			addFunction("numDeployables",  getPlayerData::numDeployables).
-			addFunction("numMines",        getPlayerData::numMines).
-			addFunction("score",           getPlayerData::score).
-			addFunction("rabbitRank",      getPlayerData::rabbitRank).
-			addFunction("teamNum",         getPlayerData::teamNum).
-			addFunction("kills",           getPlayerData::kills).
-			addFunction("deaths",          getPlayerData::deaths).
-			addFunction("assists",         getPlayerData::assists).
-			addFunction("arenaSpawnsLeft", getPlayerData::arenaSpawnsLeft).
+			addFunction("name",            &getPlayerData::name).
+			addFunction("isAlive",         &getPlayerData::isAlive).
+			addFunction("isFirstPerson",   &getPlayerData::isFirstPerson).
+			addFunction("isRaged",         &getPlayerData::isRaged).
+			addFunction("isVehicle",       &getPlayerData::isVehicle).
+			addFunction("isShielded",      &getPlayerData::isShielded).
+			addFunction("hasFlag",         &getPlayerData::hasFlag).
+			addFunction("energy",          &getPlayerData::energy).
+			addFunction("energyMax",       &getPlayerData::energyMax).
+			addFunction("energyPct",       &getPlayerData::energyPct).
+			addFunction("ping",            &getPlayerData::ping).
+			addFunction("classId",         &getPlayerData::classId).
+			addFunction("health",          &getPlayerData::health).
+			addFunction("healthMax",       &getPlayerData::healthMax).
+			addFunction("speed",           &getPlayerData::speed).
+			addFunction("respawnTime",     &getPlayerData::respawnTime).
+			addFunction("numDeployables",  &getPlayerData::numDeployables).
+			addFunction("numMines",        &getPlayerData::numMines).
+			addFunction("score",           &getPlayerData::score).
+			addFunction("rabbitRank",      &getPlayerData::rabbitRank).
+			addFunction("teamNum",         &getPlayerData::teamNum).
+			addFunction("kills",           &getPlayerData::kills).
+			addFunction("deaths",          &getPlayerData::deaths).
+			addFunction("assists",         &getPlayerData::assists).
+			addFunction("arenaSpawnsLeft", &getPlayerData::arenaSpawnsLeft).
 		endNamespace().
 		beginNamespace("weapon").
-			addFunction("isReadyToFire",      getWeaponData::isReadyToFire).
-			addFunction("isReloading",        getWeaponData::isReloading).
-			addFunction("isPack",             getWeaponData::isPack).
-			addFunction("isPassiveReady",     getWeaponData::isPassiveReady).
-			addFunction("isLowAmmo",          getWeaponData::isLowAmmo).
-			addFunction("ammo",               getWeaponData::ammo).
-			addFunction("ammoMax",            getWeaponData::ammoMax).
-			addFunction("ammoCarried",        getWeaponData::ammoCarried).
-			addFunction("ammoMaxCarried",     getWeaponData::ammoMaxCarried).
-			addFunction("ammoTotal",          getWeaponData::ammoTotal).
-			addFunction("name",               getWeaponData::name).
+			addFunction("isReadyToFire",      &getWeaponData::isReadyToFire).
+			addFunction("isReloading",        &getWeaponData::isReloading).
+			addFunction("isPack",             &getWeaponData::isPack).
+			addFunction("isPassiveReady",     &getWeaponData::isPassiveReady).
+			addFunction("isLowAmmo",          &getWeaponData::isLowAmmo).
+			addFunction("ammo",               &getWeaponData::ammo).
+			addFunction("ammoMax",            &getWeaponData::ammoMax).
+			addFunction("ammoCarried",        &getWeaponData::ammoCarried).
+			addFunction("ammoMaxCarried",     &getWeaponData::ammoMaxCarried).
+			addFunction("ammoTotal",          &getWeaponData::ammoTotal).
+			addFunction("name",               &getWeaponData::name).
 		endNamespace().
 		beginNamespace("currentWeapon").
-			addFunction("isReadyToFire",      getCurrentWeaponData::isReadyToFire).
-			addFunction("isReloading",        getCurrentWeaponData::isReloading).
-			addFunction("isReloaded",         getCurrentWeaponData::isReloaded).
-			addFunction("isPack",             getCurrentWeaponData::isPack).
-			addFunction("isLowAmmo",          getCurrentWeaponData::isLowAmmo).
-			addFunction("ammo",               getCurrentWeaponData::ammo).
-			addFunction("ammoMax",            getCurrentWeaponData::ammoMax).
-			addFunction("ammoCarried",        getCurrentWeaponData::ammoCarried).
-			addFunction("ammoMaxCarried",     getCurrentWeaponData::ammoMaxCarried).
-			addFunction("ammoTotal",          getCurrentWeaponData::ammoTotal).
-			addFunction("equippedAt",         getCurrentWeaponData::equippedAt).
-			addFunction("name",               getCurrentWeaponData::name).
+			addFunction("isReadyToFire",      &getCurrentWeaponData::isReadyToFire).
+			addFunction("isReloading",        &getCurrentWeaponData::isReloading).
+			addFunction("isReloaded",         &getCurrentWeaponData::isReloaded).
+			addFunction("isPack",             &getCurrentWeaponData::isPack).
+			addFunction("isLowAmmo",          &getCurrentWeaponData::isLowAmmo).
+			addFunction("ammo",               &getCurrentWeaponData::ammo).
+			addFunction("ammoMax",            &getCurrentWeaponData::ammoMax).
+			addFunction("ammoCarried",        &getCurrentWeaponData::ammoCarried).
+			addFunction("ammoMaxCarried",     &getCurrentWeaponData::ammoMaxCarried).
+			addFunction("ammoTotal",          &getCurrentWeaponData::ammoTotal).
+			addFunction("reticuleIndex",      &getCurrentWeaponData::reticuleIndex).
+			addFunction("equippedAt",         &getCurrentWeaponData::equippedAt).
+			addFunction("name",               &getCurrentWeaponData::name).
 		endNamespace().
 		beginNamespace("vehicle").
-			addFunction("health",    getVehicleData::health).
-			addFunction("healthMax", getVehicleData::healthMax).
-			addFunction("energyPct", getVehicleData::energyPct).
-			addFunction("ammo",      getVehicleData::ammo).
-			addFunction("ammoMax",   getVehicleData::ammoMax).
-			addFunction("speed",     getVehicleData::speed).
+			addFunction("health",    &getVehicleData::health).
+			addFunction("healthMax", &getVehicleData::healthMax).
+			addFunction("energyPct", &getVehicleData::energyPct).
+			addFunction("ammo",      &getVehicleData::ammo).
+			addFunction("ammoMax",   &getVehicleData::ammoMax).
+			addFunction("speed",     &getVehicleData::speed).
 		endNamespace().
 		beginNamespace("game").
-			addFunction("type",              getGameData::type).
-			addFunction("timeStr",           getGameData::timeStr).
-			addFunction("spectators",        getGameData::spectators).
-			addFunction("isOfflinePlay",     getGameData::isOfflinePlay).
-			addFunction("isOver",            getGameData::isOver).
-			addFunction("isGenUp",           getGameData::isGenUp).
-			addFunction("isWarmUp",          getGameData::isWarmUp).
-			addFunction("genAutoRepairTime", getGameData::genAutoRepairTime).
-			addFunction("overTimeLimit",     getGameData::overTimeLimit).
-			addFunction("score",             getGameData::score).
-			addFunction("scoreLimit",        getGameData::scoreLimit).
-			addFunction("time",              getGameData::time).
-			addFunction("timeLimit",         getGameData::timeLimit).
+			addFunction("type",              &getGameData::type).
+			addFunction("timeStr",           &getGameData::timeStr).
+			addFunction("spectators",        &getGameData::spectators).
+			addFunction("isOfflinePlay",     &getGameData::isOfflinePlay).
+			addFunction("isOver",            &getGameData::isOver).
+			addFunction("isGenUp",           &getGameData::isGenUp).
+			addFunction("isWarmUp",          &getGameData::isWarmUp).
+			addFunction("genAutoRepairTime", &getGameData::genAutoRepairTime).
+			addFunction("overTimeLimit",     &getGameData::overTimeLimit).
+			addFunction("score",             &getGameData::score).
+			addFunction("scoreLimit",        &getGameData::scoreLimit).
+			addFunction("time",              &getGameData::time).
+			addFunction("timeLimit",         &getGameData::timeLimit).
 		endNamespace().
 		beginNamespace("rabbit").
-			addFunction("leaderBoardScore", getRabbitData::leaderBoardScore).
-			addFunction("leaderBoardName",  getRabbitData::leaderBoardName).
-			addFunction("rabbitName",       getRabbitData::rabbitName).
+			addFunction("leaderBoardScore", &getRabbitData::leaderBoardScore).
+			addFunction("leaderBoardName",  &getRabbitData::leaderBoardName).
+			addFunction("rabbitName",       &getRabbitData::rabbitName).
 		endNamespace().
 		beginNamespace("cah").
-			addFunction("pointsNum",   getCaHData::pointsNum).
-			addFunction("pointsHeld",  getCaHData::pointsHeld).
-			addFunction("pointHolder", getCaHData::pointHolder).
-			addFunction("pointLabel",  getCaHData::pointLabel).
+			addFunction("pointsNum",   &getCaHData::pointsNum).
+			addFunction("pointsHeld",  &getCaHData::pointsHeld).
+			addFunction("pointHolder", &getCaHData::pointHolder).
+			addFunction("pointLabel",  &getCaHData::pointLabel).
 		endNamespace().
 		beginNamespace("arena").
-			addFunction("round",      getArenaData::round).
-			addFunction("roundScore", getArenaData::roundScore).
-			addFunction("playerStatus", getArenaData::playerStatus).
+			addFunction("round",        &getArenaData::round).
+			addFunction("roundScore",   &getArenaData::roundScore).
+			addFunction("playerStatus", &getArenaData::playerStatus).
 		endNamespace().
 		beginNamespace("flag").
-			addFunction("isHome",     getFlagData::isHome).
-			addFunction("returnTime", getFlagData::returnTime).
-			addFunction("holderName", getFlagData::holderName).
+			addFunction("isHome",     &getFlagData::isHome).
+			addFunction("returnTime", &getFlagData::returnTime).
+			addFunction("holderName", &getFlagData::holderName).
 		endNamespace().
 
 		beginNamespace("config").

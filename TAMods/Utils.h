@@ -48,6 +48,7 @@ namespace Utils
 	void drawRect(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 	void drawBox(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 	void drawProgressBar(float x1, float y1, float x2, float y2, const FColor &col, const byte &dir, const float &alpha);
+	void draw2dLine(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 
 	ATrDevice* getDeviceByEquipPointHelper(unsigned const char &n);
 	ATrDevice* getCurrentDeviceHelper();

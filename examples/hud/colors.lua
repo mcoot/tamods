@@ -1,3 +1,6 @@
+xhair_color         = rgb(255, 255, 0)
+xhair_line_color    = rgba(0, 0, 0, 120)
+
 team_colors_bg      = {}
 team_colors_bg[0]   = rgba(255, 23, 23, 150)
 team_colors_bg[1]   = rgba(158, 208, 212, 150)
@@ -16,6 +19,6 @@ bg_color1           = rgba(0, 0, 0, 75)
 bg_color2           = rgba(0, 0, 0, 50)
 bg_color3           = rgba(0, 100, 0, 120)
 
-health_color_full   = rgb(235, 22, 51)
-health_color_low    = rgba(195, 248, 212, 200)
+health_color_full   = rgba(195, 248, 212, 200)
+health_color_low    = rgb(235, 22, 51)
 energy_color        = rgba(161, 209, 213, 200)
