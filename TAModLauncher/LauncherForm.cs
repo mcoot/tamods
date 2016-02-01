@@ -360,6 +360,11 @@ namespace TAModLauncher
                 MessageBox.Show("ERROR: The updater could not find files in the server manifest for download.",
                     "Error Retrieving Files", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ERROR: Redownload failed with error message:\n" + ex.Message,
+                    "Error Redownloading", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LauncherForm_FormClosed(object sender, FormClosedEventArgs e)

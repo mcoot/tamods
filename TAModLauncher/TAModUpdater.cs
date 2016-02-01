@@ -218,6 +218,7 @@ namespace TAModLauncher
 
         public void createNecessaryRelativeDirectories(string fileName, string absPath)
         {
+            fileName = fileName.Replace('/', '\\');
             if (fileName.Contains('\\'))
             {
                 string[] dirpath = fileName.Split('\\');
@@ -287,8 +288,15 @@ namespace TAModLauncher
                 {
                     createNecessaryRelativeDirectories(file.fileName, appPath);
                     File.Copy(appPath + "inprogress\\" + file.fileName, appPath + file.fileName, true);
+                    File.Delete(appPath + "inprogress\\" + file.fileName);
                 }
             }
+
+            if (Directory.Exists(appPath + "inprogress"))
+            {
+                Directory.Delete(appPath + "inprogress", true);
+            }
+
         }
 
         public void finishDownload()
@@ -363,6 +371,7 @@ namespace TAModLauncher
 
         private void webClientDownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
+
             downloader.Dispose();
             downloader = null;
 
