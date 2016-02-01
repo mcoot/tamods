@@ -45,7 +45,8 @@ void onDLLProcessAttach()
 		Hooks::addUScript(&TrHUD_AddToHeroStatus, "Function TribesGame.TrHUD.AddToHeroStatus"); // Custom game messages
 		Hooks::addUScript(&TrHUD_SendLocalMessageToChat, "Function TribesGame.TrHUD.SendLocalMessageToChat"); // Redirect flood protection messages
 		Hooks::addUScript(&TrHUD_AddUpdateToKillMessage, "Function TribesGame.TrHUD.AddUpdateToKillMessage"); // Custom kill message box
-		Hooks::addUScript(&TrPC_AddChatToConsole, "Function TribesGame.TrPlayerController.AddChatToConsole"); // Prevent whisper messages from showing up in the console if we handle them in lua
+		Hooks::add(&TrPC_AddChatToConsole, "Function TribesGame.TrPlayerController.AddChatToConsole"); // Redirect PMs
+		//Hooks::addUScript(&TrPC_AddChatToConsole, "Function TribesGame.TrPlayerController.AddChatToConsole"); // Prevent whisper messages from showing up in the console if we handle them in lua
 		
 		Hooks::add(&TrFlagBase_PostRenderFor, "Function TribesGame.TrFlagBase.PostRenderFor"); // Only show flag icon when it's off-stand
 

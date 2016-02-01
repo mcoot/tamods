@@ -1,3 +1,4 @@
+-- Hide the standard crosshair while retaining the hit maker
 showCrosshair = false
 
 function crosshairs(x, y)

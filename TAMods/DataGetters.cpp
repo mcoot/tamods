@@ -888,13 +888,27 @@ void GfxTrHud_UpdateChatLog(UGfxTrHud *that, UGfxTrHud_execUpdateChatLog_Parms *
 	that->UpdateChatLog(params->Message, params->ChannelColor, params->bPublic);
 }
 
-// Prevent whisper messages from showing up in the console if we handle them in lua
-void TrPC_AddChatToConsole(ATrPlayerController *that, ATrPlayerController_eventAddChatToConsole_Parms *params)
+// Whisper messages
+bool TrPC_AddChatToConsole(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (g_config.onChatMessage && !g_config.onChatMessage->isNil() && g_config.onChatMessage->isFunction())
-		return;
+	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
+	ATrPlayerController_eventAddChatToConsole_Parms *params = (ATrPlayerController_eventAddChatToConsole_Parms *)pParams;
 
-	that->eventAddChatToConsole(params->Sender, params->ChatMessage, params->Channel);
+	if (g_config.onChatMessage && !g_config.onChatMessage->isNil() && g_config.onChatMessage->isFunction())
+	{
+		try
+		{
+			(*g_config.onChatMessage)(255, params->Channel, Utils::f2std(params->Sender), Utils::f2std(params->ChatMessage), false);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+		return true;
+	}
+
+	return false;
+	//that->eventAddChatToConsole(params->Sender, params->ChatMessage, params->Channel);
 }
 
 void TrHUD_AddUpdateToKillMessage(ATrHUD *that, ATrHUD_execAddUpdateToKillMessage_Parms *params)

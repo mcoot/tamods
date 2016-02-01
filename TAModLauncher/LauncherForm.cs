@@ -17,7 +17,7 @@ namespace TAModLauncher
 {
     public partial class LauncherForm : Form
     {
-        public bool updaterEnabled = false;
+        public bool updaterEnabled = true;
 
         public TAModUpdater updater;
         public TAModLauncherConfig config;
@@ -71,6 +71,9 @@ namespace TAModLauncher
             autoInjectTimer = new GameDetector(autoInjecting, autoInjectDelay, "tribesascend", autoInjectMode);
             checkAutoInject.Checked = autoInjectTimer.Enabled;
 
+            // Initialise settings form
+            settingsform = new SettingsForm(this);
+
             if (updaterEnabled && checkAutoUpdate.Checked)
             {
                 checkForUpdates();
@@ -85,8 +88,7 @@ namespace TAModLauncher
                 btnReinstall.Enabled = false;
             }
 
-            // Initialise settings form
-            settingsform = new SettingsForm(this);
+            
 
         }
 
@@ -378,7 +380,7 @@ namespace TAModLauncher
                 {
                     if (injector.HasInjected)
                     {
-                        btnUpdateLaunch.Text = "Eject TAMods";
+                        //btnUpdateLaunch.Text = "Eject TAMods";
                     }
                     else
                     {
@@ -413,7 +415,7 @@ namespace TAModLauncher
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
-            String msg = "TAMods Launcher v0.5.1\nTAMods v0.5.1 for Tribes Ascend 1.1 Out Of The Blue\n\nFor help with TAMods or the launcher/config tool, post in /r/tribes, or message the devs - /u/Ensiss, /u/Shreq, /u/Dodgesabre, /u/AvianIsTheTerm.";
+            String msg = "TAMods Launcher v0.6\n\nFor help with TAMods or the launcher/config tool, post in /r/tribes, or message the devs - /u/Ensiss, /u/Shreq, /u/Dodgesabre, /u/AvianIsTheTerm.";
             MessageBox.Show(msg, "About");
         }
 

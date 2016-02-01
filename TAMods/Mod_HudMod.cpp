@@ -296,10 +296,14 @@ bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFun
 	// Forward chat to Lua customHUD
 	if (g_config.onChatMessage && !g_config.onChatMessage->isNil() && g_config.onChatMessage->isFunction())
 	{
+		// PMs are handled by TrPC_AddChatToConsole
+		if (params->Channel == GC_CC_PERSONAL)
+			return true;
+
 		unsigned char SenderTeam = 255;
 
 		// Figure out the team of the sender for non personal (pms) and global messages
-		if (params->Channel != GC_CC_PERSONAL && params->Channel != GC_CC_GLOBAL)
+		if (params->Channel != GC_CC_GLOBAL)
 		{
 			if (that->WorldInfo && that->WorldInfo->GRI && that->WorldInfo->GRI->PRIArray.Count)
 			{
