@@ -211,7 +211,8 @@ namespace TAModLauncher
             }
             else
             {
-                labelDownload.Visible = false;
+                labelDownload.Visible = true;
+                labelDownload.Text = "Up to date!";
                 btnUpdateLaunch.Text = "Launch Tribes";
             }
 
