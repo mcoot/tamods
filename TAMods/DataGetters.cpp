@@ -1,5 +1,6 @@
 #include "DataGetters.h"
 #include "Mods.h"
+#include "NameCryptor.h"
 
 /*
 	TODO:
@@ -20,6 +21,7 @@ FVector2D getViewPortData::size()
 }
 bool getViewPortData::isMainMenuOpen()
 {
+	// FIXME: crashes when entering a password
 	if (Utils::tr_hud)
 		return Utils::tr_hud->bIsMainMenuOpen;
 
@@ -814,7 +816,7 @@ void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Pa
 	{
 		std::string Aggressor = Utils::f2std(params->Aggressor);
 		std::string Victim = Utils::f2std(params->Victim);
-		unsigned char CombatType = params->CombatType;
+		unsigned char CombatType = (unsigned char)params->CombatType;
 
 		if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
 		{
@@ -824,7 +826,8 @@ void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Pa
 		}
 		try
 		{
-			(*g_config.onAddToCombatLog)(CombatType, Aggressor, params->WeaponIcon - 129, Victim);
+			// Only enemy victims (first bit in CombatType unset) need name encryption
+			(*g_config.onAddToCombatLog)(CombatType, Aggressor, params->WeaponIcon - 129, CombatType & 1 ? Victim : cryptor.encrypt(Victim));
 		}
 		catch (const LuaException &e)
 		{
@@ -917,7 +920,7 @@ void TrHUD_AddUpdateToKillMessage(ATrHUD *that, ATrHUD_execAddUpdateToKillMessag
 	{
 		try
 		{
-			(*g_config.onKillMessage)(Utils::f2std(params->Message), Utils::f2std(params->PlayerName));
+			(*g_config.onKillMessage)(Utils::f2std(params->Message), cryptor.encrypt(Utils::f2std(params->PlayerName)));
 		}
 		catch (const LuaException &e)
 		{

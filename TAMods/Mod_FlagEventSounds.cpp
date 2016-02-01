@@ -181,7 +181,7 @@ void TrCTFMessage_ClientReceive(UTrCTFMessage *that, UTrCTFMessage_execClientRec
 
 	if (params->OptionalObject)
 	{
-		unsigned char flagsteam = ((ATeamInfo *)params->OptionalObject)->TeamIndex;
+		unsigned char flagsteam = (unsigned char)((ATeamInfo *)params->OptionalObject)->TeamIndex;
 		ATrPlayerReplicationInfo *pri = (ATrPlayerReplicationInfo *)params->RelatedPRI;
 
 		switch (params->Switch)

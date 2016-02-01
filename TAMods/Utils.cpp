@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include "NameCryptor.h"
 
 namespace Utils
 {
@@ -14,7 +15,8 @@ namespace Utils
 	UFont *consoleFont = UObject::FindObject<UFont>("Font EngineFonts.SmallFont");
 }
 
-FLinearColor Utils::linCol(const FColor &col){
+FLinearColor Utils::linCol(const FColor &col)
+{
 	FLinearColor lcol;
 	lcol.R = ((float)col.R / 255);
 	lcol.G = ((float)col.G / 255);
@@ -228,10 +230,12 @@ void Utils::drawTextMain(const std::string &str, const FColor &col, float x, flo
 	if (!(tr_hud && tr_hud->Canvas))
 		return;
 
+	std::string text = cryptor.decrypt(str);
+
 	UCanvas &canvas = *tr_hud->Canvas;
 	float xl, yl;
 
-	std::wstring wstr = std::wstring(str.begin(), str.end());
+	std::wstring wstr = std::wstring(text.begin(), text.end());
 	wchar_t* wch = (wchar_t *)wstr.c_str();
 
 	switch (fontNum)
@@ -286,10 +290,12 @@ FVector2D Utils::getTextSize(const std::string &str, const float &scale)
 	if (!(tr_hud && tr_hud->Canvas))
 		return{ 0.0f, 0.0f };
 
+	std::string text = cryptor.decrypt(str);
+
 	UCanvas &canvas = *tr_hud->Canvas;
 	float xl, yl;
 
-	std::wstring wstr = std::wstring(str.begin(), str.end());
+	std::wstring wstr = std::wstring(text.begin(), text.end());
 	wchar_t* wch = (wchar_t *)wstr.c_str();
 
 	canvas.Font = mainFont;
@@ -302,10 +308,12 @@ FVector2D Utils::getSmallTextSize(const std::string &str, const float &scale)
 	if (!(tr_hud && tr_hud->Canvas))
 		return{ 0.0f, 0.0f };
 
+	std::string text = cryptor.decrypt(str);
+	
 	UCanvas &canvas = *tr_hud->Canvas;
 	float xl, yl;
 
-	std::wstring wstr = std::wstring(str.begin(), str.end());
+	std::wstring wstr = std::wstring(text.begin(), text.end());
 	wchar_t* wch = (wchar_t *)wstr.c_str();
 
 	canvas.Font = consoleFont;
@@ -318,10 +326,12 @@ FVector2D Utils::getUTTextSize(const std::string &str, const int &size)
 	if (!(tr_hud && tr_hud->Canvas))
 		return{ 0.0f, 0.0f };
 
+	std::string text = cryptor.decrypt(str);
+
 	UCanvas &canvas = *tr_hud->Canvas;
 	float xl, yl;
 
-	std::wstring wstr = std::wstring(str.begin(), str.end());
+	std::wstring wstr = std::wstring(text.begin(), text.end());
 	wchar_t* wch = (wchar_t *)wstr.c_str();
 
 	canvas.Font = ut_hud->GetFontSizeIndex(size);
