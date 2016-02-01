@@ -14,16 +14,11 @@ struct DelayedProjectile
 	UParticleSystem *proj_flight_template;
 };
 
-DelayedProjectile delayed_projs[50] = { 0 };
+std::list<DelayedProjectile> delayed_projs;
 
 void MC_KillProjectiles()
 {
-	for (int i = 0; i < 50; i++)
-	{
-		DelayedProjectile &curr_proj = delayed_projs[i];
-
-		curr_proj.delay = 0.0f;
-	}
+	delayed_projs.clear();
 }
 
 static void PostInitProjectile(ATrProjectile *that, const FVector &direction, float speed = 0.0f)
@@ -82,26 +77,19 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 			if (g_config.useMagicChain)
 			{
 				float ping = that->Instigator->PlayerReplicationInfo->ExactPing;
-				if (ping <= 0.0)
-					ping = (float) 0.001;
-				for (int i = 0; i < 50; i++)
-				{
-					DelayedProjectile &delayed = delayed_projs[i];
-					if (delayed.delay <= 0.0)
-					{
-						delayed.device = that;
-						delayed.spawn_class = SpawnClass;
-						delayed.init_class = InitClass;
-						delayed.instigator = that->Instigator;
-						delayed.location = RealStartLoc;
-						delayed.rotation = SpawnRotation;
-						delayed.owner_velocity = that->Instigator->Velocity;
-						delayed.spawn_tag = that->Name;
-						delayed.delay = ping * 0.5f * g_config.bulletPingMultiplier + g_config.bulletSpawnDelay;
-						delayed.proj_flight_template = NULL;
-						break;
-					}
-				}
+				DelayedProjectile delayed;
+
+				delayed.device = that;
+				delayed.spawn_class = SpawnClass;
+				delayed.init_class = InitClass;
+				delayed.instigator = that->Instigator;
+				delayed.location = RealStartLoc;
+				delayed.rotation = SpawnRotation;
+				delayed.owner_velocity = that->Instigator->Velocity;
+				delayed.spawn_tag = that->Name;
+				delayed.delay = ping * 0.5f * g_config.bulletPingMultiplier + g_config.bulletSpawnDelay;
+				delayed.proj_flight_template = NULL;
+				delayed_projs.push_back(delayed);
 			}
 			else
 			{
@@ -177,95 +165,100 @@ bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, voi
 
 	if (g_config.useMagicChain)
 		that->m_bAllowSimulatedProjectiles = true;
-	for (int i = 0; i < 50; i++)
+
+	if (!that->Pawn)
+		MC_KillProjectiles();
+	for (auto &it = delayed_projs.begin(); it != delayed_projs.end();)
 	{
-		DelayedProjectile &curr_proj = delayed_projs[i];
-
-		if (curr_proj.delay > 0.0)
+		DelayedProjectile &curr_proj = *it;
+		curr_proj.delay -= params->DeltaTime;
+		if (!that->Pawn || !that->Pawn->IsAliveAndWell() || that->Pawn != curr_proj.instigator)
 		{
-			curr_proj.delay -= params->DeltaTime;
-			if (!that->Pawn || !that->Pawn->IsAliveAndWell())
-				continue;
+			it = delayed_projs.erase(it);
+			continue;
+		}
+		if (curr_proj.delay <= 0.0)
+		{
+			ATrProjectile *default_proj = (ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default;
+			UParticleSystem *spawn_ps, *init_ps;
+			FVector loc = curr_proj.location;
+			FVector dir = Geom::rotationToVector(curr_proj.rotation);
+			float delay = -curr_proj.delay + g_config.bulletSpawnDelay;
+			float dist = 0;
+			float speed = g_config.useSmallBullets ? default_proj->MaxSpeed : 1.0f;
 
-			if (curr_proj.delay <= 0.0)
+			FVector Velocity = Geom::mult(dir, speed);
+			Velocity.Z += default_proj->TossZ;
+			FVector m_vAccelDirection = Geom::normal(Velocity);
+
+			FVector OwnerVelocity = curr_proj.owner_velocity;
+			float ForwardPct = min(Geom::dot(Geom::normal(OwnerVelocity), Geom::normal(dir)), default_proj->m_fMaxProjInheritPct);
+			float InheritPct = max(default_proj->m_fProjInheritVelocityPct, ForwardPct);
+			FVector InheritedVelocity = Geom::mult(OwnerVelocity, InheritPct);
+
+			Velocity = Geom::add(Velocity, InheritedVelocity);
+
+			if (g_config.useSmallBullets)
 			{
-				ATrProjectile *default_proj = (ATrProjectile *)(curr_proj.init_class ? curr_proj.init_class : curr_proj.spawn_class)->Default;
-				UParticleSystem *spawn_ps, *init_ps;
-				FVector loc = curr_proj.location;
-				FVector dir = Geom::rotationToVector(curr_proj.rotation);
-				float delay = -curr_proj.delay + g_config.bulletSpawnDelay;
-				float dist = 0;
-				float speed = g_config.useSmallBullets ? default_proj->MaxSpeed : 1.0f;
+				dist = default_proj->MaxSpeed * delay;
+				speed = default_proj->MaxSpeed;
+			}
+			else
+			{
+				float v0 = speed;				// Initial speed
+				float vmax = default_proj->MaxSpeed;
+				float a = 100000.0f;			// default_proj->AccelRate;
+				float tmax = (vmax - v0) / a;	// Time before speed reaches MaxSpeed
 
-				FVector Velocity = Geom::mult(dir, speed);
-				Velocity.Z += default_proj->TossZ;
-				FVector m_vAccelDirection = Geom::normal(Velocity);
-
-				FVector OwnerVelocity = curr_proj.owner_velocity;
-				float ForwardPct = min(Geom::dot(Geom::normal(OwnerVelocity), Geom::normal(dir)), default_proj->m_fMaxProjInheritPct);
-				float InheritPct = max(default_proj->m_fProjInheritVelocityPct, ForwardPct);
-				FVector InheritedVelocity = Geom::mult(OwnerVelocity, InheritPct);
-
-				Velocity = Geom::add(Velocity, InheritedVelocity);
-
-				if (g_config.useSmallBullets)
+				if (delay < tmax)
 				{
-					dist = default_proj->MaxSpeed * delay;
-					speed = default_proj->MaxSpeed;
+					// d(x) = v0*x + (a/2)x²
+					dist = v0 * delay + a * 0.5f * delay * delay;
+					speed = v0 + delay * a;
 				}
 				else
 				{
-					float v0 = speed;				// Initial speed
-					float vmax = default_proj->MaxSpeed;
-					float a = 100000.0f;			// default_proj->AccelRate;
-					float tmax = (vmax - v0) / a;	// Time before speed reaches MaxSpeed
-
-					if (delay < tmax)
-					{
-						// d(x) = v0*x + (a/2)x²
-						dist = v0 * delay + a * 0.5f * delay * delay;
-						speed = v0 + delay * a;
-					}
-					else
-					{
-						dist = v0 * tmax + a * 0.5f * tmax * tmax;
-						dist += (delay - tmax) * vmax;
-						speed = vmax;
-					}
-				}
-				loc = Geom::add(loc, Geom::mult(InheritedVelocity, delay));
-				loc = Geom::add(loc, Geom::mult(m_vAccelDirection, dist));
-
-				if (curr_proj.proj_flight_template)
-				{
-					spawn_ps = ((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate;
-					((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate = curr_proj.proj_flight_template;
-					if (curr_proj.init_class)
-					{
-						init_ps = ((ATrProjectile *)curr_proj.init_class->Default)->ProjFlightTemplate;
-						((ATrProjectile *)curr_proj.init_class->Default)->ProjFlightTemplate = curr_proj.proj_flight_template;
-					}
-					else
-						init_ps = NULL;
-				}
-				ATrProjectile *proj = (ATrProjectile *)curr_proj.device->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, loc, curr_proj.rotation, NULL, 0);
-				if (proj)
-				{
-					if (curr_proj.spawn_class == ATrProj_ClientTracer::StaticClass())
-						((ATrProj_ClientTracer *)proj)->InitProjectile(dir, curr_proj.init_class);
-					else
-						proj->InitProjectile(dir, curr_proj.init_class);
-					PostInitProjectile(proj, dir, speed);
-				}
-				if (curr_proj.proj_flight_template)
-				{
-					((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate = spawn_ps;
-					if (curr_proj.init_class)
-						((ATrProjectile *)curr_proj.init_class->Default)->ProjFlightTemplate = init_ps;
+					dist = v0 * tmax + a * 0.5f * tmax * tmax;
+					dist += (delay - tmax) * vmax;
+					speed = vmax;
 				}
 			}
+			loc = Geom::add(loc, Geom::mult(InheritedVelocity, delay));
+			loc = Geom::add(loc, Geom::mult(m_vAccelDirection, dist));
+
+			if (curr_proj.proj_flight_template)
+			{
+				spawn_ps = ((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate;
+				((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate = curr_proj.proj_flight_template;
+				if (curr_proj.init_class)
+				{
+					init_ps = ((ATrProjectile *)curr_proj.init_class->Default)->ProjFlightTemplate;
+					((ATrProjectile *)curr_proj.init_class->Default)->ProjFlightTemplate = curr_proj.proj_flight_template;
+				}
+				else
+					init_ps = NULL;
+			}
+			ATrProjectile *proj = (ATrProjectile *)curr_proj.device->Spawn(curr_proj.spawn_class, curr_proj.instigator, curr_proj.spawn_tag, loc, curr_proj.rotation, NULL, 0);
+			if (proj)
+			{
+				if (curr_proj.spawn_class == ATrProj_ClientTracer::StaticClass())
+					((ATrProj_ClientTracer *)proj)->InitProjectile(dir, curr_proj.init_class);
+				else
+					proj->InitProjectile(dir, curr_proj.init_class);
+				PostInitProjectile(proj, dir, speed);
+			}
+			if (curr_proj.proj_flight_template)
+			{
+				((ATrProjectile *)curr_proj.spawn_class->Default)->ProjFlightTemplate = spawn_ps;
+				if (curr_proj.init_class)
+					((ATrProjectile *)curr_proj.init_class->Default)->ProjFlightTemplate = init_ps;
+			}
+			it = delayed_projs.erase(it);
 		}
+		else
+			it++;
 	}
+
 	Hooks::unlock();
 	return false;
 }
