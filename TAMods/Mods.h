@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sstream>
+#include <list>
 #include "Config.h"
 #include "Utils.h"
 #include "Data.h"
