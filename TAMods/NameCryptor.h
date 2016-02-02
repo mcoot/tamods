@@ -19,7 +19,7 @@ using CryptoPP::StreamTransformationFilter;
 using CryptoPP::AES;
 
 #include "cryptopp\headers\modes.h"
-using CryptoPP::CFB_Mode;
+using CryptoPP::CTR_Mode;
 
 class NameCryptor
 {
