@@ -1,4 +1,5 @@
 #include "Mods.h"
+#include "NameCryptor.h"
 
 bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
@@ -171,6 +172,19 @@ bool TrPowerGenerator_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction*
 	}
 
 	return true;
+}
+
+bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+{
+	// Generate a new key every map load, just in case
+	cryptor.GenerateKey();
+
+	savesReset();
+	// FIXME: this sometimes crashes when loading a (rabbit) map
+	stopwatchReset();
+	routeReset();
+
+	return false;
 }
 
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)

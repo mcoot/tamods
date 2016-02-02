@@ -826,7 +826,7 @@ void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Pa
 		}
 		try
 		{
-			// Only enemy victims (first bit in CombatType unset) need name encryption
+			// We only have to encrypt the victims name if the agressor is in our team (first bit in CombatType not set)
 			(*g_config.onAddToCombatLog)(CombatType, Aggressor, params->WeaponIcon - 129, CombatType & 1 ? Victim : cryptor.encrypt(Victim));
 		}
 		catch (const LuaException &e)
