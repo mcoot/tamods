@@ -421,7 +421,7 @@ namespace TAModLauncher
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
-            String msg = "TAMods Launcher v0.6\n\nFor help with TAMods or the launcher/config tool, post in /r/tribes, or message the devs - /u/Ensiss, /u/Shreq, /u/Dodgesabre, /u/AvianIsTheTerm.";
+            String msg = "TAMods Launcher v0.6\n\nFor help with TAMods or the launcher/config tool, post in /r/tribes, or message the devs - /u/Ensiss, /u/Schreq, /u/Dodgesabre, /u/AvianIsTheTerm.";
             MessageBox.Show(msg, "About");
         }
 
