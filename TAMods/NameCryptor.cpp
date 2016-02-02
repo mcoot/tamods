@@ -2,7 +2,6 @@
 #include "Utils.h"
 
 #define CIPHER_FIELD_DELIMITER_CHAR 0x1F // Unit separator control code
-#define SALT_LENGTH 5
 
 NameCryptor::NameCryptor()
 {
@@ -12,7 +11,6 @@ NameCryptor::NameCryptor()
 void NameCryptor::GenerateKey()
 {
 	prng.GenerateBlock(key, sizeof(key));
-	prng.GenerateBlock(iv, sizeof(iv));
 }
 
 std::string NameCryptor::encrypt(const std::string &plainText)
@@ -26,17 +24,18 @@ std::string NameCryptor::encrypt(const std::string &plainText)
 		cachedText = plainText;
 		cachedCipher.clear();
 
-		byte salt[SALT_LENGTH];
-		prng.GenerateBlock(salt, sizeof(salt));
+		byte iv[AES::BLOCKSIZE];
+		prng.GenerateBlock(iv, sizeof(iv));
 
 		try
 		{
 			CTR_Mode< AES >::Encryption e;
 			e.SetKeyWithIV(key, sizeof(key), iv);
 
-			// CFB mode must not use padding. Specifying
-			//  a scheme will result in an exception
-			StringSource(plainText + std::string((char *)salt, sizeof(salt)), true,
+			// The StreamTransformationFilter adds padding
+			//  as required. ECB and CBC Mode must be padded
+			//  to the block size of the cipher.
+			StringSource(plainText, true,
 				new StreamTransformationFilter(e,
 				new StringSink(cachedCipher)
 				) // StreamTransformationFilter
@@ -48,7 +47,10 @@ std::string NameCryptor::encrypt(const std::string &plainText)
 			return plainText;
 		}
 
-		cachedCipher = (char)CIPHER_FIELD_DELIMITER_CHAR + cachedCipher + (char)CIPHER_FIELD_DELIMITER_CHAR;
+		// Prepend initialization vector
+		// The IV's purpose is to ensure same plaintexts encrypt to different ciphertexts.
+		//  When an adversary learns the IV after the plaintext has been encrypted, no harm is done, since it has already served its purpose. 
+		cachedCipher = (char)CIPHER_FIELD_DELIMITER_CHAR + std::string((char *)iv, sizeof(iv)) + cachedCipher + (char)CIPHER_FIELD_DELIMITER_CHAR;
 	}
 
 	return cachedCipher;
@@ -76,15 +78,19 @@ std::string NameCryptor::decrypt(const std::string &text)
 
 		if (endPos != std::string::npos && startPos < endPos)
 		{
-			std::string cipher, decrypted;
+			std::string iv, cipher, decrypted;
 
 			size_t len = endPos - startPos;
-			cipher = text.substr(startPos + 1, len - 2);
+
+			// Extract the prepending initialization vector
+			iv = text.substr(startPos + 1, AES::BLOCKSIZE);
+			// Extract the cipher
+			cipher = text.substr(startPos + 1 + AES::BLOCKSIZE, len - 1 - AES::BLOCKSIZE);
 
 			try
 			{
 				CTR_Mode< AES >::Decryption d;
-				d.SetKeyWithIV(key, sizeof(key), iv);
+				d.SetKeyWithIV(key, sizeof(key), (byte *)iv.data());
 
 				// The StreamTransformationFilter removes
 				//  padding as required.
@@ -99,8 +105,6 @@ std::string NameCryptor::decrypt(const std::string &text)
 				Utils::console("CryptoPP Exception: %s", e.what());
 				return text;
 			}
-			// Remove salt
-			decrypted = decrypted.substr(0, decrypted.size() + 1 - SALT_LENGTH);
 
 			// Replace the encrypted part with the decrypted version
 			cachedResult.replace(startPos, len + 1, decrypted);

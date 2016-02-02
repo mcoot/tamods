@@ -36,7 +36,6 @@ public:
 
 private:
 	byte key[AES::DEFAULT_KEYLENGTH];
-	byte iv[AES::BLOCKSIZE];
 };
 
 extern NameCryptor cryptor;
