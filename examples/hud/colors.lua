@@ -3,13 +3,13 @@ xhair_line_color    = rgba(0, 0, 0, 120)
 
 team_colors_bg      = {}
 team_colors_bg[0]   = rgba(255, 23, 23, 150)
-team_colors_bg[1]   = rgba(158, 208, 212, 150)
+team_colors_bg[1]   = rgba(158, 200, 222, 150)
 team_colors_text    = {}
 team_colors_text[0] = rgba(255, 23, 23, 255)
-team_colors_text[1] = rgba(158, 208, 212, 255)
+team_colors_text[1] = rgba(158, 200, 222, 255)
 team_colors_vgs     = {}
 team_colors_vgs[0]  = rgba(255, 23, 23, 160)
-team_colors_vgs[1]  = rgba(158, 208, 212, 160)
+team_colors_vgs[1]  = rgba(158, 200, 222, 160)
 
 text_color1         = rgb(255, 255, 255)
 text_color2         = rgb(200, 80, 80)

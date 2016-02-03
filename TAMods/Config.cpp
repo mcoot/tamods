@@ -28,6 +28,7 @@ Config::Config()
 	onChatMessage = NULL;
 	onGameMessage = NULL;
 	onKillMessage = NULL;
+	onDrawHealthBar = NULL;
 	onInputEvent = NULL;
 	reset();
 }
@@ -69,6 +70,7 @@ void Config::reset()
 	delete onChatMessage;
 	delete onGameMessage;
 	delete onKillMessage;
+	delete onDrawHealthBar;
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 	onDrawCustomHud = NULL;
@@ -76,6 +78,7 @@ void Config::reset()
 	onChatMessage = NULL;
 	onGameMessage = NULL;
 	onKillMessage = NULL;
+	onDrawHealthBar = NULL;
 
 	//Damage Number color variables
 	rainbowBulletInt      = 0;
@@ -161,6 +164,9 @@ void Config::reset()
 	showVehicleIcon      = true;
 	showMineIcon         = true;
 	showSensorIcon       = true;
+
+	showObjectiveText    = true;
+	showMineText         = true;
 
 	// HUD scaling
 	IFFScale			 = 1.0f;
@@ -640,12 +646,16 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showMineIcon);
 	SET_VARIABLE(bool, showSensorIcon);
 
+	SET_VARIABLE(bool, showObjectiveText);
+	SET_VARIABLE(bool, showMineText);
+
 	// Custom HUD
 	SET_FUNCTION(onDrawCustomHud);
 	SET_FUNCTION(onAddToCombatLog);
 	SET_FUNCTION(onChatMessage);
 	SET_FUNCTION(onGameMessage);
 	SET_FUNCTION(onKillMessage);
+	SET_FUNCTION(onDrawHealthBar);
 
 	// HUD scaling
 	SET_VARIABLE(float, IFFScale);

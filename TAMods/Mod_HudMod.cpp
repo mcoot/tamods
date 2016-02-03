@@ -30,6 +30,11 @@ bool TrChatConsoleCommand_quit(int ID, UObject *dwCallingObject, UFunction* pFun
 
 void TrHUD_DrawMarkerText(ATrHUD *that, ATrHUD_execDrawMarkerText_Parms *params, void *result, Hooks::CallInfo *callInfo)
 {
+	if (!g_config.showObjectiveText && callInfo->callerObject->IsA(ATrGameObjective::StaticClass()))
+		return;
+	else if (!g_config.showMineText && callInfo->callerObject->IsA(ATrProj_Mine::StaticClass()))
+		return;
+
 	float XL, YL;
 
 	params->DrawCanvas->Font = Utils::mainFont;
@@ -44,6 +49,24 @@ void TrHUD_DrawMarkerText(ATrHUD *that, ATrHUD_execDrawMarkerText_Parms *params,
 	params->DrawCanvas->SetPos(params->Placement.X - (XL * 0.5f), params->Placement.Y - (YL * 0.5f), params->Placement.Z);
 	params->DrawCanvas->DrawTextW(params->ShowText, true, g_config.IFFScale, g_config.IFFScale, &that->m_nNameFontRenderInfo);
 	*(FVector *)result = params->Placement;
+}
+
+void TrHUD_DrawHealthBar(ATrHUD *that, ATrHUD_execDrawHealthBar_Parms *params, void *result, Hooks::CallInfo *callInfo)
+{
+	if (g_config.onDrawHealthBar && !g_config.onDrawHealthBar->isNil() && g_config.onDrawHealthBar->isFunction())
+	{
+		float health = params->HealthBarMIC->ScalarParameterValues.Data[0].ParameterValue;
+		try
+		{
+			(*g_config.onDrawHealthBar)(params->Placement.X - params->PlacementX, params->Placement.Y - params->PlacementY, (bool)params->bFriend, health);
+		}
+		catch (const LuaException &e)
+		{
+			Utils::console("LuaException: %s", e.what());
+		}
+		return;
+	}
+	that->DrawHealthBar(params->HealthBarMIC, params->bFriend, params->Placement, params->DrawCanvas, params->PlacementX, params->PlacementY, params->Width, params->Height);
 }
 
 static void my_UpdateOverheadNumbers(ATrHUD *that, float DeltaTime)

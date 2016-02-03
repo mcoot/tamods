@@ -144,6 +144,7 @@ public:
 	LuaRef *onChatMessage;
 	LuaRef *onGameMessage;
 	LuaRef *onKillMessage;
+	LuaRef *onDrawHealthBar;
 
 	// Custom damage number text
 	std::string damageNumberCustomText;
@@ -262,6 +263,9 @@ public:
 	bool showVehicleIcon;
 	bool showMineIcon;
 	bool showSensorIcon;
+
+	bool showObjectiveText;
+	bool showMineText;
 
 	// HUD scaling
 	float IFFScale;
