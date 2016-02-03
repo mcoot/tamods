@@ -531,7 +531,7 @@ static void reloadRouteList()
 			routefile >> file_map_name;
 			routefile.close();
 
-			if (mod_version >= 5.0f && file_map_name == curr_map_name)
+			if (mod_version >= 0.5f && file_map_name == curr_map_name)
 				files.push_back(fname);
 		}
 
@@ -678,7 +678,7 @@ void routeLoadFile(unsigned int num)
 		routeReset();
 		binary_read(routefile, modVersion);
 
-		if (modVersion < 5.0f)
+		if (modVersion < 0.5f)
 		{
 			routefile.close();
 			Utils::console("Error: This route file has a wrong format");
