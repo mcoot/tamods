@@ -48,7 +48,7 @@ void routeReset();
 void routeSaveFile(const std::string &desc);
 void routeLoadFile(unsigned int num);
 void routeList(const std::string &needle);
-void routeListAll();
+unsigned int routeListAll();
 void routeEnableBot(bool on);
 
 struct MutedPlayer

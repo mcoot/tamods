@@ -726,9 +726,10 @@ void routeList(const std::string &needle)
 	}
 }
 
-void routeListAll()
+unsigned int routeListAll()
 {
 	routeList("");
+	return files.size();
 }
 
 void UpdateRouteOverheadNumbers(ATrHUD *that)
