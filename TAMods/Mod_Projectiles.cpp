@@ -100,6 +100,15 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 	ATrPlayerController *TrPC;
 	FTraceHitInfo HitInfo;
 
+	// Custom particle system
+	CustomProjectile *customProj = NULL;
+	auto it = g_config.wep_id_to_custom_proj.find(that->DBWeaponId);
+	if (it != g_config.wep_id_to_custom_proj.end() && it->second)
+	{
+		customProj = it->second;
+		customProj->default_proj->ProjFlightTemplate = customProj->custom_ps;
+	}
+
 	that->IncrementFlashCount();
 	ProjectileClass = that->GetProjectileClass();
 	SpawnClass = g_config.useSmallBullets ? ProjectileClass : ATrProj_ClientTracer::StaticClass();
@@ -119,15 +128,6 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 				RealStartLoc = TraceStart;
 
 			SpawnRotation = that->GetAdjustedAim(RealStartLoc);
-
-			// Custom particle system
-			CustomProjectile *customProj = NULL;
-			auto it = g_config.wep_id_to_custom_proj.find(that->DBWeaponId);
-			if (it != g_config.wep_id_to_custom_proj.end() && it->second)
-			{
-				customProj = it->second;
-				customProj->default_proj->ProjFlightTemplate = customProj->custom_ps;
-			}
 
 			// Magic chain
 			if (g_config.useMagicChain)
@@ -163,9 +163,6 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 			}
 
 			bSpawnedSimProjectile = true;
-			// Cleanup
-			if (customProj)
-				customProj->default_proj->ProjFlightTemplate = customProj->default_ps;
 		}
 	}
 	if (that->Role == ROLE_Authority || bTether)
@@ -193,6 +190,10 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 		*result = SpawnedProjectile;
 	}
 	*result = NULL;
+
+	// Cleanup
+	if (customProj)
+		customProj->default_proj->ProjFlightTemplate = customProj->default_ps;
 }
 
 bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)

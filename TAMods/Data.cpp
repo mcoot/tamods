@@ -126,7 +126,7 @@ namespace Data
 			// SIDEARMS
 			{
 				{ R"rx(^(novacolt|colt|nova)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_SLUG },
-				{ R"rx(^(mx|novablastermx|novamx|blastermx)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_COLT_MKD },
+				{ R"rx(^(mx|novablastermx|novamx|blaster(mx)?)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_COLT_MKD },
 			},
 			// BELT
 			{
