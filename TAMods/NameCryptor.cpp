@@ -1,8 +1,6 @@
 #include "NameCryptor.h"
 #include "Utils.h"
 
-#define CIPHER_FIELD_DELIMITER_CHAR 0x1F // Unit separator control code
-
 NameCryptor::NameCryptor()
 {
 	GenerateKey();
@@ -11,6 +9,8 @@ NameCryptor::NameCryptor()
 void NameCryptor::GenerateKey()
 {
 	prng.GenerateBlock(key, sizeof(key));
+	plainTextCache.clear();
+	insertionOrder.clear();
 }
 
 std::string NameCryptor::encrypt(const std::string &plainText)
@@ -58,21 +58,16 @@ std::string NameCryptor::encrypt(const std::string &plainText)
 
 std::string NameCryptor::decrypt(const std::string &text)
 {
-	static std::string cachedText;
-	static std::string cachedResult;
-
 	size_t startPos = text.find((char)CIPHER_FIELD_DELIMITER_CHAR);
 
 	// No delimiter, no cipher
 	if (startPos == std::string::npos)
 		return text;
 
-	// Only decrypt when we are working with a different string than the cached one
-	if (text != cachedText)
+	if (plainTextCache.find(text) != plainTextCache.end())
+		return plainTextCache[text];
+	else
 	{
-		cachedText = text;
-		cachedResult = text;
-
 		// Find the end position of the encrypted string
 		size_t endPos = text.find_last_of((char)CIPHER_FIELD_DELIMITER_CHAR);
 
@@ -107,13 +102,22 @@ std::string NameCryptor::decrypt(const std::string &text)
 			}
 
 			// Replace the encrypted part with the decrypted version
-			cachedResult.replace(startPos, len + 1, decrypted);
-		}
-		else
-			return text;
-	}
+			std::string decryptedText = text;
+			decryptedText.replace(startPos, len + 1, decrypted);
 
-	return cachedResult;
+			plainTextCache[text] = decryptedText;
+			insertionOrder.push_back(text);
+
+			if (plainTextCache.size() > PLAINTEXT_CACHE_SIZE)
+			{
+				plainTextCache.erase(insertionOrder[0]);
+				insertionOrder.erase(insertionOrder.begin());
+			}
+
+			return decryptedText;
+		}
+	}
+	return text;
 }
 
 NameCryptor cryptor;

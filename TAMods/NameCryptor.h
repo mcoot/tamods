@@ -21,6 +21,9 @@ using CryptoPP::AES;
 #include "cryptopp\headers\modes.h"
 using CryptoPP::CTR_Mode;
 
+#define CIPHER_FIELD_DELIMITER_CHAR 0x1F // Unit separator control code
+#define PLAINTEXT_CACHE_SIZE 32
+
 class NameCryptor
 {
 public:
@@ -36,6 +39,8 @@ public:
 
 private:
 	byte key[AES::DEFAULT_KEYLENGTH];
+	std::map<std::string, std::string> plainTextCache;
+	std::vector<std::string> insertionOrder;
 };
 
 extern NameCryptor cryptor;
