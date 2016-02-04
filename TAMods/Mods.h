@@ -76,6 +76,11 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 bool TrPC_PlayerTick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 void MC_KillProjectiles();
 
+// Custom projectiles
+bool TrDevice_WeaponFire(int ID, UObject *dwCallingObject, UFunction *pFunction, void *pParams, void *result);
+void TrProjectile_PreBeginPlay_UScript(ATrProjectile *that, ATrProjectile_eventPreBeginPlay_Parms *params, void *result, Hooks::CallInfo *callInfo);
+bool TrProjectile_PreBeginPlay(int ID, UObject *dwCallingObject, UFunction *pFunction, void *pParams, void *result);
+
 // Lua console command
 bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

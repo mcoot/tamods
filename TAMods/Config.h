@@ -11,6 +11,7 @@
 #include "DataGetters.h"
 #include "Lua.h"
 #include "Geom.h"
+#include "ParticleModuleHelper.h"
 #include "SdkHeaders.h"
 #include "Hooks.h"
 #include "Audio.h"
@@ -80,6 +81,142 @@ struct MutedPlayer
 	bool muteVGS;
 	bool muteText;
 	bool muteDirectMessage;
+};
+
+struct CustomProjectile
+{
+private:
+	static void _freeModules(TArray<UParticleModule *> &mod)
+	{
+		for (int i = 0; i < mod.Count; i++)
+		{
+			ParticleModuleHelper::freeModuleTArrays(mod.Data[i]);
+			free(mod.Data[i]);
+		}
+		free(mod.Data);
+	}
+
+	static void _cloneModules(TArray<UParticleModule *> &out, TArray<UParticleModule *> &in)
+	{
+		out.Data = (UParticleModule **)malloc(in.Count * sizeof(UParticleModule *));
+		for (int i = 0; i < in.Count; i++)
+			ParticleModuleHelper::copyModule(out.Data[i], in.Data[i]);
+	}
+
+public:
+	static void freeParticleSystem(UParticleSystem *ps)
+	{
+		for (int em = 0; em < ps->Emitters.Count; em++)
+		{
+			UParticleEmitter *psem = ps->Emitters.Data[em];
+
+			for (int lod = 0; lod < psem->LODLevels.Count; lod++)
+			{
+				UParticleLODLevel *pslod = psem->LODLevels.Data[lod];
+
+				_freeModules(pslod->SpawnModules);
+				_freeModules(pslod->UpdateModules);
+				_freeModules(pslod->Modules);
+				free(psem->LODLevels.Data[lod]);
+			}
+			free(psem->LODLevels.Data);
+			free(ps->Emitters.Data[em]);
+		}
+		free(ps->Emitters.Data);
+	}
+
+	static UParticleSystem *cloneParticleSystem(UParticleSystem *ps)
+	{
+		int timesec = clock() / CLOCKS_PER_SEC;
+		UParticleSystem *out = NULL;
+
+		if (!ps)
+			return NULL;
+
+		// 10 secs is the time a static straight up mortar takes to fall down, so 20 should be safe
+		if (freePS.size() && timesec - freeTimes.front() > 20)
+		{
+			out = freePS.front();
+			freeParticleSystem(out);
+			freePS.pop();
+			freeTimes.pop();
+		}
+		else
+			out = (UParticleSystem *)malloc(sizeof(UParticleSystem));
+		memcpy(out, ps, sizeof(UParticleSystem));
+		out->Emitters.Data = (UParticleEmitter **)malloc(ps->Emitters.Count * sizeof(UParticleEmitter *));
+
+		for (int em = 0; em < ps->Emitters.Count; em++)
+		{
+			if (ps->Emitters.Data[em]->IsA(UParticleSpriteEmitter::StaticClass()))
+			{
+				out->Emitters.Data[em] = (UParticleSpriteEmitter *)malloc(sizeof(UParticleSpriteEmitter));
+				memcpy(out->Emitters.Data[em], ps->Emitters.Data[em], sizeof(UParticleSpriteEmitter));
+			}
+			else
+			{
+				out->Emitters.Data[em] = (UParticleEmitter *)malloc(sizeof(UParticleEmitter));
+				memcpy(out->Emitters.Data[em], ps->Emitters.Data[em], sizeof(UParticleEmitter));
+			}
+
+			UParticleEmitter *outem = out->Emitters.Data[em];
+			UParticleEmitter *inem = ps->Emitters.Data[em];
+			outem->LODLevels.Data = (UParticleLODLevel **)malloc(inem->LODLevels.Count * sizeof(UParticleLODLevel *));
+
+			for (int lod = 0; lod < inem->LODLevels.Count; lod++)
+			{
+				outem->LODLevels.Data[lod] = (UParticleLODLevel *)malloc(sizeof(UParticleLODLevel));
+				memcpy(outem->LODLevels.Data[lod], inem->LODLevels.Data[lod], sizeof(UParticleLODLevel));
+
+				UParticleLODLevel *outlod = outem->LODLevels.Data[lod];
+				UParticleLODLevel *inlod = inem->LODLevels.Data[lod];
+				_cloneModules(outlod->Modules, inlod->Modules);
+				_cloneModules(outlod->SpawnModules, inlod->SpawnModules);
+				_cloneModules(outlod->UpdateModules, inlod->UpdateModules);
+			}
+		}
+		usedPS.push(out);
+		return out;
+	}
+
+	CustomProjectile()
+		: weapon_id(0)
+	{
+		default_proj = NULL;
+		default_ps = NULL;
+		custom_ps = NULL;
+	}
+
+	CustomProjectile(int pweapon_id)
+		: weapon_id(0)
+	{
+		auto wep = Data::weapon_id_to_proj_name.find(pweapon_id);
+		if (wep == Data::weapon_id_to_proj_name.end() || wep->second.size() == 0)
+			return;
+		std::string def_proj_name = "TrProj_" + wep->second + " TribesGame.Default__TrProj_" + wep->second;
+		default_proj = UObject::FindObject<ATrProjectile>(def_proj_name.c_str());
+		if (!default_proj)
+		{
+			Utils::console("ERROR: Projectile could not be found for weapon #%d PLEASE REPORT TO /u/ensiss", pweapon_id);
+			return;
+		}
+		default_ps = default_proj->ProjFlightTemplate;
+		weapon_id = pweapon_id;
+		custom_ps = cloneParticleSystem(default_ps);
+	}
+
+	~CustomProjectile()
+	{
+	}
+
+	int weapon_id;
+	ATrProjectile *default_proj;
+	UParticleSystem *default_ps;
+	UParticleSystem *custom_ps;
+
+	static std::queue<UParticleSystem *> usedPS;
+	static std::queue<UParticleSystem *> freePS;
+	static std::queue<int> freeTimes;
 };
 
 class Config
@@ -296,6 +433,10 @@ public:
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;
 	bool muteVGS;
+
+	// Custom bullet color
+	std::map<int, CustomProjectile *> wep_id_to_custom_proj;
+	std::map<int, CustomProjectile *> proj_class_to_custom_proj;
 
 	// Custom lua keybinds
 	std::map<int, LuaRef **> lua_keybinds;

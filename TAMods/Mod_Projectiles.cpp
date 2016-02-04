@@ -14,7 +14,53 @@ struct DelayedProjectile
 	UParticleSystem *proj_flight_template;
 };
 
-std::list<DelayedProjectile> delayed_projs;
+static std::list<DelayedProjectile> delayed_projs;
+
+// Projectiles owner guessing
+static FVector g_clientSideFireStartLoc;
+static FVector g_physicalFireStartLoc;
+static UClass *g_projClass = NULL;
+
+// Register projectiles that we should be firing soon
+bool TrDevice_WeaponFire(int ID, UObject *dwCallingObject, UFunction *pFunction, void *pParams, void *result)
+{
+	ATrDevice *that = (ATrDevice *)dwCallingObject;
+	g_physicalFireStartLoc = that->GetPhysicalFireStartLoc(FVector());
+	g_clientSideFireStartLoc = that->GetClientSideProjectileFireStartLoc(FVector());
+	g_projClass = that->GetProjectileClass();
+	return false;
+}
+
+// Detect and modify projectiles
+// Catches UScript -> UScript calls, for projectiles that inherit TrProjectile and override PreBeginPlay then call super()
+void TrProjectile_PreBeginPlay_UScript(ATrProjectile *that, ATrProjectile_eventPreBeginPlay_Parms *params, void *result, Hooks::CallInfo *callInfo)
+{
+	if (g_projClass && that->IsA(g_projClass))
+	{
+		float physDiff = Geom::vSize(Geom::sub(that->Location, g_physicalFireStartLoc));
+		float clientDiff = Geom::vSize(Geom::sub(that->Location, g_clientSideFireStartLoc));
+
+		// Seems to work enough
+		// Tested @15 - 100 ping
+		//        @30 - 150+ fps
+		if (physDiff < 100 || clientDiff < 100)
+		{
+			auto it = g_config.proj_class_to_custom_proj.find((int)that->Class);
+			if (it != g_config.proj_class_to_custom_proj.end() && it->second && it->second->custom_ps)
+				that->ProjFlightTemplate = it->second->custom_ps;
+			g_projClass = NULL;
+		}
+	}
+	if (callInfo)
+		that->eventPreBeginPlay();
+}
+// Catches C++ -> UScript calls, for TrProjectiles (or subclasses that don't override PreBeginPlay)
+bool TrProjectile_PreBeginPlay(int ID, UObject *dwCallingObject, UFunction *pFunction, void *pParams, void *result)
+{
+	ATrProjectile *that = (ATrProjectile *)dwCallingObject;
+	TrProjectile_PreBeginPlay_UScript(that, (ATrProjectile_eventPreBeginPlay_Parms *)pParams, result, NULL);
+	return false;
+}
 
 void MC_KillProjectiles()
 {
@@ -74,6 +120,16 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 
 			SpawnRotation = that->GetAdjustedAim(RealStartLoc);
 
+			// Custom particle system
+			CustomProjectile *customProj = NULL;
+			auto it = g_config.wep_id_to_custom_proj.find(that->DBWeaponId);
+			if (it != g_config.wep_id_to_custom_proj.end() && it->second)
+			{
+				customProj = it->second;
+				customProj->default_proj->ProjFlightTemplate = customProj->custom_ps;
+			}
+
+			// Magic chain
 			if (g_config.useMagicChain)
 			{
 				float ping = that->Instigator->PlayerReplicationInfo->ExactPing;
@@ -88,9 +144,11 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 				delayed.owner_velocity = that->Instigator->Velocity;
 				delayed.spawn_tag = that->Name;
 				delayed.delay = ping * 0.5f * g_config.bulletPingMultiplier + g_config.bulletSpawnDelay;
-				delayed.proj_flight_template = NULL;
+				delayed.proj_flight_template = customProj ? customProj->custom_ps : NULL;
 				delayed_projs.push_back(delayed);
 			}
+
+			// Normal behaviour
 			else
 			{
 				SpawnedProjectile = (ATrProjectile *)that->Spawn(SpawnClass, that->Instigator, that->Name, RealStartLoc, SpawnRotation, NULL, 0);
@@ -103,7 +161,11 @@ void TrDev_ProjectileFire(ATrDevice *that, ATrDevice_execProjectileFire_Parms *p
 						SpawnedProjectile->InitProjectile(rotation, InitClass);
 				}
 			}
+
 			bSpawnedSimProjectile = true;
+			// Cleanup
+			if (customProj)
+				customProj->default_proj->ProjFlightTemplate = customProj->default_ps;
 		}
 	}
 	if (that->Role == ROLE_Authority || bTether)
