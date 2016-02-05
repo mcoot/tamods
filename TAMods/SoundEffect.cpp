@@ -1,17 +1,20 @@
 #include "SoundEffect.h"
 
-SoundEffect* SoundEffect::Initialize(IXAudio2* masteringEngine, std::string wavFile, float* volume)
+SoundEffect* SoundEffect::Initialize(IXAudio2* masteringEngine, std::string* filePath, float* volume)
 {
 	const char *profile = getenv("USERPROFILE");
 
 	m_masteringEngine = masteringEngine;
+	m_filePath = filePath;
 	m_configVolumeVar = volume;
 
 	if (profile)
-		m_filePath = std::string(profile) + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\sounds\\" + wavFile;
+	{
+		m_basePath = std::string(profile) + "/Documents/My Games/Tribes Ascend/TribesGame/config/";
+		std::replace(m_basePath.begin(), m_basePath.end(), '\\', '/');
+	}
 	else
-		m_filePath = std::string("C:\\") + wavFile;
-
+		m_basePath = std::string("C:/");
 
 	m_audioAvailable = CreateVoice();
 	return this;
@@ -27,8 +30,13 @@ void SoundEffect::Reload()
 
 bool SoundEffect::CreateVoice()
 {
+	std::string fullPath;
+
+	if (!m_filePath->empty())
+		fullPath = m_basePath + *m_filePath;
+
 	// load wave file
-	if (!m_soundData.load(m_filePath.c_str()) || m_masteringEngine == nullptr)
+	if (!m_soundData.load(fullPath.c_str()) || m_masteringEngine == nullptr)
 		return false;
 
 	// create the source voice, based on loaded wave format

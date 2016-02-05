@@ -338,56 +338,49 @@ public:
 
 	// Sounds
 	Audio audioEngine;
-	SoundEffect s_hitSound,   s_headShot,     s_killSound;
-	SoundEffect s_bluePlate,  s_airMail;
-	SoundEffect s_streak1,    s_streak2,      s_streak3,       s_streak4,    s_streak5;
-	SoundEffect s_multiKill1, s_multiKill2,   s_multiKill3,    s_multiKill4, s_multiKill5;
-	SoundEffect s_firstBlood, s_headShotKill, s_artilleryShot, s_meleeKill,  s_roadKill, s_fastGrab;
+
+	SoundEffect s_hitSound,   s_headShot,     s_killSound,     s_bluePlate,  s_airMail,
+	            s_streak1,    s_streak2,      s_streak3,       s_streak4,    s_streak5,
+	            s_multiKill1, s_multiKill2,   s_multiKill3,    s_multiKill4, s_multiKill5,
+	            s_firstBlood, s_headShotKill, s_artilleryShot, s_meleeKill,  s_roadKill, s_fastGrab;
+	
 	// Flag events
-	SoundEffect s_flagBlueGrab,    s_flagRedGrab;
-	SoundEffect s_flagBluePickup,  s_flagRedPickup;
-	SoundEffect s_flagBlueCapture, s_flagRedCapture;
-	SoundEffect s_flagBlueReturn,  s_flagRedReturn;
-	SoundEffect s_flagBlueDrop,	   s_flagRedDrop;
-	std::vector<SoundEffect*> s_soundEffects;
+	SoundEffect s_flagBlueGrab,    s_flagRedGrab,
+	            s_flagBluePickup,  s_flagRedPickup,
+	            s_flagBlueCapture, s_flagRedCapture,
+	            s_flagBlueReturn,  s_flagRedReturn,
+	            s_flagBlueDrop,    s_flagRedDrop;
+	std::vector<SoundEffect*>      s_soundEffects;
+
 	// Pointers to vanilla sounds so we can enable/disable them without searching every time
-	USoundCue *hitsound;
-	USoundCue *headshotsound;
-	USoundCue *flagpickedup;
-	USoundCue *flagcaptured;
-	USoundCue *flagreturned;
+	USoundCue   *hitsound, *headshotsound, *flagpickedup, *flagcaptured, *flagreturned;
+
 	// Sound user variables
-	int   hitSoundMode; // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
-	bool  customHeadShotSound;
-	bool  customKillSound;
-	bool  customAirMailSound;
-	bool  customBluePlateSound;
-	float hitSoundPitchMin;
-	float hitSoundPitchMax;
-	int   hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
-	float volumeHitSound;
-	float volumeHeadShot;
-	float volumeKillSound;
-	float volumeBluePlate;
-	float volumeAirMail;
+	int         hitSoundMode, // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
+	            hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
+	float       hitSoundPitchMin, hitSoundPitchMax;
+	std::string customHitSound, customHeadShotSound, customKillSound, customAirMailSound, customBluePlateSound;
+	float       volumeHitSound, volumeHeadShot,      volumeKillSound, volumeAirMail,      volumeBluePlate;
+	
 	// Accolades
-	bool  customStreak1,    customStreak2,      customStreak3,       customStreak4,    customStreak5;
-	bool  customMultiKill1, customMultiKill2,   customMultiKill3,    customMultiKill4, customMultiKill5;
-	bool  customFirstBlood, customHeadShotKill, customArtilleryShot, customMeleeKill,  customRoadKill, customFastGrab;
-	float volumeStreak1,    volumeStreak2,      volumeStreak3,       volumeStreak4,    volumeStreak5;
-	float volumeMultiKill1, volumeMultiKill2,   volumeMultiKill3,    volumeMultiKill4, volumeMultiKill5;
-	float volumeFirstBlood, volumeHeadShotKill, volumeArtilleryShot, volumeMeleeKill,  volumeRoadKill, volumeFastGrab;
+	std::string customStreak1,    customStreak2,      customStreak3,       customStreak4,    customStreak5,
+	            customMultiKill1, customMultiKill2,   customMultiKill3,    customMultiKill4, customMultiKill5,
+	            customFirstBlood, customHeadShotKill, customArtilleryShot, customMeleeKill,  customRoadKill, customFastGrab;
+	float       volumeStreak1,    volumeStreak2,      volumeStreak3,       volumeStreak4,    volumeStreak5,
+	            volumeMultiKill1, volumeMultiKill2,   volumeMultiKill3,    volumeMultiKill4, volumeMultiKill5,
+	            volumeFirstBlood, volumeHeadShotKill, volumeArtilleryShot, volumeMeleeKill,  volumeRoadKill, volumeFastGrab;
+	
 	// Flag events
-	bool  customFlagBlueGrab,    customFlagRedGrab;
-	bool  customFlagBluePickup,  customFlagRedPickup;
-	bool  customFlagBlueCapture, customFlagRedCapture;
-	bool  customFlagBlueReturn,  customFlagRedReturn;
-	bool  customFlagBlueDrop,    customFlagRedDrop;
-	float volumeFlagBlueGrab,    volumeFlagRedGrab;
-	float volumeFlagBluePickup,  volumeFlagRedPickup;
-	float volumeFlagBlueCapture, volumeFlagRedCapture;
-	float volumeFlagBlueReturn,  volumeFlagRedReturn;
-	float volumeFlagBlueDrop,    volumeFlagRedDrop;
+	std::string customFlagBlueGrab,    customFlagRedGrab,
+	            customFlagBluePickup,  customFlagRedPickup,
+	            customFlagBlueCapture, customFlagRedCapture,
+	            customFlagBlueReturn,  customFlagRedReturn,
+	            customFlagBlueDrop,    customFlagRedDrop;
+	float       volumeFlagBlueGrab,    volumeFlagRedGrab,
+	            volumeFlagBluePickup,  volumeFlagRedPickup,
+				volumeFlagBlueCapture, volumeFlagRedCapture,
+				volumeFlagBlueReturn,  volumeFlagRedReturn,
+				volumeFlagBlueDrop,    volumeFlagRedDrop;
 
 	// HUD elements toggle
 	static TogglableIcon togglable_icons[];

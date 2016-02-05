@@ -5,9 +5,8 @@
 /*
 	TODO:
 	prompt panel? (saber warning and other messages)
-	FIXME: pri->m_nRabbitRank is always 0
 	----------------
-	Customizable IFFs (small console font for names and custom health bars, maybe lines as indicator like t1/2)
+	Customizable IFFs (small console font for names, maybe lines as indicator like t1/2)
 */
 
 FVector2D getViewPortData::size()

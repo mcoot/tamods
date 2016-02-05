@@ -1,11 +1,12 @@
 #pragma once
 #include <xaudio2.h>
+#include <algorithm> // std::replace
 #include "Wave.h"
 
 class SoundEffect
 {
 public:
-	SoundEffect* Initialize(IXAudio2* masteringEngine, std::string wavFile, float* volume);
+	SoundEffect* Initialize(IXAudio2* masteringEngine, std::string* filePath, float* volume);
 	void Reload();
 	bool audioAvailable() { return m_audioAvailable; };
 	bool CurrentlyPlaying();
@@ -15,15 +16,16 @@ public:
 	void RefreshVolume();
 
 public:
-	std::string m_filePath;
+	std::string  m_basePath;
+	std::string* m_filePath;
 
 private:
 	bool CreateVoice();
 
 protected:
-	bool                    m_audioAvailable = false;
-	IXAudio2*				m_masteringEngine;
-	IXAudio2SourceVoice*    m_sourceVoice;
-	Wave					m_soundData;
-	float*					m_configVolumeVar;
+	bool                 m_audioAvailable = false;
+	IXAudio2*            m_masteringEngine;
+	IXAudio2SourceVoice* m_sourceVoice;
+	Wave                 m_soundData;
+	float*               m_configVolumeVar;
 };

@@ -7,10 +7,11 @@ void playHitSound(bool bShieldDamage, int *dmg)
 	static clock_t lastHitSound = 0;
 	static unsigned int totalDamage = 0;
 
-	if (g_config.hitSoundMode < 1
-		|| !dmg 
-		|| *dmg <= 0
-		|| bShieldDamage)
+	if (!g_config.s_hitSound.audioAvailable() ||
+		g_config.hitSoundMode < 1 ||
+		!dmg ||
+		*dmg <= 0 ||
+		bShieldDamage)
 		return;
 
 	if ((double)(clock() - lastHitSound) < (CLOCKS_PER_SEC*0.05))
@@ -41,14 +42,14 @@ void playHitSound(bool bShieldDamage, int *dmg)
 
 void playHeadShotSound()
 {
-	if (g_config.customHeadShotSound)
+	if (g_config.s_headShot.audioAvailable())
 		g_config.s_headShot.Play();
 }
 
 bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	midairKill = true;
-	if (g_config.customBluePlateSound)
+	if (g_config.s_bluePlate.audioAvailable())
 	{
 		g_config.s_hitSound.Stop();
 		g_config.s_bluePlate.Play();
@@ -60,7 +61,7 @@ bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction*
 bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	midairKill = true;
-	if (g_config.customAirMailSound)
+	if (g_config.s_airMail.audioAvailable())
 	{
 		g_config.s_hitSound.Stop();
 		g_config.s_airMail.Play();
@@ -76,7 +77,7 @@ bool TrPRI_ReplicatedEvent(int id, UObject *dwCallingObject, UFunction* pFunctio
 
 	if (pri->IsLocalPlayerPRI() && std::string(params->VarName.GetName()) == "m_nKills")
 	{
-		if (g_config.customKillSound && !midairKill)
+		if (g_config.s_killSound.audioAvailable() && !midairKill)
 		{
 			g_config.s_hitSound.Stop();
 			g_config.s_killSound.Play();

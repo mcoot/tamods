@@ -12,14 +12,14 @@ void playFlagCaptureSound(const unsigned char &flagteam)
 {
 	if (flagteam == myTeam())
 	{
-		if (g_config.customFlagBlueCapture)
+		if (g_config.s_flagBlueCapture.audioAvailable())
 		{
 			g_config.s_flagBlueDrop.Stop();
 			g_config.s_flagBluePickup.Stop();
 			g_config.s_flagBlueCapture.Play();
 		}
 	}
-	else if (g_config.customFlagRedCapture)
+	else if (g_config.s_flagRedCapture.audioAvailable())
 	{
 		g_config.s_flagRedDrop.Stop();
 		g_config.s_flagRedPickup.Stop();
@@ -31,14 +31,14 @@ void playFlagGrabSound(const unsigned char &flagteam)
 {
 	if (flagteam == myTeam())
 	{
-		if (g_config.customFlagBlueGrab)
+		if (g_config.s_flagBlueGrab.audioAvailable())
 		{
 			g_config.s_flagBlueReturn.Stop();
 			g_config.s_flagBlueDrop.Stop();
 			g_config.s_flagBlueGrab.Play();
 		}
 	}
-	else if (g_config.customFlagRedGrab)
+	else if (g_config.s_flagRedGrab.audioAvailable())
 	{
 		g_config.s_flagRedReturn.Stop();
 		g_config.s_flagRedDrop.Stop();
@@ -50,13 +50,13 @@ void playFlagPickupSound(const unsigned char &flagteam)
 {
 	if (flagteam == myTeam())
 	{
-		if (g_config.customFlagBluePickup)
+		if (g_config.s_flagBluePickup.audioAvailable())
 		{
 			g_config.s_flagBlueDrop.Stop();
 			g_config.s_flagBluePickup.Play();
 		}
 	}
-	else if (g_config.customFlagRedPickup)
+	else if (g_config.s_flagRedPickup.audioAvailable())
 	{
 		g_config.s_flagRedDrop.Stop();
 		g_config.s_flagRedPickup.Play();
@@ -66,30 +66,23 @@ void playFlagPickupSound(const unsigned char &flagteam)
 void playFlagDropSound(const unsigned char &flagteam)
 {
 	if (flagteam == myTeam())
-	{
-		if (g_config.customFlagBlueDrop)
-		{
-			g_config.s_flagBlueDrop.Play();
-		}
-	}
-	else if (g_config.customFlagRedDrop)
-	{
+		g_config.s_flagBlueDrop.Play();
+	else
 		g_config.s_flagRedDrop.Play();
-	}
 }
 
 void playFlagReturnSound(const unsigned char &flagteam)
 {
 	if (flagteam == myTeam())
 	{
-		if (g_config.customFlagBlueReturn)
+		if (g_config.s_flagBlueReturn.audioAvailable())
 		{
 			g_config.s_flagBluePickup.Stop();
 			g_config.s_flagBlueDrop.Stop();
 			g_config.s_flagBlueReturn.Play();
 		}
 	}
-	else if (g_config.customFlagRedReturn)
+	else if (g_config.s_flagRedReturn.audioAvailable())
 	{
 			g_config.s_flagRedPickup.Stop();
 			g_config.s_flagRedDrop.Stop();
