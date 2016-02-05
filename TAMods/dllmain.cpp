@@ -78,6 +78,14 @@ void onDLLProcessAttach()
 		// Bullet customization
 		// Chain
 		Hooks::addUScript(&TrDev_ProjectileFire, "Function TribesGame.TrDevice.ProjectileFire");
+		// Explosives
+		Hooks::add(&TrDevice_WeaponFire, "Function TrDevice.WeaponFiring.BeginState");
+		Hooks::add(&TrDevice_WeaponFire, "Function TrDevice.WeaponFiring.RefireCheckTimer");
+		Hooks::add(&TrDevice_WeaponFire, "Function TrDevice_ConstantFire.WeaponConstantFiring.BeginState");
+		Hooks::add(&TrDevice_WeaponFire, "Function TrDevice_ConstantFire.WeaponConstantFiring.RefireCheckTimer");
+
+		Hooks::add(&TrProjectile_PreBeginPlay, "Function TribesGame.TrProjectile.PreBeginPlay");
+		Hooks::addUScript(&TrProjectile_PreBeginPlay_UScript, "Function TribesGame.TrProjectile.PreBeginPlay");
 
 		// Magic chain
 		Hooks::add(&TrPC_PlayerTick, "Function TribesGame.TrPlayerController.PlayerTick");

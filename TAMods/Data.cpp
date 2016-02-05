@@ -15,7 +15,7 @@ namespace Data
 			},
 			// TIMED
 			{
-				{ R"rx(^((light)?(gl|grenadelauncher))$)rx", CONST_WEAPON_ID_LIGHTGRENADELAUNCHER },
+				{ R"rx(^((light)?(gl|grenadelauncher)|lgl)$)rx", CONST_WEAPON_ID_LIGHTGRENADELAUNCHER },
 				{ R"rx(^(jackal)$)rx", CONST_WEAPON_ID_REMOTE_ARX_BUSTER },
 			},
 			// SPECIALTY
@@ -61,7 +61,7 @@ namespace Data
 			// TIMED
 			{
 				{ R"rx(^(arxbuster|arx)$)rx", CONST_WEAPON_ID_ARX_BUSTER },
-				{ R"rx(^(grenadelauncher|nadelauncher|launcher)$)rx", CONST_WEAPON_ID_LAUNCHER_GRENADE },
+				{ R"rx(^(grenadelauncher|nadelauncher|launcher|gl)$)rx", CONST_WEAPON_ID_LAUNCHER_GRENADE },
 			},
 			// SPECIALTY
 			{
@@ -99,7 +99,7 @@ namespace Data
 			{
 				{ R"rx(^(heavy(spin)?(fusor)?|spin(fusor)?|fusor)$)rx", CONST_WEAPON_ID_SPINFUSOR_HEAVY },
 				{ R"rx(^(heavyboltlauncher|boltlauncher|bolt)$)rx", CONST_WEAPON_ID_LAUNCHER_BOLT_HEAVY },
-				{ R"rx(^((heavy)?blinks?(fusor)?$)rx", CONST_WEAPON_ID_SPINFUSOR_HEAVY_MKD },
+				{ R"rx(^((heavy)?blinks?(fusor)?)$)rx", CONST_WEAPON_ID_SPINFUSOR_HEAVY_MKD },
 				{ R"rx(^(heavytwinfusor|twinfusor|twin)$)rx", CONST_WEAPON_ID_HEAVYTWINFUSOR },
 			},
 			// TIMED
@@ -126,7 +126,7 @@ namespace Data
 			// SIDEARMS
 			{
 				{ R"rx(^(novacolt|colt|nova)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_SLUG },
-				{ R"rx(^(mx|novablastermx|novamx|blastermx)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_COLT_MKD },
+				{ R"rx(^(mx|novablastermx|novamx|blaster(mx)?)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_COLT_MKD },
 			},
 			// BELT
 			{
@@ -296,15 +296,9 @@ namespace Data
 
 	std::map<std::string, int> classes =
 	{
-		{ R"rx(^(pathfinder|pth)$)rx", 1 },
-		{ R"rx(^(sentinel|sen)$)rx", 2 },
-		{ R"rx(^(infiltrator|inf)$)rx", 3 },
-		{ R"rx(^(soldier|sld)$)rx", 4 },
-		{ R"rx(^(raider|rdr)$)rx", 5 },
-		{ R"rx(^(technician|tcn|tech)$)rx", 6 },
-		{ R"rx(^(juggernaut|juggernaught|jug|jugg)$)rx", 7 },
-		{ R"rx(^(doombringer|doom|dmb)$)rx", 8 },
-		{ R"rx(^(brute|brt)$)rx", 9 },
+		{ R"rx(^(light|lht)$)rx", 1 },
+		{ R"rx(^(medium|med)$)rx", 2 },
+		{ R"rx(^(heavy|hvy)$)rx", 3 }
 	};
 
 	std::map<std::string, int> crosshairs =
