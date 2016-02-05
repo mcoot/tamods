@@ -43,7 +43,7 @@ void TrProjectile_PreBeginPlay_UScript(ATrProjectile *that, ATrProjectile_eventP
 		// Seems to work enough
 		// Tested @15 - 100 ping
 		//        @30 - 150+ fps
-		if (physDiff < 100 || clientDiff < 100)
+		if (physDiff < 1000 || clientDiff < 1000)
 		{
 			auto it = g_config.proj_class_to_custom_proj.find((int)that->Class);
 			if (it != g_config.proj_class_to_custom_proj.end() && it->second && it->second->custom_ps)
