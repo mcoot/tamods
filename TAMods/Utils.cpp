@@ -230,7 +230,8 @@ void Utils::drawTextMain(const std::string &str, const FColor &col, float x, flo
 	if (!(tr_hud && tr_hud->Canvas))
 		return;
 
-	std::string text = cryptor.decrypt(str);
+	std::string text = str;
+	cryptor.fromId(text);
 
 	UCanvas &canvas = *tr_hud->Canvas;
 	float xl, yl;
@@ -290,7 +291,8 @@ FVector2D Utils::getTextSize(const std::string &str, const float &scale)
 	if (!(tr_hud && tr_hud->Canvas))
 		return{ 0.0f, 0.0f };
 
-	std::string text = cryptor.decrypt(str);
+	std::string text = str;
+	cryptor.fromId(text);
 
 	UCanvas &canvas = *tr_hud->Canvas;
 	float xl, yl;
@@ -308,7 +310,8 @@ FVector2D Utils::getSmallTextSize(const std::string &str, const float &scale)
 	if (!(tr_hud && tr_hud->Canvas))
 		return{ 0.0f, 0.0f };
 
-	std::string text = cryptor.decrypt(str);
+	std::string text = str;
+	cryptor.fromId(text);
 	
 	UCanvas &canvas = *tr_hud->Canvas;
 	float xl, yl;
@@ -326,7 +329,8 @@ FVector2D Utils::getUTTextSize(const std::string &str, const int &size)
 	if (!(tr_hud && tr_hud->Canvas))
 		return{ 0.0f, 0.0f };
 
-	std::string text = cryptor.decrypt(str);
+	std::string text = str;
+	cryptor.fromId(text);
 
 	UCanvas &canvas = *tr_hud->Canvas;
 	float xl, yl;

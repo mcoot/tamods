@@ -827,7 +827,7 @@ void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Pa
 		try
 		{
 			// We only have to encrypt the victims name if the agressor is in our team (first bit in CombatType not set)
-			(*g_config.onAddToCombatLog)(CombatType, Aggressor, params->WeaponIcon - 129, CombatType & 1 ? Victim : cryptor.encrypt(Victim));
+			(*g_config.onAddToCombatLog)(CombatType, Aggressor, params->WeaponIcon - 129, CombatType & 1 ? Victim : cryptor.toId(Victim));
 		}
 		catch (const LuaException &e)
 		{
@@ -920,7 +920,7 @@ void TrHUD_AddUpdateToKillMessage(ATrHUD *that, ATrHUD_execAddUpdateToKillMessag
 	{
 		try
 		{
-			(*g_config.onKillMessage)(Utils::f2std(params->Message), cryptor.encrypt(Utils::f2std(params->PlayerName)));
+			(*g_config.onKillMessage)(Utils::f2std(params->Message), cryptor.toId(Utils::f2std(params->PlayerName)));
 		}
 		catch (const LuaException &e)
 		{

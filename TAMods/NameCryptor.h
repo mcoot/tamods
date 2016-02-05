@@ -1,46 +1,20 @@
 #pragma once
 
-#include "cryptopp\headers\osrng.h"
-using CryptoPP::AutoSeededRandomPool;
+#include <string>
+#include <vector>
 
-#include "cryptopp\headers\cryptlib.h"
-using CryptoPP::Exception;
-
-#include "cryptopp\headers\hex.h"
-using CryptoPP::HexEncoder;
-using CryptoPP::HexDecoder;
-
-#include "cryptopp\headers\filters.h"
-using CryptoPP::StringSink;
-using CryptoPP::StringSource;
-using CryptoPP::StreamTransformationFilter;
-
-#include "cryptopp\headers\aes.h"
-using CryptoPP::AES;
-
-#include "cryptopp\headers\modes.h"
-using CryptoPP::CTR_Mode;
-
-#define CIPHER_FIELD_DELIMITER_CHAR 0x1F // Unit separator control code
-#define PLAINTEXT_CACHE_SIZE 32
+#define NAME_FIELD_DELIMITER_CHAR 0x1F // Unit separator control code
+#define NAME_CACHE_SIZE 50
 
 class NameCryptor
 {
 public:
 	NameCryptor();
-
-	void GenerateKey();
-
-	std::string encrypt(const std::string &plainText);
-	std::string decrypt(const std::string &text);
-
-public:
-	AutoSeededRandomPool prng;
+	std::string toId(const std::string &name);
+	void fromId(std::string &text);
 
 private:
-	byte key[AES::DEFAULT_KEYLENGTH];
-	std::map<std::string, std::string> plainTextCache;
-	std::vector<std::string> insertionOrder;
+	std::vector<std::string> nameCache;
 };
 
 extern NameCryptor cryptor;
