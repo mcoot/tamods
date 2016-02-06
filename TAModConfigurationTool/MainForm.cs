@@ -24,6 +24,7 @@ namespace TAModConfigurationTool
         public List<string> crosshairDetails;
         public List<string> crosshairRegex;
         public Config config;
+        public string configDir = Environment.GetEnvironmentVariable("USERPROFILE") + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
 
         public MainForm()
         {
@@ -52,16 +53,16 @@ namespace TAModConfigurationTool
 
             // Load the config from profile
             string profile = Environment.GetEnvironmentVariable("USERPROFILE");
-            string directory;
+            string directory = configDir;
 
-            if (profile == null)
-            {
-                directory = "C:\\";
-            }
-            else
-            {
-                directory = profile + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
-            }
+            //if (profile == null)
+            //{
+            //    directory = "C:\\";
+            //}
+            //else
+            //{
+            //    directory = profile + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
+            //}
 
             config = new Config(directory, "config.lua");
 
@@ -84,6 +85,12 @@ namespace TAModConfigurationTool
 
         private void clearUI()
         {
+
+            // Presets
+            selectConfigPreset.Items.Clear();
+            selectConfigPreset.Items.Add("<None>");
+            selectConfigPreset.SelectedIndex = 0;
+
             // General settings
             // Display settings
             checkStatsRecord.Checked = false;
@@ -240,6 +247,9 @@ namespace TAModConfigurationTool
 
         private void setUI()
         {
+            // Presets
+            scanForConfigPresets();
+
             // General settings
             // Display settings
             checkStatsRecord.Checked = (bool)config.getConfigVar("recordStats");
@@ -602,6 +612,23 @@ namespace TAModConfigurationTool
             i = new ConfigVarItem(soundName.Replace(" ", "").Trim().ToLower() + "_volume", volumeVar, true);
             c.Add(i);
             return new ConfigSetListWrapper(c);
+        }
+
+        private void scanForConfigPresets()
+        {
+            if (!Directory.Exists(configDir + "presets\\"))
+            {
+                return;
+            }
+
+            foreach (string subdir in Directory.EnumerateDirectories(configDir + "presets\\"))
+            {
+                if (File.Exists(subdir + "\\preset.lua"))
+                {
+                    string subdirName = subdir.Split('\\').Last();
+                    selectConfigPreset.Items.Add(subdirName);
+                }
+            }
         }
 
         private void selectLoadoutClass_SelectedIndexChanged(object sender, EventArgs e)
