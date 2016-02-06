@@ -85,13 +85,13 @@ namespace TAModConfigurationTool
 
                 { "Display", new List<string>()
                     {
-                        "showWeapon", "showBodyMesh", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax"
+                        "showWeapon", "showHUDWeapons", "showBodyMesh", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax"
                     }
                 },
 
                 { "HUD Icons", new List<string>()
                     {
-                        "showObjectiveIcon", "showFlagBaseIcon", "showCTFBaseIcon", "showNuggetIcon", "showPlayerIcon", "showVehicleIcon", "showSensorIcon", "showMineIcon"
+                        "IFFScale", "showObjectiveIcon", "showFlagBaseIcon", "showFlagHomeBaseIcon", "showCTFBaseIcon", "showNuggetIcon", "showPlayerIcon", "showVehicleIcon", "showSensorIcon", "showMineIcon", "showObjectiveText", "showMineText"
                     }
                 },
 
@@ -163,6 +163,7 @@ namespace TAModConfigurationTool
                 { "showErrorNotifications", true },
                 { "recordStats", false },
                 { "showWeapon", true },
+                { "showHUDWeapons", true },
                 { "showBodyMesh", true },
                 { "showRainbow", false },
                 { "showCrosshair", true },
@@ -180,14 +181,18 @@ namespace TAModConfigurationTool
                 { "damageNumbersScale", 1 },
                 { "damageNumberCustomText", "" },
 
+                { "IFFScale", 1.0 },
                 { "showObjectiveIcon", true },
                 { "showFlagBaseIcon", true },
+                { "showFlagHomeBaseIcon", true },
                 { "showCTFBaseIcon", true },
                 { "showNuggetIcon", true },
                 { "showPlayerIcon", true },
                 { "showVehicleIcon", true },
                 { "showSensorIcon", true },
                 { "showMineIcon", true },
+                { "showObjectiveText", true },
+                { "showMineText", true },
 
                 { "useFOVScaling", true },
                 { "sens", 10.0F },

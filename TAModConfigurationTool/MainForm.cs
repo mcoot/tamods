@@ -88,6 +88,7 @@ namespace TAModConfigurationTool
             // Display settings
             checkStatsRecord.Checked = false;
             checkShowWeapon.Checked = true;
+            checkShowHUDWeapons.Checked = true;
             checkShowPlayerModel.Checked = true;
             checkShowCrosshair.Checked = true;
             checkShowFirstPersonAmmo.Checked = false;
@@ -124,14 +125,18 @@ namespace TAModConfigurationTool
             numDamageNumberStreamTimeout.Value = 0.5M;
 
             // HUD Icons
+            numIFFScale.Value = 1.0M;
             checkHUDIconObjective.Checked = true;
             checkHUDIconFlagBase.Checked = true;
+            checkHUDIconFlagHomeBase.Checked = true;
             checkHUDIconCTFBase.Checked = true;
             checkHUDIconNugget.Checked = true;
             checkHUDIconPlayer.Checked = true;
             checkHUDIconVehicle.Checked = true;
             checkHUDIconSensor.Checked = true;
             checkHUDIconMine.Checked = true;
+            checkHUDTextObjective.Checked = true;
+            checkHUDTextMine.Checked = true;
 
             // Magic Chain
             checkMagicChainEnable.Checked = false;
@@ -239,6 +244,7 @@ namespace TAModConfigurationTool
             // Display settings
             checkStatsRecord.Checked = (bool)config.getConfigVar("recordStats");
             checkShowWeapon.Checked = (bool)config.getConfigVar("showWeapon");
+            checkShowHUDWeapons.Checked = (bool)config.getConfigVar("showHUDWeapons");
             checkShowPlayerModel.Checked = (bool)config.getConfigVar("showBodyMesh");
             checkShowFirstPersonAmmo.Checked = (bool)config.getConfigVar("showFirstPersonAmmo");
             checkShowCrosshair.Checked = (bool)config.getConfigVar("showCrosshair");
@@ -297,14 +303,18 @@ namespace TAModConfigurationTool
             }
 
             // HUD Icons
+            numIFFScale.Value = Convert.ToDecimal(config.getConfigVar("IFFScale"));
             checkHUDIconObjective.Checked = (bool)config.getConfigVar("showObjectiveIcon");
             checkHUDIconFlagBase.Checked = (bool)config.getConfigVar("showFlagBaseIcon");
+            checkHUDIconFlagHomeBase.Checked = (bool)config.getConfigVar("showFlagHomeBaseIcon");
             checkHUDIconCTFBase.Checked = (bool)config.getConfigVar("showCTFBaseIcon");
             checkHUDIconNugget.Checked = (bool)config.getConfigVar("showNuggetIcon");
             checkHUDIconPlayer.Checked = (bool)config.getConfigVar("showPlayerIcon");
             checkHUDIconVehicle.Checked = (bool)config.getConfigVar("showVehicleIcon");
             checkHUDIconSensor.Checked = (bool)config.getConfigVar("showSensorIcon");
             checkHUDIconMine.Checked = (bool)config.getConfigVar("showMineIcon");
+            checkHUDTextObjective.Checked = (bool)config.getConfigVar("showObjectiveText");
+            checkHUDTextMine.Checked = (bool)config.getConfigVar("showMineText");
 
             // Magic Chain
             checkMagicChainEnable.Checked = (bool)config.getConfigVar("useMagicChain");
@@ -421,6 +431,7 @@ namespace TAModConfigurationTool
             // Display Settings
             config.setConfigVar("recordStats", checkStatsRecord.Checked);
             config.setConfigVar("showWeapon", checkShowWeapon.Checked);
+            config.setConfigVar("showHUDWeapons", checkShowHUDWeapons.Checked);
             config.setConfigVar("showBodyMesh", checkShowPlayerModel.Checked);
             config.setConfigVar("showFirstPersonAmmo", checkShowFirstPersonAmmo.Checked);
             config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
@@ -475,14 +486,18 @@ namespace TAModConfigurationTool
             }
 
             // HUD Icons
+            config.setConfigVar("IFFScale", Convert.ToSingle(numIFFScale.Value));
             config.setConfigVar("showObjectiveIcon", checkHUDIconObjective.Checked);
             config.setConfigVar("showFlagBaseIcon", checkHUDIconFlagBase.Checked);
+            config.setConfigVar("showFlagHomeBaseIcon", checkHUDIconFlagHomeBase.Checked);
             config.setConfigVar("showCTFBaseIcon", checkHUDIconCTFBase.Checked);
             config.setConfigVar("showNuggetIcon", checkHUDIconNugget.Checked);
             config.setConfigVar("showPlayerIcon", checkHUDIconPlayer.Checked);
             config.setConfigVar("showVehicleIcon", checkHUDIconVehicle.Checked);
             config.setConfigVar("showSensorIcon", checkHUDIconSensor.Checked);
             config.setConfigVar("showMineIcon", checkHUDIconMine.Checked);
+            config.setConfigVar("showObjectiveText", checkHUDTextObjective.Checked);
+            config.setConfigVar("showMineText", checkHUDTextMine.Checked);
 
             // Magic Chain
             config.setConfigVar("useMagicChain", checkMagicChainEnable.Checked);
