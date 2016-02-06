@@ -293,6 +293,7 @@ namespace TAModLauncher
             updateRequired = false;
             labelDownload.Visible = true;
             labelDownload.Text = "Ready to Play!";
+            progressUpdate.Value = 0;
             //MessageBox.Show("Download complete!");
         }
 

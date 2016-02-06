@@ -281,6 +281,11 @@ namespace TAModLauncher
                     createNecessaryRelativeDirectories("backup\\" + file.fileName, appPath);
                     File.Copy(appPath + file.fileName, appPath + "backup\\" + file.fileName, true);
                 }
+                else if (File.Exists(ConfigPath + file.fileName.Replace(ConfigSignifier, "")))
+                {
+                    createNecessaryRelativeDirectories("backup\\" + file.fileName.Replace(ConfigSignifier, ""), ConfigPath);
+                    File.Copy(ConfigPath + file.fileName.Replace(ConfigSignifier, ""), ConfigPath + "backup\\" + file.fileName.Replace(ConfigSignifier, ""), true);
+                }
             }
         }
 
