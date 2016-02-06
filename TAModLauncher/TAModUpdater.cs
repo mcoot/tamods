@@ -33,6 +33,10 @@ namespace TAModLauncher
         // Versioning channel to update from
         public string updateChannel = "stable";
 
+        // Path to the config directory
+        public string ConfigPath = Environment.GetEnvironmentVariable("USERPROFILE") + "/Documents/My Games/Tribes Ascend/config/";
+        public string ConfigSignifier = "!CONFIG/";
+
         // The local and server version manifest XML files
         private XmlDocument localManifest;
         private XmlDocument serverManifest;
@@ -286,8 +290,21 @@ namespace TAModLauncher
             {
                 if (File.Exists(appPath + "inprogress\\" + file.fileName))
                 {
-                    createNecessaryRelativeDirectories(file.fileName, appPath);
-                    File.Copy(appPath + "inprogress\\" + file.fileName, appPath + file.fileName, true);
+                    //Deal with files relative to the config folder
+                    if (file.fileName.StartsWith(ConfigSignifier))
+                    {
+                        string fName = file.fileName.Replace(ConfigSignifier, "");
+                        createNecessaryRelativeDirectories(fName, ConfigPath);
+                        File.Copy(appPath + "inprogress\\" + file.fileName, ConfigPath + fName, true);
+                    }
+                    else
+                    {
+                        createNecessaryRelativeDirectories(file.fileName, appPath);
+                        File.Copy(appPath + "inprogress\\" + file.fileName, appPath + file.fileName, true);
+
+                    }
+                    //createNecessaryRelativeDirectories(file.fileName, appPath);
+                    //File.Copy(appPath + "inprogress\\" + file.fileName, appPath + file.fileName, true);
                     File.Delete(appPath + "inprogress\\" + file.fileName);
                 }
             }

@@ -46,9 +46,9 @@
             // 
             // btnUpdateLaunch
             // 
-            this.btnUpdateLaunch.Location = new System.Drawing.Point(549, 132);
+            this.btnUpdateLaunch.Location = new System.Drawing.Point(549, 131);
             this.btnUpdateLaunch.Name = "btnUpdateLaunch";
-            this.btnUpdateLaunch.Size = new System.Drawing.Size(75, 38);
+            this.btnUpdateLaunch.Size = new System.Drawing.Size(75, 39);
             this.btnUpdateLaunch.TabIndex = 0;
             this.btnUpdateLaunch.Text = "Launch Game";
             this.btnUpdateLaunch.UseVisualStyleBackColor = true;
@@ -56,9 +56,9 @@
             // 
             // progressUpdate
             // 
-            this.progressUpdate.Location = new System.Drawing.Point(12, 132);
+            this.progressUpdate.Location = new System.Drawing.Point(12, 131);
             this.progressUpdate.Name = "progressUpdate";
-            this.progressUpdate.Size = new System.Drawing.Size(531, 38);
+            this.progressUpdate.Size = new System.Drawing.Size(531, 39);
             this.progressUpdate.TabIndex = 2;
             // 
             // checkAutoUpdate
@@ -134,7 +134,7 @@
             // 
             this.pictureBox1.Image = global::TAModLauncher.Properties.Resources.launcherlogo;
             this.pictureBox1.Location = new System.Drawing.Point(-1, 1);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(274, 96);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -144,7 +144,7 @@
             // btnAbout
             // 
             this.btnAbout.Location = new System.Drawing.Point(549, 40);
-            this.btnAbout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(75, 24);
             this.btnAbout.TabIndex = 12;
