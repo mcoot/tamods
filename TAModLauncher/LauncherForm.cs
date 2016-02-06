@@ -426,5 +426,9 @@ namespace TAModLauncher
             MessageBox.Show(msg, "About");
         }
 
+        private void btnBackup_Click(object sender, EventArgs e)
+        {
+            updater.backupCurrentLocalFiles();
+        }
     }
 }

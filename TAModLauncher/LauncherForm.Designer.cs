@@ -41,6 +41,7 @@
             this.checkAutoInject = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnAbout = new System.Windows.Forms.Button();
+            this.btnBackup = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -122,7 +123,7 @@
             // checkAutoInject
             // 
             this.checkAutoInject.AutoSize = true;
-            this.checkAutoInject.Location = new System.Drawing.Point(424, 108);
+            this.checkAutoInject.Location = new System.Drawing.Point(448, 108);
             this.checkAutoInject.Name = "checkAutoInject";
             this.checkAutoInject.Size = new System.Drawing.Size(117, 17);
             this.checkAutoInject.TabIndex = 10;
@@ -152,11 +153,22 @@
             this.btnAbout.UseVisualStyleBackColor = true;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
+            // btnBackup
+            // 
+            this.btnBackup.Location = new System.Drawing.Point(366, 105);
+            this.btnBackup.Name = "btnBackup";
+            this.btnBackup.Size = new System.Drawing.Size(76, 23);
+            this.btnBackup.TabIndex = 13;
+            this.btnBackup.Text = "Backup Files";
+            this.btnBackup.UseVisualStyleBackColor = true;
+            this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
+            // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(628, 185);
+            this.Controls.Add(this.btnBackup);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkAutoInject);
@@ -195,6 +207,7 @@
         private System.Windows.Forms.CheckBox checkAutoInject;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.Button btnBackup;
     }
 }
 
