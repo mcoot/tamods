@@ -293,6 +293,7 @@ namespace TAModLauncher
             updateRequired = false;
             labelDownload.Visible = true;
             labelDownload.Text = "Ready to Play!";
+            progressUpdate.Value = 0;
             //MessageBox.Show("Download complete!");
         }
 
@@ -425,5 +426,9 @@ namespace TAModLauncher
             MessageBox.Show(msg, "About");
         }
 
+        private void btnBackup_Click(object sender, EventArgs e)
+        {
+            updater.backupCurrentLocalFiles();
+        }
     }
 }

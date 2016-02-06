@@ -41,14 +41,15 @@
             this.checkAutoInject = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnAbout = new System.Windows.Forms.Button();
+            this.btnBackup = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnUpdateLaunch
             // 
-            this.btnUpdateLaunch.Location = new System.Drawing.Point(549, 132);
+            this.btnUpdateLaunch.Location = new System.Drawing.Point(549, 131);
             this.btnUpdateLaunch.Name = "btnUpdateLaunch";
-            this.btnUpdateLaunch.Size = new System.Drawing.Size(75, 38);
+            this.btnUpdateLaunch.Size = new System.Drawing.Size(75, 39);
             this.btnUpdateLaunch.TabIndex = 0;
             this.btnUpdateLaunch.Text = "Launch Game";
             this.btnUpdateLaunch.UseVisualStyleBackColor = true;
@@ -56,9 +57,9 @@
             // 
             // progressUpdate
             // 
-            this.progressUpdate.Location = new System.Drawing.Point(12, 132);
+            this.progressUpdate.Location = new System.Drawing.Point(12, 131);
             this.progressUpdate.Name = "progressUpdate";
-            this.progressUpdate.Size = new System.Drawing.Size(531, 38);
+            this.progressUpdate.Size = new System.Drawing.Size(531, 39);
             this.progressUpdate.TabIndex = 2;
             // 
             // checkAutoUpdate
@@ -122,7 +123,7 @@
             // checkAutoInject
             // 
             this.checkAutoInject.AutoSize = true;
-            this.checkAutoInject.Location = new System.Drawing.Point(424, 108);
+            this.checkAutoInject.Location = new System.Drawing.Point(448, 108);
             this.checkAutoInject.Name = "checkAutoInject";
             this.checkAutoInject.Size = new System.Drawing.Size(117, 17);
             this.checkAutoInject.TabIndex = 10;
@@ -134,7 +135,7 @@
             // 
             this.pictureBox1.Image = global::TAModLauncher.Properties.Resources.launcherlogo;
             this.pictureBox1.Location = new System.Drawing.Point(-1, 1);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(274, 96);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -144,7 +145,7 @@
             // btnAbout
             // 
             this.btnAbout.Location = new System.Drawing.Point(549, 40);
-            this.btnAbout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAbout.Margin = new System.Windows.Forms.Padding(2);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(75, 24);
             this.btnAbout.TabIndex = 12;
@@ -152,11 +153,22 @@
             this.btnAbout.UseVisualStyleBackColor = true;
             this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
             // 
+            // btnBackup
+            // 
+            this.btnBackup.Location = new System.Drawing.Point(366, 105);
+            this.btnBackup.Name = "btnBackup";
+            this.btnBackup.Size = new System.Drawing.Size(76, 23);
+            this.btnBackup.TabIndex = 13;
+            this.btnBackup.Text = "Backup Files";
+            this.btnBackup.UseVisualStyleBackColor = true;
+            this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
+            // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(628, 185);
+            this.Controls.Add(this.btnBackup);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkAutoInject);
@@ -195,6 +207,7 @@
         private System.Windows.Forms.CheckBox checkAutoInject;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.Button btnBackup;
     }
 }
 
