@@ -156,7 +156,30 @@ namespace consoleHelpText
 
 static bool execConsoleCommand(const std::wstring &line)
 {
-	if (line.substr(0, 5) == L"/help")
+	std::wstring linelower = line;
+	std::transform(line.begin(), line.end(), linelower.begin(), ::tolower);
+
+	/****** Redirect to TrChatConsole ******/
+
+	// This is necessary because I run all non-custom console commands through TrPC->ConsoleCommand
+	//  and TrPC doesn't have all the console commands of TrChatConsoleCommands
+	if (Utils::tr_pc && Utils::tr_pc->m_PlayerCommands)
+	{
+		if ((linelower.substr(0, 5) == L"/mute") ||
+			(linelower.substr(0, 7) == L"/unmute") ||
+			(linelower.substr(0, 9) == L"/votekick") ||
+			(linelower.substr(0, 7) == L"/report") ||
+			(linelower.substr(0, 5) == L"/tell") ||
+			(linelower.substr(0, 3) == L"/sc"))
+		{
+			std::wstring command = std::wstring(line.begin() + 1, line.end());
+			wchar_t* wch = (wchar_t *)command.c_str();
+			Utils::tr_pc->m_PlayerCommands->ChatConsoleCommand(wch);
+			return true;
+		}
+	}
+	/****** General commands ******/
+	if (linelower.substr(0, 5) == L"/help")
 	{
 		Utils::printConsole(consoleHelpText::general);
 		Utils::printConsole(consoleHelpText::roammap);
@@ -164,7 +187,7 @@ static bool execConsoleCommand(const std::wstring &line)
 		Utils::printConsole(consoleHelpText::route);
 		return true;
 	}
-	else if (line.size() > 5 && line.substr(0, 5) == L"/lua ")
+	else if (line.size() > 5 && linelower.substr(0, 5) == L"/lua ")
 	{
 		std::string luastr = std::string(line.begin() + 5, line.end());
 		Utils::printConsole("lua> " + luastr);
@@ -173,17 +196,17 @@ static bool execConsoleCommand(const std::wstring &line)
 		g_config.lua.doString(luastr);
 		return true;
 	}
-	else if (line == L"/reload config" || line == L"/rc")
+	else if (linelower == L"/reload config" || linelower == L"/rc")
 	{
 		g_config.parseFile();
 		return true;
 	}
-	else if (line == L"/reload sounds" || line == L"/rs")
+	else if (linelower == L"/reload sounds" || linelower == L"/rs")
 	{
 		g_config.reloadSounds();
 		return true;
 	}
-	else if (line == L"/players" || line == L"/list" || line == L"/playerlist")
+	else if (linelower == L"/players" || linelower == L"/list" || linelower == L"/playerlist")
 	{
 		if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
 		{
@@ -194,7 +217,7 @@ static bool execConsoleCommand(const std::wstring &line)
 		}
 		return true;
 	}
-	else if (line.substr(0, 12) == L"/kickvoteid ")
+	else if (linelower.substr(0, 12) == L"/kickvoteid ")
 	{
 		std::stringstream s(std::string(line.begin() + 12, line.end()));
 		int playerId;
@@ -225,7 +248,7 @@ static bool execConsoleCommand(const std::wstring &line)
 
 		return true;
 	}
-	else if (line.size() > 13 && line.substr(0, 13) == L"/findobjects ")
+	else if (line.size() > 13 && linelower.substr(0, 13) == L"/findobjects ")
 	{
 		matched = 0;
 		std::string needle = std::string(line.begin() + 13, line.end());
@@ -234,88 +257,88 @@ static bool execConsoleCommand(const std::wstring &line)
 		return true;
 	}
 	/****** State saving ******/
-	else if (line == L"/stopwatch" || line == L"/sw")
+	else if (linelower == L"/stopwatch" || linelower == L"/sw")
 	{
 		stopwatch();
 		return true;
 	}
-	else if (line == L"/stopwatch start")
+	else if (linelower == L"/stopwatch start")
 	{
 		stopwatchStart();
 		return true;
 	}
-	else if (line == L"/stopwatch stop")
+	else if (linelower == L"/stopwatch stop")
 	{
 		stopwatchStop();
 		return true;
 	}
 	// Command to save the current player state (location, velocity etc.)
-	else if (line.substr(0, 11) == L"/state save" || line.substr(0, 5) == L"/save")
+	else if (linelower.substr(0, 11) == L"/state save" || linelower.substr(0, 5) == L"/save")
 	{
-		unsigned char n = line.substr(0, 11) == L"/state save" ? 12 : 6;
+		unsigned char n = linelower.substr(0, 11) == L"/state save" ? 12 : 6;
 		// Without a slot number we just use slot 1
 		savesSaveTo(line.size() > n ? line[n] - '0' : 1);
 
 		return true;
 	}
 	// Command to teleport to a saved location
-	else if (line.substr(0, 9) == L"/state tp" || line.substr(0, 3) == L"/tp")
+	else if (linelower.substr(0, 9) == L"/state tp" || linelower.substr(0, 3) == L"/tp")
 	{
-		unsigned char n = line.substr(0, 9) == L"/state tp" ? 10 : 4;
+		unsigned char n = linelower.substr(0, 9) == L"/state tp" ? 10 : 4;
 		// Without a slot number we just use slot 1
 		savesTpTo(line.size() > n ? line[n] - '0' : 1);
 		return true;
 	}
 	// Command to recall a full player state
-	else if (line.substr(0, 13) == L"/state recall" || line.substr(0, 7) == L"/recall")
+	else if (linelower.substr(0, 13) == L"/state recall" || linelower.substr(0, 7) == L"/recall")
 	{
-		unsigned char n = line.substr(0, 13) == L"/state recall" ? 14 : 8;
+		unsigned char n = linelower.substr(0, 13) == L"/state recall" ? 14 : 8;
 		// Without a slot number we just use slot 1
 		savesRecallTo(line.size() > n ? line[n] - '0' : 1);
 		return true;
 	}
-	else if (line == L"/state spawns" || line == L"/spawns")
+	else if (linelower == L"/state spawns" || linelower == L"/spawns")
 	{
 		savesToSpawns();
 		return true;
 	}
-	else if (line == L"/state reset")
+	else if (linelower == L"/state reset")
 	{
 		savesReset();
 		return true;
 	}
-	else if (line.substr(0, 6) == L"/state")
+	else if (linelower.substr(0, 6) == L"/state")
 	{
 		Utils::printConsole(consoleHelpText::state);
 		return true;
 	}
 	/****** Route recording ******/
-	else if (line == L"/route rec" || line == L"/rec")
+	else if (linelower == L"/route rec" || linelower == L"/rec")
 	{
 		routeRec();
 		return true;
 	}
-	else if (line == L"/route rec start")
+	else if (linelower == L"/route rec start")
 	{
 		routeStartRec();
 		return true;
 	}
-	else if (line == L"/route rec stop")
+	else if (linelower == L"/route rec stop")
 	{
 		routeStopRec();
 		return true;
 	}
-	else if (line == L"/route replay" || line == L"/replay")
+	else if (linelower == L"/route replay" || linelower == L"/replay")
 	{
 		routeReplay();
 		return true;
 	}
-	else if (line == L"/route replay start")
+	else if (linelower == L"/route replay start")
 	{
 		routeStartReplay(0);
 		return true;
 	}
-	else if (line.substr(0, 20) == L"/route replay start ")
+	else if (linelower.substr(0, 20) == L"/route replay start ")
 	{
 		std::stringstream s(std::string(line.begin() + 20, line.end()));
 		float start;
@@ -327,16 +350,16 @@ static bool execConsoleCommand(const std::wstring &line)
 			Utils::console("Error: You have to enter a number");
 		return true;
 	}
-	else if (line == L"/route replay stop")
+	else if (linelower == L"/route replay stop")
 	{
 		routeStopReplay();
 		return true;
 	}
-	else if (line.substr(0, 10) == L"/route bot")
+	else if (linelower.substr(0, 10) == L"/route bot")
 	{
-		if (line.substr(10, 13) == L" on")
+		if (linelower.substr(10, 13) == L" on")
 			routeEnableBot(true);
-		else if (line.substr(10, 14) == L" off")
+		else if (linelower.substr(10, 14) == L" off")
 			routeEnableBot(false);
 		else if (line.length() == 10)
 		{
@@ -350,12 +373,12 @@ static bool execConsoleCommand(const std::wstring &line)
 			Utils::printConsole(consoleHelpText::route);
 		return true;
 	}
-	else if (line == L"/route reset")
+	else if (linelower == L"/route reset")
 	{
 		routeReset();
 		return true;
 	}
-	else if (line.substr(0, 12) == L"/route save ")
+	else if (linelower.substr(0, 12) == L"/route save ")
 	{
 		if (line.size() > 12)
 		{
@@ -366,7 +389,7 @@ static bool execConsoleCommand(const std::wstring &line)
 			Utils::console("Error: You have to enter a description");
 		return true;
 	}
-	else if (line.substr(0, 12) == L"/route load ")
+	else if (linelower.substr(0, 12) == L"/route load ")
 	{
 		if (line.size() > 12)
 		{
@@ -383,7 +406,7 @@ static bool execConsoleCommand(const std::wstring &line)
 			Utils::console("Error: You have to enter a number");
 		return true;
 	}
-	else if (line.substr(0, 12) == L"/route find ")
+	else if (linelower.substr(0, 12) == L"/route find ")
 	{
 		if (line.size() > 12)
 		{
@@ -394,12 +417,12 @@ static bool execConsoleCommand(const std::wstring &line)
 			Utils::console("Error: You have to enter a search string");
 		return true;
 	}
-	else if (line == L"/route list" || line == L"/route all" || line == L"/routes")
+	else if (linelower == L"/route list" || linelower == L"/route all" || linelower == L"/routes")
 	{
 		routeListAll();
 		return true;
 	}
-	else if (line.substr(0, 6) == L"/route")
+	else if (linelower.substr(0, 6) == L"/route")
 	{
 		Utils::printConsole(consoleHelpText::route);
 		return true;
@@ -407,17 +430,17 @@ static bool execConsoleCommand(const std::wstring &line)
 	/****** Roam map only commands ******/
 	else if (Utils::tr_pc && Utils::tr_pc->WorldInfo->NetMode == 0)
 	{
-		if (line == L"/toggle turrets" || line == L"/turrets")
+		if (linelower == L"/toggle turrets" || linelower == L"/turrets")
 		{
 			toggleTurrets();
 			return true;
 		}
-		else if (line == L"/toggle power" || line == L"/power")
+		else if (linelower == L"/toggle power" || linelower == L"/power")
 		{
 			togglePower();
 			return true;
 		}
-		else if (line == L"/returnflags" || line == L"/flags")
+		else if (linelower == L"/returnflags" || linelower == L"/flags")
 		{
 			returnFlags();
 			return true;
@@ -447,14 +470,21 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 		{
 			if (that->IsSlashCommand())
 			{
-				if (execConsoleCommand(that->TypedStr.Data))
+				if (!execConsoleCommand(that->TypedStr.Data))
 				{
-					that->SetInputText(FString(L""));
-					that->SetCursorPos(0);
-					that->UpdateCompleteIndices();
-					pResult = (void *)true;
-					return true;
+					if (that->m_TrPC)
+					{
+						that->TypedStr.Remove(0);
+						std::string result = Utils::f2std(that->m_TrPC->ConsoleCommand(that->TypedStr, false));
+						if (!result.empty())
+							Utils::printConsole(result);
+					}
 				}
+				that->SetInputText(FString(L""));
+				that->SetCursorPos(0);
+				that->UpdateCompleteIndices();
+				pResult = (void *)true;
+				return true;
 			}
 		}
 	}
@@ -482,14 +512,22 @@ bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* 
 		{
 			if (that->IsSlashCommand())
 			{
-				if (execConsoleCommand(that->TypedStr.Data))
+				if (!execConsoleCommand(that->TypedStr.Data))
 				{
-					that->TypedStr = L"";
-					that->SetInputText(FString(L""));
-					that->SetCursorPos(0);
-					that->ChannelStr = L"";
-					that->UpdateCompleteIndices();
+					if (that->m_TrPC)
+					{
+						that->TypedStr.Remove(0);
+						std::string result = Utils::f2std(that->m_TrPC->ConsoleCommand(that->TypedStr, false));
+						if (!result.empty())
+							Utils::printConsole(result);
+					}
 				}
+				that->TypedStr = L"";
+				that->SetInputText(FString(L""));
+				that->SetCursorPos(0);
+				that->ChannelStr = L"";
+				that->UpdateCompleteIndices();
+
 				return false;
 			}
 		}
