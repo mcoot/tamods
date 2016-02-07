@@ -17,7 +17,7 @@
 #include "Audio.h"
 #include "SoundEffect.h"
 
-#define MODVERSION 0.51
+#define MODVERSION 0.52
 
 // Declared here to use as lua functions
 void stopwatch();
@@ -359,23 +359,24 @@ public:
 	int         hitSoundMode, // 0: no custom hitsounds, 1: static hitsounds 2: dynamic pitch 3: dynamic pitch inverse
 	            hitSoundDamageRef; // Used as reference for the calculation when to raise and when to lower pitch
 	float       hitSoundPitchMin, hitSoundPitchMax;
-	std::string customHitSound, customHeadShotSound, customKillSound, customAirMailSound, customBluePlateSound;
-	float       volumeHitSound, volumeHeadShot,      volumeKillSound, volumeAirMail,      volumeBluePlate;
+	
+	std::string  soundHit,  soundHeadShot,  soundKill,  soundAirMail,  soundBluePlate;
+	float       volumeHit, volumeHeadShot, volumeKill, volumeAirMail, volumeBluePlate;
 	
 	// Accolades
-	std::string customStreak1,    customStreak2,      customStreak3,       customStreak4,    customStreak5,
-	            customMultiKill1, customMultiKill2,   customMultiKill3,    customMultiKill4, customMultiKill5,
-	            customFirstBlood, customHeadShotKill, customArtilleryShot, customMeleeKill,  customRoadKill, customFastGrab;
+	std::string soundStreak1,     soundStreak2,       soundStreak3,        soundStreak4,     soundStreak5,
+	            soundMultiKill1,  soundMultiKill2,    soundMultiKill3,     soundMultiKill4,  soundMultiKill5,
+	            soundFirstBlood,  soundHeadShotKill,  soundArtilleryShot,  soundMeleeKill,   soundRoadKill, soundFastGrab;
 	float       volumeStreak1,    volumeStreak2,      volumeStreak3,       volumeStreak4,    volumeStreak5,
 	            volumeMultiKill1, volumeMultiKill2,   volumeMultiKill3,    volumeMultiKill4, volumeMultiKill5,
 	            volumeFirstBlood, volumeHeadShotKill, volumeArtilleryShot, volumeMeleeKill,  volumeRoadKill, volumeFastGrab;
 	
 	// Flag events
-	std::string customFlagBlueGrab,    customFlagRedGrab,
-	            customFlagBluePickup,  customFlagRedPickup,
-	            customFlagBlueCapture, customFlagRedCapture,
-	            customFlagBlueReturn,  customFlagRedReturn,
-	            customFlagBlueDrop,    customFlagRedDrop;
+	std::string soundFlagBlueGrab,     soundFlagRedGrab,
+	            soundFlagBluePickup,   soundFlagRedPickup,
+	            soundFlagBlueCapture,  soundFlagRedCapture,
+	            soundFlagBlueReturn,   soundFlagRedReturn,
+	            soundFlagBlueDrop,     soundFlagRedDrop;
 	float       volumeFlagBlueGrab,    volumeFlagRedGrab,
 	            volumeFlagBluePickup,  volumeFlagRedPickup,
 				volumeFlagBlueCapture, volumeFlagRedCapture,

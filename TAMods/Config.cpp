@@ -140,32 +140,32 @@ void Config::reset()
 
 	// Sounds
 	hitSoundMode = 0;
-	customHitSound       = "";
-	customHeadShotSound  = "";
-	customKillSound      = "";
-	customAirMailSound   = "";
-	customBluePlateSound = "";
-	hitSoundPitchMin     = 0.4f;
-	hitSoundPitchMax     = 1.6f;
-	hitSoundDamageRef    = 600;
-	volumeHitSound       = 0.55f;
-	volumeHeadShot       = 0.55f;
-	volumeKillSound      = 0.55f;
-	volumeBluePlate      = 0.55f;
-	volumeAirMail        = 0.55f;
+	soundHit          = "";
+	soundHeadShot     = "";
+	soundKill         = "";
+	soundAirMail      = "";
+	soundBluePlate    = "";
+	hitSoundPitchMin  = 0.4f;
+	hitSoundPitchMax  = 1.6f;
+	hitSoundDamageRef = 600;
+	volumeHit         = 0.55f;
+	volumeHeadShot    = 0.55f;
+	volumeKill        = 0.55f;
+	volumeBluePlate   = 0.55f;
+	volumeAirMail     = 0.55f;
 	// Accolades
-	customStreak1    = ""; customStreak2      = ""; customStreak3       = ""; customStreak4    = ""; customStreak5    = "";
-	customMultiKill1 = ""; customMultiKill2   = ""; customMultiKill3    = ""; customMultiKill4 = ""; customMultiKill5 = "";
-	customFirstBlood = ""; customHeadShotKill = ""; customArtilleryShot = ""; customMeleeKill  = ""; customRoadKill   = ""; customFastGrab = "";
+	soundStreak1    = ""; soundStreak2      = ""; soundStreak3       = ""; soundStreak4    = ""; soundStreak5    = "";
+	soundMultiKill1 = ""; soundMultiKill2   = ""; soundMultiKill3    = ""; soundMultiKill4 = ""; soundMultiKill5 = "";
+	soundFirstBlood = ""; soundHeadShotKill = ""; soundArtilleryShot = ""; soundMeleeKill  = ""; soundRoadKill   = ""; soundFastGrab = "";
 	volumeStreak1    = 0.5f;  volumeStreak2      = 0.5f;  volumeStreak3       = 0.5f;  volumeStreak4    = 0.5f;  volumeStreak5    = 0.5f;
 	volumeMultiKill1 = 0.5f;  volumeMultiKill2   = 0.5f;  volumeMultiKill3    = 0.5f;  volumeMultiKill4 = 0.5f;  volumeMultiKill5 = 0.5f;
 	volumeFirstBlood = 0.5f;  volumeHeadShotKill = 0.5f;  volumeArtilleryShot = 0.5f;  volumeMeleeKill  = 0.5f;  volumeRoadKill   = 0.5f;  volumeFastGrab = 0.5f;
 	// Flag events
-	customFlagBlueGrab    = ""; customFlagRedGrab    = "";
-	customFlagBluePickup  = ""; customFlagRedPickup  = "";
-	customFlagBlueCapture = ""; customFlagRedCapture = "";
-	customFlagBlueReturn  = ""; customFlagRedReturn  = "";
-	customFlagBlueDrop    = ""; customFlagRedDrop    = "";
+	soundFlagBlueGrab    = ""; soundFlagRedGrab    = "";
+	soundFlagBluePickup  = ""; soundFlagRedPickup  = "";
+	soundFlagBlueCapture = ""; soundFlagRedCapture = "";
+	soundFlagBlueReturn  = ""; soundFlagRedReturn  = "";
+	soundFlagBlueDrop    = ""; soundFlagRedDrop    = "";
 	volumeFlagBlueGrab    = 0.5f;  volumeFlagRedGrab    = 0.5f;
 	volumeFlagBluePickup  = 0.5f;  volumeFlagRedPickup  = 0.5f;
 	volumeFlagBlueCapture = 0.5f;  volumeFlagRedCapture = 0.5f;
@@ -364,19 +364,19 @@ void Config::updateDefaults()
 
 	// Toggle default sounds
 	if (hitsound)
-		hitsound->VolumeMultiplier = hitSoundMode > 0 && !customHitSound.empty() ? 0.0f : volumeHitSound;
+		hitsound->VolumeMultiplier = hitSoundMode > 0 && !soundHit.empty() ? 0.0f : volumeHit;
 
 	if (headshotsound)
-		headshotsound->VolumeMultiplier = !customHeadShotSound.empty() ? 0.0f : volumeHeadShot;
+		headshotsound->VolumeMultiplier = !soundHeadShot.empty() ? 0.0f : volumeHeadShot;
 
 	if (flagpickedup)
-		flagpickedup->VolumeMultiplier = !customFlagBluePickup.empty() || !customFlagRedPickup.empty() || !customFlagBlueGrab.empty() || !customFlagRedGrab.empty() ? 0.0f : 0.55f;
+		flagpickedup->VolumeMultiplier = !soundFlagBluePickup.empty() || !soundFlagRedPickup.empty() || !soundFlagBlueGrab.empty() || !soundFlagRedGrab.empty() ? 0.0f : 0.55f;
 
 	if (flagcaptured)
-		flagcaptured->VolumeMultiplier = !customFlagBlueCapture.empty() || !customFlagRedCapture.empty() ? 0.0f : 0.55f;
+		flagcaptured->VolumeMultiplier = !soundFlagBlueCapture.empty() || !soundFlagRedCapture.empty() ? 0.0f : 0.55f;
 
 	if (flagreturned)
-		flagreturned->VolumeMultiplier = !customFlagBlueReturn.empty() || !customFlagRedReturn.empty() ? 0.0f : 0.55f;
+		flagreturned->VolumeMultiplier = !soundFlagBlueReturn.empty() || !soundFlagRedReturn.empty() ? 0.0f : 0.55f;
 
 	// Toggle icons
 	for (int i = 0; i < sizeof(togglable_icons) / sizeof(togglable_icons[0]); i++)
@@ -414,38 +414,38 @@ void Config::initializeAudio()
 	audioEngine.Initialize();
 	if (audioEngine.audioAvailable())
 	{
-		s_soundEffects.push_back(s_hitSound.Initialize(audioEngine.SoundEffectEngine,      &customHitSound, &volumeHitSound));
-		s_soundEffects.push_back(s_headShot.Initialize(audioEngine.SoundEffectEngine,      &customHeadShotSound, &volumeHeadShot));
-		s_soundEffects.push_back(s_killSound.Initialize(audioEngine.SoundEffectEngine,     &customKillSound, &volumeKillSound));
-		s_soundEffects.push_back(s_bluePlate.Initialize(audioEngine.SoundEffectEngine,     &customBluePlateSound, &volumeBluePlate));
-		s_soundEffects.push_back(s_airMail.Initialize(audioEngine.SoundEffectEngine,       &customAirMailSound, &volumeAirMail));
-		s_soundEffects.push_back(s_streak1.Initialize(audioEngine.SoundEffectEngine,       &customStreak1, &volumeStreak1));
-		s_soundEffects.push_back(s_streak2.Initialize(audioEngine.SoundEffectEngine,       &customStreak2, &volumeStreak2));
-		s_soundEffects.push_back(s_streak3.Initialize(audioEngine.SoundEffectEngine,       &customStreak3, &volumeStreak3));
-		s_soundEffects.push_back(s_streak4.Initialize(audioEngine.SoundEffectEngine,       &customStreak4, &volumeStreak4));
-		s_soundEffects.push_back(s_streak5.Initialize(audioEngine.SoundEffectEngine,       &customStreak5, &volumeStreak5));
-		s_soundEffects.push_back(s_multiKill1.Initialize(audioEngine.SoundEffectEngine,    &customMultiKill1, &volumeMultiKill1));
-		s_soundEffects.push_back(s_multiKill2.Initialize(audioEngine.SoundEffectEngine,    &customMultiKill2, &volumeMultiKill2));
-		s_soundEffects.push_back(s_multiKill3.Initialize(audioEngine.SoundEffectEngine,    &customMultiKill3, &volumeMultiKill3));
-		s_soundEffects.push_back(s_multiKill4.Initialize(audioEngine.SoundEffectEngine,    &customMultiKill4, &volumeMultiKill4));
-		s_soundEffects.push_back(s_multiKill5.Initialize(audioEngine.SoundEffectEngine,    &customMultiKill5, &volumeMultiKill5));
-		s_soundEffects.push_back(s_firstBlood.Initialize(audioEngine.SoundEffectEngine,    &customFirstBlood, &volumeFirstBlood));
-		s_soundEffects.push_back(s_headShotKill.Initialize(audioEngine.SoundEffectEngine,  &customHeadShotKill, &volumeHeadShotKill));
-		s_soundEffects.push_back(s_artilleryShot.Initialize(audioEngine.SoundEffectEngine, &customArtilleryShot, &volumeArtilleryShot));
-		s_soundEffects.push_back(s_meleeKill.Initialize(audioEngine.SoundEffectEngine,     &customMeleeKill, &volumeMeleeKill));
-		s_soundEffects.push_back(s_roadKill.Initialize(audioEngine.SoundEffectEngine,      &customRoadKill, &volumeRoadKill));
-		s_soundEffects.push_back(s_fastGrab.Initialize(audioEngine.SoundEffectEngine,      &customFastGrab, &volumeFastGrab));
+		s_soundEffects.push_back(s_hitSound.Initialize(audioEngine.SoundEffectEngine,      &soundHit, &volumeHit));
+		s_soundEffects.push_back(s_headShot.Initialize(audioEngine.SoundEffectEngine,      &soundHeadShot, &volumeHeadShot));
+		s_soundEffects.push_back(s_killSound.Initialize(audioEngine.SoundEffectEngine,     &soundKill, &volumeKill));
+		s_soundEffects.push_back(s_bluePlate.Initialize(audioEngine.SoundEffectEngine,     &soundBluePlate , &volumeBluePlate));
+		s_soundEffects.push_back(s_airMail.Initialize(audioEngine.SoundEffectEngine,       &soundAirMail, &volumeAirMail));
+		s_soundEffects.push_back(s_streak1.Initialize(audioEngine.SoundEffectEngine,       &soundStreak1, &volumeStreak1));
+		s_soundEffects.push_back(s_streak2.Initialize(audioEngine.SoundEffectEngine,       &soundStreak2, &volumeStreak2));
+		s_soundEffects.push_back(s_streak3.Initialize(audioEngine.SoundEffectEngine,       &soundStreak3, &volumeStreak3));
+		s_soundEffects.push_back(s_streak4.Initialize(audioEngine.SoundEffectEngine,       &soundStreak4, &volumeStreak4));
+		s_soundEffects.push_back(s_streak5.Initialize(audioEngine.SoundEffectEngine,       &soundStreak5, &volumeStreak5));
+		s_soundEffects.push_back(s_multiKill1.Initialize(audioEngine.SoundEffectEngine,    &soundMultiKill1, &volumeMultiKill1));
+		s_soundEffects.push_back(s_multiKill2.Initialize(audioEngine.SoundEffectEngine,    &soundMultiKill2, &volumeMultiKill2));
+		s_soundEffects.push_back(s_multiKill3.Initialize(audioEngine.SoundEffectEngine,    &soundMultiKill3, &volumeMultiKill3));
+		s_soundEffects.push_back(s_multiKill4.Initialize(audioEngine.SoundEffectEngine,    &soundMultiKill4, &volumeMultiKill4));
+		s_soundEffects.push_back(s_multiKill5.Initialize(audioEngine.SoundEffectEngine,    &soundMultiKill5, &volumeMultiKill5));
+		s_soundEffects.push_back(s_firstBlood.Initialize(audioEngine.SoundEffectEngine,    &soundFirstBlood, &volumeFirstBlood));
+		s_soundEffects.push_back(s_headShotKill.Initialize(audioEngine.SoundEffectEngine,  &soundHeadShotKill, &volumeHeadShotKill));
+		s_soundEffects.push_back(s_artilleryShot.Initialize(audioEngine.SoundEffectEngine, &soundArtilleryShot, &volumeArtilleryShot));
+		s_soundEffects.push_back(s_meleeKill.Initialize(audioEngine.SoundEffectEngine,     &soundMeleeKill, &volumeMeleeKill));
+		s_soundEffects.push_back(s_roadKill.Initialize(audioEngine.SoundEffectEngine,      &soundRoadKill, &volumeRoadKill));
+		s_soundEffects.push_back(s_fastGrab.Initialize(audioEngine.SoundEffectEngine,      &soundFastGrab, &volumeFastGrab));
 		// Flag events
-		s_soundEffects.push_back(s_flagBlueGrab.Initialize(audioEngine.SoundEffectEngine,    &customFlagBlueGrab, &volumeFlagBlueGrab));
-		s_soundEffects.push_back(s_flagRedGrab.Initialize(audioEngine.SoundEffectEngine,     &customFlagRedGrab, &volumeFlagRedGrab));
-		s_soundEffects.push_back(s_flagBluePickup.Initialize(audioEngine.SoundEffectEngine,  &customFlagBluePickup, &volumeFlagBluePickup));
-		s_soundEffects.push_back(s_flagRedPickup.Initialize(audioEngine.SoundEffectEngine,   &customFlagRedPickup, &volumeFlagRedPickup));
-		s_soundEffects.push_back(s_flagBlueCapture.Initialize(audioEngine.SoundEffectEngine, &customFlagBlueCapture, &volumeFlagBlueCapture));
-		s_soundEffects.push_back(s_flagRedCapture.Initialize(audioEngine.SoundEffectEngine,  &customFlagRedCapture, &volumeFlagRedCapture));
-		s_soundEffects.push_back(s_flagBlueReturn.Initialize(audioEngine.SoundEffectEngine,  &customFlagBlueReturn, &volumeFlagBlueReturn));
-		s_soundEffects.push_back(s_flagRedReturn.Initialize(audioEngine.SoundEffectEngine,   &customFlagRedReturn, &volumeFlagRedReturn));
-		s_soundEffects.push_back(s_flagBlueDrop.Initialize(audioEngine.SoundEffectEngine,    &customFlagBlueDrop, &volumeFlagBlueDrop));
-		s_soundEffects.push_back(s_flagRedDrop.Initialize(audioEngine.SoundEffectEngine,     &customFlagRedDrop, &volumeFlagRedDrop));
+		s_soundEffects.push_back(s_flagBlueGrab.Initialize(audioEngine.SoundEffectEngine,    &soundFlagBlueGrab, &volumeFlagBlueGrab));
+		s_soundEffects.push_back(s_flagRedGrab.Initialize(audioEngine.SoundEffectEngine,     &soundFlagRedGrab, &volumeFlagRedGrab));
+		s_soundEffects.push_back(s_flagBluePickup.Initialize(audioEngine.SoundEffectEngine,  &soundFlagBluePickup, &volumeFlagBluePickup));
+		s_soundEffects.push_back(s_flagRedPickup.Initialize(audioEngine.SoundEffectEngine,   &soundFlagRedPickup, &volumeFlagRedPickup));
+		s_soundEffects.push_back(s_flagBlueCapture.Initialize(audioEngine.SoundEffectEngine, &soundFlagBlueCapture, &volumeFlagBlueCapture));
+		s_soundEffects.push_back(s_flagRedCapture.Initialize(audioEngine.SoundEffectEngine,  &soundFlagRedCapture, &volumeFlagRedCapture));
+		s_soundEffects.push_back(s_flagBlueReturn.Initialize(audioEngine.SoundEffectEngine,  &soundFlagBlueReturn, &volumeFlagBlueReturn));
+		s_soundEffects.push_back(s_flagRedReturn.Initialize(audioEngine.SoundEffectEngine,   &soundFlagRedReturn, &volumeFlagRedReturn));
+		s_soundEffects.push_back(s_flagBlueDrop.Initialize(audioEngine.SoundEffectEngine,    &soundFlagBlueDrop, &volumeFlagBlueDrop));
+		s_soundEffects.push_back(s_flagRedDrop.Initialize(audioEngine.SoundEffectEngine,     &soundFlagRedDrop, &volumeFlagRedDrop));
 	}
 	else
 		Utils::console("Error: could not initialize audio engine");
@@ -604,36 +604,36 @@ void Config::setVariables()
 
 	// Sounds
 	SET_VARIABLE(int, hitSoundMode);
-	SET_VARIABLE(std::string, customHitSound);
-	SET_VARIABLE(std::string, customHeadShotSound);
-	SET_VARIABLE(std::string, customKillSound);
-	SET_VARIABLE(std::string, customAirMailSound);
-	SET_VARIABLE(std::string, customBluePlateSound);
+	SET_VARIABLE(std::string, soundHit);
+	SET_VARIABLE(std::string, soundHeadShot);
+	SET_VARIABLE(std::string, soundKill);
+	SET_VARIABLE(std::string, soundAirMail);
+	SET_VARIABLE(std::string, soundBluePlate);
 	SET_VARIABLE(float, hitSoundPitchMin);
 	SET_VARIABLE(float, hitSoundPitchMax);
 	SET_VARIABLE(int, hitSoundDamageRef);
-	SET_VARIABLE(float, volumeHitSound);
+	SET_VARIABLE(float, volumeHit);
 	SET_VARIABLE(float, volumeHeadShot);
-	SET_VARIABLE(float, volumeKillSound);
+	SET_VARIABLE(float, volumeKill);
 	SET_VARIABLE(float, volumeBluePlate);
 	SET_VARIABLE(float, volumeAirMail);
 	// Accolades
-	SET_VARIABLE(std::string, customStreak1);
-	SET_VARIABLE(std::string, customStreak2);
-	SET_VARIABLE(std::string, customStreak3);
-	SET_VARIABLE(std::string, customStreak4);
-	SET_VARIABLE(std::string, customStreak5);
-	SET_VARIABLE(std::string, customMultiKill1); 
-	SET_VARIABLE(std::string, customMultiKill2); 
-	SET_VARIABLE(std::string, customMultiKill3); 
-	SET_VARIABLE(std::string, customMultiKill4); 
-	SET_VARIABLE(std::string, customMultiKill5); 
-	SET_VARIABLE(std::string, customFirstBlood);
-	SET_VARIABLE(std::string, customHeadShotKill);
-	SET_VARIABLE(std::string, customArtilleryShot);
-	SET_VARIABLE(std::string, customMeleeKill);
-	SET_VARIABLE(std::string, customRoadKill);
-	SET_VARIABLE(std::string, customFastGrab);
+	SET_VARIABLE(std::string, soundStreak1);
+	SET_VARIABLE(std::string, soundStreak2);
+	SET_VARIABLE(std::string, soundStreak3);
+	SET_VARIABLE(std::string, soundStreak4);
+	SET_VARIABLE(std::string, soundStreak5);
+	SET_VARIABLE(std::string, soundMultiKill1); 
+	SET_VARIABLE(std::string, soundMultiKill2); 
+	SET_VARIABLE(std::string, soundMultiKill3); 
+	SET_VARIABLE(std::string, soundMultiKill4); 
+	SET_VARIABLE(std::string, soundMultiKill5); 
+	SET_VARIABLE(std::string, soundFirstBlood);
+	SET_VARIABLE(std::string, soundHeadShotKill);
+	SET_VARIABLE(std::string, soundArtilleryShot);
+	SET_VARIABLE(std::string, soundMeleeKill);
+	SET_VARIABLE(std::string, soundRoadKill);
+	SET_VARIABLE(std::string, soundFastGrab);
 	SET_VARIABLE(float, volumeStreak1);
 	SET_VARIABLE(float, volumeStreak2);
 	SET_VARIABLE(float, volumeStreak3);
@@ -651,16 +651,16 @@ void Config::setVariables()
 	SET_VARIABLE(float, volumeRoadKill);
 	SET_VARIABLE(float, volumeFastGrab);
 	// Flag events
-	SET_VARIABLE(std::string, customFlagBlueGrab);
-	SET_VARIABLE(std::string, customFlagRedGrab);
-	SET_VARIABLE(std::string, customFlagBluePickup);
-	SET_VARIABLE(std::string, customFlagRedPickup);
-	SET_VARIABLE(std::string, customFlagBlueCapture);
-	SET_VARIABLE(std::string, customFlagRedCapture);
-	SET_VARIABLE(std::string, customFlagBlueReturn);
-	SET_VARIABLE(std::string, customFlagRedReturn);
-	SET_VARIABLE(std::string, customFlagBlueDrop);
-	SET_VARIABLE(std::string, customFlagRedDrop);
+	SET_VARIABLE(std::string, soundFlagBlueGrab);
+	SET_VARIABLE(std::string, soundFlagRedGrab);
+	SET_VARIABLE(std::string, soundFlagBluePickup);
+	SET_VARIABLE(std::string, soundFlagRedPickup);
+	SET_VARIABLE(std::string, soundFlagBlueCapture);
+	SET_VARIABLE(std::string, soundFlagRedCapture);
+	SET_VARIABLE(std::string, soundFlagBlueReturn);
+	SET_VARIABLE(std::string, soundFlagRedReturn);
+	SET_VARIABLE(std::string, soundFlagBlueDrop);
+	SET_VARIABLE(std::string, soundFlagRedDrop);
 	SET_VARIABLE(float, volumeFlagBlueGrab);
 	SET_VARIABLE(float, volumeFlagRedGrab);
 	SET_VARIABLE(float, volumeFlagBluePickup);
