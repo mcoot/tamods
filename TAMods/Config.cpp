@@ -2161,12 +2161,12 @@ void Lua::init()
 			addFunction("reset", &routeReset).
 			addFunction("save", &routeSaveFile).
 			addFunction("load", &routeLoadFile).
-			addFunction("search", &routeList).
-			addFunction("find", &routeList).
+			addFunction("search", &routeFind).
+			addFunction("find", &routeFind).
 			addFunction("list", &routeListAll).
 			addFunction("enableBot", &routeEnableBot).
-			addFunction("getAll", &routeGetAll).
-			addFunction("getEnemyRoutes", &routeGetEnemyRoutes).
+			addFunction("getAll", &routeLoadAll).
+			addFunction("getEnemy", &routeLoadEnemy).
 		endNamespace().
 		addFunction("toggleTurrets", &toggleTurrets).
 		addFunction("togglePower", &togglePower).

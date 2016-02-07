@@ -484,7 +484,7 @@ template<typename T> std::istream & binary_read(std::istream& stream, T& value)
 }
 
 // Reloads the list of files for the current map
-static void reloadRouteList()
+static void reloadRouteList(bool opposingTeamOnly)
 {
 	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
@@ -524,15 +524,35 @@ static void reloadRouteList()
 		std::ifstream routefile(routedir + fname, std::ios::binary);
 		std::string file_map_name;
 
+		unsigned char team_num;
+
 		if (routefile.is_open())
 		{
 			float mod_version;
 			binary_read(routefile, mod_version);
 			routefile >> file_map_name;
+
+			if (opposingTeamOnly)
+			{
+				std::string tmp_class, tmp_name, tmp_desc;
+
+				routefile >> tmp_class >> tmp_name >> tmp_desc;
+				routefile.ignore();
+				binary_read(routefile, team_num);
+			}
+
 			routefile.close();
 
 			if (mod_version >= 0.5f && file_map_name == curr_map_name)
-				files.push_back(fname);
+			{
+				if (opposingTeamOnly)
+				{
+					if (team_num != Utils::tr_pc->GetTeamNum())
+						files.push_back(fname);
+				}
+				else
+					files.push_back(fname);
+			}
 		}
 
 		if (FindNextFile(handle, &search_data) == FALSE)
@@ -541,49 +561,6 @@ static void reloadRouteList()
 
 	//Close the handle after use or memory/resource leak
 	FindClose(handle);
-}
-
-LuaRef routeGetAll()
-{
-	reloadRouteList();
-	LuaRef out = newTable(g_config.lua.getState());
-
-	for (size_t i = 0; i < files.size(); i++)
-		out[i + 1] = files[i];
-	return out;
-}
-
-LuaRef routeGetEnemyRoutes()
-{
-	reloadRouteList();
-	LuaRef out = newTable(g_config.lua.getState());
-
-	if (!Utils::tr_pc || !Utils::tr_pc->Pawn)
-		return out;
-
-	ATrPawn *pawn = (ATrPawn *)Utils::tr_pc->Pawn;
-
-	for (size_t i = 0; i < files.size(); i++)
-	{
-		std::ifstream routefile(routedir + files[i], std::ios::binary);
-		unsigned char team_num = 255;
-
-		if (routefile.is_open())
-		{
-			std::string tmp_map, tmp_class, tmp_name, tmp_desc;
-			float mod_version;
-
-			binary_read(routefile, mod_version);
-			routefile >> tmp_map >> tmp_class >> tmp_name >> tmp_desc;
-			routefile.ignore();
-			binary_read(routefile, team_num);
-			routefile.close();
-
-			if (team_num != 255 && team_num != pawn->GetTeamNum())
-				out[i + 1] = files[i];
-		}
-	}
-	return out;
 }
 
 void routeSaveFile(const std::string &desc)
@@ -650,7 +627,7 @@ void routeSaveFile(const std::string &desc)
 
 void routeLoadFile(unsigned int num)
 {
-	reloadRouteList();
+	reloadRouteList(false);
 
 	if (files.size() == 0)
 	{
@@ -708,9 +685,9 @@ void routeLoadFile(unsigned int num)
 	routefile.close();
 }
 
-void routeList(const std::string &needle)
+void routeFind(const std::string &needle)
 {
-	reloadRouteList();
+	reloadRouteList(false);
 
 	if (files.size() == 0)
 	{
@@ -726,9 +703,20 @@ void routeList(const std::string &needle)
 	}
 }
 
-unsigned int routeListAll()
+void routeListAll()
 {
-	routeList("");
+	routeFind("");
+}
+
+unsigned int routeLoadAll()
+{
+	reloadRouteList(false);
+	return files.size();
+}
+
+unsigned int routeLoadEnemy()
+{
+	reloadRouteList(true);
 	return files.size();
 }
 

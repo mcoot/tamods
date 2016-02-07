@@ -388,7 +388,7 @@ static bool execConsoleCommand(const std::wstring &line)
 		if (line.size() > 12)
 		{
 			std::string needle = std::string(line.begin() + 12, line.end());
-			routeList(needle);
+			routeFind(needle);
 		}
 		else
 			Utils::console("Error: You have to enter a search string");

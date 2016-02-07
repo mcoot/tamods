@@ -37,8 +37,6 @@ void togglePower();
 void returnFlags();
 
 // Route recording
-LuaRef routeGetAll();
-LuaRef routeGetEnemyRoutes();
 void routeRec();
 void routeStartRec();
 void routeStopRec();
@@ -48,8 +46,10 @@ void routeStopReplay();
 void routeReset();
 void routeSaveFile(const std::string &desc);
 void routeLoadFile(unsigned int num);
-void routeList(const std::string &needle);
-unsigned int routeListAll();
+void routeFind(const std::string &needle);
+void routeListAll();
+unsigned int routeLoadAll();
+unsigned int routeLoadEnemy();
 void routeEnableBot(bool on);
 
 struct MutedPlayer

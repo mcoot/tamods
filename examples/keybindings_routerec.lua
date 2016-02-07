@@ -17,7 +17,7 @@ end
 
 local currentRoute = 0
 function nextRoute()
-	count = route.list()
+	local count = route.getAll()
 
 	if currentRoute < count then
 		currentRoute = currentRoute + 1
@@ -28,7 +28,7 @@ function nextRoute()
 	route.load(currentRoute)
 end
 function prevRoute()
-	count = route.list()
+	local count = route.getAll()
 	
 	if currentRoute > count or currentRoute <= 1 then
 		currentRoute = count
