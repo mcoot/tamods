@@ -260,6 +260,7 @@ void Config::parseFile()
 	}
 	setVariables();
 	updateDefaults();
+	reloadSounds();
 	refreshSoundVolumes();
 }
 
@@ -455,20 +456,23 @@ void Config::reloadSounds()
 {
 	if (audioEngine.audioAvailable())
 	{
+		unsigned int c = 0;
 		for (size_t i = 0; i < s_soundEffects.size(); i++)
 		{
 			if (s_soundEffects[i] && !s_soundEffects[i]->m_filePath->empty())
 			{
 				s_soundEffects[i]->Reload();
 				if (s_soundEffects[i]->audioAvailable())
-					Utils::printConsole("Reloaded " + s_soundEffects[i]->m_basePath + *s_soundEffects[i]->m_filePath);
+					c++;
 				else
-					Utils::printConsole("Failed to reload " + s_soundEffects[i]->m_basePath + *s_soundEffects[i]->m_filePath);
+					Utils::printConsole("Failed to load " + s_soundEffects[i]->m_basePath + *s_soundEffects[i]->m_filePath, { 0, 0, 255, 255 });
 			}
 		}
+		std::string str = c == 1 ? " sound loaded" : " sounds loaded";
+		Utils::printConsole(std::to_string(c) + str);
 	}
 	else
-		Utils::printConsole("Error: audio engine unavailable");
+		Utils::printConsole("Error: audio engine unavailable", { 0, 0, 255, 255 });
 }
 
 void Config::refreshSoundVolumes()
