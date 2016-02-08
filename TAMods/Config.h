@@ -17,7 +17,7 @@
 #include "Audio.h"
 #include "SoundEffect.h"
 
-#define MODVERSION 0.52
+#define MODVERSION 0.6
 
 // Declared here to use as lua functions
 void stopwatch();

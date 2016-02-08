@@ -52,7 +52,7 @@ bool execCustomCommand(UTrChatConsole *that)
 			{
 				if (consoleCommands::map[command].function)
 				{
-					(*consoleCommands::map[command].function)(params);
+					(*consoleCommands::map[command].function)(command, params);
 
 					that->SetInputText(FString(L""));
 					that->SetCursorPos(0);
