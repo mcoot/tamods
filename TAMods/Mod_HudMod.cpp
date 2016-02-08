@@ -10,6 +10,9 @@ bool TrHudWrapper_destroyed(int ID, UObject *dwCallingObject, UFunction* pFuncti
 		return false;
 	}
 
+	if (Utils::tr_gvc && Utils::tr_gvc->ChatConsole)
+		Utils::tr_gvc->ChatConsole->ManualAutoCompleteList.Clear();
+
 	if (that->IsA(ATrHUD::StaticClass()))
 	{
 		ATrHUD *hud = (ATrHUD *)that;
@@ -22,6 +25,9 @@ bool TrChatConsoleCommand_quit(int ID, UObject *dwCallingObject, UFunction* pFun
 {
 	UTrChatConsoleCommands *that = (UTrChatConsoleCommands *)dwCallingObject;
 	ATrPlayerController *pc = (ATrPlayerController *)that->Outer;
+
+	if (Utils::tr_gvc && Utils::tr_gvc->ChatConsole)
+		Utils::tr_gvc->ChatConsole->ManualAutoCompleteList.Clear();
 
 	if (pc->myHUD)
 		((ATrHUD *)pc->myHUD)->m_OverheadNumbers.Clear();

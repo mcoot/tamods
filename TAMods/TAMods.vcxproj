@@ -93,6 +93,7 @@
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Config.cpp" />
+    <ClCompile Include="ConsoleCommands.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataGetters.cpp" />
     <ClCompile Include="Geom.cpp" />
@@ -204,6 +205,7 @@
   <ItemGroup>
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="ConsoleCommands.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataGetters.h" />
     <ClInclude Include="dllmain.h" />
