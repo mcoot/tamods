@@ -722,112 +722,63 @@ namespace TAModConfigurationTool
             loadoutDetails = new Dictionary<string, Dictionary<string, List<string>>>();
             loadoutRegex = new Dictionary<string, Dictionary<string, List<string>>>();
 
-            loadoutDetails["Pathfinder"] = new Dictionary<string, List<string>>();
-            loadoutRegex["Pathfinder"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Pathfinder"]["primary"] = new List<String> { "Light Spinfusor", "Bolt Launcher", "Dueling Spinfusor", "Light Twinfusor", "Blinksfusor" };
-            loadoutRegex["Pathfinder"]["primary"] = new List<String> { "^(spin(fusor)?|light(spin)?(fusor)?)$", "^(bolt|boltlauncher)$", "^(duel|dueling|duelingspinfusor)$", "^(twin|twinfusor|lighttwinfusor)$", "^(blinks|blinksfusor)$" };
-            loadoutDetails["Pathfinder"]["secondary"] = new List<string> { "Shotgun", "Holdout Shotgun", "Light Assault Rifle", "Shocklance" };
-            loadoutRegex["Pathfinder"]["secondary"] = new List<String> { "^(shotgun)$", "^(holdoutshotgun|holdout)$", "^(lightassaultrifle|lar|ar|assaultrifle|rifle)$", "^(shocklance)$" };
-            loadoutDetails["Pathfinder"]["belt"] = new List<string> { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons" };
-            loadoutRegex["Pathfinder"]["belt"] = new List<string> { "^(nitrons?|impactnitrons?|impacts?)$", "^(explosivenitrons?|explosives?)$", "^(compactnitrons?|compacts?)$" };
-            loadoutDetails["Pathfinder"]["pack"] = new List<string> { "Energy Recharge", "Thrust Pack" };
-            loadoutRegex["Pathfinder"]["pack"] = new List<string> { "^(energyrecharge|energy)$", "^(thrustpack|thrust)$" };
+            loadoutDetails["Light"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Light"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Light"]["impact"] = new List<String> { "Light Spinfusor", "Bolt Launcher", "Light Twinfusor", "Blinksfusor" };
+            loadoutRegex["Light"]["impact"] = new List<String> { "^(spin(fusor)?|light(spin)?(fusor)?)$", "^(bolt|boltlauncher)$", "^(twin|twinfusor|lighttwinfusor)$", "^(blinks?|blinks?fusor)$" };
+            loadoutDetails["Light"]["timed"] = new List<string> { "Light Grenade Launcher", "Jackal" };
+            loadoutRegex["Light"]["timed"] = new List<String> { "^((light)?(gl|grenadelauncher)|lgl)$", "^(jackal)$" };
+            loadoutDetails["Light"]["specialty"] = new List<string> { "BXT", "Phase Rifle" };
+            loadoutRegex["Light"]["specialty"] = new List<String> { "^(bxt|bxt1|bxt1rifle)$", "^(phase|phaserifle)$" };
+            loadoutDetails["Light"]["automatic"] = new List<string> { "Falcon", "Light Assault Rifle" };
+            loadoutRegex["Light"]["automatic"] = new List<String> { "^(falcon)$", "^(lightassaultrifle|lar|ar|assaultrifle|rifle)$" };
+            loadoutDetails["Light"]["shortrange"] = new List<string> { "Shotgun", "Shocklance" };
+            loadoutRegex["Light"]["shortrange"] = new List<String> { "^(shotgun)$", "^(shocklance)$" };
+            loadoutDetails["Light"]["sidearms"] = new List<string> { "Sparrow", "Throwing Knives" };
+            loadoutRegex["Light"]["sidearms"] = new List<String> { "^(sparrow)$)rx", "^(throwingknives|knives)$" };
 
-            loadoutDetails["Sentinel"] = new Dictionary<string, List<string>>();
-            loadoutRegex["Sentinel"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Sentinel"]["primary"] = new List<string> { "BXT1 Rifle", "BXT1A Rifle", "Phase rifle", "SAP20 Rifle" };
-            loadoutRegex["Sentinel"]["primary"] = new List<string> { "^(bxt|bxt1|bxt1rifle)$", "^(bxt1a|bxt1-a|bxt1-arifle|bxt1arifle)$", "^(phase|phaserifle)$", "^(sap20(sniper)?(rifle)?)$" };
-            loadoutDetails["Sentinel"]["secondary"] = new List<string> { "Nova Blaster", "Nova Blaster MX", "Falcon", "Accurized Shotgun", "Shocklance" };
-            loadoutRegex["Sentinel"]["secondary"] = new List<string> { "^(nova|blaster|novablaster)$", "^(falcon)$", "^(mx|novablastermx|novamx|blastermx)$", "^(shotgun|accurizedshotgun)$", "^(shocklance)$" };
-            loadoutDetails["Sentinel"]["belt"] = new List<string> { "Claymore Mines", "Focused Claymores", "T5 Grenades", "Motion Mines" };
-            loadoutRegex["Sentinel"]["belt"] = new List<string> { "^(claymores?|claymoremines?)$", "^(focusedclaymores?|focusedclaymoremines?)$", "^(t5s?|grenades?|t5grenades?)$", "^(motionmines?|motions?|mines?)$" };
-            loadoutDetails["Sentinel"]["pack"] = new List<string> { "Drop Jammer", "Energy Recharge" };
-            loadoutRegex["Sentinel"]["pack"] = new List<string> { "^(dropjammer|jammer|jammerpack)$", "^(energypack|energyrecharge|energy)$" };
-
-            loadoutDetails["Infiltrator"] = new Dictionary<string, List<string>>();
-            loadoutRegex["Infiltrator"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Infiltrator"]["primary"] = new List<string> { "Rhino SMG", "Stealth Spinfusor", "Jackal", "Arctic Rhino SMG" };
-            loadoutRegex["Infiltrator"]["primary"] = new List<string> { "^(rhinosmg|smg|rhino)$", "^(stealthspinfusor|spinfusor|spin|stealth)$", "^(jackal)$", "^(arcticrhinosmg|arcticrhino|arcticsmg)$" };
-            loadoutDetails["Infiltrator"]["secondary"] = new List<string> { "SN7 Silenced Pistol", "Throwing Knives", "Arctic SN7 Silenced Pistol", "Shocklance" };
-            loadoutRegex["Infiltrator"]["secondary"] = new List<string> { "^(sn7silencedpistol|sn7|pistol)$", "^(throwingknives|knives)$", "^(arcticsn7silencedpistol|arcticsn7|arcticpistol)$", "^(shocklance)$" };
-            loadoutDetails["Infiltrator"]["belt"] = new List<string> { "Sticky Grenades", "Sticky Grenades XL", "Prism Mines", "Smoke Grenades" };
-            loadoutRegex["Infiltrator"]["belt"] = new List<string> { "^(stickygrenades?|sticky|stickies)$", "^(stickygrenades?xl|stickyxls?|stickiesxl)$", "^(prismmines?|mines?)$", "^(smokegrenades?|smokes?" };
-            loadoutDetails["Infiltrator"]["pack"] = new List<string> { "Stealth Pack" };
-            loadoutRegex["Infiltrator"]["pack"] = new List<string> { "^(stealthpack|stealth)$" };
-
-            loadoutDetails["Soldier"] = new Dictionary<string, List<string>>();
-            loadoutRegex["Soldier"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Soldier"]["primary"] = new List<string> { "Assault Rifle", "Gast's Rifle", "Spinfusor", "Twinfusor" };
-            loadoutRegex["Soldier"]["primary"] = new List<string> { "^(assaultrifle|rifle|ar)$", "^(gast'srifle|gast|gastrifle)$", "^(spinfusor|spin)$", "^(twinfusor)$" };
-            loadoutDetails["Soldier"]["secondary"] = new List<string> { "Thumper D", "Thumper DX", "Spare Spinfusor", "Eagle Pistol", "Shocklance" };
-            loadoutRegex["Soldier"]["secondary"] = new List<string> { "^(thumper|thumperd)$", "^(thumperdx|dx)$", "^(sparespinfusor|sparespin|spin|spinfusor)$", "^(eaglepistol|eagle|pistol)$", "^(shocklance)$" };
-            loadoutDetails["Soldier"]["belt"] = new List<string> { "Frag Grenades XL", "AP Grenades", "Proxies", "Short-fuse Frag Grenades" };
-            loadoutRegex["Soldier"]["belt"] = new List<string> { "^(fraggrenades?(xl)?|frag(xl)?|grenades?(xl)?)$", "^(anti-?personnelgrenades?|aps?|apgrenades?)$", "^(proxmitys?(grenades?)?|proxies|proxys?)$", "^(short-?fusefraggrenades?|short-?fuses?)$" };
-            loadoutDetails["Soldier"]["pack"] = new List<string> { "Energy Pack", "Utility Pack" };
-            loadoutRegex["Soldier"]["pack"] = new List<string> { "^(energypack|energy)$", "^(utilitypack|utility)$" };
-
-            loadoutDetails["Raider"] = new Dictionary<string, List<string>>();
-            loadoutRegex["Raider"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Raider"]["primary"] = new List<string> { "Arx Buster", "Dust Devil", "Grenade Launcher", "Plasma Gun" };
-            loadoutRegex["Raider"]["primary"] = new List<string> { "^(arxbuster|arx)$", "^(dustdevil|dust|devil)$", "^(grenadelauncher|nadelauncher|launcher)$", "^(plasmagun|plasma)$" };
-            loadoutDetails["Raider"]["secondary"] = new List<string> { "NJ4 SMG", "Desert NJ4 SMG", "NJ5-B SMG", "Shocklance" };
-            loadoutRegex["Raider"]["secondary"] = new List<string> { "^(nj4smg|nj4)$", "^(desertnj4smg|desertnj4|desert)$", "^(nj5-?bsmg|nj5)$", "^(shocklance)$" };
-            loadoutDetails["Raider"]["belt"] = new List<string> { "EMP Grenades", "EMP XLs", "Blackout Grenades", "Cluster Grenades" };
-            loadoutRegex["Raider"]["belt"] = new List<string> { "^(emps?|empgrenades?)$", "^(emps?xls?|empgrenades?xls?)$", "^(blackouts?|blackoutgrenades?)$", "^(clustergrenades?|clusters?)$" };
-            loadoutDetails["Raider"]["pack"] = new List<string> { "Shield Pack", "Jammer Pack" };
-            loadoutRegex["Raider"]["pack"] = new List<string> { "^(shieldpack|shield)$", "^(jammerpack|jammer)$" };
-
-            loadoutDetails["Technician"] = new Dictionary<string, List<string>>();
-            loadoutRegex["Technician"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Technician"]["primary"] = new List<string> { "TCN4 SMG", "Rockwind SMG", "Thumper", "TC24" };
-            loadoutRegex["Technician"]["primary"] = new List<string> { "^(tcn4smg|tcn4)$", "^(tcn4rockwindsmg|rockwind|rockwindsmg|tcn4rockwind)$", "^(thumper)$", "^(tc24)$" };
-            loadoutDetails["Technician"]["secondary"] = new List<string> { "Improved Repair Tool", "Long Range Repair Tool", "Sawed-off Shotgun", "Sparrow", "Shocklance" };
-            loadoutRegex["Technician"]["secondary"] = new List<string> { "^(improvedrepairtool|repairtool|repair)$", "^(longrangerepairtool|longrange(repair|tool)?)$", "^(sawed-?offshotgun|shotgun|sawed-?off)$", "^(sparrow)$", "^(shocklance)$" };
-            loadoutDetails["Technician"]["belt"] = new List<string> { "TCNGs", "TCNG Quickfuses", "Motion Sensors", "Repair Kits" };
-            loadoutRegex["Technician"]["belt"] = new List<string> { "^(tcngs?|grenades?)$", "^(tcngs?quickfuses?|quickfuses?)$", "^(motionsensors?|sensors?)$", "^(repairkits?|repair|kits?)$" };
-            loadoutDetails["Technician"]["pack"] = new List<string> { "Light Turret", "EXR Turret" };
-            loadoutRegex["Technician"]["pack"] = new List<string> { "^(turrets?|lightturrets?)$", "^(exrs?|exrturrets?)$" };
-
-            loadoutDetails["Juggernaut"] = new Dictionary<string, List<string>>();
-            loadoutRegex["Juggernaut"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Juggernaut"]["primary"] = new List<string> { "Fusion Mortar", "Fusion Mortar Deluxe", "MIRV Launcher" };
-            loadoutRegex["Juggernaut"]["primary"] = new List<string> { "^(fusionmortar|mortar)$", "^((fusion)?(mortar)?deluxe)$", "^(mirvlauncher|mirv)$" };
-            loadoutDetails["Juggernaut"]["secondary"] = new List<string> { "Spinfusor MKD", "Spinfusor MK-X", "X1 LMG", "Heavy Twinfusor", "Shocklance" };
-            loadoutRegex["Juggernaut"]["secondary"] = new List<string> { "^(spin(fusor)?|spin(fusor)?mkd|(fusor)?mkd)$", "^((spin)?(fusor)?mk-?x)$", "^(x1|lmg|x1lmg)$", "^(heavytwinfusor|twinfusor|twin)$", "^(shocklance)$" };
-            loadoutDetails["Juggernaut"]["belt"] = new List<string> { "Heavy AP Grenades", "Heavy AP Grenades XL", "Spindisks" };
-            loadoutRegex["Juggernaut"]["belt"] = new List<string> { "^(heavyaps?grenades?|grenades?|heavyaps?|aps?)$", "^(xls?|heavy(aps?)?(grenades?)?xl|aps?xl|heavyxls?)$", "^(spinfusordisks?|spins?|disks?|discs?|spindisks?|throwingdisks?)$" };
-            loadoutDetails["Juggernaut"]["pack"] = new List<string> { "Health Regen Pack" };
-            loadoutRegex["Juggernaut"]["pack"] = new List<string> { "^(healthregenpack|healthpack|health|regenpack|regen)$" };
-
-            loadoutDetails["Doombringer"] = new Dictionary<string, List<string>>();
-            loadoutRegex["Doombringer"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Doombringer"]["primary"] = new List<string> { "Chaingun", "Chain Cannon", "Heavy Bolt Launcher" };
-            loadoutRegex["Doombringer"]["primary"] = new List<string> { "^(chaingun)$", "^(chaincannon)$", "^(heavyboltlauncher|boltlauncher|bolt)$" };
-            loadoutDetails["Doombringer"]["secondary"] = new List<string> { "Saber Launcher", "Titan Launcher", "Shocklance" };
-            loadoutRegex["Doombringer"]["secondary"] = new List<string> { "^(saberlauncher|saber)$", "^(titanlauncher|titan)$", "^(shocklance)$" };
-            loadoutDetails["Doombringer"]["belt"] = new List<string> { "Frag Grenades", "Mines", "Defective Frags" };
-            loadoutRegex["Doombringer"]["belt"] = new List<string> { "^(fraggrenades?|frags?)$", "^(mines?)$", "^(defectivefraggrenades?|defectivefrags?|defectivegrenades?)$" };
-            loadoutDetails["Doombringer"]["pack"] = new List<string> { "Forcefield" };
-            loadoutRegex["Doombringer"]["pack"] = new List<string> { "^(forcefield|shield|energyfield)$" };
-
-            loadoutDetails["Brute"] = new Dictionary<string, List<string>>();
-            loadoutRegex["Brute"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Brute"]["primary"] = new List<string> { "Heavy Spinfusor", "Devastator Spinfusor", "Gladiator" };
-            loadoutRegex["Brute"]["primary"] = new List<string> { "^(heavy(spin)?(fusor)?|spin(fusor)?|fusor)$", "^(devastator|devastatorspin(fusor)?|dev|devspin)$", "^(gladiator)$" };
-            loadoutDetails["Brute"]["secondary"] = new List<string> { "Automatic Shotgun", "The Hammer", "Nova Colt", "Plasma Cannon", "Shocklance" };
-            loadoutRegex["Brute"]["secondary"] = new List<string> { "^(automaticshotgun|autoshotgun|shotgun)$", "^(thehammer|hammer)$", "^(novacolt|colt|nova)$", "^(plasmacannon|plasma)$", "^(shocklance)$" };
-            loadoutDetails["Brute"]["belt"] = new List<string> { "Fractal Grenades", "Extended Fractal Grenades", "Heavy Sticky Grenades" };
-            loadoutRegex["Brute"]["belt"] = new List<string> { "^(fractals?|fractalgrenades?)$", "^(extendedfractalgrenades?|extendedfractals?)$", "^(heavystickygrenades?|stickys?|stickies|heavystickys?|heavystickies)$" };
-            loadoutDetails["Brute"]["pack"] = new List<string> { "Energy Pack", "Survival Pack", "Heavy Shield Pack" };
-            loadoutRegex["Brute"]["pack"] = new List<string> { "^(energypack|energy)$", "^(survivalpack|survival)$", "^(heavyshieldpack|heavyshield|shieldpack|shield)$" };
+            loadoutDetails["Light"]["belt"] = new List<string> { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons" };
+            loadoutRegex["Light"]["belt"] = new List<string> { "^(nitrons?|impactnitrons?|impacts?)$", "^(explosivenitrons?|explosives?)$", "^(compactnitrons?|compacts?)$" };
+            loadoutDetails["Light"]["pack"] = new List<string> { "Energy Recharge", "Thrust Pack" };
+            loadoutRegex["Light"]["pack"] = new List<string> { "^(energyrecharge|energy)$", "^(thrustpack|thrust)$" };
 
 
-            loadoutDetails["all"] = new Dictionary<string, List<string>>();
-            loadoutRegex["all"] = new Dictionary<string, List<string>>();
-            loadoutDetails["all"]["perk1"] = new List<string> { "Rage", "Ultra Capacitor 1", "Reach", "Safe Fall", "Wheel Deal", "Bounty Hunter", "Close Combat", "Looter", "Stealthy", "Safety Third" };
-            loadoutRegex["all"]["perk1"] = new List<string> { "^(rage)$", "^(ultracapacitor[i1]?|capacitor)$", "^(reach)$", "^(safefall|fall|sf)$", "^(wheeldeal)$", "^(bountyhunter|bounty|hunter)$", "^(closecombat|cc)$", "^(looter)$", "^(stealthy)$", "^(safetythird|safety3rd|3rd|third)$" };
-            loadoutDetails["all"]["perk2"] = new List<string> { "Sonic Punch", "Determination", "Egocentric", "Potential Energy", "Pilot", "Survivalist", "Superheavy", "Ultra Capacitor 2", "Quick Draw", "Mechanic", "Lightweight" };
-            loadoutRegex["all"]["perk2"] = new List<string> { "^(sonicpunch|sonic|punch)$", "^(determination)$", "^(egocentric|ego)$", "^(potentialenergy|potential|pe)$", "^(pilot)$", "^(survivalist)$", "^(superheavy|heavy|sh)$", "^(ultracapacitor(2|ii)?|capacitor)$", "^(quickdraw|qd|draw)$", "^(mechanic)$", "^(lightweight|lw)$" };
+            loadoutDetails["Medium"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Medium"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Medium"]["impact"] = new List<String> { "Spinfusor", "Thumper", "Twinfusor", "Blinksfusor" };
+            loadoutRegex["Medium"]["impact"] = new List<String> { "^(spinfusor|spin)$", "^(thumper)$", "^(twinfusor)$", "^(blinks?|blinks?fusor)$" };
+            loadoutDetails["Medium"]["timed"] = new List<string> { "Arx Buster", "Grenade Launcher" };
+            loadoutRegex["Medium"]["timed"] = new List<String> { "^(arxbuster|arx)$", "^(grenadelauncher|nadelauncher|launcher|gl)$" };
+            loadoutDetails["Medium"]["specialty"] = new List<string> { "Imroved repair tool", "ELF Projector" };
+            loadoutRegex["Medium"]["specialty"] = new List<String> { "^(improvedrepairtool|repairtool|repair)$", "^(elf(projector)?)$" };
+            loadoutDetails["Medium"]["automatic"] = new List<string> { "Assault Rifle", "NJ4", "Plasma Gun" };
+            loadoutRegex["Medium"]["automatic"] = new List<String> { "^(assaultrifle|rifle|ar)$", "^(nj4smg|nj4)$", "^(plasmagun|plasma)$" };
+            loadoutDetails["Medium"]["shortrange"] = new List<string> { "Sawed off", "Flak cannon" };
+            loadoutRegex["Medium"]["shortrange"] = new List<String> { "^(sawed-?offshotgun|shotgun|sawed-?off)$", "^(flak(cannon)?)$" };
+            loadoutDetails["Medium"]["sidearms"] = new List<string> { "Nova blaster", "Eagle Pistol" };
+            loadoutRegex["Medium"]["sidearms"] = new List<String> { "^(nova|blaster|novablaster)$", "^(eaglepistol|eagle|pistol)$"  };
+
+            loadoutDetails["Medium"]["belt"] = new List<string> { "Frag Grenades XL", "AP Grenades", "Proxies", "Short-fuse Frag Grenades" };
+            loadoutRegex["Medium"]["belt"] = new List<string> { "^(fraggrenades?(xl)?|frag(xl)?|grenades?(xl)?)$", "^(anti-?personnelgrenades?|aps?|apgrenades?)$", "^(proxmitys?(grenades?)?|proxies|proxys?)$", "^(short-?fusefraggrenades?|short-?fuses?)$" };
+            loadoutDetails["Medium"]["pack"] = new List<string> { "Energy Pack", "Utility Pack" };
+            loadoutRegex["Medium"]["pack"] = new List<string> { "^(energypack|energy)$", "^(utilitypack|utility)$" };
+
+
+            loadoutDetails["Heavy"] = new Dictionary<string, List<string>>();
+            loadoutRegex["Heavy"] = new Dictionary<string, List<string>>();
+            loadoutDetails["Heavy"]["impact"] = new List<String> { "Heavy Spinfusor", "Heavy Bolt Launcher", "Heavy Blinksfusor", "Heavy Twinfusor" };
+            loadoutRegex["Heavy"]["impact"] = new List<String> { "^(heavy(spin)?(fusor)?|spin(fusor)?|fusor)$", "^(heavyboltlauncher|boltlauncher|bolt)$", "^((heavy)?blinks?(fusor)?)$", "^(heavytwinfusor|twinfusor|twin)$" };
+            loadoutDetails["Heavy"]["timed"] = new List<string> { "Fusion Mortar", "MIRV Launcher" };
+            loadoutRegex["Heavy"]["timed"] = new List<String> { "^(fusionmortar|mortar)$", "^(mirvlauncher|mirv)$" };
+            loadoutDetails["Heavy"]["specialty"] = new List<string> { "Saber Launcher", "Gladiator" };
+            loadoutRegex["Heavy"]["specialty"] = new List<String> { "^(saberlauncher|saber)$", "^(gladiator)$" };
+            loadoutDetails["Heavy"]["automatic"] = new List<string> { "Chaingun", "X1 LMG", "Plasma Cannon" };
+            loadoutRegex["Heavy"]["automatic"] = new List<String> { "^(chaingun)$", "^(x1|lmg|x1lmg)$", "^(plasmacannon|plasma)$" };
+            loadoutDetails["Heavy"]["shortrange"] = new List<string> { "Automatic Shotgun", "EFG" };
+            loadoutRegex["Heavy"]["shortrange"] = new List<String> { "^(automaticshotgun|shotgun)$", "^(efg)$" };
+            loadoutDetails["Heavy"]["sidearms"] = new List<string> { "Nova Colt", "Nova Blaster MX" };
+            loadoutRegex["Heavy"]["sidearms"] = new List<String> { "^(novacolt|colt|nova)$", "^(mx|novablastermx|novamx|blaster(mx)?)$" };
+
 
             crosshairDetails = new List<string>() { "Spinfusor", "SMG", "Rifle", "Locked On", "Crossbow", "Flamethrower", "Chaingun", "Thumper", "Nanite", "Shotgun", "Unknown", "Laser", "ch_v13", "Scope", "Nova Blaster", "Mortar", "Melee", "Shrike", "Spectator", "Chain", "BXT1", "Phase Rifle", "SAP20", "Plasma Gun" };
             crosshairRegex = new List<string>() { "^(spin(fusor)?)$", "^(smg)$", "^(rifle)$", "^(locked_?on)$", "^(crossbow)$", "^(flamethrower)$", "^(chaingun)$", "^(bolt(launcher)?|thumper|missile)$", "^(nanite)$", "^(shotgun)$", "^(unknown)$", "^(laser)$", "^(ch_?v13)$", "^(scope)$", "^(standard|(nova)?(colt|blaster)?)$", "^(grenadelauncher|mortar)$", "^(melee)$", "^(shrike)$", "^(spectator)$", "^(chain|dot|assaultrifle|ar|red_?dot)$", "^(bxt1?)$", "^(phase(rifle)?)$", "^(sap(20)?)$", "^(plasma(gun)?)$" };
@@ -957,17 +908,12 @@ namespace TAModConfigurationTool
             weaponSelector.Items.Clear();
             if (classSelector.SelectedItem != null)
             {
-                foreach (string weapon in loadoutDetails[(string)classSelector.SelectedItem]["primary"])
+                foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms" })
                 {
-                    weaponSelector.Items.Add(weapon);
-                }
-                foreach (string weapon in loadoutDetails[(string)classSelector.SelectedItem]["secondary"])
-                {
-                    weaponSelector.Items.Add(weapon);
-                }
-                foreach (string weapon in loadoutDetails[(string)classSelector.SelectedItem]["belt"])
-                {
-                    weaponSelector.Items.Add(weapon);
+                    foreach (string weapon in loadoutDetails[(string)classSelector.SelectedItem][type])
+                    {
+                        weaponSelector.Items.Add(weapon);
+                    }
                 }
             }
         }
@@ -1205,29 +1151,14 @@ namespace TAModConfigurationTool
             selectProjectileSwapClass_Swap.SelectedIndexChanged += new EventHandler(selectProjectileSwapClass_Swap_SelectedIndexChanged);
 
             // Select the right weapons
-            selectProjectileSwapWeapon.SelectedItem =
-                findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.gameClass, "primary", ((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.weapon);
-            if (selectProjectileSwapWeapon.SelectedItem == null)
+            selectProjectileSwapWeapon.SelectedItem = null;
+            selectProjectileSwapWeapon_Swap.SelectedItem = null;
+            foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms" })
             {
-                selectProjectileSwapWeapon.SelectedItem =
-                    findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.gameClass, "secondary", ((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.weapon);
                 if (selectProjectileSwapWeapon.SelectedItem == null)
-                {
-                    selectProjectileSwapWeapon.SelectedItem =
-                     findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.gameClass, "belt", ((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.weapon);
-                }
-            }
-            selectProjectileSwapWeapon_Swap.SelectedItem =
-                findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.gameClass, "primary", ((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.weapon);
-            if (selectProjectileSwapWeapon_Swap.SelectedItem == null)
-            {
-                selectProjectileSwapWeapon_Swap.SelectedItem =
-                    findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.gameClass, "secondary", ((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.weapon);
+                    selectProjectileSwapWeapon.SelectedItem = findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.gameClass, type, ((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.weapon);
                 if (selectProjectileSwapWeapon_Swap.SelectedItem == null)
-                {
-                    selectProjectileSwapWeapon_Swap.SelectedItem =
-                     findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.gameClass, "belt", ((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.weapon);
-                }
+                    selectProjectileSwapWeapon_Swap.SelectedItem = findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.gameClass, type, ((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.weapon);
             }
 
             // Set the clone checkbox
@@ -1261,17 +1192,12 @@ namespace TAModConfigurationTool
             selectProjectileSettingClass.SelectedIndexChanged += new EventHandler(selectProjectileSettingClass_SelectedIndexChanged);
 
             // Select the right weapon
-            selectProjectileSettingWeapon.SelectedItem =
-                findMatchingLoadoutItem(((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.gameClass, "primary", ((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.weapon);
-            if (selectProjectileSettingWeapon.SelectedItem == null)
+            selectProjectileSettingWeapon.SelectedItem = null;
+            foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms" })
             {
-                selectProjectileSettingWeapon.SelectedItem =
-                    findMatchingLoadoutItem(((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.gameClass, "secondary", ((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.weapon);
-                if (selectProjectileSettingWeapon.SelectedItem == null)
-                {
-                    selectProjectileSettingWeapon.SelectedItem =
-                     findMatchingLoadoutItem(((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.gameClass, "belt", ((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.weapon);
-                }
+                selectProjectileSettingWeapon.SelectedItem = findMatchingLoadoutItem(((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.gameClass, type, ((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.weapon);
+                if (selectProjectileSettingWeapon.SelectedItem != null)
+                    break;
             }
 
             // Set the colour/intensity box
@@ -1545,6 +1471,16 @@ namespace TAModConfigurationTool
         private void checkRouteDrawETA_CheckedChanged(object sender, EventArgs e)
         {
             numRouteETAInterval.Enabled = checkRouteDrawETA.Checked;
+        }
+
+        private void selectProjectileSettingWeapon_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void colorProjectileSetting_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
 
