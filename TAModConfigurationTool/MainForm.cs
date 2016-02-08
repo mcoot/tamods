@@ -249,6 +249,7 @@ namespace TAModConfigurationTool
         {
             // Presets
             scanForConfigPresets();
+            
 
             // General settings
             // Display settings
