@@ -25,9 +25,15 @@ static UClass *g_projClass = NULL;
 bool TrDevice_WeaponFire(int ID, UObject *dwCallingObject, UFunction *pFunction, void *pParams, void *result)
 {
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
-	g_physicalFireStartLoc = that->GetPhysicalFireStartLoc(FVector());
-	g_clientSideFireStartLoc = that->GetClientSideProjectileFireStartLoc(FVector());
-	g_projClass = that->GetProjectileClass();
+
+	Hooks::lock();
+	if (that->ShouldRefire())
+	{
+		g_physicalFireStartLoc = that->GetPhysicalFireStartLoc(FVector());
+		g_clientSideFireStartLoc = that->GetClientSideProjectileFireStartLoc(FVector());
+		g_projClass = that->GetProjectileClass();
+	}
+	Hooks::unlock();
 	return false;
 }
 
