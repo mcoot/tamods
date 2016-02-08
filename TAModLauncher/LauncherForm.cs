@@ -33,6 +33,11 @@ namespace TAModLauncher
 
         public LauncherForm()
         {
+            // Use '.' instead of ',' for floating point numbers
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+
             InitializeComponent();
         }
 
