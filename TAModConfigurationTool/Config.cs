@@ -20,6 +20,7 @@ namespace TAModConfigurationTool
         private Lua lua;
         private string configPath;
         private string configFile;
+        private string configPreset = null;
         private Dictionary<string, List<string>> configVarSections;
         private Dictionary<string, Object> configVars;
         private Dictionary<string, Object> configVarsDefault;
@@ -30,12 +31,13 @@ namespace TAModConfigurationTool
         private List<ProjectileSwap> configProjectileSwaps;
         private Dictionary<string, string> assetFiles;
         private Dictionary<string, string> assetFilesDefault;
-        public string configVersion = "v0.4+";
+        public string configVersion = "v0.6";
 
         public Config(string configPath, string configFilename)
         {
             lua = new Lua();
             // Register necessary functions to the script
+            lua.RegisterFunction("require", this, this.GetType().GetMethod("setRequireFile"));
             lua.RegisterFunction("rgb", this, this.GetType().GetMethod("rgb"));
             lua.RegisterFunction("rgba", this, this.GetType().GetMethod("rgba"));
             lua.RegisterFunction("crosshair", this, this.GetType().GetMethod("crosshair"));
@@ -808,6 +810,13 @@ namespace TAModConfigurationTool
                 flines.Add("");
                 flines.Add("");
 
+                // Write ConfigPreset (if any)
+                if (configPreset != null)
+                {
+                    flines.Add(formatConfigHeading2("Config Preset", 40));
+                    flines.Add(String.Format("require(\"{0}\")", configPreset));
+                }
+
                 // Write ConfigVars
                 flines.AddRange(formatGetStringLines(formatConfigHeading2("Config Variables", 40)));
 
@@ -1075,6 +1084,12 @@ namespace TAModConfigurationTool
             }
 
             return true;
+        }
+
+        // Set the current config preset
+        public void setRequireFile(string file)
+        {
+            configPreset = file;
         }
 
         // Turn an RGBA value into a colour
