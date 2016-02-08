@@ -318,7 +318,7 @@ namespace consoleCommands
 		if (params.empty())
 		{
 			routeEnableBot(!g_config.routeBotReplay);
-			Utils::printConsole("Bot replay: " + g_config.routeBotReplay ? "on" : "off");
+			Utils::printConsole(g_config.routeBotReplay == true ? "Bot replay: on" : "Bot replay: off");
 		}
 		else if (params == L"on")
 			routeEnableBot(true);
