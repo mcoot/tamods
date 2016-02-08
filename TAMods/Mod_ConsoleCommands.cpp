@@ -1,30 +1,13 @@
 #include "Mods.h"
 #include "ConsoleCommands.h"
 
-bool TrChatConsole_Open_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
+void TrChatConsole_AddOnlineFriendHelp(UTrChatConsole *that, UTrChatConsole_execAddOnlineFriendHelp_Parms *params, void *result, Hooks::CallInfo *callInfo)
 {
-	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
-	((UUTConsole *)that)->eventBeginState(FName(""));
-
 	TArray<FAutoCompleteCommand> arr = that->TribesAutoCompleteList;
 	consoleCommands::generateAutoCompleteList(arr);
 	that->ManualAutoCompleteList = arr;
+	
 	that->BuildRuntimeAutoCompleteList(1);
-
-	return true;
-}
-
-bool TrChatConsole_Typing_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
-{
-	UTrChatConsole *that = (UTrChatConsole *)dwCallingObject;
-	((UUTConsole *)that)->eventBeginState(FName(""));
-
-	TArray<FAutoCompleteCommand> arr = that->TribesAutoCompleteList;
-	consoleCommands::generateAutoCompleteList(arr);
-	that->ManualAutoCompleteList = arr;
-	that->BuildRuntimeAutoCompleteList(1);
-
-	return true;
 }
 
 bool execCustomCommand(UTrChatConsole *that)
