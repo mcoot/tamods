@@ -30,6 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.btnInject = new System.Windows.Forms.Button();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.label85 = new System.Windows.Forms.Label();
+            this.selectConfigPreset = new System.Windows.Forms.ComboBox();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel20 = new System.Windows.Forms.Panel();
@@ -260,14 +267,9 @@
             this.selectHitSoundMode = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.btnInject = new System.Windows.Forms.Button();
-            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
-            this.panel23 = new System.Windows.Forms.Panel();
-            this.selectConfigPreset = new System.Windows.Forms.ComboBox();
-            this.label85 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.panel23.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel20.SuspendLayout();
@@ -325,8 +327,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.panel23.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -344,6 +344,72 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(939, 491);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Controls.Add(this.btnInject);
+            this.flowLayoutPanel1.Controls.Add(this.panel23);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 445);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(933, 43);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // btnInject
+            // 
+            this.btnInject.Enabled = false;
+            this.btnInject.Location = new System.Drawing.Point(101, 3);
+            this.btnInject.Name = "btnInject";
+            this.btnInject.Size = new System.Drawing.Size(92, 31);
+            this.btnInject.TabIndex = 2;
+            this.btnInject.Text = "Inject";
+            this.btnInject.UseVisualStyleBackColor = true;
+            this.btnInject.Visible = false;
+            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
+            // 
+            // panel23
+            // 
+            this.panel23.Controls.Add(this.label85);
+            this.panel23.Controls.Add(this.selectConfigPreset);
+            this.panel23.Location = new System.Drawing.Point(199, 3);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(255, 31);
+            this.panel23.TabIndex = 3;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(3, 8);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(62, 13);
+            this.label85.TabIndex = 5;
+            this.label85.Text = "Use Preset:";
+            // 
+            // selectConfigPreset
+            // 
+            this.selectConfigPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectConfigPreset.FormattingEnabled = true;
+            this.selectConfigPreset.Location = new System.Drawing.Point(68, 4);
+            this.selectConfigPreset.Name = "selectConfigPreset";
+            this.selectConfigPreset.Size = new System.Drawing.Size(172, 21);
+            this.selectConfigPreset.TabIndex = 4;
+            // 
+            // fileHitSound
+            // 
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // tabControlMain
             // 
@@ -762,7 +828,7 @@
             this.checkHUDTextObjective.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDTextObjective.Location = new System.Drawing.Point(236, 31);
             this.checkHUDTextObjective.Name = "checkHUDTextObjective";
-            this.checkHUDTextObjective.Size = new System.Drawing.Size(128, 17);
+            this.checkHUDTextObjective.Size = new System.Drawing.Size(129, 17);
             this.checkHUDTextObjective.TabIndex = 20;
             this.checkHUDTextObjective.Text = "Show Objective Text";
             this.checkHUDTextObjective.UseVisualStyleBackColor = true;
@@ -773,7 +839,7 @@
             this.checkHUDTextMine.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDTextMine.Location = new System.Drawing.Point(236, 77);
             this.checkHUDTextMine.Name = "checkHUDTextMine";
-            this.checkHUDTextMine.Size = new System.Drawing.Size(106, 17);
+            this.checkHUDTextMine.Size = new System.Drawing.Size(107, 17);
             this.checkHUDTextMine.TabIndex = 19;
             this.checkHUDTextMine.Text = "Show Mine Text";
             this.checkHUDTextMine.UseVisualStyleBackColor = true;
@@ -862,7 +928,7 @@
             this.checkHUDIconVehicle.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDIconVehicle.Location = new System.Drawing.Point(8, 123);
             this.checkHUDIconVehicle.Name = "checkHUDIconVehicle";
-            this.checkHUDIconVehicle.Size = new System.Drawing.Size(124, 17);
+            this.checkHUDIconVehicle.Size = new System.Drawing.Size(125, 17);
             this.checkHUDIconVehicle.TabIndex = 12;
             this.checkHUDIconVehicle.Text = "Show Vehicle Icons";
             this.checkHUDIconVehicle.UseVisualStyleBackColor = true;
@@ -1015,7 +1081,7 @@
             this.radioDamageNumberCustomText.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioDamageNumberCustomText.Location = new System.Drawing.Point(4, 91);
             this.radioDamageNumberCustomText.Name = "radioDamageNumberCustomText";
-            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(121, 17);
+            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(122, 17);
             this.radioDamageNumberCustomText.TabIndex = 25;
             this.radioDamageNumberCustomText.TabStop = true;
             this.radioDamageNumberCustomText.Text = "Show Custom Text:";
@@ -2109,7 +2175,7 @@
             this.checkMuteText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.checkMuteText.Location = new System.Drawing.Point(7, 83);
             this.checkMuteText.Name = "checkMuteText";
-            this.checkMuteText.Size = new System.Drawing.Size(75, 17);
+            this.checkMuteText.Size = new System.Drawing.Size(76, 17);
             this.checkMuteText.TabIndex = 58;
             this.checkMuteText.Text = "Mute Text";
             this.checkMuteText.UseVisualStyleBackColor = true;
@@ -2207,7 +2273,6 @@
             // numProjectileSettingIntensity
             // 
             this.numProjectileSettingIntensity.DecimalPlaces = 2;
-            this.numProjectileSettingIntensity.Enabled = false;
             this.numProjectileSettingIntensity.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numProjectileSettingIntensity.Location = new System.Drawing.Point(136, 144);
             this.numProjectileSettingIntensity.Minimum = new decimal(new int[] {
@@ -2246,11 +2311,11 @@
             // 
             // colorProjectileSetting
             // 
-            this.colorProjectileSetting.Enabled = false;
             this.colorProjectileSetting.Location = new System.Drawing.Point(10, 124);
             this.colorProjectileSetting.Name = "colorProjectileSetting";
             this.colorProjectileSetting.Size = new System.Drawing.Size(120, 170);
             this.colorProjectileSetting.TabIndex = 46;
+            this.colorProjectileSetting.Paint += new System.Windows.Forms.PaintEventHandler(this.colorProjectileSetting_Paint);
             // 
             // label4
             // 
@@ -2283,28 +2348,21 @@
             // selectProjectileSettingWeapon
             // 
             this.selectProjectileSettingWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSettingWeapon.Enabled = false;
             this.selectProjectileSettingWeapon.FormattingEnabled = true;
             this.selectProjectileSettingWeapon.Location = new System.Drawing.Point(71, 62);
             this.selectProjectileSettingWeapon.Name = "selectProjectileSettingWeapon";
             this.selectProjectileSettingWeapon.Size = new System.Drawing.Size(148, 21);
             this.selectProjectileSettingWeapon.TabIndex = 10;
+            this.selectProjectileSettingWeapon.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSettingWeapon_SelectedIndexChanged);
             // 
             // selectProjectileSettingClass
             // 
             this.selectProjectileSettingClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSettingClass.Enabled = false;
             this.selectProjectileSettingClass.FormattingEnabled = true;
             this.selectProjectileSettingClass.Items.AddRange(new object[] {
-            "Pathfinder",
-            "Sentinel",
-            "Infiltrator",
-            "Soldier",
-            "Raider",
-            "Technician",
-            "Juggernaut",
-            "Doombringer",
-            "Brute"});
+            "Light",
+            "Medium",
+            "Heavy"});
             this.selectProjectileSettingClass.Location = new System.Drawing.Point(71, 35);
             this.selectProjectileSettingClass.Name = "selectProjectileSettingClass";
             this.selectProjectileSettingClass.Size = new System.Drawing.Size(148, 21);
@@ -2335,7 +2393,6 @@
             // 
             // btnProjectileSettingDelete
             // 
-            this.btnProjectileSettingDelete.Enabled = false;
             this.btnProjectileSettingDelete.Location = new System.Drawing.Point(132, 35);
             this.btnProjectileSettingDelete.Name = "btnProjectileSettingDelete";
             this.btnProjectileSettingDelete.Size = new System.Drawing.Size(117, 23);
@@ -2346,7 +2403,6 @@
             // 
             // btnProjectileSettingSave
             // 
-            this.btnProjectileSettingSave.Enabled = false;
             this.btnProjectileSettingSave.Location = new System.Drawing.Point(3, 35);
             this.btnProjectileSettingSave.Name = "btnProjectileSettingSave";
             this.btnProjectileSettingSave.Size = new System.Drawing.Size(120, 23);
@@ -2357,7 +2413,6 @@
             // 
             // listProjectileSetting
             // 
-            this.listProjectileSetting.Enabled = false;
             this.listProjectileSetting.FormattingEnabled = true;
             this.listProjectileSetting.Location = new System.Drawing.Point(2, 64);
             this.listProjectileSetting.Name = "listProjectileSetting";
@@ -2417,7 +2472,6 @@
             // selectProjectileSwapWeapon_Swap
             // 
             this.selectProjectileSwapWeapon_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSwapWeapon_Swap.Enabled = false;
             this.selectProjectileSwapWeapon_Swap.FormattingEnabled = true;
             this.selectProjectileSwapWeapon_Swap.Location = new System.Drawing.Point(71, 148);
             this.selectProjectileSwapWeapon_Swap.Name = "selectProjectileSwapWeapon_Swap";
@@ -2427,18 +2481,11 @@
             // selectProjectileSwapClass_Swap
             // 
             this.selectProjectileSwapClass_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSwapClass_Swap.Enabled = false;
             this.selectProjectileSwapClass_Swap.FormattingEnabled = true;
             this.selectProjectileSwapClass_Swap.Items.AddRange(new object[] {
-            "Pathfinder",
-            "Sentinel",
-            "Infiltrator",
-            "Soldier",
-            "Raider",
-            "Technician",
-            "Juggernaut",
-            "Doombringer",
-            "Brute"});
+            "Light",
+            "Medium",
+            "Heavy"});
             this.selectProjectileSwapClass_Swap.Location = new System.Drawing.Point(71, 121);
             this.selectProjectileSwapClass_Swap.Name = "selectProjectileSwapClass_Swap";
             this.selectProjectileSwapClass_Swap.Size = new System.Drawing.Size(159, 21);
@@ -2497,7 +2544,6 @@
             // selectProjectileSwapWeapon
             // 
             this.selectProjectileSwapWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSwapWeapon.Enabled = false;
             this.selectProjectileSwapWeapon.FormattingEnabled = true;
             this.selectProjectileSwapWeapon.Location = new System.Drawing.Point(71, 62);
             this.selectProjectileSwapWeapon.Name = "selectProjectileSwapWeapon";
@@ -2507,18 +2553,11 @@
             // selectProjectileSwapClass
             // 
             this.selectProjectileSwapClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSwapClass.Enabled = false;
             this.selectProjectileSwapClass.FormattingEnabled = true;
             this.selectProjectileSwapClass.Items.AddRange(new object[] {
-            "Pathfinder",
-            "Sentinel",
-            "Infiltrator",
-            "Soldier",
-            "Raider",
-            "Technician",
-            "Juggernaut",
-            "Doombringer",
-            "Brute"});
+            "Light",
+            "Medium",
+            "Heavy"});
             this.selectProjectileSwapClass.Location = new System.Drawing.Point(71, 35);
             this.selectProjectileSwapClass.Name = "selectProjectileSwapClass";
             this.selectProjectileSwapClass.Size = new System.Drawing.Size(159, 21);
@@ -2549,7 +2588,6 @@
             // 
             // btnProjectileSwapDelete
             // 
-            this.btnProjectileSwapDelete.Enabled = false;
             this.btnProjectileSwapDelete.Location = new System.Drawing.Point(132, 35);
             this.btnProjectileSwapDelete.Name = "btnProjectileSwapDelete";
             this.btnProjectileSwapDelete.Size = new System.Drawing.Size(117, 23);
@@ -2560,7 +2598,6 @@
             // 
             // btnProjectileSwapSave
             // 
-            this.btnProjectileSwapSave.Enabled = false;
             this.btnProjectileSwapSave.Location = new System.Drawing.Point(3, 35);
             this.btnProjectileSwapSave.Name = "btnProjectileSwapSave";
             this.btnProjectileSwapSave.Size = new System.Drawing.Size(120, 23);
@@ -2571,7 +2608,6 @@
             // 
             // listProjectileSwap
             // 
-            this.listProjectileSwap.Enabled = false;
             this.listProjectileSwap.FormattingEnabled = true;
             this.listProjectileSwap.Location = new System.Drawing.Point(2, 64);
             this.listProjectileSwap.Name = "listProjectileSwap";
@@ -2683,7 +2719,7 @@
             this.checkRouteDrawETA.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkRouteDrawETA.Location = new System.Drawing.Point(7, 171);
             this.checkRouteDrawETA.Name = "checkRouteDrawETA";
-            this.checkRouteDrawETA.Size = new System.Drawing.Size(117, 17);
+            this.checkRouteDrawETA.Size = new System.Drawing.Size(118, 17);
             this.checkRouteDrawETA.TabIndex = 37;
             this.checkRouteDrawETA.Text = "Draw ETA Markers";
             this.checkRouteDrawETA.UseVisualStyleBackColor = true;
@@ -2759,7 +2795,7 @@
             this.label79.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label79.Location = new System.Drawing.Point(21, 192);
             this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(95, 13);
+            this.label79.Size = new System.Drawing.Size(96, 13);
             this.label79.TabIndex = 29;
             this.label79.Text = "ETA Draw Interval";
             // 
@@ -2888,7 +2924,7 @@
             this.trackHitSoundVolumeSpecific.Location = new System.Drawing.Point(0, 0);
             this.trackHitSoundVolumeSpecific.Maximum = 100;
             this.trackHitSoundVolumeSpecific.Name = "trackHitSoundVolumeSpecific";
-            this.trackHitSoundVolumeSpecific.Size = new System.Drawing.Size(228, 47);
+            this.trackHitSoundVolumeSpecific.Size = new System.Drawing.Size(228, 45);
             this.trackHitSoundVolumeSpecific.TabIndex = 63;
             this.trackHitSoundVolumeSpecific.TickFrequency = 10;
             this.trackHitSoundVolumeSpecific.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -3099,72 +3135,6 @@
             this.label28.TabIndex = 46;
             this.label28.Text = "Sound Settings";
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Controls.Add(this.btnInject);
-            this.flowLayoutPanel1.Controls.Add(this.panel23);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 445);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(933, 43);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
-            // btnInject
-            // 
-            this.btnInject.Enabled = false;
-            this.btnInject.Location = new System.Drawing.Point(101, 3);
-            this.btnInject.Name = "btnInject";
-            this.btnInject.Size = new System.Drawing.Size(92, 31);
-            this.btnInject.TabIndex = 2;
-            this.btnInject.Text = "Inject";
-            this.btnInject.UseVisualStyleBackColor = true;
-            this.btnInject.Visible = false;
-            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
-            // 
-            // fileHitSound
-            // 
-            this.fileHitSound.Filter = "Wave files|*.wav";
-            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
-            // 
-            // panel23
-            // 
-            this.panel23.Controls.Add(this.label85);
-            this.panel23.Controls.Add(this.selectConfigPreset);
-            this.panel23.Location = new System.Drawing.Point(199, 3);
-            this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(255, 31);
-            this.panel23.TabIndex = 3;
-            // 
-            // selectConfigPreset
-            // 
-            this.selectConfigPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectConfigPreset.FormattingEnabled = true;
-            this.selectConfigPreset.Location = new System.Drawing.Point(68, 4);
-            this.selectConfigPreset.Name = "selectConfigPreset";
-            this.selectConfigPreset.Size = new System.Drawing.Size(172, 21);
-            this.selectConfigPreset.TabIndex = 4;
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(3, 8);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(62, 13);
-            this.label85.TabIndex = 5;
-            this.label85.Text = "Use Preset:";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3182,6 +3152,9 @@
             this.Text = "TAMods Configuration Tool vX.X";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
@@ -3264,9 +3237,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel23.ResumeLayout(false);
-            this.panel23.PerformLayout();
             this.ResumeLayout(false);
 
         }
