@@ -94,7 +94,6 @@ namespace consoleCommands
 		{ L"/rc",               { &cmd_reloadconfig,     L"/rc (Reload the TAMods configs. Alias: /reloadconfig)" } },
 		{ L"/reloadsounds",     { &cmd_reloadsounds,     L"/reloadsounds (Reload all custom sound files. Alias: /rs)" } },
 		{ L"/rs",               { &cmd_reloadsounds,     L"/rs (Reload all custom sound files. Alias: /reloadsounds)" } },
-		{ L"/findobjects",      { &cmd_findobjects,      L"/findobjects <regex> (Search objects)" } },
 		{ L"/players",          { &cmd_playerlist,       L"/players (List all players and their corresponding PlayerID. Alias: /list /playerlist)" } },
 		{ L"/list",             { &cmd_playerlist,       L"/list (List all players and their corresponding PlayerID. Alias: /players /playerlist)" } },
 		{ L"/playerlist",       { &cmd_playerlist,       L"/playerlist (List all players and their corresponding PlayerID. Alias: /players /list)" } },
@@ -103,12 +102,14 @@ namespace consoleCommands
 		{ L"/sw",               { &cmd_stopwatch,        L"/sw (Toggle the stopwatch. Alias: /stopwatch)" } },
 		{ L"/stopwatchstart",   { &cmd_stopwatchstart,   L"/stopwatchstart (Start/restart the stopwatch)" } },
 		{ L"/stopwatchstop",    { &cmd_stopwatchstop,    L"/stopwatchstop (Stop the stopwatch)" } },
+		
 		{ L"/toggleturrets",    { &cmd_toggleturrets,    L"/toggleturrets (Toggle base turrets on and off. Alias: /turrets)" } },
 		{ L"/turrets",          { &cmd_toggleturrets,    L"/turrets (Toggle base turrets on and off. Alias: /toggleturrets)" } },
 		{ L"/togglepower",      { &cmd_togglepower,      L"/togglepower (Toggle generator power on and off. Alias: /power)" } },
 		{ L"/power",            { &cmd_togglepower,      L"/power (Toggle generator power on and off. Alias: /togglepower)" } },
 		{ L"/returnflags",      { &cmd_returnflags,      L"/returnflags (Return all loose flags back to base. Alias: /flags)" } },
 		{ L"/flags",            { &cmd_returnflags,      L"/flags (Return all loose flags back to base. Alias: /returnflags)" } },
+		
 		{ L"/statesave",        { &cmd_statesave,        L"/statesave [slot number] (Save your current location to the specified slot number. Without a slot number, 1 will be used. Alias: /save)" } },
 		{ L"/save",             { &cmd_statesave,        L"/save [slot number] (Save your current location to the specified slot number. Without a slot number, 1 will be used. Alias: /statesave)" } },
 		{ L"/statetp",          { &cmd_statetp,          L"/statetp [slot number] (Teleport to a saved point and restore health and ammo. Without a slot number, 1 will be used. Alias: /tp)" } },
@@ -118,6 +119,7 @@ namespace consoleCommands
 		{ L"/statespawns",      { &cmd_statespawns,      L"/statespawns (Set the saved locations to the players team spawns. Alias: /spawns)" } },
 		{ L"/spawns",           { &cmd_statespawns,      L"/spawns (Set the saved locations to the players team spawns. Alias: /statespawns)" } },
 		{ L"/statereset",       { &cmd_statereset,       L"/statereset (Reset all saved states)" } },
+		
 		{ L"/routerec",         { &cmd_routerec,         L"/routerec (Toggle route recording. Alias: /rec)" } },
 		{ L"/rec",              { &cmd_routerec,         L"/rec (Toggle route recording. Alias: /routerec)" } },
 		{ L"/routerecstart",    { &cmd_routerecstart,    L"/routerecstart (Start route recording)" } },
@@ -132,11 +134,21 @@ namespace consoleCommands
 		{ L"/routeload",        { &cmd_routeload,        L"/routeload <number> (Load a route file by number. To list all routes with their numbers, use \"/routelist\")" } },
 		{ L"/routefind",        { &cmd_routefind,        L"/routefind <search string> (Search through the filenames of all recorded routes and list the matches)" } },
 		{ L"/routelist",        { &cmd_routelist,        L"/routelist (List all routes. Alias: /routes)" } },
-		{ L"/routes",           { &cmd_routelist,        L"/routes (List all routes. Alias: /routelist)" } }
+		{ L"/routes",           { &cmd_routelist,        L"/routes (List all routes. Alias: /routelist)" } },
+
+		{ L"/setbind",          { &cmd_utcommandwrapper, L"/setbind <key> <command> (Bind game functions to a key)" } },
+		{ L"/setsensitivity",   { &cmd_utcommandwrapper, L"/setsensitivity <value> (Change the mouse sensitivity. Alias: /sens)" } },
+		{ L"/gamma",            { &cmd_utcommandwrapper, L"/gamma <value> (Change the display gamma)" } },
+		{ L"/disconnect",       { &cmd_utcommandwrapper, L"/disconnect (Disconnect from the server)" } },
+		{ L"/reconnect",        { &cmd_utcommandwrapper, L"/reconnect (Reconnect to the server)" } },
+		{ L"/shot",             { &cmd_utcommandwrapper, L"/shot (Take a screenshot)" } },
+		
+		{ L"/findobjects",      { &cmd_findobjects,      L"/findobjects <regex> (Search objects)" } },
+		{ L"/devel",            { &cmd_develcommands,    L"/devel <command> <parameter> (Execute a vanilla console commands)" } },
 	};
 
 	/****** General commands ******/
-	void consoleCommands::cmd_help(const std::wstring &params)
+	void consoleCommands::cmd_help(const std::wstring &cmd, const std::wstring &params)
 	{
 		std::map<std::wstring, consoleCommand>::iterator it;
 
@@ -149,7 +161,7 @@ namespace consoleCommands
 		Utils::printConsole("");
 	}
 
-	void consoleCommands::cmd_lua(const std::wstring &params)
+	void consoleCommands::cmd_lua(const std::wstring &cmd, const std::wstring &params)
 	{
 		std::string luastr = std::string(params.begin(), params.end());
 		Utils::printConsole("lua> " + luastr);
@@ -158,17 +170,17 @@ namespace consoleCommands
 		g_config.lua.doString(luastr);
 	}
 
-	void consoleCommands::cmd_reloadconfig(const std::wstring &params)
+	void consoleCommands::cmd_reloadconfig(const std::wstring &cmd, const std::wstring &params)
 	{
 		g_config.parseFile();
 	}
 
-	void consoleCommands::cmd_reloadsounds(const std::wstring &params)
+	void consoleCommands::cmd_reloadsounds(const std::wstring &cmd, const std::wstring &params)
 	{
 		g_config.reloadSounds();
 	}
 
-	void consoleCommands::cmd_playerlist(const std::wstring &params)
+	void consoleCommands::cmd_playerlist(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
 		{
@@ -179,7 +191,7 @@ namespace consoleCommands
 		}
 	}
 
-	void consoleCommands::cmd_kickvoteid(const std::wstring &params)
+	void consoleCommands::cmd_kickvoteid(const std::wstring &cmd, const std::wstring &params)
 	{
 		std::stringstream s(std::string(params.begin(), params.end()));
 		int playerId;
@@ -209,82 +221,75 @@ namespace consoleCommands
 			Utils::printConsole("Error: Enter a valid number");
 	}
 
-	void consoleCommands::cmd_findobjects(const std::wstring &params)
-	{
-		matches = 0;
-		Utils::FindObjects(std::string(params.begin(), params.end()), &printObjectName);
-		Utils::console("%d objects matched", matches);
-	}
-
 	/****** State saving ******/
-	void consoleCommands::cmd_stopwatch(const std::wstring &params)
+	void consoleCommands::cmd_stopwatch(const std::wstring &cmd, const std::wstring &params)
 	{
 		stopwatch();
 	}
 
-	void consoleCommands::cmd_stopwatchstart(const std::wstring &params)
+	void consoleCommands::cmd_stopwatchstart(const std::wstring &cmd, const std::wstring &params)
 	{
 		stopwatchStart();
 	}
 
-	void consoleCommands::cmd_stopwatchstop(const std::wstring &params)
+	void consoleCommands::cmd_stopwatchstop(const std::wstring &cmd, const std::wstring &params)
 	{
 		stopwatchStop();
 	}
 
 	// Command to save the current player state (location, velocity etc.)
-	void consoleCommands::cmd_statesave(const std::wstring &params)
+	void consoleCommands::cmd_statesave(const std::wstring &cmd, const std::wstring &params)
 	{
 		// Without a slot number we just use slot 1
 		savesSaveTo(!params.empty() ? params[0] - '0' : 1);
 	}
 
 	// Command to teleport to a saved location
-	void consoleCommands::cmd_statetp(const std::wstring &params)
+	void consoleCommands::cmd_statetp(const std::wstring &cmd, const std::wstring &params)
 	{
 		// Without a slot number we just use slot 1
 		savesTpTo(!params.empty() ? params[0] - '0' : 1);
 	}
 
 	// Command to recall a full player state
-	void consoleCommands::cmd_staterecall(const std::wstring &params)
+	void consoleCommands::cmd_staterecall(const std::wstring &cmd, const std::wstring &params)
 	{
 		// Without a slot number we just use slot 1
 		savesRecallTo(!params.empty() ? params[0] - '0' : 1);
 	}
 
-	void consoleCommands::cmd_statespawns(const std::wstring &params)
+	void consoleCommands::cmd_statespawns(const std::wstring &cmd, const std::wstring &params)
 	{
 		savesToSpawns();
 	}
 
-	void consoleCommands::cmd_statereset(const std::wstring &params)
+	void consoleCommands::cmd_statereset(const std::wstring &cmd, const std::wstring &params)
 	{
 		savesReset();
 	}
 
 	/****** Route recording ******/
-	void consoleCommands::cmd_routerec(const std::wstring &params)
+	void consoleCommands::cmd_routerec(const std::wstring &cmd, const std::wstring &params)
 	{
 		routeRec();
 	}
 
-	void consoleCommands::cmd_routerecstart(const std::wstring &params)
+	void consoleCommands::cmd_routerecstart(const std::wstring &cmd, const std::wstring &params)
 	{
 		routeStartRec();
 	}
 
-	void consoleCommands::cmd_routerecstop(const std::wstring &params)
+	void consoleCommands::cmd_routerecstop(const std::wstring &cmd, const std::wstring &params)
 	{
 		routeStopRec();
 	}
 
-	void consoleCommands::cmd_routereplay(const std::wstring &params)
+	void consoleCommands::cmd_routereplay(const std::wstring &cmd, const std::wstring &params)
 	{
 		routeReplay();
 	}
 
-	void consoleCommands::cmd_routereplaystart(const std::wstring &params)
+	void consoleCommands::cmd_routereplaystart(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (params.empty())
 		{
@@ -303,12 +308,12 @@ namespace consoleCommands
 		}
 	}
 
-	void consoleCommands::cmd_routereplaystop(const std::wstring &params)
+	void consoleCommands::cmd_routereplaystop(const std::wstring &cmd, const std::wstring &params)
 	{
 		routeStopReplay();
 	}
 
-	void consoleCommands::cmd_routebot(const std::wstring &params)
+	void consoleCommands::cmd_routebot(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (params.empty())
 		{
@@ -321,12 +326,12 @@ namespace consoleCommands
 			routeEnableBot(false);
 	}
 
-	void consoleCommands::cmd_routereset(const std::wstring &params)
+	void consoleCommands::cmd_routereset(const std::wstring &cmd, const std::wstring &params)
 	{
 		routeReset();
 	}
 
-	void consoleCommands::cmd_routesave(const std::wstring &params)
+	void consoleCommands::cmd_routesave(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (!params.empty())
 			routeSaveFile(std::string(params.begin(), params.end()));
@@ -334,7 +339,7 @@ namespace consoleCommands
 			Utils::console("Error: You have to enter a description");
 	}
 
-	void consoleCommands::cmd_routeload(const std::wstring &params)
+	void consoleCommands::cmd_routeload(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (!params.empty())
 		{
@@ -351,7 +356,7 @@ namespace consoleCommands
 			Utils::console("Error: You have to enter a number");
 	}
 
-	void consoleCommands::cmd_routefind(const std::wstring &params)
+	void consoleCommands::cmd_routefind(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (!params.empty())
 			routeFind(std::string(params.begin(), params.end()));
@@ -359,28 +364,67 @@ namespace consoleCommands
 			Utils::console("Error: You have to enter a search string");
 	}
 
-	void consoleCommands::cmd_routelist(const std::wstring &params)
+	void consoleCommands::cmd_routelist(const std::wstring &cmd, const std::wstring &params)
 	{
 		routeListAll();
 	}
 
 	/****** Roam map only commands ******/
-	void consoleCommands::cmd_toggleturrets(const std::wstring &params)
+	void consoleCommands::cmd_toggleturrets(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (Utils::tr_pc && Utils::tr_pc->WorldInfo->NetMode == 0)
 			toggleTurrets();
 	}
 
-	void consoleCommands::cmd_togglepower(const std::wstring &params)
+	void consoleCommands::cmd_togglepower(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (Utils::tr_pc && Utils::tr_pc->WorldInfo->NetMode == 0)
 			togglePower();
 	}
 
-	void consoleCommands::cmd_returnflags(const std::wstring &params)
+	void consoleCommands::cmd_returnflags(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (Utils::tr_pc && Utils::tr_pc->WorldInfo->NetMode == 0)
 			returnFlags();
+	}
+
+	/****** Otherwise disabled UT console commands ******/
+	void cmd_utcommandwrapper(const std::wstring &cmd, const std::wstring &params)
+	{
+		// Remove leading slash
+		std::wstring command = std::wstring(cmd.begin() + 1, cmd.end());
+		std::wstring trailing = std::wstring(params.begin(), params.end());
+
+		command += L" " + trailing;
+
+		execUTConsoleCommand((wchar_t *)command.c_str());
+	}
+
+	/****** For developement only ******/
+	void consoleCommands::cmd_findobjects(const std::wstring &cmd, const std::wstring &params)
+	{
+		matches = 0;
+		Utils::FindObjects(std::string(params.begin(), params.end()), &printObjectName);
+		Utils::console("%d objects matched", matches);
+	}
+
+	void consoleCommands::cmd_develcommands(const std::wstring &cmd, const std::wstring &params)
+	{
+		std::wstring command = std::wstring(params.begin(), params.end());
+		execUTConsoleCommand((wchar_t *)command.c_str());
+	}
+
+
+	/****** Helper funtions ******/
+	void consoleCommands::execUTConsoleCommand(const FString &command)
+	{
+		if (Utils::tr_pc)
+		{
+			FString result = Utils::tr_pc->ConsoleCommand(command, false);
+
+			if (result.Count > 0)
+				Utils::printConsole(Utils::f2std(result));
+		}
 	}
 
 	void consoleCommands::generateAutoCompleteList(TArray<FAutoCompleteCommand> &arr)
