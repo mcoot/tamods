@@ -394,6 +394,27 @@ namespace TAModConfigurationTool
             return true;
         }
 
+        public List<string> getConfigRequirements()
+        {
+            // Make a deep copy of the config loadouts list
+            List<string> cp = new List<string>();
+            foreach (string s in configRequires)
+            {
+                cp.Add(s);
+            }
+            return cp;
+        }
+
+        public void addConfigRequirement(string file)
+        {
+            configRequires.Add(file);
+        }
+
+        public bool removeConfigRequirement(string file)
+        {
+            return configRequires.Remove(file);
+        }
+
         private void loadConfigVar(string variableName)
         {
             configVars[variableName] = lua[variableName];

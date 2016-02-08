@@ -249,7 +249,10 @@ namespace TAModConfigurationTool
         {
             // Presets
             scanForConfigPresets();
-            
+            foreach (string requirement in config.getConfigRequirements())
+            {
+                
+            }
 
             // General settings
             // Display settings
