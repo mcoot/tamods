@@ -17,6 +17,8 @@
 #include "Audio.h"
 #include "SoundEffect.h"
 
+// Uncomment for release
+//#define RELEASE
 #define MODVERSION 0.6
 
 // Declared here to use as lua functions
