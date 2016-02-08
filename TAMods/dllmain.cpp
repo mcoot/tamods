@@ -2,11 +2,9 @@
 
 void onDLLProcessAttach()
 {
-	/*
-	 * Uncomment this line to prevent log files, use this for releases.
-	 * I wanted to use _DEBUG but the dll crashes in debug mode
-	 */
-	// Logger::quiet();
+#ifdef RELEASE
+	Logger::quiet();
+#endif
 
 	g_config.initializeAudio();
 	g_config.parseFile();

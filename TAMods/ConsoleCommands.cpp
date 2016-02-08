@@ -142,9 +142,10 @@ namespace consoleCommands
 		{ L"/disconnect",       { &cmd_utcommandwrapper, L"/disconnect (Disconnect from the server)" } },
 		{ L"/reconnect",        { &cmd_utcommandwrapper, L"/reconnect (Reconnect to the server)" } },
 		{ L"/shot",             { &cmd_utcommandwrapper, L"/shot (Take a screenshot)" } },
-		
+#ifndef RELEASE
 		{ L"/findobjects",      { &cmd_findobjects,      L"/findobjects <regex> (Search objects)" } },
 		{ L"/devel",            { &cmd_develcommands,    L"/devel <command> <parameter> (Execute a vanilla console commands)" } },
+#endif
 	};
 
 	/****** General commands ******/
