@@ -84,8 +84,7 @@ bool TrProjectile_PreBeginPlay(int ID, UObject *dwCallingObject, UFunction *pFun
 // Console commands
 bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool TrChatConsole_Open_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-bool TrChatConsole_Typing_BeginState(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+void TrChatConsole_AddOnlineFriendHelp(UTrChatConsole *that, UTrChatConsole_execAddOnlineFriendHelp_Parms *params, void *result, Hooks::CallInfo *callInfo);
 
 // Lua keybindings
 bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
