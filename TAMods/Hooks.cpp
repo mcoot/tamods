@@ -130,6 +130,14 @@ void Hooks::init(bool print_hookable) {
 void Hooks::cleanup()
 {
 	DetourRemove((PBYTE)pProcessEvent, (PBYTE)&ProxyFunction);
+	for (auto &it : _customHookParameters)
+	{
+		Hooks::CustomParameters &params = it.second;
+		params.function->Func = params.orig_Func;
+		params.function->iNative = params.orig_iNative;
+	}
+	if (Utils::tr_pc)
+		((ATrHUD *)Utils::tr_pc->myHUD)->m_OverheadNumbers.Clear();
 }
 
 // Returns the id of the created hook, 0 on failure
