@@ -30,13 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.btnInject = new System.Windows.Forms.Button();
-            this.panel23 = new System.Windows.Forms.Panel();
-            this.label85 = new System.Windows.Forms.Label();
-            this.selectConfigPreset = new System.Windows.Forms.ComboBox();
-            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel20 = new System.Windows.Forms.Panel();
@@ -160,27 +153,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.selectLoadoutPrimary = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.tabCrosshair = new TAModConfigurationTool.TransTabPage();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.label69 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
-            this.selectCrosshairScoped = new System.Windows.Forms.ComboBox();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.selectCrosshairNormal = new System.Windows.Forms.ComboBox();
-            this.selectCrosshairWeapon = new System.Windows.Forms.ComboBox();
-            this.selectCrosshairClass = new System.Windows.Forms.ComboBox();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.label70 = new System.Windows.Forms.Label();
-            this.btnDeleteCrosshair = new System.Windows.Forms.Button();
-            this.btnSaveCrosshair = new System.Windows.Forms.Button();
-            this.listCrosshairs = new System.Windows.Forms.ListBox();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.label72 = new System.Windows.Forms.Label();
-            this.label71 = new System.Windows.Forms.Label();
-            this.boxCrosshairScopedPreview = new System.Windows.Forms.PictureBox();
-            this.boxCrosshairNormalPreview = new System.Windows.Forms.PictureBox();
             this.tabMute = new TAModConfigurationTool.TransTabPage();
             this.panel15 = new System.Windows.Forms.Panel();
             this.label23 = new System.Windows.Forms.Label();
@@ -247,6 +219,34 @@
             this.label81 = new System.Windows.Forms.Label();
             this.numRouteDrawInterval = new System.Windows.Forms.NumericUpDown();
             this.label83 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.btnInject = new System.Windows.Forms.Button();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.label85 = new System.Windows.Forms.Label();
+            this.selectConfigPreset = new System.Windows.Forms.ComboBox();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
+            this.tabCrosshair = new TAModConfigurationTool.TransTabPage();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.label69 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.selectCrosshairScoped = new System.Windows.Forms.ComboBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.selectCrosshairNormal = new System.Windows.Forms.ComboBox();
+            this.selectCrosshairWeapon = new System.Windows.Forms.ComboBox();
+            this.selectCrosshairClass = new System.Windows.Forms.ComboBox();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.label70 = new System.Windows.Forms.Label();
+            this.btnDeleteCrosshair = new System.Windows.Forms.Button();
+            this.btnSaveCrosshair = new System.Windows.Forms.Button();
+            this.listCrosshairs = new System.Windows.Forms.ListBox();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label71 = new System.Windows.Forms.Label();
+            this.boxCrosshairScopedPreview = new System.Windows.Forms.PictureBox();
+            this.boxCrosshairNormalPreview = new System.Windows.Forms.PictureBox();
             this.tabHitSounds = new TAModConfigurationTool.TransTabPage();
             this.btnHitSoundFile = new System.Windows.Forms.Button();
             this.panel18 = new System.Windows.Forms.Panel();
@@ -268,8 +268,6 @@
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.panel23.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel20.SuspendLayout();
@@ -301,12 +299,6 @@
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel8.SuspendLayout();
-            this.tabCrosshair.SuspendLayout();
-            this.panel14.SuspendLayout();
-            this.panel13.SuspendLayout();
-            this.panel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).BeginInit();
             this.tabMute.SuspendLayout();
             this.panel15.SuspendLayout();
             this.tabProjectiles.SuspendLayout();
@@ -321,6 +313,14 @@
             this.panel21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteDrawInterval)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.panel23.SuspendLayout();
+            this.tabCrosshair.SuspendLayout();
+            this.panel14.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.panel11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).BeginInit();
             this.tabHitSounds.SuspendLayout();
             this.panel18.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackHitSoundVolumeSpecific)).BeginInit();
@@ -345,83 +345,15 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(939, 491);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Controls.Add(this.btnInject);
-            this.flowLayoutPanel1.Controls.Add(this.panel23);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 445);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(933, 43);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
-            // btnInject
-            // 
-            this.btnInject.Enabled = false;
-            this.btnInject.Location = new System.Drawing.Point(101, 3);
-            this.btnInject.Name = "btnInject";
-            this.btnInject.Size = new System.Drawing.Size(92, 31);
-            this.btnInject.TabIndex = 2;
-            this.btnInject.Text = "Inject";
-            this.btnInject.UseVisualStyleBackColor = true;
-            this.btnInject.Visible = false;
-            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
-            // 
-            // panel23
-            // 
-            this.panel23.Controls.Add(this.label85);
-            this.panel23.Controls.Add(this.selectConfigPreset);
-            this.panel23.Location = new System.Drawing.Point(199, 3);
-            this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(255, 31);
-            this.panel23.TabIndex = 3;
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(3, 8);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(62, 13);
-            this.label85.TabIndex = 5;
-            this.label85.Text = "Use Preset:";
-            // 
-            // selectConfigPreset
-            // 
-            this.selectConfigPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectConfigPreset.FormattingEnabled = true;
-            this.selectConfigPreset.Location = new System.Drawing.Point(68, 4);
-            this.selectConfigPreset.Name = "selectConfigPreset";
-            this.selectConfigPreset.Size = new System.Drawing.Size(172, 21);
-            this.selectConfigPreset.TabIndex = 4;
-            // 
-            // fileHitSound
-            // 
-            this.fileHitSound.Filter = "Wave files|*.wav";
-            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
-            // 
             // tabControlMain
             // 
             this.tabControlMain.Controls.Add(this.tabGeneral);
             this.tabControlMain.Controls.Add(this.tabColor);
             this.tabControlMain.Controls.Add(this.tabLoadout);
-            this.tabControlMain.Controls.Add(this.tabCrosshair);
             this.tabControlMain.Controls.Add(this.tabMute);
             this.tabControlMain.Controls.Add(this.tabProjectiles);
             this.tabControlMain.Controls.Add(this.tabProjSwap);
             this.tabControlMain.Controls.Add(this.tabCapping);
-            this.tabControlMain.Controls.Add(this.tabHitSounds);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlMain.HotTrack = true;
@@ -828,7 +760,7 @@
             this.checkHUDTextObjective.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDTextObjective.Location = new System.Drawing.Point(236, 31);
             this.checkHUDTextObjective.Name = "checkHUDTextObjective";
-            this.checkHUDTextObjective.Size = new System.Drawing.Size(129, 17);
+            this.checkHUDTextObjective.Size = new System.Drawing.Size(128, 17);
             this.checkHUDTextObjective.TabIndex = 20;
             this.checkHUDTextObjective.Text = "Show Objective Text";
             this.checkHUDTextObjective.UseVisualStyleBackColor = true;
@@ -839,7 +771,7 @@
             this.checkHUDTextMine.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDTextMine.Location = new System.Drawing.Point(236, 77);
             this.checkHUDTextMine.Name = "checkHUDTextMine";
-            this.checkHUDTextMine.Size = new System.Drawing.Size(107, 17);
+            this.checkHUDTextMine.Size = new System.Drawing.Size(106, 17);
             this.checkHUDTextMine.TabIndex = 19;
             this.checkHUDTextMine.Text = "Show Mine Text";
             this.checkHUDTextMine.UseVisualStyleBackColor = true;
@@ -928,7 +860,7 @@
             this.checkHUDIconVehicle.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDIconVehicle.Location = new System.Drawing.Point(8, 123);
             this.checkHUDIconVehicle.Name = "checkHUDIconVehicle";
-            this.checkHUDIconVehicle.Size = new System.Drawing.Size(125, 17);
+            this.checkHUDIconVehicle.Size = new System.Drawing.Size(124, 17);
             this.checkHUDIconVehicle.TabIndex = 12;
             this.checkHUDIconVehicle.Text = "Show Vehicle Icons";
             this.checkHUDIconVehicle.UseVisualStyleBackColor = true;
@@ -1081,7 +1013,7 @@
             this.radioDamageNumberCustomText.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioDamageNumberCustomText.Location = new System.Drawing.Point(4, 91);
             this.radioDamageNumberCustomText.Name = "radioDamageNumberCustomText";
-            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(122, 17);
+            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(121, 17);
             this.radioDamageNumberCustomText.TabIndex = 25;
             this.radioDamageNumberCustomText.TabStop = true;
             this.radioDamageNumberCustomText.Text = "Show Custom Text:";
@@ -1873,241 +1805,6 @@
             this.label10.TabIndex = 13;
             this.label10.Text = "Primary Weapon";
             // 
-            // tabCrosshair
-            // 
-            this.tabCrosshair.Controls.Add(this.panel14);
-            this.tabCrosshair.Controls.Add(this.panel13);
-            this.tabCrosshair.Controls.Add(this.panel11);
-            this.tabCrosshair.Location = new System.Drawing.Point(4, 26);
-            this.tabCrosshair.Name = "tabCrosshair";
-            this.tabCrosshair.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCrosshair.Size = new System.Drawing.Size(925, 406);
-            this.tabCrosshair.TabIndex = 2;
-            this.tabCrosshair.Text = "Crosshair Editor";
-            this.tabCrosshair.UseVisualStyleBackColor = true;
-            // 
-            // panel14
-            // 
-            this.panel14.Controls.Add(this.label69);
-            this.panel14.Controls.Add(this.label58);
-            this.panel14.Controls.Add(this.selectCrosshairScoped);
-            this.panel14.Controls.Add(this.label57);
-            this.panel14.Controls.Add(this.label56);
-            this.panel14.Controls.Add(this.label55);
-            this.panel14.Controls.Add(this.selectCrosshairNormal);
-            this.panel14.Controls.Add(this.selectCrosshairWeapon);
-            this.panel14.Controls.Add(this.selectCrosshairClass);
-            this.panel14.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel14.Location = new System.Drawing.Point(6, 6);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(260, 145);
-            this.panel14.TabIndex = 7;
-            // 
-            // label69
-            // 
-            this.label69.AutoSize = true;
-            this.label69.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label69.Location = new System.Drawing.Point(5, 4);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(158, 25);
-            this.label69.TabIndex = 45;
-            this.label69.Text = "Crosshair Details";
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(14, 120);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(102, 13);
-            this.label58.TabIndex = 16;
-            this.label58.Text = "Crosshair (Scoped)";
-            // 
-            // selectCrosshairScoped
-            // 
-            this.selectCrosshairScoped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectCrosshairScoped.Enabled = false;
-            this.selectCrosshairScoped.FormattingEnabled = true;
-            this.selectCrosshairScoped.Location = new System.Drawing.Point(119, 117);
-            this.selectCrosshairScoped.Name = "selectCrosshairScoped";
-            this.selectCrosshairScoped.Size = new System.Drawing.Size(133, 21);
-            this.selectCrosshairScoped.TabIndex = 15;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(14, 92);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(101, 13);
-            this.label57.TabIndex = 14;
-            this.label57.Text = "Crosshair (Normal)";
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(14, 65);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(51, 13);
-            this.label56.TabIndex = 13;
-            this.label56.Text = "Weapon";
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(14, 38);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(33, 13);
-            this.label55.TabIndex = 12;
-            this.label55.Text = "Class";
-            // 
-            // selectCrosshairNormal
-            // 
-            this.selectCrosshairNormal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectCrosshairNormal.Enabled = false;
-            this.selectCrosshairNormal.FormattingEnabled = true;
-            this.selectCrosshairNormal.Location = new System.Drawing.Point(119, 89);
-            this.selectCrosshairNormal.Name = "selectCrosshairNormal";
-            this.selectCrosshairNormal.Size = new System.Drawing.Size(133, 21);
-            this.selectCrosshairNormal.TabIndex = 11;
-            // 
-            // selectCrosshairWeapon
-            // 
-            this.selectCrosshairWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectCrosshairWeapon.Enabled = false;
-            this.selectCrosshairWeapon.FormattingEnabled = true;
-            this.selectCrosshairWeapon.Location = new System.Drawing.Point(71, 62);
-            this.selectCrosshairWeapon.Name = "selectCrosshairWeapon";
-            this.selectCrosshairWeapon.Size = new System.Drawing.Size(181, 21);
-            this.selectCrosshairWeapon.TabIndex = 10;
-            // 
-            // selectCrosshairClass
-            // 
-            this.selectCrosshairClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectCrosshairClass.Enabled = false;
-            this.selectCrosshairClass.FormattingEnabled = true;
-            this.selectCrosshairClass.Items.AddRange(new object[] {
-            "Pathfinder",
-            "Sentinel",
-            "Infiltrator",
-            "Soldier",
-            "Raider",
-            "Technician",
-            "Juggernaut",
-            "Doombringer",
-            "Brute"});
-            this.selectCrosshairClass.Location = new System.Drawing.Point(71, 35);
-            this.selectCrosshairClass.Name = "selectCrosshairClass";
-            this.selectCrosshairClass.Size = new System.Drawing.Size(181, 21);
-            this.selectCrosshairClass.TabIndex = 9;
-            this.selectCrosshairClass.SelectionChangeCommitted += new System.EventHandler(this.selectCrosshairClass_SelectionChangeCommitted);
-            // 
-            // panel13
-            // 
-            this.panel13.Controls.Add(this.label70);
-            this.panel13.Controls.Add(this.btnDeleteCrosshair);
-            this.panel13.Controls.Add(this.btnSaveCrosshair);
-            this.panel13.Controls.Add(this.listCrosshairs);
-            this.panel13.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel13.Location = new System.Drawing.Point(272, 6);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(260, 413);
-            this.panel13.TabIndex = 6;
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label70.Location = new System.Drawing.Point(3, 4);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(135, 25);
-            this.label70.TabIndex = 46;
-            this.label70.Text = "Crosshairs Set";
-            // 
-            // btnDeleteCrosshair
-            // 
-            this.btnDeleteCrosshair.Enabled = false;
-            this.btnDeleteCrosshair.Location = new System.Drawing.Point(132, 35);
-            this.btnDeleteCrosshair.Name = "btnDeleteCrosshair";
-            this.btnDeleteCrosshair.Size = new System.Drawing.Size(117, 23);
-            this.btnDeleteCrosshair.TabIndex = 9;
-            this.btnDeleteCrosshair.Text = "Delete Selected";
-            this.btnDeleteCrosshair.UseVisualStyleBackColor = true;
-            this.btnDeleteCrosshair.Click += new System.EventHandler(this.btnDeleteCrosshair_Click);
-            // 
-            // btnSaveCrosshair
-            // 
-            this.btnSaveCrosshair.Enabled = false;
-            this.btnSaveCrosshair.Location = new System.Drawing.Point(3, 35);
-            this.btnSaveCrosshair.Name = "btnSaveCrosshair";
-            this.btnSaveCrosshair.Size = new System.Drawing.Size(120, 23);
-            this.btnSaveCrosshair.TabIndex = 8;
-            this.btnSaveCrosshair.Text = "Save Edited Crosshair";
-            this.btnSaveCrosshair.UseVisualStyleBackColor = true;
-            this.btnSaveCrosshair.Click += new System.EventHandler(this.btnSaveCrosshair_Click);
-            // 
-            // listCrosshairs
-            // 
-            this.listCrosshairs.Enabled = false;
-            this.listCrosshairs.FormattingEnabled = true;
-            this.listCrosshairs.Location = new System.Drawing.Point(2, 64);
-            this.listCrosshairs.Name = "listCrosshairs";
-            this.listCrosshairs.Size = new System.Drawing.Size(247, 329);
-            this.listCrosshairs.TabIndex = 7;
-            this.listCrosshairs.SelectedIndexChanged += new System.EventHandler(this.listCrosshairs_SelectedIndexChanged);
-            // 
-            // panel11
-            // 
-            this.panel11.Controls.Add(this.label72);
-            this.panel11.Controls.Add(this.label71);
-            this.panel11.Controls.Add(this.boxCrosshairScopedPreview);
-            this.panel11.Controls.Add(this.boxCrosshairNormalPreview);
-            this.panel11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel11.Location = new System.Drawing.Point(6, 159);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(252, 256);
-            this.panel11.TabIndex = 4;
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label72.Location = new System.Drawing.Point(3, 127);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(143, 21);
-            this.label72.TabIndex = 25;
-            this.label72.Text = "Preview (Scoped)";
-            this.label72.Visible = false;
-            // 
-            // label71
-            // 
-            this.label71.AutoSize = true;
-            this.label71.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label71.Location = new System.Drawing.Point(0, 0);
-            this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(145, 21);
-            this.label71.TabIndex = 24;
-            this.label71.Text = "Preview (Normal)";
-            this.label71.Visible = false;
-            // 
-            // boxCrosshairScopedPreview
-            // 
-            this.boxCrosshairScopedPreview.BackColor = System.Drawing.Color.Gray;
-            this.boxCrosshairScopedPreview.Location = new System.Drawing.Point(7, 150);
-            this.boxCrosshairScopedPreview.Name = "boxCrosshairScopedPreview";
-            this.boxCrosshairScopedPreview.Size = new System.Drawing.Size(100, 100);
-            this.boxCrosshairScopedPreview.TabIndex = 2;
-            this.boxCrosshairScopedPreview.TabStop = false;
-            this.boxCrosshairScopedPreview.Visible = false;
-            // 
-            // boxCrosshairNormalPreview
-            // 
-            this.boxCrosshairNormalPreview.BackColor = System.Drawing.Color.Gray;
-            this.boxCrosshairNormalPreview.Location = new System.Drawing.Point(7, 24);
-            this.boxCrosshairNormalPreview.Name = "boxCrosshairNormalPreview";
-            this.boxCrosshairNormalPreview.Size = new System.Drawing.Size(100, 100);
-            this.boxCrosshairNormalPreview.TabIndex = 1;
-            this.boxCrosshairNormalPreview.TabStop = false;
-            this.boxCrosshairNormalPreview.Visible = false;
-            // 
             // tabMute
             // 
             this.tabMute.Controls.Add(this.panel15);
@@ -2175,7 +1872,7 @@
             this.checkMuteText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.checkMuteText.Location = new System.Drawing.Point(7, 83);
             this.checkMuteText.Name = "checkMuteText";
-            this.checkMuteText.Size = new System.Drawing.Size(76, 17);
+            this.checkMuteText.Size = new System.Drawing.Size(75, 17);
             this.checkMuteText.TabIndex = 58;
             this.checkMuteText.Text = "Mute Text";
             this.checkMuteText.UseVisualStyleBackColor = true;
@@ -2719,7 +2416,7 @@
             this.checkRouteDrawETA.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkRouteDrawETA.Location = new System.Drawing.Point(7, 171);
             this.checkRouteDrawETA.Name = "checkRouteDrawETA";
-            this.checkRouteDrawETA.Size = new System.Drawing.Size(118, 17);
+            this.checkRouteDrawETA.Size = new System.Drawing.Size(117, 17);
             this.checkRouteDrawETA.TabIndex = 37;
             this.checkRouteDrawETA.Text = "Draw ETA Markers";
             this.checkRouteDrawETA.UseVisualStyleBackColor = true;
@@ -2795,7 +2492,7 @@
             this.label79.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label79.Location = new System.Drawing.Point(21, 192);
             this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(96, 13);
+            this.label79.Size = new System.Drawing.Size(95, 13);
             this.label79.TabIndex = 29;
             this.label79.Text = "ETA Draw Interval";
             // 
@@ -2870,6 +2567,307 @@
             this.label83.TabIndex = 4;
             this.label83.Text = "Route Recording";
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Controls.Add(this.btnInject);
+            this.flowLayoutPanel1.Controls.Add(this.panel23);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 445);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(933, 43);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // btnInject
+            // 
+            this.btnInject.Enabled = false;
+            this.btnInject.Location = new System.Drawing.Point(101, 3);
+            this.btnInject.Name = "btnInject";
+            this.btnInject.Size = new System.Drawing.Size(92, 31);
+            this.btnInject.TabIndex = 2;
+            this.btnInject.Text = "Inject";
+            this.btnInject.UseVisualStyleBackColor = true;
+            this.btnInject.Visible = false;
+            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
+            // 
+            // panel23
+            // 
+            this.panel23.Controls.Add(this.label85);
+            this.panel23.Controls.Add(this.selectConfigPreset);
+            this.panel23.Location = new System.Drawing.Point(199, 3);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(255, 31);
+            this.panel23.TabIndex = 3;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(3, 8);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(62, 13);
+            this.label85.TabIndex = 5;
+            this.label85.Text = "Use Preset:";
+            // 
+            // selectConfigPreset
+            // 
+            this.selectConfigPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectConfigPreset.FormattingEnabled = true;
+            this.selectConfigPreset.Location = new System.Drawing.Point(68, 4);
+            this.selectConfigPreset.Name = "selectConfigPreset";
+            this.selectConfigPreset.Size = new System.Drawing.Size(172, 21);
+            this.selectConfigPreset.TabIndex = 4;
+            // 
+            // fileHitSound
+            // 
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
+            // 
+            // tabCrosshair
+            // 
+            this.tabCrosshair.Controls.Add(this.panel14);
+            this.tabCrosshair.Controls.Add(this.panel13);
+            this.tabCrosshair.Controls.Add(this.panel11);
+            this.tabCrosshair.Location = new System.Drawing.Point(4, 26);
+            this.tabCrosshair.Name = "tabCrosshair";
+            this.tabCrosshair.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCrosshair.Size = new System.Drawing.Size(925, 406);
+            this.tabCrosshair.TabIndex = 2;
+            this.tabCrosshair.Text = "Crosshair Editor";
+            this.tabCrosshair.UseVisualStyleBackColor = true;
+            // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.label69);
+            this.panel14.Controls.Add(this.label58);
+            this.panel14.Controls.Add(this.selectCrosshairScoped);
+            this.panel14.Controls.Add(this.label57);
+            this.panel14.Controls.Add(this.label56);
+            this.panel14.Controls.Add(this.label55);
+            this.panel14.Controls.Add(this.selectCrosshairNormal);
+            this.panel14.Controls.Add(this.selectCrosshairWeapon);
+            this.panel14.Controls.Add(this.selectCrosshairClass);
+            this.panel14.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel14.Location = new System.Drawing.Point(6, 6);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(260, 145);
+            this.panel14.TabIndex = 7;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label69.Location = new System.Drawing.Point(5, 4);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(158, 25);
+            this.label69.TabIndex = 45;
+            this.label69.Text = "Crosshair Details";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(14, 120);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(102, 13);
+            this.label58.TabIndex = 16;
+            this.label58.Text = "Crosshair (Scoped)";
+            // 
+            // selectCrosshairScoped
+            // 
+            this.selectCrosshairScoped.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairScoped.Enabled = false;
+            this.selectCrosshairScoped.FormattingEnabled = true;
+            this.selectCrosshairScoped.Location = new System.Drawing.Point(119, 117);
+            this.selectCrosshairScoped.Name = "selectCrosshairScoped";
+            this.selectCrosshairScoped.Size = new System.Drawing.Size(133, 21);
+            this.selectCrosshairScoped.TabIndex = 15;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(14, 92);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(101, 13);
+            this.label57.TabIndex = 14;
+            this.label57.Text = "Crosshair (Normal)";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(14, 65);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(51, 13);
+            this.label56.TabIndex = 13;
+            this.label56.Text = "Weapon";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(14, 38);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(33, 13);
+            this.label55.TabIndex = 12;
+            this.label55.Text = "Class";
+            // 
+            // selectCrosshairNormal
+            // 
+            this.selectCrosshairNormal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairNormal.Enabled = false;
+            this.selectCrosshairNormal.FormattingEnabled = true;
+            this.selectCrosshairNormal.Location = new System.Drawing.Point(119, 89);
+            this.selectCrosshairNormal.Name = "selectCrosshairNormal";
+            this.selectCrosshairNormal.Size = new System.Drawing.Size(133, 21);
+            this.selectCrosshairNormal.TabIndex = 11;
+            // 
+            // selectCrosshairWeapon
+            // 
+            this.selectCrosshairWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairWeapon.Enabled = false;
+            this.selectCrosshairWeapon.FormattingEnabled = true;
+            this.selectCrosshairWeapon.Location = new System.Drawing.Point(71, 62);
+            this.selectCrosshairWeapon.Name = "selectCrosshairWeapon";
+            this.selectCrosshairWeapon.Size = new System.Drawing.Size(181, 21);
+            this.selectCrosshairWeapon.TabIndex = 10;
+            // 
+            // selectCrosshairClass
+            // 
+            this.selectCrosshairClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectCrosshairClass.Enabled = false;
+            this.selectCrosshairClass.FormattingEnabled = true;
+            this.selectCrosshairClass.Items.AddRange(new object[] {
+            "Pathfinder",
+            "Sentinel",
+            "Infiltrator",
+            "Soldier",
+            "Raider",
+            "Technician",
+            "Juggernaut",
+            "Doombringer",
+            "Brute"});
+            this.selectCrosshairClass.Location = new System.Drawing.Point(71, 35);
+            this.selectCrosshairClass.Name = "selectCrosshairClass";
+            this.selectCrosshairClass.Size = new System.Drawing.Size(181, 21);
+            this.selectCrosshairClass.TabIndex = 9;
+            this.selectCrosshairClass.SelectionChangeCommitted += new System.EventHandler(this.selectCrosshairClass_SelectionChangeCommitted);
+            // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.label70);
+            this.panel13.Controls.Add(this.btnDeleteCrosshair);
+            this.panel13.Controls.Add(this.btnSaveCrosshair);
+            this.panel13.Controls.Add(this.listCrosshairs);
+            this.panel13.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel13.Location = new System.Drawing.Point(272, 6);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(260, 413);
+            this.panel13.TabIndex = 6;
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label70.Location = new System.Drawing.Point(3, 4);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(135, 25);
+            this.label70.TabIndex = 46;
+            this.label70.Text = "Crosshairs Set";
+            // 
+            // btnDeleteCrosshair
+            // 
+            this.btnDeleteCrosshair.Enabled = false;
+            this.btnDeleteCrosshair.Location = new System.Drawing.Point(132, 35);
+            this.btnDeleteCrosshair.Name = "btnDeleteCrosshair";
+            this.btnDeleteCrosshair.Size = new System.Drawing.Size(117, 23);
+            this.btnDeleteCrosshair.TabIndex = 9;
+            this.btnDeleteCrosshair.Text = "Delete Selected";
+            this.btnDeleteCrosshair.UseVisualStyleBackColor = true;
+            this.btnDeleteCrosshair.Click += new System.EventHandler(this.btnDeleteCrosshair_Click);
+            // 
+            // btnSaveCrosshair
+            // 
+            this.btnSaveCrosshair.Enabled = false;
+            this.btnSaveCrosshair.Location = new System.Drawing.Point(3, 35);
+            this.btnSaveCrosshair.Name = "btnSaveCrosshair";
+            this.btnSaveCrosshair.Size = new System.Drawing.Size(120, 23);
+            this.btnSaveCrosshair.TabIndex = 8;
+            this.btnSaveCrosshair.Text = "Save Edited Crosshair";
+            this.btnSaveCrosshair.UseVisualStyleBackColor = true;
+            this.btnSaveCrosshair.Click += new System.EventHandler(this.btnSaveCrosshair_Click);
+            // 
+            // listCrosshairs
+            // 
+            this.listCrosshairs.Enabled = false;
+            this.listCrosshairs.FormattingEnabled = true;
+            this.listCrosshairs.Location = new System.Drawing.Point(2, 64);
+            this.listCrosshairs.Name = "listCrosshairs";
+            this.listCrosshairs.Size = new System.Drawing.Size(247, 329);
+            this.listCrosshairs.TabIndex = 7;
+            this.listCrosshairs.SelectedIndexChanged += new System.EventHandler(this.listCrosshairs_SelectedIndexChanged);
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.label72);
+            this.panel11.Controls.Add(this.label71);
+            this.panel11.Controls.Add(this.boxCrosshairScopedPreview);
+            this.panel11.Controls.Add(this.boxCrosshairNormalPreview);
+            this.panel11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel11.Location = new System.Drawing.Point(6, 159);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(252, 256);
+            this.panel11.TabIndex = 4;
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label72.Location = new System.Drawing.Point(3, 127);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(143, 21);
+            this.label72.TabIndex = 25;
+            this.label72.Text = "Preview (Scoped)";
+            this.label72.Visible = false;
+            // 
+            // label71
+            // 
+            this.label71.AutoSize = true;
+            this.label71.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label71.Location = new System.Drawing.Point(0, 0);
+            this.label71.Name = "label71";
+            this.label71.Size = new System.Drawing.Size(145, 21);
+            this.label71.TabIndex = 24;
+            this.label71.Text = "Preview (Normal)";
+            this.label71.Visible = false;
+            // 
+            // boxCrosshairScopedPreview
+            // 
+            this.boxCrosshairScopedPreview.BackColor = System.Drawing.Color.Gray;
+            this.boxCrosshairScopedPreview.Location = new System.Drawing.Point(7, 150);
+            this.boxCrosshairScopedPreview.Name = "boxCrosshairScopedPreview";
+            this.boxCrosshairScopedPreview.Size = new System.Drawing.Size(100, 100);
+            this.boxCrosshairScopedPreview.TabIndex = 2;
+            this.boxCrosshairScopedPreview.TabStop = false;
+            this.boxCrosshairScopedPreview.Visible = false;
+            // 
+            // boxCrosshairNormalPreview
+            // 
+            this.boxCrosshairNormalPreview.BackColor = System.Drawing.Color.Gray;
+            this.boxCrosshairNormalPreview.Location = new System.Drawing.Point(7, 24);
+            this.boxCrosshairNormalPreview.Name = "boxCrosshairNormalPreview";
+            this.boxCrosshairNormalPreview.Size = new System.Drawing.Size(100, 100);
+            this.boxCrosshairNormalPreview.TabIndex = 1;
+            this.boxCrosshairNormalPreview.TabStop = false;
+            this.boxCrosshairNormalPreview.Visible = false;
+            // 
             // tabHitSounds
             // 
             this.tabHitSounds.Controls.Add(this.btnHitSoundFile);
@@ -2924,7 +2922,7 @@
             this.trackHitSoundVolumeSpecific.Location = new System.Drawing.Point(0, 0);
             this.trackHitSoundVolumeSpecific.Maximum = 100;
             this.trackHitSoundVolumeSpecific.Name = "trackHitSoundVolumeSpecific";
-            this.trackHitSoundVolumeSpecific.Size = new System.Drawing.Size(228, 45);
+            this.trackHitSoundVolumeSpecific.Size = new System.Drawing.Size(228, 47);
             this.trackHitSoundVolumeSpecific.TabIndex = 63;
             this.trackHitSoundVolumeSpecific.TickFrequency = 10;
             this.trackHitSoundVolumeSpecific.TickStyle = System.Windows.Forms.TickStyle.Both;
@@ -2987,10 +2985,9 @@
             // listHitSound
             // 
             this.listHitSound.FormattingEnabled = true;
-            this.listHitSound.ItemHeight = 17;
             this.listHitSound.Location = new System.Drawing.Point(260, 31);
             this.listHitSound.Name = "listHitSound";
-            this.listHitSound.Size = new System.Drawing.Size(184, 361);
+            this.listHitSound.Size = new System.Drawing.Size(184, 355);
             this.listHitSound.TabIndex = 70;
             this.listHitSound.SelectedIndexChanged += new System.EventHandler(this.listHitSound_SelectedIndexChanged);
             // 
@@ -3152,9 +3149,6 @@
             this.Text = "TAMods Configuration Tool vX.X";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel23.ResumeLayout(false);
-            this.panel23.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
@@ -3198,15 +3192,6 @@
             this.panel9.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
-            this.tabCrosshair.ResumeLayout(false);
-            this.panel14.ResumeLayout(false);
-            this.panel14.PerformLayout();
-            this.panel13.ResumeLayout(false);
-            this.panel13.PerformLayout();
-            this.panel11.ResumeLayout(false);
-            this.panel11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).EndInit();
             this.tabMute.ResumeLayout(false);
             this.tabMute.PerformLayout();
             this.panel15.ResumeLayout(false);
@@ -3229,6 +3214,18 @@
             this.panel21.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteDrawInterval)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
+            this.tabCrosshair.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairScopedPreview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boxCrosshairNormalPreview)).EndInit();
             this.tabHitSounds.ResumeLayout(false);
             this.tabHitSounds.PerformLayout();
             this.panel18.ResumeLayout(false);

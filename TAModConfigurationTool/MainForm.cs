@@ -624,16 +624,16 @@ namespace TAModConfigurationTool
             }
 
             // Hit Sounds
-            config.setConfigVar("hitSoundMode", Math.Max(0, Math.Min(3, selectHitSoundMode.SelectedIndex)));
+            //config.setConfigVar("hitSoundMode", Math.Max(0, Math.Min(3, selectHitSoundMode.SelectedIndex)));
 
-            foreach (ConfigSetListWrapper c in listHitSound.Items)
-            {
-                c.getSet().WriteToConfig(config);
-            }
+            //foreach (ConfigSetListWrapper c in listHitSound.Items)
+            //{
+            //    c.getSet().WriteToConfig(config);
+            //}
 
-            config.setConfigVar("hitSoundDamageRef", Convert.ToInt32(numHitSoundDamageRef.Value));
-            config.setConfigVar("hitSoundPitchMin", Convert.ToSingle(numHitSoundPitchMin.Value));
-            config.setConfigVar("hitSoundPitchMax", Convert.ToSingle(numHitSoundPitchMax.Value));
+            //config.setConfigVar("hitSoundDamageRef", Convert.ToInt32(numHitSoundDamageRef.Value));
+            //config.setConfigVar("hitSoundPitchMin", Convert.ToSingle(numHitSoundPitchMin.Value));
+            //config.setConfigVar("hitSoundPitchMax", Convert.ToSingle(numHitSoundPitchMax.Value));
         }
 
         private ConfigSetListWrapper createCustomSoundListWrapper(string soundName, string asset, string volumeVar, string enableVar)
