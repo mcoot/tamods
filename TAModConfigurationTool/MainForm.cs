@@ -24,6 +24,7 @@ namespace TAModConfigurationTool
         public List<string> crosshairDetails;
         public List<string> crosshairRegex;
         public Config config;
+        public string matchedPreset = null;
         public string configDir = Environment.GetEnvironmentVariable("USERPROFILE") + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
 
         public MainForm()
@@ -248,13 +249,21 @@ namespace TAModConfigurationTool
         private void setUI()
         {
             // Presets
+            // Find presets in the config directory
             scanForConfigPresets();
             foreach (string requirement in config.getConfigRequirements())
             {
+                // Only load if it matches the preset folder structure format
                 Match r = Regex.Match(requirement, @"^presets\/([\w\-. ]+)\/preset.lua$");
+                if (!r.Success)
+                {
+                    // Try matching a backslashed path as well
+                    r = Regex.Match(requirement, @"^presets\\([\w\-. ]+)\\preset.lua$");
+                }
                 if (r.Success)
                 {
                     string presetName = r.Groups[1].Value;
+                    matchedPreset = presetName;
                     if (selectConfigPreset.Items.IndexOf(presetName) != -1)
                     {
                         selectConfigPreset.SelectedIndex = selectConfigPreset.Items.IndexOf(presetName);
@@ -451,6 +460,16 @@ namespace TAModConfigurationTool
 
         private void writeUIToConfig()
         {
+            // Presets
+            if (matchedPreset != null && matchedPreset != selectConfigPreset.SelectedItem) {
+                config.removeConfigRequirement(String.Format("presets/{0}/preset.lua", matchedPreset));
+
+                if (selectConfigPreset.SelectedItem != "<None>")
+                {
+                    config.addConfigRequirement(String.Format("presets/{0}/preset.lua", selectConfigPreset.SelectedItem));
+                }
+            }
+
             // General Settings
             // Display Settings
             config.setConfigVar("recordStats", checkStatsRecord.Checked);
