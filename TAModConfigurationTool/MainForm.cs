@@ -251,7 +251,17 @@ namespace TAModConfigurationTool
             scanForConfigPresets();
             foreach (string requirement in config.getConfigRequirements())
             {
-                
+                Match r = Regex.Match(requirement, @"^presets\/([\w\-. ]+)\/preset.lua$");
+                if (r.Success)
+                {
+                    string presetName = r.Groups[1].Value;
+                    if (selectConfigPreset.Items.IndexOf(presetName) != -1)
+                    {
+                        selectConfigPreset.SelectedIndex = selectConfigPreset.Items.IndexOf(presetName);
+                        break;
+                    }
+                    
+                }
             }
 
             // General settings

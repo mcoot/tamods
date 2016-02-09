@@ -840,6 +840,8 @@ namespace TAModConfigurationTool
                     {
                         flines.Add(String.Format("require(\"{0}\")", requirement));
                     }
+                    flines.Add("");
+                    flines.Add("");
                 }
 
                 // Write ConfigVars
