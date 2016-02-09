@@ -35,9 +35,9 @@ function crosshairs(x, y)
 		if retIndex == 16 then -- Mortar, Bolt, GL etc.
 			-- Vertical line
 			drawRect(x, y + 16, x + 1, y * 2 - 100, xhair_line_color)
-		--else
-		--	-- Diagonal line
-		--	draw2dLine(x + 15, y + 15, x + y - 100, y * 2 - 100, xhair_line_color)
+		else
+			-- Diagonal line
+			draw2dLine(x + 15, y + 15, x + y - 100, y * 2 - 100, xhair_line_color)
 		end
 
 	end
