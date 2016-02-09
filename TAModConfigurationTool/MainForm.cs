@@ -254,11 +254,11 @@ namespace TAModConfigurationTool
             foreach (string requirement in config.getConfigRequirements())
             {
                 // Only load if it matches the preset folder structure format
-                Match r = Regex.Match(requirement, @"^presets\/([\w\-. ]+)\/preset.lua$");
+                Match r = Regex.Match(requirement, @"^presets\/([\w\-. ]+)\/preset$");
                 if (!r.Success)
                 {
                     // Try matching a backslashed path as well
-                    r = Regex.Match(requirement, @"^presets\\([\w\-. ]+)\\preset.lua$");
+                    r = Regex.Match(requirement, @"^presets\\([\w\-. ]+)\\preset$");
                 }
                 if (r.Success)
                 {
@@ -463,7 +463,6 @@ namespace TAModConfigurationTool
             // Presets
             //if (matchedPreset != null && matchedPreset != selectConfigPreset.SelectedItem) {
             //    config.removeConfigRequirement(String.Format("presets/{0}/preset", matchedPreset));
-
             config.clearConfigRequirements();
             if ((string)selectConfigPreset.SelectedItem != "<None>")
             {
