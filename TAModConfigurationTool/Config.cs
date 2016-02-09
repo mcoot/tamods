@@ -405,6 +405,11 @@ namespace TAModConfigurationTool
             return cp;
         }
 
+        public void clearConfigRequirements()
+        {
+            configRequires.Clear();
+        }
+
         public void addConfigRequirement(string file)
         {
             configRequires.Add(file);

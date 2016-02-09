@@ -461,14 +461,15 @@ namespace TAModConfigurationTool
         private void writeUIToConfig()
         {
             // Presets
-            if (matchedPreset != null && matchedPreset != selectConfigPreset.SelectedItem) {
-                config.removeConfigRequirement(String.Format("presets/{0}/preset.lua", matchedPreset));
+            //if (matchedPreset != null && matchedPreset != selectConfigPreset.SelectedItem) {
+            //    config.removeConfigRequirement(String.Format("presets/{0}/preset", matchedPreset));
 
-                if (selectConfigPreset.SelectedItem != "<None>")
-                {
-                    config.addConfigRequirement(String.Format("presets/{0}/preset.lua", selectConfigPreset.SelectedItem));
-                }
+            config.clearConfigRequirements();
+            if ((string)selectConfigPreset.SelectedItem != "<None>")
+            {
+                config.addConfigRequirement(String.Format("presets/{0}/preset", selectConfigPreset.SelectedItem));
             }
+            //}
 
             // General Settings
             // Display Settings
