@@ -20,7 +20,7 @@ namespace TAModConfigurationTool
         private Lua lua;
         private string configPath;
         private string configFile;
-        private string configPreset = null;
+        private List<string> configRequires;
         private Dictionary<string, List<string>> configVarSections;
         private Dictionary<string, Object> configVars;
         private Dictionary<string, Object> configVarsDefault;
@@ -37,7 +37,7 @@ namespace TAModConfigurationTool
         {
             lua = new Lua();
             // Register necessary functions to the script
-            lua.RegisterFunction("require", this, this.GetType().GetMethod("setRequireFile"));
+            lua.RegisterFunction("require", this, this.GetType().GetMethod("addRequireFile"));
             lua.RegisterFunction("rgb", this, this.GetType().GetMethod("rgb"));
             lua.RegisterFunction("rgba", this, this.GetType().GetMethod("rgba"));
             lua.RegisterFunction("crosshair", this, this.GetType().GetMethod("crosshair"));
@@ -58,6 +58,7 @@ namespace TAModConfigurationTool
             this.configFile = configFilename;
             setupConfigVarDict();
             setupAssetFileDict();
+            configRequires = new List<string>();
             configLoadouts = new List<Loadout>();
             configCrosshairs = new List<CrosshairSetting>();
             configMutedPlayers = new List<MutedPlayer>();
@@ -391,6 +392,27 @@ namespace TAModConfigurationTool
             }
 
             return true;
+        }
+
+        public List<string> getConfigRequirements()
+        {
+            // Make a deep copy of the config loadouts list
+            List<string> cp = new List<string>();
+            foreach (string s in configRequires)
+            {
+                cp.Add(s);
+            }
+            return cp;
+        }
+
+        public void addConfigRequirement(string file)
+        {
+            configRequires.Add(file);
+        }
+
+        public bool removeConfigRequirement(string file)
+        {
+            return configRequires.Remove(file);
         }
 
         private void loadConfigVar(string variableName)
@@ -811,10 +833,13 @@ namespace TAModConfigurationTool
                 flines.Add("");
 
                 // Write ConfigPreset (if any)
-                if (configPreset != null)
+                if (configRequires.Count > 0)
                 {
-                    flines.Add(formatConfigHeading2("Config Preset", 40));
-                    flines.Add(String.Format("require(\"{0}\")", configPreset));
+                    flines.Add(formatConfigHeading2("Required Preset Configs", 40));
+                    foreach (string requirement in configRequires)
+                    {
+                        flines.Add(String.Format("require(\"{0}\")", requirement));
+                    }
                 }
 
                 // Write ConfigVars
@@ -1087,9 +1112,9 @@ namespace TAModConfigurationTool
         }
 
         // Set the current config preset
-        public void setRequireFile(string file)
+        public void addRequireFile(string file)
         {
-            configPreset = file;
+            configRequires.Add(file);
         }
 
         // Turn an RGBA value into a colour
