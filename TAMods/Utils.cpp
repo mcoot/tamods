@@ -349,7 +349,7 @@ void Utils::drawRect(const float &x1, const float &y1, const float &x2, const fl
 		return;
 
 	UCanvas &canvas = *tr_hud->Canvas;
-	canvas.SetDrawColor(col.R, col.G, col.B, col.A);
+	canvas.SetDrawColorStruct(col);
 	canvas.SetPos(x1, y1, 0.0f);
 	canvas.DrawRect(x2 - x1, y2 - y1, whiteTexture);
 }
@@ -360,7 +360,7 @@ void Utils::drawBox(const float &x1, const float &y1, const float &x2, const flo
 		return;
 
 	UCanvas &canvas = *tr_hud->Canvas;
-	canvas.SetDrawColor(col.R, col.G, col.B, col.A);
+	canvas.SetDrawColorStruct(col);
 	canvas.SetPos(x1, y1, 0.0f);
 	canvas.DrawBox(x2 - x1, y2 - y1);
 }

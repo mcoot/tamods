@@ -297,9 +297,6 @@
     <ClCompile Include="Mod_AccoladeSounds.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
-    <ClCompile Include="Mod_ConsoleCommands.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
     <ClCompile Include="Mod_DamageNumbers.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
@@ -344,6 +341,9 @@
     </ClCompile>
     <ClCompile Include="ConsoleCommands.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Mod_Console.cpp">
+      <Filter>Source Files\Mods</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -91,8 +91,10 @@ void onDLLProcessAttach()
 		// Custom console commands
 		Hooks::add(&TrChatConsole_Open_InputKey, "Function TrChatConsole.Open.InputKey");
 		Hooks::add(&TrChatConsole_Typing_InputKey, "Function TrChatConsole.Typing.InputKey");
-		// Custom console auto completions
+		// Custom console auto completions and console style
 		Hooks::addUScript(&TrChatConsole_AddOnlineFriendHelp, "Function TribesGame.TrChatConsole.AddOnlineFriendHelp");
+		Hooks::addUScript(&TrChatConsole_Open_PostRender_Console, "Function TrChatConsole.Open.PostRender_Console");
+		//Hooks::addUScript(&TrChatConsole_Typing_PostRender_Console, "Function TrChatConsole.Typing.PostRender_Console");
 	}
 
 	// Pass true to log hookable functions
