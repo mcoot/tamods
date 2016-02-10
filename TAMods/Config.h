@@ -19,7 +19,7 @@
 
 // Uncomment for release
 //#define RELEASE
-#define MODVERSION 0.6
+#define MODVERSION 0.6.1
 
 // Declared here to use as lua functions
 void stopwatch();
