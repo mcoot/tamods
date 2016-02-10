@@ -1,3 +1,12 @@
+damageNumberStreamTimeout = damageNumberStreamTimeout and damageNumberStreamTimeout or 0.5
+damageNumbersOffsetX = damageNumbersOffsetX and damageNumbersOffsetX or 0
+damageNumbersOffsetY = damageNumbersOffsetY and damageNumbersOffsetY or 0
+damageNumbersScale = damageNumbersScale and damageNumbersScale or 1
+damageNumberCustomText = damageNumberCustomText and damageNumberCustomText or ""
+damageNumbersColorMin = damageNumbersColorMin and damageNumbersColorMin or rgb(255, 255, 255)
+damageNumbersColorMax = damageNumbersColorMax and damageNumbersColorMax or rgb(248, 83, 83)
+damageNumbersLimit = damageNumbersLimit and damageNumbersLimit or 0
+
 local m_fOverheadNumberZSpeed = 170.0
 local m_OverheadNumberColorShieldMin = rgb(255, 255, 255)
 local m_OverheadNumberColorShieldMax = rgb(83, 83, 255)
