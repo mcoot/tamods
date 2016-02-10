@@ -6,7 +6,7 @@ void TrChatConsole_AddOnlineFriendHelp(UTrChatConsole *that, UTrChatConsole_exec
 	TArray<FAutoCompleteCommand> arr = that->TribesAutoCompleteList;
 	consoleCommands::generateAutoCompleteList(arr);
 	that->ManualAutoCompleteList = arr;
-	
+
 	that->BuildRuntimeAutoCompleteList(1);
 }
 
@@ -93,10 +93,12 @@ bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* 
 		if (TrPC && TrPC->WorldInfo->TimeSeconds - that->m_fTypingTime < 0.150f)
 			return false;
 
-		execCustomCommand(that);
-
-		that->TypedStr = L"";
-		that->ChannelStr = L"";
+		if (execCustomCommand(that))
+		{
+			that->TypedStr = L"";
+			that->ChannelStr = L"";
+			return true;
+		}
 	}
 	return false;
 }
