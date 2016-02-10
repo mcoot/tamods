@@ -97,6 +97,7 @@ bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* 
 		{
 			that->TypedStr = L"";
 			that->ChannelStr = L"";
+			that->GotoState(FName(""), NULL, NULL, NULL);
 			return true;
 		}
 	}
