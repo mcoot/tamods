@@ -102,6 +102,8 @@ namespace consoleCommands
 		{ L"/sw",               { &cmd_stopwatch,        L"/sw (Toggle the stopwatch. Alias: /stopwatch)" } },
 		{ L"/stopwatchstart",   { &cmd_stopwatchstart,   L"/stopwatchstart (Start/restart the stopwatch)" } },
 		{ L"/stopwatchstop",    { &cmd_stopwatchstop,    L"/stopwatchstop (Stop the stopwatch)" } },
+		{ L"/say",              { &cmd_say,              L"/say <message> (Send a chat message)" } },
+		{ L"/teamsay",          { &cmd_say,              L"/teamsay <message> (Send a team chat message)" } },
 		
 		{ L"/toggleturrets",    { &cmd_toggleturrets,    L"/toggleturrets (Toggle base turrets on and off. Alias: /turrets)" } },
 		{ L"/turrets",          { &cmd_toggleturrets,    L"/turrets (Toggle base turrets on and off. Alias: /toggleturrets)" } },
@@ -220,6 +222,13 @@ namespace consoleCommands
 		}
 		else
 			Utils::printConsole("Error: Enter a valid number");
+	}
+
+	void cmd_say(const std::wstring &cmd, const std::wstring &params)
+	{
+		std::wstring line = std::wstring(cmd.begin() + 1, cmd.end()) + L" " + params;
+
+		execUTConsoleCommand((wchar_t *)line.c_str());
 	}
 
 	/****** State saving ******/
