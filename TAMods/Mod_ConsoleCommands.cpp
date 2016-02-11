@@ -6,7 +6,7 @@ void TrChatConsole_AddOnlineFriendHelp(UTrChatConsole *that, UTrChatConsole_exec
 	TArray<FAutoCompleteCommand> arr = that->TribesAutoCompleteList;
 	consoleCommands::generateAutoCompleteList(arr);
 	that->ManualAutoCompleteList = arr;
-	
+
 	that->BuildRuntimeAutoCompleteList(1);
 }
 
@@ -19,9 +19,14 @@ bool execCustomCommand(UTrChatConsole *that)
 			std::wstring line = that->TypedStr.Data;
 			std::wstring command, params;
 
-			size_t pos = line.find(' ');
+			// remove trailing spaces
+			size_t end = line.find_last_not_of(L' ');
+			if (end != std::wstring::npos)
+				line = line.substr(0, end + 1);
 
-			if (pos != std::string::npos)
+			// try to split command and arguments
+			size_t pos = line.find(' ');
+			if (pos != std::wstring::npos)
 			{
 				command = std::wstring(line.begin(), line.begin() + pos);
 				params = std::wstring(line.begin() + pos + 1, line.end());
@@ -34,15 +39,16 @@ bool execCustomCommand(UTrChatConsole *that)
 			if (consoleCommands::map.find(command) != consoleCommands::map.end())
 			{
 				if (consoleCommands::map[command].function)
-				{
 					(*consoleCommands::map[command].function)(command, params);
-
-					that->SetInputText(FString(L""));
-					that->SetCursorPos(0);
-					that->UpdateCompleteIndices();
-					return true;
-				}
 			}
+			else // vanilla commands
+				that->ConsoleCommand((wchar_t *)std::wstring(line.begin() + 1, line.end()).c_str());
+
+			that->SetInputText(FString(L""));
+			that->SetCursorPos(0);
+			that->UpdateCompleteIndices();
+
+			return true;
 		}
 	}
 	return false;
@@ -93,10 +99,13 @@ bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* 
 		if (TrPC && TrPC->WorldInfo->TimeSeconds - that->m_fTypingTime < 0.150f)
 			return false;
 
-		execCustomCommand(that);
-
-		that->TypedStr = L"";
-		that->ChannelStr = L"";
+		if (execCustomCommand(that))
+		{
+			that->TypedStr = L"";
+			that->ChannelStr = L"";
+			that->GotoState(FName(""), NULL, NULL, NULL);
+			return true;
+		}
 	}
 	return false;
 }
