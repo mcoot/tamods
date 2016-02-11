@@ -18,8 +18,8 @@
 #include "SoundEffect.h"
 
 // Uncomment for release
-//#define RELEASE
-#define MODVERSION 0.6
+#define RELEASE
+#define MODVERSION 0.61
 
 // Declared here to use as lua functions
 void stopwatch();

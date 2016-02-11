@@ -449,6 +449,12 @@ namespace consoleCommands
 				if (gri->PRIArray.Data[i] && ((ATrPlayerReplicationInfo *)gri->PRIArray.Data[i])->m_Rank)
 				{
 					std::wstring name = gri->PRIArray.Data[i]->PlayerName.Data;
+					
+					// remove clantags
+					size_t pos = name.find(' ');
+					if (pos != std::wstring::npos)
+						name = std::wstring(name.begin() + pos + 1, name.end());
+					
 					std::wstring cmd, desc;
 
 					cmd = L"/report " + name;
