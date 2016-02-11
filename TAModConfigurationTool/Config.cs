@@ -88,7 +88,7 @@ namespace TAModConfigurationTool
 
                 { "Display", new List<string>()
                     {
-                        "showWeapon", "showHUDWeapons", "showBodyMesh", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax"
+                        "showWeapon", "showHUDWeapons", "showBodyMesh", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax", "consoleSize", "consoleTransparency"
                     }
                 },
 
@@ -174,6 +174,8 @@ namespace TAModConfigurationTool
                 { "showFirstPersonAmmo", false },
                 { "skiBarMin", 7 },
                 { "skiBarMax", 180 },
+                { "consoleSize", 0.75M },
+                { "consoleTransparency", 0.8M },
 
                 { "damageNumbersLimit", 0 },
                 { "showDamageNumberStream", false },

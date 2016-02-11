@@ -102,6 +102,8 @@ namespace TAModConfigurationTool
             checkShowFirstPersonAmmo.Checked = false;
             numCrosshairScale.Enabled = true;
             numCrosshairScale.Value = 1;
+            numConsoleScale.Value = 0.75M;
+            numConsoleTransparency.Value = 0.8M;
 
             // Ski Bar Settings
             numSkiBarMin.Value = 7;
@@ -282,6 +284,8 @@ namespace TAModConfigurationTool
             checkShowFirstPersonAmmo.Checked = (bool)config.getConfigVar("showFirstPersonAmmo");
             checkShowCrosshair.Checked = (bool)config.getConfigVar("showCrosshair");
             numCrosshairScale.Value = Convert.ToDecimal(config.getConfigVar("crosshairScale"));
+            numConsoleScale.Value = Convert.ToDecimal(config.getConfigVar("consoleSize"));
+            numConsoleTransparency.Value = Convert.ToDecimal(config.getConfigVar("consoleTransparency"));
 
             // Ski Bar Settings
             numSkiBarMin.Value = Convert.ToInt32(config.getConfigVar("skiBarMin"));
@@ -479,6 +483,8 @@ namespace TAModConfigurationTool
             config.setConfigVar("showFirstPersonAmmo", checkShowFirstPersonAmmo.Checked);
             config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
             config.setConfigVar("crosshairScale", Convert.ToSingle(numCrosshairScale.Value));
+            config.setConfigVar("consoleSize", Convert.ToSingle(numConsoleScale.Value));
+            config.setConfigVar("consoleTransparency", Convert.ToSingle(numConsoleTransparency.Value));
 
             // Ski Bar Settings
             config.setConfigVar("skiBarMin", (int)numSkiBarMin.Value);

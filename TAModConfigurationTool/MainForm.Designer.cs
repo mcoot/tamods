@@ -52,16 +52,6 @@
             this.checkMagicChainSmallBullets = new System.Windows.Forms.CheckBox();
             this.checkMagicChainEnable = new System.Windows.Forms.CheckBox();
             this.label53 = new System.Windows.Forms.Label();
-            this.panel17 = new System.Windows.Forms.Panel();
-            this.label52 = new System.Windows.Forms.Label();
-            this.numRoamFlagDecel = new System.Windows.Forms.NumericUpDown();
-            this.label51 = new System.Windows.Forms.Label();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.numRoamFlagSpeed = new System.Windows.Forms.NumericUpDown();
-            this.checkRoamPower = new System.Windows.Forms.CheckBox();
-            this.checkRoamTurrets = new System.Windows.Forms.CheckBox();
-            this.label30 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.checkShowHUDWeapons = new System.Windows.Forms.CheckBox();
             this.checkHUDTextObjective = new System.Windows.Forms.CheckBox();
@@ -267,6 +257,21 @@
             this.selectHitSoundMode = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.label52 = new System.Windows.Forms.Label();
+            this.numRoamFlagDecel = new System.Windows.Forms.NumericUpDown();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.numRoamFlagSpeed = new System.Windows.Forms.NumericUpDown();
+            this.checkRoamPower = new System.Windows.Forms.CheckBox();
+            this.checkRoamTurrets = new System.Windows.Forms.CheckBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label86 = new System.Windows.Forms.Label();
+            this.label87 = new System.Windows.Forms.Label();
+            this.numConsoleScale = new System.Windows.Forms.NumericUpDown();
+            this.label88 = new System.Windows.Forms.Label();
+            this.numConsoleTransparency = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -277,9 +282,6 @@
             this.panel19.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMagicChainSpawnDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMagicChainPingMultiplier)).BeginInit();
-            this.panel17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).BeginInit();
             this.panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numIFFScale)).BeginInit();
             this.panel2.SuspendLayout();
@@ -327,6 +329,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).BeginInit();
+            this.panel17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numConsoleScale)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numConsoleTransparency)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -342,7 +349,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.02267F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(939, 491);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(947, 503);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tabControlMain
@@ -360,7 +367,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(3, 3);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(933, 436);
+            this.tabControlMain.Size = new System.Drawing.Size(941, 446);
             this.tabControlMain.TabIndex = 0;
             // 
             // tabGeneral
@@ -368,7 +375,6 @@
             this.tabGeneral.BackColor = System.Drawing.Color.Transparent;
             this.tabGeneral.Controls.Add(this.panel20);
             this.tabGeneral.Controls.Add(this.panel19);
-            this.tabGeneral.Controls.Add(this.panel17);
             this.tabGeneral.Controls.Add(this.panel12);
             this.tabGeneral.Controls.Add(this.panel2);
             this.tabGeneral.Controls.Add(this.panel1);
@@ -376,7 +382,7 @@
             this.tabGeneral.Location = new System.Drawing.Point(4, 26);
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGeneral.Size = new System.Drawing.Size(925, 406);
+            this.tabGeneral.Size = new System.Drawing.Size(933, 416);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General Settings";
             // 
@@ -602,125 +608,6 @@
             this.label53.TabIndex = 7;
             this.label53.Text = "Magic Chain";
             // 
-            // panel17
-            // 
-            this.panel17.Controls.Add(this.label52);
-            this.panel17.Controls.Add(this.numRoamFlagDecel);
-            this.panel17.Controls.Add(this.label51);
-            this.panel17.Controls.Add(this.label49);
-            this.panel17.Controls.Add(this.label50);
-            this.panel17.Controls.Add(this.numRoamFlagSpeed);
-            this.panel17.Controls.Add(this.checkRoamPower);
-            this.panel17.Controls.Add(this.checkRoamTurrets);
-            this.panel17.Controls.Add(this.label30);
-            this.panel17.Location = new System.Drawing.Point(6, 242);
-            this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(204, 154);
-            this.panel17.TabIndex = 5;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label52.Location = new System.Drawing.Point(25, 128);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(95, 13);
-            this.label52.TabIndex = 33;
-            this.label52.Text = "Deceleration rate";
-            // 
-            // numRoamFlagDecel
-            // 
-            this.numRoamFlagDecel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numRoamFlagDecel.Location = new System.Drawing.Point(126, 125);
-            this.numRoamFlagDecel.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numRoamFlagDecel.Name = "numRoamFlagDecel";
-            this.numRoamFlagDecel.Size = new System.Drawing.Size(52, 22);
-            this.numRoamFlagDecel.TabIndex = 32;
-            this.numRoamFlagDecel.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label51.Location = new System.Drawing.Point(7, 74);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(83, 21);
-            this.label51.TabIndex = 31;
-            this.label51.Text = "Flag Drag";
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(179, 99);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(27, 13);
-            this.label49.TabIndex = 30;
-            this.label49.Text = "kph";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label50.Location = new System.Drawing.Point(8, 101);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(112, 13);
-            this.label50.TabIndex = 29;
-            this.label50.Text = "Max Speed with flag";
-            // 
-            // numRoamFlagSpeed
-            // 
-            this.numRoamFlagSpeed.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numRoamFlagSpeed.Location = new System.Drawing.Point(126, 97);
-            this.numRoamFlagSpeed.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numRoamFlagSpeed.Name = "numRoamFlagSpeed";
-            this.numRoamFlagSpeed.Size = new System.Drawing.Size(52, 22);
-            this.numRoamFlagSpeed.TabIndex = 28;
-            // 
-            // checkRoamPower
-            // 
-            this.checkRoamPower.AutoSize = true;
-            this.checkRoamPower.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRoamPower.Location = new System.Drawing.Point(11, 54);
-            this.checkRoamPower.Name = "checkRoamPower";
-            this.checkRoamPower.Size = new System.Drawing.Size(99, 17);
-            this.checkRoamPower.TabIndex = 7;
-            this.checkRoamPower.Text = "Disable Power";
-            this.checkRoamPower.UseVisualStyleBackColor = true;
-            // 
-            // checkRoamTurrets
-            // 
-            this.checkRoamTurrets.AutoSize = true;
-            this.checkRoamTurrets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRoamTurrets.Location = new System.Drawing.Point(11, 34);
-            this.checkRoamTurrets.Name = "checkRoamTurrets";
-            this.checkRoamTurrets.Size = new System.Drawing.Size(129, 17);
-            this.checkRoamTurrets.TabIndex = 6;
-            this.checkRoamTurrets.Text = "Disable Base Turrets";
-            this.checkRoamTurrets.UseVisualStyleBackColor = true;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(6, 6);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(108, 25);
-            this.label30.TabIndex = 5;
-            this.label30.Text = "Roam Map";
-            // 
             // panel12
             // 
             this.panel12.Controls.Add(this.checkShowHUDWeapons);
@@ -760,7 +647,7 @@
             this.checkHUDTextObjective.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDTextObjective.Location = new System.Drawing.Point(236, 31);
             this.checkHUDTextObjective.Name = "checkHUDTextObjective";
-            this.checkHUDTextObjective.Size = new System.Drawing.Size(128, 17);
+            this.checkHUDTextObjective.Size = new System.Drawing.Size(129, 17);
             this.checkHUDTextObjective.TabIndex = 20;
             this.checkHUDTextObjective.Text = "Show Objective Text";
             this.checkHUDTextObjective.UseVisualStyleBackColor = true;
@@ -771,7 +658,7 @@
             this.checkHUDTextMine.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDTextMine.Location = new System.Drawing.Point(236, 77);
             this.checkHUDTextMine.Name = "checkHUDTextMine";
-            this.checkHUDTextMine.Size = new System.Drawing.Size(106, 17);
+            this.checkHUDTextMine.Size = new System.Drawing.Size(107, 17);
             this.checkHUDTextMine.TabIndex = 19;
             this.checkHUDTextMine.Text = "Show Mine Text";
             this.checkHUDTextMine.UseVisualStyleBackColor = true;
@@ -860,7 +747,7 @@
             this.checkHUDIconVehicle.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkHUDIconVehicle.Location = new System.Drawing.Point(8, 123);
             this.checkHUDIconVehicle.Name = "checkHUDIconVehicle";
-            this.checkHUDIconVehicle.Size = new System.Drawing.Size(124, 17);
+            this.checkHUDIconVehicle.Size = new System.Drawing.Size(125, 17);
             this.checkHUDIconVehicle.TabIndex = 12;
             this.checkHUDIconVehicle.Text = "Show Vehicle Icons";
             this.checkHUDIconVehicle.UseVisualStyleBackColor = true;
@@ -1013,7 +900,7 @@
             this.radioDamageNumberCustomText.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioDamageNumberCustomText.Location = new System.Drawing.Point(4, 91);
             this.radioDamageNumberCustomText.Name = "radioDamageNumberCustomText";
-            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(121, 17);
+            this.radioDamageNumberCustomText.Size = new System.Drawing.Size(122, 17);
             this.radioDamageNumberCustomText.TabIndex = 25;
             this.radioDamageNumberCustomText.TabStop = true;
             this.radioDamageNumberCustomText.Text = "Show Custom Text:";
@@ -1026,7 +913,7 @@
             this.label62.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label62.Location = new System.Drawing.Point(3, -2);
             this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(113, 21);
+            this.label62.Size = new System.Drawing.Size(114, 21);
             this.label62.TabIndex = 24;
             this.label62.Text = "Number Type";
             // 
@@ -1241,6 +1128,11 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label88);
+            this.panel1.Controls.Add(this.numConsoleTransparency);
+            this.panel1.Controls.Add(this.label87);
+            this.panel1.Controls.Add(this.numConsoleScale);
+            this.panel1.Controls.Add(this.label86);
             this.panel1.Controls.Add(this.checkShowPlayerModel);
             this.panel1.Controls.Add(this.checkStatsRecord);
             this.panel1.Controls.Add(this.label42);
@@ -1258,7 +1150,7 @@
             this.panel1.Controls.Add(this.checkShowWeapon);
             this.panel1.Location = new System.Drawing.Point(5, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(205, 229);
+            this.panel1.Size = new System.Drawing.Size(205, 403);
             this.panel1.TabIndex = 2;
             // 
             // checkShowPlayerModel
@@ -1287,7 +1179,7 @@
             // 
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(123, 200);
+            this.label42.Location = new System.Drawing.Point(122, 295);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(27, 13);
             this.label42.TabIndex = 30;
@@ -1297,7 +1189,7 @@
             // 
             this.label73.AutoSize = true;
             this.label73.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(8, 200);
+            this.label73.Location = new System.Drawing.Point(7, 295);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(63, 13);
             this.label73.TabIndex = 29;
@@ -1306,7 +1198,7 @@
             // numSkiBarMax
             // 
             this.numSkiBarMax.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numSkiBarMax.Location = new System.Drawing.Point(73, 195);
+            this.numSkiBarMax.Location = new System.Drawing.Point(72, 290);
             this.numSkiBarMax.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -1320,7 +1212,7 @@
             // 
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(123, 174);
+            this.label41.Location = new System.Drawing.Point(122, 269);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(27, 13);
             this.label41.TabIndex = 27;
@@ -1330,7 +1222,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(8, 174);
+            this.label40.Location = new System.Drawing.Point(7, 269);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(62, 13);
             this.label40.TabIndex = 26;
@@ -1339,7 +1231,7 @@
             // numSkiBarMin
             // 
             this.numSkiBarMin.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numSkiBarMin.Location = new System.Drawing.Point(73, 169);
+            this.numSkiBarMin.Location = new System.Drawing.Point(72, 264);
             this.numSkiBarMin.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -1353,7 +1245,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(5, 145);
+            this.label39.Location = new System.Drawing.Point(4, 240);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(120, 21);
             this.label39.TabIndex = 24;
@@ -1446,7 +1338,7 @@
             this.tabColor.Location = new System.Drawing.Point(4, 26);
             this.tabColor.Name = "tabColor";
             this.tabColor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabColor.Size = new System.Drawing.Size(925, 406);
+            this.tabColor.Size = new System.Drawing.Size(933, 416);
             this.tabColor.TabIndex = 3;
             this.tabColor.Text = "Colour Settings";
             this.tabColor.UseVisualStyleBackColor = true;
@@ -1499,7 +1391,7 @@
             this.tabLoadout.Location = new System.Drawing.Point(4, 26);
             this.tabLoadout.Name = "tabLoadout";
             this.tabLoadout.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLoadout.Size = new System.Drawing.Size(925, 406);
+            this.tabLoadout.Size = new System.Drawing.Size(933, 416);
             this.tabLoadout.TabIndex = 1;
             this.tabLoadout.Text = "Loadout Editor";
             this.tabLoadout.UseVisualStyleBackColor = true;
@@ -1815,7 +1707,7 @@
             this.tabMute.Location = new System.Drawing.Point(4, 26);
             this.tabMute.Name = "tabMute";
             this.tabMute.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMute.Size = new System.Drawing.Size(925, 406);
+            this.tabMute.Size = new System.Drawing.Size(933, 416);
             this.tabMute.TabIndex = 4;
             this.tabMute.Text = "Global Mute";
             this.tabMute.UseVisualStyleBackColor = true;
@@ -1872,7 +1764,7 @@
             this.checkMuteText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.checkMuteText.Location = new System.Drawing.Point(7, 83);
             this.checkMuteText.Name = "checkMuteText";
-            this.checkMuteText.Size = new System.Drawing.Size(75, 17);
+            this.checkMuteText.Size = new System.Drawing.Size(76, 17);
             this.checkMuteText.TabIndex = 58;
             this.checkMuteText.Text = "Mute Text";
             this.checkMuteText.UseVisualStyleBackColor = true;
@@ -1945,7 +1837,7 @@
             this.tabProjectiles.Location = new System.Drawing.Point(4, 26);
             this.tabProjectiles.Name = "tabProjectiles";
             this.tabProjectiles.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProjectiles.Size = new System.Drawing.Size(925, 406);
+            this.tabProjectiles.Size = new System.Drawing.Size(933, 416);
             this.tabProjectiles.TabIndex = 5;
             this.tabProjectiles.Text = "Projectile Modification";
             this.tabProjectiles.UseVisualStyleBackColor = true;
@@ -2124,7 +2016,7 @@
             this.tabProjSwap.Location = new System.Drawing.Point(4, 26);
             this.tabProjSwap.Name = "tabProjSwap";
             this.tabProjSwap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProjSwap.Size = new System.Drawing.Size(925, 406);
+            this.tabProjSwap.Size = new System.Drawing.Size(933, 416);
             this.tabProjSwap.TabIndex = 6;
             this.tabProjSwap.Text = "Projectile Swap";
             this.tabProjSwap.UseVisualStyleBackColor = true;
@@ -2314,19 +2206,21 @@
             // 
             // tabCapping
             // 
+            this.tabCapping.Controls.Add(this.panel17);
             this.tabCapping.Controls.Add(this.panel22);
             this.tabCapping.Controls.Add(this.panel21);
             this.tabCapping.Location = new System.Drawing.Point(4, 26);
             this.tabCapping.Margin = new System.Windows.Forms.Padding(2);
             this.tabCapping.Name = "tabCapping";
             this.tabCapping.Padding = new System.Windows.Forms.Padding(2);
-            this.tabCapping.Size = new System.Drawing.Size(925, 406);
+            this.tabCapping.Size = new System.Drawing.Size(933, 416);
             this.tabCapping.TabIndex = 8;
             this.tabCapping.Text = "Capping";
             this.tabCapping.UseVisualStyleBackColor = true;
             // 
             // panel22
             // 
+            this.panel22.BackColor = System.Drawing.Color.Transparent;
             this.panel22.Controls.Add(this.checkStopwatchNotifications);
             this.panel22.Controls.Add(this.checkStopwatchStopOnDeath);
             this.panel22.Controls.Add(this.checkStopwatchStopOnCap);
@@ -2381,6 +2275,7 @@
             // 
             // panel21
             // 
+            this.panel21.BackColor = System.Drawing.Color.Transparent;
             this.panel21.Controls.Add(this.checkRouteDrawSavedLocations);
             this.panel21.Controls.Add(this.checkRouteDrawETA);
             this.panel21.Controls.Add(this.label82);
@@ -2416,7 +2311,7 @@
             this.checkRouteDrawETA.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkRouteDrawETA.Location = new System.Drawing.Point(7, 171);
             this.checkRouteDrawETA.Name = "checkRouteDrawETA";
-            this.checkRouteDrawETA.Size = new System.Drawing.Size(117, 17);
+            this.checkRouteDrawETA.Size = new System.Drawing.Size(118, 17);
             this.checkRouteDrawETA.TabIndex = 37;
             this.checkRouteDrawETA.Text = "Draw ETA Markers";
             this.checkRouteDrawETA.UseVisualStyleBackColor = true;
@@ -2492,7 +2387,7 @@
             this.label79.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label79.Location = new System.Drawing.Point(21, 192);
             this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(95, 13);
+            this.label79.Size = new System.Drawing.Size(96, 13);
             this.label79.TabIndex = 29;
             this.label79.Text = "ETA Draw Interval";
             // 
@@ -2574,9 +2469,9 @@
             this.flowLayoutPanel1.Controls.Add(this.btnInject);
             this.flowLayoutPanel1.Controls.Add(this.panel23);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 445);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 455);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(933, 43);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(941, 45);
             this.flowLayoutPanel1.TabIndex = 1;
             // 
             // btnSaveConfig
@@ -2935,7 +2830,7 @@
             this.label48.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label48.Location = new System.Drawing.Point(450, 136);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(55, 17);
+            this.label48.Size = new System.Drawing.Size(56, 17);
             this.label48.TabIndex = 75;
             this.label48.Text = "Volume";
             // 
@@ -3132,13 +3027,211 @@
             this.label28.TabIndex = 46;
             this.label28.Text = "Sound Settings";
             // 
+            // panel17
+            // 
+            this.panel17.BackColor = System.Drawing.Color.Transparent;
+            this.panel17.Controls.Add(this.label52);
+            this.panel17.Controls.Add(this.numRoamFlagDecel);
+            this.panel17.Controls.Add(this.label51);
+            this.panel17.Controls.Add(this.label49);
+            this.panel17.Controls.Add(this.label50);
+            this.panel17.Controls.Add(this.numRoamFlagSpeed);
+            this.panel17.Controls.Add(this.checkRoamPower);
+            this.panel17.Controls.Add(this.checkRoamTurrets);
+            this.panel17.Controls.Add(this.label30);
+            this.panel17.Location = new System.Drawing.Point(415, 5);
+            this.panel17.Name = "panel17";
+            this.panel17.Size = new System.Drawing.Size(204, 154);
+            this.panel17.TabIndex = 6;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label52.Location = new System.Drawing.Point(25, 128);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(95, 13);
+            this.label52.TabIndex = 33;
+            this.label52.Text = "Deceleration rate";
+            // 
+            // numRoamFlagDecel
+            // 
+            this.numRoamFlagDecel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRoamFlagDecel.Location = new System.Drawing.Point(126, 125);
+            this.numRoamFlagDecel.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numRoamFlagDecel.Name = "numRoamFlagDecel";
+            this.numRoamFlagDecel.Size = new System.Drawing.Size(52, 22);
+            this.numRoamFlagDecel.TabIndex = 32;
+            this.numRoamFlagDecel.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label51.Location = new System.Drawing.Point(7, 74);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(83, 21);
+            this.label51.TabIndex = 31;
+            this.label51.Text = "Flag Drag";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(179, 99);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(27, 13);
+            this.label49.TabIndex = 30;
+            this.label49.Text = "kph";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label50.Location = new System.Drawing.Point(8, 101);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(112, 13);
+            this.label50.TabIndex = 29;
+            this.label50.Text = "Max Speed with flag";
+            // 
+            // numRoamFlagSpeed
+            // 
+            this.numRoamFlagSpeed.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRoamFlagSpeed.Location = new System.Drawing.Point(126, 97);
+            this.numRoamFlagSpeed.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numRoamFlagSpeed.Name = "numRoamFlagSpeed";
+            this.numRoamFlagSpeed.Size = new System.Drawing.Size(52, 22);
+            this.numRoamFlagSpeed.TabIndex = 28;
+            // 
+            // checkRoamPower
+            // 
+            this.checkRoamPower.AutoSize = true;
+            this.checkRoamPower.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRoamPower.Location = new System.Drawing.Point(11, 54);
+            this.checkRoamPower.Name = "checkRoamPower";
+            this.checkRoamPower.Size = new System.Drawing.Size(99, 17);
+            this.checkRoamPower.TabIndex = 7;
+            this.checkRoamPower.Text = "Disable Power";
+            this.checkRoamPower.UseVisualStyleBackColor = true;
+            // 
+            // checkRoamTurrets
+            // 
+            this.checkRoamTurrets.AutoSize = true;
+            this.checkRoamTurrets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRoamTurrets.Location = new System.Drawing.Point(11, 34);
+            this.checkRoamTurrets.Name = "checkRoamTurrets";
+            this.checkRoamTurrets.Size = new System.Drawing.Size(129, 17);
+            this.checkRoamTurrets.TabIndex = 6;
+            this.checkRoamTurrets.Text = "Disable Base Turrets";
+            this.checkRoamTurrets.UseVisualStyleBackColor = true;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(6, 6);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(108, 25);
+            this.label30.TabIndex = 5;
+            this.label30.Text = "Roam Map";
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label86.Location = new System.Drawing.Point(6, 157);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(71, 21);
+            this.label86.TabIndex = 33;
+            this.label86.Text = "Console";
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label87.Location = new System.Drawing.Point(53, 184);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(33, 13);
+            this.label87.TabIndex = 35;
+            this.label87.Text = "Scale";
+            // 
+            // numConsoleScale
+            // 
+            this.numConsoleScale.DecimalPlaces = 2;
+            this.numConsoleScale.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numConsoleScale.Location = new System.Drawing.Point(92, 181);
+            this.numConsoleScale.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numConsoleScale.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numConsoleScale.Name = "numConsoleScale";
+            this.numConsoleScale.Size = new System.Drawing.Size(71, 22);
+            this.numConsoleScale.TabIndex = 34;
+            this.numConsoleScale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label88.Location = new System.Drawing.Point(12, 212);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(74, 13);
+            this.label88.TabIndex = 37;
+            this.label88.Text = "Transparency";
+            // 
+            // numConsoleTransparency
+            // 
+            this.numConsoleTransparency.DecimalPlaces = 2;
+            this.numConsoleTransparency.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numConsoleTransparency.Location = new System.Drawing.Point(92, 209);
+            this.numConsoleTransparency.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numConsoleTransparency.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numConsoleTransparency.Name = "numConsoleTransparency";
+            this.numConsoleTransparency.Size = new System.Drawing.Size(71, 22);
+            this.numConsoleTransparency.TabIndex = 36;
+            this.numConsoleTransparency.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::TAModConfigurationTool.Properties.Resources.background_sulfur31;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(939, 491);
+            this.ClientSize = new System.Drawing.Size(947, 503);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -3160,10 +3253,6 @@
             this.panel19.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMagicChainSpawnDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMagicChainPingMultiplier)).EndInit();
-            this.panel17.ResumeLayout(false);
-            this.panel17.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).EndInit();
             this.panel12.ResumeLayout(false);
             this.panel12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numIFFScale)).EndInit();
@@ -3234,6 +3323,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).EndInit();
+            this.panel17.ResumeLayout(false);
+            this.panel17.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numConsoleScale)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numConsoleTransparency)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3416,15 +3511,6 @@
         private System.Windows.Forms.ComboBox selectHitSoundMode;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Panel panel17;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.NumericUpDown numRoamFlagDecel;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.NumericUpDown numRoamFlagSpeed;
-        private System.Windows.Forms.CheckBox checkRoamPower;
-        private System.Windows.Forms.CheckBox checkRoamTurrets;
         private System.Windows.Forms.CheckBox checkStatsRecord;
         private System.Windows.Forms.Panel panel19;
         private System.Windows.Forms.Label label53;
@@ -3448,7 +3534,6 @@
         private System.Windows.Forms.NumericUpDown numMouseSensitivity;
         private System.Windows.Forms.CheckBox checkMouseDisableFovScaling;
         private System.Windows.Forms.Label label78;
-        private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Panel panel21;
         private System.Windows.Forms.CheckBox checkRouteCinematicMode;
         private System.Windows.Forms.CheckBox checkRouteReplayRotation;
@@ -3478,6 +3563,21 @@
         private System.Windows.Forms.Panel panel23;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.ComboBox selectConfigPreset;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.NumericUpDown numConsoleTransparency;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.NumericUpDown numConsoleScale;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.Panel panel17;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.NumericUpDown numRoamFlagDecel;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.NumericUpDown numRoamFlagSpeed;
+        private System.Windows.Forms.CheckBox checkRoamPower;
+        private System.Windows.Forms.CheckBox checkRoamTurrets;
+        private System.Windows.Forms.Label label30;
     }
 }
 
