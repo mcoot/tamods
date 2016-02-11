@@ -2,13 +2,6 @@
 #include "Mods.h"
 #include "NameCryptor.h"
 
-/*
-	TODO:
-	prompt panel? (saber warning and other messages)
-	----------------
-	Customizable IFFs (small console font for names, maybe lines as indicator like t1/2)
-*/
-
 FVector2D getViewPortData::size()
 {
 	if (!Utils::tr_gvc)
