@@ -81,10 +81,12 @@ bool TrDevice_WeaponFire(int ID, UObject *dwCallingObject, UFunction *pFunction,
 void TrProjectile_PreBeginPlay_UScript(ATrProjectile *that, ATrProjectile_eventPreBeginPlay_Parms *params, void *result, Hooks::CallInfo *callInfo);
 bool TrProjectile_PreBeginPlay(int ID, UObject *dwCallingObject, UFunction *pFunction, void *pParams, void *result);
 
-// Console commands
+// Console commands, autocompletion and drawing
 bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 void TrChatConsole_AddOnlineFriendHelp(UTrChatConsole *that, UTrChatConsole_execAddOnlineFriendHelp_Parms *params, void *result, Hooks::CallInfo *callInfo);
+void TrChatConsole_Open_PostRender_Console(UTrChatConsole *that, UTrChatConsole_execPostRender_Console_Parms *params, void *result, Hooks::CallInfo *callInfo);
+void TrChatConsole_Typing_PostRender_Console(UTrChatConsole *that, UTrChatConsole_execPostRender_Console_Parms *params, void *result, Hooks::CallInfo *callInfo);
 
 // Lua keybindings
 bool TrChatConsole_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

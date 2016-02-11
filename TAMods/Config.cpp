@@ -190,6 +190,10 @@ void Config::reset()
 	IFFScale			 = 1.0f;
 	showHUDWeapons		 = true;
 
+	// Console
+	consoleSize          = 0.75f;
+	consoleTransparency  = 0.80f;
+
 	//Stats
 	recordStats          = false;
 
@@ -701,6 +705,10 @@ void Config::setVariables()
 	// HUD scaling
 	SET_VARIABLE(float, IFFScale);
 	SET_VARIABLE(bool, showHUDWeapons);
+
+	// Console
+	SET_VARIABLE(float, consoleSize);
+	SET_VARIABLE(float, consoleTransparency);
 
 	// VGS Mute
 	SET_VARIABLE(bool, muteVGS),

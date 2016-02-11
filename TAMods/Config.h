@@ -404,6 +404,10 @@ public:
 	float IFFScale;
 	bool  showHUDWeapons;
 
+	// Console
+	float consoleSize;
+	float consoleTransparency;
+
 	//Stats
 	bool recordStats;
 

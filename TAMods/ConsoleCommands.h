@@ -22,6 +22,7 @@ namespace consoleCommands
 	void cmd_reloadsounds(const std::wstring &cmd, const std::wstring &params);
 	void cmd_playerlist(const std::wstring &cmd, const std::wstring &params);
 	void cmd_kickvoteid(const std::wstring &cmd, const std::wstring &params);
+	void cmd_say(const std::wstring &cmd, const std::wstring &params);
 	void cmd_stopwatch(const std::wstring &cmd, const std::wstring &params);
 	void cmd_stopwatchstart(const std::wstring &cmd, const std::wstring &params);
 	void cmd_stopwatchstop(const std::wstring &cmd, const std::wstring &params);
