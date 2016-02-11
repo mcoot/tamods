@@ -8,6 +8,7 @@ void TrChatConsole_AddOnlineFriendHelp(UTrChatConsole *that, UTrChatConsole_exec
 	that->ManualAutoCompleteList = arr;
 
 	that->BuildRuntimeAutoCompleteList(1);
+	that->ManualAutoCompleteList.Clear();
 }
 
 bool execCustomCommand(UTrChatConsole *that)
@@ -86,7 +87,15 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 			return true;
 		}
 	}
-	else if (params->Key == FName("Down") && params->Event == IE_Pressed)
+	else if (params->Key == FName("Escape") && params->Event == IE_Released)
+	{
+			that->SetInputText(L"");
+			that->SetCursorPos(0);
+			that->HistoryCur = that->HistoryTop;
+			that->GotoState(FName(""), NULL, NULL, NULL);
+			return true;
+	}
+	else if (params->Key == FName("Down") && (params->Event == IE_Pressed || params->Event == IE_Repeat))
 	{
 		if (!that->bNavigatingHistory && ((that->bRequireCtrlToNavigateAutoComplete && that->bCtrl) || (!that->bRequireCtrlToNavigateAutoComplete && !that->bCtrl && that->AutoCompleteIndices.Count > 1)))
 		{
@@ -113,7 +122,7 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 		}
 		return true;
 	}
-	else if (params->Key == FName("Up") && params->Event == IE_Pressed)
+	else if (params->Key == FName("Up") && (params->Event == IE_Pressed || params->Event == IE_Repeat))
 	{
 		if (!that->bNavigatingHistory && ((that->bRequireCtrlToNavigateAutoComplete && that->bCtrl) || (!that->bRequireCtrlToNavigateAutoComplete && !that->bCtrl && that->AutoCompleteIndices.Count > 1)))
 		{
