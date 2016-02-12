@@ -61,7 +61,7 @@ namespace TAModLauncher
                 (launcherRegEntry == null ? "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe" : launcherRegEntry + "\\HiRezLauncherUI.exe")
                 : config.getProperty("//LauncherConfig/TribesLauncherPath"));
             DLLPath = (config.getProperty("//LauncherConfig/TAModsDLLPath") == null ?
-                 Environment.CurrentDirectory + "\\TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
+                 "TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
             bool autoInjecting = (config.getProperty("//LauncherConfig/AutoInject/Enabled") == null ?
                 false : Convert.ToBoolean(config.getProperty("//LauncherConfig/AutoInject/Enabled")));
             int autoInjectDelay = (config.getProperty("//LauncherConfig/AutoInject/Delay") == null ?
@@ -411,6 +411,7 @@ namespace TAModLauncher
                 else
                 {
                     btnUpdateLaunch.Text = "Launch Tribes";
+                    labelDownload.Text = "Ready to play!";
                     if (injector.HasInjected) injector.HasInjected = false;
                     if (autoInjectTimer.Enabled)
                     {
