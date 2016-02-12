@@ -30,6 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.btnInject = new System.Windows.Forms.Button();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.label85 = new System.Windows.Forms.Label();
+            this.selectConfigPreset = new System.Windows.Forms.ComboBox();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel20 = new System.Windows.Forms.Panel();
@@ -81,6 +88,10 @@
             this.radioDamageNumberStream = new System.Windows.Forms.RadioButton();
             this.radioDamageNumberDiscrete = new System.Windows.Forms.RadioButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.checkRevertOriginalPositioning = new System.Windows.Forms.CheckBox();
+            this.label91 = new System.Windows.Forms.Label();
+            this.label90 = new System.Windows.Forms.Label();
+            this.numRevertOldPositioningThreshold = new System.Windows.Forms.NumericUpDown();
             this.checkDamageNumberRainbow = new System.Windows.Forms.CheckBox();
             this.label61 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
@@ -95,6 +106,11 @@
             this.radioDamageNumberLimit = new System.Windows.Forms.RadioButton();
             this.radioDamageNumberShow = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label88 = new System.Windows.Forms.Label();
+            this.numConsoleTransparency = new System.Windows.Forms.NumericUpDown();
+            this.label87 = new System.Windows.Forms.Label();
+            this.numConsoleScale = new System.Windows.Forms.NumericUpDown();
+            this.label86 = new System.Windows.Forms.Label();
             this.checkShowPlayerModel = new System.Windows.Forms.CheckBox();
             this.checkStatsRecord = new System.Windows.Forms.CheckBox();
             this.label42 = new System.Windows.Forms.Label();
@@ -115,34 +131,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.listColorSettings = new System.Windows.Forms.ListBox();
             this.colorColorSettings = new TAModConfigurationTool.ColorSelector();
-            this.tabLoadout = new TAModConfigurationTool.TransTabPage();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.label67 = new System.Windows.Forms.Label();
-            this.btnLoadoutDelete = new System.Windows.Forms.Button();
-            this.btnLoadoutSave = new System.Windows.Forms.Button();
-            this.listLoadouts = new System.Windows.Forms.ListBox();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.label66 = new System.Windows.Forms.Label();
-            this.textLoadoutName = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.selectLoadoutNumber = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.selectLoadoutClass = new System.Windows.Forms.ComboBox();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.label68 = new System.Windows.Forms.Label();
-            this.selectLoadoutPerk2 = new System.Windows.Forms.ComboBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.selectLoadoutPerk1 = new System.Windows.Forms.ComboBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.selectLoadoutPack = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.selectLoadoutBelt = new System.Windows.Forms.ComboBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.selectLoadoutSecondary = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.selectLoadoutPrimary = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.tabMute = new TAModConfigurationTool.TransTabPage();
             this.panel15 = new System.Windows.Forms.Panel();
             this.label23 = new System.Windows.Forms.Label();
@@ -190,6 +178,16 @@
             this.btnProjectileSwapSave = new System.Windows.Forms.Button();
             this.listProjectileSwap = new System.Windows.Forms.ListBox();
             this.tabCapping = new TAModConfigurationTool.TransTabPage();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.label52 = new System.Windows.Forms.Label();
+            this.numRoamFlagDecel = new System.Windows.Forms.NumericUpDown();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.numRoamFlagSpeed = new System.Windows.Forms.NumericUpDown();
+            this.checkRoamPower = new System.Windows.Forms.CheckBox();
+            this.checkRoamTurrets = new System.Windows.Forms.CheckBox();
+            this.label30 = new System.Windows.Forms.Label();
             this.panel22 = new System.Windows.Forms.Panel();
             this.checkStopwatchNotifications = new System.Windows.Forms.CheckBox();
             this.checkStopwatchStopOnDeath = new System.Windows.Forms.CheckBox();
@@ -209,13 +207,34 @@
             this.label81 = new System.Windows.Forms.Label();
             this.numRouteDrawInterval = new System.Windows.Forms.NumericUpDown();
             this.label83 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.btnInject = new System.Windows.Forms.Button();
-            this.panel23 = new System.Windows.Forms.Panel();
-            this.label85 = new System.Windows.Forms.Label();
-            this.selectConfigPreset = new System.Windows.Forms.ComboBox();
-            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
+            this.tabLoadout = new TAModConfigurationTool.TransTabPage();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.label67 = new System.Windows.Forms.Label();
+            this.btnLoadoutDelete = new System.Windows.Forms.Button();
+            this.btnLoadoutSave = new System.Windows.Forms.Button();
+            this.listLoadouts = new System.Windows.Forms.ListBox();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.label66 = new System.Windows.Forms.Label();
+            this.textLoadoutName = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.selectLoadoutNumber = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.selectLoadoutClass = new System.Windows.Forms.ComboBox();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.label68 = new System.Windows.Forms.Label();
+            this.selectLoadoutPerk2 = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.selectLoadoutPerk1 = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.selectLoadoutPack = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.selectLoadoutBelt = new System.Windows.Forms.ComboBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.selectLoadoutSecondary = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.selectLoadoutPrimary = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabCrosshair = new TAModConfigurationTool.TransTabPage();
             this.panel14 = new System.Windows.Forms.Panel();
             this.label69 = new System.Windows.Forms.Label();
@@ -257,22 +276,9 @@
             this.selectHitSoundMode = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
-            this.panel17 = new System.Windows.Forms.Panel();
-            this.label52 = new System.Windows.Forms.Label();
-            this.numRoamFlagDecel = new System.Windows.Forms.NumericUpDown();
-            this.label51 = new System.Windows.Forms.Label();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.numRoamFlagSpeed = new System.Windows.Forms.NumericUpDown();
-            this.checkRoamPower = new System.Windows.Forms.CheckBox();
-            this.checkRoamTurrets = new System.Windows.Forms.CheckBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label86 = new System.Windows.Forms.Label();
-            this.label87 = new System.Windows.Forms.Label();
-            this.numConsoleScale = new System.Windows.Forms.NumericUpDown();
-            this.label88 = new System.Windows.Forms.Label();
-            this.numConsoleTransparency = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.panel23.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel20.SuspendLayout();
@@ -288,19 +294,18 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberStreamTimeout)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRevertOldPositioningThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberYOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberXOffset)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberLimit)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numConsoleTransparency)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numConsoleScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCrosshairScale)).BeginInit();
             this.tabColor.SuspendLayout();
-            this.tabLoadout.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.panel9.SuspendLayout();
-            this.panel8.SuspendLayout();
             this.tabMute.SuspendLayout();
             this.panel15.SuspendLayout();
             this.tabProjectiles.SuspendLayout();
@@ -311,12 +316,17 @@
             this.panel7.SuspendLayout();
             this.panel16.SuspendLayout();
             this.tabCapping.SuspendLayout();
+            this.panel17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).BeginInit();
             this.panel22.SuspendLayout();
             this.panel21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteDrawInterval)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.panel23.SuspendLayout();
+            this.tabLoadout.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.tabCrosshair.SuspendLayout();
             this.panel14.SuspendLayout();
             this.panel13.SuspendLayout();
@@ -329,11 +339,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).BeginInit();
-            this.panel17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numConsoleScale)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numConsoleTransparency)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -349,14 +354,79 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.02267F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(947, 503);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(947, 533);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Controls.Add(this.btnInject);
+            this.flowLayoutPanel1.Controls.Add(this.panel23);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 482);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(941, 48);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // btnInject
+            // 
+            this.btnInject.Enabled = false;
+            this.btnInject.Location = new System.Drawing.Point(101, 3);
+            this.btnInject.Name = "btnInject";
+            this.btnInject.Size = new System.Drawing.Size(92, 31);
+            this.btnInject.TabIndex = 2;
+            this.btnInject.Text = "Inject";
+            this.btnInject.UseVisualStyleBackColor = true;
+            this.btnInject.Visible = false;
+            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
+            // 
+            // panel23
+            // 
+            this.panel23.Controls.Add(this.label85);
+            this.panel23.Controls.Add(this.selectConfigPreset);
+            this.panel23.Location = new System.Drawing.Point(199, 3);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(255, 31);
+            this.panel23.TabIndex = 3;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(3, 8);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(62, 13);
+            this.label85.TabIndex = 5;
+            this.label85.Text = "Use Preset:";
+            // 
+            // selectConfigPreset
+            // 
+            this.selectConfigPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectConfigPreset.FormattingEnabled = true;
+            this.selectConfigPreset.Location = new System.Drawing.Point(68, 4);
+            this.selectConfigPreset.Name = "selectConfigPreset";
+            this.selectConfigPreset.Size = new System.Drawing.Size(172, 21);
+            this.selectConfigPreset.TabIndex = 4;
+            // 
+            // fileHitSound
+            // 
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // tabControlMain
             // 
             this.tabControlMain.Controls.Add(this.tabGeneral);
             this.tabControlMain.Controls.Add(this.tabColor);
-            //this.tabControlMain.Controls.Add(this.tabLoadout);
             this.tabControlMain.Controls.Add(this.tabMute);
             this.tabControlMain.Controls.Add(this.tabProjectiles);
             this.tabControlMain.Controls.Add(this.tabProjSwap);
@@ -367,7 +437,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(3, 3);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(941, 446);
+            this.tabControlMain.Size = new System.Drawing.Size(941, 473);
             this.tabControlMain.TabIndex = 0;
             // 
             // tabGeneral
@@ -382,7 +452,7 @@
             this.tabGeneral.Location = new System.Drawing.Point(4, 26);
             this.tabGeneral.Name = "tabGeneral";
             this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGeneral.Size = new System.Drawing.Size(933, 416);
+            this.tabGeneral.Size = new System.Drawing.Size(933, 443);
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General Settings";
             // 
@@ -627,7 +697,7 @@
             this.panel12.Controls.Add(this.label34);
             this.panel12.Location = new System.Drawing.Point(514, 197);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(411, 212);
+            this.panel12.Size = new System.Drawing.Size(411, 240);
             this.panel12.TabIndex = 4;
             // 
             // checkShowHUDWeapons
@@ -813,7 +883,7 @@
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Location = new System.Drawing.Point(213, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(300, 377);
+            this.panel2.Size = new System.Drawing.Size(300, 431);
             this.panel2.TabIndex = 3;
             // 
             // label60
@@ -837,7 +907,7 @@
             this.panel4.Controls.Add(this.radioDamageNumberCount);
             this.panel4.Controls.Add(this.radioDamageNumberStream);
             this.panel4.Controls.Add(this.radioDamageNumberDiscrete);
-            this.panel4.Location = new System.Drawing.Point(9, 224);
+            this.panel4.Location = new System.Drawing.Point(9, 286);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(285, 145);
             this.panel4.TabIndex = 5;
@@ -956,6 +1026,10 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.checkRevertOriginalPositioning);
+            this.panel3.Controls.Add(this.label91);
+            this.panel3.Controls.Add(this.label90);
+            this.panel3.Controls.Add(this.numRevertOldPositioningThreshold);
             this.panel3.Controls.Add(this.checkDamageNumberRainbow);
             this.panel3.Controls.Add(this.label61);
             this.panel3.Controls.Add(this.label44);
@@ -971,8 +1045,52 @@
             this.panel3.Controls.Add(this.radioDamageNumberShow);
             this.panel3.Location = new System.Drawing.Point(9, 30);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(285, 188);
+            this.panel3.Size = new System.Drawing.Size(285, 251);
             this.panel3.TabIndex = 4;
+            // 
+            // checkRevertOriginalPositioning
+            // 
+            this.checkRevertOriginalPositioning.AutoSize = true;
+            this.checkRevertOriginalPositioning.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRevertOriginalPositioning.Location = new System.Drawing.Point(4, 188);
+            this.checkRevertOriginalPositioning.Name = "checkRevertOriginalPositioning";
+            this.checkRevertOriginalPositioning.Size = new System.Drawing.Size(157, 17);
+            this.checkRevertOriginalPositioning.TabIndex = 39;
+            this.checkRevertOriginalPositioning.Text = "Revert To Old Positioning";
+            this.checkRevertOriginalPositioning.UseVisualStyleBackColor = true;
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label91.Location = new System.Drawing.Point(4, 219);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(142, 13);
+            this.label91.TabIndex = 38;
+            this.label91.Text = "Old Positioning Threshold";
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label90.Location = new System.Drawing.Point(224, 219);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(23, 13);
+            this.label90.TabIndex = 26;
+            this.label90.Text = "pts";
+            // 
+            // numRevertOldPositioningThreshold
+            // 
+            this.numRevertOldPositioningThreshold.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRevertOldPositioningThreshold.Location = new System.Drawing.Point(152, 215);
+            this.numRevertOldPositioningThreshold.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numRevertOldPositioningThreshold.Name = "numRevertOldPositioningThreshold";
+            this.numRevertOldPositioningThreshold.Size = new System.Drawing.Size(71, 22);
+            this.numRevertOldPositioningThreshold.TabIndex = 25;
             // 
             // checkDamageNumberRainbow
             // 
@@ -1150,8 +1268,86 @@
             this.panel1.Controls.Add(this.checkShowWeapon);
             this.panel1.Location = new System.Drawing.Point(5, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(205, 403);
+            this.panel1.Size = new System.Drawing.Size(205, 431);
             this.panel1.TabIndex = 2;
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label88.Location = new System.Drawing.Point(12, 212);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(74, 13);
+            this.label88.TabIndex = 37;
+            this.label88.Text = "Transparency";
+            // 
+            // numConsoleTransparency
+            // 
+            this.numConsoleTransparency.DecimalPlaces = 2;
+            this.numConsoleTransparency.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numConsoleTransparency.Location = new System.Drawing.Point(92, 209);
+            this.numConsoleTransparency.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numConsoleTransparency.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numConsoleTransparency.Name = "numConsoleTransparency";
+            this.numConsoleTransparency.Size = new System.Drawing.Size(71, 22);
+            this.numConsoleTransparency.TabIndex = 36;
+            this.numConsoleTransparency.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label87.Location = new System.Drawing.Point(53, 184);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(33, 13);
+            this.label87.TabIndex = 35;
+            this.label87.Text = "Scale";
+            // 
+            // numConsoleScale
+            // 
+            this.numConsoleScale.DecimalPlaces = 2;
+            this.numConsoleScale.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numConsoleScale.Location = new System.Drawing.Point(92, 181);
+            this.numConsoleScale.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numConsoleScale.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numConsoleScale.Name = "numConsoleScale";
+            this.numConsoleScale.Size = new System.Drawing.Size(71, 22);
+            this.numConsoleScale.TabIndex = 34;
+            this.numConsoleScale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label86.Location = new System.Drawing.Point(6, 157);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(71, 21);
+            this.label86.TabIndex = 33;
+            this.label86.Text = "Console";
             // 
             // checkShowPlayerModel
             // 
@@ -1338,7 +1534,7 @@
             this.tabColor.Location = new System.Drawing.Point(4, 26);
             this.tabColor.Name = "tabColor";
             this.tabColor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabColor.Size = new System.Drawing.Size(933, 416);
+            this.tabColor.Size = new System.Drawing.Size(933, 443);
             this.tabColor.TabIndex = 3;
             this.tabColor.Text = "Colour Settings";
             this.tabColor.UseVisualStyleBackColor = true;
@@ -1382,6 +1578,891 @@
             this.colorColorSettings.Name = "colorColorSettings";
             this.colorColorSettings.Size = new System.Drawing.Size(120, 170);
             this.colorColorSettings.TabIndex = 9;
+            // 
+            // tabMute
+            // 
+            this.tabMute.Controls.Add(this.panel15);
+            this.tabMute.Controls.Add(this.btnMuteDelete);
+            this.tabMute.Controls.Add(this.btnMuteAdd);
+            this.tabMute.Controls.Add(this.label36);
+            this.tabMute.Controls.Add(this.listMute);
+            this.tabMute.Location = new System.Drawing.Point(4, 26);
+            this.tabMute.Name = "tabMute";
+            this.tabMute.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMute.Size = new System.Drawing.Size(933, 443);
+            this.tabMute.TabIndex = 4;
+            this.tabMute.Text = "Global Mute";
+            this.tabMute.UseVisualStyleBackColor = true;
+            // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.label23);
+            this.panel15.Controls.Add(this.label38);
+            this.panel15.Controls.Add(this.checkMuteDirectMessages);
+            this.panel15.Controls.Add(this.checkMuteText);
+            this.panel15.Controls.Add(this.checkMuteVGS);
+            this.panel15.Controls.Add(this.textMute);
+            this.panel15.Location = new System.Drawing.Point(7, 6);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(259, 133);
+            this.panel15.TabIndex = 51;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(3, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(131, 25);
+            this.label23.TabIndex = 61;
+            this.label23.Text = "Player Details";
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.label38.Location = new System.Drawing.Point(4, 36);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(36, 13);
+            this.label38.TabIndex = 60;
+            this.label38.Text = "Name";
+            // 
+            // checkMuteDirectMessages
+            // 
+            this.checkMuteDirectMessages.AutoSize = true;
+            this.checkMuteDirectMessages.Enabled = false;
+            this.checkMuteDirectMessages.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.checkMuteDirectMessages.Location = new System.Drawing.Point(7, 104);
+            this.checkMuteDirectMessages.Name = "checkMuteDirectMessages";
+            this.checkMuteDirectMessages.Size = new System.Drawing.Size(120, 17);
+            this.checkMuteDirectMessages.TabIndex = 59;
+            this.checkMuteDirectMessages.Text = "Mute @ Messages";
+            this.checkMuteDirectMessages.UseVisualStyleBackColor = true;
+            this.checkMuteDirectMessages.Visible = false;
+            // 
+            // checkMuteText
+            // 
+            this.checkMuteText.AutoSize = true;
+            this.checkMuteText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.checkMuteText.Location = new System.Drawing.Point(7, 83);
+            this.checkMuteText.Name = "checkMuteText";
+            this.checkMuteText.Size = new System.Drawing.Size(76, 17);
+            this.checkMuteText.TabIndex = 58;
+            this.checkMuteText.Text = "Mute Text";
+            this.checkMuteText.UseVisualStyleBackColor = true;
+            // 
+            // checkMuteVGS
+            // 
+            this.checkMuteVGS.AutoSize = true;
+            this.checkMuteVGS.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.checkMuteVGS.Location = new System.Drawing.Point(7, 62);
+            this.checkMuteVGS.Name = "checkMuteVGS";
+            this.checkMuteVGS.Size = new System.Drawing.Size(77, 17);
+            this.checkMuteVGS.TabIndex = 57;
+            this.checkMuteVGS.Text = "Mute VGS";
+            this.checkMuteVGS.UseVisualStyleBackColor = true;
+            // 
+            // textMute
+            // 
+            this.textMute.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.textMute.Location = new System.Drawing.Point(46, 34);
+            this.textMute.Name = "textMute";
+            this.textMute.Size = new System.Drawing.Size(205, 22);
+            this.textMute.TabIndex = 56;
+            // 
+            // btnMuteDelete
+            // 
+            this.btnMuteDelete.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.btnMuteDelete.Location = new System.Drawing.Point(426, 35);
+            this.btnMuteDelete.Name = "btnMuteDelete";
+            this.btnMuteDelete.Size = new System.Drawing.Size(152, 25);
+            this.btnMuteDelete.TabIndex = 50;
+            this.btnMuteDelete.Text = "Delete Selected";
+            this.btnMuteDelete.UseVisualStyleBackColor = true;
+            this.btnMuteDelete.Click += new System.EventHandler(this.btnMuteDelete_Click);
+            // 
+            // btnMuteAdd
+            // 
+            this.btnMuteAdd.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.btnMuteAdd.Location = new System.Drawing.Point(272, 34);
+            this.btnMuteAdd.Name = "btnMuteAdd";
+            this.btnMuteAdd.Size = new System.Drawing.Size(148, 26);
+            this.btnMuteAdd.TabIndex = 49;
+            this.btnMuteAdd.Text = "Save Edited";
+            this.btnMuteAdd.UseVisualStyleBackColor = true;
+            this.btnMuteAdd.Click += new System.EventHandler(this.btnMuteAdd_Click);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(267, 6);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(217, 25);
+            this.label36.TabIndex = 46;
+            this.label36.Text = "Globally Muted Players";
+            // 
+            // listMute
+            // 
+            this.listMute.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.listMute.FormattingEnabled = true;
+            this.listMute.Location = new System.Drawing.Point(272, 69);
+            this.listMute.Name = "listMute";
+            this.listMute.Size = new System.Drawing.Size(306, 329);
+            this.listMute.TabIndex = 8;
+            this.listMute.SelectedIndexChanged += new System.EventHandler(this.listMute_SelectedIndexChanged);
+            // 
+            // tabProjectiles
+            // 
+            this.tabProjectiles.Controls.Add(this.panel5);
+            this.tabProjectiles.Controls.Add(this.panel6);
+            this.tabProjectiles.Location = new System.Drawing.Point(4, 26);
+            this.tabProjectiles.Name = "tabProjectiles";
+            this.tabProjectiles.Padding = new System.Windows.Forms.Padding(3);
+            this.tabProjectiles.Size = new System.Drawing.Size(933, 443);
+            this.tabProjectiles.TabIndex = 5;
+            this.tabProjectiles.Text = "Projectile Modification";
+            this.tabProjectiles.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.numProjectileSettingIntensity);
+            this.panel5.Controls.Add(this.label27);
+            this.panel5.Controls.Add(this.label26);
+            this.panel5.Controls.Add(this.colorProjectileSetting);
+            this.panel5.Controls.Add(this.label4);
+            this.panel5.Controls.Add(this.label17);
+            this.panel5.Controls.Add(this.label18);
+            this.panel5.Controls.Add(this.selectProjectileSettingWeapon);
+            this.panel5.Controls.Add(this.selectProjectileSettingClass);
+            this.panel5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel5.Location = new System.Drawing.Point(3, 3);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(229, 352);
+            this.panel5.TabIndex = 9;
+            // 
+            // numProjectileSettingIntensity
+            // 
+            this.numProjectileSettingIntensity.DecimalPlaces = 2;
+            this.numProjectileSettingIntensity.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numProjectileSettingIntensity.Location = new System.Drawing.Point(136, 144);
+            this.numProjectileSettingIntensity.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.numProjectileSettingIntensity.Name = "numProjectileSettingIntensity";
+            this.numProjectileSettingIntensity.Size = new System.Drawing.Size(71, 22);
+            this.numProjectileSettingIntensity.TabIndex = 59;
+            this.numProjectileSettingIntensity.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(137, 124);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(62, 17);
+            this.label27.TabIndex = 58;
+            this.label27.Text = "Intensity";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(6, 100);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(103, 21);
+            this.label26.TabIndex = 57;
+            this.label26.Text = "Recolouring";
+            // 
+            // colorProjectileSetting
+            // 
+            this.colorProjectileSetting.Location = new System.Drawing.Point(10, 124);
+            this.colorProjectileSetting.Name = "colorProjectileSetting";
+            this.colorProjectileSetting.Size = new System.Drawing.Size(120, 170);
+            this.colorProjectileSetting.TabIndex = 46;
+            this.colorProjectileSetting.Paint += new System.Windows.Forms.PaintEventHandler(this.colorProjectileSetting_Paint);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(5, 4);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(159, 25);
+            this.label4.TabIndex = 45;
+            this.label4.Text = "Projectile Details";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(14, 65);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(51, 13);
+            this.label17.TabIndex = 13;
+            this.label17.Text = "Weapon";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(14, 38);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(33, 13);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "Class";
+            // 
+            // selectProjectileSettingWeapon
+            // 
+            this.selectProjectileSettingWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSettingWeapon.FormattingEnabled = true;
+            this.selectProjectileSettingWeapon.Location = new System.Drawing.Point(71, 62);
+            this.selectProjectileSettingWeapon.Name = "selectProjectileSettingWeapon";
+            this.selectProjectileSettingWeapon.Size = new System.Drawing.Size(148, 21);
+            this.selectProjectileSettingWeapon.TabIndex = 10;
+            this.selectProjectileSettingWeapon.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSettingWeapon_SelectedIndexChanged);
+            // 
+            // selectProjectileSettingClass
+            // 
+            this.selectProjectileSettingClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSettingClass.FormattingEnabled = true;
+            this.selectProjectileSettingClass.Items.AddRange(new object[] {
+            "Light",
+            "Medium",
+            "Heavy"});
+            this.selectProjectileSettingClass.Location = new System.Drawing.Point(71, 35);
+            this.selectProjectileSettingClass.Name = "selectProjectileSettingClass";
+            this.selectProjectileSettingClass.Size = new System.Drawing.Size(148, 21);
+            this.selectProjectileSettingClass.TabIndex = 9;
+            this.selectProjectileSettingClass.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSettingClass_SelectedIndexChanged);
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.label19);
+            this.panel6.Controls.Add(this.btnProjectileSettingDelete);
+            this.panel6.Controls.Add(this.btnProjectileSettingSave);
+            this.panel6.Controls.Add(this.listProjectileSetting);
+            this.panel6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel6.Location = new System.Drawing.Point(238, 3);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(329, 413);
+            this.panel6.TabIndex = 8;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(3, 4);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(189, 25);
+            this.label19.TabIndex = 46;
+            this.label19.Text = "Projectiles Modified";
+            // 
+            // btnProjectileSettingDelete
+            // 
+            this.btnProjectileSettingDelete.Location = new System.Drawing.Point(132, 35);
+            this.btnProjectileSettingDelete.Name = "btnProjectileSettingDelete";
+            this.btnProjectileSettingDelete.Size = new System.Drawing.Size(117, 23);
+            this.btnProjectileSettingDelete.TabIndex = 9;
+            this.btnProjectileSettingDelete.Text = "Delete Selected";
+            this.btnProjectileSettingDelete.UseVisualStyleBackColor = true;
+            this.btnProjectileSettingDelete.Click += new System.EventHandler(this.btnProjectileSettingDelete_Click);
+            // 
+            // btnProjectileSettingSave
+            // 
+            this.btnProjectileSettingSave.Location = new System.Drawing.Point(3, 35);
+            this.btnProjectileSettingSave.Name = "btnProjectileSettingSave";
+            this.btnProjectileSettingSave.Size = new System.Drawing.Size(120, 23);
+            this.btnProjectileSettingSave.TabIndex = 8;
+            this.btnProjectileSettingSave.Text = "Save Edited Crosshair";
+            this.btnProjectileSettingSave.UseVisualStyleBackColor = true;
+            this.btnProjectileSettingSave.Click += new System.EventHandler(this.btnProjectileSettingSave_Click);
+            // 
+            // listProjectileSetting
+            // 
+            this.listProjectileSetting.FormattingEnabled = true;
+            this.listProjectileSetting.Location = new System.Drawing.Point(2, 64);
+            this.listProjectileSetting.Name = "listProjectileSetting";
+            this.listProjectileSetting.Size = new System.Drawing.Size(324, 329);
+            this.listProjectileSetting.TabIndex = 7;
+            this.listProjectileSetting.SelectedIndexChanged += new System.EventHandler(this.listProjectileSetting_SelectedIndexChanged);
+            // 
+            // tabProjSwap
+            // 
+            this.tabProjSwap.Controls.Add(this.panel7);
+            this.tabProjSwap.Controls.Add(this.panel16);
+            this.tabProjSwap.Location = new System.Drawing.Point(4, 26);
+            this.tabProjSwap.Name = "tabProjSwap";
+            this.tabProjSwap.Padding = new System.Windows.Forms.Padding(3);
+            this.tabProjSwap.Size = new System.Drawing.Size(933, 443);
+            this.tabProjSwap.TabIndex = 6;
+            this.tabProjSwap.Text = "Projectile Swap";
+            this.tabProjSwap.UseVisualStyleBackColor = true;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.label24);
+            this.panel7.Controls.Add(this.label25);
+            this.panel7.Controls.Add(this.selectProjectileSwapWeapon_Swap);
+            this.panel7.Controls.Add(this.selectProjectileSwapClass_Swap);
+            this.panel7.Controls.Add(this.label22);
+            this.panel7.Controls.Add(this.checkProjectileSwapClone);
+            this.panel7.Controls.Add(this.label5);
+            this.panel7.Controls.Add(this.label6);
+            this.panel7.Controls.Add(this.label20);
+            this.panel7.Controls.Add(this.selectProjectileSwapWeapon);
+            this.panel7.Controls.Add(this.selectProjectileSwapClass);
+            this.panel7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel7.Location = new System.Drawing.Point(3, 3);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(238, 217);
+            this.panel7.TabIndex = 11;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(14, 151);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(51, 13);
+            this.label24.TabIndex = 60;
+            this.label24.Text = "Weapon";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(14, 124);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(33, 13);
+            this.label25.TabIndex = 59;
+            this.label25.Text = "Class";
+            // 
+            // selectProjectileSwapWeapon_Swap
+            // 
+            this.selectProjectileSwapWeapon_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapWeapon_Swap.FormattingEnabled = true;
+            this.selectProjectileSwapWeapon_Swap.Location = new System.Drawing.Point(71, 148);
+            this.selectProjectileSwapWeapon_Swap.Name = "selectProjectileSwapWeapon_Swap";
+            this.selectProjectileSwapWeapon_Swap.Size = new System.Drawing.Size(159, 21);
+            this.selectProjectileSwapWeapon_Swap.TabIndex = 58;
+            // 
+            // selectProjectileSwapClass_Swap
+            // 
+            this.selectProjectileSwapClass_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapClass_Swap.FormattingEnabled = true;
+            this.selectProjectileSwapClass_Swap.Items.AddRange(new object[] {
+            "Light",
+            "Medium",
+            "Heavy"});
+            this.selectProjectileSwapClass_Swap.Location = new System.Drawing.Point(71, 121);
+            this.selectProjectileSwapClass_Swap.Name = "selectProjectileSwapClass_Swap";
+            this.selectProjectileSwapClass_Swap.Size = new System.Drawing.Size(159, 21);
+            this.selectProjectileSwapClass_Swap.TabIndex = 57;
+            this.selectProjectileSwapClass_Swap.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSwapClass_Swap_SelectedIndexChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(6, 97);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(170, 21);
+            this.label22.TabIndex = 56;
+            this.label22.Text = "Swap with projectile:";
+            // 
+            // checkProjectileSwapClone
+            // 
+            this.checkProjectileSwapClone.AutoSize = true;
+            this.checkProjectileSwapClone.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkProjectileSwapClone.Location = new System.Drawing.Point(17, 175);
+            this.checkProjectileSwapClone.Name = "checkProjectileSwapClone";
+            this.checkProjectileSwapClone.Size = new System.Drawing.Size(203, 17);
+            this.checkProjectileSwapClone.TabIndex = 46;
+            this.checkProjectileSwapClone.Text = "Do not apply modifications (clone)";
+            this.checkProjectileSwapClone.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(5, 4);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(159, 25);
+            this.label5.TabIndex = 45;
+            this.label5.Text = "Projectile Details";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 65);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Weapon";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(14, 38);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(33, 13);
+            this.label20.TabIndex = 12;
+            this.label20.Text = "Class";
+            // 
+            // selectProjectileSwapWeapon
+            // 
+            this.selectProjectileSwapWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapWeapon.FormattingEnabled = true;
+            this.selectProjectileSwapWeapon.Location = new System.Drawing.Point(71, 62);
+            this.selectProjectileSwapWeapon.Name = "selectProjectileSwapWeapon";
+            this.selectProjectileSwapWeapon.Size = new System.Drawing.Size(159, 21);
+            this.selectProjectileSwapWeapon.TabIndex = 10;
+            // 
+            // selectProjectileSwapClass
+            // 
+            this.selectProjectileSwapClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectProjectileSwapClass.FormattingEnabled = true;
+            this.selectProjectileSwapClass.Items.AddRange(new object[] {
+            "Light",
+            "Medium",
+            "Heavy"});
+            this.selectProjectileSwapClass.Location = new System.Drawing.Point(71, 35);
+            this.selectProjectileSwapClass.Name = "selectProjectileSwapClass";
+            this.selectProjectileSwapClass.Size = new System.Drawing.Size(159, 21);
+            this.selectProjectileSwapClass.TabIndex = 9;
+            this.selectProjectileSwapClass.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSwapClass_SelectedIndexChanged);
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.label21);
+            this.panel16.Controls.Add(this.btnProjectileSwapDelete);
+            this.panel16.Controls.Add(this.btnProjectileSwapSave);
+            this.panel16.Controls.Add(this.listProjectileSwap);
+            this.panel16.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel16.Location = new System.Drawing.Point(247, 3);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(489, 413);
+            this.panel16.TabIndex = 10;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(3, 4);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(190, 25);
+            this.label21.TabIndex = 46;
+            this.label21.Text = "Projectiles Swapped";
+            // 
+            // btnProjectileSwapDelete
+            // 
+            this.btnProjectileSwapDelete.Location = new System.Drawing.Point(132, 35);
+            this.btnProjectileSwapDelete.Name = "btnProjectileSwapDelete";
+            this.btnProjectileSwapDelete.Size = new System.Drawing.Size(117, 23);
+            this.btnProjectileSwapDelete.TabIndex = 9;
+            this.btnProjectileSwapDelete.Text = "Delete Selected";
+            this.btnProjectileSwapDelete.UseVisualStyleBackColor = true;
+            this.btnProjectileSwapDelete.Click += new System.EventHandler(this.btnProjectileSwapDelete_Click);
+            // 
+            // btnProjectileSwapSave
+            // 
+            this.btnProjectileSwapSave.Location = new System.Drawing.Point(3, 35);
+            this.btnProjectileSwapSave.Name = "btnProjectileSwapSave";
+            this.btnProjectileSwapSave.Size = new System.Drawing.Size(120, 23);
+            this.btnProjectileSwapSave.TabIndex = 8;
+            this.btnProjectileSwapSave.Text = "Save Edited";
+            this.btnProjectileSwapSave.UseVisualStyleBackColor = true;
+            this.btnProjectileSwapSave.Click += new System.EventHandler(this.btnProjectileSwapSave_Click);
+            // 
+            // listProjectileSwap
+            // 
+            this.listProjectileSwap.FormattingEnabled = true;
+            this.listProjectileSwap.Location = new System.Drawing.Point(2, 64);
+            this.listProjectileSwap.Name = "listProjectileSwap";
+            this.listProjectileSwap.Size = new System.Drawing.Size(484, 329);
+            this.listProjectileSwap.TabIndex = 7;
+            this.listProjectileSwap.SelectedIndexChanged += new System.EventHandler(this.listProjectileSwap_SelectedIndexChanged);
+            // 
+            // tabCapping
+            // 
+            this.tabCapping.Controls.Add(this.panel17);
+            this.tabCapping.Controls.Add(this.panel22);
+            this.tabCapping.Controls.Add(this.panel21);
+            this.tabCapping.Location = new System.Drawing.Point(4, 26);
+            this.tabCapping.Margin = new System.Windows.Forms.Padding(2);
+            this.tabCapping.Name = "tabCapping";
+            this.tabCapping.Padding = new System.Windows.Forms.Padding(2);
+            this.tabCapping.Size = new System.Drawing.Size(933, 443);
+            this.tabCapping.TabIndex = 8;
+            this.tabCapping.Text = "Capping";
+            this.tabCapping.UseVisualStyleBackColor = true;
+            // 
+            // panel17
+            // 
+            this.panel17.BackColor = System.Drawing.Color.Transparent;
+            this.panel17.Controls.Add(this.label52);
+            this.panel17.Controls.Add(this.numRoamFlagDecel);
+            this.panel17.Controls.Add(this.label51);
+            this.panel17.Controls.Add(this.label49);
+            this.panel17.Controls.Add(this.label50);
+            this.panel17.Controls.Add(this.numRoamFlagSpeed);
+            this.panel17.Controls.Add(this.checkRoamPower);
+            this.panel17.Controls.Add(this.checkRoamTurrets);
+            this.panel17.Controls.Add(this.label30);
+            this.panel17.Location = new System.Drawing.Point(415, 5);
+            this.panel17.Name = "panel17";
+            this.panel17.Size = new System.Drawing.Size(204, 154);
+            this.panel17.TabIndex = 6;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label52.Location = new System.Drawing.Point(25, 128);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(95, 13);
+            this.label52.TabIndex = 33;
+            this.label52.Text = "Deceleration rate";
+            // 
+            // numRoamFlagDecel
+            // 
+            this.numRoamFlagDecel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRoamFlagDecel.Location = new System.Drawing.Point(126, 125);
+            this.numRoamFlagDecel.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numRoamFlagDecel.Name = "numRoamFlagDecel";
+            this.numRoamFlagDecel.Size = new System.Drawing.Size(52, 22);
+            this.numRoamFlagDecel.TabIndex = 32;
+            this.numRoamFlagDecel.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label51.Location = new System.Drawing.Point(7, 74);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(83, 21);
+            this.label51.TabIndex = 31;
+            this.label51.Text = "Flag Drag";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label49.Location = new System.Drawing.Point(179, 99);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(27, 13);
+            this.label49.TabIndex = 30;
+            this.label49.Text = "kph";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label50.Location = new System.Drawing.Point(8, 101);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(112, 13);
+            this.label50.TabIndex = 29;
+            this.label50.Text = "Max Speed with flag";
+            // 
+            // numRoamFlagSpeed
+            // 
+            this.numRoamFlagSpeed.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRoamFlagSpeed.Location = new System.Drawing.Point(126, 97);
+            this.numRoamFlagSpeed.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numRoamFlagSpeed.Name = "numRoamFlagSpeed";
+            this.numRoamFlagSpeed.Size = new System.Drawing.Size(52, 22);
+            this.numRoamFlagSpeed.TabIndex = 28;
+            // 
+            // checkRoamPower
+            // 
+            this.checkRoamPower.AutoSize = true;
+            this.checkRoamPower.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRoamPower.Location = new System.Drawing.Point(11, 54);
+            this.checkRoamPower.Name = "checkRoamPower";
+            this.checkRoamPower.Size = new System.Drawing.Size(99, 17);
+            this.checkRoamPower.TabIndex = 7;
+            this.checkRoamPower.Text = "Disable Power";
+            this.checkRoamPower.UseVisualStyleBackColor = true;
+            // 
+            // checkRoamTurrets
+            // 
+            this.checkRoamTurrets.AutoSize = true;
+            this.checkRoamTurrets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRoamTurrets.Location = new System.Drawing.Point(11, 34);
+            this.checkRoamTurrets.Name = "checkRoamTurrets";
+            this.checkRoamTurrets.Size = new System.Drawing.Size(129, 17);
+            this.checkRoamTurrets.TabIndex = 6;
+            this.checkRoamTurrets.Text = "Disable Base Turrets";
+            this.checkRoamTurrets.UseVisualStyleBackColor = true;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(6, 6);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(108, 25);
+            this.label30.TabIndex = 5;
+            this.label30.Text = "Roam Map";
+            // 
+            // panel22
+            // 
+            this.panel22.BackColor = System.Drawing.Color.Transparent;
+            this.panel22.Controls.Add(this.checkStopwatchNotifications);
+            this.panel22.Controls.Add(this.checkStopwatchStopOnDeath);
+            this.panel22.Controls.Add(this.checkStopwatchStopOnCap);
+            this.panel22.Controls.Add(this.label89);
+            this.panel22.Location = new System.Drawing.Point(223, 5);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(186, 203);
+            this.panel22.TabIndex = 4;
+            // 
+            // checkStopwatchNotifications
+            // 
+            this.checkStopwatchNotifications.AutoSize = true;
+            this.checkStopwatchNotifications.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStopwatchNotifications.Location = new System.Drawing.Point(7, 73);
+            this.checkStopwatchNotifications.Name = "checkStopwatchNotifications";
+            this.checkStopwatchNotifications.Size = new System.Drawing.Size(182, 17);
+            this.checkStopwatchNotifications.TabIndex = 33;
+            this.checkStopwatchNotifications.Text = "Show Stopwatch Notifications";
+            this.checkStopwatchNotifications.UseVisualStyleBackColor = true;
+            // 
+            // checkStopwatchStopOnDeath
+            // 
+            this.checkStopwatchStopOnDeath.AutoSize = true;
+            this.checkStopwatchStopOnDeath.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStopwatchStopOnDeath.Location = new System.Drawing.Point(7, 53);
+            this.checkStopwatchStopOnDeath.Name = "checkStopwatchStopOnDeath";
+            this.checkStopwatchStopOnDeath.Size = new System.Drawing.Size(159, 17);
+            this.checkStopwatchStopOnDeath.TabIndex = 32;
+            this.checkStopwatchStopOnDeath.Text = "Stop Stopwatch on Death";
+            this.checkStopwatchStopOnDeath.UseVisualStyleBackColor = true;
+            // 
+            // checkStopwatchStopOnCap
+            // 
+            this.checkStopwatchStopOnCap.AutoSize = true;
+            this.checkStopwatchStopOnCap.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStopwatchStopOnCap.Location = new System.Drawing.Point(7, 32);
+            this.checkStopwatchStopOnCap.Name = "checkStopwatchStopOnCap";
+            this.checkStopwatchStopOnCap.Size = new System.Drawing.Size(148, 17);
+            this.checkStopwatchStopOnCap.TabIndex = 31;
+            this.checkStopwatchStopOnCap.Text = "Stop Stopwatch on Cap";
+            this.checkStopwatchStopOnCap.UseVisualStyleBackColor = true;
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label89.Location = new System.Drawing.Point(3, 3);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(106, 25);
+            this.label89.TabIndex = 4;
+            this.label89.Text = "Stopwatch";
+            // 
+            // panel21
+            // 
+            this.panel21.BackColor = System.Drawing.Color.Transparent;
+            this.panel21.Controls.Add(this.checkRouteDrawSavedLocations);
+            this.panel21.Controls.Add(this.checkRouteDrawETA);
+            this.panel21.Controls.Add(this.label82);
+            this.panel21.Controls.Add(this.checkRouteDrawMarkers);
+            this.panel21.Controls.Add(this.label80);
+            this.panel21.Controls.Add(this.label76);
+            this.panel21.Controls.Add(this.checkRouteCinematicMode);
+            this.panel21.Controls.Add(this.checkRouteReplayRotation);
+            this.panel21.Controls.Add(this.label79);
+            this.panel21.Controls.Add(this.numRouteETAInterval);
+            this.panel21.Controls.Add(this.label81);
+            this.panel21.Controls.Add(this.numRouteDrawInterval);
+            this.panel21.Controls.Add(this.label83);
+            this.panel21.Location = new System.Drawing.Point(5, 5);
+            this.panel21.Name = "panel21";
+            this.panel21.Size = new System.Drawing.Size(213, 231);
+            this.panel21.TabIndex = 3;
+            // 
+            // checkRouteDrawSavedLocations
+            // 
+            this.checkRouteDrawSavedLocations.AutoSize = true;
+            this.checkRouteDrawSavedLocations.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteDrawSavedLocations.Location = new System.Drawing.Point(7, 73);
+            this.checkRouteDrawSavedLocations.Name = "checkRouteDrawSavedLocations";
+            this.checkRouteDrawSavedLocations.Size = new System.Drawing.Size(138, 17);
+            this.checkRouteDrawSavedLocations.TabIndex = 38;
+            this.checkRouteDrawSavedLocations.Text = "Draw Saved Locations";
+            this.checkRouteDrawSavedLocations.UseVisualStyleBackColor = true;
+            // 
+            // checkRouteDrawETA
+            // 
+            this.checkRouteDrawETA.AutoSize = true;
+            this.checkRouteDrawETA.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteDrawETA.Location = new System.Drawing.Point(7, 171);
+            this.checkRouteDrawETA.Name = "checkRouteDrawETA";
+            this.checkRouteDrawETA.Size = new System.Drawing.Size(118, 17);
+            this.checkRouteDrawETA.TabIndex = 37;
+            this.checkRouteDrawETA.Text = "Draw ETA Markers";
+            this.checkRouteDrawETA.UseVisualStyleBackColor = true;
+            this.checkRouteDrawETA.CheckedChanged += new System.EventHandler(this.checkRouteDrawETA_CheckedChanged);
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label82.Location = new System.Drawing.Point(3, 99);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(120, 21);
+            this.label82.TabIndex = 36;
+            this.label82.Text = "Route Markers";
+            // 
+            // checkRouteDrawMarkers
+            // 
+            this.checkRouteDrawMarkers.AutoSize = true;
+            this.checkRouteDrawMarkers.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteDrawMarkers.Location = new System.Drawing.Point(7, 123);
+            this.checkRouteDrawMarkers.Name = "checkRouteDrawMarkers";
+            this.checkRouteDrawMarkers.Size = new System.Drawing.Size(131, 17);
+            this.checkRouteDrawMarkers.TabIndex = 35;
+            this.checkRouteDrawMarkers.Text = "Draw Route Markers";
+            this.checkRouteDrawMarkers.UseVisualStyleBackColor = true;
+            this.checkRouteDrawMarkers.CheckedChanged += new System.EventHandler(this.checkRouteDrawMarkers_CheckedChanged);
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label80.Location = new System.Drawing.Point(177, 192);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(12, 13);
+            this.label80.TabIndex = 34;
+            this.label80.Text = "s";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label76.Location = new System.Drawing.Point(188, 145);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(21, 13);
+            this.label76.TabIndex = 33;
+            this.label76.Text = "ms";
+            // 
+            // checkRouteCinematicMode
+            // 
+            this.checkRouteCinematicMode.AutoSize = true;
+            this.checkRouteCinematicMode.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteCinematicMode.Location = new System.Drawing.Point(7, 53);
+            this.checkRouteCinematicMode.Name = "checkRouteCinematicMode";
+            this.checkRouteCinematicMode.Size = new System.Drawing.Size(118, 17);
+            this.checkRouteCinematicMode.TabIndex = 32;
+            this.checkRouteCinematicMode.Text = "Cinematic Replays";
+            this.checkRouteCinematicMode.UseVisualStyleBackColor = true;
+            // 
+            // checkRouteReplayRotation
+            // 
+            this.checkRouteReplayRotation.AutoSize = true;
+            this.checkRouteReplayRotation.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRouteReplayRotation.Location = new System.Drawing.Point(7, 32);
+            this.checkRouteReplayRotation.Name = "checkRouteReplayRotation";
+            this.checkRouteReplayRotation.Size = new System.Drawing.Size(127, 17);
+            this.checkRouteReplayRotation.TabIndex = 31;
+            this.checkRouteReplayRotation.Text = "Lock Replay Camera";
+            this.checkRouteReplayRotation.UseVisualStyleBackColor = true;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label79.Location = new System.Drawing.Point(21, 192);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(96, 13);
+            this.label79.TabIndex = 29;
+            this.label79.Text = "ETA Draw Interval";
+            // 
+            // numRouteETAInterval
+            // 
+            this.numRouteETAInterval.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRouteETAInterval.Location = new System.Drawing.Point(123, 191);
+            this.numRouteETAInterval.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.numRouteETAInterval.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numRouteETAInterval.Name = "numRouteETAInterval";
+            this.numRouteETAInterval.Size = new System.Drawing.Size(52, 22);
+            this.numRouteETAInterval.TabIndex = 28;
+            this.numRouteETAInterval.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label81.Location = new System.Drawing.Point(10, 145);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(109, 13);
+            this.label81.TabIndex = 26;
+            this.label81.Text = "Route Draw Interval";
+            // 
+            // numRouteDrawInterval
+            // 
+            this.numRouteDrawInterval.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numRouteDrawInterval.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numRouteDrawInterval.Location = new System.Drawing.Point(123, 144);
+            this.numRouteDrawInterval.Maximum = new decimal(new int[] {
+            60000,
+            0,
+            0,
+            0});
+            this.numRouteDrawInterval.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.numRouteDrawInterval.Name = "numRouteDrawInterval";
+            this.numRouteDrawInterval.Size = new System.Drawing.Size(67, 22);
+            this.numRouteDrawInterval.TabIndex = 25;
+            this.numRouteDrawInterval.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label83.Location = new System.Drawing.Point(3, 3);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(162, 25);
+            this.label83.TabIndex = 4;
+            this.label83.Text = "Route Recording";
             // 
             // tabLoadout
             // 
@@ -1696,837 +2777,6 @@
             this.label10.Size = new System.Drawing.Size(91, 13);
             this.label10.TabIndex = 13;
             this.label10.Text = "Primary Weapon";
-            // 
-            // tabMute
-            // 
-            this.tabMute.Controls.Add(this.panel15);
-            this.tabMute.Controls.Add(this.btnMuteDelete);
-            this.tabMute.Controls.Add(this.btnMuteAdd);
-            this.tabMute.Controls.Add(this.label36);
-            this.tabMute.Controls.Add(this.listMute);
-            this.tabMute.Location = new System.Drawing.Point(4, 26);
-            this.tabMute.Name = "tabMute";
-            this.tabMute.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMute.Size = new System.Drawing.Size(933, 416);
-            this.tabMute.TabIndex = 4;
-            this.tabMute.Text = "Global Mute";
-            this.tabMute.UseVisualStyleBackColor = true;
-            // 
-            // panel15
-            // 
-            this.panel15.Controls.Add(this.label23);
-            this.panel15.Controls.Add(this.label38);
-            this.panel15.Controls.Add(this.checkMuteDirectMessages);
-            this.panel15.Controls.Add(this.checkMuteText);
-            this.panel15.Controls.Add(this.checkMuteVGS);
-            this.panel15.Controls.Add(this.textMute);
-            this.panel15.Location = new System.Drawing.Point(7, 6);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(259, 133);
-            this.panel15.TabIndex = 51;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(3, 0);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(131, 25);
-            this.label23.TabIndex = 61;
-            this.label23.Text = "Player Details";
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.label38.Location = new System.Drawing.Point(4, 36);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(36, 13);
-            this.label38.TabIndex = 60;
-            this.label38.Text = "Name";
-            // 
-            // checkMuteDirectMessages
-            // 
-            this.checkMuteDirectMessages.AutoSize = true;
-            this.checkMuteDirectMessages.Enabled = false;
-            this.checkMuteDirectMessages.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.checkMuteDirectMessages.Location = new System.Drawing.Point(7, 104);
-            this.checkMuteDirectMessages.Name = "checkMuteDirectMessages";
-            this.checkMuteDirectMessages.Size = new System.Drawing.Size(120, 17);
-            this.checkMuteDirectMessages.TabIndex = 59;
-            this.checkMuteDirectMessages.Text = "Mute @ Messages";
-            this.checkMuteDirectMessages.UseVisualStyleBackColor = true;
-            this.checkMuteDirectMessages.Visible = false;
-            // 
-            // checkMuteText
-            // 
-            this.checkMuteText.AutoSize = true;
-            this.checkMuteText.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.checkMuteText.Location = new System.Drawing.Point(7, 83);
-            this.checkMuteText.Name = "checkMuteText";
-            this.checkMuteText.Size = new System.Drawing.Size(76, 17);
-            this.checkMuteText.TabIndex = 58;
-            this.checkMuteText.Text = "Mute Text";
-            this.checkMuteText.UseVisualStyleBackColor = true;
-            // 
-            // checkMuteVGS
-            // 
-            this.checkMuteVGS.AutoSize = true;
-            this.checkMuteVGS.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.checkMuteVGS.Location = new System.Drawing.Point(7, 62);
-            this.checkMuteVGS.Name = "checkMuteVGS";
-            this.checkMuteVGS.Size = new System.Drawing.Size(77, 17);
-            this.checkMuteVGS.TabIndex = 57;
-            this.checkMuteVGS.Text = "Mute VGS";
-            this.checkMuteVGS.UseVisualStyleBackColor = true;
-            // 
-            // textMute
-            // 
-            this.textMute.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.textMute.Location = new System.Drawing.Point(46, 34);
-            this.textMute.Name = "textMute";
-            this.textMute.Size = new System.Drawing.Size(205, 22);
-            this.textMute.TabIndex = 56;
-            // 
-            // btnMuteDelete
-            // 
-            this.btnMuteDelete.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.btnMuteDelete.Location = new System.Drawing.Point(426, 35);
-            this.btnMuteDelete.Name = "btnMuteDelete";
-            this.btnMuteDelete.Size = new System.Drawing.Size(152, 25);
-            this.btnMuteDelete.TabIndex = 50;
-            this.btnMuteDelete.Text = "Delete Selected";
-            this.btnMuteDelete.UseVisualStyleBackColor = true;
-            this.btnMuteDelete.Click += new System.EventHandler(this.btnMuteDelete_Click);
-            // 
-            // btnMuteAdd
-            // 
-            this.btnMuteAdd.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.btnMuteAdd.Location = new System.Drawing.Point(272, 34);
-            this.btnMuteAdd.Name = "btnMuteAdd";
-            this.btnMuteAdd.Size = new System.Drawing.Size(148, 26);
-            this.btnMuteAdd.TabIndex = 49;
-            this.btnMuteAdd.Text = "Save Edited";
-            this.btnMuteAdd.UseVisualStyleBackColor = true;
-            this.btnMuteAdd.Click += new System.EventHandler(this.btnMuteAdd_Click);
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label36.Location = new System.Drawing.Point(267, 6);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(217, 25);
-            this.label36.TabIndex = 46;
-            this.label36.Text = "Globally Muted Players";
-            // 
-            // listMute
-            // 
-            this.listMute.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.listMute.FormattingEnabled = true;
-            this.listMute.Location = new System.Drawing.Point(272, 69);
-            this.listMute.Name = "listMute";
-            this.listMute.Size = new System.Drawing.Size(306, 329);
-            this.listMute.TabIndex = 8;
-            this.listMute.SelectedIndexChanged += new System.EventHandler(this.listMute_SelectedIndexChanged);
-            // 
-            // tabProjectiles
-            // 
-            this.tabProjectiles.Controls.Add(this.panel5);
-            this.tabProjectiles.Controls.Add(this.panel6);
-            this.tabProjectiles.Location = new System.Drawing.Point(4, 26);
-            this.tabProjectiles.Name = "tabProjectiles";
-            this.tabProjectiles.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProjectiles.Size = new System.Drawing.Size(933, 416);
-            this.tabProjectiles.TabIndex = 5;
-            this.tabProjectiles.Text = "Projectile Modification";
-            this.tabProjectiles.UseVisualStyleBackColor = true;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.numProjectileSettingIntensity);
-            this.panel5.Controls.Add(this.label27);
-            this.panel5.Controls.Add(this.label26);
-            this.panel5.Controls.Add(this.colorProjectileSetting);
-            this.panel5.Controls.Add(this.label4);
-            this.panel5.Controls.Add(this.label17);
-            this.panel5.Controls.Add(this.label18);
-            this.panel5.Controls.Add(this.selectProjectileSettingWeapon);
-            this.panel5.Controls.Add(this.selectProjectileSettingClass);
-            this.panel5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel5.Location = new System.Drawing.Point(3, 3);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(229, 352);
-            this.panel5.TabIndex = 9;
-            // 
-            // numProjectileSettingIntensity
-            // 
-            this.numProjectileSettingIntensity.DecimalPlaces = 2;
-            this.numProjectileSettingIntensity.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numProjectileSettingIntensity.Location = new System.Drawing.Point(136, 144);
-            this.numProjectileSettingIntensity.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numProjectileSettingIntensity.Name = "numProjectileSettingIntensity";
-            this.numProjectileSettingIntensity.Size = new System.Drawing.Size(71, 22);
-            this.numProjectileSettingIntensity.TabIndex = 59;
-            this.numProjectileSettingIntensity.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(137, 124);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(62, 17);
-            this.label27.TabIndex = 58;
-            this.label27.Text = "Intensity";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(6, 100);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(103, 21);
-            this.label26.TabIndex = 57;
-            this.label26.Text = "Recolouring";
-            // 
-            // colorProjectileSetting
-            // 
-            this.colorProjectileSetting.Location = new System.Drawing.Point(10, 124);
-            this.colorProjectileSetting.Name = "colorProjectileSetting";
-            this.colorProjectileSetting.Size = new System.Drawing.Size(120, 170);
-            this.colorProjectileSetting.TabIndex = 46;
-            this.colorProjectileSetting.Paint += new System.Windows.Forms.PaintEventHandler(this.colorProjectileSetting_Paint);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(5, 4);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(159, 25);
-            this.label4.TabIndex = 45;
-            this.label4.Text = "Projectile Details";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(14, 65);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(51, 13);
-            this.label17.TabIndex = 13;
-            this.label17.Text = "Weapon";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(14, 38);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(33, 13);
-            this.label18.TabIndex = 12;
-            this.label18.Text = "Class";
-            // 
-            // selectProjectileSettingWeapon
-            // 
-            this.selectProjectileSettingWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSettingWeapon.FormattingEnabled = true;
-            this.selectProjectileSettingWeapon.Location = new System.Drawing.Point(71, 62);
-            this.selectProjectileSettingWeapon.Name = "selectProjectileSettingWeapon";
-            this.selectProjectileSettingWeapon.Size = new System.Drawing.Size(148, 21);
-            this.selectProjectileSettingWeapon.TabIndex = 10;
-            this.selectProjectileSettingWeapon.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSettingWeapon_SelectedIndexChanged);
-            // 
-            // selectProjectileSettingClass
-            // 
-            this.selectProjectileSettingClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSettingClass.FormattingEnabled = true;
-            this.selectProjectileSettingClass.Items.AddRange(new object[] {
-            "Light",
-            "Medium",
-            "Heavy"});
-            this.selectProjectileSettingClass.Location = new System.Drawing.Point(71, 35);
-            this.selectProjectileSettingClass.Name = "selectProjectileSettingClass";
-            this.selectProjectileSettingClass.Size = new System.Drawing.Size(148, 21);
-            this.selectProjectileSettingClass.TabIndex = 9;
-            this.selectProjectileSettingClass.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSettingClass_SelectedIndexChanged);
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.label19);
-            this.panel6.Controls.Add(this.btnProjectileSettingDelete);
-            this.panel6.Controls.Add(this.btnProjectileSettingSave);
-            this.panel6.Controls.Add(this.listProjectileSetting);
-            this.panel6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel6.Location = new System.Drawing.Point(238, 3);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(329, 413);
-            this.panel6.TabIndex = 8;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(3, 4);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(189, 25);
-            this.label19.TabIndex = 46;
-            this.label19.Text = "Projectiles Modified";
-            // 
-            // btnProjectileSettingDelete
-            // 
-            this.btnProjectileSettingDelete.Location = new System.Drawing.Point(132, 35);
-            this.btnProjectileSettingDelete.Name = "btnProjectileSettingDelete";
-            this.btnProjectileSettingDelete.Size = new System.Drawing.Size(117, 23);
-            this.btnProjectileSettingDelete.TabIndex = 9;
-            this.btnProjectileSettingDelete.Text = "Delete Selected";
-            this.btnProjectileSettingDelete.UseVisualStyleBackColor = true;
-            this.btnProjectileSettingDelete.Click += new System.EventHandler(this.btnProjectileSettingDelete_Click);
-            // 
-            // btnProjectileSettingSave
-            // 
-            this.btnProjectileSettingSave.Location = new System.Drawing.Point(3, 35);
-            this.btnProjectileSettingSave.Name = "btnProjectileSettingSave";
-            this.btnProjectileSettingSave.Size = new System.Drawing.Size(120, 23);
-            this.btnProjectileSettingSave.TabIndex = 8;
-            this.btnProjectileSettingSave.Text = "Save Edited Crosshair";
-            this.btnProjectileSettingSave.UseVisualStyleBackColor = true;
-            this.btnProjectileSettingSave.Click += new System.EventHandler(this.btnProjectileSettingSave_Click);
-            // 
-            // listProjectileSetting
-            // 
-            this.listProjectileSetting.FormattingEnabled = true;
-            this.listProjectileSetting.Location = new System.Drawing.Point(2, 64);
-            this.listProjectileSetting.Name = "listProjectileSetting";
-            this.listProjectileSetting.Size = new System.Drawing.Size(324, 329);
-            this.listProjectileSetting.TabIndex = 7;
-            this.listProjectileSetting.SelectedIndexChanged += new System.EventHandler(this.listProjectileSetting_SelectedIndexChanged);
-            // 
-            // tabProjSwap
-            // 
-            this.tabProjSwap.Controls.Add(this.panel7);
-            this.tabProjSwap.Controls.Add(this.panel16);
-            this.tabProjSwap.Location = new System.Drawing.Point(4, 26);
-            this.tabProjSwap.Name = "tabProjSwap";
-            this.tabProjSwap.Padding = new System.Windows.Forms.Padding(3);
-            this.tabProjSwap.Size = new System.Drawing.Size(933, 416);
-            this.tabProjSwap.TabIndex = 6;
-            this.tabProjSwap.Text = "Projectile Swap";
-            this.tabProjSwap.UseVisualStyleBackColor = true;
-            // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.label24);
-            this.panel7.Controls.Add(this.label25);
-            this.panel7.Controls.Add(this.selectProjectileSwapWeapon_Swap);
-            this.panel7.Controls.Add(this.selectProjectileSwapClass_Swap);
-            this.panel7.Controls.Add(this.label22);
-            this.panel7.Controls.Add(this.checkProjectileSwapClone);
-            this.panel7.Controls.Add(this.label5);
-            this.panel7.Controls.Add(this.label6);
-            this.panel7.Controls.Add(this.label20);
-            this.panel7.Controls.Add(this.selectProjectileSwapWeapon);
-            this.panel7.Controls.Add(this.selectProjectileSwapClass);
-            this.panel7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel7.Location = new System.Drawing.Point(3, 3);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(238, 217);
-            this.panel7.TabIndex = 11;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(14, 151);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(51, 13);
-            this.label24.TabIndex = 60;
-            this.label24.Text = "Weapon";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(14, 124);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(33, 13);
-            this.label25.TabIndex = 59;
-            this.label25.Text = "Class";
-            // 
-            // selectProjectileSwapWeapon_Swap
-            // 
-            this.selectProjectileSwapWeapon_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSwapWeapon_Swap.FormattingEnabled = true;
-            this.selectProjectileSwapWeapon_Swap.Location = new System.Drawing.Point(71, 148);
-            this.selectProjectileSwapWeapon_Swap.Name = "selectProjectileSwapWeapon_Swap";
-            this.selectProjectileSwapWeapon_Swap.Size = new System.Drawing.Size(159, 21);
-            this.selectProjectileSwapWeapon_Swap.TabIndex = 58;
-            // 
-            // selectProjectileSwapClass_Swap
-            // 
-            this.selectProjectileSwapClass_Swap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSwapClass_Swap.FormattingEnabled = true;
-            this.selectProjectileSwapClass_Swap.Items.AddRange(new object[] {
-            "Light",
-            "Medium",
-            "Heavy"});
-            this.selectProjectileSwapClass_Swap.Location = new System.Drawing.Point(71, 121);
-            this.selectProjectileSwapClass_Swap.Name = "selectProjectileSwapClass_Swap";
-            this.selectProjectileSwapClass_Swap.Size = new System.Drawing.Size(159, 21);
-            this.selectProjectileSwapClass_Swap.TabIndex = 57;
-            this.selectProjectileSwapClass_Swap.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSwapClass_Swap_SelectedIndexChanged);
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(6, 97);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(170, 21);
-            this.label22.TabIndex = 56;
-            this.label22.Text = "Swap with projectile:";
-            // 
-            // checkProjectileSwapClone
-            // 
-            this.checkProjectileSwapClone.AutoSize = true;
-            this.checkProjectileSwapClone.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkProjectileSwapClone.Location = new System.Drawing.Point(17, 175);
-            this.checkProjectileSwapClone.Name = "checkProjectileSwapClone";
-            this.checkProjectileSwapClone.Size = new System.Drawing.Size(203, 17);
-            this.checkProjectileSwapClone.TabIndex = 46;
-            this.checkProjectileSwapClone.Text = "Do not apply modifications (clone)";
-            this.checkProjectileSwapClone.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(5, 4);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(159, 25);
-            this.label5.TabIndex = 45;
-            this.label5.Text = "Projectile Details";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 65);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Weapon";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(14, 38);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(33, 13);
-            this.label20.TabIndex = 12;
-            this.label20.Text = "Class";
-            // 
-            // selectProjectileSwapWeapon
-            // 
-            this.selectProjectileSwapWeapon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSwapWeapon.FormattingEnabled = true;
-            this.selectProjectileSwapWeapon.Location = new System.Drawing.Point(71, 62);
-            this.selectProjectileSwapWeapon.Name = "selectProjectileSwapWeapon";
-            this.selectProjectileSwapWeapon.Size = new System.Drawing.Size(159, 21);
-            this.selectProjectileSwapWeapon.TabIndex = 10;
-            // 
-            // selectProjectileSwapClass
-            // 
-            this.selectProjectileSwapClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectProjectileSwapClass.FormattingEnabled = true;
-            this.selectProjectileSwapClass.Items.AddRange(new object[] {
-            "Light",
-            "Medium",
-            "Heavy"});
-            this.selectProjectileSwapClass.Location = new System.Drawing.Point(71, 35);
-            this.selectProjectileSwapClass.Name = "selectProjectileSwapClass";
-            this.selectProjectileSwapClass.Size = new System.Drawing.Size(159, 21);
-            this.selectProjectileSwapClass.TabIndex = 9;
-            this.selectProjectileSwapClass.SelectedIndexChanged += new System.EventHandler(this.selectProjectileSwapClass_SelectedIndexChanged);
-            // 
-            // panel16
-            // 
-            this.panel16.Controls.Add(this.label21);
-            this.panel16.Controls.Add(this.btnProjectileSwapDelete);
-            this.panel16.Controls.Add(this.btnProjectileSwapSave);
-            this.panel16.Controls.Add(this.listProjectileSwap);
-            this.panel16.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel16.Location = new System.Drawing.Point(247, 3);
-            this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(489, 413);
-            this.panel16.TabIndex = 10;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(3, 4);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(190, 25);
-            this.label21.TabIndex = 46;
-            this.label21.Text = "Projectiles Swapped";
-            // 
-            // btnProjectileSwapDelete
-            // 
-            this.btnProjectileSwapDelete.Location = new System.Drawing.Point(132, 35);
-            this.btnProjectileSwapDelete.Name = "btnProjectileSwapDelete";
-            this.btnProjectileSwapDelete.Size = new System.Drawing.Size(117, 23);
-            this.btnProjectileSwapDelete.TabIndex = 9;
-            this.btnProjectileSwapDelete.Text = "Delete Selected";
-            this.btnProjectileSwapDelete.UseVisualStyleBackColor = true;
-            this.btnProjectileSwapDelete.Click += new System.EventHandler(this.btnProjectileSwapDelete_Click);
-            // 
-            // btnProjectileSwapSave
-            // 
-            this.btnProjectileSwapSave.Location = new System.Drawing.Point(3, 35);
-            this.btnProjectileSwapSave.Name = "btnProjectileSwapSave";
-            this.btnProjectileSwapSave.Size = new System.Drawing.Size(120, 23);
-            this.btnProjectileSwapSave.TabIndex = 8;
-            this.btnProjectileSwapSave.Text = "Save Edited";
-            this.btnProjectileSwapSave.UseVisualStyleBackColor = true;
-            this.btnProjectileSwapSave.Click += new System.EventHandler(this.btnProjectileSwapSave_Click);
-            // 
-            // listProjectileSwap
-            // 
-            this.listProjectileSwap.FormattingEnabled = true;
-            this.listProjectileSwap.Location = new System.Drawing.Point(2, 64);
-            this.listProjectileSwap.Name = "listProjectileSwap";
-            this.listProjectileSwap.Size = new System.Drawing.Size(484, 329);
-            this.listProjectileSwap.TabIndex = 7;
-            this.listProjectileSwap.SelectedIndexChanged += new System.EventHandler(this.listProjectileSwap_SelectedIndexChanged);
-            // 
-            // tabCapping
-            // 
-            this.tabCapping.Controls.Add(this.panel17);
-            this.tabCapping.Controls.Add(this.panel22);
-            this.tabCapping.Controls.Add(this.panel21);
-            this.tabCapping.Location = new System.Drawing.Point(4, 26);
-            this.tabCapping.Margin = new System.Windows.Forms.Padding(2);
-            this.tabCapping.Name = "tabCapping";
-            this.tabCapping.Padding = new System.Windows.Forms.Padding(2);
-            this.tabCapping.Size = new System.Drawing.Size(933, 416);
-            this.tabCapping.TabIndex = 8;
-            this.tabCapping.Text = "Capping";
-            this.tabCapping.UseVisualStyleBackColor = true;
-            // 
-            // panel22
-            // 
-            this.panel22.BackColor = System.Drawing.Color.Transparent;
-            this.panel22.Controls.Add(this.checkStopwatchNotifications);
-            this.panel22.Controls.Add(this.checkStopwatchStopOnDeath);
-            this.panel22.Controls.Add(this.checkStopwatchStopOnCap);
-            this.panel22.Controls.Add(this.label89);
-            this.panel22.Location = new System.Drawing.Point(223, 5);
-            this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(186, 203);
-            this.panel22.TabIndex = 4;
-            // 
-            // checkStopwatchNotifications
-            // 
-            this.checkStopwatchNotifications.AutoSize = true;
-            this.checkStopwatchNotifications.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkStopwatchNotifications.Location = new System.Drawing.Point(7, 73);
-            this.checkStopwatchNotifications.Name = "checkStopwatchNotifications";
-            this.checkStopwatchNotifications.Size = new System.Drawing.Size(182, 17);
-            this.checkStopwatchNotifications.TabIndex = 33;
-            this.checkStopwatchNotifications.Text = "Show Stopwatch Notifications";
-            this.checkStopwatchNotifications.UseVisualStyleBackColor = true;
-            // 
-            // checkStopwatchStopOnDeath
-            // 
-            this.checkStopwatchStopOnDeath.AutoSize = true;
-            this.checkStopwatchStopOnDeath.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkStopwatchStopOnDeath.Location = new System.Drawing.Point(7, 53);
-            this.checkStopwatchStopOnDeath.Name = "checkStopwatchStopOnDeath";
-            this.checkStopwatchStopOnDeath.Size = new System.Drawing.Size(159, 17);
-            this.checkStopwatchStopOnDeath.TabIndex = 32;
-            this.checkStopwatchStopOnDeath.Text = "Stop Stopwatch on Death";
-            this.checkStopwatchStopOnDeath.UseVisualStyleBackColor = true;
-            // 
-            // checkStopwatchStopOnCap
-            // 
-            this.checkStopwatchStopOnCap.AutoSize = true;
-            this.checkStopwatchStopOnCap.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkStopwatchStopOnCap.Location = new System.Drawing.Point(7, 32);
-            this.checkStopwatchStopOnCap.Name = "checkStopwatchStopOnCap";
-            this.checkStopwatchStopOnCap.Size = new System.Drawing.Size(148, 17);
-            this.checkStopwatchStopOnCap.TabIndex = 31;
-            this.checkStopwatchStopOnCap.Text = "Stop Stopwatch on Cap";
-            this.checkStopwatchStopOnCap.UseVisualStyleBackColor = true;
-            // 
-            // label89
-            // 
-            this.label89.AutoSize = true;
-            this.label89.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label89.Location = new System.Drawing.Point(3, 3);
-            this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(106, 25);
-            this.label89.TabIndex = 4;
-            this.label89.Text = "Stopwatch";
-            // 
-            // panel21
-            // 
-            this.panel21.BackColor = System.Drawing.Color.Transparent;
-            this.panel21.Controls.Add(this.checkRouteDrawSavedLocations);
-            this.panel21.Controls.Add(this.checkRouteDrawETA);
-            this.panel21.Controls.Add(this.label82);
-            this.panel21.Controls.Add(this.checkRouteDrawMarkers);
-            this.panel21.Controls.Add(this.label80);
-            this.panel21.Controls.Add(this.label76);
-            this.panel21.Controls.Add(this.checkRouteCinematicMode);
-            this.panel21.Controls.Add(this.checkRouteReplayRotation);
-            this.panel21.Controls.Add(this.label79);
-            this.panel21.Controls.Add(this.numRouteETAInterval);
-            this.panel21.Controls.Add(this.label81);
-            this.panel21.Controls.Add(this.numRouteDrawInterval);
-            this.panel21.Controls.Add(this.label83);
-            this.panel21.Location = new System.Drawing.Point(5, 5);
-            this.panel21.Name = "panel21";
-            this.panel21.Size = new System.Drawing.Size(213, 231);
-            this.panel21.TabIndex = 3;
-            // 
-            // checkRouteDrawSavedLocations
-            // 
-            this.checkRouteDrawSavedLocations.AutoSize = true;
-            this.checkRouteDrawSavedLocations.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRouteDrawSavedLocations.Location = new System.Drawing.Point(7, 73);
-            this.checkRouteDrawSavedLocations.Name = "checkRouteDrawSavedLocations";
-            this.checkRouteDrawSavedLocations.Size = new System.Drawing.Size(138, 17);
-            this.checkRouteDrawSavedLocations.TabIndex = 38;
-            this.checkRouteDrawSavedLocations.Text = "Draw Saved Locations";
-            this.checkRouteDrawSavedLocations.UseVisualStyleBackColor = true;
-            // 
-            // checkRouteDrawETA
-            // 
-            this.checkRouteDrawETA.AutoSize = true;
-            this.checkRouteDrawETA.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRouteDrawETA.Location = new System.Drawing.Point(7, 171);
-            this.checkRouteDrawETA.Name = "checkRouteDrawETA";
-            this.checkRouteDrawETA.Size = new System.Drawing.Size(118, 17);
-            this.checkRouteDrawETA.TabIndex = 37;
-            this.checkRouteDrawETA.Text = "Draw ETA Markers";
-            this.checkRouteDrawETA.UseVisualStyleBackColor = true;
-            this.checkRouteDrawETA.CheckedChanged += new System.EventHandler(this.checkRouteDrawETA_CheckedChanged);
-            // 
-            // label82
-            // 
-            this.label82.AutoSize = true;
-            this.label82.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label82.Location = new System.Drawing.Point(3, 99);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(120, 21);
-            this.label82.TabIndex = 36;
-            this.label82.Text = "Route Markers";
-            // 
-            // checkRouteDrawMarkers
-            // 
-            this.checkRouteDrawMarkers.AutoSize = true;
-            this.checkRouteDrawMarkers.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRouteDrawMarkers.Location = new System.Drawing.Point(7, 123);
-            this.checkRouteDrawMarkers.Name = "checkRouteDrawMarkers";
-            this.checkRouteDrawMarkers.Size = new System.Drawing.Size(131, 17);
-            this.checkRouteDrawMarkers.TabIndex = 35;
-            this.checkRouteDrawMarkers.Text = "Draw Route Markers";
-            this.checkRouteDrawMarkers.UseVisualStyleBackColor = true;
-            this.checkRouteDrawMarkers.CheckedChanged += new System.EventHandler(this.checkRouteDrawMarkers_CheckedChanged);
-            // 
-            // label80
-            // 
-            this.label80.AutoSize = true;
-            this.label80.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label80.Location = new System.Drawing.Point(177, 192);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(12, 13);
-            this.label80.TabIndex = 34;
-            this.label80.Text = "s";
-            // 
-            // label76
-            // 
-            this.label76.AutoSize = true;
-            this.label76.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label76.Location = new System.Drawing.Point(188, 145);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(21, 13);
-            this.label76.TabIndex = 33;
-            this.label76.Text = "ms";
-            // 
-            // checkRouteCinematicMode
-            // 
-            this.checkRouteCinematicMode.AutoSize = true;
-            this.checkRouteCinematicMode.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRouteCinematicMode.Location = new System.Drawing.Point(7, 53);
-            this.checkRouteCinematicMode.Name = "checkRouteCinematicMode";
-            this.checkRouteCinematicMode.Size = new System.Drawing.Size(118, 17);
-            this.checkRouteCinematicMode.TabIndex = 32;
-            this.checkRouteCinematicMode.Text = "Cinematic Replays";
-            this.checkRouteCinematicMode.UseVisualStyleBackColor = true;
-            // 
-            // checkRouteReplayRotation
-            // 
-            this.checkRouteReplayRotation.AutoSize = true;
-            this.checkRouteReplayRotation.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRouteReplayRotation.Location = new System.Drawing.Point(7, 32);
-            this.checkRouteReplayRotation.Name = "checkRouteReplayRotation";
-            this.checkRouteReplayRotation.Size = new System.Drawing.Size(127, 17);
-            this.checkRouteReplayRotation.TabIndex = 31;
-            this.checkRouteReplayRotation.Text = "Lock Replay Camera";
-            this.checkRouteReplayRotation.UseVisualStyleBackColor = true;
-            // 
-            // label79
-            // 
-            this.label79.AutoSize = true;
-            this.label79.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label79.Location = new System.Drawing.Point(21, 192);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(96, 13);
-            this.label79.TabIndex = 29;
-            this.label79.Text = "ETA Draw Interval";
-            // 
-            // numRouteETAInterval
-            // 
-            this.numRouteETAInterval.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numRouteETAInterval.Location = new System.Drawing.Point(123, 191);
-            this.numRouteETAInterval.Maximum = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            this.numRouteETAInterval.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numRouteETAInterval.Name = "numRouteETAInterval";
-            this.numRouteETAInterval.Size = new System.Drawing.Size(52, 22);
-            this.numRouteETAInterval.TabIndex = 28;
-            this.numRouteETAInterval.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // label81
-            // 
-            this.label81.AutoSize = true;
-            this.label81.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label81.Location = new System.Drawing.Point(10, 145);
-            this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(109, 13);
-            this.label81.TabIndex = 26;
-            this.label81.Text = "Route Draw Interval";
-            // 
-            // numRouteDrawInterval
-            // 
-            this.numRouteDrawInterval.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numRouteDrawInterval.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numRouteDrawInterval.Location = new System.Drawing.Point(123, 144);
-            this.numRouteDrawInterval.Maximum = new decimal(new int[] {
-            60000,
-            0,
-            0,
-            0});
-            this.numRouteDrawInterval.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            this.numRouteDrawInterval.Name = "numRouteDrawInterval";
-            this.numRouteDrawInterval.Size = new System.Drawing.Size(67, 22);
-            this.numRouteDrawInterval.TabIndex = 25;
-            this.numRouteDrawInterval.Value = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-            // 
-            // label83
-            // 
-            this.label83.AutoSize = true;
-            this.label83.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label83.Location = new System.Drawing.Point(3, 3);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(162, 25);
-            this.label83.TabIndex = 4;
-            this.label83.Text = "Route Recording";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Controls.Add(this.btnInject);
-            this.flowLayoutPanel1.Controls.Add(this.panel23);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 455);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(941, 45);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(3, 3);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(92, 31);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
-            // btnInject
-            // 
-            this.btnInject.Enabled = false;
-            this.btnInject.Location = new System.Drawing.Point(101, 3);
-            this.btnInject.Name = "btnInject";
-            this.btnInject.Size = new System.Drawing.Size(92, 31);
-            this.btnInject.TabIndex = 2;
-            this.btnInject.Text = "Inject";
-            this.btnInject.UseVisualStyleBackColor = true;
-            this.btnInject.Visible = false;
-            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
-            // 
-            // panel23
-            // 
-            this.panel23.Controls.Add(this.label85);
-            this.panel23.Controls.Add(this.selectConfigPreset);
-            this.panel23.Location = new System.Drawing.Point(199, 3);
-            this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(255, 31);
-            this.panel23.TabIndex = 3;
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(3, 8);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(62, 13);
-            this.label85.TabIndex = 5;
-            this.label85.Text = "Use Preset:";
-            // 
-            // selectConfigPreset
-            // 
-            this.selectConfigPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectConfigPreset.FormattingEnabled = true;
-            this.selectConfigPreset.Location = new System.Drawing.Point(68, 4);
-            this.selectConfigPreset.Name = "selectConfigPreset";
-            this.selectConfigPreset.Size = new System.Drawing.Size(172, 21);
-            this.selectConfigPreset.TabIndex = 4;
-            // 
-            // fileHitSound
-            // 
-            this.fileHitSound.Filter = "Wave files|*.wav";
-            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // tabCrosshair
             // 
@@ -3027,221 +3277,26 @@
             this.label28.TabIndex = 46;
             this.label28.Text = "Sound Settings";
             // 
-            // panel17
-            // 
-            this.panel17.BackColor = System.Drawing.Color.Transparent;
-            this.panel17.Controls.Add(this.label52);
-            this.panel17.Controls.Add(this.numRoamFlagDecel);
-            this.panel17.Controls.Add(this.label51);
-            this.panel17.Controls.Add(this.label49);
-            this.panel17.Controls.Add(this.label50);
-            this.panel17.Controls.Add(this.numRoamFlagSpeed);
-            this.panel17.Controls.Add(this.checkRoamPower);
-            this.panel17.Controls.Add(this.checkRoamTurrets);
-            this.panel17.Controls.Add(this.label30);
-            this.panel17.Location = new System.Drawing.Point(415, 5);
-            this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(204, 154);
-            this.panel17.TabIndex = 6;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label52.Location = new System.Drawing.Point(25, 128);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(95, 13);
-            this.label52.TabIndex = 33;
-            this.label52.Text = "Deceleration rate";
-            // 
-            // numRoamFlagDecel
-            // 
-            this.numRoamFlagDecel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numRoamFlagDecel.Location = new System.Drawing.Point(126, 125);
-            this.numRoamFlagDecel.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numRoamFlagDecel.Name = "numRoamFlagDecel";
-            this.numRoamFlagDecel.Size = new System.Drawing.Size(52, 22);
-            this.numRoamFlagDecel.TabIndex = 32;
-            this.numRoamFlagDecel.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label51.Location = new System.Drawing.Point(7, 74);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(83, 21);
-            this.label51.TabIndex = 31;
-            this.label51.Text = "Flag Drag";
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(179, 99);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(27, 13);
-            this.label49.TabIndex = 30;
-            this.label49.Text = "kph";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label50.Location = new System.Drawing.Point(8, 101);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(112, 13);
-            this.label50.TabIndex = 29;
-            this.label50.Text = "Max Speed with flag";
-            // 
-            // numRoamFlagSpeed
-            // 
-            this.numRoamFlagSpeed.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numRoamFlagSpeed.Location = new System.Drawing.Point(126, 97);
-            this.numRoamFlagSpeed.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numRoamFlagSpeed.Name = "numRoamFlagSpeed";
-            this.numRoamFlagSpeed.Size = new System.Drawing.Size(52, 22);
-            this.numRoamFlagSpeed.TabIndex = 28;
-            // 
-            // checkRoamPower
-            // 
-            this.checkRoamPower.AutoSize = true;
-            this.checkRoamPower.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRoamPower.Location = new System.Drawing.Point(11, 54);
-            this.checkRoamPower.Name = "checkRoamPower";
-            this.checkRoamPower.Size = new System.Drawing.Size(99, 17);
-            this.checkRoamPower.TabIndex = 7;
-            this.checkRoamPower.Text = "Disable Power";
-            this.checkRoamPower.UseVisualStyleBackColor = true;
-            // 
-            // checkRoamTurrets
-            // 
-            this.checkRoamTurrets.AutoSize = true;
-            this.checkRoamTurrets.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRoamTurrets.Location = new System.Drawing.Point(11, 34);
-            this.checkRoamTurrets.Name = "checkRoamTurrets";
-            this.checkRoamTurrets.Size = new System.Drawing.Size(129, 17);
-            this.checkRoamTurrets.TabIndex = 6;
-            this.checkRoamTurrets.Text = "Disable Base Turrets";
-            this.checkRoamTurrets.UseVisualStyleBackColor = true;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(6, 6);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(108, 25);
-            this.label30.TabIndex = 5;
-            this.label30.Text = "Roam Map";
-            // 
-            // label86
-            // 
-            this.label86.AutoSize = true;
-            this.label86.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(6, 157);
-            this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(71, 21);
-            this.label86.TabIndex = 33;
-            this.label86.Text = "Console";
-            // 
-            // label87
-            // 
-            this.label87.AutoSize = true;
-            this.label87.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(53, 184);
-            this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(33, 13);
-            this.label87.TabIndex = 35;
-            this.label87.Text = "Scale";
-            // 
-            // numConsoleScale
-            // 
-            this.numConsoleScale.DecimalPlaces = 2;
-            this.numConsoleScale.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numConsoleScale.Location = new System.Drawing.Point(92, 181);
-            this.numConsoleScale.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numConsoleScale.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numConsoleScale.Name = "numConsoleScale";
-            this.numConsoleScale.Size = new System.Drawing.Size(71, 22);
-            this.numConsoleScale.TabIndex = 34;
-            this.numConsoleScale.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label88
-            // 
-            this.label88.AutoSize = true;
-            this.label88.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label88.Location = new System.Drawing.Point(12, 212);
-            this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(74, 13);
-            this.label88.TabIndex = 37;
-            this.label88.Text = "Transparency";
-            // 
-            // numConsoleTransparency
-            // 
-            this.numConsoleTransparency.DecimalPlaces = 2;
-            this.numConsoleTransparency.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numConsoleTransparency.Location = new System.Drawing.Point(92, 209);
-            this.numConsoleTransparency.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numConsoleTransparency.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.numConsoleTransparency.Name = "numConsoleTransparency";
-            this.numConsoleTransparency.Size = new System.Drawing.Size(71, 22);
-            this.numConsoleTransparency.TabIndex = 36;
-            this.numConsoleTransparency.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::TAModConfigurationTool.Properties.Resources.background_sulfur31;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(947, 503);
+            this.ClientSize = new System.Drawing.Size(947, 533);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(955, 530);
-            this.MinimumSize = new System.Drawing.Size(955, 530);
+            this.MaximumSize = new System.Drawing.Size(955, 560);
+            this.MinimumSize = new System.Drawing.Size(955, 560);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "TAMods Configuration Tool vX.X";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
@@ -3263,24 +3318,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberStreamTimeout)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRevertOldPositioningThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberYOffset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberXOffset)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDamageNumberLimit)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numConsoleTransparency)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numConsoleScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSkiBarMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCrosshairScale)).EndInit();
             this.tabColor.ResumeLayout(false);
             this.tabColor.PerformLayout();
-            this.tabLoadout.ResumeLayout(false);
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
-            this.panel8.ResumeLayout(false);
-            this.panel8.PerformLayout();
             this.tabMute.ResumeLayout(false);
             this.tabMute.PerformLayout();
             this.panel15.ResumeLayout(false);
@@ -3297,15 +3348,23 @@
             this.panel16.ResumeLayout(false);
             this.panel16.PerformLayout();
             this.tabCapping.ResumeLayout(false);
+            this.panel17.ResumeLayout(false);
+            this.panel17.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).EndInit();
             this.panel22.ResumeLayout(false);
             this.panel22.PerformLayout();
             this.panel21.ResumeLayout(false);
             this.panel21.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteDrawInterval)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel23.ResumeLayout(false);
-            this.panel23.PerformLayout();
+            this.tabLoadout.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
             this.tabCrosshair.ResumeLayout(false);
             this.panel14.ResumeLayout(false);
             this.panel14.PerformLayout();
@@ -3323,12 +3382,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundDamageRef)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numHitSoundPitchMin)).EndInit();
-            this.panel17.ResumeLayout(false);
-            this.panel17.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagDecel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRoamFlagSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numConsoleScale)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numConsoleTransparency)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3578,6 +3631,10 @@
         private System.Windows.Forms.CheckBox checkRoamPower;
         private System.Windows.Forms.CheckBox checkRoamTurrets;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.CheckBox checkRevertOriginalPositioning;
+        private System.Windows.Forms.Label label91;
+        private System.Windows.Forms.Label label90;
+        private System.Windows.Forms.NumericUpDown numRevertOldPositioningThreshold;
     }
 }
 

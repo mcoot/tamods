@@ -127,6 +127,8 @@ namespace TAModConfigurationTool
             numDamageNumberXOffset.Value = 0;
             numDamageNumberYOffset.Enabled = true;
             numDamageNumberYOffset.Value = 0;
+            checkRevertOriginalPositioning.Checked = false;
+            numRevertOldPositioningThreshold.Value = 150;
 
             // Damage Number Streaming
             radioDamageNumberDiscrete.Checked = true;
@@ -338,6 +340,8 @@ namespace TAModConfigurationTool
             {
                 radioDamageNumberDiscrete.Checked = true;
             }
+            checkRevertOriginalPositioning.Checked = (bool)config.getConfigVar("revertOriginalDamageNumbers");
+            numRevertOldPositioningThreshold.Value = Convert.ToInt32(config.getConfigVar("revertOriginalDamageNumbersThreshold"));
 
             // HUD Icons
             numIFFScale.Value = Convert.ToDecimal(config.getConfigVar("IFFScale"));
@@ -533,6 +537,8 @@ namespace TAModConfigurationTool
             {
                 config.setConfigVar("showDamageNumberStream", true);
             }
+            config.setConfigVar("revertOriginalDamageNumbers", checkRevertOriginalPositioning.Checked);
+            config.setConfigVar("revertOriginalDamageNumbersThreshold", (int)numRevertOldPositioningThreshold.Value);
 
             // HUD Icons
             config.setConfigVar("IFFScale", Convert.ToSingle(numIFFScale.Value));
