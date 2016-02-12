@@ -21,7 +21,13 @@ require(preset .. "hud/widgets/vehicle_health_energy")
 require(preset .. "hud/widgets/weapon_list")
 
 -- Toggle HUD bound to Ctrl-O
-bindKey("O", Input.PRESSED, function() if not viewPort.isMainMenuOpen() then show_hud = not show_hud end end)
+bindKey("O", Input.PRESSED,
+	function(key, event, ctrl, shift, alt)
+	   if ctrl and not viewPort.isMainMenuOpen() then
+	      show_hud = not show_hud
+	   end
+	end
+)
 
 function onDrawCustomHud(res_x, res_y)
 	-- Toggle HUD
@@ -38,30 +44,30 @@ function onDrawCustomHud(res_x, res_y)
 		drawSmallText(stopwatch.timeStr(), text_color1, res_x - 140, 140, 0, 1, 1)
 	end
 
-	spectators(center_x, res_y * 0.85)
-	game_messages(center_x, 150)
-	chat_vgs(12, res_y - 300)
-	kill_feed(15, 15)
-	kill_message_box(center_x, res_y * 0.82)
-	kda_ping(res_x - 120, res_y - 10)
+	if spectators then spectators(center_x, res_y * 0.85) end
+	if game_messages then game_messages(center_x, 150) end
+	if chat_vgs then chat_vgs(12, res_y - 300) end
+	if kill_feed then kill_feed(15, 15) end
+	if kill_message_box then kill_message_box(center_x, res_y * 0.82) end
+	if kda_ping then kda_ping(res_x - 120, res_y - 10) end
 
-	game_timer(center_x, 0)
+	if game_timer then game_timer(center_x, 0) end
 
 	-- Draw 70x40 team colored rectangles containing team score, not in rabbit though
-	if game_type ~= "TrGame_TRRabbit" then
+	if game_type ~= "TrGame_TRRabbit" and game_scores then
 		game_scores(center_x, 0)
 	end
 
 	if game_type == "TrGame_TRCTF" or game_type == "TrGame_TrCTFBlitz" or game_type == "TrGame_TRTeamRabbit" then
 
-		flag_status(center_x, 0)
+		if flag_status then flag_status(center_x, 0) end
 
 		-- Generator status (not in TDM)
-		if game_type ~= "TrGame_TRTeamRabbit" then
+		if game_type ~= "TrGame_TRTeamRabbit" and generator_status then
 			generator_status(center_x, 0)
 		end
 
-	elseif game_type == "TrGame_TRRabbit" then
+	elseif game_type == "TrGame_TRRabbit" and rabbit_leaderboard then
 
 		rabbit_leaderboard(res_x - 300, 36)
 		-- Draw the current rabbit next to the game timer, but only if it's not us
@@ -69,16 +75,16 @@ function onDrawCustomHud(res_x, res_y)
 			drawText(rabbit.rabbitName(), team_colors_text[0], center_x + 80, 22, 0, 1)
 		end
 
-	elseif game_type == "TrGame_TrCaH" then
+	elseif game_type == "TrGame_TrCaH" and cah_capture_points then
 
 		cah_capture_points(center_x + 150, 5)
 
 	elseif game_type == "TrGame_TrArena" then
 
 		-- Round scores
-		arena_round_scores(center_x, 40)
+		if arena_round_scores then arena_round_scores(center_x, 40) end
 		-- Player spawns
-		arena_player_spawns(center_x, 10)
+		if arena_player_spawns then arena_player_spawns(center_x, 10) end
 		-- Draw a warning message if we have no respawns left
 		if my_team ~= 255 and not game.isWarmUp() and player.isAlive() and player.arenaSpawnsLeft() < 1 then
 			drawText("Last live!", text_color3, center_x, res_y * 0.12, 1, 1.8)
@@ -104,9 +110,9 @@ function onDrawCustomHud(res_x, res_y)
 			drawSmallText(currentWeapon.ammo(), currentWeapon.isLowAmmo() and text_color3 or text_color1, center_x + 16, res_y * 0.6, 1, 1, 1)
 		end
 
-		crosshairs(center_x, center_y)
-		health_energy(center_x, res_y - 35)
-		weapon_list(2, center_y - 100)
+		if crosshairs then crosshairs(center_x, center_y) end
+		if health_energy then health_energy(center_x, res_y - 35) end
+		if weapon_list then weapon_list(2, center_y - 100) end
 
 		-- Draw a message if we have the flag
 		if player.hasFlag() then
@@ -118,7 +124,7 @@ function onDrawCustomHud(res_x, res_y)
 		end
 
 		-- Vehicle display
-		if in_vehicle then
+		if in_vehicle and vehicle_health_energy then
 
 			vehicle_health_energy(res_x * 0.65, res_y - 200)
 
