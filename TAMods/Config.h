@@ -19,7 +19,7 @@
 
 // Uncomment for release
 #define RELEASE
-#define MODVERSION 0.61
+#define MODVERSION 0.62
 
 // Declared here to use as lua functions
 void stopwatch();
@@ -264,6 +264,8 @@ public:
 	float  damageNumbersOffsetX;
 	float  damageNumbersOffsetY;
 	float  damageNumbersScale;
+	bool   revertOriginalDamageNumbers;
+	float  revertOriginalDamageNumbersThreshold;
 
 	// Damage number / chain count streaming
 	bool   showDamageNumberStream;
@@ -403,6 +405,10 @@ public:
 	// HUD scaling
 	float IFFScale;
 	bool  showHUDWeapons;
+
+	// Console
+	float consoleSize;
+	float consoleTransparency;
 
 	//Stats
 	bool recordStats;

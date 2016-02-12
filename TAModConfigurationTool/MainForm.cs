@@ -102,6 +102,8 @@ namespace TAModConfigurationTool
             checkShowFirstPersonAmmo.Checked = false;
             numCrosshairScale.Enabled = true;
             numCrosshairScale.Value = 1;
+            numConsoleScale.Value = 0.75M;
+            numConsoleTransparency.Value = 0.8M;
 
             // Ski Bar Settings
             numSkiBarMin.Value = 7;
@@ -125,6 +127,8 @@ namespace TAModConfigurationTool
             numDamageNumberXOffset.Value = 0;
             numDamageNumberYOffset.Enabled = true;
             numDamageNumberYOffset.Value = 0;
+            checkRevertOriginalPositioning.Checked = false;
+            numRevertOldPositioningThreshold.Value = 150;
 
             // Damage Number Streaming
             radioDamageNumberDiscrete.Checked = true;
@@ -282,6 +286,8 @@ namespace TAModConfigurationTool
             checkShowFirstPersonAmmo.Checked = (bool)config.getConfigVar("showFirstPersonAmmo");
             checkShowCrosshair.Checked = (bool)config.getConfigVar("showCrosshair");
             numCrosshairScale.Value = Convert.ToDecimal(config.getConfigVar("crosshairScale"));
+            numConsoleScale.Value = Convert.ToDecimal(config.getConfigVar("consoleSize"));
+            numConsoleTransparency.Value = Convert.ToDecimal(config.getConfigVar("consoleTransparency"));
 
             // Ski Bar Settings
             numSkiBarMin.Value = Convert.ToInt32(config.getConfigVar("skiBarMin"));
@@ -334,6 +340,8 @@ namespace TAModConfigurationTool
             {
                 radioDamageNumberDiscrete.Checked = true;
             }
+            checkRevertOriginalPositioning.Checked = (bool)config.getConfigVar("revertOriginalDamageNumbers");
+            numRevertOldPositioningThreshold.Value = Convert.ToInt32(config.getConfigVar("revertOriginalDamageNumbersThreshold"));
 
             // HUD Icons
             numIFFScale.Value = Convert.ToDecimal(config.getConfigVar("IFFScale"));
@@ -479,6 +487,8 @@ namespace TAModConfigurationTool
             config.setConfigVar("showFirstPersonAmmo", checkShowFirstPersonAmmo.Checked);
             config.setConfigVar("showCrosshair", checkShowCrosshair.Checked);
             config.setConfigVar("crosshairScale", Convert.ToSingle(numCrosshairScale.Value));
+            config.setConfigVar("consoleSize", Convert.ToSingle(numConsoleScale.Value));
+            config.setConfigVar("consoleTransparency", Convert.ToSingle(numConsoleTransparency.Value));
 
             // Ski Bar Settings
             config.setConfigVar("skiBarMin", (int)numSkiBarMin.Value);
@@ -527,6 +537,8 @@ namespace TAModConfigurationTool
             {
                 config.setConfigVar("showDamageNumberStream", true);
             }
+            config.setConfigVar("revertOriginalDamageNumbers", checkRevertOriginalPositioning.Checked);
+            config.setConfigVar("revertOriginalDamageNumbersThreshold", (int)numRevertOldPositioningThreshold.Value);
 
             // HUD Icons
             config.setConfigVar("IFFScale", Convert.ToSingle(numIFFScale.Value));
@@ -768,7 +780,7 @@ namespace TAModConfigurationTool
             loadoutDetails["Light"]["shortrange"] = new List<string> { "Shotgun", "Shocklance" };
             loadoutRegex["Light"]["shortrange"] = new List<String> { "^(shotgun)$", "^(shocklance)$" };
             loadoutDetails["Light"]["sidearms"] = new List<string> { "Sparrow", "Throwing Knives" };
-            loadoutRegex["Light"]["sidearms"] = new List<String> { "^(sparrow)$)rx", "^(throwingknives|knives)$" };
+            loadoutRegex["Light"]["sidearms"] = new List<String> { "^(sparrow)$", "^(throwingknives|knives)$" };
 
             loadoutDetails["Light"]["belt"] = new List<string> { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons" };
             loadoutRegex["Light"]["belt"] = new List<string> { "^(nitrons?|impactnitrons?|impacts?)$", "^(explosivenitrons?|explosives?)$", "^(compactnitrons?|compacts?)$" };

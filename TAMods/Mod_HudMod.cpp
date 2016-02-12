@@ -1,5 +1,12 @@
 #include "Mods.h"
 
+void ConfigureHudState(UGfxTrHud *that, UGfxTrHud_execConfigureHUDState_Parms *params, void *ret, Hooks::CallInfo *callinfo)
+{
+	if (!g_config.showHUDWeapons)
+		that->m_TrPC->m_bShowHUDWeapons = g_config.showHUDWeapons;
+	that->ConfigureHUDState(params->bAlive, params->bReady, params->bForceCredits);
+}
+
 bool TrHudWrapper_destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	AUTGFxHudWrapper *that = (AUTGFxHudWrapper *)dwCallingObject;

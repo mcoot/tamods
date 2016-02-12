@@ -1,0 +1,15 @@
+Based on Shreq's potatoHud. Modifications made to be a bit closer to the standard T:A UI.
+
+Differences from potatoHud:
+
+* Health/Energy in lower left corner
+* Health/Energy bars are segmented
+* Speed bar added on the left of the screen
+* Weapon listing moved to the bottom of the screen
+* Weapon listings show the names of equipped weapons
+* Flag holders appear under the scores rather than beside them
+* Generator power indicator disabled (the IFF marker still shows gen status)
+* No diagonal crosshair line for explosives
+* No ammo count near the crosshair
+* Chat and killfeed locations switched to be more like regular T:A positioning
+* If there are no spectators, a message to that effect is shown on the scoreboard

@@ -88,7 +88,7 @@ namespace TAModConfigurationTool
 
                 { "Display", new List<string>()
                     {
-                        "showWeapon", "showHUDWeapons", "showBodyMesh", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax"
+                        "showWeapon", "showHUDWeapons", "showBodyMesh", "showRainbow", "showCrosshair", "crosshairScale", "crosshairColor", "showFirstPersonAmmo", "skiBarMin", "skiBarMax", "consoleSize", "consoleTransparency"
                     }
                 },
 
@@ -107,7 +107,7 @@ namespace TAModConfigurationTool
                 { "Damage Numbers", new List<string>()
                     {
                         "damageNumbersLimit", "showDamageNumberStream", "showChainBulletHitCount", "damageNumberStreamTimeout", "damageNumbersOffsetX", "damageNumbersOffsetY",
-                        "damageNumbersScale", "damageNumberCustomText", "damageNumbersColorMin", "damageNumbersColorMax"
+                        "damageNumbersScale", "damageNumberCustomText", "damageNumbersColorMin", "damageNumbersColorMax", "revertOriginalDamageNumbers", "revertOriginalDamageNumbersThreshold"
                     }
                 },
 
@@ -174,6 +174,8 @@ namespace TAModConfigurationTool
                 { "showFirstPersonAmmo", false },
                 { "skiBarMin", 7 },
                 { "skiBarMax", 180 },
+                { "consoleSize", 0.75M },
+                { "consoleTransparency", 0.8M },
 
                 { "damageNumbersLimit", 0 },
                 { "showDamageNumberStream", false },
@@ -183,6 +185,8 @@ namespace TAModConfigurationTool
                 { "damageNumbersOffsetY", 0 },
                 { "damageNumbersScale", 1 },
                 { "damageNumberCustomText", "" },
+                { "revertOriginalDamageNumbers", false },
+                { "revertOriginalDamageNumbersThreshold", 150 },
 
                 { "IFFScale", 1.0 },
                 { "showObjectiveIcon", true },

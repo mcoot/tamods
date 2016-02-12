@@ -15,6 +15,9 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	ATrPlayerController_execClientShowOverheadNumber_Parms *params = (ATrPlayerController_execClientShowOverheadNumber_Parms *)pParams;
 	FVector4 loc(params->WorldLocation.X, params->WorldLocation.Y, params->WorldLocation.Z, params->fScreenDepth);
 
+	if (g_config.revertOriginalDamageNumbers && params->NumberToShow < g_config.revertOriginalDamageNumbersThreshold)
+		loc.Z -= ((UTrDmgType_Bullet *)UTrDmgType_Bullet::StaticClass()->Default)->m_v2DDamageNumbersMinMaxZ.X;
+
 	// Hit sounds
 	playHitSound((bool)params->bShieldDamage, &params->NumberToShow);
 

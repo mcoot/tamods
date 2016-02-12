@@ -33,6 +33,7 @@ void onDLLProcessAttach()
 		Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers
 		Hooks::addUScript(&TrHUD_DrawMarkerText, "Function TribesGame.TrHUD.DrawMarkerText"); // Custom text size
 		Hooks::addUScript(&TrHUD_DrawHealthBar, "Function TribesGame.TrHUD.DrawHealthBar");
+		Hooks::addUScript(&ConfigureHudState, "Function TribesGame.GfxTrHud.ConfigureHUDState");
 
 		// Custom HUD
 		Hooks::addUScript(&TrRabbitLeaderboard_Show, "Function TribesGame.TrRabbitLeaderboard.Show"); // Hide rabbit leaderboard when T:As team scores HUD option is disabled
@@ -45,7 +46,6 @@ void onDLLProcessAttach()
 		Hooks::addUScript(&TrHUD_SendLocalMessageToChat, "Function TribesGame.TrHUD.SendLocalMessageToChat"); // Redirect flood protection messages
 		Hooks::addUScript(&TrHUD_AddUpdateToKillMessage, "Function TribesGame.TrHUD.AddUpdateToKillMessage"); // Custom kill message box
 		Hooks::add(&TrPC_AddChatToConsole, "Function TribesGame.TrPlayerController.AddChatToConsole"); // Redirect PMs
-		//Hooks::addUScript(&TrPC_AddChatToConsole, "Function TribesGame.TrPlayerController.AddChatToConsole"); // Prevent whisper messages from showing up in the console if we handle them in lua
 		
 		Hooks::add(&TrFlagBase_PostRenderFor, "Function TribesGame.TrFlagBase.PostRenderFor"); // Only show flag icon when it's off-stand
 
@@ -91,8 +91,10 @@ void onDLLProcessAttach()
 		// Custom console commands
 		Hooks::add(&TrChatConsole_Open_InputKey, "Function TrChatConsole.Open.InputKey");
 		Hooks::add(&TrChatConsole_Typing_InputKey, "Function TrChatConsole.Typing.InputKey");
-		// Custom console auto completions
+		// Custom console auto completions and console style
 		Hooks::addUScript(&TrChatConsole_AddOnlineFriendHelp, "Function TribesGame.TrChatConsole.AddOnlineFriendHelp");
+		Hooks::addUScript(&TrChatConsole_Open_PostRender_Console, "Function TrChatConsole.Open.PostRender_Console");
+		Hooks::addUScript(&TrChatConsole_Typing_PostRender_Console, "Function TrChatConsole.Typing.PostRender_Console");
 	}
 
 	// Pass true to log hookable functions

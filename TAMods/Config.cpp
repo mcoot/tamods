@@ -68,6 +68,8 @@ void Config::reset()
 	damageNumbersOffsetX = 0.0f;
 	damageNumbersOffsetY = 0.0f;
 	damageNumbersScale   = 1.0f;
+	revertOriginalDamageNumbers = false;
+	revertOriginalDamageNumbersThreshold = 150;
 
 	// Damage number stream
 	showDamageNumberStream = false;
@@ -189,6 +191,10 @@ void Config::reset()
 	// HUD scaling
 	IFFScale			 = 1.0f;
 	showHUDWeapons		 = true;
+
+	// Console
+	consoleSize          = 0.75f;
+	consoleTransparency  = 0.80f;
 
 	//Stats
 	recordStats          = false;
@@ -555,6 +561,8 @@ void Config::setVariables()
 	SET_VARIABLE(float, damageNumbersOffsetX);
 	SET_VARIABLE(float, damageNumbersOffsetY);
 	SET_VARIABLE(float, damageNumbersScale);
+	SET_VARIABLE(bool, revertOriginalDamageNumbers);
+	SET_VARIABLE(float, revertOriginalDamageNumbersThreshold);
 
 	// Damage number / chain count streaming
 	SET_VARIABLE(bool, showDamageNumberStream);
@@ -701,6 +709,10 @@ void Config::setVariables()
 	// HUD scaling
 	SET_VARIABLE(float, IFFScale);
 	SET_VARIABLE(bool, showHUDWeapons);
+
+	// Console
+	SET_VARIABLE(float, consoleSize);
+	SET_VARIABLE(float, consoleTransparency);
 
 	// VGS Mute
 	SET_VARIABLE(bool, muteVGS),
