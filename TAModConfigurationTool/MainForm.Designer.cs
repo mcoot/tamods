@@ -356,7 +356,7 @@
             // 
             this.tabControlMain.Controls.Add(this.tabGeneral);
             this.tabControlMain.Controls.Add(this.tabColor);
-            this.tabControlMain.Controls.Add(this.tabLoadout);
+            //this.tabControlMain.Controls.Add(this.tabLoadout);
             this.tabControlMain.Controls.Add(this.tabMute);
             this.tabControlMain.Controls.Add(this.tabProjectiles);
             this.tabControlMain.Controls.Add(this.tabProjSwap);

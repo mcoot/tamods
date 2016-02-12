@@ -774,7 +774,7 @@ namespace TAModConfigurationTool
             loadoutDetails["Light"]["shortrange"] = new List<string> { "Shotgun", "Shocklance" };
             loadoutRegex["Light"]["shortrange"] = new List<String> { "^(shotgun)$", "^(shocklance)$" };
             loadoutDetails["Light"]["sidearms"] = new List<string> { "Sparrow", "Throwing Knives" };
-            loadoutRegex["Light"]["sidearms"] = new List<String> { "^(sparrow)$)rx", "^(throwingknives|knives)$" };
+            loadoutRegex["Light"]["sidearms"] = new List<String> { "^(sparrow)$", "^(throwingknives|knives)$" };
 
             loadoutDetails["Light"]["belt"] = new List<string> { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons" };
             loadoutRegex["Light"]["belt"] = new List<string> { "^(nitrons?|impactnitrons?|impacts?)$", "^(explosivenitrons?|explosives?)$", "^(compactnitrons?|compacts?)$" };
