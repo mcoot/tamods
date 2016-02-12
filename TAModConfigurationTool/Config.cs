@@ -107,7 +107,7 @@ namespace TAModConfigurationTool
                 { "Damage Numbers", new List<string>()
                     {
                         "damageNumbersLimit", "showDamageNumberStream", "showChainBulletHitCount", "damageNumberStreamTimeout", "damageNumbersOffsetX", "damageNumbersOffsetY",
-                        "damageNumbersScale", "damageNumberCustomText", "damageNumbersColorMin", "damageNumbersColorMax"
+                        "damageNumbersScale", "damageNumberCustomText", "damageNumbersColorMin", "damageNumbersColorMax", "revertOriginalDamageNumbers", "revertOriginalDamageNumbersThreshold"
                     }
                 },
 
@@ -185,6 +185,8 @@ namespace TAModConfigurationTool
                 { "damageNumbersOffsetY", 0 },
                 { "damageNumbersScale", 1 },
                 { "damageNumberCustomText", "" },
+                { "revertOriginalDamageNumbers", false },
+                { "revertOriginalDamageNumbersThreshold", 150 },
 
                 { "IFFScale", 1.0 },
                 { "showObjectiveIcon", true },

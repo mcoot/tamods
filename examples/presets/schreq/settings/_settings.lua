@@ -24,22 +24,24 @@ crosshairScale            = 1.0
 --crosshairColor            = rgba(255, 255, 0, 255)
 
 -- Whether or not to show the weapon list HUD element.
-showHUDWeapons = false
+showHUDWeapons            = false
 
 -- Whether or not to show the first person body mesh.
-showBodyMesh = false
+showBodyMesh              = false
 
 -- Whether or not to use a custom weapon position.
-customWeaponOffset = true
-
+customWeaponOffset        = true
 -- The custom weapon position (Forward/Backward, Right/Left, Up/Down).
-weaponOffset = Vector(24, -4, -8)
+weaponOffset              = Vector(24, -4, -8)
 
 -- Whether or not to use a custom postion for bullet spawns.
-customBulletSpawnOffset = false
-
+customBulletSpawnOffset   = false
 -- The custom bullet spawn position (Forward/Backward, Right/Left, Up/Down).
-bulletSpawnOffset = Vector(180, 16, -60)
+bulletSpawnOffset         = Vector(180, 16, -60)
+
+-- Console settings
+consoleSize               = 0.75;
+consoleTransparency       = 0.8;
 ------------------------------------------------------------------------------
 
 
@@ -74,7 +76,7 @@ damageNumbersOffsetX      = 0.0
 damageNumbersOffsetY      = 0.0
 
 -- The size of the damage numbers.
---damageNumbersScale        = 1.0
+damageNumbersScale        = 1.0
 
 -- Whether or not to show the total damage dealt within a certain timespan.
 showDamageNumberStream    = false
@@ -99,6 +101,10 @@ damageNumbersColorMin     = rgb(255, 255, 255)
 
 -- The color that the damage numbers will take as they fade out.
 damageNumbersColorMax     = rgb(248, 83, 83)
+
+-- Revert to the old centered damage numbers for everything below 150 damage
+revertOriginalDamageNumbers = true;
+revertOriginalDamageNumbersThreshold = 150;
 ------------------------------------------------------------------------------
 
 
@@ -132,7 +138,7 @@ showCTFBaseIcon           = true
 showFlagBaseIcon          = true
 
 -- Whether or not to display the flag icon when the flag is home.
-showFlagHomeBaseIcon      = false
+showFlagHomeBaseIcon      = true
 
 -- Whether or not to display icons for deployable mines.
 showMineIcon              = true
