@@ -107,7 +107,12 @@ function onDrawCustomHud(res_x, res_y)
 
 		-- Draw the ammo of the current weapon close to the crosshair
 		if not currentWeapon.isPack() and (not in_vehicle or (in_vehicle and vehicle.ammo() < 0)) then
-			drawSmallText(currentWeapon.ammo(), currentWeapon.isLowAmmo() and text_color3 or text_color1, center_x + 16, res_y * 0.6, 1, 1, 1)
+			drawSmallText(currentWeapon.ammo(), currentWeapon.isLowAmmo() and text_color3 or text_color1, center_x + 16, res_y * 0.6, 0, 1, 1)
+		end
+
+		-- Draw the current amount of charged damage for the phase rifle
+		if currentWeapon.name() == "Phase Rifle" then
+			drawSmallText(math.ceil(player.energy() * 5.333), text_color1, center_x - 16, res_y * 0.6, 2, 1, 1)
 		end
 
 		if crosshairs then crosshairs(center_x, center_y) end
