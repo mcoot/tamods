@@ -69,6 +69,7 @@ void Config::reset()
 	damageNumbersOffsetY = 0.0f;
 	damageNumbersScale   = 1.0f;
 	revertOriginalDamageNumbers = false;
+	revertOriginalDamageNumbersThreshold = 150;
 
 	// Damage number stream
 	showDamageNumberStream = false;
@@ -561,6 +562,7 @@ void Config::setVariables()
 	SET_VARIABLE(float, damageNumbersOffsetY);
 	SET_VARIABLE(float, damageNumbersScale);
 	SET_VARIABLE(bool, revertOriginalDamageNumbers);
+	SET_VARIABLE(float, revertOriginalDamageNumbersThreshold);
 
 	// Damage number / chain count streaming
 	SET_VARIABLE(bool, showDamageNumberStream);

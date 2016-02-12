@@ -265,6 +265,7 @@ public:
 	float  damageNumbersOffsetY;
 	float  damageNumbersScale;
 	bool   revertOriginalDamageNumbers;
+	float  revertOriginalDamageNumbersThreshold;
 
 	// Damage number / chain count streaming
 	bool   showDamageNumberStream;
