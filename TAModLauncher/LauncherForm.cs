@@ -242,6 +242,13 @@ namespace TAModLauncher
                     "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            if (!File.Exists(DLLPath))
+            {
+                MessageBox.Show("ERROR: TAMods DLL could not be located.",
+                    "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
             
             try
             {
