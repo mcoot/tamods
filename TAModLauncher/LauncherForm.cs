@@ -12,6 +12,7 @@ using System.IO;
 using System.Net;
 using System.Xml;
 using Microsoft.Win32;
+using System.Media;
 
 namespace TAModLauncher
 {
@@ -252,6 +253,9 @@ namespace TAModLauncher
                     "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            SoundPlayer s = new SoundPlayer(TAModLauncher.Properties.Resources.blueplate);
+            s.Play();
 
             return true;
         }
