@@ -249,6 +249,11 @@ namespace TAModLauncher
                     "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            if (DLLPath.ToLower() == "tamods.dll")
+            {
+                DLLPath = System.Environment.CurrentDirectory + "\\tamods.dll";
+            }
             
             try
             {
