@@ -1,10 +1,11 @@
 #include "Mods.h"
 
-void ConfigureHudState(UGfxTrHud *that, UGfxTrHud_execConfigureHUDState_Parms *params, void *ret, Hooks::CallInfo *callinfo)
+void TrHUD_ShowHUDPlayerAlive(ATrHUD *that, ATrHUD_execShowHUDPlayerAlive_Parms *params, void *ret, Hooks::CallInfo *callinfo)
 {
 	if (!g_config.showHUDWeapons)
-		that->m_TrPC->m_bShowHUDWeapons = g_config.showHUDWeapons;
-	that->ConfigureHUDState(params->bAlive, params->bReady, params->bForceCredits);
+		that->TrPlayerOwner->m_bShowHUDWeapons = false;
+
+	that->ShowHUDPlayerAlive();
 }
 
 bool TrHudWrapper_destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
