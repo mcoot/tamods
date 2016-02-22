@@ -20,6 +20,8 @@ namespace getPlayerData
 	float energy();
 	float energyMax();
 	float energyPct();
+	float lastDamagedTime();
+	float regenTimer();
 	int ping();
 	int classId();
 	int health();
@@ -91,6 +93,8 @@ namespace getGameData
 	int scoreLimit();
 	int time();
 	int timeLimit();
+	float timeSeconds();
+	float realTimeSeconds();
 }
 namespace getRabbitData
 {

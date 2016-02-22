@@ -104,6 +104,34 @@ float getPlayerData::energyPct()
 
 	return 0.0f;
 }
+float getPlayerData::lastDamagedTime()
+{
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->m_fLastDamagerTimeStamp;
+
+	return 0.0f;
+}
+float getPlayerData::regenTimer()
+{
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+	{
+		if (TrP->HealthMax == TrP->Health)
+			return 0.0f;
+
+		if (TrP->WorldInfo)
+		{
+			if (getPlayerData::hasFlag())
+				return TrP->m_fSecondsBeforeAutoHeal;
+
+			float remaining = TrP->m_fSecondsBeforeAutoHeal - (TrP->WorldInfo->TimeSeconds - TrP->m_fLastDamagerTimeStamp);
+			return remaining > 0.0f ? remaining : 0.0f;
+		}
+	}
+
+	return 0.0f;
+}
 int getPlayerData::ping()
 {
 	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
@@ -604,6 +632,20 @@ int getGameData::timeLimit()
 		return Utils::tr_pc->WorldInfo->GRI->TimeLimit;
 
 	return 0;
+}
+float getGameData::timeSeconds()
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
+		return Utils::tr_pc->WorldInfo->TimeSeconds;
+
+	return 0.0f;
+}
+float getGameData::realTimeSeconds()
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
+		return Utils::tr_pc->WorldInfo->RealTimeSeconds;
+
+	return 0.0f;
 }
 /////////////////////////////////////////////////////////////////////////////////////
 int getRabbitData::leaderBoardScore(unsigned const char &n)
