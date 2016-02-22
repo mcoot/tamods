@@ -75,8 +75,6 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 				}
 			}
 		}
-		if (!g_config.showWeapon)
-			that->SetWeaponVisibility(g_config.showWeapon);
 	}
 	Hooks::unlock();
 	return false;
