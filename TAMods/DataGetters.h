@@ -20,8 +20,6 @@ namespace getPlayerData
 	float energy();
 	float energyMax();
 	float energyPct();
-	float lastDamagedTime();
-	float regenTimer();
 	int ping();
 	int classId();
 	int health();

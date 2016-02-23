@@ -2217,8 +2217,6 @@ void Lua::init()
 			addFunction("energy",          &getPlayerData::energy).
 			addFunction("energyMax",       &getPlayerData::energyMax).
 			addFunction("energyPct",       &getPlayerData::energyPct).
-			addFunction("lastDamagedTime", &getPlayerData::lastDamagedTime).
-			addFunction("regenTimer",      &getPlayerData::regenTimer).
 			addFunction("ping",            &getPlayerData::ping).
 			addFunction("classId",         &getPlayerData::classId).
 			addFunction("health",          &getPlayerData::health).
