@@ -1,0 +1,10 @@
+A hud preset designed to add to, rather than replace, the default hud.
+
+The hud elements are taken from the tomatoHud and potatoHud presets.
+
+This includes the following elements:
+
+* kda/ping display
+* spectator list on the scoreboard
+* tomatoHud weapons display - improved with shortened weapon names
+* a custom crosshair based on the xhair_factory preset
