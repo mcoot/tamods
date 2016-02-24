@@ -33,6 +33,7 @@ Config::Config()
 	onGameMessage = NULL;
 	onKillMessage = NULL;
 	onDrawHealthBar = NULL;
+	onQueueAccolade = NULL;
 	onInputEvent = NULL;
 	reset();
 }
@@ -90,6 +91,7 @@ void Config::reset()
 	delete onGameMessage;
 	delete onKillMessage;
 	delete onDrawHealthBar;
+	delete onQueueAccolade;
 	onDamageNumberCreate = NULL;
 	onDamageNumberUpdate = NULL;
 	onDrawCustomHud = NULL;
@@ -98,6 +100,7 @@ void Config::reset()
 	onGameMessage = NULL;
 	onKillMessage = NULL;
 	onDrawHealthBar = NULL;
+	onQueueAccolade = NULL;
 
 	//Damage Number color variables
 	rainbowBulletInt      = 0;
@@ -705,6 +708,7 @@ void Config::setVariables()
 	SET_FUNCTION(onGameMessage);
 	SET_FUNCTION(onKillMessage);
 	SET_FUNCTION(onDrawHealthBar);
+	SET_FUNCTION(onQueueAccolade);
 
 	// HUD scaling
 	SET_VARIABLE(float, IFFScale);
@@ -2279,6 +2283,8 @@ void Lua::init()
 			addFunction("scoreLimit",        &getGameData::scoreLimit).
 			addFunction("time",              &getGameData::time).
 			addFunction("timeLimit",         &getGameData::timeLimit).
+			addFunction("timeSeconds",       &getGameData::timeSeconds).
+			addFunction("realTimeSeconds",   &getGameData::realTimeSeconds).
 		endNamespace().
 		beginNamespace("rabbit").
 			addFunction("leaderBoardScore", &getRabbitData::leaderBoardScore).

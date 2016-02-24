@@ -16,7 +16,7 @@ bool getViewPortData::isMainMenuOpen()
 	// FIXME: crashes when entering a password
 	if (Utils::tr_hud)
 		return Utils::tr_hud->bIsMainMenuOpen;
-
+	
 	return false;
 }
 bool getViewPortData::isScoreboardOpen()
@@ -605,6 +605,20 @@ int getGameData::timeLimit()
 
 	return 0;
 }
+float getGameData::timeSeconds()
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
+		return Utils::tr_pc->WorldInfo->TimeSeconds;
+
+	return 0.0f;
+}
+float getGameData::realTimeSeconds()
+{
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
+		return Utils::tr_pc->WorldInfo->RealTimeSeconds;
+
+	return 0.0f;
+}
 /////////////////////////////////////////////////////////////////////////////////////
 int getRabbitData::leaderBoardScore(unsigned const char &n)
 {
@@ -800,26 +814,60 @@ std::string getStopwatchData::timeStr()
 void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Parms *params)
 {
 	// params->CombatType: 0 = Aggressor is from own team. 1 = Aggressor is from enemy team (Suicide is an aggressor)
-	// I forward CombatType as a bitmask where the second bit means the death message is related to us
-	// First bit still means whether the aggressor is an enemy or not, so 2 means we killed someone and 3 we got killed
+	// I forward team numbers as a bitmask instead where the second bit means it's us.
 	// params->WeaponIcon = CONST_TRICON_KILLTYPE_* (130 - 142)
 
 	if (g_config.onAddToCombatLog && !g_config.onAddToCombatLog->isNil() && g_config.onAddToCombatLog->isFunction())
 	{
 		std::string Aggressor = Utils::f2std(params->Aggressor);
 		std::string Victim = Utils::f2std(params->Victim);
-		unsigned char CombatType = (unsigned char)params->CombatType;
+		unsigned char AggressorTeam = 255;
+		unsigned char VictimTeam = 255;
+
+		unsigned char myTeam = 1;
 
 		if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
 		{
 			std::string me = Utils::f2std(Utils::tr_pc->PlayerReplicationInfo->PlayerName);
-			if (Aggressor == me || Victim == me)
-				CombatType |= 2;
+			
+			myTeam = Utils::tr_pc->GetTeamNum();
+
+			if (Aggressor == "Suicide")
+				AggressorTeam = 254;
+
+			if (myTeam != 255)
+			{
+				if (Aggressor == me)
+					AggressorTeam = Utils::tr_pc->GetTeamNum() + 2;
+				else if (Victim == me)
+					VictimTeam = Utils::tr_pc->GetTeamNum() + 2;
+			}
+
+			if (Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+			{
+				// Figure out the team numbers for aggressor and victim
+				for (int i = 0; i < Utils::tr_pc->WorldInfo->GRI->PRIArray.Count; i++)
+				{
+					APlayerReplicationInfo &pri = *Utils::tr_pc->WorldInfo->GRI->PRIArray.Data[i];
+
+					if (AggressorTeam == 255 && Aggressor == Utils::f2std(pri.PlayerName))
+						AggressorTeam = pri.GetTeamNum();
+					else if (VictimTeam == 255 && Victim == Utils::f2std(pri.PlayerName))
+						VictimTeam = pri.GetTeamNum();
+
+					// Break if both team numbers have been found
+					if (AggressorTeam != 255 && VictimTeam != 255)
+						break;
+				}
+			}
+			if (Aggressor == "Suicide")
+				AggressorTeam = VictimTeam;
 		}
+
 		try
 		{
-			// We only have to encrypt the victims name if the agressor is in our team (first bit in CombatType not set)
-			(*g_config.onAddToCombatLog)(CombatType, Aggressor, params->WeaponIcon - 129, CombatType & 1 ? Victim : cryptor.toId(Victim));
+			// We only have to encrypt the victims name if we are not spectating, it's not us and the victim is not in our team
+			(*g_config.onAddToCombatLog)(AggressorTeam, Aggressor, params->WeaponIcon - 129, (myTeam == 255 || VictimTeam > 1 || VictimTeam == myTeam) ? Victim : cryptor.toId(Victim), VictimTeam);
 		}
 		catch (const LuaException &e)
 		{

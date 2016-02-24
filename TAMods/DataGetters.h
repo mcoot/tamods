@@ -91,6 +91,8 @@ namespace getGameData
 	int scoreLimit();
 	int time();
 	int timeLimit();
+	float timeSeconds();
+	float realTimeSeconds();
 }
 namespace getRabbitData
 {

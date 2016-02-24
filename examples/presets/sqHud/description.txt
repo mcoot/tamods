@@ -1,0 +1,9 @@
+The intention for this hud was to make everything big and close enough to the center of the screen, so you can see your ammo/health color and passive reload status in the corner of your eye.
+It has the following features:
+* Health and energy bars where the energy number is actually your speed, so no separate speed display is needed and the actual energy value is kinda unimportant anyway when you have a bar already.
+* Ammo bar which turns green when reload can be canceled and turns red the lower the ammo.
+* Kill feed where killer and victim have the correct team colors.
+* Stats on top right including FPS, Ping, kda and a midair counter which can be reset by pressing Ctrl-r.
+* Damage-potential display for the phase rifle.
+* No weapon bar because it's useless for me.
+* A couple custom crosshairs (This requires the xhair_factory preset).

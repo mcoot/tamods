@@ -19,7 +19,7 @@
 
 // Uncomment for release
 #define RELEASE
-#define MODVERSION 0.62
+#define MODVERSION 0.63
 
 // Declared here to use as lua functions
 void stopwatch();
@@ -286,6 +286,7 @@ public:
 	LuaRef *onGameMessage;
 	LuaRef *onKillMessage;
 	LuaRef *onDrawHealthBar;
+	LuaRef *onQueueAccolade;
 
 	// Custom damage number text
 	std::string damageNumberCustomText;

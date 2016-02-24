@@ -2,80 +2,89 @@
 
 bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (!g_config.audioEngine.audioAvailable())
-		return false;
-
 	ATrPlayerController_execClientQueueAccolade_Parms *params = (ATrPlayerController_execClientQueueAccolade_Parms*)pParams;
-	
-	//Utils::console("Accolade icon: %d", params->Icon);
 
-	// icon ids from TrHUD.uc
-	switch (params->Icon)
+	if (g_config.onQueueAccolade && !g_config.onQueueAccolade->isNil() && g_config.onQueueAccolade->isFunction())
 	{
-	case 45: // Killing Spree
-		g_config.s_streak1.Play();
-		break;
-	case 46: // Rampage
-		g_config.s_streak2.Play();
-		break;
-	case 47: // Unstoppable
-		g_config.s_streak3.Play();
-		break;
-	case 48: // Relentless
-		g_config.s_streak4.Play();
-		break;
-	case 49: // The Slayer
-		g_config.s_streak5.Play();
-		break;
-	case 59: // Double Kill
-		g_config.s_multiKill1.Play();
-		break;
-	case 60: // Triple Kill
-		if (g_config.s_multiKill2.audioAvailable())
+		try
 		{
-			g_config.s_multiKill1.Stop();
-			g_config.s_multiKill2.Play();
+			(*g_config.onQueueAccolade)(params->Icon, Utils::f2std(params->Title), Utils::f2std(params->Subtitle), (bool)params->bIsBadge);
 		}
-		break;
-	case 61: // Quatra Kill
-		if (g_config.s_multiKill3.audioAvailable())
+		catch (const LuaException &e)
 		{
-			g_config.s_multiKill2.Stop();
-			g_config.s_multiKill3.Play();
+			Utils::console("LuaException: %s", e.what());
 		}
-		break;
-	case 62: // Ultra Kill
-		if (g_config.s_multiKill4.audioAvailable())
+	}
+
+	if (g_config.audioEngine.audioAvailable())
+	{
+		switch (params->Icon)
 		{
-			g_config.s_multiKill3.Stop();
-			g_config.s_multiKill4.Play();
+		case CONST_TRHUD_MEDAL_KILLINGSPREE:
+			g_config.s_streak1.Play();
+			break;
+		case CONST_TRHUD_MEDAL_KILLINGRAMPAGE:
+			g_config.s_streak2.Play();
+			break;
+		case CONST_TRHUD_MEDAL_UNSTOPPABLE:
+			g_config.s_streak3.Play();
+			break;
+		case CONST_TRHUD_MEDAL_RELENTLESS:
+			g_config.s_streak4.Play();
+			break;
+		case CONST_TRHUD_MEDAL_THESLAYER:
+			g_config.s_streak5.Play();
+			break;
+		case CONST_TRHUD_MEDAL_DOUBLEKILL:
+			g_config.s_multiKill1.Play();
+			break;
+		case CONST_TRHUD_MEDAL_TRIPLEKILL:
+			if (g_config.s_multiKill2.audioAvailable())
+			{
+				g_config.s_multiKill1.Stop();
+				g_config.s_multiKill2.Play();
+			}
+			break;
+		case CONST_TRHUD_MEDAL_QUATRAKILL:
+			if (g_config.s_multiKill3.audioAvailable())
+			{
+				g_config.s_multiKill2.Stop();
+				g_config.s_multiKill3.Play();
+			}
+			break;
+		case CONST_TRHUD_MEDAL_ULTRAKILL:
+			if (g_config.s_multiKill4.audioAvailable())
+			{
+				g_config.s_multiKill3.Stop();
+				g_config.s_multiKill4.Play();
+			}
+			break;
+		case CONST_TRHUD_MEDAL_TEAMKILL:
+			if (g_config.s_multiKill5.audioAvailable())
+			{
+				g_config.s_multiKill4.Stop();
+				g_config.s_multiKill5.Play();
+			}
+			break;
+		case CONST_TRHUD_MEDAL_FIRSTBLOOD:
+			g_config.s_firstBlood.Play();
+			break;
+		case CONST_TRHUD_MEDAL_HEADSHOT:
+			g_config.s_headShotKill.Play();
+			break;
+		case CONST_TRHUD_MEDAL_ARTILLERYSHOT:
+			g_config.s_artilleryShot.Play();
+			break;
+		case CONST_TRHUD_MEDAL_MARTIALART:
+			g_config.s_meleeKill.Play();
+			break;
+		case CONST_TRHUD_MEDAL_SQUISH: // road kill
+			g_config.s_roadKill.Play();
+			break;
+		case CONST_TRICON_ACCOLADE_FASTFLAGGRAB:
+			g_config.s_fastGrab.Play();
+			break;
 		}
-		break;
-	case 63: // Team Kill
-		if (g_config.s_multiKill5.audioAvailable())
-		{
-			g_config.s_multiKill4.Stop();
-			g_config.s_multiKill5.Play();
-		}
-		break;
-	case 67: // First Blood
-		g_config.s_firstBlood.Play();
-		break;
-	case 70: // Headshot
-		g_config.s_headShotKill.Play();
-		break;
-	case 71: // Artillery Shot
-		g_config.s_artilleryShot.Play();
-		break;
-	case 72: // Melee Kill
-		g_config.s_meleeKill.Play();
-		break;
-	case 73: // Squish (vehicle?)
-		g_config.s_roadKill.Play();
-		break;
-	case 154: // Fast Grab
-		g_config.s_fastGrab.Play();
-		break;
 	}
 
 	return false;

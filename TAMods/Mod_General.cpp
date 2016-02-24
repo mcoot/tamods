@@ -186,7 +186,7 @@ bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFuncti
 
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (!g_config.customWeaponOffset)
+	if (!g_config.customWeaponOffset && g_config.showWeapon)
 		return false;
 
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
@@ -225,7 +225,7 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 	// Hide the weapon if hidden
 	CurrentHand = that->GetHand();
-	if (that->bForceHidden || CurrentHand == HAND_Hidden)
+	if (!g_config.showWeapon || that->bForceHidden || CurrentHand == HAND_Hidden)
 	{
 		that->Mesh->SetHidden(true);
 		params->Holder->ArmsMesh[0]->SetHidden(true);
@@ -360,7 +360,7 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 			params->Holder->ArmsMesh[1]->SetTranslation(DrawOffset);
 	}
 
-	// Crash around this line
+	// FIXME: occasional crash around this line
 	NewRotation = params->Holder->Controller ? params->Holder->eventGetBaseAimRotation() : params->Holder->Controller->Rotation;
 
 	// Add some rotation leading
