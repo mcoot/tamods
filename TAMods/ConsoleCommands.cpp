@@ -104,14 +104,14 @@ namespace consoleCommands
 		{ L"/stopwatchstop",    { &cmd_stopwatchstop,    L"/stopwatchstop (Stop the stopwatch)" } },
 		{ L"/say",              { &cmd_say,              L"/say <message> (Send a chat message)" } },
 		{ L"/teamsay",          { &cmd_say,              L"/teamsay <message> (Send a team chat message)" } },
-		
+
 		{ L"/toggleturrets",    { &cmd_toggleturrets,    L"/toggleturrets (Toggle base turrets on and off. Alias: /turrets)" } },
 		{ L"/turrets",          { &cmd_toggleturrets,    L"/turrets (Toggle base turrets on and off. Alias: /toggleturrets)" } },
 		{ L"/togglepower",      { &cmd_togglepower,      L"/togglepower (Toggle generator power on and off. Alias: /power)" } },
 		{ L"/power",            { &cmd_togglepower,      L"/power (Toggle generator power on and off. Alias: /togglepower)" } },
 		{ L"/returnflags",      { &cmd_returnflags,      L"/returnflags (Return all loose flags back to base. Alias: /flags)" } },
 		{ L"/flags",            { &cmd_returnflags,      L"/flags (Return all loose flags back to base. Alias: /returnflags)" } },
-		
+
 		{ L"/statesave",        { &cmd_statesave,        L"/statesave [slot number] (Save your current location to the specified slot number. Without a slot number, 1 will be used. Alias: /save)" } },
 		{ L"/save",             { &cmd_statesave,        L"/save [slot number] (Save your current location to the specified slot number. Without a slot number, 1 will be used. Alias: /statesave)" } },
 		{ L"/statetp",          { &cmd_statetp,          L"/statetp [slot number] (Teleport to a saved point and restore health and ammo. Without a slot number, 1 will be used. Alias: /tp)" } },
@@ -121,7 +121,7 @@ namespace consoleCommands
 		{ L"/statespawns",      { &cmd_statespawns,      L"/statespawns (Set the saved locations to the players team spawns. Alias: /spawns)" } },
 		{ L"/spawns",           { &cmd_statespawns,      L"/spawns (Set the saved locations to the players team spawns. Alias: /statespawns)" } },
 		{ L"/statereset",       { &cmd_statereset,       L"/statereset (Reset all saved states)" } },
-		
+
 		{ L"/routerec",         { &cmd_routerec,         L"/routerec (Toggle route recording. Alias: /rec)" } },
 		{ L"/rec",              { &cmd_routerec,         L"/rec (Toggle route recording. Alias: /routerec)" } },
 		{ L"/routerecstart",    { &cmd_routerecstart,    L"/routerecstart (Start route recording)" } },
@@ -144,6 +144,27 @@ namespace consoleCommands
 		{ L"/disconnect",       { &cmd_utcommandwrapper, L"/disconnect (Disconnect from the server)" } },
 		{ L"/reconnect",        { &cmd_utcommandwrapper, L"/reconnect (Reconnect to the server)" } },
 		{ L"/shot",             { &cmd_utcommandwrapper, L"/shot (Take a screenshot)" } },
+
+		//Maps
+		{ L"/sc map next 1456",	{ 0,					L"/sc map next (1456 - Arx Novena)" } },
+		{ L"/sc map next 1447",	{ 0, 					L"/sc map next (1447 - Katabatic)" } },
+		{ L"/sc map next 1457",	{ 0, 					L"/sc map next (1457 - Drydock)" } },
+		{ L"/sc map next 1538",	{ 0, 					L"/sc map next (1538 - Dangerous Crossing)" } },
+		{ L"/sc map next 1462",	{ 0, 					L"/sc map next (1462 - Crossfire)" } },
+		{ L"/sc map next 1523",	{ 0, 					L"/sc map next (1523 - Sunstar)" } },
+		{ L"/sc map next 1553",	{ 0, 					L"/sc map next (1553 - Terminus)" } },
+		{ L"/sc map next 1534",	{ 0, 					L"/sc map next (1534 - Permafrost)" } },
+		{ L"/sc map next 1551",	{ 0,					L"/sc map next (1551 - Bella Omega NS)" } },
+		{ L"/sc map next 1551",	{ 0, 					L"/sc map next (1573 - Bella Omega)" } },
+		{ L"/sc map next 1514",	{ 0, 					L"/sc map next (1514 - Canyon Crusade Revival)" } },
+		{ L"/sc map next 1512",	{ 0, 					L"/sc map next (1512 - Tartarus)" } },
+		{ L"/sc map next 1516",	{ 0, 					L"/sc map next (1516 - Raindance)" } },
+		{ L"/sc map next 1522",	{ 0,	 				L"/sc map next (1522 - Stonehenge)" } },
+		{ L"/sc map next 1493",	{ 0, 					L"/sc map next (1493 - Temple Ruins)" } },
+		{ L"/sc map next 1543",	{ 0, 					L"/sc map next (1543 - Blueshift)" } },
+		{ L"/sc map next 1554",	{ 0, 					L"/sc map next (1554 - Icecoaster)" } },
+		{ L"/sc map next 1555",	{ 0, 					L"/sc map next (1555 - Perdition)" } },
+		{ L"/sc map next 1497",	{ 0, 					L"/sc map next (1497 - Walled In)" } },
 #ifndef RELEASE
 		{ L"/findobjects",      { &cmd_findobjects,      L"/findobjects <regex> (Search objects)" } },
 		{ L"/devel",            { &cmd_develcommands,    L"/devel <command> <parameter> (Execute a vanilla console commands)" } },
