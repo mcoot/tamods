@@ -67,7 +67,21 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 
 	if (!welcomeMsgShown)
 	{
-		that->OutputTextLine(L"TAMods injection was succesfull. hf!", { 0, 255, 0, 255 });
+		std::string ver;
+		std::stringstream ss;
+		ss << MODVERSION;
+		ss >> ver;
+
+		Utils::printConsole(" .___________________________________________________________",                           { 150, 150, 150, 255 });
+		Utils::printConsole("    ______       ______   ___   .____    _____   _____.      ______~",                    { 255, 255, 200, 255 });
+		Utils::printConsole("   |        '|o   /          | |     \\/      |  /         \\ |       '\\o' /     __/ '", { 255, 200, 100, 255 });
+		Utils::printConsole("   |_     _|   /     !_    | |             '| |     x    |'|  x     \\  \\ __    \\",     { 180, 140, 140, 255 });
+		Utils::printConsole("      |__|    /___/  |__| |.__|\\/|__.|  \\_____./ |_____/   /_____/ v" + ver,            { 100, 100, 180, 255 });
+		Utils::printConsole("  __________________________________________________________.",                           { 120, 120, 120, 255 });
+		Utils::printConsole("                                                                    ensis mcoot schreq",  { 150, 150, 150, 255 });
+		Utils::printConsole("                                                                            dodge qualm", { 120, 120, 120, 255 });
+		Utils::printConsole(" Type /help for a list of console commands",                                              {   0, 250, 250, 255 });
+
 		welcomeMsgShown = true;
 	}
 
