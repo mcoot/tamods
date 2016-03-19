@@ -145,29 +145,24 @@ namespace consoleCommands
 		{ L"/reconnect",        { &cmd_utcommandwrapper, L"/reconnect (Reconnect to the server)" } },
 		{ L"/shot",             { &cmd_utcommandwrapper, L"/shot (Take a screenshot)" } },
 
-		//Maps
-		{ L"/sc map next 1456",	{ 0,					L"/sc map next (1456 - Arx Novena)" } },
-		{ L"/sc map next 1447",	{ 0, 					L"/sc map next (1447 - Katabatic)" } },
-		{ L"/sc map next 1457",	{ 0, 					L"/sc map next (1457 - Drydock)" } },
-		{ L"/sc map next 1538",	{ 0, 					L"/sc map next (1538 - Dangerous Crossing)" } },
-		{ L"/sc map next 1462",	{ 0, 					L"/sc map next (1462 - Crossfire)" } },
-		{ L"/sc map next 1523",	{ 0, 					L"/sc map next (1523 - Sunstar)" } },
-		{ L"/sc map next 1553",	{ 0, 					L"/sc map next (1553 - Terminus)" } },
-		{ L"/sc map next 1534",	{ 0, 					L"/sc map next (1534 - Permafrost)" } },
-		{ L"/sc map next 1551",	{ 0,					L"/sc map next (1551 - Bella Omega NS)" } },
-		{ L"/sc map next 1551",	{ 0, 					L"/sc map next (1573 - Bella Omega)" } },
-		{ L"/sc map next 1514",	{ 0, 					L"/sc map next (1514 - Canyon Crusade Revival)" } },
-		{ L"/sc map next 1512",	{ 0, 					L"/sc map next (1512 - Tartarus)" } },
-		{ L"/sc map next 1516",	{ 0, 					L"/sc map next (1516 - Raindance)" } },
-		{ L"/sc map next 1522",	{ 0,	 				L"/sc map next (1522 - Stonehenge)" } },
-		{ L"/sc map next 1493",	{ 0, 					L"/sc map next (1493 - Temple Ruins)" } },
-		{ L"/sc map next 1543",	{ 0, 					L"/sc map next (1543 - Blueshift)" } },
-		{ L"/sc map next 1554",	{ 0, 					L"/sc map next (1554 - Icecoaster)" } },
-		{ L"/sc map next 1555",	{ 0, 					L"/sc map next (1555 - Perdition)" } },
-		{ L"/sc map next 1497",	{ 0, 					L"/sc map next (1497 - Walled In)" } },
+		// Server commands
+		{ L"/sc login",           { NULL,                L"/sc login <ServerID> <Password> (Login to a server)" } },
+		{ L"/sc select",          { NULL,                L"/sc select <ServerID> (Select a server)" } },
+		{ L"/sc server status",   { NULL,                L"/sc server status (Show server status)" } },
+		{ L"/sc server start",    { NULL,                L"/sc server start (Show server on the custom server browser)" } },
+		{ L"/sc server stop",     { NULL,                L"/sc server stop (Immediately end the match and remove server from the custom server browser)" } },
+		{ L"/sc server shutdown", { NULL,                L"/sc server shutdown (Remove server from the custom server browser)" } },
+		{ L"/sc map next",        { NULL,                L"/sc map next [mapID] (Set the next map or skip to the next map in the cycle if no ID is provided. Alias: /mapnext /nextmap)" } },
+		{ L"/sc map start",       { NULL,                L"/sc map start [mapID] (Skip to Mad ID or skip warm up time if no ID is provided)" } },
+		{ L"/sc map end",         { NULL,                L"/sc map end (Ends current map)" } },
+		{ L"/maplist",            { &cmd_maplist,        L"/maplist (List all maps and their IDs. Alias: /maps)" } },
+		{ L"/maps",               { &cmd_maplist,        L"/maps (List all maps and their IDs. Alias: /maplist)" } },
+		{ L"/map",                { &cmd_map,            L"/map <gametype> <mapname> (Skip to Map ID)" } },
+		{ L"/mapnext",            { &cmd_mapnext,        L"/mapnext <gametype> <mapname> (Set the next map. Alias: /nextmap /sc map next)" } },
+		{ L"/nextmap",            { &cmd_mapnext,        L"/nextmap <gametype> <mapname> (Set the next map. Alias: /mapnext /sc map next)" } },
 #ifndef RELEASE
-		{ L"/findobjects",      { &cmd_findobjects,      L"/findobjects <regex> (Search objects)" } },
-		{ L"/devel",            { &cmd_develcommands,    L"/devel <command> <parameter> (Execute a vanilla console commands)" } },
+		{ L"/findobjects",        { &cmd_findobjects,    L"/findobjects <regex> (Search objects)" } },
+		{ L"/devel",              { &cmd_develcommands,  L"/devel <command> <parameter> (Execute a vanilla console commands)" } },
 #endif
 	};
 
@@ -419,14 +414,66 @@ namespace consoleCommands
 			returnFlags();
 	}
 
+	/****** Map related commands ******/
+	void cmd_maplist(const std::wstring &cmd, const std::wstring &params)
+	{
+		std::map<int, std::string>::iterator it;
+
+		for (it = Data::map_id_to_name.begin(); it != Data::map_id_to_name.end(); it++)
+			Utils::printConsole(std::to_string(it->first) + ": " + it->second);
+
+		Utils::printConsole("");
+	}
+
+	void consoleCommands::cmd_map(const std::wstring &cmd, const std::wstring &params)
+	{
+		int id = Utils::searchMapId(Data::map_id, std::string(params.begin(), params.end()), "", false);
+
+		if (id)
+		{
+			if (Utils::tr_pc && Utils::tr_pc->m_PlayerCommands)
+			{
+				std::string mapname = Data::map_id_to_name.at(id);
+				Utils::printConsole("Trying to change map to " + std::to_string(id) + ": " + mapname);
+
+				UTrChatConsoleCommands *con = Utils::tr_pc->m_PlayerCommands;
+				
+				std::wstring cmd = L"sc map next " + std::to_wstring(id);
+				con->ChatConsoleCommand((wchar_t *)cmd.c_str());
+
+				con->ChatConsoleCommand(L"sc map end");
+			}
+		}
+		else
+			Utils::printConsole("No map found");
+	}
+
+	void consoleCommands::cmd_mapnext(const std::wstring &cmd, const std::wstring &params)
+	{
+		int id = Utils::searchMapId(Data::map_id, std::string(params.begin(), params.end()), "", false);
+
+		if (id)
+		{
+			if (Utils::tr_pc && Utils::tr_pc->m_PlayerCommands)
+			{
+				std::string mapname = Data::map_id_to_name.at(id);
+				Utils::printConsole("Trying to set next map to " + std::to_string(id) + ": " + mapname);
+
+				UTrChatConsoleCommands *con = Utils::tr_pc->m_PlayerCommands;
+
+				std::wstring cmd = L"sc map next " + std::to_wstring(id);
+				con->ChatConsoleCommand((wchar_t *)cmd.c_str());
+			}
+		}
+		else
+			Utils::printConsole("No map found");
+	}
+
 	/****** Otherwise disabled UT console commands ******/
 	void cmd_utcommandwrapper(const std::wstring &cmd, const std::wstring &params)
 	{
 		// Remove leading slash
-		std::wstring command = std::wstring(cmd.begin() + 1, cmd.end());
-		std::wstring trailing = std::wstring(params.begin(), params.end());
-
-		command += L" " + trailing;
+		std::wstring command = std::wstring(cmd.begin() + 1, cmd.end()) + L" " + params;
 
 		execUTConsoleCommand((wchar_t *)command.c_str());
 	}

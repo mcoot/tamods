@@ -47,6 +47,9 @@ namespace consoleCommands
 	void cmd_togglepower(const std::wstring &cmd, const std::wstring &params);
 	void cmd_returnflags(const std::wstring &cmd, const std::wstring &params);
 	void cmd_utcommandwrapper(const std::wstring &cmd, const std::wstring &params);
+	void cmd_maplist(const std::wstring &cmd, const std::wstring &params);
+	void cmd_map(const std::wstring &cmd, const std::wstring &params);
+	void cmd_mapnext(const std::wstring &cmd, const std::wstring &params);
 
 	void cmd_findobjects(const std::wstring &cmd, const std::wstring &params);
 	void cmd_develcommands(const std::wstring &cmd, const std::wstring &params);
