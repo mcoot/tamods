@@ -37,11 +37,9 @@ bool execCustomCommand(UTrChatConsole *that)
 
 			std::transform(command.begin(), command.end(), command.begin(), ::tolower);
 
-			if (consoleCommands::map.find(command) != consoleCommands::map.end())
-			{
-				if (consoleCommands::map[command].function)
+			if (consoleCommands::map.find(command) != consoleCommands::map.end() &&
+				consoleCommands::map[command].function)
 					(*consoleCommands::map[command].function)(command, params);
-			}
 			else // vanilla commands
 				that->ConsoleCommand((wchar_t *)std::wstring(line.begin() + 1, line.end()).c_str());
 
