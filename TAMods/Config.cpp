@@ -2125,6 +2125,8 @@ void Lua::init()
 		addFunction("consoleRGB", (void(*)(const std::string &, const FColor &)) &Utils::printConsole).
 		addFunction("notify", (void (*)(const std::string &, const std::string &)) &Utils::notify).
 
+		addFunction("openConsole", (void(*)(const std::string &)) &Utils::openConsole).
+
 		// Sounds
 		addFunction("modifySound", &config_modifySound).
 		addFunction("modifySoundRe", &config_modifySoundRe).
@@ -2183,6 +2185,7 @@ void Lua::init()
 			addFunction("enableBot", &routeEnableBot).
 			addFunction("getAll", &routeLoadAll).
 			addFunction("getEnemy", &routeLoadEnemy).
+			addFunction("getTable", &routeGetTable).
 		endNamespace().
 		addFunction("toggleTurrets", &toggleTurrets).
 		addFunction("togglePower", &togglePower).
@@ -2239,6 +2242,8 @@ void Lua::init()
 			addFunction("isPack",             &getWeaponData::isPack).
 			addFunction("isPassiveReady",     &getWeaponData::isPassiveReady).
 			addFunction("isLowAmmo",          &getWeaponData::isLowAmmo).
+			addFunction("reloadTimeFull",     &getWeaponData::reloadTimeFull).
+			addFunction("reloadTime",         &getWeaponData::reloadTime).
 			addFunction("ammo",               &getWeaponData::ammo).
 			addFunction("ammoMax",            &getWeaponData::ammoMax).
 			addFunction("ammoCarried",        &getWeaponData::ammoCarried).
@@ -2252,6 +2257,8 @@ void Lua::init()
 			addFunction("isReloaded",         &getCurrentWeaponData::isReloaded).
 			addFunction("isPack",             &getCurrentWeaponData::isPack).
 			addFunction("isLowAmmo",          &getCurrentWeaponData::isLowAmmo).
+			addFunction("reloadTimeFull",     &getCurrentWeaponData::reloadTimeFull).
+			addFunction("reloadTime",         &getCurrentWeaponData::reloadTime).
 			addFunction("ammo",               &getCurrentWeaponData::ammo).
 			addFunction("ammoMax",            &getCurrentWeaponData::ammoMax).
 			addFunction("ammoCarried",        &getCurrentWeaponData::ammoCarried).

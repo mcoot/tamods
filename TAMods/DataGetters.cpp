@@ -263,6 +263,22 @@ bool getWeaponData::isLowAmmo(unsigned const char &n)
 
 	return false;
 }
+float getWeaponData::reloadTimeFull(unsigned const char &n)
+{
+	ATrDevice *dev = Utils::getDeviceByEquipPointHelper(n);
+	if (dev && Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return dev->GetReloadTime(Utils::tr_pc->PlayerReplicationInfo, n);
+
+	return 0.0f;
+}
+float getWeaponData::reloadTime(unsigned const char &n)
+{
+	ATrDevice *dev = Utils::getDeviceByEquipPointHelper(n);
+	if (dev && Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return dev->GetReloadTime(Utils::tr_pc->PlayerReplicationInfo, n) * dev->m_fPctTimeBeforeReload;
+
+	return 0.0f;
+}
 int getWeaponData::ammo(unsigned const char &n)
 {
 	ATrDevice *dev = Utils::getDeviceByEquipPointHelper(n);
@@ -352,6 +368,22 @@ bool getCurrentWeaponData::isLowAmmo()
 	if (dev) return dev->m_bLowAmmoOn;
 
 	return false;
+}
+float getCurrentWeaponData::reloadTimeFull()
+{
+	ATrDevice *dev = Utils::getCurrentDeviceHelper();
+	if (dev && Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return dev->GetReloadTime(Utils::tr_pc->PlayerReplicationInfo, dev->r_eEquipAt);
+
+	return 0.0f;
+}
+float getCurrentWeaponData::reloadTime()
+{
+	ATrDevice *dev = Utils::getCurrentDeviceHelper();
+	if (dev && Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return dev->GetReloadTime(Utils::tr_pc->PlayerReplicationInfo, dev->r_eEquipAt) * dev->m_fPctTimeBeforeReload;
+
+	return 0.0f;
 }
 int getCurrentWeaponData::ammo()
 {

@@ -225,6 +225,21 @@ void Utils::printConsole(const std::string &str, const FColor &col)
 	tr_gvc->ChatConsole->OutputTextLine(wch, col);
 }
 
+void Utils::openConsole(const std::string &text)
+{
+	if (tr_gvc && tr_gvc->ChatConsole)
+	{
+		UTrChatConsole &con = *tr_gvc->ChatConsole;
+
+		if (!con.EqualEqual_NameName(con.GetStateName(), FName("Open")))
+			con.GotoState(FName("Open"), NULL, NULL, NULL);
+
+		con.SetInputText((wchar_t *)std::wstring(text.begin(), text.end()).c_str());
+		con.SetCursorPos(text.length());
+		con.UpdateCompleteIndices();
+	}
+}
+
 void Utils::drawTextMain(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale, const unsigned &size, const unsigned char &fontNum)
 {
 	if (!(tr_hud && tr_hud->Canvas))

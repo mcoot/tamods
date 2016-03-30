@@ -627,7 +627,8 @@ void routeSaveFile(const std::string &desc)
 
 void routeLoadFile(unsigned int num)
 {
-	reloadRouteList(false);
+	if (files.size() == 0)
+		reloadRouteList(false);
 
 	if (files.size() == 0)
 	{
@@ -719,6 +720,19 @@ unsigned int routeLoadEnemy()
 	reloadRouteList(true);
 	return files.size();
 }
+
+LuaRef routeGetTable()
+{
+	lua_State* luastate = g_config.lua.getState();
+	LuaRef v(luastate);
+	v = newTable(luastate);
+
+	for (size_t i = 0; i < files.size(); i++)
+		v[i + 1] = files[i];
+
+	return v;
+}
+
 
 void UpdateRouteOverheadNumbers(ATrHUD *that)
 {

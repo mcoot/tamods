@@ -43,6 +43,8 @@ namespace getWeaponData
 	bool isPack(unsigned const char &n);
 	bool isPassiveReady(unsigned const char &n);
 	bool isLowAmmo(unsigned const char &n);
+	float reloadTimeFull(unsigned const char &n);
+	float reloadTime(unsigned const char &n);
 	int ammo(unsigned const char &n);
 	int ammoMax(unsigned const char &n);
 	int ammoCarried(unsigned const char &n);
@@ -57,6 +59,8 @@ namespace getCurrentWeaponData
 	bool isReloaded();
 	bool isPack();
 	bool isLowAmmo();
+	float reloadTimeFull();
+	float reloadTime();
 	int ammo();
 	int ammoMax();
 	int ammoCarried();
