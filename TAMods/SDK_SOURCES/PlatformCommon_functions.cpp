@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.2.2866.0) SDK
+# Tribes Ascend (1.3.2878.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: PlatformCommon_functions.cpp
@@ -51,7 +51,7 @@ bool UTgGameEngine::HandlePlayerCommandInput ( struct FString FSCommand, class A
 	static UFunction* pFnHandlePlayerCommandInput = NULL;
 
 	if ( ! pFnHandlePlayerCommandInput )
-		pFnHandlePlayerCommandInput = (UFunction*) UObject::GObjObjects()->Data[ 34073 ];
+		pFnHandlePlayerCommandInput = (UFunction*) UObject::GObjObjects()->Data[ 34067 ];
 
 	UTgGameEngine_execHandlePlayerCommandInput_Parms HandlePlayerCommandInput_Parms;
 	memcpy ( &HandlePlayerCommandInput_Parms.FSCommand, &FSCommand, 0xC );
@@ -76,7 +76,7 @@ void UTgGameEngine::SendGameRequest ( struct FString fsRequest )
 	static UFunction* pFnSendGameRequest = NULL;
 
 	if ( ! pFnSendGameRequest )
-		pFnSendGameRequest = (UFunction*) UObject::GObjObjects()->Data[ 34071 ];
+		pFnSendGameRequest = (UFunction*) UObject::GObjObjects()->Data[ 34065 ];
 
 	UTgGameEngine_execSendGameRequest_Parms SendGameRequest_Parms;
 	memcpy ( &SendGameRequest_Parms.fsRequest, &fsRequest, 0xC );
@@ -98,7 +98,7 @@ void UTgGameEngine::SendCtrlRequest ( struct FString fsRequest )
 	static UFunction* pFnSendCtrlRequest = NULL;
 
 	if ( ! pFnSendCtrlRequest )
-		pFnSendCtrlRequest = (UFunction*) UObject::GObjObjects()->Data[ 34069 ];
+		pFnSendCtrlRequest = (UFunction*) UObject::GObjObjects()->Data[ 34063 ];
 
 	UTgGameEngine_execSendCtrlRequest_Parms SendCtrlRequest_Parms;
 	memcpy ( &SendCtrlRequest_Parms.fsRequest, &fsRequest, 0xC );
@@ -120,7 +120,7 @@ void UTgGameEngine::ClearMarshalEventDelegate ( struct FScriptDelegate MarshalEv
 	static UFunction* pFnClearMarshalEventDelegate = NULL;
 
 	if ( ! pFnClearMarshalEventDelegate )
-		pFnClearMarshalEventDelegate = (UFunction*) UObject::GObjObjects()->Data[ 34067 ];
+		pFnClearMarshalEventDelegate = (UFunction*) UObject::GObjObjects()->Data[ 34061 ];
 
 	UTgGameEngine_execClearMarshalEventDelegate_Parms ClearMarshalEventDelegate_Parms;
 	memcpy ( &ClearMarshalEventDelegate_Parms.MarshalEventDelegate, &MarshalEventDelegate, 0xC );
@@ -142,7 +142,7 @@ void UTgGameEngine::AddMarshalEventDelegate ( struct FScriptDelegate MarshalEven
 	static UFunction* pFnAddMarshalEventDelegate = NULL;
 
 	if ( ! pFnAddMarshalEventDelegate )
-		pFnAddMarshalEventDelegate = (UFunction*) UObject::GObjObjects()->Data[ 34065 ];
+		pFnAddMarshalEventDelegate = (UFunction*) UObject::GObjObjects()->Data[ 34059 ];
 
 	UTgGameEngine_execAddMarshalEventDelegate_Parms AddMarshalEventDelegate_Parms;
 	memcpy ( &AddMarshalEventDelegate_Parms.MarshalEventDelegate, &MarshalEventDelegate, 0xC );
@@ -164,7 +164,7 @@ void UTgGameEngine::OnMarshalEvent ( struct FPointer pMarEvent )
 	static UFunction* pFnOnMarshalEvent = NULL;
 
 	if ( ! pFnOnMarshalEvent )
-		pFnOnMarshalEvent = (UFunction*) UObject::GObjObjects()->Data[ 34018 ];
+		pFnOnMarshalEvent = (UFunction*) UObject::GObjObjects()->Data[ 34012 ];
 
 	UTgGameEngine_execOnMarshalEvent_Parms OnMarshalEvent_Parms;
 	memcpy ( &OnMarshalEvent_Parms.pMarEvent, &pMarEvent, 0x4 );
@@ -184,7 +184,7 @@ bool UTgGameEngine::GetFieldString ( int nToken, struct FString* StrValue )
 	static UFunction* pFnGetFieldString = NULL;
 
 	if ( ! pFnGetFieldString )
-		pFnGetFieldString = (UFunction*) UObject::GObjObjects()->Data[ 34060 ];
+		pFnGetFieldString = (UFunction*) UObject::GObjObjects()->Data[ 34054 ];
 
 	UTgGameEngine_execGetFieldString_Parms GetFieldString_Parms;
 	GetFieldString_Parms.nToken = nToken;
@@ -213,7 +213,7 @@ bool UTgGameEngine::GetFieldFloat ( int nToken, float* FloatValue )
 	static UFunction* pFnGetFieldFloat = NULL;
 
 	if ( ! pFnGetFieldFloat )
-		pFnGetFieldFloat = (UFunction*) UObject::GObjObjects()->Data[ 34056 ];
+		pFnGetFieldFloat = (UFunction*) UObject::GObjObjects()->Data[ 34050 ];
 
 	UTgGameEngine_execGetFieldFloat_Parms GetFieldFloat_Parms;
 	GetFieldFloat_Parms.nToken = nToken;
@@ -242,7 +242,7 @@ bool UTgGameEngine::GetFieldInt ( int nToken, int* IntValue )
 	static UFunction* pFnGetFieldInt = NULL;
 
 	if ( ! pFnGetFieldInt )
-		pFnGetFieldInt = (UFunction*) UObject::GObjObjects()->Data[ 34052 ];
+		pFnGetFieldInt = (UFunction*) UObject::GObjObjects()->Data[ 34046 ];
 
 	UTgGameEngine_execGetFieldInt_Parms GetFieldInt_Parms;
 	GetFieldInt_Parms.nToken = nToken;
@@ -269,7 +269,7 @@ void UTgGameEngine::SendMarshalAll ( unsigned long bLowPriority )
 	static UFunction* pFnSendMarshalAll = NULL;
 
 	if ( ! pFnSendMarshalAll )
-		pFnSendMarshalAll = (UFunction*) UObject::GObjObjects()->Data[ 34050 ];
+		pFnSendMarshalAll = (UFunction*) UObject::GObjObjects()->Data[ 34044 ];
 
 	UTgGameEngine_execSendMarshalAll_Parms SendMarshalAll_Parms;
 	SendMarshalAll_Parms.bLowPriority = bLowPriority;
@@ -292,7 +292,7 @@ void UTgGameEngine::SendMarshal ( struct FUniqueNetId qwPlayerId, unsigned long 
 	static UFunction* pFnSendMarshal = NULL;
 
 	if ( ! pFnSendMarshal )
-		pFnSendMarshal = (UFunction*) UObject::GObjObjects()->Data[ 34047 ];
+		pFnSendMarshal = (UFunction*) UObject::GObjObjects()->Data[ 34041 ];
 
 	UTgGameEngine_execSendMarshal_Parms SendMarshal_Parms;
 	memcpy ( &SendMarshal_Parms.qwPlayerId, &qwPlayerId, 0x8 );
@@ -314,7 +314,7 @@ void UTgGameEngine::ClearMarshal ( )
 	static UFunction* pFnClearMarshal = NULL;
 
 	if ( ! pFnClearMarshal )
-		pFnClearMarshal = (UFunction*) UObject::GObjObjects()->Data[ 34046 ];
+		pFnClearMarshal = (UFunction*) UObject::GObjObjects()->Data[ 34040 ];
 
 	UTgGameEngine_execClearMarshal_Parms ClearMarshal_Parms;
 
@@ -337,7 +337,7 @@ bool UTgGameEngine::SetFieldString ( int nToken, struct FString StrValue )
 	static UFunction* pFnSetFieldString = NULL;
 
 	if ( ! pFnSetFieldString )
-		pFnSetFieldString = (UFunction*) UObject::GObjObjects()->Data[ 34042 ];
+		pFnSetFieldString = (UFunction*) UObject::GObjObjects()->Data[ 34036 ];
 
 	UTgGameEngine_execSetFieldString_Parms SetFieldString_Parms;
 	SetFieldString_Parms.nToken = nToken;
@@ -364,7 +364,7 @@ bool UTgGameEngine::SetFieldFloat ( int nToken, float FloatValue )
 	static UFunction* pFnSetFieldFloat = NULL;
 
 	if ( ! pFnSetFieldFloat )
-		pFnSetFieldFloat = (UFunction*) UObject::GObjObjects()->Data[ 34038 ];
+		pFnSetFieldFloat = (UFunction*) UObject::GObjObjects()->Data[ 34032 ];
 
 	UTgGameEngine_execSetFieldFloat_Parms SetFieldFloat_Parms;
 	SetFieldFloat_Parms.nToken = nToken;
@@ -391,7 +391,7 @@ bool UTgGameEngine::SetFieldInt ( int nToken, int IntValue )
 	static UFunction* pFnSetFieldInt = NULL;
 
 	if ( ! pFnSetFieldInt )
-		pFnSetFieldInt = (UFunction*) UObject::GObjObjects()->Data[ 34034 ];
+		pFnSetFieldInt = (UFunction*) UObject::GObjObjects()->Data[ 34028 ];
 
 	UTgGameEngine_execSetFieldInt_Parms SetFieldInt_Parms;
 	SetFieldInt_Parms.nToken = nToken;
@@ -417,7 +417,7 @@ bool UTgGameEngine::SetFunction ( int nFunction )
 	static UFunction* pFnSetFunction = NULL;
 
 	if ( ! pFnSetFunction )
-		pFnSetFunction = (UFunction*) UObject::GObjObjects()->Data[ 34031 ];
+		pFnSetFunction = (UFunction*) UObject::GObjObjects()->Data[ 34025 ];
 
 	UTgGameEngine_execSetFunction_Parms SetFunction_Parms;
 	SetFunction_Parms.nFunction = nFunction;
@@ -441,7 +441,7 @@ void UTgSupportCommands::scSetBatchPhysicsProperty ( struct FString BatchPropert
 	static UFunction* pFnscSetBatchPhysicsProperty = NULL;
 
 	if ( ! pFnscSetBatchPhysicsProperty )
-		pFnscSetBatchPhysicsProperty = (UFunction*) UObject::GObjObjects()->Data[ 34196 ];
+		pFnscSetBatchPhysicsProperty = (UFunction*) UObject::GObjObjects()->Data[ 34190 ];
 
 	UTgSupportCommands_execscSetBatchPhysicsProperty_Parms scSetBatchPhysicsProperty_Parms;
 	memcpy ( &scSetBatchPhysicsProperty_Parms.BatchProperties, &BatchProperties, 0xC );
@@ -460,7 +460,7 @@ void UTgSupportCommands::scSPP ( struct FString PropertyName, float Value )
 	static UFunction* pFnscSPP = NULL;
 
 	if ( ! pFnscSPP )
-		pFnscSPP = (UFunction*) UObject::GObjObjects()->Data[ 34193 ];
+		pFnscSPP = (UFunction*) UObject::GObjObjects()->Data[ 34187 ];
 
 	UTgSupportCommands_execscSPP_Parms scSPP_Parms;
 	memcpy ( &scSPP_Parms.PropertyName, &PropertyName, 0xC );
@@ -480,7 +480,7 @@ void UTgSupportCommands::scSetPhysicsProperty ( struct FString PropertyName, flo
 	static UFunction* pFnscSetPhysicsProperty = NULL;
 
 	if ( ! pFnscSetPhysicsProperty )
-		pFnscSetPhysicsProperty = (UFunction*) UObject::GObjObjects()->Data[ 34190 ];
+		pFnscSetPhysicsProperty = (UFunction*) UObject::GObjObjects()->Data[ 34184 ];
 
 	UTgSupportCommands_execscSetPhysicsProperty_Parms scSetPhysicsProperty_Parms;
 	memcpy ( &scSetPhysicsProperty_Parms.PropertyName, &PropertyName, 0xC );
@@ -499,7 +499,7 @@ void UTgSupportCommands::scPerfDebugRelevMode ( int Mode )
 	static UFunction* pFnscPerfDebugRelevMode = NULL;
 
 	if ( ! pFnscPerfDebugRelevMode )
-		pFnscPerfDebugRelevMode = (UFunction*) UObject::GObjObjects()->Data[ 34188 ];
+		pFnscPerfDebugRelevMode = (UFunction*) UObject::GObjObjects()->Data[ 34182 ];
 
 	UTgSupportCommands_execscPerfDebugRelevMode_Parms scPerfDebugRelevMode_Parms;
 	scPerfDebugRelevMode_Parms.Mode = Mode;
@@ -517,7 +517,7 @@ void UTgSupportCommands::scPerfDebugSkip ( int skips )
 	static UFunction* pFnscPerfDebugSkip = NULL;
 
 	if ( ! pFnscPerfDebugSkip )
-		pFnscPerfDebugSkip = (UFunction*) UObject::GObjObjects()->Data[ 34186 ];
+		pFnscPerfDebugSkip = (UFunction*) UObject::GObjObjects()->Data[ 34180 ];
 
 	UTgSupportCommands_execscPerfDebugSkip_Parms scPerfDebugSkip_Parms;
 	scPerfDebugSkip_Parms.skips = skips;
@@ -535,7 +535,7 @@ void UTgSupportCommands::scPerfDebugFeet ( int feet )
 	static UFunction* pFnscPerfDebugFeet = NULL;
 
 	if ( ! pFnscPerfDebugFeet )
-		pFnscPerfDebugFeet = (UFunction*) UObject::GObjObjects()->Data[ 34184 ];
+		pFnscPerfDebugFeet = (UFunction*) UObject::GObjObjects()->Data[ 34178 ];
 
 	UTgSupportCommands_execscPerfDebugFeet_Parms scPerfDebugFeet_Parms;
 	scPerfDebugFeet_Parms.feet = feet;
@@ -552,7 +552,7 @@ void UTgSupportCommands::scDemoStop ( )
 	static UFunction* pFnscDemoStop = NULL;
 
 	if ( ! pFnscDemoStop )
-		pFnscDemoStop = (UFunction*) UObject::GObjObjects()->Data[ 34183 ];
+		pFnscDemoStop = (UFunction*) UObject::GObjObjects()->Data[ 34177 ];
 
 	UTgSupportCommands_execscDemoStop_Parms scDemoStop_Parms;
 
@@ -568,7 +568,7 @@ void UTgSupportCommands::scDemoRec ( )
 	static UFunction* pFnscDemoRec = NULL;
 
 	if ( ! pFnscDemoRec )
-		pFnscDemoRec = (UFunction*) UObject::GObjObjects()->Data[ 34182 ];
+		pFnscDemoRec = (UFunction*) UObject::GObjObjects()->Data[ 34176 ];
 
 	UTgSupportCommands_execscDemoRec_Parms scDemoRec_Parms;
 
@@ -585,7 +585,7 @@ void UTgSupportCommands::scTimer ( struct FString sCommand )
 	static UFunction* pFnscTimer = NULL;
 
 	if ( ! pFnscTimer )
-		pFnscTimer = (UFunction*) UObject::GObjObjects()->Data[ 34179 ];
+		pFnscTimer = (UFunction*) UObject::GObjObjects()->Data[ 34173 ];
 
 	UTgSupportCommands_execscTimer_Parms scTimer_Parms;
 	memcpy ( &scTimer_Parms.sCommand, &sCommand, 0xC );
@@ -603,7 +603,7 @@ void UTgSupportCommands::scTime ( int nSeconds )
 	static UFunction* pFnscTime = NULL;
 
 	if ( ! pFnscTime )
-		pFnscTime = (UFunction*) UObject::GObjObjects()->Data[ 34176 ];
+		pFnscTime = (UFunction*) UObject::GObjObjects()->Data[ 34170 ];
 
 	UTgSupportCommands_execscTime_Parms scTime_Parms;
 	scTime_Parms.nSeconds = nSeconds;
@@ -622,7 +622,7 @@ void UTgSupportCommands::scScore ( int nTeam, int nCount )
 	static UFunction* pFnscScore = NULL;
 
 	if ( ! pFnscScore )
-		pFnscScore = (UFunction*) UObject::GObjObjects()->Data[ 34172 ];
+		pFnscScore = (UFunction*) UObject::GObjObjects()->Data[ 34166 ];
 
 	UTgSupportCommands_execscScore_Parms scScore_Parms;
 	scScore_Parms.nTeam = nTeam;
@@ -641,7 +641,7 @@ void UTgSupportCommands::scEndGame ( struct FString Reason )
 	static UFunction* pFnscEndGame = NULL;
 
 	if ( ! pFnscEndGame )
-		pFnscEndGame = (UFunction*) UObject::GObjObjects()->Data[ 34169 ];
+		pFnscEndGame = (UFunction*) UObject::GObjObjects()->Data[ 34163 ];
 
 	UTgSupportCommands_execscEndGame_Parms scEndGame_Parms;
 	memcpy ( &scEndGame_Parms.Reason, &Reason, 0xC );
@@ -659,7 +659,7 @@ void UTgSupportCommands::scStartGame ( struct FString Reason )
 	static UFunction* pFnscStartGame = NULL;
 
 	if ( ! pFnscStartGame )
-		pFnscStartGame = (UFunction*) UObject::GObjObjects()->Data[ 34166 ];
+		pFnscStartGame = (UFunction*) UObject::GObjObjects()->Data[ 34160 ];
 
 	UTgSupportCommands_execscStartGame_Parms scStartGame_Parms;
 	memcpy ( &scStartGame_Parms.Reason, &Reason, 0xC );
@@ -677,7 +677,7 @@ void UTgSupportCommands::scLogMark ( struct FString Comment )
 	static UFunction* pFnscLogMark = NULL;
 
 	if ( ! pFnscLogMark )
-		pFnscLogMark = (UFunction*) UObject::GObjObjects()->Data[ 34164 ];
+		pFnscLogMark = (UFunction*) UObject::GObjObjects()->Data[ 34158 ];
 
 	UTgSupportCommands_execscLogMark_Parms scLogMark_Parms;
 	memcpy ( &scLogMark_Parms.Comment, &Comment, 0xC );
@@ -696,7 +696,7 @@ void UTgSupportCommands::scLog ( struct FString LogName, unsigned long bEnabled 
 	static UFunction* pFnscLog = NULL;
 
 	if ( ! pFnscLog )
-		pFnscLog = (UFunction*) UObject::GObjObjects()->Data[ 34160 ];
+		pFnscLog = (UFunction*) UObject::GObjObjects()->Data[ 34154 ];
 
 	UTgSupportCommands_execscLog_Parms scLog_Parms;
 	memcpy ( &scLog_Parms.LogName, &LogName, 0xC );
@@ -715,7 +715,7 @@ void UTgSupportCommands::GPerfDebugRelevMode ( int Mode )
 	static UFunction* pFnGPerfDebugRelevMode = NULL;
 
 	if ( ! pFnGPerfDebugRelevMode )
-		pFnGPerfDebugRelevMode = (UFunction*) UObject::GObjObjects()->Data[ 34158 ];
+		pFnGPerfDebugRelevMode = (UFunction*) UObject::GObjObjects()->Data[ 34152 ];
 
 	UTgSupportCommands_execGPerfDebugRelevMode_Parms GPerfDebugRelevMode_Parms;
 	GPerfDebugRelevMode_Parms.Mode = Mode;
@@ -737,7 +737,7 @@ void UTgSupportCommands::GPerfDebugSkips ( int skips )
 	static UFunction* pFnGPerfDebugSkips = NULL;
 
 	if ( ! pFnGPerfDebugSkips )
-		pFnGPerfDebugSkips = (UFunction*) UObject::GObjObjects()->Data[ 34156 ];
+		pFnGPerfDebugSkips = (UFunction*) UObject::GObjObjects()->Data[ 34150 ];
 
 	UTgSupportCommands_execGPerfDebugSkips_Parms GPerfDebugSkips_Parms;
 	GPerfDebugSkips_Parms.skips = skips;
@@ -759,7 +759,7 @@ void UTgSupportCommands::GPerfDebugFeet ( int feet )
 	static UFunction* pFnGPerfDebugFeet = NULL;
 
 	if ( ! pFnGPerfDebugFeet )
-		pFnGPerfDebugFeet = (UFunction*) UObject::GObjObjects()->Data[ 34154 ];
+		pFnGPerfDebugFeet = (UFunction*) UObject::GObjObjects()->Data[ 34148 ];
 
 	UTgSupportCommands_execGPerfDebugFeet_Parms GPerfDebugFeet_Parms;
 	GPerfDebugFeet_Parms.feet = feet;
@@ -781,7 +781,7 @@ void UTgSupportCommands::gmC ( struct FString sCommand )
 	static UFunction* pFngmC = NULL;
 
 	if ( ! pFngmC )
-		pFngmC = (UFunction*) UObject::GObjObjects()->Data[ 34152 ];
+		pFngmC = (UFunction*) UObject::GObjObjects()->Data[ 34146 ];
 
 	UTgSupportCommands_execgmC_Parms gmC_Parms;
 	memcpy ( &gmC_Parms.sCommand, &sCommand, 0xC );
@@ -803,7 +803,7 @@ void UTgSupportCommands::gmCommand ( struct FString sCommand )
 	static UFunction* pFngmCommand = NULL;
 
 	if ( ! pFngmCommand )
-		pFngmCommand = (UFunction*) UObject::GObjObjects()->Data[ 34150 ];
+		pFngmCommand = (UFunction*) UObject::GObjObjects()->Data[ 34144 ];
 
 	UTgSupportCommands_execgmCommand_Parms gmCommand_Parms;
 	memcpy ( &gmCommand_Parms.sCommand, &sCommand, 0xC );
@@ -825,7 +825,7 @@ void UTgSupportCommands::gmMatchNext ( int nMapId )
 	static UFunction* pFngmMatchNext = NULL;
 
 	if ( ! pFngmMatchNext )
-		pFngmMatchNext = (UFunction*) UObject::GObjObjects()->Data[ 34148 ];
+		pFngmMatchNext = (UFunction*) UObject::GObjObjects()->Data[ 34142 ];
 
 	UTgSupportCommands_execgmMatchNext_Parms gmMatchNext_Parms;
 	gmMatchNext_Parms.nMapId = nMapId;
@@ -847,7 +847,7 @@ void UTgSupportCommands::gmMatchForce ( int nQueueId )
 	static UFunction* pFngmMatchForce = NULL;
 
 	if ( ! pFngmMatchForce )
-		pFngmMatchForce = (UFunction*) UObject::GObjObjects()->Data[ 34146 ];
+		pFngmMatchForce = (UFunction*) UObject::GObjObjects()->Data[ 34140 ];
 
 	UTgSupportCommands_execgmMatchForce_Parms gmMatchForce_Parms;
 	gmMatchForce_Parms.nQueueId = nQueueId;

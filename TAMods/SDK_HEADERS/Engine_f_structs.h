@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.2.2866.0) SDK
+# Tribes Ascend (1.3.2878.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: Engine_f_structs.h
@@ -7170,15 +7170,9 @@ struct AGameInfo_eventPostLogin_Parms
 };
 
 // Function Engine.GameInfo.UpdateBestNextHosts
-// [0x00820002] 
+// [0x00020002] 
 struct AGameInfo_execUpdateBestNextHosts_Parms
 {
-	// class APlayerController*                        PC;                                               		// 0x0000 (0x0004) [0x0000000000000000]              
-	// TArray< class APlayerController* >              SortedPCList;                                     		// 0x0004 (0x000C) [0x0000000000400000]              ( CPF_NeedCtorLink )
-	// struct FUniqueNetId                             SortedPlayerIdList[ 0xA ];                        		// 0x0010 (0x0050) [0x0000000000000000]              
-	// struct FUniqueNetId                             ZeroId;                                           		// 0x0060 (0x0008) [0x0000000000000000]              
-	// int                                             Idx;                                              		// 0x0068 (0x0004) [0x0000000000000000]              
-	// int                                             NumEntries;                                       		// 0x006C (0x0004) [0x0000000000000000]              
 };
 
 // Function Engine.GameInfo.BestNextHostSort
@@ -12875,7 +12869,7 @@ struct APlayerController_eventClientStopForceFeedbackWaveform_Parms
 };
 
 // Function Engine.PlayerController.ClientPlayForceFeedbackWaveform
-// [0x010249C2] ( FUNC_Event )
+// [0x01024942] ( FUNC_Event )
 struct APlayerController_eventClientPlayForceFeedbackWaveform_Parms
 {
 	class UForceFeedbackWaveform*                      FFWaveform;                                       		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )

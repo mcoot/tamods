@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.2.2866.0) SDK
+# Tribes Ascend (1.3.2878.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: Engine_classes.h
@@ -3257,15 +3257,16 @@ public:
 	unsigned long                                      bForceMaxAccel : 1;                               		// 0x0218 (0x0004) [0x0000000000000000] [0x00020000] 
 	unsigned long                                      bLimitFallAccel : 1;                              		// 0x0218 (0x0004) [0x0000000000000000] [0x00040000] 
 	unsigned long                                      bReplicateHealthToAll : 1;                        		// 0x0218 (0x0004) [0x0000000000000000] [0x00080000] 
-	unsigned long                                      bForceRMVelocity : 1;                             		// 0x0218 (0x0004) [0x0000000000000000] [0x00100000] 
-	unsigned long                                      bForceRegularVelocity : 1;                        		// 0x0218 (0x0004) [0x0000000000000000] [0x00200000] 
-	unsigned long                                      bPlayedDeath : 1;                                 		// 0x0218 (0x0004) [0x0000000000000000] [0x00400000] 
-	unsigned long                                      bDesiredRotationSet : 1;                          		// 0x0218 (0x0004) [0x0000000000000002] [0x00800000] ( CPF_Const )
-	unsigned long                                      bLockDesiredRotation : 1;                         		// 0x0218 (0x0004) [0x0000000000000002] [0x01000000] ( CPF_Const )
-	unsigned long                                      bUnlockWhenReached : 1;                           		// 0x0218 (0x0004) [0x0000000000000002] [0x02000000] ( CPF_Const )
-	unsigned long                                      bNeedsBaseTickedFirst : 1;                        		// 0x0218 (0x0004) [0x0000000000000000] [0x04000000] 
-	unsigned long                                      bRootMotionFromInterpCurve : 1;                   		// 0x0218 (0x0004) [0x0000000000000020] [0x08000000] ( CPF_Net )
-	unsigned long                                      bDebugShowCameraLocation : 1;                     		// 0x0218 (0x0004) [0x0000000000000001] [0x10000000] ( CPF_Edit )
+	unsigned long                                      bDiedThisFrame : 1;                               		// 0x0218 (0x0004) [0x0000000000002000] [0x00100000] ( CPF_Transient )
+	unsigned long                                      bForceRMVelocity : 1;                             		// 0x0218 (0x0004) [0x0000000000000000] [0x00200000] 
+	unsigned long                                      bForceRegularVelocity : 1;                        		// 0x0218 (0x0004) [0x0000000000000000] [0x00400000] 
+	unsigned long                                      bPlayedDeath : 1;                                 		// 0x0218 (0x0004) [0x0000000000000000] [0x00800000] 
+	unsigned long                                      bDesiredRotationSet : 1;                          		// 0x0218 (0x0004) [0x0000000000000002] [0x01000000] ( CPF_Const )
+	unsigned long                                      bLockDesiredRotation : 1;                         		// 0x0218 (0x0004) [0x0000000000000002] [0x02000000] ( CPF_Const )
+	unsigned long                                      bUnlockWhenReached : 1;                           		// 0x0218 (0x0004) [0x0000000000000002] [0x04000000] ( CPF_Const )
+	unsigned long                                      bNeedsBaseTickedFirst : 1;                        		// 0x0218 (0x0004) [0x0000000000000000] [0x08000000] 
+	unsigned long                                      bRootMotionFromInterpCurve : 1;                   		// 0x0218 (0x0004) [0x0000000000000020] [0x10000000] ( CPF_Net )
+	unsigned long                                      bDebugShowCameraLocation : 1;                     		// 0x0218 (0x0004) [0x0000000000000001] [0x20000000] ( CPF_Edit )
 	unsigned char                                      WalkingPhysics;                                   		// 0x021C (0x0001) [0x0000000000000001]              ( CPF_Edit )
 	unsigned char                                      PathSearchType;                                   		// 0x021D (0x0001) [0x0000000000000000]              
 	unsigned char                                      RemoteViewPitch;                                  		// 0x021E (0x0001) [0x0000000000000022]              ( CPF_Const | CPF_Net )
@@ -39499,7 +39500,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 11039 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 11040 ];
 
 		return pClassPointer;
 	};
@@ -39522,7 +39523,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 11654 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 11655 ];
 
 		return pClassPointer;
 	};
@@ -39552,7 +39553,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 12414 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 12415 ];
 
 		return pClassPointer;
 	};
@@ -39574,7 +39575,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 13327 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 13328 ];
 
 		return pClassPointer;
 	};
@@ -39597,7 +39598,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 13356 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 13357 ];
 
 		return pClassPointer;
 	};
@@ -39619,7 +39620,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14076 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14077 ];
 
 		return pClassPointer;
 	};
@@ -39642,7 +39643,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14109 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14110 ];
 
 		return pClassPointer;
 	};
@@ -39662,7 +39663,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14240 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14241 ];
 
 		return pClassPointer;
 	};
@@ -39682,7 +39683,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14242 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14243 ];
 
 		return pClassPointer;
 	};
@@ -39702,7 +39703,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14245 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14246 ];
 
 		return pClassPointer;
 	};
@@ -39723,7 +39724,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14488 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14489 ];
 
 		return pClassPointer;
 	};
@@ -39744,7 +39745,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14544 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14545 ];
 
 		return pClassPointer;
 	};
@@ -39765,7 +39766,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14553 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14554 ];
 
 		return pClassPointer;
 	};
@@ -39789,7 +39790,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14825 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 14826 ];
 
 		return pClassPointer;
 	};
@@ -39811,7 +39812,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 15252 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 15253 ];
 
 		return pClassPointer;
 	};
@@ -39835,7 +39836,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 15334 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 15335 ];
 
 		return pClassPointer;
 	};
@@ -39857,7 +39858,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 16228 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 16229 ];
 
 		return pClassPointer;
 	};
@@ -39878,7 +39879,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 16610 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 16611 ];
 
 		return pClassPointer;
 	};
@@ -39900,7 +39901,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 17851 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 17845 ];
 
 		return pClassPointer;
 	};
@@ -39923,7 +39924,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 18093 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 18087 ];
 
 		return pClassPointer;
 	};
@@ -39944,7 +39945,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 19562 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 19556 ];
 
 		return pClassPointer;
 	};
@@ -39965,7 +39966,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 19951 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 19945 ];
 
 		return pClassPointer;
 	};
@@ -39988,7 +39989,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 19957 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 19951 ];
 
 		return pClassPointer;
 	};
@@ -40008,7 +40009,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 20550 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 20544 ];
 
 		return pClassPointer;
 	};
@@ -40033,7 +40034,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 21055 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 21049 ];
 
 		return pClassPointer;
 	};
@@ -40078,7 +40079,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 21254 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 21248 ];
 
 		return pClassPointer;
 	};
@@ -40105,7 +40106,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 22256 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 22250 ];
 
 		return pClassPointer;
 	};
@@ -40130,7 +40131,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 22262 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 22256 ];
 
 		return pClassPointer;
 	};
@@ -40158,7 +40159,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 22308 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 22302 ];
 
 		return pClassPointer;
 	};
@@ -40194,7 +40195,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 22549 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 22543 ];
 
 		return pClassPointer;
 	};
@@ -40219,7 +40220,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 23676 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 23670 ];
 
 		return pClassPointer;
 	};
@@ -40240,7 +40241,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 23684 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 23678 ];
 
 		return pClassPointer;
 	};
@@ -40260,7 +40261,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24156 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24150 ];
 
 		return pClassPointer;
 	};
@@ -40281,7 +40282,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24603 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24597 ];
 
 		return pClassPointer;
 	};
@@ -40305,7 +40306,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24807 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24801 ];
 
 		return pClassPointer;
 	};
@@ -40325,7 +40326,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24850 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24844 ];
 
 		return pClassPointer;
 	};
@@ -40345,7 +40346,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24855 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24849 ];
 
 		return pClassPointer;
 	};
@@ -40365,7 +40366,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24915 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24909 ];
 
 		return pClassPointer;
 	};
@@ -40385,7 +40386,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24932 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24926 ];
 
 		return pClassPointer;
 	};
@@ -40405,7 +40406,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24937 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24931 ];
 
 		return pClassPointer;
 	};
@@ -40425,7 +40426,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25003 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 24997 ];
 
 		return pClassPointer;
 	};
@@ -40447,7 +40448,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25219 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25213 ];
 
 		return pClassPointer;
 	};
@@ -40467,7 +40468,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25223 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25217 ];
 
 		return pClassPointer;
 	};
@@ -40488,7 +40489,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25408 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25402 ];
 
 		return pClassPointer;
 	};
@@ -40513,7 +40514,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25543 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25537 ];
 
 		return pClassPointer;
 	};
@@ -40536,7 +40537,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25548 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25542 ];
 
 		return pClassPointer;
 	};
@@ -40559,7 +40560,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25567 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25561 ];
 
 		return pClassPointer;
 	};
@@ -40580,7 +40581,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25582 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25576 ];
 
 		return pClassPointer;
 	};
@@ -40601,7 +40602,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25628 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25622 ];
 
 		return pClassPointer;
 	};
@@ -40621,7 +40622,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25653 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25647 ];
 
 		return pClassPointer;
 	};
@@ -40645,7 +40646,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25750 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25744 ];
 
 		return pClassPointer;
 	};
@@ -40666,7 +40667,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25861 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25855 ];
 
 		return pClassPointer;
 	};
@@ -40686,7 +40687,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25877 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25871 ];
 
 		return pClassPointer;
 	};
@@ -40706,7 +40707,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25907 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 25901 ];
 
 		return pClassPointer;
 	};
@@ -40726,7 +40727,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 26450 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 26444 ];
 
 		return pClassPointer;
 	};
@@ -40746,7 +40747,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 26455 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 26449 ];
 
 		return pClassPointer;
 	};
@@ -40766,7 +40767,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27694 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27688 ];
 
 		return pClassPointer;
 	};
@@ -40787,7 +40788,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27698 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27692 ];
 
 		return pClassPointer;
 	};
@@ -40810,7 +40811,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27716 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27710 ];
 
 		return pClassPointer;
 	};
@@ -40834,7 +40835,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27730 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27724 ];
 
 		return pClassPointer;
 	};
@@ -40859,7 +40860,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27769 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 27763 ];
 
 		return pClassPointer;
 	};
@@ -40888,7 +40889,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 28676 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 28670 ];
 
 		return pClassPointer;
 	};
@@ -40913,7 +40914,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 28888 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 28882 ];
 
 		return pClassPointer;
 	};
@@ -40938,7 +40939,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 28903 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 28897 ];
 
 		return pClassPointer;
 	};
@@ -40963,7 +40964,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 29223 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 29217 ];
 
 		return pClassPointer;
 	};

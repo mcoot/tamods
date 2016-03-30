@@ -4,6 +4,8 @@ bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunc
 {
 	ATrPlayerController_execClientQueueAccolade_Parms *params = (ATrPlayerController_execClientQueueAccolade_Parms*)pParams;
 
+	// BROKEN BECAUSE THE PARAMS CHANGED
+	/*
 	if (g_config.onQueueAccolade && !g_config.onQueueAccolade->isNil() && g_config.onQueueAccolade->isFunction())
 	{
 		try
@@ -86,6 +88,7 @@ bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunc
 			break;
 		}
 	}
+	*/
 
 	return false;
 }
