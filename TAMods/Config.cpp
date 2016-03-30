@@ -2125,6 +2125,8 @@ void Lua::init()
 		addFunction("consoleRGB", (void(*)(const std::string &, const FColor &)) &Utils::printConsole).
 		addFunction("notify", (void (*)(const std::string &, const std::string &)) &Utils::notify).
 
+		addFunction("openConsole", (void(*)(const std::string &)) &Utils::openConsole).
+
 		// Sounds
 		addFunction("modifySound", &config_modifySound).
 		addFunction("modifySoundRe", &config_modifySoundRe).
