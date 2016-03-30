@@ -2242,6 +2242,8 @@ void Lua::init()
 			addFunction("isPack",             &getWeaponData::isPack).
 			addFunction("isPassiveReady",     &getWeaponData::isPassiveReady).
 			addFunction("isLowAmmo",          &getWeaponData::isLowAmmo).
+			addFunction("reloadTimeFull",     &getWeaponData::reloadTimeFull).
+			addFunction("reloadTime",         &getWeaponData::reloadTime).
 			addFunction("ammo",               &getWeaponData::ammo).
 			addFunction("ammoMax",            &getWeaponData::ammoMax).
 			addFunction("ammoCarried",        &getWeaponData::ammoCarried).
@@ -2255,6 +2257,8 @@ void Lua::init()
 			addFunction("isReloaded",         &getCurrentWeaponData::isReloaded).
 			addFunction("isPack",             &getCurrentWeaponData::isPack).
 			addFunction("isLowAmmo",          &getCurrentWeaponData::isLowAmmo).
+			addFunction("reloadTimeFull",     &getCurrentWeaponData::reloadTimeFull).
+			addFunction("reloadTime",         &getCurrentWeaponData::reloadTime).
 			addFunction("ammo",               &getCurrentWeaponData::ammo).
 			addFunction("ammoMax",            &getCurrentWeaponData::ammoMax).
 			addFunction("ammoCarried",        &getCurrentWeaponData::ammoCarried).
