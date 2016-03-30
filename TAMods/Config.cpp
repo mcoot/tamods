@@ -2185,6 +2185,7 @@ void Lua::init()
 			addFunction("enableBot", &routeEnableBot).
 			addFunction("getAll", &routeLoadAll).
 			addFunction("getEnemy", &routeLoadEnemy).
+			addFunction("getTable", &routeGetTable).
 		endNamespace().
 		addFunction("toggleTurrets", &toggleTurrets).
 		addFunction("togglePower", &togglePower).

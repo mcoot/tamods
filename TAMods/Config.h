@@ -50,6 +50,7 @@ void routeSaveFile(const std::string &desc);
 void routeLoadFile(unsigned int num);
 void routeFind(const std::string &needle);
 void routeListAll();
+LuaRef routeGetTable();
 unsigned int routeLoadAll();
 unsigned int routeLoadEnemy();
 void routeEnableBot(bool on);
