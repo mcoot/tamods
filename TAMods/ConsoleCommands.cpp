@@ -146,6 +146,11 @@ namespace consoleCommands
 		{ L"/shot",             { &cmd_utcommandwrapper, L"/shot (Take a screenshot)" } },
 
 		// Server commands
+		{ L"/sc help",            { NULL,                L"/sc help (Display list of server commands)" } },
+		{ L"/sc player kick",     { NULL,                L"/sc player kick <Player> (Kick a player from the server)" } },
+		{ L"/sc player ban",      { NULL,                L"/sc player ban <Player> (Ban a player from the server)" } },
+		{ L"/sc player list",     { NULL,                L"/sc list (Show all players)" } },
+		{ L"/sc player specs",    { NULL,                L"/sc specs (Show all spectators)" } },
 		{ L"/sc login",           { NULL,                L"/sc login <ServerID> <Password> (Login to a server)" } },
 		{ L"/sc select",          { NULL,                L"/sc select <ServerID> (Select a server)" } },
 		{ L"/sc server status",   { NULL,                L"/sc server status (Show server status)" } },
@@ -548,6 +553,14 @@ namespace consoleCommands
 
 					cmd = L"/votekick " + name;
 					desc = cmd + L" (Call an in-game vote to remove a player from the match)";
+					arr.Add({ (wchar_t *)cmd.c_str(), (wchar_t *)desc.c_str() });
+
+					cmd = L"/sc player kick " + name;
+					desc = cmd + L" (Kick a player from the server)";
+					arr.Add({ (wchar_t *)cmd.c_str(), (wchar_t *)desc.c_str() });
+
+					cmd = L"/sc player ban " + name;
+					desc = cmd + L" (Ban a player from the server)";
 					arr.Add({ (wchar_t *)cmd.c_str(), (wchar_t *)desc.c_str() });
 				}
 			}

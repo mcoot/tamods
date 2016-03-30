@@ -104,6 +104,7 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 			that->SetInputText(L"");
 			that->SetCursorPos(0);
 			that->HistoryCur = that->HistoryTop;
+			that->UpdateCompleteIndices();
 			that->GotoState(FName(""), NULL, NULL, NULL);
 			return true;
 	}
