@@ -36,6 +36,7 @@ namespace Utils
 	void console(const char *format, ...);
 	void printConsole(const std::string &str);
 	void printConsole(const std::string &str, const FColor &col);
+	void openConsole(const std::string &text);
 
 	// Canvas drawing
 	void drawTextMain(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale, const unsigned &size, const unsigned char &fontNum);
