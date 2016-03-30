@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.2.2866.0) SDK
+# Tribes Ascend (1.3.2878.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: IpDrv_classes.h
@@ -1102,7 +1102,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32822 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32816 ];
 
 		return pClassPointer;
 	};
@@ -1140,7 +1140,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32825 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32819 ];
 
 		return pClassPointer;
 	};
@@ -1165,7 +1165,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32841 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32835 ];
 
 		return pClassPointer;
 	};
@@ -1187,7 +1187,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32860 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 32854 ];
 
 		return pClassPointer;
 	};
@@ -1218,7 +1218,7 @@ public:
 	static UClass* StaticClass()
 	{
 		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 33839 ];
+			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 33833 ];
 
 		return pClassPointer;
 	};

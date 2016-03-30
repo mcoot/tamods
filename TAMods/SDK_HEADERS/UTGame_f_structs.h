@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.2.2866.0) SDK
+# Tribes Ascend (1.3.2878.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: UTGame_f_structs.h
@@ -3035,17 +3035,11 @@ struct AUTGame_execRemovePlayerFromMuteLists_Parms
 };
 
 // Function UTGame.UTGame.SetupPlayerMuteList
-// [0x00820002] 
+// [0x00020002] 
 struct AUTGame_execSetupPlayerMuteList_Parms
 {
 	class AUTPlayerController*                         PC;                                               		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	unsigned long                                      bForceSpectatorChannel : 1;                       		// 0x0004 (0x0004) [0x0000000000000080] [0x00000001] ( CPF_Parm )
-	// class ATeamInfo*                                MyTeam;                                           		// 0x0008 (0x0004) [0x0000000000000000]              
-	// int                                             MyVoiceChannel;                                   		// 0x000C (0x0004) [0x0000000000000000]              
-	// class ATeamInfo*                                OtherTeam;                                        		// 0x0010 (0x0004) [0x0000000000000000]              
-	// class AUTPlayerController*                      OtherPC;                                          		// 0x0014 (0x0004) [0x0000000000000000]              
-	// int                                             OtherVoiceChannel;                                		// 0x0018 (0x0004) [0x0000000000000000]              
-	// struct FUniqueNetId                             ZeroUniqueNetId;                                  		// 0x001C (0x0008) [0x0000000000000000]              
 };
 
 // Function UTGame.UTGame.UpdateGameplayMuteList
@@ -5315,7 +5309,7 @@ struct AUTPlayerController_eventPossess_Parms
 };
 
 // Function UTGame.UTPlayerController.ClientSetAutoObjective
-// [0x010201C2] 
+// [0x01020142] 
 struct AUTPlayerController_execClientSetAutoObjective_Parms
 {
 	class AActor*                                      NewAutoObjective;                                 		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
@@ -10827,12 +10821,13 @@ struct AUTInventoryManager_execChangedWeapon_Parms
 };
 
 // Function UTGame.UTInventoryManager.HasInventoryOfClass
-// [0x00020002] 
+// [0x00024002] 
 struct AUTInventoryManager_execHasInventoryOfClass_Parms
 {
 	class UClass*                                      InvClass;                                         		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
-	class AInventory*                                  ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// class AInventory*                               Inv;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
+	class UClass*                                      ExcludeClass;                                     		// 0x0004 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
+	class AInventory*                                  ReturnValue;                                      		// 0x0008 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// class AInventory*                               Inv;                                              		// 0x000C (0x0004) [0x0000000000000000]              
 };
 
 // Function UTGame.UTInventoryManager.AddAmmoToWeapon
