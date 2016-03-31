@@ -64,8 +64,8 @@ function crosshairs(x, y)
 	local retIndex = currentWeapon.reticuleIndex()
 	
 	if retIndex == 21 or retIndex == 22 then -- Snipers
-		draw2dLine(0, y, x * 2, y, xhair_line_color)
-		draw2dLine(x, 0, x, y * 2, xhair_line_color)
+		draw2dLine(0, y, x * 2, y, colOutline)
+		draw2dLine(x, 0, x, y * 2, colOutline)
 		cross_dot(x, y, colDot, colOutline, 1)
 	else
 		-- Dot

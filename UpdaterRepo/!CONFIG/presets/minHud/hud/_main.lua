@@ -1,7 +1,7 @@
 require(preset .. "hud/variables")
 require(preset .. "hud/colors")
 require(preset .. "hud/elements/spectators")
-require(preset .. "hud/elements/kda_ping")
+require(preset .. "hud/elements/stats")
 require(preset .. "hud/elements/crosshairs")
 require(preset .. "hud/elements/weapon_list")
 
@@ -33,7 +33,7 @@ function onDrawCustomHud(res_x, res_y)
 	end
 
 	spectators(center_x, res_y * 0.85)
-	kda_ping(80, res_y - 10)
+	stats(res_x - borderWidth, borderWidth)
 
 	-----------------
 	-- Player info --
