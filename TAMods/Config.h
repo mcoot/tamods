@@ -406,7 +406,6 @@ public:
 
 	// HUD scaling
 	float IFFScale;
-	bool  showHUDWeapons;
 
 	// Console
 	float consoleSize;

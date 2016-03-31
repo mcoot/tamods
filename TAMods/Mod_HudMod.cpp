@@ -1,13 +1,5 @@
 #include "Mods.h"
 
-void TrHUD_ShowHUDPlayerAlive(ATrHUD *that, ATrHUD_execShowHUDPlayerAlive_Parms *params, void *ret, Hooks::CallInfo *callinfo)
-{
-	if (!g_config.showHUDWeapons)
-		that->TrPlayerOwner->m_bShowHUDWeapons = false;
-
-	that->ShowHUDPlayerAlive();
-}
-
 bool TrHudWrapper_destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	AUTGFxHudWrapper *that = (AUTGFxHudWrapper *)dwCallingObject;
