@@ -12,6 +12,7 @@ using System.IO;
 using System.Net;
 using System.Xml;
 using Microsoft.Win32;
+using System.Media;
 
 namespace TAModLauncher
 {
@@ -61,7 +62,7 @@ namespace TAModLauncher
                 (launcherRegEntry == null ? "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe" : launcherRegEntry + "\\HiRezLauncherUI.exe")
                 : config.getProperty("//LauncherConfig/TribesLauncherPath"));
             DLLPath = (config.getProperty("//LauncherConfig/TAModsDLLPath") == null ?
-                 Environment.CurrentDirectory + "\\TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
+                 "TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
             bool autoInjecting = (config.getProperty("//LauncherConfig/AutoInject/Enabled") == null ?
                 false : Convert.ToBoolean(config.getProperty("//LauncherConfig/AutoInject/Enabled")));
             int autoInjectDelay = (config.getProperty("//LauncherConfig/AutoInject/Delay") == null ?
@@ -241,6 +242,18 @@ namespace TAModLauncher
                     "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            if (!File.Exists(DLLPath))
+            {
+                MessageBox.Show("ERROR: TAMods DLL could not be located.",
+                    "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            if (DLLPath.ToLower() == "tamods.dll")
+            {
+                DLLPath = System.Environment.CurrentDirectory + "\\tamods.dll";
+            }
             
             try
             {
@@ -252,6 +265,9 @@ namespace TAModLauncher
                     "Error Injecting TAMods", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
+
+            SoundPlayer s = new SoundPlayer(TAModLauncher.Properties.Resources.blueplate);
+            s.Play();
 
             return true;
         }
@@ -411,6 +427,7 @@ namespace TAModLauncher
                 else
                 {
                     btnUpdateLaunch.Text = "Launch Tribes";
+                    labelDownload.Text = "Ready to play!";
                     if (injector.HasInjected) injector.HasInjected = false;
                     if (autoInjectTimer.Enabled)
                     {
