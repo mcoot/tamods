@@ -7,8 +7,6 @@ bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunc
 	int iconId = ((UTrAccolade *)params->Accolade->Default)->IconIndex;
 	std::string name = Utils::f2std(((UTrAccolade *)params->Accolade->Default)->FriendlyName);
 
-	Utils::printConsole(std::to_string(iconId));
-	Utils::printConsole(params->Accolade->GetStringClassName());
 	// Lua function
 	if (g_config.onQueueAccolade && !g_config.onQueueAccolade->isNil() && g_config.onQueueAccolade->isFunction())
 	{
