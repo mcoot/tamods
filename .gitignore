@@ -208,3 +208,5 @@ FakesAssemblies/
 
 # Doxygen documentation
 documentation/out/
+
+UpdaterRepo/*.dll
