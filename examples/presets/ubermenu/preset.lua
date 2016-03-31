@@ -61,9 +61,6 @@ local sub = ubermenu:add_submenu({ title = "Menu Settings" })
 require(preset .. "menus/tamods")
 
 ubermenu:add_separator({})
-ubermenu:add_submenu({ title = "Presets" })
-
-ubermenu:add_separator({})
 ubermenu:add_item({ title = "Reload Settings", func = function() openConsole("/reloadconfig") end })
 ubermenu:add_item({ title = "Save Settings", func = function() ubermenu:write_config() end })
 

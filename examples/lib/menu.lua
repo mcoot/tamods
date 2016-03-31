@@ -632,7 +632,7 @@ function menu:draw()
 	-- Run all attached draw functions
 	if #r.draw_funcs > 0 then
 		for i = 1,#m.root.draw_funcs do
-			m.root.draw_funcs[i](x_res, y_res)
+			r.draw_funcs[i](x_res, y_res)
 		end
 	end
 
