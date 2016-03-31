@@ -4,13 +4,17 @@ bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunc
 {
 	ATrPlayerController_execClientQueueAccolade_Parms *params = (ATrPlayerController_execClientQueueAccolade_Parms*)pParams;
 
-	// BROKEN BECAUSE THE PARAMS CHANGED
-	/*
+	int iconId = ((UTrAccolade *)params->Accolade->Default)->IconIndex;
+	std::string name = Utils::f2std(((UTrAccolade *)params->Accolade->Default)->FriendlyName);
+
+	Utils::printConsole(std::to_string(iconId));
+	Utils::printConsole(params->Accolade->GetStringClassName());
+	// Lua function
 	if (g_config.onQueueAccolade && !g_config.onQueueAccolade->isNil() && g_config.onQueueAccolade->isFunction())
 	{
 		try
 		{
-			(*g_config.onQueueAccolade)(params->Icon, Utils::f2std(params->Title), Utils::f2std(params->Subtitle), (bool)params->bIsBadge);
+			(*g_config.onQueueAccolade)(iconId, name, NULL, false);
 		}
 		catch (const LuaException &e)
 		{
@@ -20,7 +24,7 @@ bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunc
 
 	if (g_config.audioEngine.audioAvailable())
 	{
-		switch (params->Icon)
+		switch (iconId)
 		{
 		case CONST_TRHUD_MEDAL_KILLINGSPREE:
 			g_config.s_streak1.Play();
@@ -88,7 +92,6 @@ bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunc
 			break;
 		}
 	}
-	*/
 
 	return false;
 }
