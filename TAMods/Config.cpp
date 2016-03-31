@@ -193,7 +193,6 @@ void Config::reset()
 
 	// HUD scaling
 	IFFScale			 = 1.0f;
-	showHUDWeapons		 = true;
 
 	// Console
 	consoleSize          = 0.75f;
@@ -365,12 +364,6 @@ void Config::updateDefaults()
 		hud->MarkerColorEnemy = Utils::linCol(enemyMarkerColor);
 		hud->MarkerColorEnemy_IsFriend = Utils::linCol(enemyIsFMarkerColor);
 	}
-
-	ATrPlayerController *pc = (ATrPlayerController *)ATrPlayerController::StaticClass()->Default;
-	if (pc)
-		pc->m_bShowHUDWeapons = showHUDWeapons;
-	if (Utils::tr_pc)
-		Utils::tr_pc->m_bShowHUDWeapons = showHUDWeapons;
 
 	// Toggle default sounds
 	if (hitsound)
@@ -712,7 +705,6 @@ void Config::setVariables()
 
 	// HUD scaling
 	SET_VARIABLE(float, IFFScale);
-	SET_VARIABLE(bool, showHUDWeapons);
 
 	// Console
 	SET_VARIABLE(float, consoleSize);
