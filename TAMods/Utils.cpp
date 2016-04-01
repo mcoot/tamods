@@ -1,5 +1,6 @@
 #include "Utils.h"
 #include "NameCryptor.h"
+#include <Shlobj.h>
 
 namespace Utils
 {
@@ -118,11 +119,18 @@ std::string Utils::fTime2stopwatch(float time)
 // Returns the config directory path
 std::string Utils::getConfigDir()
 {
-	const char *profile = getenv("USERPROFILE");
+	wchar_t* localDocuments = 0;
+	HRESULT hr = SHGetKnownFolderPath(FOLDERID_Documents, 0, NULL, &localDocuments);
 
-	if (profile)
-		return std::string(profile) + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
-	return "C:\\";
+	if (FAILED(hr)) {
+		return "C:\\";
+	}
+
+	std::wstring wstr = localDocuments;
+
+	CoTaskMemFree(static_cast<void*>(localDocuments));
+
+	return std::string(wstr.begin(), wstr.end()) + "\\My Games\\Tribes Ascend\\TribesGame\\config\\";
 }
 
 bool Utils::fileExists(const std::string &path, const std::string &mode)

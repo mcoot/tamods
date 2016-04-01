@@ -2310,6 +2310,7 @@ void Lua::init()
 		beginNamespace("config").
 			addFunction("reloadVariables", &config_rereadVariables).
 			addFunction("reload", &config_reload).
+			addFunction("getPath", &Utils::getConfigDir).
 		endNamespace().
 	endNamespace();
 

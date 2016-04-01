@@ -34,7 +34,7 @@ namespace TAModLauncher
         public string updateChannel = "stable";
 
         // Path to the config directory
-        public string ConfigPath = Environment.GetEnvironmentVariable("USERPROFILE") + "/Documents/My Games/Tribes Ascend/TribesGame/config/";
+        public string ConfigPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/My Games/Tribes Ascend/TribesGame/config/";
         public string ConfigSignifier = "!CONFIG/";
 
         // The local and server version manifest XML files
