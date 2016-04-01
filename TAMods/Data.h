@@ -54,6 +54,8 @@
 #define CONST_MAP_ID_CTF_TERMINUS               1553
 #define CONST_MAP_ID_CTF_ICECOASTER             1554
 #define CONST_MAP_ID_CTF_PERDITION              1555
+#define CONST_MAP_ID_CTF_HELLFIRE               1560
+#define CONST_MAP_ID_BLITZ_HELLFIRE             1561
 #define CONST_MAP_ID_CTF_BELLAOMEGA             1573
 #define CONST_MAP_ID_BLITZ_ARXNOVENA            2566
 #define CONST_MAP_ID_BLITZ_KATABATIC            2598
