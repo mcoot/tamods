@@ -72,6 +72,7 @@ namespace Data
 			{
 				{ R"rx(^(assaultrifle|rifle|ar)$)rx", CONST_WEAPON_ID_RIFLE_ASSAULT },
 				{ R"rx(^(nj4smg|nj4)$)rx", CONST_WEAPON_ID_SMG_NJ4 },
+				{ R"rx(^(nj5(-?b)?)$)rx", CONST_WEAPON_ID_NJ5SMG },
 				{ R"rx(^(plasmagun|plasma)$)rx", CONST_WEAPON_ID_PLASMA_GUN },
 			},
 			// SHORT RANGE
