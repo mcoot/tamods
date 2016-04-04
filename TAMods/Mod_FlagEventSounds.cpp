@@ -94,22 +94,22 @@ void onFlagCapture()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
 	{
-		g_config.stopwatchCapTime = Utils::tr_pc->WorldInfo->RealTimeSeconds;
+		stopwatch::capTime = Utils::tr_pc->WorldInfo->RealTimeSeconds;
 
-		if (g_config.stopwatchRunning)
-			g_config.stopwatchDisplayTime("Flag captured - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
+		if (stopwatch::running)
+			stopwatch::displayTime("Flag captured - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
 
-		g_config.stopwatchPrintSummary();
+		stopwatch::printSummary();
 
-		//g_config.stopwatchStartTime = g_config.stopwatchCapTime;
-		g_config.stopwatchGrabTime = 0.0f;
-		g_config.stopwatchGrabHealth = 0;
-		g_config.stopwatchGrabSpeed = -1;
+		//stopwatch::startTime = stopwatch::capTime;
+		stopwatch::grabTime = 0.0f;
+		stopwatch::grabHealth = 0;
+		stopwatch::grabSpeed = -1;
 
 		if (g_config.stopwatchStopOnCap)
 		{
-			g_config.stopwatchRunning = 0;
-			g_config.stopwatchCapTime = 0;
+			stopwatch::running = 0;
+			stopwatch::capTime = 0;
 		}
 	}
 }
@@ -118,24 +118,24 @@ void onFlagGrab()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
 	{
-		g_config.stopwatchGrabTime = Utils::tr_pc->WorldInfo->RealTimeSeconds;
-		g_config.stopwatchCapTime = 0.0f;
+		stopwatch::grabTime = Utils::tr_pc->WorldInfo->RealTimeSeconds;
+		stopwatch::capTime = 0.0f;
 
-		routeFlagGrab(g_config.stopwatchGrabTime);
+		routes::flagGrab(stopwatch::grabTime);
 
 		if (Utils::tr_pc->Pawn)
 		{
-			g_config.stopwatchGrabHealth = Utils::tr_pc->Pawn->Health;
-			g_config.stopwatchGrabSpeed = ((ATrPawn *)Utils::tr_pc->Pawn)->CalculatePawnSpeed();
+			stopwatch::grabHealth = Utils::tr_pc->Pawn->Health;
+			stopwatch::grabSpeed = ((ATrPawn *)Utils::tr_pc->Pawn)->CalculatePawnSpeed();
 		}
 
-		if (g_config.stopwatchRunning)
-			g_config.stopwatchDisplayTime("Flag taken - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
+		if (stopwatch::running)
+			stopwatch::displayTime("Flag taken - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
 
 		if (g_config.stopwatchNotifications)
 		{
 			char speedMsg[20];
-			sprintf(speedMsg, "%d km/h\n%d hp", g_config.stopwatchGrabSpeed, g_config.stopwatchGrabHealth);
+			sprintf(speedMsg, "%d km/h\n%d hp", stopwatch::grabSpeed, stopwatch::grabHealth);
 			Utils::notify(L"Flag taken", speedMsg);
 		}
 	}
@@ -145,22 +145,22 @@ void onFlagPickup()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
 	{
-		g_config.stopwatchGrabTime = Utils::tr_pc->WorldInfo->RealTimeSeconds;
-		g_config.stopwatchCapTime = 0.0f;
+		stopwatch::grabTime = Utils::tr_pc->WorldInfo->RealTimeSeconds;
+		stopwatch::capTime = 0.0f;
 
 		if (Utils::tr_pc->Pawn)
 		{
-			g_config.stopwatchGrabHealth = Utils::tr_pc->Pawn->Health;
-			g_config.stopwatchGrabSpeed = ((ATrPawn *)Utils::tr_pc->Pawn)->CalculatePawnSpeed();
+			stopwatch::grabHealth = Utils::tr_pc->Pawn->Health;
+			stopwatch::grabSpeed = ((ATrPawn *)Utils::tr_pc->Pawn)->CalculatePawnSpeed();
 		}
 
-		if (g_config.stopwatchRunning)
-			g_config.stopwatchDisplayTime("Flag picked up - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
+		if (stopwatch::running)
+			stopwatch::displayTime("Flag picked up - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
 
 		if (g_config.stopwatchNotifications)
 		{
 			char speedMsg[20];
-			sprintf(speedMsg, "%d km/h\n%d hp", g_config.stopwatchGrabSpeed, g_config.stopwatchGrabHealth);
+			sprintf(speedMsg, "%d km/h\n%d hp", stopwatch::grabSpeed, stopwatch::grabHealth);
 			Utils::notify(L"Flag picked up", speedMsg);
 		}
 	}

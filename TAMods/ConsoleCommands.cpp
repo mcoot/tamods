@@ -1,5 +1,7 @@
 #include "ConsoleCommands.h"
 
+extern Config g_config;
+
 static int matches;
 
 bool toggleBaseTurret_cb(UObject *Object)
@@ -41,17 +43,17 @@ bool togglePower_cb(UObject *Object)
 	return false;
 }
 
-void toggleTurrets()
+void consoleCommands::toggleTurrets()
 {
 	Utils::FindObjects("^TrBaseTurret_(BloodEagle|DiamondSword)", &toggleBaseTurret_cb);
 }
 
-void togglePower()
+void consoleCommands::togglePower()
 {
 	Utils::FindObjects("^TrPowerGenerator_(BloodEagle|DiamondSword) TheWorld.PersistentLevel.TrPowerGenerator_", &togglePower_cb);
 }
 
-void returnFlags()
+void consoleCommands::returnFlags()
 {
 	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
@@ -255,76 +257,76 @@ namespace consoleCommands
 	/****** State saving ******/
 	void consoleCommands::cmd_stopwatch(const std::wstring &cmd, const std::wstring &params)
 	{
-		stopwatch();
+		stopwatch::toggle();
 	}
 
 	void consoleCommands::cmd_stopwatchstart(const std::wstring &cmd, const std::wstring &params)
 	{
-		stopwatchStart();
+		stopwatch::start();
 	}
 
 	void consoleCommands::cmd_stopwatchstop(const std::wstring &cmd, const std::wstring &params)
 	{
-		stopwatchStop();
+		stopwatch::stop();
 	}
 
 	// Command to save the current player state (location, velocity etc.)
 	void consoleCommands::cmd_statesave(const std::wstring &cmd, const std::wstring &params)
 	{
 		// Without a slot number we just use slot 1
-		savesSaveTo(!params.empty() ? params[0] - '0' : 1);
+		states::saveTo(!params.empty() ? params[0] - '0' : 1);
 	}
 
 	// Command to teleport to a saved location
 	void consoleCommands::cmd_statetp(const std::wstring &cmd, const std::wstring &params)
 	{
 		// Without a slot number we just use slot 1
-		savesTpTo(!params.empty() ? params[0] - '0' : 1);
+		states::tpTo(!params.empty() ? params[0] - '0' : 1);
 	}
 
 	// Command to recall a full player state
 	void consoleCommands::cmd_staterecall(const std::wstring &cmd, const std::wstring &params)
 	{
 		// Without a slot number we just use slot 1
-		savesRecallTo(!params.empty() ? params[0] - '0' : 1);
+		states::recallTo(!params.empty() ? params[0] - '0' : 1);
 	}
 
 	void consoleCommands::cmd_statespawns(const std::wstring &cmd, const std::wstring &params)
 	{
-		savesToSpawns();
+		states::toSpawns();
 	}
 
 	void consoleCommands::cmd_statereset(const std::wstring &cmd, const std::wstring &params)
 	{
-		savesReset();
+		states::reset();
 	}
 
 	/****** Route recording ******/
 	void consoleCommands::cmd_routerec(const std::wstring &cmd, const std::wstring &params)
 	{
-		routeRec();
+		routes::rec();
 	}
 
 	void consoleCommands::cmd_routerecstart(const std::wstring &cmd, const std::wstring &params)
 	{
-		routeStartRec();
+		routes::startRec();
 	}
 
 	void consoleCommands::cmd_routerecstop(const std::wstring &cmd, const std::wstring &params)
 	{
-		routeStopRec();
+		routes::stopRec();
 	}
 
 	void consoleCommands::cmd_routereplay(const std::wstring &cmd, const std::wstring &params)
 	{
-		routeReplay();
+		routes::replay();
 	}
 
 	void consoleCommands::cmd_routereplaystart(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (params.empty())
 		{
-			routeStartReplay(0);
+			routes::startReplay(0);
 		}
 		else
 		{
@@ -333,7 +335,7 @@ namespace consoleCommands
 			s >> start;
 
 			if (s && start >= 0.0f)
-				routeStartReplay(start);
+				routes::startReplay(start);
 			else
 				Utils::console("Error: You have to enter a number");
 		}
@@ -341,31 +343,31 @@ namespace consoleCommands
 
 	void consoleCommands::cmd_routereplaystop(const std::wstring &cmd, const std::wstring &params)
 	{
-		routeStopReplay();
+		routes::stopReplay();
 	}
 
 	void consoleCommands::cmd_routebot(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (params.empty())
 		{
-			routeEnableBot(!g_config.routeBotReplay);
-			Utils::printConsole(g_config.routeBotReplay == true ? "Bot replay: on" : "Bot replay: off");
+			routes::enableBot(!routes::botReplay);
+			Utils::printConsole(routes::botReplay == true ? "Bot replay: on" : "Bot replay: off");
 		}
 		else if (params == L"on")
-			routeEnableBot(true);
+			routes::enableBot(true);
 		else if (params == L"off")
-			routeEnableBot(false);
+			routes::enableBot(false);
 	}
 
 	void consoleCommands::cmd_routereset(const std::wstring &cmd, const std::wstring &params)
 	{
-		routeReset();
+		routes::reset();
 	}
 
 	void consoleCommands::cmd_routesave(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (!params.empty())
-			routeSaveFile(std::string(params.begin(), params.end()));
+			routes::saveFile(std::string(params.begin(), params.end()));
 		else
 			Utils::console("Error: You have to enter a description");
 	}
@@ -379,7 +381,7 @@ namespace consoleCommands
 			s >> n;
 
 			if (s && n >= 0)
-				routeLoadFile(n);
+				routes::loadFile(n);
 			else
 				Utils::console("Error: You have to enter a number");
 		}
@@ -390,14 +392,14 @@ namespace consoleCommands
 	void consoleCommands::cmd_routefind(const std::wstring &cmd, const std::wstring &params)
 	{
 		if (!params.empty())
-			routeFind(std::string(params.begin(), params.end()));
+			routes::find(std::string(params.begin(), params.end()));
 		else
 			Utils::console("Error: You have to enter a search string");
 	}
 
 	void consoleCommands::cmd_routelist(const std::wstring &cmd, const std::wstring &params)
 	{
-		routeListAll();
+		routes::listAll();
 	}
 
 	/****** Roam map only commands ******/

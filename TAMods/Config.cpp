@@ -491,46 +491,6 @@ void Config::refreshSoundVolumes()
 		Utils::console("Error: audio engine unavailable");
 }
 
-void Config::stopwatchDisplayTime(const std::string &prestr, float cur_time)
-{
-	if (stopwatchRunning)
-	{
-		float time = cur_time - stopwatchStartTime;
-
-		std::string s = Utils::fTime2stopwatch(time);
-		Utils::printConsole("Stopwatch: " + prestr + s, Utils::rgba(15, 255, 135, 255));
-		if (stopwatchNotifications)
-			Utils::notify(std::string("Stopwatch"), prestr + s);
-	}
-}
-
-void Config::stopwatchPrintSummary()
-{
-	if (g_config.stopwatchGrabTime > 0.0f)
-	{
-		// Speed and health
-		Utils::printConsole("\nSummary\n----------------------------------------\n Flag taken at " + std::to_string(g_config.stopwatchGrabSpeed) + " km/h " + std::to_string(g_config.stopwatchGrabHealth) + " hp");
-
-		// Time from stopwatch start until grab, only when the stopwatch was started pre-grab
-		if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
-			Utils::printConsole(" On route:     " + Utils::fTime2string(g_config.stopwatchGrabTime - g_config.stopwatchStartTime));
-
-		if (g_config.stopwatchGrabTime < g_config.stopwatchCapTime)
-		{
-			// Capture time, only when cap time is available
-			Utils::printConsole(" Captured in: " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchGrabTime));
-
-			// Total time, only when the stopwatch was started pre-grab
-			if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
-			{
-				Utils::printConsole("----------------------------------------");
-				Utils::printConsole(" Total:          " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchStartTime));
-			}
-		}
-		Utils::printConsole("===============================");
-	}
-}
-
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
 #define SET_FUNCTION(var) do {\
 	var = new LuaRef(getGlobal(lua.getState(), #var));\
@@ -2143,45 +2103,45 @@ void Lua::init()
 		// Console commands as lua functions for the use as keybinds
 		addFunction("reloadSounds", &config_reloadSounds).
 		beginNamespace("stopwatch").
-			addFunction("toggle", &stopwatch).
-			addFunction("start", &stopwatchStart).
-			addFunction("stop", &stopwatchStop).
+			addFunction("toggle", &stopwatch::toggle).
+			addFunction("start", &stopwatch::start).
+			addFunction("stop", &stopwatch::stop).
 			addFunction("isRunning", &getStopwatchData::isRunning).
 			addFunction("time", &getStopwatchData::time).
 			addFunction("timeStr", &getStopwatchData::timeStr).
 		endNamespace().
 		beginNamespace("state").
-			addFunction("save", &savesSave).
-			addFunction("saveTo", &savesSaveTo).
-			addFunction("recall", &savesRecall).
-			addFunction("recallTo", &savesRecallTo).
-			addFunction("tp", &savesTp).
-			addFunction("tpTo", &savesTpTo).
-			addFunction("reset", &savesReset).
-			addFunction("setToSpawns", &savesToSpawns).
+			addFunction("save", &states::save).
+			addFunction("saveTo", &states::saveTo).
+			addFunction("recall", &states::recall).
+			addFunction("recallTo", &states::recallTo).
+			addFunction("tp", &states::tp).
+			addFunction("tpTo", &states::tpTo).
+			addFunction("reset", &states::reset).
+			addFunction("setToSpawns", &states::toSpawns).
 		endNamespace().
 		beginNamespace("route").
-			addFunction("rec", &routeRec).
-			addFunction("record", &routeRec).
-			addFunction("recStart", &routeStartRec).
-			addFunction("recStop", &routeStopRec).
-			addFunction("replay", &routeReplay).
-			addFunction("replayStart", &routeStartReplay).
-			addFunction("replayStop", &routeStopReplay).
-			addFunction("reset", &routeReset).
-			addFunction("save", &routeSaveFile).
-			addFunction("load", &routeLoadFile).
-			addFunction("search", &routeFind).
-			addFunction("find", &routeFind).
-			addFunction("list", &routeListAll).
-			addFunction("enableBot", &routeEnableBot).
-			addFunction("getAll", &routeLoadAll).
-			addFunction("getEnemy", &routeLoadEnemy).
-			addFunction("getTable", &routeGetTable).
+			addFunction("rec", &routes::rec).
+			addFunction("record", &routes::rec).
+			addFunction("recStart", &routes::startRec).
+			addFunction("recStop", &routes::stopRec).
+			addFunction("replay", &routes::replay).
+			addFunction("replayStart", &routes::startReplay).
+			addFunction("replayStop", &routes::stopReplay).
+			addFunction("reset", &routes::reset).
+			addFunction("save", &routes::saveFile).
+			addFunction("load", &routes::loadFile).
+			addFunction("search", &routes::find).
+			addFunction("find", &routes::find).
+			addFunction("list", &routes::listAll).
+			addFunction("enableBot", &routes::enableBot).
+			addFunction("getAll", &routes::loadAll).
+			addFunction("getEnemy", &routes::loadEnemy).
+			addFunction("getTable", &routes::getTable).
 		endNamespace().
-		addFunction("toggleTurrets", &toggleTurrets).
-		addFunction("togglePower", &togglePower).
-		addFunction("returnFlags", &returnFlags).
+		addFunction("toggleTurrets", &consoleCommands::toggleTurrets).
+		addFunction("togglePower", &consoleCommands::togglePower).
+		addFunction("returnFlags", &consoleCommands::returnFlags).
 
 		// Custom HUD drawing functions
 		addFunction("drawText",         &Utils::drawText).

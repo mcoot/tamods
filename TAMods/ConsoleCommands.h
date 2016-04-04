@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mods.h"
+#include "Config.h"
 #include <map>
 
 struct consoleCommand
@@ -12,6 +12,10 @@ struct consoleCommand
 namespace consoleCommands
 {
 	extern std::map<std::wstring, consoleCommand> map;
+
+	void toggleTurrets();
+	void togglePower();
+	void returnFlags();
 
 	void execUTConsoleCommand(const FString &command);
 	void generateAutoCompleteList(TArray<FAutoCompleteCommand> &arr);

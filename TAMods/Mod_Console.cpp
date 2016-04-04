@@ -1,5 +1,4 @@
 #include "Mods.h"
-#include "ConsoleCommands.h"
 
 void TrChatConsole_AddOnlineFriendHelp(UTrChatConsole *that, UTrChatConsole_execAddOnlineFriendHelp_Parms *params, void *result, Hooks::CallInfo *callInfo)
 {

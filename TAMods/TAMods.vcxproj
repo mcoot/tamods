@@ -169,6 +169,7 @@
     <ClCompile Include="Mod_Routes.cpp" />
     <ClCompile Include="Mod_ServerSettings.cpp" />
     <ClCompile Include="Mod_StateSaving.cpp" />
+    <ClCompile Include="Mod_Stopwatch.cpp" />
     <ClCompile Include="NameCryptor.cpp" />
     <ClCompile Include="ParticleModuleHelper.cpp" />
     <ClCompile Include="Profiler.cpp" />
@@ -220,7 +221,10 @@
     <ClInclude Include="NameCryptor.h" />
     <ClInclude Include="ParticleModuleHelper.h" />
     <ClInclude Include="Profiler.h" />
+    <ClInclude Include="Routes.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="StateSaving.h" />
+    <ClInclude Include="Stopwatch.h" />
     <ClInclude Include="Wave.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="Logger.h" />

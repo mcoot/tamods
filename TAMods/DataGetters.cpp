@@ -825,19 +825,19 @@ std::string getFlagData::holderName(unsigned const char &n)
 /////////////////////////////////////////////////////////////////////////////////////
 bool getStopwatchData::isRunning()
 {
-	return g_config.stopwatchRunning;
+	return stopwatch::running;
 }
 float getStopwatchData::time()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
-		return Utils::tr_pc->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
+		return Utils::tr_pc->WorldInfo->RealTimeSeconds - stopwatch::startTime;
 	else
 		return 0.0f;
 }
 std::string getStopwatchData::timeStr()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
-		return Utils::fTime2stopwatch(Utils::tr_pc->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime);
+		return Utils::fTime2stopwatch(Utils::tr_pc->WorldInfo->RealTimeSeconds - stopwatch::startTime);
 
 	return "00:00.0";
 }
