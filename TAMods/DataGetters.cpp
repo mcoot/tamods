@@ -1,6 +1,80 @@
+#include <algorithm>
 #include "DataGetters.h"
 #include "Mods.h"
 #include "NameCryptor.h"
+
+bool priCreditSort(ATrPlayerReplicationInfo *a, ATrPlayerReplicationInfo *b)
+{
+	if (a->m_nCreditsEarned != b->m_nCreditsEarned)
+		return a->m_nCreditsEarned > b->m_nCreditsEarned;
+	else
+	{
+		if (a->m_nKills != b->m_nKills)
+			return a->m_nKills > b->m_nKills;
+		else
+			return a->m_nAssists > b->m_nAssists;
+	}
+}
+
+LuaRef getGameData::players()
+{
+	std::vector<ATrPlayerReplicationInfo *> pris;
+
+	lua_State* L = g_config.lua.getState();
+	LuaRef teams(L);
+	teams = newTable(L);
+
+	teams[0] = newTable(L);  // Blood Eagle
+	teams[1] = newTable(L);  // Diamon Sword
+	teams[255] = newTable(L);  // Spectators
+
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+	{
+		for (int i = 0; i < Utils::tr_pc->WorldInfo->GRI->PRIArray.Count; i++)
+		{
+			if (Utils::tr_pc->WorldInfo->GRI->PRIArray.Data[i] &&
+				((ATrPlayerReplicationInfo *)Utils::tr_pc->WorldInfo->GRI->PRIArray.GetStd(i))->m_Rank)
+			{
+				pris.push_back((ATrPlayerReplicationInfo *)Utils::tr_pc->WorldInfo->GRI->PRIArray.GetStd(i));
+			}
+		}
+
+		std::sort(pris.begin(), pris.end(), priCreditSort);
+
+		unsigned char playernumBE = 1;
+		unsigned char playernumDS = 1;
+		unsigned char playernumSpec = 1;
+
+		for (size_t i = 0; i < pris.size(); i++)
+		{
+			ATrPlayerReplicationInfo &pri = *(ATrPlayerReplicationInfo *)pris.at(i);
+
+			unsigned char team = pri.GetTeamNum();
+
+			LuaRef players(L);
+			players = teams[team];
+
+			LuaRef player(L);
+			player = newTable(L);
+
+			player["rank"] = pri.m_nRankNum;
+			player["name"] = Utils::f2std(pri.PlayerName);
+			player["class"] = pri.m_CurrentBaseClass;
+			player["kills"] = pri.m_nKills;
+			player["assists"] = pri.m_nAssists;
+			player["score"] = pri.m_nCreditsEarned;
+			player["ping"] = pri.Ping * 4;
+
+			if (team == 0)
+				players[playernumBE++] = player;
+			else if (team == 1)
+				players[playernumDS++] = player;
+			else if (team == 255)
+				players[playernumSpec++] = player;
+		}
+	}
+	return teams;
+}
 
 FVector2D getViewPortData::size()
 {

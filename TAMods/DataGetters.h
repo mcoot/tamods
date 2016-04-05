@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SdkHeaders.h"
+#include "LuaBridge\LuaBridge.h"
 
 namespace getViewPortData
 {
@@ -97,6 +98,7 @@ namespace getGameData
 	int timeLimit();
 	float timeSeconds();
 	float realTimeSeconds();
+	luabridge::LuaRef players();
 }
 namespace getRabbitData
 {
