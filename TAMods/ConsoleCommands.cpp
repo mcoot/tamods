@@ -86,6 +86,46 @@ bool printObjectName(UObject *Object)
 	return false;
 }
 
+void consoleCommands::luaSay(const std::string &msg)
+{
+	if (Utils::tr_pc)
+	{
+		std::wstring cmd = L"say " + std::wstring(msg.begin(), msg.end());
+		Utils::tr_pc->ConsoleCommand((wchar_t*)cmd.c_str(), false);
+	}
+}
+void consoleCommands::luaTeamSay(const std::string &msg)
+{
+	if (Utils::tr_pc)
+	{
+		std::wstring cmd = L"teamsay " + std::wstring(msg.begin(), msg.end());
+		Utils::tr_pc->ConsoleCommand((wchar_t*)cmd.c_str(), false);
+	}
+}
+
+void consoleCommands::luaGamma(const float &gamma)
+{
+	if (Utils::tr_pc)
+	{
+		std::wstring cmd = L"gamma " + std::to_wstring(gamma);
+		Utils::tr_pc->ConsoleCommand((wchar_t*)cmd.c_str(), false);
+	}
+}
+
+void consoleCommands::luaSetSens(const float &sens)
+{
+	if (Utils::tr_pc)
+	{
+		if (g_config.useFOVScaling)
+		{
+			std::wstring cmd = L"setsensitivity " + std::to_wstring(sens);
+			Utils::tr_pc->ConsoleCommand((wchar_t*)cmd.c_str(), false);
+		}
+		else
+			g_config.sens = sens;
+	}
+}
+
 namespace consoleCommands
 {
 	std::map<std::wstring, consoleCommand> map =

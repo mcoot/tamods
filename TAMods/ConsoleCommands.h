@@ -17,6 +17,11 @@ namespace consoleCommands
 	void togglePower();
 	void returnFlags();
 
+	void luaSay(const std::string &msg);
+	void luaTeamSay(const std::string &msg);
+	void luaGamma(const float &gamma);
+	void luaSetSens(const float &sens);
+
 	void execUTConsoleCommand(const FString &command);
 	void generateAutoCompleteList(TArray<FAutoCompleteCommand> &arr);
 

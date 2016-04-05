@@ -2139,9 +2139,14 @@ void Lua::init()
 			addFunction("getEnemy", &routes::loadEnemy).
 			addFunction("getTable", &routes::getTable).
 		endNamespace().
+
 		addFunction("toggleTurrets", &consoleCommands::toggleTurrets).
 		addFunction("togglePower", &consoleCommands::togglePower).
 		addFunction("returnFlags", &consoleCommands::returnFlags).
+		addFunction("say", &consoleCommands::luaSay).
+		addFunction("teamsay", &consoleCommands::luaTeamSay).
+		addFunction("gamma", &consoleCommands::luaGamma).
+		addFunction("sens", &consoleCommands::luaSetSens).
 
 		// Custom HUD drawing functions
 		addFunction("drawText",         &Utils::drawText).
