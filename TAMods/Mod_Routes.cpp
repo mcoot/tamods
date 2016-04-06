@@ -777,11 +777,15 @@ void routes::UpdateOverheadNumbers(ATrHUD *that)
 				unsigned char c = 255 * curr.health / classHealth;
 				unsigned char alpha = (unsigned char)(255 * g_config.routeDrawTransparency);
 				FColor col = { c, c, 255, alpha };
+				FString str = L"-";
 
 				if (i + 1 < route.size())
 				{
 					if (curr.health < route.at(i + 1).health) // damage taken (self impulse)
+					{
 						col = { 255, 116, 100, alpha };
+						str = L"x";
+					}
 					else if (curr.health > route.at(i + 1).health) // gaining health (regen)
 						col = { 0, 255, 255 - c, alpha };
 				}
@@ -789,7 +793,7 @@ void routes::UpdateOverheadNumbers(ATrHUD *that)
 				if (i + 1 == route.size()) // route start
 					that->DrawColoredMarkerText(L"Start", { 255, 202, 0, alpha }, overhead_number_location, that->Canvas, 1.0f, 1.0f);
 				else
-					that->DrawColoredMarkerText(L"-", col, overhead_number_location, that->Canvas, 1.0f, 1.0f);
+					that->DrawColoredMarkerText(str, col, overhead_number_location, that->Canvas, 1.0f, 1.0f);
 
 				if (((g_config.routeDrawETAInterval > 0 && curr.eta % g_config.routeDrawETAInterval == 0) || i == route.size() - 1) && curr.eta >= 0)
 				{
