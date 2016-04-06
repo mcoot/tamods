@@ -2249,6 +2249,7 @@ void Lua::init()
 			addFunction("timeLimit",         &getGameData::timeLimit).
 			addFunction("timeSeconds",       &getGameData::timeSeconds).
 			addFunction("realTimeSeconds",   &getGameData::realTimeSeconds).
+			addFunction("players",           &getGameData::players).
 		endNamespace().
 		beginNamespace("rabbit").
 			addFunction("leaderBoardScore", &getRabbitData::leaderBoardScore).
