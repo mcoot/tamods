@@ -140,6 +140,7 @@ void Config::reset()
 	// Route recording
 	routeDrawInterval      = 500; // Drawing a dot every 500ms
 	routeDrawETAInterval   = 5; // ETA every 5 seconds
+	routeDrawTransparency  = 0.8f;
 	routeReplayRotation    = true;
 	routeCinematicMode     = false;
 
@@ -567,6 +568,7 @@ void Config::setVariables()
 	// Route recording
 	SET_VARIABLE(int, routeDrawInterval);
 	SET_VARIABLE(int, routeDrawETAInterval);
+	SET_VARIABLE(float, routeDrawTransparency);
 	SET_VARIABLE(bool, routeReplayRotation);
 	SET_VARIABLE(bool, routeCinematicMode);
 

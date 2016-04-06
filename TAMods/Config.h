@@ -298,6 +298,7 @@ public:
 	// Route recording
 	int routeDrawInterval;
 	int routeDrawETAInterval;
+	float routeDrawTransparency;
 	bool routeReplayRotation;
 	bool routeCinematicMode;
 
