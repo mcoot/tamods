@@ -1,4 +1,5 @@
 require("lib/menu")
+require("lib/kpairs")
 require("lib/xhair_factory")
 preset = "presets/ubermenu/"
 require(preset .. "config/config")
@@ -39,6 +40,9 @@ if ubermenu.opts.help then
 end
 
 require(preset .. "menus/xhairs")
+require(preset .. "menus/hudmodules")
+ubermenu:add_separator({})
+
 require(preset .. "menus/stopwatch")
 require(preset .. "menus/routes")
 require(preset .. "menus/roammap")

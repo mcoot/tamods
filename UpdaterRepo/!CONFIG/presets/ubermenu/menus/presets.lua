@@ -53,7 +53,7 @@ function presetMenu(parent, menu)
 	menu:add_item({ title = "Help", description = "In order to apply the changes you've made, you have to\nfirst press \"Save Preset Selection\" and then reload the\nconfig. To discard the changes you've made, reload the\nconfig without saving" })
 	menu:add_separator({ title = "Loaded Presets" })
 	menu:add_separator({ title = "Available Presets" })
-	for k,v in pairs(presets) do
+	for k,v in kpairs(presets) do
 		if v then
 			-- Loaded preset
 			menu:add_item({ title = k, position = 3, func = function()

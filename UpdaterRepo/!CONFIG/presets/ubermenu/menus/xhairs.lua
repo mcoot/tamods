@@ -82,7 +82,7 @@ function add_vis_menu(menu)
 
 	local sub = menu:add_submenu({ title = "Show for..." })
 
-	for k,v in pairs(status) do
+	for k,v in kpairs(status) do
 		local varname = menu.varname:match("(.+)[.][%w]+$") .. ".show." .. k
 		if menu:get_var(varname) == nil then
 			sub:add_variable({ title = v, varname = varname, value = true, default = true })
@@ -165,7 +165,7 @@ function xhairMenu(parent, m)
 	end
 end
 
-sub = ubermenu:add_submenu({ title = "Crosshair Creator", func = xhairMenu })
+local sub = ubermenu:add_submenu({ title = "Crosshair Maker", func = xhairMenu })
 ubermenu:add_draw_func(draw_xhairs)
 
 -- Add items once so they get saved to config when saving without visiting this menu
