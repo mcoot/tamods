@@ -1,17 +1,9 @@
 Enables almost all custom sounds, most options and has keybindings to make route recording/replaying more comfortable.
 
-
-
 This presets has the following key bindings:
 
-
-
 Insert: start/stop the stopwatch
-
 Delete: Start a bot replay with a random enemy route
-
 Home: Teleport to slot 1 and start recording
-
 Delete: Stop recording
-
 PageUp/PageDown: Load next/previous route

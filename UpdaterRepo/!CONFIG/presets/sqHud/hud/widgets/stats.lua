@@ -12,7 +12,14 @@ bindKey("R", Input.PRESSED,
 	end
 )
 
+local onQueueAccoladeOld
+if type(onQueueAccolade) == "function" then
+	onQueueAccoladeOld = onQueueAccolade
+end
+
 function onQueueAccolade(icon_id, title, subtitle, is_badge)
+	if onQueueAccoladeOld then onQueueAccoladeOld(icon_id, title, subtitle, is_badge) end
+
 	--console(icon_id .. ": " .. title .. " (" .. subtitle .. ")")
 	if icon_id == 68 then
 		counter.blueplates = counter.blueplates + 1
@@ -23,14 +30,14 @@ end
 
 local lastFrameTime = 0.0
 
-function stats(x, y)
+sqHud.stats = function(x, y)
 	local time = game.realTimeSeconds()
 	local fps = 1 / (time - lastFrameTime)
 
 	lastFrameTime = time
 
-	drawSmallText(math.floor(fps) .. " fps", text_color1, x, y, 2, 1, 1)
-	drawSmallText(player.ping() .. " ms", text_color1, x, y + 16, 2, 1, 1)
-	drawSmallText(player.kills() .. "/" .. player.deaths() .. "/" .. player.assists(), text_color1, x, y + 32, 2, 1, 1)
-	drawSmallText(counter.blueplates .. " bp " .. counter.airmails .. " am", text_color1, x, y + 48, 2, 1, 1)
+	drawSmallText(math.floor(fps) .. " fps", sqHud.text_color1, x, y, 2, 1, 1)
+	drawSmallText(player.ping() .. " ms", sqHud.text_color1, x, y + 16, 2, 1, 1)
+	drawSmallText(player.kills() .. "/" .. player.deaths() .. "/" .. player.assists(), sqHud.text_color1, x, y + 32, 2, 1, 1)
+	drawSmallText(counter.blueplates .. " bp " .. counter.airmails .. " am", sqHud.text_color1, x, y + 48, 2, 1, 1)
 end

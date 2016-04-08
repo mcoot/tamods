@@ -3,7 +3,7 @@ snake_opts.boardx = snake_opts.boardx or 410
 snake_opts.boardy = snake_opts.boardy or 130
 snake_opts.boardsz = snake_opts.boardsz or 20
 snake_opts.blocksz = snake_opts.blocksz or 10
-snake_opts.speed = snake_opts.speed or 10      -- Blocks per second
+snake_opts.speed = snake_opts.speed or 15  -- Blocks per second
 snake_opts.playercol = snake_opts.playercol or rgba(100,255,90,255)
 snake_opts.fruitcol = snake_opts.fruitcol or rgba(255,60,30,220)
 snake_opts.boardcol = snake_opts.boardcol or rgba(0,0,0,135)
@@ -117,15 +117,15 @@ local function snake()
 	snakeDrawBlock(snake_fruitpos.x, snake_fruitpos.y, snake_opts.fruitcol)
 end
 
-local sub = gamemenu:add_submenu({ title = "Snake (by Ensis)" })
-	sub:add_item({ title = "Start", func = snakeStart })
+local sub = gamemenu:add_submenu({ title = "Snake" })
+	sub:add_item({ title = "Start", func = snakeStart, description = "Use WASD to begin a game and change direction" })
 	sub:add_item({ title = "Stop", func = snakeStop })
 	sub:add_separator({})
 	sub:add_variable({  title = "X Position", varname = "snake_opts.boardx",    default = 400, inc = 1 })
 	sub:add_variable({  title = "Y Position", varname = "snake_opts.boardy",    default = 300, inc = 1 })
 	sub:add_variable({  title = "Board Size", varname = "snake_opts.boardsz",   default = 20,  inc = 1, min = 2 })
 	sub:add_variable({  title = "Block Size", varname = "snake_opts.blocksz",   default = 10,  inc = 1, min = 1 })
-	sub:add_variable({  title = "Game Speed", varname = "snake_opts.speed",     default = 10,  inc = 1, min = 1, max = 50 })
+	sub:add_variable({  title = "Game Speed", varname = "snake_opts.speed",     default = 15,  inc = 1, min = 1, max = 50 })
 	sub:add_separator({ title = "Colors" })
 	sub:add_color({     title = "Snake",      varname = "snake_opts.playercol", default = rgba(100,255,90,255) })
 	sub:add_color({     title = "Fruit",      varname = "snake_opts.fruitcol",  default = rgba(255,60,30,220) })

@@ -28,18 +28,19 @@ function menu.__make(params, parent, root)
 		m.isvisible = false
 		-- Menu options
 		m.opts = {}
+		m.opts.help         = params.help
 		m.opts.x            = params.x            or 150
 		m.opts.y            = params.y            or 100
 		m.opts.item_width   = params.item_width   or 300
 		m.opts.item_height  = params.item_heigth  or 25
 		m.opts.item_padding = params.item_padding or 1
+		m.opts.desc_x       = params.desc_x       or 0
+		m.opts.desc_y       = params.desc_y       or 0
 		m.opts.fg           = params.fg           or rgba(255,255,255,200)
 		m.opts.fg_var       = params.fg_var       or rgba(255,200,0,255)
 		m.opts.bg           = params.bg           or rgba(0,0,0,120)
 		m.opts.fg_sel       = params.fg_sel       or rgb(0,0,0)
 		m.opts.bg_sel       = params.bg_sel       or rgba(255,225,130,255)
-		m.opts.fg_desc      = params.fg_desc      or rgb(0,0,0)
-		m.opts.bg_desc      = params.bg_desc      or rgba(255,225,130,195)
 		m.opts.fg_header    = params.fg_header    or rgba(255,255,255, 200)
 		m.opts.bg_header    = params.bg_header    or rgba(0,0,0,185)
 		m.opts.fg_sep       = params.fg_sep       or rgba(255,255,255,220)
@@ -112,21 +113,14 @@ end
 function menu:write_config()
 	if self.config == nil then return end
 
-	local userprofile = os.getenv("USERPROFILE")
 	local title = self.root.title or "Menu"
 
-	if userprofile == nil then
-		consoleRGB(title .. " error: could not find userprofile folder", rgb(255,0,0))
-		notify(title .. " error", "Could not find userprofile folder")
-		return
-	end
-
-	local path = userprofile:gsub("[\\]", "/") .. "/Documents/My Games/Tribes Ascend/TribesGame/Config/" .. self.root.config
+	local path = config.getPath() .. self.root.config
 	local cfg = io.open(path , "w")
 
 	if not cfg then 
-		consoleRGB(title .. " error: could not open " .. self.root.config .. " file for writing", rgb(255,0,0))
-		notify(title .. " error", "Could not open " .. self.root.config .. " file for writing")
+		consoleRGB(title .. " error: could not open " .. self.root.config .. " for writing", rgb(255,0,0))
+		notify(title .. " error", "Could not open " .. self.root.config .. " for writing")
 		return
 	end
 
@@ -220,8 +214,31 @@ function menu:increment_var()
 				end
 			end
 			
-			-- Set the variable
-			self:set_var(item.varname, val)	
+			if m.subtype == "color" then
+				local col = rgba(
+					self:get_var(m.varname .. ".r"),
+					self:get_var(m.varname .. ".g"),
+					self:get_var(m.varname .. ".b"),
+					self:get_var(m.varname .. ".a")
+				)
+
+				local member = item.varname:match("([%w])$")
+				col[member] = val
+				self:set_var(m.varname, col)
+			elseif m.subtype == "fvector" then
+				local vec = Vector(
+					self:get_var(m.varname .. ".x"),
+					self:get_var(m.varname .. ".y"),
+					self:get_var(m.varname .. ".z")
+				)
+
+				local member = item.varname:match("([%w])$")
+				vec[member] = val
+				self:set_var(m.varname, vec)
+			else
+				-- Set the variable
+				self:set_var(item.varname, val)	
+			end
 		end
 	end
 end
@@ -252,8 +269,31 @@ function menu:decrement_var()
 				end
 			end
 			
-			-- Set the variable
-			self:set_var(item.varname, val)	
+			if m.subtype == "color" then
+				local col = rgba(
+					self:get_var(m.varname .. ".r"),
+					self:get_var(m.varname .. ".g"),
+					self:get_var(m.varname .. ".b"),
+					self:get_var(m.varname .. ".a")
+				)
+
+				local member = item.varname:match("([%w])$")
+				col[member] = val
+				self:set_var(m.varname, col)
+			elseif m.subtype == "fvector" then
+				local vec = Vector(
+					self:get_var(m.varname .. ".x"),
+					self:get_var(m.varname .. ".y"),
+					self:get_var(m.varname .. ".z")
+				)
+
+				local member = item.varname:match("([%w])$")
+				vec[member] = val
+				self:set_var(m.varname, vec)
+			else
+				-- Set the variable
+				self:set_var(item.varname, val)	
+			end
 		end
 	end
 end
@@ -264,15 +304,42 @@ function menu:reset_var()
 		local item = m.items[m.selected]
 
 		if item.varname ~= nil and item.default ~= nil then
-			if item.subtype == "color" then
-				self:set_var(item.varname .. ".r", item.default.r)
-				self:set_var(item.varname .. ".g", item.default.g)
-				self:set_var(item.varname .. ".b", item.default.b)
-				self:set_var(item.varname .. ".a", item.default.a)
-			elseif item.subtype == "fvector" then
-				self:set_var(item.varname .. ".x", item.default.x)
-				self:set_var(item.varname .. ".y", item.default.y)
-				self:set_var(item.varname .. ".z", item.default.z)
+			if item.type == "menu" then
+				if item.subtype == "color" then
+					self:set_var(item.varname, rgba(
+						item.default.r,
+						item.default.g,
+						item.default.b,
+						item.default.a
+					))
+				elseif item.subtype == "fvector" then
+					self:set_var(item.varname, Vector(
+						item.default.x,
+						item.default.y,
+						item.default.z
+					))
+				end
+			elseif m.subtype == "color" then
+				local col = rgba(
+					self:get_var(m.varname .. ".r"),
+					self:get_var(m.varname .. ".g"),
+					self:get_var(m.varname .. ".b"),
+					self:get_var(m.varname .. ".a")
+				)
+
+				local member = item.varname:match("([%w]+)$")
+				col[member] = item.default
+				self:set_var(m.varname, col)
+			elseif m.subtype == "fvector" then
+				local vec = Vector(
+					self:get_var(m.varname .. ".x"),
+					self:get_var(m.varname .. ".y"),
+					self:get_var(m.varname .. ".z")
+				)
+
+				local member = item.varname:match("([%w]+)$")
+				vec[member] = item.default
+				self:set_var(m.varname, vec)
 			else
 				self:set_var(item.varname, item.default)
 			end
@@ -297,19 +364,29 @@ function menu:go_enter()
 			-- Items of type menu just change the current sub menu
 			m.root.current_submenu = selected
 		elseif selected.type == "variable" then
-			local var = self:get_var(selected.varname)
-			local vartype = type(var)
-			-- Assemble a string which will be pre-entered into the console
-			local str = "/lua " .. selected.varname:gsub("[.]([%d]+)", "[%1]") .. " = "
-
-			-- Append the variable to the string and open the console
-			if vartype == "boolean" then
-				str = var and str .. "true" or str .. "false"
+			if m.subtype == "color" then
+				local var = self:get_var(m.varname)
+				local str = string.format("/lua %s = rgba(%s, %s, %s, %s)", m.varname:gsub("[.]([%d]+)", "[%1]"), var.r, var.g, var.b, var.a)
 				openConsole(str)
-			elseif vartype == "number" then
-				openConsole(str .. var)
-			elseif vartype == "string" then
-				openConsole(str .. "\"" .. var .. "\"")
+			elseif m.subtype == "fvector" then
+				local var = self:get_var(m.varname)
+				local str = string.format("/lua %s = Vector(%s, %s, %s)", m.varname:gsub("[.]([%d]+)", "[%1]"), var.x, var.y, var.z)
+				openConsole(str)
+			else
+				local var = self:get_var(selected.varname)
+				local vartype = type(var)
+				-- Assemble a string which will be pre-entered into the console
+				local str = "/lua " .. selected.varname:gsub("[.]([%d]+)", "[%1]") .. " = "
+
+				-- Append the variable to the string and open the console
+				if vartype == "boolean" then
+					str = var and str .. "true" or str .. "false"
+					openConsole(str)
+				elseif vartype == "number" then
+					openConsole(str .. var)
+				elseif vartype == "string" then
+					openConsole(str .. "\"" .. var .. "\"")
+				end
 			end
 		end
 	end
@@ -425,6 +502,7 @@ function menu:add_variable(params)
 
 	local t = {}
 	t.type = "variable"
+	t.subtype = params.subtype
 	t.title = params.title
 	t.description = params.description
 	t.default = params.default  -- Default value
@@ -499,10 +577,12 @@ function menu:add_color(params)
 	m:add_separator({})
 	m:add_item({ title = "Reset", func = function()
 		if m.default ~= nil then
-			self:set_var(m.varname .. ".r", m.default.r)
-			self:set_var(m.varname .. ".g", m.default.g)
-			self:set_var(m.varname .. ".b", m.default.b)
-			self:set_var(m.varname .. ".a", m.default.a)
+			self:set_var(m.varname, rgba(
+				m.default.r,
+				m.default.g,
+				m.default.b,
+				m.default.a
+			))
 		end
 	end })
 
@@ -533,7 +613,7 @@ function menu:add_fvector(params)
 
 	params.description = nil
 
-	local names = { "X Axis", "Y Axis", "Z Axis" }
+	local names = { "X Axis - Forward/Backward", "Y Axis - Left/Right", "Z Axis - Up/Down" }
 	local axes  = { "x", "y", "z" }
 
 	for i, v in ipairs(axes) do
@@ -551,19 +631,15 @@ function menu:add_fvector(params)
 	m:add_separator({})
 	m:add_item({ title = "Reset", func = function()
 		if m.default ~= nil then
-			self:set_var(m.varname .. ".x", m.default.x)
-			self:set_var(m.varname .. ".y", m.default.y)
-			self:set_var(m.varname .. ".z", m.default.z)
+			self:set_var(m.varname, Vector(
+				m.default.x,
+				m.default.y,
+				m.default.z
+			))
 		end
 	end })
 
 	return m
-end
-
-function menu:add_filelist(params)
-end
-
-function menu:add_keybind(params)
 end
 
 function menu:add_back(params)
@@ -705,20 +781,21 @@ function menu:draw()
 			drawRect(style.x, y_pos, style.x + style.item_width, y_pos + style.item_height, bg_color)
 
 			-- Draw description if this item is selected and has a description
-			-- FIXME: better way of drawing description. Separate box?
-			--if item.description ~= nil and i == m.selected then
-			--	drawRect(r.x + r.item_width, y_pos, r.x + r.item_width + 5, y_pos + r.item_height, r.bg_desc)
-			--	drawRect(r.x + r.item_width + 5, y_pos, r.x + r.item_width + 5, y_pos + 10, r.bg_desc)
-			--	local i = 0
-			--	-- Split on newlines because the text drawing functions don't care about \n
-			--	for line in item.description:gmatch("[^\n]+") do
-			--		drawRect(x + 155, y_pos + 10 + 13 * i, x + 305, y_pos + 23 + 13 * i, bg_color)
-			--		drawUTText(line, text_color, x + 160, y_pos + 15 + 13 * i, 0, 0, 0)
-			--		i = i + 1
-			--	end
-			--	i = i - 1
-			--	drawRect(x + 155, y_pos + 23 + 13 * i, x + 305, y_pos + 30 + 13 * i, bg_color)
-			--end
+			if i == m.selected and item.description ~= nil then
+				local x = x_res / 2 + style.desc_x
+				local y = y_res * 0.25 + style.desc_y
+				drawRect(x - 150, y, x + 150, y + 10, style.bg_sel)
+
+				-- Split on newlines
+				local i = 0
+				local y_pos = y + 10
+				for line in item.description:gmatch("[^\n]+") do
+					drawRect(x - 150, y_pos, x + 150, y_pos + 15, style.bg_sel)
+					drawUTText(line, style.fg_sel, x - 145, y_pos + 5, 0, 0, 0)
+					y_pos = y_pos + 15
+				end
+				drawRect(x - 150, y_pos, x + 150, y_pos + 5, style.bg_sel)
+			end
 
 			if item.type == "variable" then
 				-- Also draw the current value of a variable

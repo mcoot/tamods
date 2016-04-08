@@ -1,5 +1,7 @@
-preset = "presets/sqHud/"
+sqHud = {}
+sqHud.preset = "presets/sqHud/"
 
-require(preset .. "hud/_main")
+require("lib/xhair_factory")
+require(sqHud.preset .. "hud/_main")
 
 console("Preset \"sqHud\" loaded")

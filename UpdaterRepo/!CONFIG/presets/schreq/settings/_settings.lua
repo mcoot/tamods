@@ -23,16 +23,14 @@ crosshairScale            = 1.0
 -- of the default crosshairs.
 --crosshairColor            = rgba(255, 255, 0, 255)
 
--- Whether or not to show the weapon list HUD element.
-showHUDWeapons            = false
-
 -- Whether or not to show the first person body mesh.
 showBodyMesh              = false
 
 -- Whether or not to use a custom weapon position.
 customWeaponOffset        = true
 -- The custom weapon position (Forward/Backward, Right/Left, Up/Down).
-weaponOffset              = Vector(24, -4, -8)
+--weaponOffset              = Vector(24, -4, -8)
+weaponOffset              = Vector(60, -5, -25)
 
 -- Whether or not to use a custom postion for bullet spawns.
 customBulletSpawnOffset   = false
@@ -206,7 +204,7 @@ skiBarMax                 = 420
 ------------------------------------------------------------------------------
 -- Whether or not to enable magic chain, showing the real location of
 -- chain bullets.
-useMagicChain             = true
+useMagicChain             = false
 
 -- Whether or not to use the default or smaller bullets.
 useSmallBullets           = false
@@ -251,6 +249,9 @@ decelerationRateWithFlag  = 10
 -- The draw interval for the little dots indicating the route path.
 -- 0 disables route drawing entirely and the minimum value is 100.
 routeDrawInterval = 200
+
+-- How transparent the route path is
+routeDrawTransparency = 0.8
 
 -- The draw interval of ETA in seconds.
 -- 0 disables ETA drawing entirely.
