@@ -2,7 +2,6 @@ require(preset .. "hud/variables")
 require(preset .. "hud/colors")
 require(preset .. "hud/elements/spectators")
 require(preset .. "hud/elements/stats")
-require(preset .. "hud/elements/crosshairs")
 require(preset .. "hud/elements/weapon_list")
 
 
@@ -15,7 +14,14 @@ bindKey("O", Input.PRESSED,
 	end
 )
 
+local onDrawCustomHudOld
+if type(onDrawCustomHud) == "function" then
+	onDrawCustomHudOld = onDrawCustomHud
+end
+
 function onDrawCustomHud(res_x, res_y)
+	if onDrawCustomHudOld then onDrawCustomHudOld(res_x, res_y) end
+
 	local borderWidth = 10
 
 	-- Toggle HUD
@@ -43,7 +49,6 @@ function onDrawCustomHud(res_x, res_y)
 		local in_vehicle = player.isVehicle()
 		local speed = in_vehicle and vehicle.speed() or player.speed()
 
-		crosshairs(center_x, center_y)
 		weapon_list(center_x, res_y - borderWidth)
 	end
 end

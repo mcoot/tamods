@@ -3,7 +3,6 @@ require(preset .. "hud/colors")
 require(preset .. "hud/widgets/arena_player_spawns")
 require(preset .. "hud/widgets/arena_round_scores")
 require(preset .. "hud/widgets/cah_capture_points")
-require(preset .. "hud/widgets/crosshairs")
 require(preset .. "hud/widgets/chat_vgs")
 require(preset .. "hud/widgets/flag_status")
 require(preset .. "hud/widgets/game_scores")
@@ -30,7 +29,14 @@ bindKey("O", Input.PRESSED,
 	end
 )
 
+local onDrawCustomHudOld
+if type(onDrawCustomHud) == "function" then
+	onDrawCustomHudOld = onDrawCustomHud
+end
+
 function onDrawCustomHud(res_x, res_y)
+	if onDrawCustomHudOld then onDrawCustomHudOld(res_x, res_y) end
+
 	local borderWidth = 20;
 
 	-- Toggle HUD
@@ -119,7 +125,6 @@ function onDrawCustomHud(res_x, res_y)
 			-- drawSmallText(currentWeapon.ammo(), currentWeapon.isLowAmmo() and text_color3 or text_color1, center_x + 16, res_y * 0.6, 1, 1, 1)
 		-- end
 
-		crosshairs(center_x, center_y)
 		health_energy(borderWidth, res_y - borderWidth)
 		weapon_list(center_x, res_y - borderWidth)
 

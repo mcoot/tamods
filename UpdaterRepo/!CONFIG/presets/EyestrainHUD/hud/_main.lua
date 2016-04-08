@@ -3,7 +3,6 @@ require(preset .. "hud/colors")
 require(preset .. "hud/widgets/arena_player_spawns")
 require(preset .. "hud/widgets/arena_round_scores")
 require(preset .. "hud/widgets/cah_capture_points")
-require(preset .. "hud/widgets/crosshairs")
 require(preset .. "hud/widgets/chat_vgs")
 require(preset .. "hud/widgets/flag_status")
 require(preset .. "hud/widgets/game_scores")
@@ -31,7 +30,14 @@ bindKey("O", Input.PRESSED,
 	end
 )
 
+local onDrawCustomHudOld
+if type(onDrawCustomHud) == "function" then
+	onDrawCustomHudOld = onDrawCustomHud
+end
+
 function onDrawCustomHud(res_x, res_y)
+	if onDrawCustomHudOld then onDrawCustomHudOld(res_x, res_y) end
+
 	-- Toggle HUD
 	if not show_hud or viewPort.isMainMenuOpen() then
 		return
@@ -118,7 +124,6 @@ function onDrawCustomHud(res_x, res_y)
 			drawSmallText(math.ceil(player.energy() * 5.333), text_color1, center_x - 16, res_y * 0.6, 2, 1, 1)
 		end
 
-		if crosshairs then crosshairs(center_x, center_y) end
 		if health_energy then health_energy(20, 20) end
 		if weapon_list then weapon_list(20, center_y - 100) end
 		
