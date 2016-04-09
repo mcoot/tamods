@@ -943,9 +943,9 @@ void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Pa
 			if (myTeam != 255)
 			{
 				if (Aggressor == me)
-					AggressorTeam = Utils::tr_pc->GetTeamNum() + 2;
+					AggressorTeam = myTeam + 2;
 				else if (Victim == me)
-					VictimTeam = Utils::tr_pc->GetTeamNum() + 2;
+					VictimTeam = myTeam + 2;
 			}
 
 			if (Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
