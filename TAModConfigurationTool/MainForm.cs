@@ -25,7 +25,7 @@ namespace TAModConfigurationTool
         public List<string> crosshairRegex;
         public Config config;
         public string matchedPreset = null;
-        public string configDir = Environment.GetEnvironmentVariable("USERPROFILE") + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
+        public string configDir = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + "/My Games/Tribes Ascend/TribesGame/config/";
 
         public MainForm()
         {
@@ -53,7 +53,7 @@ namespace TAModConfigurationTool
             clearUI();
 
             // Load the config from profile
-            string profile = Environment.GetEnvironmentVariable("USERPROFILE");
+            string profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             string directory = configDir;
 
             //if (profile == null)
