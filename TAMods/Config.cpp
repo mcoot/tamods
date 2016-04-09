@@ -2148,7 +2148,7 @@ void Lua::init()
 		addFunction("say", &consoleCommands::luaSay).
 		addFunction("teamsay", &consoleCommands::luaTeamSay).
 		addFunction("gamma", &consoleCommands::luaGamma).
-		addFunction("sens", &consoleCommands::luaSetSens).
+		addFunction("sensitivity", &consoleCommands::luaSetSens).
 
 		// Custom HUD drawing functions
 		addFunction("drawText",         &Utils::drawText).
