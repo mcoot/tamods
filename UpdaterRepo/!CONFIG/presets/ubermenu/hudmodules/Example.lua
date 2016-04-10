@@ -14,6 +14,8 @@ module.opts.Color        = rgba(0,255,0,255)
 
 	Following variables are available:
 	hud_data.game_type
+	hud_data.alive
+	hud_data.vehicle
 	hud_data.my_name
 	hud_data.my_team
 	hud_data.left_team
@@ -24,8 +26,8 @@ module.opts.Color        = rgba(0,255,0,255)
 
 -- The drawing function for this module
 function module.draw(res_x, res_y)
-	xpos = math.floor(module.opts.X_Position / 100 * res_x)
-	ypos = math.floor(module.opts.Y_Position / 100 * res_y)
+	local xpos = math.floor(module.opts.X_Position / 100 * res_x)
+	local ypos = math.floor(module.opts.Y_Position / 100 * res_y)
 
 	-- Try to use the global color module and fall back
 	-- to our own color option if it isn't loaded

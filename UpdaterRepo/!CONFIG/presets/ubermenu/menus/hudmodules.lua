@@ -4,8 +4,11 @@ hudmodules_path = (config.getPath() .. preset .. "/hudmodules/"):gsub("\\", "/")
 
 -- Get a list of all available modules
 local hudmodules_avail = {}
-for m in io.popen("dir \"" .. hudmodules_path .. "\\*.lua\" /b"):lines() do
-	table.insert(hudmodules_avail, m)
+
+for i,v in ipairs(config.getFileList(preset .. "hudmodules")) do
+	if v ~= "." and v ~= ".." then
+		table.insert(hudmodules_avail, v)
+	end
 end
 
 -- Load saved modules
@@ -18,6 +21,8 @@ end
 function draw_widgets(res_x, res_y)
 	hud_data             = {}
 	hud_data.game_type   = game.type()
+	hud_data.alive       = player.isAlive()
+	hud_data.vehicle     = player.isVehicle()
 	hud_data.my_name     = player.name()
 	hud_data.my_team     = player.teamNum()
 	hud_data.left_team   = hud_data.my_team == 1 and 1 or 0
@@ -35,6 +40,28 @@ end
 function add_widget(parent, item)
 	table.insert(ubermenu_hudmodules, dofile(hudmodules_path .. item.title))
 	hudMenu(nil, parent.parent)
+	parent:go_parent()
+end
+
+function reorder_module(parent, item, up)
+	local selected = parent.parent.selected - 2
+	local toswitch = 0
+	local tmp
+
+	-- Are we already the first or last element, depending on direction
+	if up and selected > 1 then
+		toswitch = selected - 1
+	elseif not up and selected < #ubermenu_hudmodules then
+		toswitch = selected + 1
+	end
+
+	if toswitch > 0 then
+		tmp = ubermenu_hudmodules[toswitch]
+		ubermenu_hudmodules[toswitch] = ubermenu_hudmodules[selected]
+		ubermenu_hudmodules[selected] = tmp
+		parent:go_parent()
+		parent.parent.selected = toswitch + 2
+	end
 end
 
 function hudMenu(parent, m)
@@ -74,6 +101,9 @@ function hudMenu(parent, m)
 			end
 		end
 
+		sub:add_separator({ title = "Order" })
+		sub:add_item({ title = "Up",     func = function(parent, item) reorder_module(parent, item, true) end })
+		sub:add_item({ title = "Down",   func = function(parent, item) reorder_module(parent, item, false) end })
 		sub:add_separator({})
 		sub:add_item({ title = "Delete", func = function(parent, item)
 			-- Get the position in the xhair array from the varname

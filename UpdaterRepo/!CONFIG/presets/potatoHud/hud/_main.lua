@@ -28,7 +28,14 @@ bindKey("O", Input.PRESSED,
 	end
 )
 
+local onDrawCustomHudOld
+if type(onDrawCustomHud) == "function" then
+	onDrawCustomHudOld = onDrawCustomHud
+end
+
 function onDrawCustomHud(res_x, res_y)
+	if onDrawCustomHudOld then onDrawCustomHudOld(res_x, res_y) end
+
 	-- Toggle HUD
 	if not show_hud or viewPort.isMainMenuOpen() then
 		return

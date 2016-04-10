@@ -1,23 +1,22 @@
 local preset = preset
 
-require(preset .. "config/presets")
+if file_exists(config.getPath() .. preset .. "config/presets.lua") then
+	require(preset .. "config/presets")
+end
 
 local presets = {}
 
 local function generateList()
 	presets = {}
-	local cfgpath = config.getPath()
-	local cmd = "dir \"" .. cfgpath .. "presets\" /b"
 
-	-- Get a list of all available presets
-	for p in io.popen(cmd):lines() do
-		presets[p] = false
-	end
-
-	-- Figure out which presets are loaded already
-	for k,v in pairs(package.loaded) do
-		if k:match("^presets/") then
-			presets[k:match("^presets/([%w-_]+)/")] = true
+	-- Get a list of all available and already loaded presets
+	for i,v in ipairs(config.getFileList("presets")) do
+		if v ~= "." and v ~= ".." then
+			if package.loaded["presets/" .. v .. "/preset"] ~= nil then
+				presets[v] = true
+			else
+				presets[v] = false
+			end
 		end
 	end
 
@@ -50,7 +49,7 @@ end
 
 function presetMenu(parent, menu)
 	menu:clear()
-	menu:add_item({ title = "Help", description = "In order to apply the changes you've made, you have to\nfirst press \"Save Preset Selection\" and then reload the\nconfig. To discard the changes you've made, reload the\nconfig without saving" })
+	menu:add_item({ title = "Help", description = "In order to properly unload presets you removed from\n\"Loaded Presets\", you have to press\n\"Save Preset Selection\" and then reload the config.\nTo just discard the changes you've made, reload the\nconfig without saving" })
 	menu:add_separator({ title = "Loaded Presets" })
 	menu:add_separator({ title = "Available Presets" })
 	for k,v in kpairs(presets) do

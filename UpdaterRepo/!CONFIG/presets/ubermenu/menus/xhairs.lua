@@ -112,6 +112,27 @@ function add_vis_menu(menu)
 	return sub
 end
 
+function reorder_widget(parent, item, up)
+	local selected = parent.parent.selected - 5
+	local toswitch = 0
+	local tmp
+
+	-- Are we already the first or last element, depending on direction
+	if up and selected > 1 then
+		toswitch = selected - 1
+	elseif not up and selected < #ubermenu_xhairs then
+		toswitch = selected + 1
+	end
+
+	if toswitch > 0 then
+		tmp = ubermenu_xhairs[toswitch]
+		ubermenu_xhairs[toswitch] = ubermenu_xhairs[selected]
+		ubermenu_xhairs[selected] = tmp
+		parent:go_parent()
+		parent.parent.selected = toswitch + 5
+	end
+end
+
 function xhairMenu(parent, m)
 	m:clear()
 
@@ -156,6 +177,9 @@ function xhairMenu(parent, m)
 		sub:add_variable({ title = "Name", position = 1, varname = "ubermenu_xhairs." .. i .. ".name", default = "" })
 
 		add_vis_menu(sub)
+		sub:add_separator({ title = "Order" })
+		sub:add_item({ title = "Up",     func = function(parent, item) reorder_widget(parent, item, true) end })
+		sub:add_item({ title = "Down",   func = function(parent, item) reorder_widget(parent, item, false) end })
 		sub:add_separator({})
 		sub:add_item({ title = "Delete", func = function(parent, item)
 			-- Get the position in the xhair array from the varname

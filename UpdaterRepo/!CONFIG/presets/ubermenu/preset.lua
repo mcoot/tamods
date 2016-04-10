@@ -2,7 +2,15 @@ require("lib/menu")
 require("lib/kpairs")
 require("lib/xhair_factory")
 preset = "presets/ubermenu/"
-require(preset .. "config/config")
+
+function file_exists(name)
+	local f = io.open(name,"r")
+	if f ~= nil then io.close(f) return true else return false end
+end
+
+if file_exists(config.getPath() .. preset .. "config/config.lua") then
+	require(preset .. "config/config")
+end
 
 bindKey("F1",                Input.PRESSED,  function() ubermenu:toggle() end)
 bindKey("Up",                Input.PRESSED,  function() ubermenu:go_prev() end)
@@ -29,7 +37,7 @@ end
 ubermenu = menu.create(params)
 params = nil
 
-if ubermenu.opts.help then
+if ubermenu.opts.help ~= false then
 	ubermenu:add_item({ title = "Help", description = "F1: Toggle Menu\n"
 	                                               .. "Arrow Keys: Menu navigation\n"
 	                                               .. "Mousewheel Up: Increase value\n"
@@ -74,7 +82,7 @@ local sub = ubermenu:add_submenu({ title = "Menu Settings" })
 	sub:add_variable({ title = "Description Offset X", varname = "ubermenu.opts.desc_x",       default = ubermenu.opts.desc_x,       inc = 1, description = desc })
 	sub:add_variable({ title = "Description Offset Y", varname = "ubermenu.opts.desc_y",       default = ubermenu.opts.desc_y,       inc = 1, description = desc })
 	sub:add_separator({})
-	sub:add_variable({ title = "Display Main Menu Help", varname = "ubermenu.opts.help" })
+	sub:add_variable({ title = "Display Main Menu Help", varname = "ubermenu.opts.help", default = true })
 
 require(preset .. "menus/tamods")
 require(preset .. "menus/presets")
