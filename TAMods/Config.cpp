@@ -925,6 +925,37 @@ static LuaRef config_searchTribesInputCommands(const std::string &needle)
 	return out;
 }
 
+static LuaRef config_getFileList(const std::string &dir)
+{
+	LuaRef out = newTable(g_config.lua.getState());
+
+	std::string path = Utils::getConfigDir() + dir;
+
+	if (!Utils::dirExists(path))
+		return out;
+
+	std::wstring stemp = std::wstring(path.begin(), path.end()) + L"\\*";
+	LPCWSTR sw = stemp.c_str();
+
+	WIN32_FIND_DATA search_data;
+
+	memset(&search_data, 0, sizeof(WIN32_FIND_DATA));
+
+	HANDLE handle = FindFirstFile(sw, &search_data);
+
+	while (handle != INVALID_HANDLE_VALUE)
+	{
+		std::wstring filename = search_data.cFileName;
+		out.append(std::string(filename.begin(), filename.end()));
+
+		if (FindNextFile(handle, &search_data) == FALSE)
+			break;
+	}
+	FindClose(handle);
+
+	return out;
+}
+
 static void config_modifySound(const std::string &name, float pitch, float volume)
 {
 	if (name[0] == 'A' || name[0] == 'a')
@@ -2279,6 +2310,7 @@ void Lua::init()
 			addFunction("reloadVariables", &config_rereadVariables).
 			addFunction("reload", &config_reload).
 			addFunction("getPath", &Utils::getConfigDir).
+			addFunction("getFileList", &config_getFileList).
 		endNamespace().
 	endNamespace();
 
