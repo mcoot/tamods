@@ -18,7 +18,7 @@ for i = 1,#ubermenu_hudmodules do
 	ubermenu_hudmodules[i] = module
 end
 
-function draw_widgets(res_x, res_y)
+function draw_modules(res_x, res_y)
 	hud_data             = {}
 	hud_data.game_type   = game.type()
 	hud_data.alive       = player.isAlive()
@@ -37,7 +37,7 @@ function draw_widgets(res_x, res_y)
 	end
 end
 
-function add_widget(parent, item)
+function add_module(parent, item)
 	table.insert(ubermenu_hudmodules, dofile(hudmodules_path .. item.title))
 	hudMenu(nil, parent.parent)
 	parent:go_parent()
@@ -68,14 +68,16 @@ function hudMenu(parent, m)
 	m:clear()
 
 	local sub = m:add_submenu({ title = "Add Module" })
-		for i = 1,#hudmodules_avail do
-			sub:add_item({ title = hudmodules_avail[i], func = add_widget })
-		end
+	for i = 1,#hudmodules_avail do
+		sub:add_item({ title = hudmodules_avail[i], func = add_module })
+	end
 
 	m:add_separator({})
 
 	for i = 1,#ubermenu_hudmodules do
 		sub = m:add_submenu({ title = i .. ". " .. ubermenu_hudmodules[i].name, varname = "ubermenu_hudmodules." .. i .. ".name" })
+		local colors
+
 		for k,v in kpairs(ubermenu_hudmodules[i].opts) do
 			local title = tostring(k):gsub("_", " ")
 			local varname = "ubermenu_hudmodules." .. i .. ".opts." .. k
@@ -85,7 +87,8 @@ function hudMenu(parent, m)
 					local title = (tostring(k) .. " " .. tostring(k2)):gsub("_", " ")
 
 					if type(v2) == "userdata" then
-						sub:add_color({    title = title, varname = varname .. "." .. k2, default = v2 })
+						if not colors then colors = sub:add_submenu({ title = "Colors", position = 1 }) end
+						colors:add_color({ title = title, varname = varname .. "." .. k2, default = v2 })
 					elseif type(v2) == "number" then
 						sub:add_variable({ title = title, varname = varname .. "." .. k2, default = v2, inc = 1 })
 					else
@@ -93,7 +96,8 @@ function hudMenu(parent, m)
 					end
 				end
 			elseif type(v) == "userdata" then
-				sub:add_color({    title = title, varname = varname, default = v })
+				if not colors then colors = sub:add_submenu({ title = "Colors", position = 1 }) end
+				colors:add_color({ title = title, varname = varname, default = v })
 			elseif type(v) == "number" then
 				sub:add_variable({ title = title, varname = varname, default = v, inc = 1 })
 			else
@@ -108,7 +112,7 @@ function hudMenu(parent, m)
 		sub:add_item({ title = "Delete", func = function(parent, item)
 			-- Get the position in the xhair array from the varname
 			local pos = tonumber(parent.varname:match("[.]([%d]+)[.]name"))
-			-- Remove from loaded widgets table
+			-- Remove from loaded modules table
 			table.remove(ubermenu_hudmodules, pos)
 			parent:go_parent()
 		end })
@@ -116,7 +120,7 @@ function hudMenu(parent, m)
 end
 
 local sub = ubermenu:add_submenu({ title = "HUD Maker", func = hudMenu })
-ubermenu:add_draw_func(draw_widgets)
+ubermenu:add_draw_func(draw_modules)
 
 -- Add items once so they get saved to config when saving without visiting this menu
 hudMenu(ubermenu, sub)

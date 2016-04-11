@@ -715,6 +715,7 @@ function menu:draw()
 	-- Only draw the menu when it's "visible"
 	if not r.isvisible then return false end
 
+	local x_pos = style.x
 	local y_pos = style.y
 
 	-- Draw color for color submenus
@@ -737,9 +738,23 @@ function menu:draw()
 	while i <= #m.items do
 		local item = m.items[i]
 
+		-- Menu wrapping to the right if the bottom edge of the screen is reached
+		-- Don't move empty separators over as first element so we don't have
+		-- weird empty space at the top
+		if item.title ~= nil and y_pos + style.item_height > y_res then
+			y_pos = style.y
+			x_pos = x_pos + style.item_width + 4
+
+			-- Move the menu left if there is not enough space on the right to
+			-- display any more wrapped menu items
+			if x_pos + style.item_width > x_res then
+				style.x = math.max(0, style.x - (x_pos + style.item_width - x_res))
+			end
+		end
+
 		if item.type == "separator" then
 			if item.title then
-				drawUTText(item.title, style.fg_sep, style.x + 5, y_pos + style.item_height - 8, 0, 1, 0)
+				drawUTText(item.title, style.fg_sep, x_pos + 5, y_pos + style.item_height - 8, 0, 1, 0)
 				y_pos = y_pos + style.item_height + style.item_padding
 			else
 				y_pos = y_pos + style.item_height / 2 + style.item_padding
@@ -778,7 +793,7 @@ function menu:draw()
 			end
 
 			-- Draw the background rectangle
-			drawRect(style.x, y_pos, style.x + style.item_width, y_pos + style.item_height, bg_color)
+			drawRect(x_pos, y_pos, x_pos + style.item_width, y_pos + style.item_height, bg_color)
 
 			-- Draw description if this item is selected and has a description
 			if i == m.selected and item.description ~= nil then
@@ -811,19 +826,19 @@ function menu:draw()
 					text = var
 				end
 
-				drawUTText(text, text_color, style.x + style.item_width - 5, y_pos + style.item_height / 2, 2, 0, 0)
+				drawUTText(text, text_color, x_pos + style.item_width - 5, y_pos + style.item_height / 2, 2, 0, 0)
 			elseif item.type == "menu" then
 				if item.subtype == "color" then
 					-- Draw a color preview
-					drawRect(style.x + style.item_width - style.item_height + 3, y_pos + 3, style.x + style.item_width - 3, y_pos + style.item_height - 3, self:get_var(item.varname))
+					drawRect(x_pos + style.item_width - style.item_height + 3, y_pos + 3, x_pos + style.item_width - 3, y_pos + style.item_height - 3, self:get_var(item.varname))
 				else
 					-- Draw an indicator so it's obvious this item is a sub menu
-					drawUTText(">", text_color, style.x + style.item_width - 5, y_pos + style.item_height / 2, 2, 0, 0)
+					drawUTText(">", text_color, x_pos + style.item_width - 5, y_pos + style.item_height / 2, 2, 0, 0)
 				end
 			end
 
 			-- Finally draw the items title
-			drawUTText(item.title, text_color, style.x + 5, y_pos + style.item_height / 2, 0, 0, 0)
+			drawUTText(item.title, text_color, x_pos + 5, y_pos + style.item_height / 2, 0, 0, 0)
 			y_pos = y_pos + style.item_height + style.item_padding
 		end
 		i = i + 1

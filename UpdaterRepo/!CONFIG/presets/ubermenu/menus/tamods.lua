@@ -121,75 +121,69 @@ local tamodsmenu = ubermenu:add_submenu({ title = "TAMods Settings" })
 		sub1:add_variable({ title = "Hit Sound Max Pitch",  varname = "hitSoundPitchMax",  default = 1.6, min = 0.0, inc = 0.1, description = "The highest pitch hit sounds will ever be played at\n \nDefault: 1.6" })
 		sub1:add_variable({ title = "Damage Reference",     varname = "hitSoundDamageRef", default = 600, min = 0,   inc = 10, description = "Used to calculate when and by how much to change\nthe pitch. Setting this to 600 would mean doing 600\ndamage would give pitch 1.0. Doing 1200, depending on\nmode, would result in 0.5 or 2.0 pitch\n \nDefault: 600" })
 		sub1:add_separator({})
-		local sub2 = sub1:add_submenu({ title = "Files" })
-			sub2:add_variable({ title = "Hit",                  varname = "soundHit",              default = "" })
-			sub2:add_variable({ title = "Headshot",             varname = "soundHeadShot",         default = "" })
-			sub2:add_variable({ title = "Kill",                 varname = "soundKill",             default = "" })
-			sub2:add_variable({ title = "Air Mail",             varname = "soundAirMail",          default = "" })
-			sub2:add_variable({ title = "Blue Plate",           varname = "soundBluePlate",        default = "" })
-			sub2:add_variable({ title = "Killing Spree",        varname = "soundStreak1",          default = "" })
-			sub2:add_variable({ title = "Rampage",              varname = "soundStreak2",          default = "" })
-			sub2:add_variable({ title = "Relentless",           varname = "soundStreak3",          default = "" })
-			sub2:add_variable({ title = "Unstoppable",          varname = "soundStreak4",          default = "" })
-			sub2:add_variable({ title = "The Slayer",           varname = "soundStreak5",          default = "" })
-			sub2:add_variable({ title = "Double Kill",          varname = "soundMultiKill1",       default = "" })
-			sub2:add_variable({ title = "Triple Kill",          varname = "soundMultiKill2",       default = "" })
-			sub2:add_variable({ title = "Quatra Kill",          varname = "soundMultiKill3",       default = "" })
-			sub2:add_variable({ title = "Ultra Kill",           varname = "soundMultiKill4",       default = "" })
-			sub2:add_variable({ title = "Team Kill",            varname = "soundMultiKill5",       default = "" })
-			sub2:add_variable({ title = "First Blood",          varname = "soundFirstBlood",       default = "" })
-			sub2:add_variable({ title = "Headshot Kill",        varname = "soundHeadShotKill",     default = "" })
-			sub2:add_variable({ title = "Artillery Shot",       varname = "soundArtilleryShot",    default = "" })
-			sub2:add_variable({ title = "Melee Kill",           varname = "soundMeleeKill",        default = "" })
-			sub2:add_variable({ title = "Roadkill",             varname = "soundRoadKill",         default = "" })
-			sub2:add_variable({ title = "Fast Grab",            varname = "soundFastGrab",         default = "" })
-			sub2:add_variable({ title = "Our Flag Grabbed",     varname = "soundFlagBlueGrab",     default = "" })
-			sub2:add_variable({ title = "Enemy Flag Grabbed",   varname = "soundFlagRedGrab",      default = "" })
-			sub2:add_variable({ title = "Our Flag Picked Up",   varname = "soundFlagBluePickup",   default = "" })
-			sub2:add_variable({ title = "Enemy Flag Picked Up", varname = "soundFlagRedPickup",    default = "" })
-			sub2:add_variable({ title = "Our Flag Captured",    varname = "soundFlagBlueCapture",  default = "" })
-			sub2:add_variable({ title = "Enemy Flag Captured",  varname = "soundFlagRedCapture",   default = "" })
-			sub2:add_variable({ title = "Our Flag Returned",    varname = "soundFlagBlueReturn",   default = "" })
-			sub2:add_variable({ title = "Enemy Flag Returned",  varname = "soundFlagRedReturn",    default = "" })
-			sub2:add_variable({ title = "Our Flag Dropped",	    varname = "soundFlagBlueDrop",     default = "" })
-			sub2:add_variable({ title = "Enemy Flag Dropped",   varname = "soundFlagRedDrop",      default = "" })
-			sub2:add_separator({})
-			sub2:add_item({ title = "Apply", func = function() config.reloadVariables() reloadSounds() end })
 
-		local sub2 = sub1:add_submenu({ title = "Volumes" })
-			sub2:add_variable({ title = "Hit",                  varname = "volumeHit",             default = 0.55, min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Headshot",             varname = "volumeHeadShot",        default = 0.55, min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Kill",                 varname = "volumeKill",            default = 0.55, min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Air Mail",             varname = "volumeAirMail",         default = 0.55, min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Blue Plate",           varname = "volumeBluePlate",       default = 0.55, min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Killing Spree",        varname = "volumeStreak1",         default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Rampage",              varname = "volumeStreak2",         default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Relentless",           varname = "volumeStreak3",         default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Unstoppable",          varname = "volumeStreak4",         default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "The Slayer",           varname = "volumeStreak5",         default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Double Kill",          varname = "volumeMultiKill1",      default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Triple Kill",          varname = "volumeMultiKill2",      default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Quatra Kill",          varname = "volumeMultiKill3",      default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Ultra Kill",           varname = "volumeMultiKill4",      default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Team Kill",            varname = "volumeMultiKill5",      default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "First Blood",          varname = "volumeFirstBlood",      default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Headshot Kill",        varname = "volumeHeadShotKill",    default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Artillery Shot",       varname = "volumeArtilleryShot",   default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Melee Kill",           varname = "volumeMeleeKill",       default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Roadkill",             varname = "volumeRoadKill",        default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Fast Grab",            varname = "volumeFastGrab",        default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Our Flag Grabbed",     varname = "volumeFlagBlueGrab",    default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Enemy Flag Grabbed",   varname = "volumeFlagRedGrab",     default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Our Flag Picked Up",   varname = "volumeFlagBluePickup",  default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Enemy Flag Picked Up", varname = "volumeFlagRedPickup",   default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Our Flag Captured",    varname = "volumeFlagBlueCapture", default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Enemy Flag Captured",  varname = "volumeFlagRedCapture",  default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Our Flag Returned",    varname = "volumeFlagBlueReturn",  default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Enemy Flag Returned",  varname = "volumeFlagRedReturn",   default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Our Flag Dropped",     varname = "volumeFlagBlueDrop",    default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_variable({ title = "Enemy Flag Dropped",   varname = "volumeFlagRedDrop",     default = 0.5,  min = 0.0, inc = 0.1 })
-			sub2:add_separator({})
-			sub2:add_item({ title = "Apply", func = function() config.reloadVariables() reloadSounds() end })
+		local sounds = {
+			{ title = "Hits and Kills", sounds = {
+				{ title = "Hit",                  varname = "Hit",             default = 0.55 },
+				{ title = "Headshot",             varname = "HeadShot",        default = 0.55 },
+				{ title = "Kill",                 varname = "Kill",            default = 0.55 },
+				{ title = "Air Mail",             varname = "AirMail",         default = 0.55 },
+				{ title = "Blue Plate",           varname = "BluePlate",       default = 0.55 },
+				{ title = "First Blood",          varname = "FirstBlood",      default = 0.5  },
+				{ title = "Headshot Kill",        varname = "HeadShotKill",    default = 0.5  },
+				{ title = "Artillery Shot",       varname = "ArtilleryShot",   default = 0.5  },
+				{ title = "Melee Kill",           varname = "MeleeKill",       default = 0.5  },
+				{ title = "Roadkill",             varname = "RoadKill",        default = 0.5  }
+			}},
+			{ title = "Sprees and Multi Kills", sounds = {
+				{ title = "Killing Spree",        varname = "Streak1",         default = 0.5  },
+				{ title = "Rampage",              varname = "Streak2",         default = 0.5  },
+				{ title = "Relentless",           varname = "Streak3",         default = 0.5  },
+				{ title = "Unstoppable",          varname = "Streak4",         default = 0.5  },
+				{ title = "The Slayer",           varname = "Streak5",         default = 0.5  },
+				{ title = "Double Kill",          varname = "MultiKill1",      default = 0.5  },
+				{ title = "Triple Kill",          varname = "MultiKill2",      default = 0.5  },
+				{ title = "Quatra Kill",          varname = "MultiKill3",      default = 0.5  },
+				{ title = "Ultra Kill",           varname = "MultiKill4",      default = 0.5  },
+				{ title = "Team Kill",            varname = "MultiKill5",      default = 0.5  }
+			}},
+			{ title = "Flag Events", sounds = {
+				{ title = "Fast Grab",            varname = "FastGrab",        default = 0.5  },
+				{ title = "Our Flag Grabbed",     varname = "FlagBlueGrab",    default = 0.5  },
+				{ title = "Enemy Flag Grabbed",   varname = "FlagRedGrab",     default = 0.5  },
+				{ title = "Our Flag Picked Up",   varname = "FlagBluePickup",  default = 0.5  },
+				{ title = "Enemy Flag Picked Up", varname = "FlagRedPickup",   default = 0.5  },
+				{ title = "Our Flag Captured",    varname = "FlagBlueCapture", default = 0.5  },
+				{ title = "Enemy Flag Captured",  varname = "FlagRedCapture",  default = 0.5  },
+				{ title = "Our Flag Returned",    varname = "FlagBlueReturn",  default = 0.5  },
+				{ title = "Enemy Flag Returned",  varname = "FlagRedReturn",   default = 0.5  },
+				{ title = "Our Flag Dropped",     varname = "FlagBlueDrop",    default = 0.5  },
+				{ title = "Enemy Flag Dropped",   varname = "FlagRedDrop",     default = 0.5  }
+			}}
+		}
+		local files = config.getFileList("examples/sounds")
+
+		for i = 1,3 do
+			local sub2 = sub1:add_submenu({ title = sounds[i].title })
+			for j = 1,#sounds[i].sounds do
+				local sub3 = sub2:add_submenu({ title = sounds[i].sounds[j].title })
+					sub3:add_variable({ title = "Volume", varname = "volume" .. sounds[i].sounds[j].varname, default = sounds[i].sounds[j].default, inc = 0.1 })
+					sub3:add_variable({ title = "File",   varname = "sound"  .. sounds[i].sounds[j].varname, default = "" })
+					local sub4 = sub3:add_submenu({ title = "Select File" })
+					for i = 1,#files do
+						if files[i] ~= "." and files[i] ~= ".." then
+							sub4:add_item({ title = files[i], func = function(parent, item)
+								parent:set_var(parent.parent.items[2].varname, "examples/sounds/" .. item.title)
+								parent:go_parent()
+								parent:go_prev()
+							end })
+						end
+					end
+					sub3:add_separator({})
+					sub3:add_item({ title = "Apply", func = function() config.reloadVariables() reloadSounds() end })
+			end
+		end
+
 		sub1:add_separator({})
 		sub1:add_item({ title = "Apply", func = function() config.reloadVariables() reloadSounds() end })
 
