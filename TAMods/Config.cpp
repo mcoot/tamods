@@ -140,6 +140,7 @@ void Config::reset()
 	// Route recording
 	routeDrawInterval      = 500; // Drawing a dot every 500ms
 	routeDrawETAInterval   = 5; // ETA every 5 seconds
+	routeDrawTransparency  = 0.8f;
 	routeReplayRotation    = true;
 	routeCinematicMode     = false;
 
@@ -491,46 +492,6 @@ void Config::refreshSoundVolumes()
 		Utils::console("Error: audio engine unavailable");
 }
 
-void Config::stopwatchDisplayTime(const std::string &prestr, float cur_time)
-{
-	if (stopwatchRunning)
-	{
-		float time = cur_time - stopwatchStartTime;
-
-		std::string s = Utils::fTime2stopwatch(time);
-		Utils::printConsole("Stopwatch: " + prestr + s, Utils::rgba(15, 255, 135, 255));
-		if (stopwatchNotifications)
-			Utils::notify(std::string("Stopwatch"), prestr + s);
-	}
-}
-
-void Config::stopwatchPrintSummary()
-{
-	if (g_config.stopwatchGrabTime > 0.0f)
-	{
-		// Speed and health
-		Utils::printConsole("\nSummary\n----------------------------------------\n Flag taken at " + std::to_string(g_config.stopwatchGrabSpeed) + " km/h " + std::to_string(g_config.stopwatchGrabHealth) + " hp");
-
-		// Time from stopwatch start until grab, only when the stopwatch was started pre-grab
-		if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
-			Utils::printConsole(" On route:     " + Utils::fTime2string(g_config.stopwatchGrabTime - g_config.stopwatchStartTime));
-
-		if (g_config.stopwatchGrabTime < g_config.stopwatchCapTime)
-		{
-			// Capture time, only when cap time is available
-			Utils::printConsole(" Captured in: " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchGrabTime));
-
-			// Total time, only when the stopwatch was started pre-grab
-			if (g_config.stopwatchStartTime != 0.0f && g_config.stopwatchStartTime < g_config.stopwatchGrabTime)
-			{
-				Utils::printConsole("----------------------------------------");
-				Utils::printConsole(" Total:          " + Utils::fTime2string(g_config.stopwatchCapTime - g_config.stopwatchStartTime));
-			}
-		}
-		Utils::printConsole("===============================");
-	}
-}
-
 #define SET_VARIABLE(type, var) (lua.setVar<type>(var, #var))
 #define SET_FUNCTION(var) do {\
 	var = new LuaRef(getGlobal(lua.getState(), #var));\
@@ -607,6 +568,7 @@ void Config::setVariables()
 	// Route recording
 	SET_VARIABLE(int, routeDrawInterval);
 	SET_VARIABLE(int, routeDrawETAInterval);
+	SET_VARIABLE(float, routeDrawTransparency);
 	SET_VARIABLE(bool, routeReplayRotation);
 	SET_VARIABLE(bool, routeCinematicMode);
 
@@ -960,6 +922,37 @@ static LuaRef config_searchTribesInputCommands(const std::string &needle)
 		if (std::regex_search(haystack, re))
 			out.append(bind);
 	}
+	return out;
+}
+
+static LuaRef config_getFileList(const std::string &dir)
+{
+	LuaRef out = newTable(g_config.lua.getState());
+
+	std::string path = Utils::getConfigDir() + dir;
+
+	if (!Utils::dirExists(path))
+		return out;
+
+	std::wstring stemp = std::wstring(path.begin(), path.end()) + L"\\*";
+	LPCWSTR sw = stemp.c_str();
+
+	WIN32_FIND_DATA search_data;
+
+	memset(&search_data, 0, sizeof(WIN32_FIND_DATA));
+
+	HANDLE handle = FindFirstFile(sw, &search_data);
+
+	while (handle != INVALID_HANDLE_VALUE)
+	{
+		std::wstring filename = search_data.cFileName;
+		out.append(std::string(filename.begin(), filename.end()));
+
+		if (FindNextFile(handle, &search_data) == FALSE)
+			break;
+	}
+	FindClose(handle);
+
 	return out;
 }
 
@@ -2117,6 +2110,8 @@ void Lua::init()
 		addFunction("consoleRGB", (void(*)(const std::string &, const FColor &)) &Utils::printConsole).
 		addFunction("notify", (void (*)(const std::string &, const std::string &)) &Utils::notify).
 
+		addFunction("openConsole", (void(*)(const std::string &)) &Utils::openConsole).
+
 		// Sounds
 		addFunction("modifySound", &config_modifySound).
 		addFunction("modifySoundRe", &config_modifySoundRe).
@@ -2141,44 +2136,50 @@ void Lua::init()
 		// Console commands as lua functions for the use as keybinds
 		addFunction("reloadSounds", &config_reloadSounds).
 		beginNamespace("stopwatch").
-			addFunction("toggle", &stopwatch).
-			addFunction("start", &stopwatchStart).
-			addFunction("stop", &stopwatchStop).
+			addFunction("toggle", &stopwatch::toggle).
+			addFunction("start", &stopwatch::start).
+			addFunction("stop", &stopwatch::stop).
 			addFunction("isRunning", &getStopwatchData::isRunning).
 			addFunction("time", &getStopwatchData::time).
 			addFunction("timeStr", &getStopwatchData::timeStr).
 		endNamespace().
 		beginNamespace("state").
-			addFunction("save", &savesSave).
-			addFunction("saveTo", &savesSaveTo).
-			addFunction("recall", &savesRecall).
-			addFunction("recallTo", &savesRecallTo).
-			addFunction("tp", &savesTp).
-			addFunction("tpTo", &savesTpTo).
-			addFunction("reset", &savesReset).
-			addFunction("setToSpawns", &savesToSpawns).
+			addFunction("save", &states::save).
+			addFunction("saveTo", &states::saveTo).
+			addFunction("recall", &states::recall).
+			addFunction("recallTo", &states::recallTo).
+			addFunction("tp", &states::tp).
+			addFunction("tpTo", &states::tpTo).
+			addFunction("reset", &states::reset).
+			addFunction("setToSpawns", &states::toSpawns).
 		endNamespace().
 		beginNamespace("route").
-			addFunction("rec", &routeRec).
-			addFunction("record", &routeRec).
-			addFunction("recStart", &routeStartRec).
-			addFunction("recStop", &routeStopRec).
-			addFunction("replay", &routeReplay).
-			addFunction("replayStart", &routeStartReplay).
-			addFunction("replayStop", &routeStopReplay).
-			addFunction("reset", &routeReset).
-			addFunction("save", &routeSaveFile).
-			addFunction("load", &routeLoadFile).
-			addFunction("search", &routeFind).
-			addFunction("find", &routeFind).
-			addFunction("list", &routeListAll).
-			addFunction("enableBot", &routeEnableBot).
-			addFunction("getAll", &routeLoadAll).
-			addFunction("getEnemy", &routeLoadEnemy).
+			addFunction("rec", &routes::rec).
+			addFunction("record", &routes::rec).
+			addFunction("recStart", &routes::startRec).
+			addFunction("recStop", &routes::stopRec).
+			addFunction("replay", &routes::replay).
+			addFunction("replayStart", &routes::startReplay).
+			addFunction("replayStop", &routes::stopReplay).
+			addFunction("reset", &routes::reset).
+			addFunction("save", &routes::saveFile).
+			addFunction("load", &routes::loadFile).
+			addFunction("search", &routes::find).
+			addFunction("find", &routes::find).
+			addFunction("list", &routes::listAll).
+			addFunction("enableBot", &routes::enableBot).
+			addFunction("getAll", &routes::loadAll).
+			addFunction("getEnemy", &routes::loadEnemy).
+			addFunction("getTable", &routes::getTable).
 		endNamespace().
-		addFunction("toggleTurrets", &toggleTurrets).
-		addFunction("togglePower", &togglePower).
-		addFunction("returnFlags", &returnFlags).
+
+		addFunction("toggleTurrets", &consoleCommands::toggleTurrets).
+		addFunction("togglePower", &consoleCommands::togglePower).
+		addFunction("returnFlags", &consoleCommands::returnFlags).
+		addFunction("say", &consoleCommands::luaSay).
+		addFunction("teamsay", &consoleCommands::luaTeamSay).
+		addFunction("gamma", &consoleCommands::luaGamma).
+		addFunction("sensitivity", &consoleCommands::luaSetSens).
 
 		// Custom HUD drawing functions
 		addFunction("drawText",         &Utils::drawText).
@@ -2231,6 +2232,8 @@ void Lua::init()
 			addFunction("isPack",             &getWeaponData::isPack).
 			addFunction("isPassiveReady",     &getWeaponData::isPassiveReady).
 			addFunction("isLowAmmo",          &getWeaponData::isLowAmmo).
+			addFunction("reloadTimeFull",     &getWeaponData::reloadTimeFull).
+			addFunction("reloadTime",         &getWeaponData::reloadTime).
 			addFunction("ammo",               &getWeaponData::ammo).
 			addFunction("ammoMax",            &getWeaponData::ammoMax).
 			addFunction("ammoCarried",        &getWeaponData::ammoCarried).
@@ -2244,6 +2247,8 @@ void Lua::init()
 			addFunction("isReloaded",         &getCurrentWeaponData::isReloaded).
 			addFunction("isPack",             &getCurrentWeaponData::isPack).
 			addFunction("isLowAmmo",          &getCurrentWeaponData::isLowAmmo).
+			addFunction("reloadTimeFull",     &getCurrentWeaponData::reloadTimeFull).
+			addFunction("reloadTime",         &getCurrentWeaponData::reloadTime).
 			addFunction("ammo",               &getCurrentWeaponData::ammo).
 			addFunction("ammoMax",            &getCurrentWeaponData::ammoMax).
 			addFunction("ammoCarried",        &getCurrentWeaponData::ammoCarried).
@@ -2277,6 +2282,7 @@ void Lua::init()
 			addFunction("timeLimit",         &getGameData::timeLimit).
 			addFunction("timeSeconds",       &getGameData::timeSeconds).
 			addFunction("realTimeSeconds",   &getGameData::realTimeSeconds).
+			addFunction("players",           &getGameData::players).
 		endNamespace().
 		beginNamespace("rabbit").
 			addFunction("leaderBoardScore", &getRabbitData::leaderBoardScore).
@@ -2303,6 +2309,8 @@ void Lua::init()
 		beginNamespace("config").
 			addFunction("reloadVariables", &config_rereadVariables).
 			addFunction("reload", &config_reload).
+			addFunction("getPath", &Utils::getConfigDir).
+			addFunction("getFileList", &config_getFileList).
 		endNamespace().
 	endNamespace();
 

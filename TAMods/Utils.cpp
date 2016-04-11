@@ -1,5 +1,6 @@
 #include "Utils.h"
 #include "NameCryptor.h"
+#include <Shlobj.h>
 
 namespace Utils
 {
@@ -118,11 +119,18 @@ std::string Utils::fTime2stopwatch(float time)
 // Returns the config directory path
 std::string Utils::getConfigDir()
 {
-	const char *profile = getenv("USERPROFILE");
+	wchar_t* localDocuments = 0;
+	HRESULT hr = SHGetKnownFolderPath(FOLDERID_Documents, 0, NULL, &localDocuments);
 
-	if (profile)
-		return std::string(profile) + "\\Documents\\My Games\\Tribes Ascend\\TribesGame\\config\\";
-	return "C:\\";
+	if (FAILED(hr)) {
+		return "C:\\";
+	}
+
+	std::wstring wstr = localDocuments;
+
+	CoTaskMemFree(static_cast<void*>(localDocuments));
+
+	return std::string(wstr.begin(), wstr.end()) + "\\My Games\\Tribes Ascend\\TribesGame\\config\\";
 }
 
 bool Utils::fileExists(const std::string &path, const std::string &mode)
@@ -223,6 +231,21 @@ void Utils::printConsole(const std::string &str, const FColor &col)
 	std::wstring wstr = std::wstring(str.begin(), str.end());
 	wchar_t* wch = (wchar_t *)wstr.c_str();
 	tr_gvc->ChatConsole->OutputTextLine(wch, col);
+}
+
+void Utils::openConsole(const std::string &text)
+{
+	if (tr_gvc && tr_gvc->ChatConsole)
+	{
+		UTrChatConsole &con = *tr_gvc->ChatConsole;
+
+		if (!con.EqualEqual_NameName(con.GetStateName(), FName("Open")))
+			con.GotoState(FName("Open"), NULL, NULL, NULL);
+
+		con.SetInputText((wchar_t *)std::wstring(text.begin(), text.end()).c_str());
+		con.SetCursorPos(text.length());
+		con.UpdateCompleteIndices();
+	}
 }
 
 void Utils::drawTextMain(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale, const unsigned &size, const unsigned char &fontNum)

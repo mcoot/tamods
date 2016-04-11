@@ -259,8 +259,8 @@ bool TrHUD_eventPostRender(int ID, UObject *dwCallingObject, UFunction* pFunctio
 	that->UpdateWhiteoutEffect();
 	that->UpdateFumbledFlagEffect();
 	my_UpdateOverheadNumbers(that, that->RenderDelta);
-	UpdateLocationOverheadNumbers(that);
-	UpdateRouteOverheadNumbers(that);
+	states::UpdateOverheadNumbers(that);
+	routes::UpdateOverheadNumbers(that);
 	that->UpdateOwnedItems();
 
 	if (that->Canvas && g_config.onDrawCustomHud && !g_config.onDrawCustomHud->isNil() && g_config.onDrawCustomHud->isFunction())
@@ -467,31 +467,31 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 		UGFxObject *timer = that->HUDTeamCTFStats->m_MoviePlayer->CTFStats_Timer;
 
 		// while playing online, only show the stopwatch, don't replace the normal game time
-		if (g_config.stopwatchRunning || (that->WorldInfo && that->WorldInfo->NetMode == 0))
+		if (stopwatch::running || (that->WorldInfo && that->WorldInfo->NetMode == 0))
 		{
 			float worldseconds = that->WorldInfo->RealTimeSeconds;
 
-			if (g_config.stopwatchRunning // Freeze stopwatch time at the moment of a cap
-				&& worldseconds - g_config.stopwatchCapTime < 4.0f // for 4 seconds
-				&& g_config.stopwatchStartTime < g_config.stopwatchCapTime) // Only when stopwatch was started pre-cap
+			if (stopwatch::running // Freeze stopwatch time at the moment of a cap
+				&& worldseconds - stopwatch::capTime < 4.0f // for 4 seconds
+				&& stopwatch::startTime < stopwatch::capTime) // Only when stopwatch was started pre-cap
 			{
 				if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);
-				worldseconds = g_config.stopwatchCapTime;
+				worldseconds = stopwatch::capTime;
 			}
-			else if (g_config.stopwatchRunning // Freeze stopwatch time at the moment of a grab
-				&& worldseconds - g_config.stopwatchGrabTime < 4.0f // for 4 seconds
-				&& g_config.stopwatchStartTime < g_config.stopwatchGrabTime) // Only when stopwatch was started pre-grab
+			else if (stopwatch::running // Freeze stopwatch time at the moment of a grab
+				&& worldseconds - stopwatch::grabTime < 4.0f // for 4 seconds
+				&& stopwatch::startTime < stopwatch::grabTime) // Only when stopwatch was started pre-grab
 			{
 				if (timer) timer->SetFloat(L"textColor", (float)0xF6FC83);
-				worldseconds = g_config.stopwatchGrabTime;
+				worldseconds = stopwatch::grabTime;
 			}
-			else if (timer) timer->SetFloat(L"textColor", g_config.stopwatchRunning ? (float)0x0FFF87 : (float)0xDDFFDD);
+			else if (timer) timer->SetFloat(L"textColor", stopwatch::running ? (float)0x0FFF87 : (float)0xDDFFDD);
 
-			if (g_config.stopwatchRunning)
-				worldseconds -= g_config.stopwatchStartTime;
+			if (stopwatch::running)
+				worldseconds -= stopwatch::startTime;
 
 			if (worldseconds < 0.0f) // no back to the future pls
-				stopwatchReset();
+				stopwatch::reset();
 
 			int minutes = (int)worldseconds / 60;
 			int seconds = (int)worldseconds % 60;
@@ -499,7 +499,7 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 
 			wchar_t buff[9];
 
-			if (g_config.stopwatchRunning)
+			if (stopwatch::running)
 				wsprintf(buff, L"%01d:%02d.%d", minutes, seconds, tenths);
 			else // fix for static roam map time
 				wsprintf(buff, L"%02d:%02d", minutes, seconds);

@@ -98,18 +98,18 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 	if (!dwCallingObject->IsA(ATrPlayerController_Training::StaticClass()))
 	{
-		if (that->WorldInfo && g_config.stopwatchRunning && g_config.stopwatchStopOnDeath)
+		if (that->WorldInfo && stopwatch::running && g_config.stopwatchStopOnDeath)
 		{
-			g_config.stopwatchDisplayTime("Stopped - ", that->WorldInfo->RealTimeSeconds);
-			g_config.stopwatchPrintSummary();
-			g_config.stopwatchRunning = 0;
+			stopwatch::displayTime("Stopped - ", that->WorldInfo->RealTimeSeconds);
+			stopwatch::printSummary();
+			stopwatch::running = 0;
 		}
-		routeStopRec();
+		routes::stopRec();
 	}
 
-	if ((g_config.routeBotReplay && that->IsA(ATrPlayerController_Training::StaticClass()))
-		|| (!g_config.routeBotReplay && !that->IsA(ATrPlayerController_Training::StaticClass())))
-		routeStopReplay();
+	if ((routes::botReplay && that->IsA(ATrPlayerController_Training::StaticClass()))
+		|| (!routes::botReplay && !that->IsA(ATrPlayerController_Training::StaticClass())))
+		routes::stopReplay();
 
 	return false;
 }
@@ -176,10 +176,10 @@ bool TrPowerGenerator_PostBeginPlay(int ID, UObject *dwCallingObject, UFunction*
 
 bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	savesReset();
+	states::reset();
 	// FIXME: this sometimes crashes when loading a (rabbit) map
-	stopwatchReset();
-	routeReset();
+	stopwatch::reset();
+	routes::reset();
 
 	return false;
 }

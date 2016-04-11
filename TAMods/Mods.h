@@ -62,11 +62,6 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-void routeFlagGrab(float grabtime);
-void routeTickRecord(ATrPlayerController * pc);
-void routeTickReplay(float deltaTime, bool firstRun = false, size_t startPos = 0);
-void UpdateRouteOverheadNumbers(ATrHUD *that);
-void UpdateLocationOverheadNumbers(ATrHUD *that);
 
 // Stats
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

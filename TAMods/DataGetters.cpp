@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "DataGetters.h"
 #include "Mods.h"
 #include "NameCryptor.h"
@@ -263,6 +264,22 @@ bool getWeaponData::isLowAmmo(unsigned const char &n)
 
 	return false;
 }
+float getWeaponData::reloadTimeFull(unsigned const char &n)
+{
+	ATrDevice *dev = Utils::getDeviceByEquipPointHelper(n);
+	if (dev && Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return dev->GetReloadTime(Utils::tr_pc->PlayerReplicationInfo, n);
+
+	return 0.0f;
+}
+float getWeaponData::reloadTime(unsigned const char &n)
+{
+	ATrDevice *dev = Utils::getDeviceByEquipPointHelper(n);
+	if (dev && Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return dev->GetReloadTime(Utils::tr_pc->PlayerReplicationInfo, n) * dev->m_fPctTimeBeforeReload;
+
+	return 0.0f;
+}
 int getWeaponData::ammo(unsigned const char &n)
 {
 	ATrDevice *dev = Utils::getDeviceByEquipPointHelper(n);
@@ -352,6 +369,22 @@ bool getCurrentWeaponData::isLowAmmo()
 	if (dev) return dev->m_bLowAmmoOn;
 
 	return false;
+}
+float getCurrentWeaponData::reloadTimeFull()
+{
+	ATrDevice *dev = Utils::getCurrentDeviceHelper();
+	if (dev && Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return dev->GetReloadTime(Utils::tr_pc->PlayerReplicationInfo, dev->r_eEquipAt);
+
+	return 0.0f;
+}
+float getCurrentWeaponData::reloadTime()
+{
+	ATrDevice *dev = Utils::getCurrentDeviceHelper();
+	if (dev && Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo)
+		return dev->GetReloadTime(Utils::tr_pc->PlayerReplicationInfo, dev->r_eEquipAt) * dev->m_fPctTimeBeforeReload;
+
+	return 0.0f;
 }
 int getCurrentWeaponData::ammo()
 {
@@ -619,6 +652,78 @@ float getGameData::realTimeSeconds()
 
 	return 0.0f;
 }
+
+bool priCreditSort(ATrPlayerReplicationInfo *a, ATrPlayerReplicationInfo *b)
+{
+	if (a->m_nCreditsEarned != b->m_nCreditsEarned)
+		return a->m_nCreditsEarned > b->m_nCreditsEarned;
+	else
+	{
+		if (a->m_nKills != b->m_nKills)
+			return a->m_nKills > b->m_nKills;
+		else
+			return a->m_nAssists > b->m_nAssists;
+	}
+}
+LuaRef getGameData::players()
+{
+	std::vector<ATrPlayerReplicationInfo *> pris;
+
+	lua_State* L = g_config.lua.getState();
+	LuaRef teams(L);
+	teams = newTable(L);
+
+	teams[0]   = newTable(L);  // Blood Eagle
+	teams[1]   = newTable(L);  // Diamon Sword
+	teams[255] = newTable(L);  // Spectators
+
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+	{
+		for (int i = 0; i < Utils::tr_pc->WorldInfo->GRI->PRIArray.Count; i++)
+		{
+			if (Utils::tr_pc->WorldInfo->GRI->PRIArray.Data[i] &&
+				((ATrPlayerReplicationInfo *)Utils::tr_pc->WorldInfo->GRI->PRIArray.GetStd(i))->m_Rank)
+			{
+				pris.push_back((ATrPlayerReplicationInfo *)Utils::tr_pc->WorldInfo->GRI->PRIArray.GetStd(i));
+			}
+		}
+
+		std::sort(pris.begin(), pris.end(), priCreditSort);
+
+		unsigned char playernumBE   = 1;
+		unsigned char playernumDS   = 1;
+		unsigned char playernumSpec = 1;
+
+		for (size_t i = 0; i < pris.size(); i++)
+		{
+			ATrPlayerReplicationInfo &pri = *(ATrPlayerReplicationInfo *)pris.at(i);
+
+			unsigned char team = pri.GetTeamNum();
+
+			LuaRef players(L);
+			players = teams[team];
+
+			LuaRef player(L);
+			player = newTable(L);
+
+			player["rank"]    = pri.m_nRankNum;
+			player["name"]    = Utils::f2std(pri.PlayerName);
+			player["class"]   = Utils::f2std(pri.GetCurrentClassAbb());
+			player["kills"]   = pri.m_nKills;
+			player["assists"] = pri.m_nAssists;
+			player["score"]   = pri.m_nCreditsEarned;
+			player["ping"]    = pri.Ping * 4;
+
+			if (team == 0)
+				players[playernumBE++] = player;
+			else if (team == 1)
+				players[playernumDS++] = player;
+			else if (team == 255)
+				players[playernumSpec++] = player;
+		}
+	}
+	return teams;
+}
 /////////////////////////////////////////////////////////////////////////////////////
 int getRabbitData::leaderBoardScore(unsigned const char &n)
 {
@@ -793,19 +898,19 @@ std::string getFlagData::holderName(unsigned const char &n)
 /////////////////////////////////////////////////////////////////////////////////////
 bool getStopwatchData::isRunning()
 {
-	return g_config.stopwatchRunning;
+	return stopwatch::running;
 }
 float getStopwatchData::time()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
-		return Utils::tr_pc->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime;
+		return Utils::tr_pc->WorldInfo->RealTimeSeconds - stopwatch::startTime;
 	else
 		return 0.0f;
 }
 std::string getStopwatchData::timeStr()
 {
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo)
-		return Utils::fTime2stopwatch(Utils::tr_pc->WorldInfo->RealTimeSeconds - g_config.stopwatchStartTime);
+		return Utils::fTime2stopwatch(Utils::tr_pc->WorldInfo->RealTimeSeconds - stopwatch::startTime);
 
 	return "00:00.0";
 }
@@ -838,9 +943,9 @@ void TrHUD_AddUpdateToCombatLog(ATrHUD *that, ATrHUD_execAddUpdateToCombatLog_Pa
 			if (myTeam != 255)
 			{
 				if (Aggressor == me)
-					AggressorTeam = Utils::tr_pc->GetTeamNum() + 2;
+					AggressorTeam = myTeam + 2;
 				else if (Victim == me)
-					VictimTeam = Utils::tr_pc->GetTeamNum() + 2;
+					VictimTeam = myTeam + 2;
 			}
 
 			if (Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)

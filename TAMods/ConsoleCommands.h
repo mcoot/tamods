@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Mods.h"
+#include "Config.h"
 #include <map>
 
 struct consoleCommand
@@ -12,6 +12,15 @@ struct consoleCommand
 namespace consoleCommands
 {
 	extern std::map<std::wstring, consoleCommand> map;
+
+	void toggleTurrets();
+	void togglePower();
+	void returnFlags();
+
+	void luaSay(const std::string &msg);
+	void luaTeamSay(const std::string &msg);
+	void luaGamma(const float &gamma);
+	void luaSetSens(const float &sens);
 
 	void execUTConsoleCommand(const FString &command);
 	void generateAutoCompleteList(TArray<FAutoCompleteCommand> &arr);
@@ -47,6 +56,9 @@ namespace consoleCommands
 	void cmd_togglepower(const std::wstring &cmd, const std::wstring &params);
 	void cmd_returnflags(const std::wstring &cmd, const std::wstring &params);
 	void cmd_utcommandwrapper(const std::wstring &cmd, const std::wstring &params);
+	void cmd_maplist(const std::wstring &cmd, const std::wstring &params);
+	void cmd_map(const std::wstring &cmd, const std::wstring &params);
+	void cmd_mapnext(const std::wstring &cmd, const std::wstring &params);
 
 	void cmd_findobjects(const std::wstring &cmd, const std::wstring &params);
 	void cmd_develcommands(const std::wstring &cmd, const std::wstring &params);

@@ -1,4 +1,5 @@
 #include "Mods.h"
+#include "StateSaving.h"
 
 struct playerState
 {
@@ -20,7 +21,7 @@ struct playerState
 };
 std::vector<playerState> saves(9);
 
-void savesReset()
+void states::reset()
 {
 	for (size_t i = 0; i < saves.size(); i++)
 	{
@@ -44,12 +45,12 @@ void savesReset()
 	}
 }
 
-void savesToSpawns()
+void states::toSpawns()
 {
 	if (!Utils::tr_pc)
 		return;
 
-	savesReset();
+	states::reset();
 
 	ANavigationPoint *nav = Utils::tr_pc->WorldInfo->NavigationPointList;
 
@@ -91,56 +92,7 @@ void savesToSpawns()
 	}
 }
 
-void stopwatch()
-{
-	if (g_config.stopwatchRunning)
-		stopwatchStop();
-	else
-		stopwatchStart();
-}
-
-void stopwatchStart()
-{
-	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
-		return;
-
-	if (g_config.stopwatchRunning)
-	{
-		g_config.stopwatchDisplayTime("Restarted - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
-		g_config.stopwatchPrintSummary();
-	}
-	else
-		g_config.stopwatchRunning = true;
-
-	g_config.stopwatchStartTime = Utils::tr_pc->WorldInfo->RealTimeSeconds;
-}
-
-void stopwatchStop()
-{
-	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
-		return;
-
-	if (g_config.stopwatchRunning)
-	{
-		g_config.stopwatchDisplayTime("Stopped - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
-		g_config.stopwatchPrintSummary();
-		g_config.stopwatchStartTime = 0;
-		g_config.stopwatchRunning = 0;
-	}
-}
-
-void stopwatchReset()
-{
-	stopwatchStop();
-	g_config.stopwatchRunning = false;
-	g_config.stopwatchStartTime = 0;
-	g_config.stopwatchCapTime = 0.0f;
-	g_config.stopwatchGrabTime = 0.0f;
-	g_config.stopwatchGrabHealth = 0;
-	g_config.stopwatchGrabSpeed = -1;
-}
-
-void savesSave(int n)
+void stateSave(int n)
 {
 	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
@@ -176,11 +128,11 @@ void savesSave(int n)
 				state.hasFlag = ((ATrPlayerReplicationInfo *)TrPawn->PlayerReplicationInfo)->bHasFlag;
 		}
 		// Stopwatch
-		state.stopwatchRunning = g_config.stopwatchRunning;
-		state.stopwatchStartTime = g_config.stopwatchStartTime;
-		state.grabHealth = g_config.stopwatchGrabHealth;
-		state.grabSpeed = g_config.stopwatchGrabSpeed;
-		state.grabTime = g_config.stopwatchGrabTime;
+		state.stopwatchRunning = stopwatch::running;
+		state.stopwatchStartTime = stopwatch::startTime;
+		state.grabHealth = stopwatch::grabHealth;
+		state.grabSpeed = stopwatch::grabSpeed;
+		state.grabTime = stopwatch::grabTime;
 
 		Utils::printConsole("Saved current state to slot #" + std::to_string(n));
 	}
@@ -188,7 +140,7 @@ void savesSave(int n)
 		Utils::printConsole("Error: slot has to be between 1 and " + std::to_string(saves.size()));
 }
 
-void savesRecall(int n, bool tpOnly)
+void stateRecall(int n, bool tpOnly)
 {
 	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
@@ -212,10 +164,10 @@ void savesRecall(int n, bool tpOnly)
 				return;
 			}
 
-			routeStopRec();
+			routes::stopRec();
 
-			if (!g_config.routeBotReplay)
-				routeStopReplay();
+			if (!routes::botReplay)
+				routes::stopReplay();
 
 			Cam->SetLocation(state.loc);
 			Utils::tr_pc->SetRotation(state.rot);
@@ -228,10 +180,10 @@ void savesRecall(int n, bool tpOnly)
 			{
 				TrPawn->Velocity = { 0.0f, 0.0f, 0.0f };
 
-				if (g_config.stopwatchRunning)
-					g_config.stopwatchDisplayTime("Stopped - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
+				if (stopwatch::running)
+					stopwatch::displayTime("Stopped - ", Utils::tr_pc->WorldInfo->RealTimeSeconds);
 
-				stopwatchReset(); // /tp always resets the stopwatch
+				stopwatch::reset(); // /tp always resets the stopwatch
 
 				// Restore health, energy and ammo
 				TrPawn->RefreshInventory(1, 0);
@@ -244,11 +196,11 @@ void savesRecall(int n, bool tpOnly)
 				//Restore stopwatch state
 				float time = Utils::tr_pc->WorldInfo->RealTimeSeconds;
 				float timeDiff = time - state.timeStamp;
-				g_config.stopwatchStartTime = state.stopwatchStartTime > 0.0f ? state.stopwatchStartTime + timeDiff : 0.0f;
-				g_config.stopwatchGrabHealth = state.grabHealth;
-				g_config.stopwatchGrabSpeed = state.grabSpeed;
-				g_config.stopwatchGrabTime = state.grabTime > 0.0f ? state.grabTime + timeDiff : 0.0f;
-				g_config.stopwatchRunning = state.stopwatchRunning;
+				stopwatch::startTime = state.stopwatchStartTime > 0.0f ? state.stopwatchStartTime + timeDiff : 0.0f;
+				stopwatch::grabHealth = state.grabHealth;
+				stopwatch::grabSpeed = state.grabSpeed;
+				stopwatch::grabTime = state.grabTime > 0.0f ? state.grabTime + timeDiff : 0.0f;
+				stopwatch::running = state.stopwatchRunning;
 
 				TrPawn->m_fLastDamagerTimeStamp = state.lastDamagedTime + timeDiff * Utils::tr_pc->WorldInfo->TimeDilation;
 				TrPawn->m_fCurrentPowerPool = state.energy > TrPawn->GetMaxPowerPool() ? TrPawn->GetMaxPowerPool() : state.energy;
@@ -263,7 +215,7 @@ void savesRecall(int n, bool tpOnly)
 				{
 					if (Utils::tr_pc->PlayerReplicationInfo && Utils::tr_pc->WorldInfo->GRI)
 					{
-						g_config.stopwatchFlagRecall = true;
+						stopwatch::flagRecall = true;
 						((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->m_Flags[!state.teamNum]->SetHolder(Utils::tr_pc);
 					}
 				}
@@ -278,15 +230,14 @@ void savesRecall(int n, bool tpOnly)
 }
 
 // Wrapper functions
+void states::save()          { stateSave(1); }
+void states::saveTo(int n)   { stateSave(n); }
+void states::tp()            { stateRecall(1, true); }
+void states::tpTo(int n)     { stateRecall(n, true); }
+void states::recall()        { stateRecall(1, false); }
+void states::recallTo(int n) { stateRecall(n, false); }
 
-void savesSave()          { savesSave(1); }
-void savesSaveTo(int n)   { savesSave(n); }
-void savesTp()            { savesRecall(1, true); }
-void savesTpTo(int n)     { savesRecall(n, true); }
-void savesRecall()        { savesRecall(1, false); }
-void savesRecallTo(int n) { savesRecall(n, false); }
-
-void UpdateLocationOverheadNumbers(ATrHUD *that)
+void states::UpdateOverheadNumbers(ATrHUD *that)
 {
 	if (!g_config.showSavedLocations)
 		return;

@@ -15,44 +15,15 @@
 #include "SdkHeaders.h"
 #include "Hooks.h"
 #include "Audio.h"
+#include "ConsoleCommands.h"
+#include "Routes.h"
 #include "SoundEffect.h"
+#include "StateSaving.h"
+#include "Stopwatch.h"
 
 // Uncomment for release
 #define RELEASE
-#define MODVERSION 0.63
-
-// Declared here to use as lua functions
-void stopwatch();
-void stopwatchStart();
-void stopwatchStop();
-void stopwatchReset();
-void savesSave();
-void savesSaveTo(int n);
-void savesTp();
-void savesTpTo(int n);
-void savesRecall();
-void savesRecallTo(int n);
-void savesReset();
-void savesToSpawns();
-void toggleTurrets();
-void togglePower();
-void returnFlags();
-
-// Route recording
-void routeRec();
-void routeStartRec();
-void routeStopRec();
-void routeReplay();
-void routeStartReplay(float startTime);
-void routeStopReplay();
-void routeReset();
-void routeSaveFile(const std::string &desc);
-void routeLoadFile(unsigned int num);
-void routeFind(const std::string &needle);
-void routeListAll();
-unsigned int routeLoadAll();
-unsigned int routeLoadEnemy();
-void routeEnableBot(bool on);
+#define MODVERSION 0.65
 
 struct MutedPlayer
 {
@@ -244,8 +215,6 @@ public:
 	void initializeAudio();
 	void reloadSounds();
 	void refreshSoundVolumes();
-	void stopwatchDisplayTime(const std::string &prestr, float cur_time);
-	void stopwatchPrintSummary();
 
 	void reloadTrHUD(ATrHUD *currHud, bool updated = true);
 
@@ -325,19 +294,11 @@ public:
 	bool stopwatchStopOnCap;
 	bool stopwatchStopOnDeath;
 	bool stopwatchNotifications;
-	// Non-user variables
-	bool stopwatchFlagRecall = false;
-	bool stopwatchRunning    = false;
-	float stopwatchStartTime = 0.0f;
-	float stopwatchGrabTime  = 0.0f;
-	float stopwatchCapTime   = 0.0f;
-	int stopwatchGrabHealth  = 0;
-	int stopwatchGrabSpeed   = -1;
-	bool routeBotReplay;
 
 	// Route recording
 	int routeDrawInterval;
 	int routeDrawETAInterval;
+	float routeDrawTransparency;
 	bool routeReplayRotation;
 	bool routeCinematicMode;
 

@@ -345,6 +345,9 @@
     <ClCompile Include="Mod_Console.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
+    <ClCompile Include="Mod_Stopwatch.cpp">
+      <Filter>Source Files\Mods</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h">
@@ -648,6 +651,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleCommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stopwatch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StateSaving.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Routes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

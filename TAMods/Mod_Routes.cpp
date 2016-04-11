@@ -42,10 +42,15 @@ static std::vector<std::string> files;
 
 static ATrPlayerController *replayPC;
 
+namespace routes
+{
+	bool botReplay;
+}
+
 bool TrPC_PlayerWalking_ToggleJetpack(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (!g_config.routeBotReplay)
-		routeStopReplay();
+	if (!routes::botReplay)
+		routes::stopReplay();
 	return false;
 }
 
@@ -81,17 +86,17 @@ static void routeInsertEta()
 	routeLength = route.back().eta < 0 ? 0 : route.back().eta;
 }
 
-void routeEnableBot(bool enable) { routeStopReplay(); g_config.routeBotReplay = enable; }
+void routes::enableBot(bool enable) { routes::stopReplay(); botReplay = enable; }
 
-void routeRec()
+void routes::rec()
 {
 	if (recording)
-		routeStopRec();
+		routes::stopRec();
 	else
-		routeStartRec();
+		routes::startRec();
 }
 
-void routeStartRec()
+void routes::startRec()
 {
 	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
@@ -101,7 +106,7 @@ void routeStartRec()
 	if (!pawn || pawn->m_RidingVehicle || pawn->IsA(ATrVehicle::StaticClass()))
 		return;
 
-	routeReset();
+	routes::reset();
 
 	Utils::notify("Route recorder", "Recording started");
 
@@ -121,7 +126,7 @@ void routeStartRec()
 	recording = true;
 }
 
-void routeStopRec()
+void routes::stopRec()
 {
 	if (recording)
 	{
@@ -131,7 +136,7 @@ void routeStopRec()
 	}
 }
 
-void routeTickRecord(ATrPlayerController* pc)
+void routes::tickRecord(ATrPlayerController* pc)
 {
 	if (recording)
 	{
@@ -142,7 +147,7 @@ void routeTickRecord(ATrPlayerController* pc)
 
 		if (pawn->m_RidingVehicle || pawn->IsA(ATrVehicle::StaticClass()))
 		{
-			routeStopRec();
+			routes::stopRec();
 			return;
 		}
 
@@ -202,18 +207,18 @@ static ATrPlayerController_Training* spawnPawn()
 	return spawned;
 }
 
-void routeReplay()
+void routes::replay()
 {
 	if (replaying)
-		routeStopReplay();
+		routes::stopReplay();
 	else
-		routeStartReplay(0);
+		routes::startReplay(0);
 }
 
-void routeStartReplay(float startTime)
+void routes::startReplay(float startTime)
 {
-	routeStopRec();
-	routeStopReplay();
+	routes::stopRec();
+	routes::stopReplay();
 
 	if (Utils::engine->GetCurrentWorldInfo()->NetMode != 0)
 		return;
@@ -224,7 +229,7 @@ void routeStartReplay(float startTime)
 		return;
 	}
 
-	if (g_config.routeBotReplay)
+	if (botReplay)
 		replayPC = spawnPawn();
 	else
 		replayPC = Utils::tr_pc;
@@ -236,7 +241,7 @@ void routeStartReplay(float startTime)
 	if (!replayPC || !pawn)
 		return;
 
-	if (!g_config.routeBotReplay && (pawn->m_RidingVehicle || pawn->IsA(ATrVehicle::StaticClass())))
+	if (!botReplay && (pawn->m_RidingVehicle || pawn->IsA(ATrVehicle::StaticClass())))
 		return;
 
 	pawn->m_fSplatDamageFromLandMin = 0.0f;
@@ -277,7 +282,7 @@ void routeStartReplay(float startTime)
 			{
 				if (replayPC->WorldInfo->GRI)
 				{
-					g_config.stopwatchFlagRecall = true;
+					stopwatch::flagRecall = true;
 					((ATrGameReplicationInfo *)replayPC->WorldInfo->GRI)->m_Flags[!teamNum]->SetHolder(replayPC);
 				}
 			}
@@ -304,16 +309,16 @@ void routeStartReplay(float startTime)
 		}
 	}
 
-	if (!g_config.routeBotReplay && g_config.routeReplayRotation && g_config.routeCinematicMode)
+	if (!botReplay && g_config.routeReplayRotation && g_config.routeCinematicMode)
 		velocityLPF();
 
 	// Give health of the start point
 	pawn->Health = routeStartPos.health;
 
-	routeTickReplay(0.0f, true, startPos);
+	routes::tickReplay(0.0f, true, startPos);
 }
 
-void routeStopReplay()
+void routes::stopReplay()
 {
 	if (replaying)
 	{
@@ -341,7 +346,7 @@ void routeStopReplay()
 	}
 }
 
-void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
+void routes::tickReplay(float deltaTime, bool firstRun, size_t startPos)
 {
 	static bool fullTickReached = true;
 	static float timeSinceLastTick = 0.0f;
@@ -386,7 +391,7 @@ void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 			pawn->m_fCurrentPowerPool = Utils::tr_pc->Lerp(curr.energy, next.energy, alphaTime);
 
 			// Normal rotation
-			if (g_config.routeBotReplay || (g_config.routeReplayRotation && !g_config.routeCinematicMode))
+			if (botReplay || (g_config.routeReplayRotation && !g_config.routeCinematicMode))
 				replayPC->SetRotation(Utils::tr_pc->RLerp({ curr.pitch, curr.yaw, 0 }, { next.pitch, next.yaw, 0 }, alphaTime, true));
 			// Smooth cinematic rotation
 			else if (i + 2 < route.size() && filteredVel.size())
@@ -427,7 +432,7 @@ void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 					if (pawn->Health <= 0)
 					{
 						replayPC->Suicide();
-						routeStopReplay();
+						routes::stopReplay();
 					}
 				}
 				else if (curr.health < next.health) // Regen
@@ -451,21 +456,21 @@ void routeTickReplay(float deltaTime, bool firstRun, size_t startPos)
 				timeSinceLastTick += deltaTime;
 		}
 		else // End of route reached
-			routeStopReplay();
+			routes::stopReplay();
 	}
 }
 
-void routeReset()
+void routes::reset()
 {
-	routeStopRec();
-	routeStopReplay();
+	routes::stopRec();
+	routes::stopReplay();
 	route.clear();
 	filteredVel.clear();
 	routeLength = 0;
 	flagGrabTime = 0.0f;
 }
 
-void routeFlagGrab(float grabtime)
+void routes::flagGrab(float grabtime)
 {
 	if (!recording)
 		return;
@@ -563,10 +568,10 @@ static void reloadRouteList(bool opposingTeamOnly)
 	FindClose(handle);
 }
 
-void routeSaveFile(const std::string &desc)
+void routes::saveFile(const std::string &desc)
 {
 	if (recording)
-		routeStopRec();
+		routes::stopRec();
 
 	if (route.size() == 0)
 	{
@@ -625,9 +630,10 @@ void routeSaveFile(const std::string &desc)
 	routefile.close();
 }
 
-void routeLoadFile(unsigned int num)
+void routes::loadFile(unsigned int num)
 {
-	reloadRouteList(false);
+	if (files.size() == 0)
+		reloadRouteList(false);
 
 	if (files.size() == 0)
 	{
@@ -652,7 +658,7 @@ void routeLoadFile(unsigned int num)
 
 	if (routefile.is_open())
 	{
-		routeReset();
+		routes::reset();
 		binary_read(routefile, modVersion);
 
 		if (modVersion < 0.5f)
@@ -685,7 +691,7 @@ void routeLoadFile(unsigned int num)
 	routefile.close();
 }
 
-void routeFind(const std::string &needle)
+void routes::find(const std::string &needle)
 {
 	reloadRouteList(false);
 
@@ -703,24 +709,36 @@ void routeFind(const std::string &needle)
 	}
 }
 
-void routeListAll()
+void routes::listAll()
 {
-	routeFind("");
+	routes::find("");
 }
 
-unsigned int routeLoadAll()
+unsigned int routes::loadAll()
 {
 	reloadRouteList(false);
 	return files.size();
 }
 
-unsigned int routeLoadEnemy()
+unsigned int routes::loadEnemy()
 {
 	reloadRouteList(true);
 	return files.size();
 }
 
-void UpdateRouteOverheadNumbers(ATrHUD *that)
+LuaRef routes::getTable()
+{
+	lua_State* luastate = g_config.lua.getState();
+	LuaRef v(luastate);
+	v = newTable(luastate);
+
+	for (size_t i = 0; i < files.size(); i++)
+		v[i + 1] = files[i];
+
+	return v;
+}
+
+void routes::UpdateOverheadNumbers(ATrHUD *that)
 {
 	if (g_config.routeDrawInterval <= 0)
 		return;
@@ -757,20 +775,25 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 				overhead_number_location = that->Canvas->Project(overhead_number_location);
 				
 				unsigned char c = 255 * curr.health / classHealth;
-				FColor col = { c, c, 255, 140 };
+				unsigned char alpha = (unsigned char)(255 * g_config.routeDrawTransparency);
+				FColor col = { c, c, 255, alpha };
+				FString str = L"-";
 
 				if (i + 1 < route.size())
 				{
 					if (curr.health < route.at(i + 1).health) // damage taken (self impulse)
-						col = { 255, 116, 100, 255 };
+					{
+						col = { 255, 116, 100, alpha };
+						str = L"x";
+					}
 					else if (curr.health > route.at(i + 1).health) // gaining health (regen)
-						col = { 0, 255, 255 - c, 140 };
+						col = { 0, 255, 255 - c, alpha };
 				}
 
 				if (i + 1 == route.size()) // route start
-					that->DrawColoredMarkerText(L"Start", { 255, 202, 0, 160 }, overhead_number_location, that->Canvas, 1.0f, 1.0f);
+					that->DrawColoredMarkerText(L"Start", { 255, 202, 0, alpha }, overhead_number_location, that->Canvas, 1.0f, 1.0f);
 				else
-					that->DrawColoredMarkerText(L"-", col, overhead_number_location, that->Canvas, 0.6f, 0.6f);
+					that->DrawColoredMarkerText(str, col, overhead_number_location, that->Canvas, 1.0f, 1.0f);
 
 				if (((g_config.routeDrawETAInterval > 0 && curr.eta % g_config.routeDrawETAInterval == 0) || i == route.size() - 1) && curr.eta >= 0)
 				{
@@ -783,7 +806,7 @@ void UpdateRouteOverheadNumbers(ATrHUD *that)
 					wchar_t buff[3];
 					wsprintf(buff, L"%d", curr.eta);
 
-					FColor col = { 0, 255, 255, 200 };
+					FColor col = { 0, 255, 255, alpha };
 
 					that->DrawColoredMarkerText(buff, col, overhead_number_location, that->Canvas, 0.9f, 0.9f);
 				}

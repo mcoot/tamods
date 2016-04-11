@@ -1,21 +1,12 @@
 #include "SoundEffect.h"
+#include "Utils.h"
 
 SoundEffect* SoundEffect::Initialize(IXAudio2* masteringEngine, std::string* filePath, float* volume)
 {
-	const char *profile = getenv("USERPROFILE");
-
 	m_masteringEngine = masteringEngine;
 	m_filePath = filePath;
 	m_configVolumeVar = volume;
-
-	if (profile)
-	{
-		m_basePath = std::string(profile) + "/Documents/My Games/Tribes Ascend/TribesGame/config/";
-		std::replace(m_basePath.begin(), m_basePath.end(), '\\', '/');
-	}
-	else
-		m_basePath = std::string("C:/");
-
+	m_basePath = Utils::getConfigDir();
 	m_audioAvailable = CreateVoice();
 	return this;
 }
