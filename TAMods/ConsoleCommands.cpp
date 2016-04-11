@@ -253,7 +253,12 @@ namespace consoleCommands
 			ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
 
 			for (int i = 0; i < gri->PRIArray.Count; i++)
-				Utils::printConsole(std::to_string(gri->PRIArray.GetStd(i)->PlayerID) + ": " + Utils::f2std(gri->PRIArray.GetStd(i)->PlayerName));
+			{
+				// Players without a rank aren't fully connected and hence don't have their
+				// playername properly replicated yet
+				if (((ATrPlayerReplicationInfo *)gri->PRIArray.GetStd(i))->m_Rank)
+					Utils::printConsole(std::to_string(gri->PRIArray.GetStd(i)->PlayerID) + ": " + Utils::f2std(gri->PRIArray.GetStd(i)->PlayerName));
+			}
 		}
 	}
 
@@ -273,9 +278,11 @@ namespace consoleCommands
 				{
 					if (gri->PRIArray.GetStd(i)->PlayerID == playerId)
 					{
-						Utils::printConsole("Trying to kick vote " + Utils::f2std(gri->PRIArray.GetStd(i)->PlayerName));
+						FString playername = Utils::tr_pc->eventStripTag(gri->PRIArray.GetStd(i)->PlayerName);
+						
+						Utils::printConsole("Trying to kick vote " + Utils::f2std(playername));
 
-						Utils::tr_pc->RequestKickVote(gri->PRIArray.GetStd(i)->PlayerName);
+						Utils::tr_pc->RequestKickVote(playername);
 
 						return;
 					}
