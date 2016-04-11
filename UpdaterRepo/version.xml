@@ -1,7 +1,6 @@
 <TAMods>
 	<files channel="stable">
 		<file version="0.65">TAMods.dll</file>
-		<!-- !CONFIG/examples -->
 		<file version="0.65">!CONFIG/examples/basic_damage_numbers.lua</file>
 		<file version="0.65">!CONFIG/examples/custom_projectiles.lua</file>
 		<file version="0.65">!CONFIG/examples/Dots.lua</file>
@@ -9,10 +8,8 @@
 		<file version="0.65">!CONFIG/examples/keybindings_routerec.lua</file>
 		<file version="0.65">!CONFIG/examples/lol_damage_numbers.lua</file>
 		<file version="0.65">!CONFIG/examples/random_route_replay.lua</file>
-		<file version="0.65">!CONFIG/examples/sounds</file>
 		<file version="0.65">!CONFIG/examples/sounds.lua</file>
 		<file version="0.65">!CONFIG/examples/static_damage_numbers.lua</file>
-		<!-- !CONFIG/examples/sounds -->
 		<file version="0.6">!CONFIG/examples/sounds/announcer-accuracy-cpma.wav</file>
 		<file version="0.6">!CONFIG/examples/sounds/announcer-accuracy-q3a.wav</file>
 		<file version="0.6">!CONFIG/examples/sounds/announcer-assist-ut99.wav</file>
@@ -72,12 +69,10 @@
 		<file version="0.6">!CONFIG/examples/sounds/kill-ql_6.wav</file>
 		<file version="0.6">!CONFIG/examples/sounds/kill-reflexfps.wav</file>
 		<file version="0.6">!CONFIG/examples/sounds/kill-ta.wav</file>
-		<!-- !CONFIG/lib -->
 		<file version="0.65">!CONFIG/lib/kpairs.lua</file>
 		<file version="0.65">!CONFIG/lib/menu.lua</file>
 		<file version="0.65">!CONFIG/lib/wrapline.lua</file>
 		<file version="0.65">!CONFIG/lib/xhair_factory.lua</file>
-		<!-- !CONFIG/presets/EyestrainHUD -->
 		<file version="0.65">!CONFIG/presets/EyestrainHUD/description.txt</file>
 		<file version="0.65">!CONFIG/presets/EyestrainHUD/preset.lua</file>
 		<file version="0.65">!CONFIG/presets/EyestrainHUD/hud/colors.lua</file>
@@ -103,7 +98,6 @@
 		<file version="0.65">!CONFIG/presets/EyestrainHUD/hud/widgets/speedometer.lua</file>
 		<file version="0.65">!CONFIG/presets/EyestrainHUD/hud/widgets/vehicle_health_energy.lua</file>
 		<file version="0.65">!CONFIG/presets/EyestrainHUD/hud/widgets/weapon_list.lua</file>
-		<!-- !CONFIG/presets/midHud -->
 		<file version="0.65">!CONFIG/presets/minHud/description.txt</file>
 		<file version="0.65">!CONFIG/presets/minHud/preset.lua</file>
 		<file version="0.65">!CONFIG/presets/minHud/hud/colors.lua</file>
@@ -113,7 +107,6 @@
 		<file version="0.65">!CONFIG/presets/minHud/hud/elements/spectators.lua</file>
 		<file version="0.65">!CONFIG/presets/minHud/hud/elements/stats.lua</file>
 		<file version="0.65">!CONFIG/presets/minHud/hud/elements/weapon_list.lua</file>
-		<!-- !CONFIG/presets/potatoHud -->
 		<file version="0.65">!CONFIG/presets/potatoHud/description.txt</file>
 		<file version="0.65">!CONFIG/presets/potatoHud/preset.lua</file>
 		<file version="0.65">!CONFIG/presets/potatoHud/hud/colors.lua</file>
@@ -137,7 +130,6 @@
 		<file version="0.65">!CONFIG/presets/potatoHud/hud/widgets/spectators.lua</file>
 		<file version="0.65">!CONFIG/presets/potatoHud/hud/widgets/vehicle_health_energy.lua</file>
 		<file version="0.65">!CONFIG/presets/potatoHud/hud/widgets/weapon_list.lua</file>
-		<!-- !CONFIG/presets/schreq -->
 		<file version="0.65">!CONFIG/presets/schreq/description.txt</file>
 		<file version="0.65">!CONFIG/presets/schreq/preset.lua</file>
 		<file version="0.6">!CONFIG/presets/schreq/audio/airmail.wav</file>
@@ -176,7 +168,6 @@
 		<file version="0.65">!CONFIG/presets/schreq/settings/_mute.lua</file>
 		<file version="0.65">!CONFIG/presets/schreq/settings/_projectiles.lua</file>
 		<file version="0.65">!CONFIG/presets/schreq/settings/_settings.lua</file>
-		<!-- !CONFIG/presets/sqHud -->
 		<file version="0.65">!CONFIG/presets/sqHud/description.txt</file>
 		<file version="0.65">!CONFIG/presets/sqHud/preset.lua</file>
 		<file version="0.65">!CONFIG/presets/sqHud/hud/colors.lua</file>
@@ -198,7 +189,6 @@
 		<file version="0.65">!CONFIG/presets/sqHud/hud/widgets/scoreboard.lua</file>
 		<file version="0.65">!CONFIG/presets/sqHud/hud/widgets/stats.lua</file>
 		<file version="0.65">!CONFIG/presets/sqHud/hud/widgets/vehicle_health_energy.lua</file>
-		<!-- !CONFIG/presets/tomatoHud -->
 		<file version="0.65">!CONFIG/presets/tomatoHud/description.txt</file>
 		<file version="0.65">!CONFIG/presets/tomatoHud/preset.lua</file>
 		<file version="0.65">!CONFIG/presets/tomatoHud/hud/colors.lua</file>
@@ -223,7 +213,6 @@
 		<file version="0.65">!CONFIG/presets/tomatoHud/hud/widgets/speed_bar.lua</file>
 		<file version="0.65">!CONFIG/presets/tomatoHud/hud/widgets/vehicle_health_energy.lua</file>
 		<file version="0.65">!CONFIG/presets/tomatoHud/hud/widgets/weapon_list.lua</file>
-		<!-- !CONFIG/presets/ubermenu -->
 		<file version="0.65">!CONFIG/presets/ubermenu/preset.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/config/config.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/config/presets.lua</file>
@@ -282,7 +271,6 @@
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/stopwatch.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/tamods.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/xhairs.lua</file>
-		<!-- !CONFIG/routes -->
 		<file version="0.6">!CONFIG/routes/TrCTF-ArxNovena_BE_LHT_Kigabit_(BtF-LeftSetup)_44s.route</file>
 		<file version="0.6">!CONFIG/routes/TrCTF-ArxNovena_BE_LHT_Kigabit_(BtF-Over)_34s.route</file>
 		<file version="0.6">!CONFIG/routes/TrCTF-ArxNovena_BE_LHT_Kigabit_(BtF-Under)_30s.route</file>
@@ -364,7 +352,6 @@
 		<file version="0.6">!CONFIG/routes/TrCTF-Tartarus_BE_LHT_Kigabit_(FtF-RocketBounce)_43s.route</file>
 		<file version="0.6">!CONFIG/routes/TrCTF-Tartarus_BE_LHT_Kigabit_(LtR)_33s.route</file>
 		<file version="0.6">!CONFIG/routes/TrCTF-Tartarus_BE_LHT_Kigabit_(RtL-SecondIsland)_49s.route</file>
-		<!-- Config -->
 		<file version="1">Config/KeraLua.dll</file>
 		<file version="1">Config/NLua.dll</file>
 		<file version="0.65">Config/TAModsConfigurationTool.exe</file>
