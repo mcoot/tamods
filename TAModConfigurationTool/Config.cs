@@ -841,18 +841,6 @@ namespace TAModConfigurationTool
                 flines.Add("");
                 flines.Add("");
 
-                // Write ConfigPreset (if any)
-                if (configRequires.Count > 0)
-                {
-                    flines.Add(formatConfigHeading2("Required Preset Configs", 40));
-                    foreach (string requirement in configRequires)
-                    {
-                        flines.Add(String.Format("require(\"{0}\")", requirement));
-                    }
-                    flines.Add("");
-                    flines.Add("");
-                }
-
                 // Write ConfigVars
                 flines.AddRange(formatGetStringLines(formatConfigHeading2("Config Variables", 40)));
 
@@ -973,6 +961,20 @@ namespace TAModConfigurationTool
                     {
                         File.Copy(assetFiles[key], configPath + key, true);
                     }
+                }
+
+                // Write ConfigPreset (if any)
+                if (configRequires.Count > 0)
+                {
+                    flines.Add("");
+                    flines.Add("");
+                    flines.Add(formatConfigHeading2("Required Preset Configs", 40));
+                    foreach (string requirement in configRequires)
+                    {
+                        flines.Add(String.Format("require(\"{0}\")", requirement));
+                    }
+                    flines.Add("");
+                    flines.Add("");
                 }
 
                 // Overwrite if required
