@@ -219,7 +219,7 @@
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Bar_Ammo.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Bar_Energy.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Bar_Health.lua</file>
-		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Bar_Reload.lua</file>
+		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/Basic_Bar_Reload.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Bar_Speed.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Box.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Line.lua</file>
@@ -231,14 +231,14 @@
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Ammo.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Energy.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Health.lua</file>
-		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Reload.lua</file>
+		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Reload.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Speed.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Example.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Global_Colors.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Horizontal_Weapon_List.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/potatoHealthEnergy.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/potatoKillBox.lua</file>
-		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/potatoWeaponBar.lua</file>
+		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/potatoWeaponBar.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Spectator_List.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqAmmoBar.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqArenaLastLive.lua</file>
@@ -354,7 +354,7 @@
 		<file version="0.6">!CONFIG/routes/TrCTF-Tartarus_BE_LHT_Kigabit_(RtL-SecondIsland)_49s.route</file>
 		<file version="1">Config/KeraLua.dll</file>
 		<file version="1">Config/NLua.dll</file>
-		<file version="0.65">Config/TAModsConfigurationTool.exe</file>
+		<file version="0.651">Config/TAModsConfigurationTool.exe</file>
 		<file version="1">Config/x64/lua52.dll</file>
 		<file version="1">Config/x86/lua52.dll</file>
 	</files>
