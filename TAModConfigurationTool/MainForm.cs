@@ -796,8 +796,8 @@ namespace TAModConfigurationTool
             loadoutRegex["Medium"]["timed"] = new List<String> { "^(arxbuster|arx)$", "^(grenadelauncher|nadelauncher|launcher|gl)$" };
             loadoutDetails["Medium"]["specialty"] = new List<string> { "Imroved repair tool", "ELF Projector" };
             loadoutRegex["Medium"]["specialty"] = new List<String> { "^(improvedrepairtool|repairtool|repair)$", "^(elf(projector)?)$" };
-            loadoutDetails["Medium"]["automatic"] = new List<string> { "Assault Rifle", "NJ4", "Plasma Gun" };
-            loadoutRegex["Medium"]["automatic"] = new List<String> { "^(assaultrifle|rifle|ar)$", "^(nj4smg|nj4)$", "^(plasmagun|plasma)$" };
+            loadoutDetails["Medium"]["automatic"] = new List<string> { "Assault Rifle", "NJ4", "NJ5", "Plasma Gun" };
+            loadoutRegex["Medium"]["automatic"] = new List<String> { "^(assaultrifle|rifle|ar)$", "^(nj5(-?b)?)$", "^(nj4smg|nj4)$", "^(plasmagun|plasma)$" };
             loadoutDetails["Medium"]["shortrange"] = new List<string> { "Sawed off", "Flak cannon" };
             loadoutRegex["Medium"]["shortrange"] = new List<String> { "^(sawed-?offshotgun|shotgun|sawed-?off)$", "^(flak(cannon)?)$" };
             loadoutDetails["Medium"]["sidearms"] = new List<string> { "Nova blaster", "Eagle Pistol" };
