@@ -1,6 +1,6 @@
 local module = {}
 
-module.name                = "Basic_Segmented_Bar_Ammo"  -- This HAS to be the same as the filename minus the trailing .lua
+module.name                = "Basic_Segmented_Bar_Reload"  -- This HAS to be the same as the filename minus the trailing .lua
 module.opts                = {}
 module.opts.X_Position     = 50.0
 module.opts.Y_Position     = 30.0
