@@ -1,6 +1,6 @@
 local module = {}
 
-module.name                     = "sqPotatoWeaponBar"  -- This HAS to be the same as the filename minus the trailing .lua
+module.name                     = "potatoWeaponBar"  -- This HAS to be the same as the filename minus the trailing .lua
 module.opts                     = {}
 module.opts.X_Position          = 0.0
 module.opts.Y_Position          = 48.0
