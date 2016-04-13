@@ -1,30 +1,31 @@
 local module = {}
 --Hi I'm Implo And I Made Most Of This
-module.name              = "dodgeRegenTimer"  -- This HAS to be the same as the filename minus the trailing .lua
-module.opts              = {}         -- Options, you can add your own here
-module.opts.X_Position   = 16      -- Position variables should be screen percentage based
-module.opts.Y_Position   = 50
-module.opts.Text         = rgba(255,255,255,255)
-module.opts.color1 = rgb(255,0,0)
-module.opts.color2 = rgb(255,255,255)
-module.hpStart = player.healthMax()
-module.enStart = player.energy()
-module.endTime = 0
-module.timerOn = false
-module.status = false
+module.name                = "dodgeRegenTimer"  -- This HAS to be the same as the filename minus the trailing .lua
+module.opts                = {}         -- Options, you can add your own here
+module.opts.X_Position     = 16      -- Position variables should be screen percentage based
+module.opts.Y_Position     = 50
+module.opts.Text           = rgba(255,255,255,255)
+module.opts.TextSize       = 0.5
+module.opts.TextShadowSize = 1
+module.opts.color1         = rgb(255,0,0)
+module.opts.color2         = rgb(255,255,255)
+module.hpStart             = player.healthMax()
+module.enStart             = player.energy()
+module.endTime             = 0
+module.timerOn             = false
+module.status              = false
 -- The drawing function for this module
 function module.draw(res_x, res_y)
-	local xpos = math.floor(module.opts.X_Position / 100 * res_x)
-	local ypos = math.floor(module.opts.Y_Position / 100 * res_y)
-	
 	if hud_data.alive then
 		damageCheck()
 		if module.timerOn == true then
+			local xpos = math.floor(module.opts.X_Position / 100 * res_x)
+			local ypos = math.floor(module.opts.Y_Position / 100 * res_y)
 			local color = lerpColor(module.opts.color1, module.opts.color2, math.ceil(module.endTime - game.realTimeSeconds()) / 14)
 			if math.ceil(module.endTime - game.realTimeSeconds()) < 0 then
 				module.timerOn = false
 			else
-				drawUTText(math.ceil(module.endTime - game.realTimeSeconds()), color, xpos, ypos, 1, 1, 0.5)
+				drawUTText(math.ceil(module.endTime - game.realTimeSeconds()), color, xpos, ypos, 1, module.opts.TextShadowSize, module.opts.TextSize)
 			end
 		end
 	end

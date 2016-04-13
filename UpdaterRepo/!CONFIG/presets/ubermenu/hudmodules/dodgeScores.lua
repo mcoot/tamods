@@ -1,29 +1,27 @@
 local module = {}
 
-module.name              = "dodgeScores"  -- This HAS to be the same as the filename minus the trailing .lua
-module.opts              = {}         -- Options, you can add your own here
-module.opts.X_Position   = 50      -- Position variables should be screen percentage based
-module.opts.Y_Position   = 0
-module.opts.Text         = rgba(255,255,255,255)
-module.opts.columnWidth = 55
-module.opts.flagWidth = 10
-module.opts.flagHeight = 20
-module.opts.x_flagPadding = 5
-module.opts.y_flagPadding = 10
-module.opts.bg_color = rgba(0, 0, 0, 125)
-module.opts.flag_color            = {}
-module.opts.flag_color[0]         = rgba(255, 23, 23, 255)
-module.opts.flag_color[1]         = rgba(255, 23, 23, 0)
-module.opts.flag_color[2]         = rgba(158, 200, 222, 255)
+module.name                     = "dodgeScores"  -- This HAS to be the same as the filename minus the trailing .lua
+module.opts                     = {}         -- Options, you can add your own here
+module.opts.X_Position          = 50      -- Position variables should be screen percentage based
+module.opts.Y_Position          = 0
+module.opts.Text                = rgba(255,255,255,255)
+module.opts.columnWidth         = 55
+module.opts.flagWidth           = 10
+module.opts.flagHeight          = 20
+module.opts.x_flagPadding       = 5
+module.opts.y_flagPadding       = 10
+module.opts.bg_color            = rgba(0, 0, 0, 125)
+module.opts.flag_color          = {}
+module.opts.flag_color[0]       = rgba(255, 23, 23, 255)
+module.opts.flag_color[1]       = rgba(255, 23, 23, 0)
+module.opts.flag_color[2]       = rgba(158, 200, 222, 255)
 module.opts.flag_color[3]       = rgba(158, 200, 222, 0)
 
 -- The drawing function for this module
 function module.draw(res_x, res_y)
-	local xpos = math.floor(module.opts.X_Position / 100 * res_x)
-	local ypos = math.floor(module.opts.Y_Position / 100 * res_y)
-
-	
 	if hud_data.game_type == "TrGame_TRCTF" or hud_data.game_type == "TrGame_TrCTFBlitz" or hud_data.game_type == "TrGame_TRTeamRabbit" then
+		local xpos = math.floor(module.opts.X_Position / 100 * res_x)
+		local ypos = math.floor(module.opts.Y_Position / 100 * res_y)
 		local k = 0
 		local i = 0
 		local j = 0
