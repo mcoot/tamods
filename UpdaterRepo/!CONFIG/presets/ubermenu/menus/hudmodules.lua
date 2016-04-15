@@ -14,7 +14,28 @@ end
 -- Load saved modules
 for i = 1,#ubermenu_hudmodules do
 	local module = dofile(hudmodules_path .. ubermenu_hudmodules[i].name .. ".lua")
-	module.opts = ubermenu_hudmodules[i].opts
+
+	if type(module.opts) == "table" then
+		-- Use variables from the config, but only if the module still has those variables
+		for k,v in pairs(ubermenu_hudmodules[i].opts) do
+			if module.opts[k] ~= nil then
+				if type(v) == "table" then
+					-- Nested tables
+					for j = 1,#v do
+						if module.opts[k][j] ~= nil then
+							module.opts[k][j] = v[j]
+						end
+					end
+				else
+					-- Use values from config
+					module.opts[k] = v
+				end
+			end
+		end
+	else
+		module.opts = {}
+	end
+
 	ubermenu_hudmodules[i] = module
 end
 
