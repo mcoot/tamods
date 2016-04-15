@@ -1,6 +1,7 @@
 require("lib/menu")
 require("lib/kpairs")
 require("lib/xhair_factory")
+require("lib/geometry")
 preset = "presets/ubermenu/"
 
 function file_exists(name)
