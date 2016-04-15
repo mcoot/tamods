@@ -1,0 +1,23 @@
+Ok, so this is all of my routes, a lot of them are me just experimenting so they either don't grab or have failed bounces. 
+
+The routes that are all usable are...
+2 - Front Left (loop, failed exit)
+3 - Back (Tunnel) high
+4 - Front Right (with rock bounce)
+5 - Front Right (with stand bounce)
+6 - Left (ran this recording slow but whatever)
+7 - Right 
+8 - Front Right (with rock bounce)
+
+   ---Concepts--- 	1  - CW Loop (Failed... before I found the 2nd bounce)
+					9  - Front Right (Loop - Failed Bounce post-grab)
+					10 - Front Right (Loop - Failed Bounce post-grab)
+					11 - Right (loop, Failed bounce pre-grab)
+					12 - Right (loop, Failed bounce post-grab)
+					13 - Right (loop, Failed bounce post-grab)
+					14 - Right (loop, Failed bounce pre-grab)
+					15 - Right (loop, Failed bounce post-grab,)
+ *Final Iteration*	16 - Right (loop, Failed bounce post-grab, YOU DON'T NEED TO TRY THE BOUNCE POST-GRAB, skiing down the hill works fine)
+ 
+ I know a lot of them are complete but they're all possible to run consitently
+		Except for #2 the Front Left, I seem to only hit the 1st bounce on that one maybe 60% of the time

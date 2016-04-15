@@ -1,24 +1,26 @@
 local module = {}
 --Need a chat module installed to work, probably
-module.name                = "dodgeCappingBinds"  -- This HAS to be the same as the filename minus the trailing .lua
-module.opts                = {}         -- Options, you can add your own here
-module.opts.X_Position     = 86      -- Position variables should be screen percentage based
-module.opts.Y_Position     = 50
-module.opts.smartSearch    = true
-module.opts.Text           = rgba(255, 255, 255, 255)
-module.opts.TextSize       = 0.5
-module.opts.TextShadowSize = 1
-module.opts.bindKeyStart   = "F4"
-module.opts.bindKeyReset   = "F5"
-module.endTime             = 0
-module.countDown           = false
-module.capperFound         = false
-module.done                = {}
-module.done[25]            = false
-module.done[20]            = false
-module.done[15]            = false
-module.done[10]            = false
-module.done[5]             = false
+module.name                        = "dodgeCappingBinds"  -- This HAS to be the same as the filename minus the trailing .lua
+module.opts                        = {}         -- Options, you can add your own here
+module.opts.X_Position             = 86      -- Position variables should be screen percentage based
+module.opts.Y_Position             = 50
+module.opts.smartSearch            = true
+module.opts.Text                   = rgba(255, 255, 255, 255)
+module.opts.TextSize               = 0.5
+module.opts.TextShadowSize         = 1
+module.opts.bindKeyStart           = "F4"
+module.opts.bindKeyReset		   = "F5"
+module.opts.Route_Record_Key       = "F6"
+module.opts.Route_Record_Stop_Key  = "F7"
+module.endTime                     = 0
+module.countDown                   = false
+module.capperFound                 = false
+module.done                        = {}
+module.done[25]                    = false
+module.done[20]                    = false
+module.done[15]                    = false
+module.done[10]                    = false
+module.done[5]                     = false
 
 console("**** dodgeCappingBinds -- Make sure you have installed an ubermenu chat module so this works ****")
 
@@ -40,6 +42,10 @@ bindKey(module.opts.bindKeyReset, Input.PRESSED,
 		teamsay("**** RESET ****")
 	end)
 
+bindKey(module.opts.Route_Record_Key, Input.PRESSED, function() module.recStart() end)
+bindKey(module.opts.Route_Record_Stop_Key, Input.PRESSED, function() module.recStop() end)
+	
+	
 local onChatMessageOld
 if type(onChatMessage) == "function" then
 	onChatMessageOld = onChatMessage
@@ -97,6 +103,20 @@ function module.draw(res_x, res_y)
 			end
 		end
 	end
+end
+
+--Recording Functions
+function module.recStart()
+	state.tp()
+	stopwatch.start()
+	route.recStart()
+	returnFlags()
+end
+
+function module.recStop()
+	stopwatch.stop()
+	route.recStop()
+	returnFlags()
 end
 
 return module
