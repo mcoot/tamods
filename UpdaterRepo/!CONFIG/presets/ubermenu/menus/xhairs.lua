@@ -113,7 +113,7 @@ function add_vis_menu(menu)
 end
 
 function reorder_widget(parent, item, up)
-	local selected = parent.parent.selected - 5
+	local selected = parent.parent.selected - 7
 	local toswitch = 0
 	local tmp
 
@@ -129,7 +129,7 @@ function reorder_widget(parent, item, up)
 		ubermenu_xhairs[toswitch] = ubermenu_xhairs[selected]
 		ubermenu_xhairs[selected] = tmp
 		parent:go_parent()
-		parent.parent.selected = toswitch + 5
+		parent.parent.selected = toswitch + 7
 	end
 end
 
