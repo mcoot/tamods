@@ -199,7 +199,7 @@ function module.draw(res_x, res_y)
 		while i <= #messages do
 			local item = messages[i]
 			local time = item.vgs and module.opts.VGS_Lifetime or module.opts.Chat_Lifetime
-			if game.realTimeSeconds() - item.time >= time or game.realTimeSeconds() - item.time <= 0 then
+			if game.realTimeSeconds() - item.time >= time or game.realTimeSeconds() - item.time < 0 then
 				table.remove(messages, i)
 			else
 				local size = getSmallTextSize(item.text, 1)

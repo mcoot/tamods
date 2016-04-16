@@ -111,7 +111,7 @@ function module.draw(res_x, res_y)
 	while i <= #messages do
 		local item = messages[i]
 
-		if game.realTimeSeconds() - item.time >= time or game.realTimeSeconds() - item.time <= 0 then
+		if game.realTimeSeconds() - item.time >= module.opts.Message_Lifetime or game.realTimeSeconds() - module.opts.Message_Lifetime < 0 then
 			table.remove(messages, i)
 		else
 			x_pos = xpos + 8

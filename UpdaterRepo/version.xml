@@ -235,7 +235,7 @@
 		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Reload.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Speed.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeArenaScores.lua</file>
-		<file version="0.652">!CONFIG/presets/ubermenu/hudmodules/dodgeCappingBinds.lua</file>
+		<file version="0.653">!CONFIG/presets/ubermenu/hudmodules/dodgeCappingBinds.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeGameTimer.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeGamma.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeGenerator.lua</file>
@@ -254,14 +254,14 @@
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqArenaRoundScores.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqArenaSpawns.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqCaH.lua</file>
-		<file version="0.652">!CONFIG/presets/ubermenu/hudmodules/sqChatVGS.lua</file>
+		<file version="0.653">!CONFIG/presets/ubermenu/hudmodules/sqChatVGS.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqFlagIndicator.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqFlags.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqGameMessages.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqGameTime.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqHealthEnergy.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqIFF_Healthbars.lua</file>
-		<file version="0.652">!CONFIG/presets/ubermenu/hudmodules/sqKillFeed.lua</file>
+		<file version="0.653">!CONFIG/presets/ubermenu/hudmodules/sqKillFeed.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqPhaseRifleDamage.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqRageIndicator.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/sqRespawnTime.lua</file>
