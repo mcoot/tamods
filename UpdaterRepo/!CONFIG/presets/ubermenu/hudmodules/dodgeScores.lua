@@ -32,7 +32,7 @@ function module.draw(res_x, res_y)
 		local x_FlagSectorR = xpos + module.opts.columnWidth
 		local x_FlagSectorL = xpos - module.opts.columnWidth - x_flagArea
 
-		--Draw Team Flags
+		--Draw Enemy Flags
 		while i < game.score(hud_data.right_team) do
 			drawRect(x_FlagSectorR, ypos, x_FlagSectorR + x_flagArea, ypos + y_flagArea, module.opts.bg_color)
 			drawFlag(x_FlagSectorR + module.opts.x_flagPadding, ypos + module.opts.y_flagPadding, module.opts.flag_color[0])
@@ -59,7 +59,7 @@ function module.draw(res_x, res_y)
 			end
 		end
 		
-		--Draw Enemy Flags
+		--Draw Team Flags
 		while j < game.score(hud_data.left_team) do
 			drawRect(x_FlagSectorL, ypos, x_FlagSectorL + x_flagArea, ypos + y_flagArea, module.opts.bg_color)
 			drawFlag(x_FlagSectorL + module.opts.x_flagPadding, ypos + module.opts.y_flagPadding, module.opts.flag_color[2])
@@ -67,7 +67,7 @@ function module.draw(res_x, res_y)
 			x_FlagSectorL = x_FlagSectorL - x_flagArea
 		end
 		
-		--enemy team
+		--Draw Team Flag Holder
 		if not flag.isHome(hud_data.right_team) then
 			local return_time = flag.returnTime(hud_data.right_team)
 			local afc = lerpColor(module.opts.flag_color[3], module.opts.flag_color[2], return_time / 40)

@@ -1,13 +1,13 @@
 local module = {}
 --Need a chat module installed to work, probably
-module.name                       = "dodgeGamma"  -- This HAS to be the same as the filename minus the trailing .lua
-module.opts                       = {}         -- Options, you can add your own here
-module.opts.bindKeyMinus          = "B"
-module.opts.bindKeyPlus           = "N"
-module.opts.bindKeyToggle         = "M"
-module.opts.current_gamma         = 2.2
+module.name                 = "dodgeGamma"  -- This HAS to be the same as the filename minus the trailing .lua
+module.opts                 = {}         -- Options, you can add your own here
+module.opts.bindKeyMinus    = "B"
+module.opts.bindKeyPlus     = "N"
+module.opts.bindKeyToggle   = "M"
+module.opts.current_gamma   = 2.2
 module.opts.toggle_gamma_amount   = 1.2
-module.gamma_low                  = false
+module.gamma_low = false
  
 function gammaPlus()
     module.opts.current_gamma = module.opts.current_gamma + 0.1

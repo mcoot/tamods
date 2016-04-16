@@ -5,7 +5,7 @@ module.opts                = {}         -- Options, you can add your own here
 module.opts.X_Position     = 16      -- Position variables should be screen percentage based
 module.opts.Y_Position     = 50
 module.opts.Text           = rgba(255,255,255,255)
-module.opts.TextSize       = 0.5
+module.opts.TextSize       = 1
 module.opts.TextShadowSize = 1
 module.opts.color1         = rgb(255,0,0)
 module.opts.color2         = rgb(255,255,255)
@@ -25,7 +25,7 @@ function module.draw(res_x, res_y)
 			if math.ceil(module.endTime - game.realTimeSeconds()) < 0 then
 				module.timerOn = false
 			else
-				drawUTText(math.ceil(module.endTime - game.realTimeSeconds()), color, xpos, ypos, 1, module.opts.TextShadowSize, module.opts.TextSize)
+				drawSmallText(math.ceil(module.endTime - game.realTimeSeconds()), color, xpos, ypos, 1, module.opts.TextShadowSize, module.opts.TextSize)
 			end
 		end
 	end
