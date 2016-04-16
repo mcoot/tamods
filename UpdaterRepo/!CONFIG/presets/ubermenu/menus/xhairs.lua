@@ -141,6 +141,15 @@ function xhairMenu(parent, m)
 	m:add_item({ title = "Add Rectangle", func = add_rect })
 	m:add_item({ title = "Add Line",      func = add_line })
 	m:add_separator({})
+	local sub = m:add_submenu({ title = "Delete All" })
+		sub:add_item({ title = "No", func = function()
+			sub:go_parent()
+		end })
+		sub:add_item({ title = "Yes", func = function()
+			ubermenu_xhairs = {}
+			sub:go_parent()
+		end })
+	m:add_separator({})
 
 	for i = 1,#ubermenu_xhairs do
 		local sub
