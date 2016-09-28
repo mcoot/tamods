@@ -25,7 +25,7 @@ public:
 };
 
 // Table of native functions
-UObjectNative *GNatives = (UObjectNative *)0x01340C40;
+UObjectNative *GNatives = (UObjectNative *)0x01328C40;
 
 int Hook::_total_hooks = 0;
 static std::map<UFunction *, std::pair<Hook, Hook>> _hooks;
