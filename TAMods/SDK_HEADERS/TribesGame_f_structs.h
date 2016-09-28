@@ -1,6 +1,6 @@
 /*
 #############################################################################################
-# Tribes Ascend (1.3.2878.0) SDK
+# Tribes Ascend (1.4.2913.0) SDK
 # Generated with TheFeckless UE3 SDK Generator v1.4_Beta-Rev.51
 # ========================================================================================= #
 # File: TribesGame_f_structs.h
@@ -2288,6 +2288,13 @@ struct ATrPawn_execCurrentDeployedCount_Parms
 	// class ATrGameReplicationInfo*                   GRI;                                              		// 0x0008 (0x0004) [0x0000000000000000]              
 	// int                                             deployedCount;                                    		// 0x000C (0x0004) [0x0000000000000000]              
 	// class ATrDeployable*                            dep;                                              		// 0x0010 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrPawn.ZeroMovementVariables
+// [0x00020102] 
+struct ATrPawn_execZeroMovementVariables_Parms
+{
+	// class ATrPlayerController*                      TrPC;                                             		// 0x0000 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPawn.ClientRestart
@@ -8168,7 +8175,7 @@ struct ATrPlayerController_execFOV_Parms
 // [0x00020202] ( FUNC_Exec )
 struct ATrPlayerController_execTypeKeyPressed_Parms
 {
-	// class UTrChatConsole*                           PlayerConsole;                                    		// 0x0000 (0x0004) [0x0000000000000000]              
+	// class UConsole*                                 PlayerConsole;                                    		// 0x0000 (0x0004) [0x0000000000000000]              
 	// class ULocalPlayer*                             LP;                                               		// 0x0004 (0x0004) [0x0000000000000000]              
 };
 
@@ -9422,13 +9429,12 @@ struct ATrPlayerController_eventClientPlayForceFeedbackWaveform_Parms
 };
 
 // Function TribesGame.TrPlayerController.PlayCameraShake
-// [0x00024202] ( FUNC_Exec )
+// [0x00024200] ( FUNC_Exec )
 struct ATrPlayerController_execPlayCameraShake_Parms
 {
 	struct FName                                       ShakeName;                                        		// 0x0000 (0x0008) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 	float                                              Scale;                                            		// 0x0008 (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 	class UCameraShake*                                SourceShake;                                      		// 0x000C (0x0004) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
-	// int                                             I;                                                		// 0x0010 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.SetViewTargetAsOverwatch
@@ -9452,16 +9458,12 @@ struct ATrPlayerController_execActivateFreeCam_Parms
 };
 
 // Function TribesGame.TrPlayerController.GetPlayerViewPoint
-// [0x00C20902] ( FUNC_Event )
+// [0x00420902] ( FUNC_Event )
 struct ATrPlayerController_eventGetPlayerViewPoint_Parms
 {
 	struct FVector                                     POVLocation;                                      		// 0x0000 (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
 	struct FRotator                                    POVRotation;                                      		// 0x000C (0x000C) [0x0000000000000180]              ( CPF_Parm | CPF_OutParm )
-	// float                                           DeltaTime;                                        		// 0x0018 (0x0004) [0x0000000000000000]              
-	// class AUTPawn*                                  P;                                                		// 0x001C (0x0004) [0x0000000000000000]              
-	// struct FCameraShakeInstance                     CSI;                                              		// 0x0020 (0x0090) [0x0000000000000000]              
-	// struct FTPOV                                    POV;                                              		// 0x00B0 (0x001C) [0x0000000000000000]              
-	// int                                             I;                                                		// 0x00CC (0x0004) [0x0000000000000000]              
+	// class AUTPawn*                                  P;                                                		// 0x0018 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrPlayerController.ServerDropFlag
@@ -12553,10 +12555,9 @@ struct ATrDevice_execShouldFireTracer_Parms
 };
 
 // Function TribesGame.TrDevice.ShakeView
-// [0x00020102] 
+// [0x00020100] 
 struct ATrDevice_execShakeView_Parms
 {
-	// class ATrPlayerController*                      PC;                                               		// 0x0000 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice.PlayFireAnimation
@@ -23644,10 +23645,9 @@ struct ATrVehicleWeapon_execShouldFireTracer_Parms
 };
 
 // Function TribesGame.TrVehicleWeapon.ShakeView
-// [0x00020102] 
+// [0x00020100] 
 struct ATrVehicleWeapon_execShakeView_Parms
 {
-	// class ATrPlayerController*                      PC;                                               		// 0x0000 (0x0004) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrVehicleWeapon.PlayFireEffects
@@ -27509,11 +27509,19 @@ struct UGFxTrPage_Equip_execFillOption_Parms
 {
 	int                                                ActionIndex;                                      		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	class UGFxObject*                                  ReturnValue;                                      		// 0x0004 (0x0004) [0x0000000000000580]              ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
-	// unsigned long                                   isWeaponLocked : 1;                               		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
-	// int                                             Level;                                            		// 0x000C (0x0004) [0x0000000000000000]              
-	// int                                             EquipId;                                          		// 0x0010 (0x0004) [0x0000000000000000]              
-	// class UGFxObject*                               Obj;                                              		// 0x0014 (0x0004) [0x0000000000000000]              
-	// class UClass*                                   equip;                                            		// 0x0018 (0x0004) [0x0000000000000000]              
+	// int                                             Level;                                            		// 0x0008 (0x0004) [0x0000000000000000]              
+	// int                                             EquipId;                                          		// 0x000C (0x0004) [0x0000000000000000]              
+	// class UGFxObject*                               Obj;                                              		// 0x0010 (0x0004) [0x0000000000000000]              
+	// class UClass*                                   equip;                                            		// 0x0014 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.GFxTrPage_Equip.IsWeaponLocked
+// [0x00020002] 
+struct UGFxTrPage_Equip_execIsWeaponLocked_Parms
+{
+	int                                                EquipId;                                          		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0004 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
+	// unsigned long                                   IsWeaponLocked : 1;                               		// 0x0008 (0x0004) [0x0000000000000000] [0x00000001] 
 };
 
 // Function TribesGame.GFxTrPage_Equip.FillData
@@ -34173,12 +34181,17 @@ struct ATrDevice_ElfProjector_execInstantFire_RepairTool_Parms
 // [0x00820102] 
 struct ATrDevice_ElfProjector_execInstantFire_Parms
 {
-	// struct FBox                                     BBox;                                             		// 0x0000 (0x001C) [0x0000000000000000]              
-	// struct FImpactInfo                              Impact;                                           		// 0x001C (0x0050) [0x0000000000000000]              
-	// class APawn*                                    P;                                                		// 0x006C (0x0004) [0x0000000000000000]              
-	// struct FVector                                  StartTrace;                                       		// 0x0070 (0x000C) [0x0000000000000000]              
-	// struct FVector                                  EndTrace;                                         		// 0x007C (0x000C) [0x0000000000000000]              
-	// struct FVector                                  HitNormal;                                        		// 0x0088 (0x000C) [0x0000000000000000]              
+	// class AActor*                                   TraceHitActor;                                    		// 0x0000 (0x0004) [0x0000000000000000]              
+	// struct FBox                                     BBox;                                             		// 0x0004 (0x001C) [0x0000000000000000]              
+	// float                                           DistImpact;                                       		// 0x0020 (0x0004) [0x0000000000000000]              
+	// float                                           DistLock;                                         		// 0x0024 (0x0004) [0x0000000000000000]              
+	// struct FImpactInfo                              Impact;                                           		// 0x0028 (0x0050) [0x0000000000000000]              
+	// class APawn*                                    P;                                                		// 0x0078 (0x0004) [0x0000000000000000]              
+	// struct FVector                                  StartTrace;                                       		// 0x007C (0x000C) [0x0000000000000000]              
+	// struct FVector                                  EndTrace;                                         		// 0x0088 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  HitNormal;                                        		// 0x0094 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  OutHitLoc;                                        		// 0x00A0 (0x000C) [0x0000000000000000]              
+	// struct FVector                                  OutHitNorm;                                       		// 0x00AC (0x000C) [0x0000000000000000]              
 };
 
 // Function TribesGame.TrDevice_ElfProjector.PostBeginPlay
@@ -39672,6 +39685,21 @@ struct UTrEffect_Stealth_execApply_Parms
 	class AActor*                                      Target;                                           		// 0x0000 (0x0004) [0x0000000000000080]              ( CPF_Parm )
 	struct FImpactInfo                                 Impact;                                           		// 0x0004 (0x0050) [0x0000000000000090]              ( CPF_OptionalParm | CPF_Parm )
 	// class ATrPawn*                                  aPawn;                                            		// 0x0054 (0x0004) [0x0000000000000000]              
+};
+
+// Function TribesGame.TrProj_Honorfusor.SpawnFlightEffects
+// [0x00020102] 
+struct ATrProj_Honorfusor_execSpawnFlightEffects_Parms
+{
+};
+
+// Function TribesGame.TrProj_Honorfusor.ProjectileHurtRadius
+// [0x00020102] 
+struct ATrProj_Honorfusor_execProjectileHurtRadius_Parms
+{
+	struct FVector                                     HurtOrigin;                                       		// 0x0000 (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	struct FVector                                     HitNormal;                                        		// 0x000C (0x000C) [0x0000000000000080]              ( CPF_Parm )
+	unsigned long                                      ReturnValue : 1;                                  		// 0x0018 (0x0004) [0x0000000000000580] [0x00000001] ( CPF_Parm | CPF_OutParm | CPF_ReturnParm )
 };
 
 // Function TribesGame.TrEffect_Jammer.Remove
