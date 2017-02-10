@@ -349,7 +349,7 @@ namespace TAModLauncher
                     {
                         try
                         {
-                            Process.Start(LauncherPath, "game=200 product=10");
+                            Process.Start(LauncherPath);
                         }
                         catch (Exception ex)
                         {
