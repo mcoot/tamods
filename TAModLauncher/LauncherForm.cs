@@ -59,7 +59,7 @@ namespace TAModLauncher
                 "SOFTWARE\\Wow6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\{3C87E0FF-BC0A-4F5E-951B-68DC3F8DF1FC}",
                 "InstallLocation");
             LauncherPath = (config.getProperty("//LauncherConfig/TribesLauncherPath") == null ?
-                (launcherRegEntry == null ? "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe" : launcherRegEntry + "\\HiRezLauncherUI.exe")
+                (launcherRegEntry == null ? "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Tribes\\Binaries\\Win32\\TribesAscend.exe" : launcherRegEntry + "\\TribesAscend.exe")
                 : config.getProperty("//LauncherConfig/TribesLauncherPath"));
             DLLPath = (config.getProperty("//LauncherConfig/TAModsDLLPath") == null ?
                  "TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
@@ -353,14 +353,14 @@ namespace TAModLauncher
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("ERROR: The Tribes launcher could not be started.\n Message: " + ex.Message,
-                                "Error Starting Tribes Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("ERROR: Tribes could not be started.\n Message: " + ex.Message,
+                                "Error Starting Tribes", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("ERROR: The Tribes launcher path is not valid. Please change this in the settings.",
-                        "Error Starting Tribes Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("ERROR: Tribes path is not valid. Please change this in the settings.",
+                        "Error Starting Tribes", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
