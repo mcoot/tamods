@@ -39,6 +39,7 @@ namespace TAModLauncher
 
             checkAutoInjectSmartMode.Checked = parent.autoInjectTimer.SmartMode;
             numAutoInjectDelay.Value = parent.autoInjectTimer.Delay;
+            textCommandLineParams.Text = parent.CommandLineArguments;
 
         }
 
@@ -100,6 +101,11 @@ namespace TAModLauncher
             {
                 parent.autoInjectTimer.Delay = Convert.ToInt32(numAutoInjectDelay.Value);
             }
+        }
+
+        private void textCommandLineParams_TextChanged(object sender, EventArgs e)
+        {
+            parent.CommandLineArguments = textCommandLineParams.Text;
         }
     }
 }

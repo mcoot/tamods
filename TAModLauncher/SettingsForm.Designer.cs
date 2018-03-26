@@ -32,22 +32,23 @@
             this.selectUpdateChannel = new System.Windows.Forms.ComboBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.fileSelectLauncherDirectory = new TAModLauncher.FormFileSelector();
-            this.fileSelectDLLDirectory = new TAModLauncher.FormFileSelector();
             this.label3 = new System.Windows.Forms.Label();
             this.checkAutoInjectSmartMode = new System.Windows.Forms.CheckBox();
             this.numAutoInjectDelay = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textCommandLineParams = new System.Windows.Forms.TextBox();
+            this.fileSelectDLLDirectory = new TAModLauncher.FormFileSelector();
+            this.fileSelectLauncherDirectory = new TAModLauncher.FormFileSelector();
             ((System.ComponentModel.ISupportInitialize)(this.numAutoInjectDelay)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 32);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 17);
+            this.label1.Size = new System.Drawing.Size(84, 13);
             this.label1.TabIndex = 10;
             this.label1.Text = "Update Channel";
             // 
@@ -55,18 +56,16 @@
             // 
             this.selectUpdateChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.selectUpdateChannel.FormattingEnabled = true;
-            this.selectUpdateChannel.Location = new System.Drawing.Point(133, 28);
-            this.selectUpdateChannel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.selectUpdateChannel.Location = new System.Drawing.Point(100, 23);
             this.selectUpdateChannel.Name = "selectUpdateChannel";
-            this.selectUpdateChannel.Size = new System.Drawing.Size(203, 24);
+            this.selectUpdateChannel.Size = new System.Drawing.Size(153, 21);
             this.selectUpdateChannel.TabIndex = 9;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(16, 278);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOK.Location = new System.Drawing.Point(12, 230);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(100, 28);
+            this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 11;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -75,52 +74,27 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 62);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(12, 50);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(125, 17);
+            this.label2.Size = new System.Drawing.Size(93, 13);
             this.label2.TabIndex = 13;
             this.label2.Text = "Tribes Binary Path";
-            // 
-            // fileSelectLauncherDirectory
-            // 
-            this.fileSelectLauncherDirectory.FilePath = "";
-            this.fileSelectLauncherDirectory.Location = new System.Drawing.Point(16, 80);
-            this.fileSelectLauncherDirectory.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.fileSelectLauncherDirectory.MaximumSize = new System.Drawing.Size(0, 25);
-            this.fileSelectLauncherDirectory.MinimumSize = new System.Drawing.Size(560, 25);
-            this.fileSelectLauncherDirectory.Name = "fileSelectLauncherDirectory";
-            this.fileSelectLauncherDirectory.Size = new System.Drawing.Size(560, 25);
-            this.fileSelectLauncherDirectory.TabIndex = 12;
-            // 
-            // fileSelectDLLDirectory
-            // 
-            this.fileSelectDLLDirectory.FilePath = "";
-            this.fileSelectDLLDirectory.Location = new System.Drawing.Point(16, 138);
-            this.fileSelectDLLDirectory.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.fileSelectDLLDirectory.MaximumSize = new System.Drawing.Size(0, 25);
-            this.fileSelectDLLDirectory.MinimumSize = new System.Drawing.Size(560, 25);
-            this.fileSelectDLLDirectory.Name = "fileSelectDLLDirectory";
-            this.fileSelectDLLDirectory.Size = new System.Drawing.Size(560, 25);
-            this.fileSelectDLLDirectory.TabIndex = 14;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 117);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(12, 95);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(123, 17);
+            this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 15;
             this.label3.Text = "TAMods DLL Path";
             // 
             // checkAutoInjectSmartMode
             // 
             this.checkAutoInjectSmartMode.AutoSize = true;
-            this.checkAutoInjectSmartMode.Location = new System.Drawing.Point(16, 182);
-            this.checkAutoInjectSmartMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkAutoInjectSmartMode.Location = new System.Drawing.Point(12, 188);
             this.checkAutoInjectSmartMode.Name = "checkAutoInjectSmartMode";
-            this.checkAutoInjectSmartMode.Size = new System.Drawing.Size(423, 21);
+            this.checkAutoInjectSmartMode.Size = new System.Drawing.Size(324, 17);
             this.checkAutoInjectSmartMode.TabIndex = 16;
             this.checkAutoInjectSmartMode.Text = "AutoInjector Smart Mode (does not work with Windowed mode)";
             this.checkAutoInjectSmartMode.UseVisualStyleBackColor = true;
@@ -128,28 +102,67 @@
             // 
             // numAutoInjectDelay
             // 
-            this.numAutoInjectDelay.Location = new System.Drawing.Point(149, 210);
-            this.numAutoInjectDelay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.numAutoInjectDelay.Location = new System.Drawing.Point(112, 207);
             this.numAutoInjectDelay.Name = "numAutoInjectDelay";
-            this.numAutoInjectDelay.Size = new System.Drawing.Size(80, 22);
+            this.numAutoInjectDelay.Size = new System.Drawing.Size(60, 20);
             this.numAutoInjectDelay.TabIndex = 17;
             this.numAutoInjectDelay.ValueChanged += new System.EventHandler(this.numAutoInjectDelay_ValueChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 214);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(14, 210);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(123, 17);
+            this.label4.Size = new System.Drawing.Size(94, 13);
             this.label4.TabIndex = 18;
             this.label4.Text = "AutoInjector Delay";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 143);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(133, 13);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Command Line Parameters";
+            // 
+            // textCommandLineParams
+            // 
+            this.textCommandLineParams.Location = new System.Drawing.Point(15, 162);
+            this.textCommandLineParams.Name = "textCommandLineParams";
+            this.textCommandLineParams.Size = new System.Drawing.Size(417, 20);
+            this.textCommandLineParams.TabIndex = 21;
+            this.textCommandLineParams.TextChanged += new System.EventHandler(this.textCommandLineParams_TextChanged);
+            // 
+            // fileSelectDLLDirectory
+            // 
+            this.fileSelectDLLDirectory.FilePath = "";
+            this.fileSelectDLLDirectory.Location = new System.Drawing.Point(12, 112);
+            this.fileSelectDLLDirectory.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fileSelectDLLDirectory.MaximumSize = new System.Drawing.Size(0, 20);
+            this.fileSelectDLLDirectory.MinimumSize = new System.Drawing.Size(420, 20);
+            this.fileSelectDLLDirectory.Name = "fileSelectDLLDirectory";
+            this.fileSelectDLLDirectory.Size = new System.Drawing.Size(420, 20);
+            this.fileSelectDLLDirectory.TabIndex = 14;
+            // 
+            // fileSelectLauncherDirectory
+            // 
+            this.fileSelectLauncherDirectory.FilePath = "";
+            this.fileSelectLauncherDirectory.Location = new System.Drawing.Point(12, 65);
+            this.fileSelectLauncherDirectory.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fileSelectLauncherDirectory.MaximumSize = new System.Drawing.Size(0, 20);
+            this.fileSelectLauncherDirectory.MinimumSize = new System.Drawing.Size(420, 20);
+            this.fileSelectLauncherDirectory.Name = "fileSelectLauncherDirectory";
+            this.fileSelectLauncherDirectory.Size = new System.Drawing.Size(420, 20);
+            this.fileSelectLauncherDirectory.TabIndex = 12;
+            // 
             // SettingsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 322);
+            this.ClientSize = new System.Drawing.Size(444, 262);
+            this.Controls.Add(this.textCommandLineParams);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.numAutoInjectDelay);
             this.Controls.Add(this.checkAutoInjectSmartMode);
@@ -161,7 +174,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.selectUpdateChannel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SettingsForm";
             this.Text = "Launcher Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SettingsForm_FormClosing);
@@ -184,5 +196,7 @@
         public System.Windows.Forms.CheckBox checkAutoInjectSmartMode;
         private System.Windows.Forms.NumericUpDown numAutoInjectDelay;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textCommandLineParams;
     }
 }

@@ -26,6 +26,7 @@ namespace TAModLauncher
         public SettingsForm settingsform;
         public GameDetector autoInjectTimer;
         public string LauncherPath { get; set; }
+        public string CommandLineArguments { get; set;}
 
         public string DLLPath { get; set; }
 
@@ -61,6 +62,8 @@ namespace TAModLauncher
             LauncherPath = (config.getProperty("//LauncherConfig/TribesLauncherPath") == null ?
                 (launcherRegEntry == null ? "C:\\Program Files (x86)\\Hi-Rez Studios\\HiRezLauncherUI.exe" : launcherRegEntry + "\\HiRezLauncherUI.exe")
                 : config.getProperty("//LauncherConfig/TribesLauncherPath"));
+            CommandLineArguments = (config.getProperty("//LauncherConfig/CommandLineArguments") == null ?
+                "-hostx=45.33.99.115" : config.getProperty("//LauncherConfig/CommandLineArguments"));
             DLLPath = (config.getProperty("//LauncherConfig/TAModsDLLPath") == null ?
                  "TAMods.dll" : config.getProperty("//LauncherConfig/TAModsDLLPath"));
             bool autoInjecting = (config.getProperty("//LauncherConfig/AutoInject/Enabled") == null ?
@@ -104,6 +107,7 @@ namespace TAModLauncher
             if (settingsform.selectUpdateChannel.SelectedItem != null) config.setProperty("//LauncherConfig/UpdateChannel", settingsform.selectUpdateChannel.SelectedItem.ToString().ToLower());
             if (LauncherPath.Trim() != "") config.setProperty("//LauncherConfig/TribesLauncherPath", LauncherPath);
             if (DLLPath.Trim() != "") config.setProperty("//LauncherConfig/TAModsDLLPath", DLLPath);
+            config.setProperty("//LauncherConfig/CommandLineArguments", CommandLineArguments);
             config.setProperty("//LauncherConfig/AutoInject/Enabled", autoInjectTimer.Enabled.ToString());
             config.setProperty("//LauncherConfig/AutoInject/Delay", autoInjectTimer.Delay.ToString());
             config.setProperty("//LauncherConfig/AutoInject/SmartMode", autoInjectTimer.SmartMode.ToString());
@@ -349,7 +353,7 @@ namespace TAModLauncher
                     {
                         try
                         {
-                            Process.Start(LauncherPath);
+                            Process.Start(LauncherPath, CommandLineArguments);
                         }
                         catch (Exception ex)
                         {
