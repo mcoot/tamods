@@ -264,13 +264,13 @@ void TrChatConsole_Open_PostRender_Console(UTrChatConsole *that, UTrChatConsole_
 	}
 
 	// draw the top typing region border
-	params->Canvas->DrawTile(that->DefaultTexture_White, params->Canvas->ClipX, 2, 0, 0, 32, 32, { 0.1, 0.1, 0.1, 1.0f }, NULL, NULL);
+	params->Canvas->DrawTile(that->DefaultTexture_White, params->Canvas->ClipX, 2, 0, 0, 32, 32, { 0.1f, 0.1f, 0.1f, 1.0f }, NULL, NULL);
 
 	// move the pen to the bottom of the console buffer area
 	params->Canvas->SetPos(0, Height, 0);
 
 	// draw the bottom typing region border
-	params->Canvas->DrawTile(that->DefaultTexture_White, params->Canvas->ClipX, 2, 0, 0, 32, 32, { 0.1, 0.1, 0.1, 1.0f }, NULL, NULL);
+	params->Canvas->DrawTile(that->DefaultTexture_White, params->Canvas->ClipX, 2, 0, 0, 32, 32, { 0.1f, 0.1f, 0.1f, 1.0f }, NULL, NULL);
 
 	// center the pen between the two borders
 	params->Canvas->SetPos(0, Height - 5 - yl, 0);
@@ -447,7 +447,7 @@ void TrChatConsole_Typing_PostRender_Console(UTrChatConsole *that, UTrChatConsol
 	params->Canvas->SetPos(LeftPos, ClipY - 6 - yl, 0);
 
 	// draw the top border of the typing region
-	params->Canvas->DrawTile(that->DefaultTexture_White, params->Canvas->ClipX, 2, 0, 0, 32, 32, { 0.1, 0.1, 0.1, 1.0f }, NULL, NULL);
+	params->Canvas->DrawTile(that->DefaultTexture_White, params->Canvas->ClipX, 2, 0, 0, 32, 32, { 0.1f, 0.1f, 0.1f, 1.0f }, NULL, NULL);
 
 	// Set the text color.
 	if (that->IsSlashCommand())

@@ -13,6 +13,7 @@ namespace routes
 	void listAll();
 	LuaRef getTable();
 	unsigned int loadAll();
+	unsigned int loadTeam();
 	unsigned int loadEnemy();
 	void enableBot(bool on);
 
