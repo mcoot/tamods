@@ -2170,6 +2170,7 @@ void Lua::init()
 			addFunction("enableBot", &routes::enableBot).
 			addFunction("getAll", &routes::loadAll).
 			addFunction("getEnemy", &routes::loadEnemy).
+			addFunction("getTeam", &routes::loadTeam).
 			addFunction("getTable", &routes::getTable).
 		endNamespace().
 

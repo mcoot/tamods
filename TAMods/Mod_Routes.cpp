@@ -121,7 +121,7 @@ void routes::startRec()
 	playerName.erase(std::remove(playerName.begin(), playerName.end(), '\\'), playerName.end());
 
 	route.insert(route.begin(), { Utils::tr_pc->WorldInfo->RealTimeSeconds, pawn->Location, pawn->Velocity, pawn->GetALocalPlayerController()->Rotation.Pitch,
-		pawn->GetALocalPlayerController()->Rotation.Yaw, pawn->Physics, pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
+		pawn->GetALocalPlayerController()->Rotation.Yaw, pawn->Physics, static_cast<bool>(pawn->r_bIsSkiing), static_cast<bool>(pawn->r_bIsJetting), (unsigned int)pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
 	recording = true;
 }
@@ -155,7 +155,7 @@ void routes::tickRecord(ATrPlayerController* pc)
 		if (time - route.at(0).time >= ROUTE_SAVES_INTERVAL / 1000.0f)
 		{
 			route.insert(route.begin(), { time, pawn->Location, pawn->Velocity, pc->Rotation.Pitch, pc->Rotation.Yaw, pawn->Physics,
-				pawn->r_bIsSkiing, pawn->r_bIsJetting, pawn->Health, pawn->m_fCurrentPowerPool, -1 });
+				static_cast<bool>(pawn->r_bIsSkiing), static_cast<bool>(pawn->r_bIsJetting), (unsigned int)pawn->Health, pawn->m_fCurrentPowerPool, -1 });
 
 			if (route.size() > ROUTE_SAVES_MAX)
 				route.resize(ROUTE_SAVES_MAX);
@@ -489,8 +489,11 @@ template<typename T> std::istream & binary_read(std::istream& stream, T& value)
 }
 
 // Reloads the list of files for the current map
-static void reloadRouteList(bool opposingTeamOnly)
+static void reloadRouteList(int team)
 {
+	//team 0 = no sorting
+	//team 1 = my team
+	//team 2 = enemy team
 	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
 
@@ -537,7 +540,7 @@ static void reloadRouteList(bool opposingTeamOnly)
 			binary_read(routefile, mod_version);
 			routefile >> file_map_name;
 
-			if (opposingTeamOnly)
+			if (team == 2)
 			{
 				std::string tmp_class, tmp_name, tmp_desc;
 
@@ -545,14 +548,26 @@ static void reloadRouteList(bool opposingTeamOnly)
 				routefile.ignore();
 				binary_read(routefile, team_num);
 			}
+			else if (team == 1)
+			{
+				std::string tmp_class, tmp_name, tmp_desc;
 
+				routefile >> tmp_class >> tmp_name >> tmp_desc;
+				routefile.ignore();
+				binary_read(routefile, team_num);
+			}
 			routefile.close();
 
 			if (mod_version >= 0.5f && file_map_name == curr_map_name)
 			{
-				if (opposingTeamOnly)
+				if (team == 2)
 				{
 					if (team_num != Utils::tr_pc->GetTeamNum())
+						files.push_back(fname);
+				}
+				else if (team == 1)
+				{
+					if (team_num == Utils::tr_pc->GetTeamNum())
 						files.push_back(fname);
 				}
 				else
@@ -633,7 +648,7 @@ void routes::saveFile(const std::string &desc)
 void routes::loadFile(unsigned int num)
 {
 	if (files.size() == 0)
-		reloadRouteList(false);
+		reloadRouteList(0);
 
 	if (files.size() == 0)
 	{
@@ -693,7 +708,7 @@ void routes::loadFile(unsigned int num)
 
 void routes::find(const std::string &needle)
 {
-	reloadRouteList(false);
+	reloadRouteList(0);
 
 	if (files.size() == 0)
 	{
@@ -716,13 +731,19 @@ void routes::listAll()
 
 unsigned int routes::loadAll()
 {
-	reloadRouteList(false);
+	reloadRouteList(0);
+	return files.size();
+}
+
+unsigned int routes::loadTeam()
+{
+	reloadRouteList(1);
 	return files.size();
 }
 
 unsigned int routes::loadEnemy()
 {
-	reloadRouteList(true);
+	reloadRouteList(2);
 	return files.size();
 }
 
@@ -787,7 +808,7 @@ void routes::UpdateOverheadNumbers(ATrHUD *that)
 						str = L"x";
 					}
 					else if (curr.health > route.at(i + 1).health) // gaining health (regen)
-						col = { 0, 255, 255 - c, alpha };
+						col = { 0, 255, static_cast<unsigned char>(255 - c), alpha };
 				}
 
 				if (i + 1 == route.size()) // route start

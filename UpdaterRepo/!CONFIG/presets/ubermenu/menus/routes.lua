@@ -1,9 +1,11 @@
-function routeMenu(m, all)
+function routeMenu(m, teamNum)
 	m:clear()
 
-	if all then
+	if teamNum == 0 then
 		route.getAll()
-	else
+	elseif teamNum == 1 then
+		route.getTeam()
+	elseif teamNum == 2 then
 		route.getEnemy()
 	end
 	routes = route.getTable()
@@ -24,13 +26,15 @@ function routeMenu(m, all)
 	m:add_separator({})
 	m:add_item({ title = "Reset", func = route.reset })
 end
-function routeMenuAll(parent, item) routeMenu(item, true) end
-function routeMenuEnemy(parent, item) routeMenu(item, false) end
+function routeMenuAll(parent, item) routeMenu(item, 0) end
+function routeMenuTeam(parent, item) routeMenu(item, 1) end
+function routeMenuEnemy(parent, item) routeMenu(item, 2) end
 
 route_start_time = 0
 
 local sub = ubermenu:add_submenu({ title = "Routes" })
 	sub:add_submenu({ title = "All Routes",   func = routeMenuAll })
+	sub:add_submenu({ title = "Team Routes", func = routeMenuTeam })
 	sub:add_submenu({ title = "Enemy Routes", func = routeMenuEnemy })
 
 	sub:add_separator({ title = "Replaying" })
