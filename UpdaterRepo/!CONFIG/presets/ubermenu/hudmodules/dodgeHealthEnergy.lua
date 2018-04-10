@@ -28,25 +28,26 @@ function module.draw(res_x, res_y)
 	local i = 0.1
 	local healthBarLoc = xpos + module.opts.x_barPadding
 	-- Health
-	if health_pct <= 0.2 then 
-		module.hp_color = module.opts.Low_Health
-		module.Background = module.opts.BackgroundHurt
-		module.boxColor = module.opts.Low_Health
-	else
-		module.hp_color = module.opts.Full_Health
-		module.Background = module.opts.Background
-		module.boxColor = module.opts.Box
+	if health_pct <=  1 then
+		if health_pct <= 0.2 then 
+			module.hp_color = module.opts.Low_Health
+			module.Background = module.opts.BackgroundHurt
+			module.boxColor = module.opts.Low_Health
+		else
+			module.hp_color = module.opts.Full_Health
+			module.Background = module.opts.Background
+			module.boxColor = module.opts.Box
+		end
+		
+		drawRect(xpos - module.opts.x_barPadding, ypos - module.opts.y_barPadding, xpos + ((module.opts.x_barSize + module.opts.x_barPadding) * 10) + module.opts.x_barPadding + 90, ypos + ((module.opts.y_barSize + (module.opts.y_barPadding * 2)) * 2), module.Background)
+		drawBox( xpos - module.opts.x_barPadding, ypos - module.opts.y_barPadding, xpos + ((module.opts.x_barSize + module.opts.x_barPadding) * 10) + (module.opts.x_barPadding * 2) + 90, ypos + ((module.opts.y_barSize + (module.opts.y_barPadding * 2)) * 2), module.boxColor)
+	
+		repeat
+				drawRect(healthBarLoc, ypos + module.opts.y_barPadding, healthBarLoc + module.opts.x_barSize, ypos + module.opts.y_barSize, module.hp_color)
+				healthBarLoc = healthBarLoc + module.opts.x_barSize + module.opts.x_barPadding
+				i = i + 0.1
+		until i >= health_pct
 	end
-	
-	drawRect(xpos - module.opts.x_barPadding, ypos - module.opts.y_barPadding, xpos + ((module.opts.x_barSize + module.opts.x_barPadding) * 10) + module.opts.x_barPadding + 90, ypos + ((module.opts.y_barSize + (module.opts.y_barPadding * 2)) * 2), module.Background)
-	drawBox( xpos - module.opts.x_barPadding, ypos - module.opts.y_barPadding, xpos + ((module.opts.x_barSize + module.opts.x_barPadding) * 10) + (module.opts.x_barPadding * 2) + 90, ypos + ((module.opts.y_barSize + (module.opts.y_barPadding * 2)) * 2), module.boxColor)
-	
-	repeat
-			drawRect(healthBarLoc, ypos + module.opts.y_barPadding, healthBarLoc + module.opts.x_barSize, ypos + module.opts.y_barSize, module.hp_color)
-			healthBarLoc = healthBarLoc + module.opts.x_barSize + module.opts.x_barPadding
-			i = i + 0.1
-	until i >= health_pct
-	
 	drawSmallText(player.health(), module.hp_color, xpos + ((module.opts.x_barSize + (module.opts.x_barPadding * 2)) * 10) + 70, ypos + module.opts.y_barPadding + (module.opts.y_barSize / 2), 2, 1, 2)
 	
 	local energyBarLoc = xpos + module.opts.x_barPadding
