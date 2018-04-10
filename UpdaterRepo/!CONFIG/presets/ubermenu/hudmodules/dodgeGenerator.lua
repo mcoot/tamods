@@ -32,7 +32,7 @@ function module.draw(res_x, res_y)
 			if repair_timer > 0 then
 				-- Display the remaining time until auto repair
 				drawGenerator(xpos - module.opts.columnWidth - module.opts.x_generatorSize - module.opts.x_genPadding, ypos + module.opts.y_genPadding - 1, module.opts.My_Gen_Color_Down)
-				drawUTText(repair_timer, hud_colors.opts.Team_Text[1], xpos - 30, ypos, 1, 1, 0.5)
+				drawUTText(repair_timer, hud_colors.opts.Team_Text[1], xpos - 40, ypos + 20, 1, 1, 0.5)
 			else
 				-- Auto repairing is turned off, just display that the generator is down
 				drawGenerator(xpos - module.opts.columnWidth - module.opts.x_generatorSize - module.opts.x_genPadding, ypos + module.opts.y_genPadding - 1, module.opts.My_Gen_Color_Down)
@@ -47,10 +47,10 @@ function module.draw(res_x, res_y)
 			if repair_timer > 0 then
 				-- Display the remaining time until auto repair
 				drawGenerator(xpos + module.opts.columnWidth + module.opts.x_genPadding, ypos + module.opts.y_genPadding - 1, module.opts.Enemy_Gen_Color_Down)
-				drawUTText(repair_timer, hud_colors.opts.Team_Text[0], xpos + 30, ypos, 1, 1, 0.5)
+				drawUTText(repair_timer, hud_colors.opts.Team_Text[0], xpos + 40, ypos + 20, 1, 1, 0.5)
 			else
 				-- Auto repairing is turned off, just display that the generator is down
-				drawGenerator(xpos + module.opts.columnWidth + module.opts.x_genPadding, ypos + module.opts.y_genPadding - 1, module.opts.Enemy_Gen_Color_Down)
+				drawGenerator(xpos + module.opts.columnWidth + module.opts.x_genPadding, ypos + module.opts.y_genPadding - 1 + module.opts.y_genPadding, module.opts.Enemy_Gen_Color_Down)
 			end
 		
 		else
