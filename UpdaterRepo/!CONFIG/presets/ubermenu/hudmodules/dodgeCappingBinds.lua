@@ -11,6 +11,7 @@ module.opts.Timer_Text_ShadowSize  = 1
 module.opts.Timer_Small            = true
 module.opts.bindKeyStart           = "F4"
 module.opts.bindKeyReset		   = "F5"
+module.opts.enableRecordingBinds   = true
 module.opts.Route_Record_Key       = "F6"
 module.opts.Route_Record_Stop_Key  = "F7"
 module.opts.Route_Record_Save_Key  = "F8"
@@ -40,31 +41,9 @@ module.opts.VGS_Lifetime           = 12
 module.opts.Chat_Small             = false
 
 local messages = {}
+local binded = false
 
-console("**** Please enable the Global_Colors Module, Thanks for reading and not crying on reddit ****")
-
-bindKey(module.opts.bindKeyStart, Input.PRESSED, 
-	function() 
-		module.countDown = true
-		module.endTime = game.realTimeSeconds() + 30
-		teamsay("**** 30 ****")
-		module.done[25] = false
-		module.done[20] = false
-		module.done[15] = false
-		module.done[10] = false
-		module.done[5]  = false
-	end)
-bindKey(module.opts.bindKeyReset, Input.PRESSED, 
-	function() 
-		module.countDown = false
-		module.endTime = game.realTimeSeconds()
-		teamsay("**** RESET ****")
-	end)
-
-bindKey(module.opts.Route_Record_Key, Input.PRESSED, function() module.recStart() end)
-bindKey(module.opts.Route_Record_Stop_Key, Input.PRESSED, function() module.recStop() end)
-bindKey(module.opts.Route_Record_Save_Key, Input.PRESSED, function() openConsole("/routesave YOUR_DESCRIPTION_HERE") end)
-bindKey(module.opts.Route_Record_Reset_Key, Input.PRESSED, function() module.recReset() end)
+console("**** Please enable the Global_Colors Module, Thanks for reading ****")
 
 	
 local onChatMessageOld
@@ -161,6 +140,44 @@ end
 function module.draw(res_x, res_y)
 	
 	if hud_data.game_type == "TrGame_TRCTF" or hud_data.game_type == "TrGame_TrCTFBlitz" or hud_data.game_type == "TrGame_TRTeamRabbit" then
+
+		if binded == false then
+			if module.opts.Route_Record_Key ~= "" then
+				bindKey(module.opts.Route_Record_Key, Input.PRESSED, function() module.recStart() end)
+			end
+			if module.opts.Route_Record_Stop_Key ~= "" then
+				bindKey(module.opts.Route_Record_Stop_Key, Input.PRESSED, function() module.recStop() end)
+			end
+			if module.opts.Route_Record_Save_Key ~= "" then
+				bindKey(module.opts.Route_Record_Save_Key, Input.PRESSED, function() openConsole("/routesave YOUR_DESCRIPTION_HERE") end)
+			end
+			if module.opts.Route_Record_Reset_Key ~= "" then
+				bindKey(module.opts.Route_Record_Reset_Key, Input.PRESSED, function() module.recReset() end)
+			end
+			if module.opts.bindKeyStart ~= "" then
+				bindKey(module.opts.bindKeyStart, Input.PRESSED, 
+					function() 
+						module.countDown = true
+						module.endTime = game.realTimeSeconds() + 30
+						teamsay("**** 30 ****")
+						module.done[25] = false
+						module.done[20] = false
+						module.done[15] = false
+						module.done[10] = false
+						module.done[5]  = false
+					end)
+			end
+			if module.opts.bindKeyReset ~= "" then
+				bindKey(module.opts.bindKeyReset, Input.PRESSED, 
+					function() 
+						module.countDown = false
+						module.endTime = game.realTimeSeconds()
+						teamsay("**** RESET ****")
+					end)
+			end
+			binded = true
+		end
+
 		local xpos = math.floor(module.opts.X_Position / 100 * res_x)
 		local ypos = math.floor(module.opts.Y_Position / 100 * res_y)
 	
