@@ -1,6 +1,6 @@
 <TAMods>
 	<files channel="stable">
-		<file version="0.65">TAMods.dll</file>
+		<file version="0.651">TAMods.dll</file>
 		<file version="0.65">!CONFIG/examples/basic_damage_numbers.lua</file>
 		<file version="0.65">!CONFIG/examples/custom_projectiles.lua</file>
 		<file version="0.65">!CONFIG/examples/Dots.lua</file>
@@ -235,13 +235,14 @@
 		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Reload.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Segmented_Bar_Speed.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeArenaScores.lua</file>
-		<file version="0.653">!CONFIG/presets/ubermenu/hudmodules/dodgeCappingBinds.lua</file>
+		<file version="0.654">!CONFIG/presets/ubermenu/hudmodules/dodgeCappingBinds.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeGameTimer.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeGamma.lua</file>
-		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeGenerator.lua</file>
-		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeHealthEnergy.lua</file>
+		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/dodgeGenerator.lua</file>
+		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/dodgeHealthEnergy.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeRegenTimer.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeScores.lua</file>
+		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeServerAdminBinds.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Example.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Global_Colors.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Horizontal_Weapon_List.lua</file>
@@ -274,7 +275,7 @@
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/players.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/presets.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/roammap.lua</file>
-		<file version="0.65">!CONFIG/presets/ubermenu/menus/routes.lua</file>
+		<file version="0.651">!CONFIG/presets/ubermenu/menus/routes.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/sc.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/snake.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/stopwatch.lua</file>
