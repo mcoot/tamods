@@ -23,7 +23,7 @@
 
 // Uncomment for release
 #define RELEASE
-#define MODVERSION 0.65
+#define MODVERSION 0.651
 
 struct MutedPlayer
 {
