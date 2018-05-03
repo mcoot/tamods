@@ -237,11 +237,13 @@
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeArenaScores.lua</file>
 		<file version="0.654">!CONFIG/presets/ubermenu/hudmodules/dodgeCappingBinds.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeGameTimer.lua</file>
-		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeGamma.lua</file>
+		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/dodgeGamma.lua</file>
 		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/dodgeGenerator.lua</file>
 		<file version="0.651">!CONFIG/presets/ubermenu/hudmodules/dodgeHealthEnergy.lua</file>
+		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeKillFeed.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeRegenTimer.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeScores.lua</file>
+		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeScoreboard.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeServerAdminBinds.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Example.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Global_Colors.lua</file>
