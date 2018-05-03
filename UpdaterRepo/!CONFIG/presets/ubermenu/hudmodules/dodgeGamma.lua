@@ -9,6 +9,8 @@ module.opts.current_gamma   = 2.2
 module.opts.toggle_gamma_amount   = 1.2
 module.gamma_low = false
  
+local binded = false
+
 function gammaPlus()
     module.opts.current_gamma = module.opts.current_gamma + 0.1
     setGamma(module.opts.current_gamma)
@@ -37,10 +39,26 @@ function setGamma(passedGamma)
 	end
 end
 
-bindKey(module.opts.bindKeyMinus, Input.PRESSED, gammaMinus)
-bindKey(module.opts.bindKeyMinus, Input.REPEAT, gammaMinus)
-bindKey(module.opts.bindKeyPlus, Input.PRESSED, gammaPlus)
-bindKey(module.opts.bindKeyPlus, Input.REPEAT, gammaPlus)
-bindKey(module.opts.bindKeyToggle, Input.PRESSED, gammaToggle)
+
+-- The drawing function for this module
+function module.draw(res_x, res_y)
+	
+	if hud_data.game_type == "TrGame_TRCTF" or hud_data.game_type == "TrGame_TrCTFBlitz" or hud_data.game_type == "TrGame_TRTeamRabbit" then
+
+
+		if binded == false then
+			if module.opts.bindKeyMinus ~= "" then
+				bindKey(module.opts.bindKeyMinus, Input.PRESSED, gammaMinus)
+			end
+			if module.opts.bindKeyPlus ~= "" then
+				bindKey(module.opts.bindKeyPlus, Input.PRESSED, gammaPlus)
+			end
+			if module.opts.Route_Record_Save_Key ~= "" then
+				bindKey(module.opts.bindKeyToggle, Input.PRESSED, gammaToggle)
+			end
+			binded = true
+		end
+	end
+end
 
 return module
