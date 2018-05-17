@@ -49,6 +49,9 @@ void playHeadShotSound()
 bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	midairKill = true;
+
+	if(g_config.recordStats == true) g_stats.midairKills++;
+
 	if (g_config.s_bluePlate.audioAvailable())
 	{
 		g_config.s_hitSound.Stop();
@@ -61,6 +64,9 @@ bool TrPC_ClientPlayBluePlateImpact(int id, UObject *dwCallingObject, UFunction*
 bool TrPC_ClientPlayAirMailImpact(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	midairKill = true;
+
+	if (g_config.recordStats == true) g_stats.midairKills++;
+
 	if (g_config.s_airMail.audioAvailable())
 	{
 		g_config.s_hitSound.Stop();
