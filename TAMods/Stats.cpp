@@ -28,7 +28,7 @@ void Stats::resetStats() {
 	flagGrabSpeedAverage = 0;
 
 	damageDone = 0;
-	damageRecieved = 0;
+	damageReceived = 0;
 }
 
 void Stats::saveStats() {
@@ -67,7 +67,7 @@ void Stats::printStats(){
 
 	std::string tempstr = "Damage Output: " + std::to_string(damageDone);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Damage Recieved: " + std::to_string(damageRecieved);
+	std::string tempstr = "Damage Recieved: " + std::to_string(damageReceived);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	resetStats();
 }

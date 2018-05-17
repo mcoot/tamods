@@ -32,5 +32,5 @@ public:
 	int flagGrabSpeedAverage;
 
 	int damageDone;
-	int damageRecieved;
+	int damageReceived;
 };
