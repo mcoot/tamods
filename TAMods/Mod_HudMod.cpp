@@ -451,6 +451,11 @@ bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction
 {
 	if (g_config.recordStats == true)
 	{
+		
+		if (g_config.saveStats == true)
+		{
+			g_stats.saveStats();
+		}
 		g_stats.printStats();
 		g_stats.resetStats();
 	}

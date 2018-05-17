@@ -677,6 +677,7 @@ void Config::setVariables()
 
 	// Toggle Stats
 	SET_VARIABLE(bool, recordStats);
+	SET_VARIABLE(bool, saveStats);
 
 	// Magic chain
 	SET_VARIABLE(bool, useSmallBullets);

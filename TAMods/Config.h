@@ -373,6 +373,7 @@ public:
 
 	//Stats
 	bool recordStats;
+	bool saveStats;
 
 	// Magic chain
 	bool  useSmallBullets;

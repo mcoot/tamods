@@ -15,6 +15,22 @@ public:
 
 	void resetStats();
 	void printStats();
+	void saveStats();
 public:
 	int bulletsHit;
+	int bulletsFired;
+	double accuracy;
+
+	int kills;
+	int deaths;
+	int assists;
+	int midairKills;
+
+	int flagReturns;
+	int flagCaps;
+	int flagMaxGrabSpeed;
+	int flagGrabSpeedAverage;
+
+	int damageDone;
+	int damageRecieved;
 };
