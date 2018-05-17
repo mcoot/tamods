@@ -31,6 +31,7 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 	//Stats Stuff, TODO this should be hooked onto event TakeDamage instead
 	if (g_config.recordStats == true){
 		g_stats.bulletsHit++;
+		g_stats.damageDone += params->NumberToShow;
 	}
 
 	if (loc.W == 0.0f)
