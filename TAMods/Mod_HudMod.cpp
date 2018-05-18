@@ -462,6 +462,13 @@ bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction
 		g_stats.printStats();
 		g_stats.resetStats();
 	}
+	if (g_config.recordTeamStats == true){
+		g_stats.printTeamStats();
+		if (g_config.saveTeamStats == true)
+		{
+			g_stats.saveTeamStats();
+		}
+	}
 	MC_KillProjectiles();
 	return(false);
 }

@@ -15,7 +15,9 @@ public:
 
 	void resetStats();
 	void printStats();
+	void printTeamStats();
 	void saveStats();
+	void saveTeamStats();
 public:
 	int bulletsHit;
 	int bulletsFired;

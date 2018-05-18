@@ -373,6 +373,8 @@ public:
 
 	//Stats
 	bool recordStats;
+	bool recordTeamStats;
+	bool saveTeamStats;
 	bool saveStats;
 
 	// Magic chain

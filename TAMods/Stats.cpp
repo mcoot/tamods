@@ -35,39 +35,85 @@ void Stats::saveStats() {
 	//save stats to file function
 }
 
+void Stats::saveTeamStats() {
+	//save stats to file function
+}
 
 void Stats::printStats(){
-	std::string tempstr = "Shots hit: " + std::to_string(bulletsHit);
+	std::string tempstr;
+	tempstr = "Shots hit: " + std::to_string(bulletsHit);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Shots fired: " + std::to_string(bulletsFired);
+	tempstr = "Shots fired: " + std::to_string(bulletsFired);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Accuracy: " + std::to_string(accuracy);
+	tempstr = "Accuracy: " + std::to_string(accuracy);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 
-	std::string tempstr = "Kills: " + std::to_string(kills);
+	tempstr = "Kills: " + std::to_string(kills);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Deaths: " + std::to_string(deaths);
+	tempstr = "Deaths: " + std::to_string(deaths);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	double kd = (double)kills /(double)deaths;
-	std::string tempstr = "KD: " + std::to_string(kd);
+	tempstr = "KD: " + std::to_string(kd);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Assists: " + std::to_string(assists);
+	tempstr = "Assists: " + std::to_string(assists);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Midair Kills: " + std::to_string(midairKills);
-	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-
-	std::string tempstr = "Returns: " + std::to_string(flagReturns);
-	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Caps: " + std::to_string(flagCaps);
-	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Highest Grab Speed: " + std::to_string(flagMaxGrabSpeed);
-	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Average Grab Speed: " + std::to_string(flagGrabSpeedAverage);
+	tempstr = "Midair Kills: " + std::to_string(midairKills);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 
-	std::string tempstr = "Damage Output: " + std::to_string(damageDone);
+	tempstr = "Returns: " + std::to_string(flagReturns);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	std::string tempstr = "Damage Recieved: " + std::to_string(damageReceived);
+	tempstr = "Caps: " + std::to_string(flagCaps);
+	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
+	tempstr = "Highest Grab Speed: " + std::to_string(flagMaxGrabSpeed);
+	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
+	tempstr = "Average Grab Speed: " + std::to_string(flagGrabSpeedAverage);
+	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
+
+	tempstr = "Damage Output: " + std::to_string(damageDone);
+	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
+	tempstr = "Damage Recieved: " + std::to_string(damageReceived);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	resetStats();
+}
+void Stats::printTeamStats() {
+	//BE Score,Player1,Player2,Player3,Player4,Player5,Player6,Player7
+	//DS Score,Player1,Player2,Player3,Player4,Player5,Player6,Player7
+
+	std::string tempstr;
+
+	std::vector<ATrPlayerReplicationInfo *> pris;
+
+	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
+	{
+		for (int i = 0; i < Utils::tr_pc->WorldInfo->GRI->PRIArray.Count; i++)
+		{
+			if (Utils::tr_pc->WorldInfo->GRI->PRIArray.Data[i] &&
+				((ATrPlayerReplicationInfo *)Utils::tr_pc->WorldInfo->GRI->PRIArray.GetStd(i))->m_Rank)
+			{
+				pris.push_back((ATrPlayerReplicationInfo *)Utils::tr_pc->WorldInfo->GRI->PRIArray.GetStd(i));
+			}
+		}
+		
+		std::string playersBE;
+		std::string playersDS;
+		for (size_t i = 0; i < pris.size(); i++)
+		{
+			ATrPlayerReplicationInfo &pri = *(ATrPlayerReplicationInfo *)pris.at(i);
+
+			unsigned char team = pri.GetTeamNum();
+
+			std::string playerName = Utils::f2std(pri.PlayerName);
+			
+			if (team == 0)
+				playersBE += playerName + ",";
+			else if (team == 1)
+				playersDS += playerName + ",";
+
+		}
+
+		tempstr = std::to_string(getGameData::score(0)) + "," + playersBE + "\n" + std::to_string(getGameData::score(1)) + "," + playersDS;
+
+		Utils::printConsole(tempstr);
+	}
+
 }
