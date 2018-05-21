@@ -2,6 +2,8 @@
 
 Stats g_stats;
 
+static FILE *_file = NULL;
+
 Stats::Stats()
 {
 	resetStats();
@@ -36,8 +38,6 @@ void Stats::saveStats() {
 }
 
 void Stats::saveTeamStats(const char *format, ...) {
-	//save stats to file function
-	static FILE *_file = NULL;
 	if (!_file)
 	{
 		const char *profile = getenv("USERPROFILE");
@@ -61,8 +61,13 @@ void Stats::saveTeamStats(const char *format, ...) {
 	fprintf(_file, "%s\n", buff);
 	fflush(_file);
 
-	fclose(_file);
+}
 
+void Stats::cleanup()
+{
+	if (!_file)
+		return;
+	fclose(_file);
 }
 
 void Stats::printStats(){

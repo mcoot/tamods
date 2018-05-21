@@ -7,6 +7,7 @@
 
 
 //Stats to save
+
 class Stats
 {
 public:
@@ -18,6 +19,7 @@ public:
 	void printTeamStats(bool saveStats);
 	void saveStats();
 	void saveTeamStats(const char *format, ...);
+	void static cleanup();
 public:
 	int bulletsHit;
 	int bulletsFired;
