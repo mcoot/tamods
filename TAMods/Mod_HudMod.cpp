@@ -455,11 +455,10 @@ bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction
 		g_stats.kills = getPlayerData::kills();
 		g_stats.deaths = getPlayerData::deaths();
 
-		if (g_config.saveStats == true)
-		{
-			g_stats.saveStats();
-		}
 		g_stats.printStats();
+		//TODO uncomment/replace when functionality is put in.
+		//g_stats.printStats(g_config.saveStats);
+
 		g_stats.resetStats();
 	}
 	if (g_config.recordTeamStats == true){

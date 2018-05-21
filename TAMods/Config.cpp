@@ -201,7 +201,7 @@ void Config::reset()
 
 	//Stats
 	recordStats          = false;
-	saveStats			 = false;
+	//saveStats			 = false;
 	saveTeamStats		 = false;
 	recordTeamStats      = false;
 
@@ -681,7 +681,7 @@ void Config::setVariables()
 	// Toggle Stats
 	SET_VARIABLE(bool, recordStats);
 	SET_VARIABLE(bool, recordTeamStats);
-	SET_VARIABLE(bool, saveStats);
+	//SET_VARIABLE(bool, saveStats);
 	SET_VARIABLE(bool, saveTeamStats);
 
 	// Magic chain
