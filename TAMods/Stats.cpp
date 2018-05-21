@@ -35,8 +35,37 @@ void Stats::saveStats() {
 	//save stats to file function
 }
 
-void Stats::saveTeamStats() {
+void Stats::saveTeamStats(const char *format, ...) {
 	//save stats to file function
+
+
+	static FILE *_file = NULL;
+	if (!_file)
+	{
+		const char *profile = getenv("USERPROFILE");
+		std::string directory;
+		if (profile)
+			directory = std::string(profile) + "\\Documents\\";
+		else
+			directory = std::string("C:\\");
+		_file = fopen(std::string(directory + "TAModsGameStats.csv").c_str(), "w+");
+	}
+
+	if (!_file)
+		return;
+
+	char buff[256];
+	va_list args;
+
+	va_start(args, format);
+	vsprintf(buff, format, args);
+	va_end(args);
+	fprintf(_file, "%s\n", buff);
+	fflush(_file);
+
+
+	fclose(_file);
+
 }
 
 void Stats::printStats(){
@@ -75,7 +104,7 @@ void Stats::printStats(){
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	resetStats();
 }
-void Stats::printTeamStats() {
+void Stats::printTeamStats(bool saveStats) {
 	//BE Score,Player1,Player2,Player3,Player4,Player5,Player6,Player7
 	//DS Score,Player1,Player2,Player3,Player4,Player5,Player6,Player7
 
@@ -93,7 +122,7 @@ void Stats::printTeamStats() {
 				pris.push_back((ATrPlayerReplicationInfo *)Utils::tr_pc->WorldInfo->GRI->PRIArray.GetStd(i));
 			}
 		}
-		
+
 		std::string playersBE;
 		std::string playersDS;
 		for (size_t i = 0; i < pris.size(); i++)
@@ -103,7 +132,7 @@ void Stats::printTeamStats() {
 			unsigned char team = pri.GetTeamNum();
 
 			std::string playerName = Utils::f2std(pri.PlayerName);
-			
+
 			if (team == 0)
 				playersBE += playerName + ",";
 			else if (team == 1)
@@ -114,6 +143,11 @@ void Stats::printTeamStats() {
 		tempstr = std::to_string(getGameData::score(0)) + "," + playersBE + "\n" + std::to_string(getGameData::score(1)) + "," + playersDS;
 
 		Utils::printConsole(tempstr);
+		if (saveStats) {
+			char * tempChar = new char[tempstr.length() + 1];
+			std::strcpy(tempChar, tempstr.c_str());
+			saveTeamStats(tempChar);
+		}
 	}
 
 }

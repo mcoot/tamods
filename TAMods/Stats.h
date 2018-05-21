@@ -15,9 +15,9 @@ public:
 
 	void resetStats();
 	void printStats();
-	void printTeamStats();
+	void printTeamStats(bool saveStats);
 	void saveStats();
-	void saveTeamStats();
+	void saveTeamStats(const char *format, ...);
 public:
 	int bulletsHit;
 	int bulletsFired;
