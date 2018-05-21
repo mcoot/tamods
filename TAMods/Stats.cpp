@@ -134,13 +134,13 @@ void Stats::printTeamStats(bool saveStats) {
 			std::string playerName = Utils::f2std(pri.PlayerName);
 
 			if (team == 0)
-				playersBE += playerName + ",";
+				playersBE += "," + playerName;
 			else if (team == 1)
-				playersDS += playerName + ",";
+				playersDS += "," + playerName;
 
 		}
 
-		tempstr = std::to_string(getGameData::score(0)) + "," + playersBE + "\n" + std::to_string(getGameData::score(1)) + "," + playersDS;
+		tempstr = std::to_string(getGameData::score(0)) + playersBE + "\n" + std::to_string(getGameData::score(1)) + playersDS;
 
 		Utils::printConsole(tempstr);
 		if (saveStats) {
