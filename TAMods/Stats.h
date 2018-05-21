@@ -17,7 +17,7 @@ public:
 	void resetStats();
 	void printStats();
 	void printTeamStats(bool saveStats);
-	void saveStats();
+	void saveStats(const char *format, ...);
 	void saveTeamStats(const char *format, ...);
 	void static cleanup();
 public:

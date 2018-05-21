@@ -2,7 +2,8 @@
 
 Stats g_stats;
 
-static FILE *_file = NULL;
+static FILE *_statsFile = NULL;
+static FILE *_gameStatsFile = NULL;
 
 Stats::Stats()
 {
@@ -33,12 +34,9 @@ void Stats::resetStats() {
 	damageReceived = 0;
 }
 
-void Stats::saveStats() {
+void Stats::saveStats(const char *format, ...) {
 	//save stats to file function
-}
-
-void Stats::saveTeamStats(const char *format, ...) {
-	if (!_file)
+	if (!_statsFile)
 	{
 		const char *profile = getenv("USERPROFILE");
 		std::string directory;
@@ -46,10 +44,10 @@ void Stats::saveTeamStats(const char *format, ...) {
 			directory = std::string(profile) + "\\Documents\\";
 		else
 			directory = std::string("C:\\");
-		_file = fopen(std::string(directory + "TAModsGameStats.csv").c_str(), "a");
+		_statsFile = fopen(std::string(directory + "TAModsStats.csv").c_str(), "a");
 	}
 
-	if (!_file)
+	if (!_statsFile)
 		return;
 
 	char buff[256];
@@ -58,16 +56,47 @@ void Stats::saveTeamStats(const char *format, ...) {
 	va_start(args, format);
 	vsprintf(buff, format, args);
 	va_end(args);
-	fprintf(_file, "%s\n", buff);
-	fflush(_file);
+	fprintf(_statsFile, "%s\n", buff);
+	fflush(_statsFile);
+}
+
+void Stats::saveTeamStats(const char *format, ...) {
+	if (!_gameStatsFile)
+	{
+		const char *profile = getenv("USERPROFILE");
+		std::string directory;
+		if (profile)
+			directory = std::string(profile) + "\\Documents\\";
+		else
+			directory = std::string("C:\\");
+		_gameStatsFile = fopen(std::string(directory + "TAModsGameStats.csv").c_str(), "a");
+	}
+
+	if (!_gameStatsFile)
+		return;
+
+	char buff[256];
+	va_list args;
+
+	va_start(args, format);
+	vsprintf(buff, format, args);
+	va_end(args);
+	fprintf(_gameStatsFile, "%s\n", buff);
+	fflush(_gameStatsFile);
 
 }
 
 void Stats::cleanup()
 {
-	if (!_file)
-		return;
-	fclose(_file);
+	if (!_gameStatsFile) {}
+	else {
+		fclose(_gameStatsFile);
+	}
+	if (!_statsFile) {}
+	else {
+		fclose(_gameStatsFile);
+	}
+	return;
 }
 
 void Stats::printStats(){
