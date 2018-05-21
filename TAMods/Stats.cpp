@@ -37,8 +37,6 @@ void Stats::saveStats() {
 
 void Stats::saveTeamStats(const char *format, ...) {
 	//save stats to file function
-
-
 	static FILE *_file = NULL;
 	if (!_file)
 	{
@@ -48,7 +46,7 @@ void Stats::saveTeamStats(const char *format, ...) {
 			directory = std::string(profile) + "\\Documents\\";
 		else
 			directory = std::string("C:\\");
-		_file = fopen(std::string(directory + "TAModsGameStats.csv").c_str(), "w+");
+		_file = fopen(std::string(directory + "TAModsGameStats.csv").c_str(), "a");
 	}
 
 	if (!_file)
@@ -62,7 +60,6 @@ void Stats::saveTeamStats(const char *format, ...) {
 	va_end(args);
 	fprintf(_file, "%s\n", buff);
 	fflush(_file);
-
 
 	fclose(_file);
 
@@ -100,7 +97,7 @@ void Stats::printStats(){
 
 	tempstr = "Damage Output: " + std::to_string(damageDone);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	tempstr = "Damage Recieved: " + std::to_string(damageReceived);
+	tempstr = "Damage Received: " + std::to_string(damageReceived);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	resetStats();
 }
@@ -111,6 +108,7 @@ void Stats::printTeamStats(bool saveStats) {
 	std::string tempstr;
 
 	std::vector<ATrPlayerReplicationInfo *> pris;
+	std::string mapName = Utils::f2std(Utils::tr_pc->WorldInfo->GetURLMap());
 
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
 	{
@@ -140,7 +138,7 @@ void Stats::printTeamStats(bool saveStats) {
 
 		}
 
-		tempstr = std::to_string(getGameData::score(0)) + playersBE + "\n" + std::to_string(getGameData::score(1)) + playersDS;
+		tempstr = mapName + "," + std::to_string(getGameData::score(0)) + playersBE + "\n" + mapName + "," + std::to_string(getGameData::score(1)) + playersDS;
 
 		Utils::printConsole(tempstr);
 		if (saveStats) {
