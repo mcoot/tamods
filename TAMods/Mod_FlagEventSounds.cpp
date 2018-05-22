@@ -196,9 +196,11 @@ void TrCTFMessage_ClientReceive(UTrCTFMessage *that, UTrCTFMessage_execClientRec
 				onFlagCapture();
 
 			break;
-		case 3: 
-			playFlagReturnSound(flagsteam); 
-			if (g_config.recordStats) g_stats.flagReturns++;
+		case 3:
+			playFlagReturnSound(flagsteam);
+			if (pri->IsLocalPlayerPRI()) {
+				if (g_config.recordStats) g_stats.flagReturns++;
+			}
 			break;
 		case 4: playFlagDropSound(flagsteam); break;
 		}
