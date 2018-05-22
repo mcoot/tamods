@@ -20,21 +20,26 @@ public:
 	void saveStats(const char *format, ...);
 	void saveTeamStats(const char *format, ...);
 	void static cleanup();
+	void updateMaxSpeed(int currentSpeed);
 public:
-	int bulletsHit;
-	int bulletsFired;
+	double bulletsHit;
+	double bulletsFired;
 	double accuracy;
 
-	int kills;
-	int deaths;
+	double kills;
+	double deaths;
 	int assists;
 	int midairKills;
 
 	int flagReturns;
 	int flagCaps;
+	int flagGrabs;
 	int flagMaxGrabSpeed;
-	int flagGrabSpeedAverage;
+
+	int slayers;
 
 	int damageDone;
 	int damageReceived;
+
+	int jitter;
 };

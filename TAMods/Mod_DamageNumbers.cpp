@@ -30,8 +30,12 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 
 	//Stats Stuff, TODO this should be hooked onto event TakeDamage instead
 	if (g_config.recordStats == true){
-		g_stats.bulletsHit++;
-		g_stats.damageDone += params->NumberToShow;
+		if (Utils::tr_pc && Utils::tr_pc->WorldInfo->GRI) {
+			if (!((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->bWarmupRound) {
+				g_stats.bulletsHit++;
+				g_stats.damageDone += params->NumberToShow;
+			}
+		}
 	}
 
 	if (loc.W == 0.0f)

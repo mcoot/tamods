@@ -27,11 +27,15 @@ void Stats::resetStats() {
 
 	flagReturns = 0;
 	flagCaps = 0;
+	flagGrabs = 0;
 	flagMaxGrabSpeed = 0;
-	flagGrabSpeedAverage = 0;
+
+	slayers = 0;
 
 	damageDone = 0;
 	damageReceived = 0;
+
+	jitter = 0;
 }
 
 void Stats::saveStats(const char *format, ...) {
@@ -94,9 +98,14 @@ void Stats::cleanup()
 	}
 	if (!_statsFile) {}
 	else {
-		fclose(_gameStatsFile);
+		fclose(_statsFile);
 	}
 	return;
+}
+
+void Stats::updateMaxSpeed(int currentSpeed) {
+	flagGrabs++;
+	if (currentSpeed > flagMaxGrabSpeed) flagMaxGrabSpeed = currentSpeed;
 }
 
 void Stats::printStats(){
@@ -105,6 +114,8 @@ void Stats::printStats(){
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	tempstr = "Shots fired: " + std::to_string(bulletsFired);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
+	if (bulletsFired == 0) bulletsFired = 1;
+	accuracy = bulletsHit / bulletsFired;
 	tempstr = "Accuracy: " + std::to_string(accuracy);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 
@@ -112,27 +123,44 @@ void Stats::printStats(){
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	tempstr = "Deaths: " + std::to_string(deaths);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	double kd = (double)kills /(double)deaths;
+
+	if (deaths == 0) deaths = 1;
+	double kd = kills /deaths;
 	tempstr = "KD: " + std::to_string(kd);
+
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	tempstr = "Assists: " + std::to_string(assists);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	tempstr = "Midair Kills: " + std::to_string(midairKills);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-
+	
 	tempstr = "Returns: " + std::to_string(flagReturns);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	tempstr = "Caps: " + std::to_string(flagCaps);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
+	tempstr = "Flag Grabs: " + std::to_string(flagGrabs);
+	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 	tempstr = "Highest Grab Speed: " + std::to_string(flagMaxGrabSpeed);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	tempstr = "Average Grab Speed: " + std::to_string(flagGrabSpeedAverage);
+
+	//TODO ALL ACCOLADES?
+	tempstr = "Slayers: " + std::to_string(slayers);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
 
 	tempstr = "Damage Output: " + std::to_string(damageDone);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-	tempstr = "Damage Received: " + std::to_string(damageReceived);
+	/*tempstr = "Damage Received: " + std::to_string(damageReceived);
+	//Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));*/
+
+	int maxPing = Utils::tr_pc->PlayerReplicationInfo->StatPingMax;
+	int minPing = Utils::tr_pc->PlayerReplicationInfo->StatPingMin;
+	Utils::printConsole("Max Ping: " + std::to_string(maxPing), Utils::rgb(0, 255, 255));
+	Utils::printConsole("Min Ping: " + std::to_string(minPing), Utils::rgb(0, 255, 255));
+	jitter = maxPing - minPing;
+
+	tempstr = "Jitter: " + std::to_string(jitter);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
+
 	resetStats();
 }
 void Stats::printTeamStats(bool saveStats) {

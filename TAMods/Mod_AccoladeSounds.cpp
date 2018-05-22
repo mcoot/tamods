@@ -38,6 +38,7 @@ bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunc
 			break;
 		case CONST_TRHUD_MEDAL_THESLAYER:
 			g_config.s_streak5.Play();
+			g_stats.slayers++;
 			break;
 		case CONST_TRHUD_MEDAL_DOUBLEKILL:
 			g_config.s_multiKill1.Play();

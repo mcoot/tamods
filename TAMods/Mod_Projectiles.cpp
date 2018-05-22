@@ -32,6 +32,14 @@ bool TrDevice_WeaponFire(int ID, UObject *dwCallingObject, UFunction *pFunction,
 		g_physicalFireStartLoc = that->GetPhysicalFireStartLoc(FVector());
 		g_clientSideFireStartLoc = that->GetClientSideProjectileFireStartLoc(FVector());
 		g_projClass = that->GetProjectileClass();
+
+		if (g_config.recordStats) {
+			if (Utils::tr_pc && Utils::tr_pc->WorldInfo->GRI) {
+				if (!((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->bWarmupRound) {
+					g_stats.bulletsFired++;
+				}
+			}
+		}
 	}
 	Hooks::unlock();
 	return false;

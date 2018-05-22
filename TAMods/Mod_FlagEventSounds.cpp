@@ -111,6 +111,9 @@ void onFlagCapture()
 			stopwatch::running = 0;
 			stopwatch::capTime = 0;
 		}
+
+		if (g_config.recordStats) g_stats.flagCaps++;
+		
 	}
 }
 
@@ -125,8 +128,11 @@ void onFlagGrab()
 
 		if (Utils::tr_pc->Pawn)
 		{
+			int speed = ((ATrPawn *)Utils::tr_pc->Pawn)->CalculatePawnSpeed();
 			stopwatch::grabHealth = Utils::tr_pc->Pawn->Health;
-			stopwatch::grabSpeed = ((ATrPawn *)Utils::tr_pc->Pawn)->CalculatePawnSpeed();
+			stopwatch::grabSpeed = speed;
+			if (g_config.recordStats) g_stats.updateMaxSpeed(speed);
+			
 		}
 
 		if (stopwatch::running)
@@ -190,7 +196,10 @@ void TrCTFMessage_ClientReceive(UTrCTFMessage *that, UTrCTFMessage_execClientRec
 				onFlagCapture();
 
 			break;
-		case 3: playFlagReturnSound(flagsteam); break;
+		case 3: 
+			playFlagReturnSound(flagsteam); 
+			if (g_config.recordStats) g_stats.flagReturns++;
+			break;
 		case 4: playFlagDropSound(flagsteam); break;
 		}
 	}
