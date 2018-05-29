@@ -89,6 +89,9 @@ bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunc
 		case CONST_TRICON_ACCOLADE_FASTFLAGGRAB:
 			g_config.s_fastGrab.Play();
 			break;
+		case CONST_TRHUD_MEDAL_FLAGDEFENSE:
+			if (g_config.recordStats) g_stats.flagReturns++;
+			break;
 		}
 	}
 
