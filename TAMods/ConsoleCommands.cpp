@@ -1,6 +1,7 @@
 #include "ConsoleCommands.h"
 
 extern Config g_config;
+extern Stats g_stats;
 
 static int matches;
 
@@ -163,6 +164,7 @@ namespace consoleCommands
 		{ L"/statespawns",      { &cmd_statespawns,      L"/statespawns (Set the saved locations to the players team spawns. Alias: /spawns)" } },
 		{ L"/spawns",           { &cmd_statespawns,      L"/spawns (Set the saved locations to the players team spawns. Alias: /statespawns)" } },
 		{ L"/statereset",       { &cmd_statereset,       L"/statereset (Reset all saved states)" } },
+		{ L"/printstats",		{ &cmd_printstats,       L"/printstats (Print current player stats for this game.)" } },
 
 		{ L"/routerec",         { &cmd_routerec,         L"/routerec (Toggle route recording. Alias: /rec)" } },
 		{ L"/rec",              { &cmd_routerec,         L"/rec (Toggle route recording. Alias: /routerec)" } },
@@ -348,6 +350,10 @@ namespace consoleCommands
 		states::reset();
 	}
 
+	void consoleCommands::cmd_printstats(const std::wstring &cmd, const std::wstring &params)
+	{
+		g_stats.printStats();
+	}
 	/****** Route recording ******/
 	void consoleCommands::cmd_routerec(const std::wstring &cmd, const std::wstring &params)
 	{

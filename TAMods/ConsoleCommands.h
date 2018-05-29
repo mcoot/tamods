@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Config.h"
+#include "Stats.h"
 #include <map>
 
 struct consoleCommand
@@ -40,6 +41,7 @@ namespace consoleCommands
 	void cmd_staterecall(const std::wstring &cmd, const std::wstring &params);
 	void cmd_statespawns(const std::wstring &cmd, const std::wstring &params);
 	void cmd_statereset(const std::wstring &cmd, const std::wstring &params);
+	void cmd_printstats(const std::wstring &cmd, const std::wstring &params);
 	void cmd_routerec(const std::wstring &cmd, const std::wstring &params);
 	void cmd_routerecstart(const std::wstring &cmd, const std::wstring &params);
 	void cmd_routerecstop(const std::wstring &cmd, const std::wstring &params);
