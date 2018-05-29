@@ -160,8 +160,6 @@ void Stats::printStats(){
 
 	tempstr = "Jitter: " + std::to_string(jitter);
 	Utils::printConsole(tempstr, Utils::rgb(0, 255, 255));
-
-	resetStats();
 }
 void Stats::printTeamStats(bool saveStats) {
 	//BE Score,Player1,Player2,Player3,Player4,Player5,Player6,Player7
