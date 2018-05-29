@@ -5,22 +5,22 @@
 #include "Config.h"
 #include "Utils.h"
 
+const int statsAmount = 14;
 
 //Stats to save
-
 class Stats
 {
 public:
 	Stats();
 	~Stats();
 
+	std::vector<std::string> Stats::getStatsString();
 	void resetStats();
-	void printStats();
-	void printTeamStats(bool saveStats);
-	void saveStats(const char *format, ...);
-	void saveTeamStats(const char *format, ...);
+	void printStats(bool savestats, bool saveteamstats, bool printstats, bool printteamstats);
+	void saveStats(FILE *filetoSave, std::string filename, const char *format, ...);
 	void static cleanup();
 	void updateMaxSpeed(int currentSpeed);
+	
 public:
 	double bulletsHit;
 	double bulletsFired;

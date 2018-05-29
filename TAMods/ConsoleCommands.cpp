@@ -352,7 +352,8 @@ namespace consoleCommands
 
 	void consoleCommands::cmd_printstats(const std::wstring &cmd, const std::wstring &params)
 	{
-		g_stats.printStats();
+		if(g_config.recordStats) g_stats.printStats(false,false,true,false); 
+		else Utils::printConsole("Stat recording not enabled in config.", Utils::rgb(255, 0, 0));
 	}
 	/****** Route recording ******/
 	void consoleCommands::cmd_routerec(const std::wstring &cmd, const std::wstring &params)

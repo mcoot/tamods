@@ -449,20 +449,15 @@ bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject
 
 bool TrPC_ClientMatchOver(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (g_config.recordStats == true)
+	if (g_config.recordStats)
 	{
 		g_stats.assists = getPlayerData::assists();
 		g_stats.kills = getPlayerData::kills();
 		g_stats.deaths = getPlayerData::deaths();
 
-		g_stats.printStats();
-		//TODO uncomment/replace when functionality is put in.
-		//g_stats.printStats(g_config.saveStats);
+		g_stats.printStats(g_config.saveStats,g_config.saveTeamStats,g_config.recordStats,g_config.recordTeamStats);
 
 		g_stats.resetStats();
-	}
-	if (g_config.recordTeamStats == true){
-		g_stats.printTeamStats(g_config.saveTeamStats);
 	}
 	MC_KillProjectiles();
 	return(false);
