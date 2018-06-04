@@ -184,13 +184,98 @@ bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFuncti
 	return false;
 }
 
+bool g_TESTFLAG = true;
+
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	if (!g_config.customWeaponOffset && g_config.showWeapon)
-		return false;
+	// if (!g_config.customWeaponOffset && g_config.showWeapon)
+	//	return false;
 
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
 	ATrDevice_eventSetPosition_Parms *params = (ATrDevice_eventSetPosition_Parms *)pParams;
+
+	if (g_TESTFLAG && Utils::tr_pc) {
+		Utils::console("[EXECUTING]");
+
+		ATrInventoryManager* invManager = (ATrInventoryManager*)(that->InvManager);
+
+		static ATrDevice_SAP20* phase;
+
+		if (!phase) {
+			phase = (ATrDevice_SAP20*)Utils::tr_pc->Spawn(ATrDevice_SAP20::StaticClass(), Utils::tr_pc, FName(0), Utils::tr_pc->Location, Utils::tr_pc->Rotation, NULL, 0);
+		}
+
+		if (!phase) {
+			Utils::console("Failed to spawn phase.");
+		}
+		Utils::console("Successfully spawned phase!");
+
+		static USkeletalMeshComponent* thatMesh;
+		static USkeletalMeshComponent* phaseMesh;
+
+		UTrDeviceContentData* phaseData = phase->LoadMeshData();
+		
+		if (!phaseMesh) {
+			phaseMesh = (USkeletalMeshComponent*)(phase->Mesh);
+		}
+		if (!thatMesh) {
+			thatMesh = (USkeletalMeshComponent*)(that->Mesh);
+		}
+		
+		if (!phaseMesh) {
+			Utils::console("Failed to retrive phase mesh.");
+		}
+		else {
+			Utils::console("Successfully retrieved phase mesh!");
+		}
+		
+
+		if (!thatMesh) {
+			Utils::console("Failed to retrieve current mesh.");
+		}
+		else {
+			Utils::console("Successfully retrieved current mesh!");
+		}
+
+		if (phaseMesh && thatMesh) {
+			if (phaseMesh->SkeletalMesh) {
+				thatMesh->SetSkeletalMesh(phaseMesh->SkeletalMesh, 1);
+				Utils::console("SET A SKELINGTON");
+			}
+			else {
+				Utils::console("Failed to access phase skeletal mesh");
+			}
+		}
+		
+		
+		//that->Mesh = phaseMesh;
+		//Utils::console("Set mesh to phase");
+		
+		//if (!thatMesh) {
+		//	Utils::console("Failed: no skeletal mesh");
+		//}
+		//else {
+		//	Utils::console("About to set skelington");
+		//	thatMesh->SetSkeletalMesh(thatMesh->SkeletalMesh, 1);
+		//	thatMesh->
+		//	Utils::console("Set skelington");
+		//}
+
+		
+
+		//Utils::console("Current materials: %d | phase materials: %d", that->Mesh->Materials.Count, phaseMesh->Materials.Count);
+
+		//for (int i = 0; i < phaseData->m_SkeletalMesh1p->Materials.Count; i++) {
+		//	that->Mesh->SetMaterial(i, *(phaseData->m_SkeletalMesh1p->Materials.Get(i)));
+		//}
+
+		//Utils::console("Set material!");
+		//phaseMesh->SetMat
+
+		g_TESTFLAG = false;
+	}
+
+	
 
 	FVector DrawOffset, ViewOffset, FinalSmallWeaponsOffset, FinalLocation, X, Y, Z;
 	unsigned char CurrentHand;
