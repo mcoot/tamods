@@ -184,12 +184,12 @@ bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFuncti
 	return false;
 }
 
-bool g_TESTFLAG = true;
+bool g_TESTFLAG = false;
 
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	// if (!g_config.customWeaponOffset && g_config.showWeapon)
-	//	return false;
+	 if (!g_config.customWeaponOffset && g_config.showWeapon)
+		return false;
 
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
 	ATrDevice_eventSetPosition_Parms *params = (ATrDevice_eventSetPosition_Parms *)pParams;
@@ -199,10 +199,10 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 		ATrInventoryManager* invManager = (ATrInventoryManager*)(that->InvManager);
 
-		static ATrDevice_SAP20* phase;
+		static ATrDevice_LightSpinfusor_MKD* phase;
 
 		if (!phase) {
-			phase = (ATrDevice_SAP20*)Utils::tr_pc->Spawn(ATrDevice_SAP20::StaticClass(), Utils::tr_pc, FName(0), Utils::tr_pc->Location, Utils::tr_pc->Rotation, NULL, 0);
+			phase = (ATrDevice_LightSpinfusor_MKD*)Utils::tr_pc->Spawn(ATrDevice_LightSpinfusor_MKD::StaticClass(), Utils::tr_pc, FName(0), Utils::tr_pc->Location, Utils::tr_pc->Rotation, NULL, 0);
 		}
 
 		if (!phase) {
