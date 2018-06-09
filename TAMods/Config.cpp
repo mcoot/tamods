@@ -841,6 +841,21 @@ static void config_setProjectile(const std::string &pclass, const std::string &w
 	proj->custom_ps = ps;
 }
 
+static void config_setWeaponSwap(const std::string &pclass, const std::string &weapon, const std::string &swap_class, const std::string &swap_weapon) {
+	//int current_weapon_id = getWeaponID(pclass, weapon);
+	//int new_weapon_id = getWeaponID(swap_class, swap_weapon);
+
+	//Custom
+
+	//auto it = g_config.wep_id_to_custom_weapon.find(current_weapon_id);
+	//if (it == g_config.wep_id_to_custom_weapon.end()) {
+	//	// No current swap for this weapon
+	//}
+	//else {
+
+	//}
+}
+
 static bool config_addMutedPlayer(MutedPlayer player)
 {
 	g_config.globalMuteList.push_back(player);

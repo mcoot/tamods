@@ -23,7 +23,7 @@
 
 // Uncomment for release
 //#define RELEASE
-#define MODVERSION 0.651
+#define MODVERSION 0.7
 
 struct MutedPlayer
 {
@@ -190,6 +190,12 @@ public:
 	static std::queue<UParticleSystem *> usedPS;
 	static std::queue<UParticleSystem *> freePS;
 	static std::queue<int> freeTimes;
+};
+
+struct CustomWeapon {
+	int weaponId;
+	UClass* replacementClass;
+	bool swapAnims;
 };
 
 class Config
@@ -399,6 +405,9 @@ public:
 	//Global Mute
 	std::vector<MutedPlayer> globalMuteList;
 	bool muteVGS;
+
+	// Custom weapon model
+	std::map<int, CustomWeapon> wep_id_to_custom_weapon;
 
 	// Custom bullet color
 	std::map<int, CustomProjectile *> wep_id_to_custom_proj;

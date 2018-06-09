@@ -62,6 +62,8 @@ namespace ModelTextures
 			return WeaponOperationResult::WEAPONOP_FAILED;
 		}
 
+		Utils::console("Data: %d", data);
+
 		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
 	}
 
@@ -165,29 +167,38 @@ static int g_testIdx = 0;
 
 bool TrPlayerController_Respawn(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	UClass* swapTo;
-	Utils::console("Doing things");
-	switch (g_testIdx) {
-	case 0:
-		swapTo = ATrDevice_TC24::StaticClass();
-		break;
-	case 1:
-		swapTo = ATrDevice_H1::StaticClass();
-		break;
-	case 2:
-		swapTo = ATrDevice_ARC8::StaticClass();
-		break;
-	default:
-		swapTo = ATrDevice_SAP20::StaticClass();
-		break;
-	}
+	UClass* swapTo = ATrDevice_ARC8::StaticClass();
+	//switch (g_testIdx) {
+	//case 0:
+	//	swapTo = ATrDevice_TC24::StaticClass();
+	//	break;
+	//case 1:
+	//	swapTo = ATrDevice_H1::StaticClass();
+	//	break;
+	//case 2:
+	//	swapTo = ATrDevice_ARC8::StaticClass();
+	//	break;
+	//default:
+	//	swapTo = ATrDevice_SAP20::StaticClass();
+	//	break;
+	//}
 	g_testIdx++;
 
 	Logger::log("!HOOK! About to swap...");
-	ModelTextures::g_SwapState.SetSwap(EQP_Primary, swapTo, true, true);
+	ModelTextures::WeaponOperationResult r = ModelTextures::g_SwapState.SetSwap(EQP_Primary, swapTo, true, false);
+	if (r != ModelTextures::WeaponOperationResult::WEAPONOP_SUCCEEDED) {
+		Utils::console("SETSWAP FAILED");
+		return false;
+	}
 	Logger::log("!HOOK! Set swap done");
+	Utils::console("Set Swap!");
 	ModelTextures::g_SwapState.RefreshSwaps();
+	if (r != ModelTextures::WeaponOperationResult::WEAPONOP_SUCCEEDED) {
+		Utils::console("REFRESH FAILED");
+		return false;
+	}
 	Logger::log("!HOOK! Refresh done");
+	Utils::console("Refreshed!");
 
 	return false;
 }
