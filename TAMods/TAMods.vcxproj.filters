@@ -665,5 +665,8 @@
     <ClInclude Include="Routes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mods_ModelTextures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

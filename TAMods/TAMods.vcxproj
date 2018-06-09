@@ -219,6 +219,7 @@
     <ClInclude Include="libpng\pnglibconf.h" />
     <ClInclude Include="libpng\pngpriv.h" />
     <ClInclude Include="libpng\pngstruct.h" />
+    <ClInclude Include="Mods_ModelTextures.h" />
     <ClInclude Include="NameCryptor.h" />
     <ClInclude Include="ParticleModuleHelper.h" />
     <ClInclude Include="Profiler.h" />
