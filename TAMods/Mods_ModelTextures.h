@@ -9,9 +9,11 @@ namespace ModelTextures
 		UClass* replacementClass;
 		ATrDevice* replacement;
 		bool isActive;
+		bool swapAnimations;
 	};
 
-	enum class WeaponOperationResult {
+	enum class WeaponOperationResult
+	{
 		WEAPONOP_SUCCEEDED = 0,
 		WEAPONOP_FAILED,
 		WEAPONOP_NOT_ACTIVE
@@ -28,7 +30,7 @@ namespace ModelTextures
 	public:
 		ModelSwapState() {
 			for (int i = 0; i < EQP_MAX; ++i) {
-				this->Swaps[i] = {NULL, NULL, false};
+				this->Swaps[i] = {NULL, NULL, false, true};
 			}
 		}
 
@@ -37,9 +39,12 @@ namespace ModelTextures
 
 		// Set the class a particular equip point should be swapped to
 		// Does not actually refresh the swaps
-		WeaponOperationResult SetSwap(TR_EQUIP_POINT equipPoint, UClass* newSwapClass, bool isActive);
+		WeaponOperationResult SetSwap(TR_EQUIP_POINT equipPoint, UClass* newSwapClass, bool isActive, bool swapAnimations);
 
 		// Ensure appropriate models are swapped
 		WeaponOperationResult RefreshSwaps();
 	};
+
+	WeaponOperationResult ReplaceDeviceMaterials(ATrDevice* device, TArray<UMaterialInterface*> materials);
+	WeaponOperationResult ReplaceDeviceAnimSets(ATrDevice* device, TArray<UAnimSet*> animSets);
 }

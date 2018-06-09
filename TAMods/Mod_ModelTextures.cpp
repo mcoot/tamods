@@ -3,6 +3,33 @@
 
 namespace ModelTextures
 {
+	WeaponOperationResult ReplaceDeviceMaterials(ATrDevice* device, TArray<UMaterialInterface*> materials) {
+		if (!device || !device->Mesh) {
+			return WeaponOperationResult::WEAPONOP_FAILED;
+		}
+
+		device->Mesh->Materials.Clear();
+		for (int i = 0; i < materials.Count; i++) {
+			device->Mesh->SetMaterial(i, *materials.Get(i));
+		}
+
+		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
+	}
+
+	WeaponOperationResult ReplaceDeviceAnimSets(ATrDevice* device, TArray<UAnimSet*> animSets) {
+		if (!device || !device->Mesh || !device->Mesh->IsA(USkeletalMeshComponent::StaticClass())) {
+			return WeaponOperationResult::WEAPONOP_FAILED;
+		}
+
+		USkeletalMeshComponent* mesh = (USkeletalMeshComponent*)(device->Mesh);
+
+		for (int i = 0; i < animSets.Count; ++i) {
+			mesh->AnimSets.Set(i, *animSets.Get(i));
+		}
+
+		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
+	}
+
 	WeaponOperationResult ModelSwapState::SpawnSwap(TR_EQUIP_POINT equipPoint) {
 		if (equipPoint < 0 || equipPoint >= EQP_MAX) {
 			return WeaponOperationResult::WEAPONOP_FAILED;
@@ -58,11 +85,17 @@ namespace ModelTextures
 
 		// Apply the new mesh
 		existingMesh->SetSkeletalMesh(mesh->SkeletalMesh, 1);
+		// Setup the overlay mesh (ensures overlay effects e.g. regen, rage, shield pack look right)
+		existing->CreateOverlayMesh();
 
 		// Apply the new mesh's materials
-		existingMesh->Materials.Clear();
-		for (int i = 0; i < mesh->SkeletalMesh->Materials.Count; i++) {
-			existingMesh->SetMaterial(i, *(mesh->SkeletalMesh->Materials.Get(i)));
+		if (ReplaceDeviceMaterials(existing, mesh->SkeletalMesh->Materials) != WeaponOperationResult::WEAPONOP_SUCCEEDED) {
+			return WeaponOperationResult::WEAPONOP_FAILED;
+		}
+
+		// Apply the new mesh's anim set
+		if (swap.swapAnimations && ReplaceDeviceAnimSets(existing, mesh->AnimSets) != WeaponOperationResult::WEAPONOP_SUCCEEDED) {
+			return WeaponOperationResult::WEAPONOP_FAILED;
 		}
 
 		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
@@ -94,11 +127,11 @@ namespace ModelTextures
 		return this->Swaps[equipPoint];
 	}
 
-	WeaponOperationResult ModelSwapState::SetSwap(TR_EQUIP_POINT equipPoint, UClass* newSwapClass, bool isActive) {
+	WeaponOperationResult ModelSwapState::SetSwap(TR_EQUIP_POINT equipPoint, UClass* newSwapClass, bool isActive, bool swapAnimations) {
 		if (equipPoint < 0 || equipPoint >= EQP_MAX) {
 			return WeaponOperationResult::WEAPONOP_FAILED;
 		}
-		this->Swaps[equipPoint] = {newSwapClass, NULL, isActive};
+		this->Swaps[equipPoint] = {newSwapClass, NULL, isActive, swapAnimations};
 
 		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
 	}
@@ -128,78 +161,33 @@ DESIGN THOUGHTS
 
 */
 
+static int g_testIdx = 0;
+
 bool TrPlayerController_Respawn(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	UClass* swapTo;
+	Utils::console("Doing things");
+	switch (g_testIdx) {
+	case 0:
+		swapTo = ATrDevice_TC24::StaticClass();
+		break;
+	case 1:
+		swapTo = ATrDevice_H1::StaticClass();
+		break;
+	case 2:
+		swapTo = ATrDevice_ARC8::StaticClass();
+		break;
+	default:
+		swapTo = ATrDevice_SAP20::StaticClass();
+		break;
+	}
+	g_testIdx++;
+
 	Logger::log("!HOOK! About to swap...");
-	ModelTextures::g_SwapState.SetSwap(EQP_Primary, ATrDevice_TC24::StaticClass(), true);
+	ModelTextures::g_SwapState.SetSwap(EQP_Primary, swapTo, true, true);
 	Logger::log("!HOOK! Set swap done");
 	ModelTextures::g_SwapState.RefreshSwaps();
 	Logger::log("!HOOK! Refresh done");
-
-	return false;
-
-	Logger::log("!HOOK! [In hook]");
-
-	ATrPlayerController* that = (ATrPlayerController*)dwCallingObject;
-	ATrDevice* firstWeapon = NULL;
-
-	firstWeapon = that->GetDeviceByEquipPoint(2);
-	
-	if (!firstWeapon) {
-		Utils::console("Failed to get current weapon");
-		Logger::log("!HOOK! Failed to get current weapon");
-		return false;
-	}
-
-	static ATrDevice_SAP20* newWeap;
-	static USkeletalMeshComponent* curMesh;
-	static USkeletalMeshComponent* newMesh;
-
-	if (!newWeap || !newMesh || !newMesh->SkeletalMesh) {
-		newWeap = (ATrDevice_SAP20*)Utils::tr_pc->Spawn(ATrDevice_SAP20::StaticClass(), Utils::tr_pc, FName(0), Utils::tr_pc->Location, Utils::tr_pc->Rotation, NULL, 0);
-		newWeap->LoadMeshData();
-
-		if (!newWeap) {
-			Utils::console("Failed to get new weapon");
-			Logger::log("!HOOK! Failed to get new weapon");
-			return false;
-		}
-
-		Logger::log("!HOOK! Spawned newWeap");
-	}
-
-
-	curMesh = (USkeletalMeshComponent*)(firstWeapon->Mesh);
-	Logger::log("!HOOK! Grabbed current mesh");
-	newMesh = (USkeletalMeshComponent*)(newWeap->Mesh);
-	Logger::log("!HOOK! Grabbed new mesh");
-
-	if (!curMesh) {
-		Utils::console("Failed to get current mesh");
-		Logger::log("!HOOK! Failed to get current mesh");
-		return false;
-	}
-
-	if (!newMesh) {
-		Utils::console("Failed to get new mesh");
-		Logger::log("!HOOK! Failed to get new mesh");
-		return false;
-	}
-
-	if (!newMesh->SkeletalMesh) {
-		Utils::console("New mesh missing skeletal mesh");
-		Logger::log("!HOOK! New mesh missing skeletal mesh");
-		return false;
-	}
-	curMesh->SetSkeletalMesh(newMesh->SkeletalMesh, 1);
-	Logger::log("!HOOK! Changed mesh successfully");
-	Utils::console("Changed mesh successfully!");
-
-	for (int i = 0; i < newMesh->SkeletalMesh->Materials.Count; i++) {
-		curMesh->SetMaterial(i, *(newMesh->SkeletalMesh->Materials.Get(i)));
-	}
-
-	Logger::log("!HOOK! Changed materials successfully");
 
 	return false;
 }
