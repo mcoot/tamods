@@ -96,6 +96,8 @@ bool TrPC_Dead_BeginState(int ID, UObject *dwCallingObject, UFunction* pFunction
 {
 	ATrPlayerController *that = (ATrPlayerController *)dwCallingObject;
 
+	//CustomWeaponsOnPlayerDeath(that);
+
 	if (!dwCallingObject->IsA(ATrPlayerController_Training::StaticClass()))
 	{
 		if (that->WorldInfo && stopwatch::running && g_config.stopwatchStopOnDeath)
@@ -188,10 +190,16 @@ bool g_TESTFLAG = false;
 
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
+	ATrDevice *that = (ATrDevice *)dwCallingObject;
+
+	// Poll for updating custom weapon models
+	CustomWeaponsTick(that);
+
+	// Don't modify weapon position if there's no custom weapon offset
 	 if (!g_config.customWeaponOffset && g_config.showWeapon)
 		return false;
 
-	ATrDevice *that = (ATrDevice *)dwCallingObject;
+	
 	ATrDevice_eventSetPosition_Parms *params = (ATrDevice_eventSetPosition_Parms *)pParams;
 
 	if (g_TESTFLAG && Utils::tr_pc) {

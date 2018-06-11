@@ -53,6 +53,7 @@ namespace Utils
 	void draw2dLine(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 
 	ATrDevice* getDeviceByEquipPointHelper(unsigned const char &n);
+	ATrDevice* getDeviceByWeaponIDHelper(int weapon_id);
 	ATrDevice* getCurrentDeviceHelper();
 	ATrPawn* getPlayerPawn();
 

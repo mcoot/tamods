@@ -162,6 +162,9 @@ int Utils::searchMapId(const std::map<std::string, int> map, const std::string &
 	std::string clean = Utils::cleanString(str);
 	for (auto const &it : map)
 	{
+		
+		//Utils::console("A: %s", it.first.c_str());
+		
 		if (std::regex_match(clean, std::regex(it.first)))
 			return (it.second);
 	}
@@ -419,6 +422,14 @@ ATrDevice* Utils::getDeviceByEquipPointHelper(unsigned const char &n)
 	ATrPawn *TrP = Utils::getPlayerPawn();
 	if (TrP && TrP->IsAliveAndWell() && TrP->InvManager)
 		return ((ATrInventoryManager *)TrP->InvManager)->GetDeviceByEquipPoint(n);
+
+	return NULL;
+}
+
+ATrDevice* Utils::getDeviceByWeaponIDHelper(int weapon_id) {
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP && TrP->IsAliveAndWell() && TrP->InvManager)
+		return ((ATrInventoryManager *)TrP->InvManager)->GetDeviceByWeaponId(weapon_id);
 
 	return NULL;
 }

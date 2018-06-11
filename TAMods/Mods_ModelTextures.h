@@ -10,6 +10,13 @@ namespace ModelTextures
 		ATrDevice* replacement;
 		bool isActive;
 		bool swapAnimations;
+
+		ModelSwapWeapon() {
+			this->replacementClass = NULL;
+			this->replacement = NULL;
+			this->isActive = false;
+			this->swapAnimations = true;
+		}
 	};
 
 	enum class WeaponOperationResult
@@ -22,29 +29,46 @@ namespace ModelTextures
 	class ModelSwapState
 	{
 	private:
-		ModelSwapWeapon Swaps[EQP_MAX];
+		ModelSwapWeapon* Swaps[EQP_MAX];
 
 		WeaponOperationResult SpawnSwap(TR_EQUIP_POINT equipPoint);
-		WeaponOperationResult ApplyModel(ATrDevice* existing, ModelSwapWeapon swap);
+		WeaponOperationResult ApplyModel(ATrDevice* existing, const ModelSwapWeapon* swap);
 		WeaponOperationResult ApplySwap(TR_EQUIP_POINT equipPoint);
+
+		bool ShouldRefreshGlobal(ATrDevice* currentDevice);
+		// Determines whether the given equip point requires a refresh
+		bool ShouldRefreshEquipPoint(TR_EQUIP_POINT equipPoint, ATrDevice* currentDevice, bool globalRefreshOrdered);
+
+		// Perform refresh on swaps requiring it
+		WeaponOperationResult RefreshSwaps(ATrDevice* currentDevice);
 	public:
+		bool needGlobalRefresh;
+
 		ModelSwapState() {
+			this->needGlobalRefresh;
 			for (int i = 0; i < EQP_MAX; ++i) {
-				this->Swaps[i] = {NULL, NULL, false, true};
+				this->Swaps[i] = new ModelSwapWeapon();
+			}
+		}
+
+		~ModelSwapState() {
+			for (int i = 0; i < EQP_MAX; ++i) {
+				delete this->Swaps[i];
 			}
 		}
 
 		// Gets the device based on the equip point
-		ModelSwapWeapon GetSwapByEquipPoint(TR_EQUIP_POINT equipPoint);
+		ModelSwapWeapon* GetSwapByEquipPoint(TR_EQUIP_POINT equipPoint);
 
 		// Set the class a particular equip point should be swapped to
 		// Does not actually refresh the swaps
 		WeaponOperationResult SetSwap(TR_EQUIP_POINT equipPoint, UClass* newSwapClass, bool isActive, bool swapAnimations);
 
 		// Ensure appropriate models are swapped
-		WeaponOperationResult RefreshSwaps();
+		void SwapStateTick(ATrDevice* currentDevice);
 	};
 
 	WeaponOperationResult ReplaceDeviceMaterials(ATrDevice* device, TArray<UMaterialInterface*> materials);
 	WeaponOperationResult ReplaceDeviceAnimSets(ATrDevice* device, TArray<UAnimSet*> animSets);
+	WeaponOperationResult ReplaceDeviceHandsMesh(ATrDevice* device, ATrDevice* replacement);
 }

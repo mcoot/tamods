@@ -63,9 +63,10 @@
 
 namespace Data
 {
-	extern std::map<std::string, int> weapons[3][7];
+	extern std::map<std::string, int> weapons[3];
 	extern std::map<int, std::string> weapon_id_to_name;
 	extern std::map<int, std::string> weapon_id_to_proj_name;
+	extern std::map<int, UClass*> weapon_id_to_weapon_class;
 	extern std::map<std::string, int> vehicle_weapons;
 	extern std::map<std::string, int> classes;
 	extern std::map<std::string, int> crosshairs;

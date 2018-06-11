@@ -16,8 +16,9 @@ void onDLLProcessAttach()
 		Hooks::add(&TrGVC_PostRender, "Function TribesGame.TrGameViewportClient.PostRender");
 		Hooks::add(&TrChatConsole_InputKey, "Function TribesGame.TrChatConsole.InputKey"); // Lua keybindings
 		Hooks::add(&TrDevice_SetPosition, "Function TribesGame.TrDevice.SetPosition"); // 1st person weapon and bullet spawn position
-		// Weapon model / texture changing
-		Hooks::add(&TrPlayerController_Respawn, "Function TrPlayerController.Dead.EndState", Hooks::POST);//"Function TribesGame.TrGame.OnServerSpawnedPlayer");
+
+		//Hooks::add(&TrStationCollision_Touch, "Function TribesGame.TrStationCollision.Touch");
+		
 
 		// Roam map
 		Hooks::add(&TrGame_TRCTF_PostBeginPlay, "Function TribesGame.TrGame_TRCTF.PostBeginPlay"); // Server settings

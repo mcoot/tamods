@@ -193,7 +193,7 @@ public:
 };
 
 struct CustomWeapon {
-	int weaponId;
+	UClass* normalClass;
 	UClass* replacementClass;
 	bool swapAnims;
 };
@@ -406,8 +406,8 @@ public:
 	std::vector<MutedPlayer> globalMuteList;
 	bool muteVGS;
 
-	// Custom weapon model
-	std::map<int, CustomWeapon> wep_id_to_custom_weapon;
+	// Custom weapon models
+	std::map<UClass*, CustomWeapon> wep_class_to_custom_weapon;
 
 	// Custom bullet color
 	std::map<int, CustomProjectile *> wep_id_to_custom_proj;

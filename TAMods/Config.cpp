@@ -406,12 +406,11 @@ static int getWeaponID(const std::string &class_name, const std::string &str)
 	int class_id = Utils::searchMapId(Data::classes, class_name, "a Class") - 1;
 	if (class_id == -1)
 		return (0);
-	for (int i = 0; i < 6; i++)
-	{
-		int ret = Utils::searchMapId(Data::weapons[class_id][i], str, "", false);
-		if (ret)
-			return (ret);
-	}
+
+	// Try to find this as a weapon
+	int ret = Utils::searchMapId(Data::weapons[class_id], str, "", false);
+	if (ret)
+		return (ret);
 	Utils::console("WARNING: searched item '%s' could not be identified as a %s's weapon", Utils::trim(str).c_str(), Utils::trim(class_name).c_str());
 	return (0);
 }
@@ -841,10 +840,37 @@ static void config_setProjectile(const std::string &pclass, const std::string &w
 	proj->custom_ps = ps;
 }
 
-static void config_setWeaponSwap(const std::string &pclass, const std::string &weapon, const std::string &swap_class, const std::string &swap_weapon) {
-	//int current_weapon_id = getWeaponID(pclass, weapon);
-	//int new_weapon_id = getWeaponID(swap_class, swap_weapon);
+static bool config_setWeaponSwap(const std::string &pclass, const std::string &weapon, const std::string &swap_class, const std::string &swap_weapon, bool swapAnims) {
+	int current_weapon_id = getWeaponID(pclass, weapon);
+	int new_weapon_id = getWeaponID(swap_class, swap_weapon);
+	UClass* current_weapon_class = NULL;
+	UClass* new_weapon_class = NULL;
 
+	// Get the correct weapon classes
+	auto& it = Data::weapon_id_to_weapon_class.find(current_weapon_id);
+	if (it != Data::weapon_id_to_weapon_class.end()) {
+		current_weapon_class = it->second;
+	}
+	it = Data::weapon_id_to_weapon_class.find(new_weapon_id);
+	if (it != Data::weapon_id_to_weapon_class.end()) {
+		new_weapon_class = it->second;
+	}
+
+	if (!current_weapon_class || !new_weapon_class) {
+		return false;
+	}
+
+	// Update the config map
+	CustomWeapon cwp;
+	cwp.normalClass = current_weapon_class;
+	cwp.replacementClass = new_weapon_class;
+	cwp.swapAnims = swapAnims;
+	g_config.wep_class_to_custom_weapon[current_weapon_class] = cwp;
+
+	return true;
+	
+
+	// Get the new weapon
 	//Custom
 
 	//auto it = g_config.wep_id_to_custom_weapon.find(current_weapon_id);
@@ -2102,6 +2128,9 @@ void Lua::init()
 		addFunction("setProjectile", &config_setProjectile).
 		addFunction("cloneProjectile", &CustomProjectile::cloneParticleSystem).
 		addFunction("setProjectileColor", &config_setProjectileColor).
+		
+		// Custom weapon models
+		addFunction("setWeaponModel", &config_setWeaponSwap).
 
 		// HUD/Mute
 
