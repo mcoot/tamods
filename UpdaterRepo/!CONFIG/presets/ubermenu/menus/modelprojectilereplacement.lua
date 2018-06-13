@@ -1,77 +1,78 @@
 local lightWeapons = {
-		{["class"]="Light", ["name"]="Light Spinfusor"},
-		{["class"]="Light", ["name"]="Dueling Spinfusor"},
-		{["class"]="Light", ["name"]="Stealth Spinfusor"},
-		{["class"]="Light", ["name"]="Bolt Launcher"},
-		{["class"]="Light", ["name"]="Light Twinfusor"},
-		{["class"]="Light", ["name"]="Blinksfusor"},
-		{["class"]="Light", ["name"]="Light Grenade Launcher"},
-		{["class"]="Light", ["name"]="Jackal"},
-		{["class"]="Light", ["name"]="BXT1 Rifle"},
-		{["class"]="Light", ["name"]="BXT1A Rifle"},
-		{["class"]="Light", ["name"]="Phase Rifle"},
-		{["class"]="Light", ["name"]="SAP20 Rifle"},
-		{["class"]="Light", ["name"]="Falcon"},
-		{["class"]="Light", ["name"]="Light Assault Rifle"},
-		{["class"]="Light", ["name"]="Sparrow"},
-		{["class"]="Light", ["name"]="Throwing Knives"},
-		{["class"]="Light", ["name"]="Rhino SMG"},
-		{["class"]="Light", ["name"]="Arctic Rhino SMG"},
-		{["class"]="Light", ["name"]="SN7 Silenced Pistol"},
-		{["class"]="Light", ["name"]="Arctic SN7 Silenced Pistol"},
-		{["class"]="Light", ["name"]="Shotgun"},
-		{["class"]="Light", ["name"]="Holdout Shotgun"},
-		{["class"]="Light", ["name"]="Accurized Shotgun"},
-		{["class"]="Light", ["name"]="Shocklance"}
+		{["class"]="Light", ["name"]="Light Spinfusor", ["exists"]=true},
+		{["class"]="Light", ["name"]="Dueling Spinfusor", ["exists"]=false},
+		{["class"]="Light", ["name"]="Stealth Spinfusor", ["exists"]=false},
+		{["class"]="Light", ["name"]="Bolt Launcher", ["exists"]=true},
+		{["class"]="Light", ["name"]="Light Twinfusor", ["exists"]=true},
+		{["class"]="Light", ["name"]="Blinksfusor", ["exists"]=true},
+		{["class"]="Light", ["name"]="Light Grenade Launcher", ["exists"]=true},
+		{["class"]="Light", ["name"]="Jackal", ["exists"]=true},
+		{["class"]="Light", ["name"]="BXT1 Rifle", ["exists"]=true},
+		{["class"]="Light", ["name"]="BXT1A Rifle", ["exists"]=false},
+		{["class"]="Light", ["name"]="Phase Rifle", ["exists"]=true},
+		{["class"]="Light", ["name"]="SAP20 Rifle", ["exists"]=false},
+		{["class"]="Light", ["name"]="Falcon", ["exists"]=true},
+		{["class"]="Light", ["name"]="Light Assault Rifle", ["exists"]=true},
+		{["class"]="Light", ["name"]="Sparrow", ["exists"]=true},
+		{["class"]="Light", ["name"]="Throwing Knives", ["exists"]=true},
+		{["class"]="Light", ["name"]="Rhino SMG", ["exists"]=false},
+		{["class"]="Light", ["name"]="Arctic Rhino SMG", ["exists"]=false},
+		{["class"]="Light", ["name"]="SN7 Silenced Pistol", ["exists"]=false},
+		{["class"]="Light", ["name"]="Arctic SN7 Silenced Pistol", ["exists"]=false},
+		{["class"]="Light", ["name"]="Shotgun", ["exists"]=true},
+		{["class"]="Light", ["name"]="Holdout Shotgun", ["exists"]=false},
+		{["class"]="Light", ["name"]="Accurized Shotgun", ["exists"]=false},
+		{["class"]="Light", ["name"]="Shocklance", ["exists"]=true}
 	}
 	local mediumWeapons = {
-		{["class"]="Medium", ["name"]="Spinfusor"},
-		{["class"]="Medium", ["name"]="Thumper"},
-		{["class"]="Medium", ["name"]="Thumper D"},
-		{["class"]="Medium", ["name"]="Thumper DX"},
-		{["class"]="Medium", ["name"]="Twinfusor"},
-		{["class"]="Medium", ["name"]="Arx Buster"},
-		{["class"]="Medium", ["name"]="Dust Devil"},
-		{["class"]="Medium", ["name"]="Grenade Launcher"},
-		{["class"]="Medium", ["name"]="Improved Repair Tool"},
-		{["class"]="Medium", ["name"]="Long Range Repair Tool"},
-		{["class"]="Medium", ["name"]="ELF Projector"},
-		{["class"]="Medium", ["name"]="Assault Rifle"},
-		{["class"]="Medium", ["name"]="Gast Rifle"},
-		{["class"]="Medium", ["name"]="NJ4 SMG"},
-		{["class"]="Medium", ["name"]="Desert NJ4 SMG"},
-		{["class"]="Medium", ["name"]="NJ5-b"},
-		{["class"]="Medium", ["name"]="TCN4 SMG"},
-		{["class"]="Medium", ["name"]="TCN4 Rockwind SMG"},
-		{["class"]="Medium", ["name"]="TC24"},
-		{["class"]="Medium", ["name"]="Plasma Gun"},
-		{["class"]="Medium", ["name"]="Nova Blaster"},
-		{["class"]="Medium", ["name"]="Eagle Pistol"},
-		{["class"]="Medium", ["name"]="Sawed-off Shotgun"},
-		{["class"]="Medium", ["name"]="Flak Cannon"}
+		{["class"]="Medium", ["name"]="Spinfusor", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Thumper", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Thumper D", ["exists"]=false},
+		{["class"]="Medium", ["name"]="Thumper DX", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Twinfusor", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Blinksfusor", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Arx Buster", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Dust Devil", ["exists"]=false},
+		{["class"]="Medium", ["name"]="Grenade Launcher", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Improved Repair Tool", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Long Range Repair Tool", ["exists"]=true},
+		{["class"]="Medium", ["name"]="ELF Projector", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Assault Rifle", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Gast Rifle", ["exists"]=false},
+		{["class"]="Medium", ["name"]="NJ4 SMG", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Desert NJ4 SMG", ["exists"]=false},
+		{["class"]="Medium", ["name"]="NJ5-b", ["exists"]=true},
+		{["class"]="Medium", ["name"]="TCN4 SMG", ["exists"]=false},
+		{["class"]="Medium", ["name"]="TCN4 Rockwind SMG", ["exists"]=false},
+		{["class"]="Medium", ["name"]="TC24", ["exists"]=false},
+		{["class"]="Medium", ["name"]="Plasma Gun", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Nova Blaster", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Eagle Pistol", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Sawed-off Shotgun", ["exists"]=true},
+		{["class"]="Medium", ["name"]="Flak Cannon", ["exists"]=true}
 	}
 	local heavyWeapons = {
-		{["class"]="Heavy", ["name"]="Spinfusor MKD"},
-		{["class"]="Heavy", ["name"]="Spinfusor MK-X"},
-		{["class"]="Heavy", ["name"]="Heavy Spinfusor"},
-		{["class"]="Heavy", ["name"]="Devastator Spinfusor"},
-		{["class"]="Heavy", ["name"]="Heavy Bolt Launcher"},
-		{["class"]="Heavy", ["name"]="Heavy Blinksfusor"},
-		{["class"]="Heavy", ["name"]="Heavy Twinfusor"},
-		{["class"]="Heavy", ["name"]="Fusion Mortar"},
-		{["class"]="Heavy", ["name"]="Fusion Mortar Deluxe"},
-		{["class"]="Heavy", ["name"]="MIRV Launcher"},
-		{["class"]="Heavy", ["name"]="Saber Launcher"},
-		{["class"]="Heavy", ["name"]="Titan Launcher"},
-		{["class"]="Heavy", ["name"]="Gladiator"},
-		{["class"]="Heavy", ["name"]="Chain Gun"},
-		{["class"]="Heavy", ["name"]="Chain Cannon"},
-		{["class"]="Heavy", ["name"]="X1 LMG"},
-		{["class"]="Heavy", ["name"]="Nova Colt"},
-		{["class"]="Heavy", ["name"]="Nova Blaster MX"},
-		{["class"]="Heavy", ["name"]="Automatic Shotgun"},
-		{["class"]="Heavy", ["name"]="The Hammer"},
-		{["class"]="Heavy", ["name"]="EFG"}
+		{["class"]="Heavy", ["name"]="Spinfusor MKD", ["exists"]=false},
+		{["class"]="Heavy", ["name"]="Spinfusor MK-X", ["exists"]=false},
+		{["class"]="Heavy", ["name"]="Heavy Spinfusor", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Devastator Spinfusor", ["exists"]=false},
+		{["class"]="Heavy", ["name"]="Heavy Bolt Launcher", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Heavy Blinksfusor", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Heavy Twinfusor", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Fusion Mortar", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Fusion Mortar Deluxe", ["exists"]=false},
+		{["class"]="Heavy", ["name"]="MIRV Launcher", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Saber Launcher", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Titan Launcher", ["exists"]=false},
+		{["class"]="Heavy", ["name"]="Gladiator", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Chain Gun", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Chain Cannon", ["exists"]=false},
+		{["class"]="Heavy", ["name"]="X1 LMG", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Nova Colt", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Nova Blaster MX", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="Automatic Shotgun", ["exists"]=true},
+		{["class"]="Heavy", ["name"]="The Hammer", ["exists"]=false},
+		{["class"]="Heavy", ["name"]="EFG", ["exists"]=true}
 	}
 
 
@@ -83,7 +84,8 @@ function modelReplacement(parent, menu)
 	local subHeavy = menu:add_submenu({ title = "Replace Heavy Model" })
 	for k,v in pairs(lightWeapons) do 
 		local original = v
-		local subWeapon = subLight:add_submenu({ title = "Replace " .. original.name })
+		if(original.exists) then 
+			local subWeapon = subLight:add_submenu({ title = "Replace " .. original.name })
 
 			local subLight1 = subWeapon:add_submenu({ title = "Replace " .. original.name .. " with Light Model" })
 			local subMedium1 = subWeapon:add_submenu({ title = "Replace " .. original.name .. " with Medium Model" })
@@ -146,10 +148,13 @@ function modelReplacement(parent, menu)
 				
 				end
 			end
+		end
+		
 	end
 
 	for k,v in pairs(mediumWeapons) do 
 		local original = v
+		if(original.exists) then 
 		local subWeapon = subMedium:add_submenu({ title = "Replace " .. original.name })
 
 			local subLight1 = subWeapon:add_submenu({ title = "Replace " .. original.name .. " with Light Model" })
@@ -213,10 +218,13 @@ function modelReplacement(parent, menu)
 				
 				end
 			end
+		end
 	end
 
 	for k,v in pairs(heavyWeapons) do 
 		local original = v
+
+		if(original.exists) then 
 		local subWeapon = subHeavy:add_submenu({ title = "Replace " .. original.name })
 
 			local subLight1 = subWeapon:add_submenu({ title = "Replace " .. original.name .. " with Light Model" })
@@ -280,6 +288,7 @@ function modelReplacement(parent, menu)
 				
 				end
 			end
+		end
 	end
 end
 
@@ -291,6 +300,8 @@ function projReplacement(parent, menu)
 	local subHeavy = menu:add_submenu({ title = "Replace Heavy Projectile" })
 	for k,v in pairs(lightWeapons) do 
 		local original = v
+
+		if(original.exists) then 
 		local subWeapon = subLight:add_submenu({ title = "Replace " .. original.name })
 
 			local subLight1 = subWeapon:add_submenu({ title = "Replace " .. original.name .. " with Light Projectile" })
@@ -324,10 +335,13 @@ function projReplacement(parent, menu)
 						})
 				end
 			end
+		end
 	end
 
 	for k,v in pairs(mediumWeapons) do 
 		local original = v
+
+		if(original.exists) then 
 		local subWeapon = subMedium:add_submenu({ title = "Replace " .. original.name })
 
 			local subLight1 = subWeapon:add_submenu({ title = "Replace " .. original.name .. " with Light Projectile" })
@@ -361,11 +375,14 @@ function projReplacement(parent, menu)
 						})
 				end
 			end
+		end
 	end
 
 
 	for k,v in pairs(heavyWeapons) do 
 		local original = v
+
+		if(original.exists) then 
 		local subWeapon = subHeavy:add_submenu({ title = "Replace " .. original.name })
 
 			local subLight1 = subWeapon:add_submenu({ title = "Replace " .. original.name .. " with Light Projectile" })
@@ -399,6 +416,7 @@ function projReplacement(parent, menu)
 						})
 				end
 			end
+		end
 	end
 end
 ubermenu:add_submenu({ title = "Model Replacement", func = modelReplacement })
