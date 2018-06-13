@@ -49,6 +49,7 @@ if ubermenu.opts.help ~= false then
 end
 
 require(preset .. "menus/xhairs")
+require(preset .. "menus/modelprojectilereplacement")
 require(preset .. "menus/hudmodules")
 ubermenu:add_separator({})
 
