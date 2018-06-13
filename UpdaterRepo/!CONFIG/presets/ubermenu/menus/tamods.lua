@@ -188,6 +188,9 @@ local tamodsmenu = ubermenu:add_submenu({ title = "TAMods Settings" })
 		sub1:add_item({ title = "Apply", func = function() config.reloadVariables() reloadSounds() end })
 
 	tamodsmenu:add_variable({ title = "Record Stats", varname = "recordStats", default = false })
+	tamodsmenu:add_variable({ title = "Record Game Stats", varname = "recordTeamStats", default = false })
+	tamodsmenu:add_variable({ title = "Save Stats", varname = "saveStats", default = false })
+	tamodsmenu:add_variable({ title = "Save Game Stats", varname = "saveTeamStats", default = false })
 	tamodsmenu:add_separator({})
 	tamodsmenu:add_item({ title = "Apply", func = config.reloadVariables })
 
