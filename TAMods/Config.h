@@ -22,7 +22,7 @@
 #include "Stopwatch.h"
 
 // Uncomment for release
-//#define RELEASE
+#define RELEASE
 #define MODVERSION 0.7
 
 struct MutedPlayer
