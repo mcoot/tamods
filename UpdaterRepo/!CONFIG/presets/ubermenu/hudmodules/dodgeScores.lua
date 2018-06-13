@@ -16,6 +16,7 @@ module.opts.flag_color[0]       = rgba(255, 23, 23, 255)
 module.opts.flag_color[1]       = rgba(255, 23, 23, 0)
 module.opts.flag_color[2]       = rgba(158, 200, 222, 255)
 module.opts.flag_color[3]       = rgba(158, 200, 222, 0)
+module.opts.Enable_Icons        = true
 
 -- The drawing function for this module
 function module.draw(res_x, res_y)
@@ -33,11 +34,13 @@ function module.draw(res_x, res_y)
 		local x_FlagSectorL = xpos - module.opts.columnWidth - x_flagArea
 
 		--Draw Enemy Flags
-		while i < game.score(hud_data.right_team) do
-			drawRect(x_FlagSectorR, ypos, x_FlagSectorR + x_flagArea, ypos + y_flagArea, module.opts.bg_color)
-			drawFlag(x_FlagSectorR + module.opts.x_flagPadding, ypos + module.opts.y_flagPadding, module.opts.flag_color[0])
-			i = i + 1
-			x_FlagSectorR = x_FlagSectorR + x_flagArea
+		if module.opts.Enable_Icons == true then
+			while i < game.score(hud_data.right_team) do
+				drawRect(x_FlagSectorR, ypos, x_FlagSectorR + x_flagArea, ypos + y_flagArea, module.opts.bg_color)
+				drawFlag(x_FlagSectorR + module.opts.x_flagPadding, ypos + module.opts.y_flagPadding, module.opts.flag_color[0])
+				i = i + 1
+				x_FlagSectorR = x_FlagSectorR + x_flagArea
+			end
 		end
 		--Draw Enemy Flag Holder
 		if not flag.isHome(hud_data.left_team) then
@@ -59,14 +62,15 @@ function module.draw(res_x, res_y)
 			end
 		end
 		
-		--Draw Team Flags
-		while j < game.score(hud_data.left_team) do
-			drawRect(x_FlagSectorL, ypos, x_FlagSectorL + x_flagArea, ypos + y_flagArea, module.opts.bg_color)
-			drawFlag(x_FlagSectorL + module.opts.x_flagPadding, ypos + module.opts.y_flagPadding, module.opts.flag_color[2])
-			j = j + 1
-			x_FlagSectorL = x_FlagSectorL - x_flagArea
+		if module.opts.Enable_Icons == true then
+			--Draw Team Flags
+			while j < game.score(hud_data.left_team) do
+				drawRect(x_FlagSectorL, ypos, x_FlagSectorL + x_flagArea, ypos + y_flagArea, module.opts.bg_color)
+				drawFlag(x_FlagSectorL + module.opts.x_flagPadding, ypos + module.opts.y_flagPadding, module.opts.flag_color[2])
+				j = j + 1
+				x_FlagSectorL = x_FlagSectorL - x_flagArea
+			end
 		end
-		
 		--Draw Team Flag Holder
 		if not flag.isHome(hud_data.right_team) then
 			local return_time = flag.returnTime(hud_data.right_team)
