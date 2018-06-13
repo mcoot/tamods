@@ -270,7 +270,7 @@ Known bugs:
 
 */
 
-static int g_testIdx = 0;
+static int g_cooldownIdx = 0;
 static std::set<UClass*> seenDevs = {};
 
 static void reconcileSwapStateMapping() {
@@ -309,6 +309,11 @@ static void reconcileSwapStateMapping() {
 
 void CustomWeaponsTick(ATrDevice* currentDevice)
 {
+	if (g_cooldownIdx % 100 != 0) {
+		return;
+	}
+	g_cooldownIdx = 0;
+
 	if (!Utils::tr_pc) return;
 
 	// Reconcile the config mapping with the swap state

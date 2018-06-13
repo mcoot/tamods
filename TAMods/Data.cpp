@@ -6,29 +6,33 @@ namespace Data
 	
 	Weapons to add:
 	Dueling Spin +
-	Shotgun MKD
-	BXT-1A
+	Holdout Shotgun (Shotgun MKD) +
+	Accurized Shotgun +
+	BXT-1A +
 	SAP20 +
 	ARC8
 	Rhino +
+	Arctic Rhino (Rhino MKD) +
 	Stealth spin +
 	SN7 +
-	SN7 MKD
-	Thumper D
-	Thumper DX
+	Arctic SN& (SN7 MKD) +
+	Gast Rifle (AR MKD) +
+	Thumper D +
+	Thumper DX +
+	Desert NJ4 +
 	Dust Devil (Arx MKD) +
 	TCN4 +
-	TCN4 MKD
+	TCN4 Rockwind (TCN4 MKD) +
 	TC24 +
-	Repair Tool MKD
+	Long Range Repair Tool (Repair Tool MKD) +
 	Fusion Mortar Deluxe (Mortar MKD) +
-	NovaColt DX
-	Spinfusor D +
-	Spinfusor D MKD
-	Chaingun MKD
+	NovaColt DX ???
+	Spinfusor MKD (Spinfusor D) +
+	Spinfusor MK-X (Spinfusor D MKD) +
+	Chain Cannon (Chaingun MKD) +
 	Titan Launcher / Saber MKD + 
 	Devastator / Heavy Spin MKD +
-	Auto Shotgun MKD
+	The Hammer (Auto Shotgun MKD) +
 
 	*/
 
@@ -48,6 +52,7 @@ namespace Data
 			{ R"rx(^(jackal)$)rx", CONST_WEAPON_ID_REMOTE_ARX_BUSTER },
 			// Speciality
 			{ R"rx(^(bxt|bxt1|bxt1rifle)$)rx", CONST_WEAPON_ID_RIFLE_SNIPER },
+			{ R"rx(^((bxt1a|bxt-1a|bxt1-a|bxt-1a)(rifle)?)$)rx", CONST_WEAPON_ID_RIFLE_SNIPER_MKD },
 			{ R"rx(^(phase|phaserifle)$)rx", CONST_WEAPON_ID_RIFLE_PHASE },
 			{ R"rx(^(sap(20)?(rifle)?)$)rx", CONST_WEAPON_ID_SAP20 },
 			// Bullet
@@ -56,9 +61,13 @@ namespace Data
 			{ R"rx(^(sparrow)$)rx", CONST_WEAPON_ID_PISTOL_SPARROW },
 			{ R"rx(^(throwingknives|knives)$)rx", CONST_WEAPON_ID_THROWINGKNIVES },
 			{ R"rx(^(rhino(smg)?)$)rx", CONST_WEAPON_ID_SMG_RHINO },
-			{ R"rx(^(sn7(pistol)?)$)rx", CONST_WEAPON_ID_PISTOL_SN7 },
+			{ R"rx(^(arcticrhino(smg)?)$)rx", CONST_WEAPON_ID_SMG_RHINO_MKD },
+			{ R"rx(^(sn7(silenced)?(pistol)?)$)rx", CONST_WEAPON_ID_PISTOL_SN7 },
+			{ R"rx(^(arcticsn7(silenced)?(pistol)?)$)rx", CONST_WEAPON_ID_PISTOL_SN7_MKD },
 			// Short Range
 			{ R"rx(^(shotgun)$)rx", CONST_WEAPON_ID_SHOTGUN },
+			{ R"rx(^(holdout(shotgun)?)$)rx", CONST_WEAPON_ID_SHOTGUN_MKD },
+			{ R"rx(^((accurized|accurised|sniper)(shotgun)?)$)rx", CONST_WEAPON_ID_ACCURIZEDSHOTGUN },
 			{ R"rx(^(shocklance)$)rx", CONST_WEAPON_ID_PISTOL_H1 },
 			// Belt
 			{ R"rx(^(nitrons?|impactnitrons?|impacts?)$)rx", CONST_WEAPON_ID_GRENADE_NITRON },
@@ -74,6 +83,8 @@ namespace Data
 			// Impact
 			{ R"rx(^(spinfusor|spin)$)rx", CONST_WEAPON_ID_SPINFUSOR },
 			{ R"rx(^(thumper)$)rx", CONST_WEAPON_ID_THUMPER },
+			{ R"rx(^(thumperd)$)rx", CONST_WEAPON_ID_THUMPER_D },
+			{ R"rx(^(thumperdx)$)rx", CONST_WEAPON_ID_THUMPERD_MKD },
 			{ R"rx(^(twinfusor)$)rx", CONST_WEAPON_ID_TWINFUSOR },
 			{ R"rx(^(blinks?|blinks?fusor)$)rx", CONST_WEAPON_ID_SPINFUSOR_100X },
 				// Timed
@@ -82,12 +93,16 @@ namespace Data
 			{ R"rx(^(grenadelauncher|nadelauncher|launcher|gl)$)rx", CONST_WEAPON_ID_LAUNCHER_GRENADE },
 				// Speciality
 			{ R"rx(^(improvedrepairtool|repairtool|repair)$)rx", CONST_WEAPON_ID_REPAIR_TOOL_SD },
+			{ R"rx(^(longrangerepairtool)$)rx", CONST_WEAPON_ID_REPAIR_TOOL_SD_MKD },
 			{ R"rx(^(elf(projector)?)$)rx", CONST_WEAPON_ID_ELFPROJECTOR },
 				// Bullet
 			{ R"rx(^(assaultrifle|rifle|ar)$)rx", CONST_WEAPON_ID_RIFLE_ASSAULT },
+			{ R"rx(^(gast(rifle)?)$)rx", CONST_WEAPON_ID_RIFLE_ASSAULT_MKD },
 			{ R"rx(^(nj4smg|nj4)$)rx", CONST_WEAPON_ID_SMG_NJ4 },
-			{ R"rx(^(nj5(-?b)?)$)rx", CONST_WEAPON_ID_NJ5SMG },
+			{ R"rx(^(desertnj4|desertnj4smg)$)rx", CONST_WEAPON_ID_SMG_NJ4_MKD },
+			{ R"rx(^(nj5(-?b)?(smg)?)$)rx", CONST_WEAPON_ID_NJ5SMG },
 			{ R"rx(^(tcn4(smg)?)$)rx", CONST_WEAPON_ID_SMG_TCN4 },
+			{ R"rx(^(tcn4rockwind(smg)?)$)rx", CONST_WEAPON_ID_SMG_TCN4_MKD },
 			{ R"rx(^(tc24)$)rx", CONST_WEAPON_ID_TC24 },
 			{ R"rx(^(plasmagun|plasma)$)rx", CONST_WEAPON_ID_PLASMA_GUN },
 			{ R"rx(^(nova|blaster|novablaster)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_COLT },
@@ -105,33 +120,36 @@ namespace Data
 		// Heavy
 		{
 			// Impact
-		{ R"rx(^(spinfusord)$)rx", CONST_WEAPON_ID_SPINFUSOR_D },
-		{ R"rx(^(heavy(spin)?(fusor)?|spin(fusor)?|fusor)$)rx", CONST_WEAPON_ID_SPINFUSOR_HEAVY },
-		{ R"rx(^(devastator(spinfusor)?)$)rx", CONST_WEAPON_ID_SPINFUSOR_HEAVY },
-		{ R"rx(^(heavyboltlauncher|boltlauncher|bolt)$)rx", CONST_WEAPON_ID_LAUNCHER_BOLT_HEAVY },
-		{ R"rx(^((heavy)?blinks?(fusor)?)$)rx", CONST_WEAPON_ID_SPINFUSOR_HEAVY_MKD },
-		{ R"rx(^(heavytwinfusor|twinfusor|twin)$)rx", CONST_WEAPON_ID_HEAVYTWINFUSOR },
-		// Timed
-		{ R"rx(^(mortardeluxe)$)rx", CONST_WEAPON_ID_LAUNCHER_MORTAR_MKD },
-		{ R"rx(^(fusionmortar|mortar)$)rx", CONST_WEAPON_ID_LAUNCHER_MORTAR },
-		{ R"rx(^(mirvlauncher|mirv)$)rx", CONST_WEAPON_ID_LAUNCHER_MIRV },
-		{ R"rx(^(saberlauncher|saber)$)rx", CONST_WEAPON_ID_LAUNCHER_SABER },
-		{ R"rx(^(titanlauncher|titan)$)rx", CONST_WEAPON_ID_LAUNCHER_SABER_MKD },
-		{ R"rx(^(gladiator)$)rx", CONST_WEAPON_ID_SPIKELAUNCHER },
-		// Bullet
-		{ R"rx(^(chaingun)$)rx", CONST_WEAPON_ID_CHAINGUN },
-		{ R"rx(^(x1|lmg|x1lmg)$)rx", CONST_WEAPON_ID_RIFLE_ASSAULT_X1 },
-		{ R"rx(^(plasmacannon|plasma)$)rx", CONST_WEAPON_ID_PLASMA_CANNON },
-		{ R"rx(^(novacolt|colt|nova)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_SLUG },
-		{ R"rx(^(mx|novablastermx|novamx|blaster(mx)?)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_COLT_MKD },
-		// Short Range
-		{ R"rx(^(automaticshotgun|shotgun)$)rx", CONST_WEAPON_ID_SHOTGUN_AUTO },
-		{ R"rx(^(efg)$)rx", CONST_WEAPON_ID_ELFFLAK },
-		// Belt
-		{ R"rx(^(fraggrenades?|frags?)$)rx", CONST_WEAPON_ID_GRENADE },
-		{ R"rx(^(fractals?|fractalgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_SPIKE },
-		{ R"rx(^(mines?)$)rx", CONST_WEAPON_ID_MINE },
-		{ R"rx(^(spinfusordisks?|spins?|disks?|spindisks?)$)rx", CONST_WEAPON_ID_SPINFUSOR_TOSS },
+			{ R"rx(^(spinfusormkd)$)rx", CONST_WEAPON_ID_SPINFUSOR_D },
+			{ R"rx(^(spinfusormk-?x)$)rx", CONST_WEAPON_ID_SPINFUSOR_D_MKD },
+			{ R"rx(^(heavy(spin)?(fusor)?|spin(fusor)?|fusor)$)rx", CONST_WEAPON_ID_SPINFUSOR_HEAVY },
+			{ R"rx(^(devastator(spinfusor)?)$)rx", CONST_WEAPON_ID_SPINFUSOR_HEAVY },
+			{ R"rx(^(heavyboltlauncher|boltlauncher|bolt)$)rx", CONST_WEAPON_ID_LAUNCHER_BOLT_HEAVY },
+			{ R"rx(^((heavy)?blinks?(fusor)?)$)rx", CONST_WEAPON_ID_SPINFUSOR_HEAVY_MKD },
+			{ R"rx(^(heavytwinfusor|twinfusor|twin)$)rx", CONST_WEAPON_ID_HEAVYTWINFUSOR },
+			// Timed
+			{ R"rx(^((fusion)?mortardeluxe)$)rx", CONST_WEAPON_ID_LAUNCHER_MORTAR_MKD },
+			{ R"rx(^(fusionmortar|mortar)$)rx", CONST_WEAPON_ID_LAUNCHER_MORTAR },
+			{ R"rx(^(mirvlauncher|mirv)$)rx", CONST_WEAPON_ID_LAUNCHER_MIRV },
+			{ R"rx(^(saberlauncher|saber)$)rx", CONST_WEAPON_ID_LAUNCHER_SABER },
+			{ R"rx(^(titanlauncher|titan)$)rx", CONST_WEAPON_ID_LAUNCHER_SABER_MKD },
+			{ R"rx(^(gladiator)$)rx", CONST_WEAPON_ID_SPIKELAUNCHER },
+			// Bullet
+			{ R"rx(^(chaingun)$)rx", CONST_WEAPON_ID_CHAINGUN },
+			{ R"rx(^(chaincannon)$)rx", CONST_WEAPON_ID_CHAINGUN_MKD },
+			{ R"rx(^(x1|lmg|x1lmg)$)rx", CONST_WEAPON_ID_RIFLE_ASSAULT_X1 },
+			{ R"rx(^(plasmacannon|plasma)$)rx", CONST_WEAPON_ID_PLASMA_CANNON },
+			{ R"rx(^(novacolt|colt|nova)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_SLUG },
+			{ R"rx(^(mx|novablastermx|novamx|blaster(mx)?)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_COLT_MKD },
+			// Short Range
+			{ R"rx(^(automaticshotgun|autoshotgun|shotgun)$)rx", CONST_WEAPON_ID_SHOTGUN_AUTO },
+			{ R"rx(^((the)?hammer)$)rx", CONST_WEAPON_ID_SHOTGUN_AUTO_MKD },
+			{ R"rx(^(efg)$)rx", CONST_WEAPON_ID_ELFFLAK },
+			// Belt
+			{ R"rx(^(fraggrenades?|frags?)$)rx", CONST_WEAPON_ID_GRENADE },
+			{ R"rx(^(fractals?|fractalgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_SPIKE },
+			{ R"rx(^(mines?)$)rx", CONST_WEAPON_ID_MINE },
+			{ R"rx(^(spinfusordisks?|spinfusordiscs?|spins?|disks?|discs?|spindisks?|spindiscs?)$)rx", CONST_WEAPON_ID_SPINFUSOR_TOSS },
 		},
 	};
 
