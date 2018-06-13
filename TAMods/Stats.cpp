@@ -92,12 +92,14 @@ std::vector<std::string> Stats::getStatsString()
 	else kd = kills / deaths;
 	std::string stats[statsAmount];
 
-	data.push_back("Shots hit: " + std::to_string(bulletsHit));
-	data.push_back("Shots fired: " + std::to_string(bulletsFired));
-	data.push_back("Accuracy: " + std::to_string(accuracy));
-	data.push_back("Kills: " + std::to_string(kills));
-	data.push_back("Deaths: " + std::to_string(deaths));
-	data.push_back("KD: " + std::to_string(kd));
+	data.push_back("Shots hit: " + std::to_string((int)bulletsHit));
+	data.push_back("Shots fired: " + std::to_string((int)bulletsFired));
+	float accuracyOut = (int)(accuracy * 100 + .5);
+	data.push_back("Accuracy: " + std::to_string((float)accuracyOut / 100));
+	data.push_back("Kills: " + std::to_string((int)kills));
+	data.push_back("Deaths: " + std::to_string((int)deaths));
+	float kdOut = (int)(kd * 100 + .5);
+	data.push_back("KD: " + std::to_string((float)kdOut / 100));
 	data.push_back("Assists: " + std::to_string(assists));
 	data.push_back("Midair Kills: " + std::to_string(midairKills));
 	data.push_back("Returns: " + std::to_string(flagReturns));
@@ -116,10 +118,11 @@ void Stats::printStats(bool savestats, bool saveteamstats, bool printstats, bool
 		int minPing = Utils::tr_pc->PlayerReplicationInfo->StatPingMin;
 		jitter = maxPing - minPing;
 
+		Utils::printConsole("\n============Player Stats============\n", Utils::rgb(0, 255, 255));
 		std::vector<std::string> stats = getStatsString();
 		for (int i = 0; i < statsAmount; i++) {
 			std::string tempString = stats[i];
-			Utils::printConsole(tempString, Utils::rgb(0, 255, 255));
+			Utils::printConsole(tempString, Utils::rgb(255, 255, 255));
 		}
 
 		Logger::log("Save stats?");
@@ -135,10 +138,11 @@ void Stats::printStats(bool savestats, bool saveteamstats, bool printstats, bool
 			}
 		}
 
-		Utils::printConsole("Max Ping: " + std::to_string(maxPing), Utils::rgb(0, 255, 255));
-		Utils::printConsole("Min Ping: " + std::to_string(minPing), Utils::rgb(0, 255, 255));
+		Utils::printConsole("Max Ping: " + std::to_string(maxPing), Utils::rgb(255, 255, 255));
+		Utils::printConsole("Min Ping: " + std::to_string(minPing), Utils::rgb(255, 255, 255));
 
-		Utils::printConsole("Jitter: " + std::to_string(jitter), Utils::rgb(0, 255, 255));
+		Utils::printConsole("Jitter: " + std::to_string(jitter), Utils::rgb(255, 255, 255));
+		Utils::printConsole("\n=================================\n\n", Utils::rgb(0, 255, 255));
 	}
 
 	if (printteamstats) {
@@ -174,6 +178,7 @@ void Stats::printStats(bool savestats, bool saveteamstats, bool printstats, bool
 
 			}
 
+			Utils::printConsole("\n============Game Stats============\n", Utils::rgb(0, 255, 255));
 			std::string teamStatsString[2];
 			//BE Score,Player1,Player2,Player3,Player4,Player5,Player6,Player7
 			//DS Score,Player1,Player2,Player3,Player4,Player5,Player6,Player7
@@ -182,6 +187,7 @@ void Stats::printStats(bool savestats, bool saveteamstats, bool printstats, bool
 
 			for (int i = 0; i < 2; i++) Utils::printConsole(teamStatsString[i], Utils::rgb(255, 255, 255));
 
+			Utils::printConsole("\n==================================\n", Utils::rgb(0, 255, 255));
 			if (saveteamstats) {
 				for (int i = 0; i < 2; i++) {
 					char * tempChar = new char[2 + 1];
