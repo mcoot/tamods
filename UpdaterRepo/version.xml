@@ -214,7 +214,7 @@
 		<file version="0.65">!CONFIG/presets/tomatoHud/hud/widgets/speed_bar.lua</file>
 		<file version="0.65">!CONFIG/presets/tomatoHud/hud/widgets/vehicle_health_energy.lua</file>
 		<file version="0.65">!CONFIG/presets/tomatoHud/hud/widgets/weapon_list.lua</file>
-		<file version="0.652">!CONFIG/presets/ubermenu/preset.lua</file>
+		<file version="0.7">!CONFIG/presets/ubermenu/preset.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/config/config.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/config/presets.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Basic_Bar_Ammo.lua</file>
@@ -277,6 +277,7 @@
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/players.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/presets.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/roammap.lua</file>
+		<file version="0.7">!CONFIG/presets/ubermenu/menus/modelprojectilereplacement.lua</file>
 		<file version="0.651">!CONFIG/presets/ubermenu/menus/routes.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/sc.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/menus/snake.lua</file>
