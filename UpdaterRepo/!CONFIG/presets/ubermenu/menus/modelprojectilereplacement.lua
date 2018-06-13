@@ -1,5 +1,6 @@
 local lightWeapons = {
 		{["class"]="Light", ["name"]="Light Spinfusor"},
+		{["class"]="Light", ["name"]="Dueling Spinfusor"},
 		{["class"]="Light", ["name"]="Stealth Spinfusor"},
 		{["class"]="Light", ["name"]="Bolt Launcher"},
 		{["class"]="Light", ["name"]="Light Twinfusor"},
