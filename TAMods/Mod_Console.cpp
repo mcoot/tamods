@@ -78,7 +78,8 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
 		Utils::printConsole("                                                                    ensis mcoot schreq",  { 150, 150, 150, 255 });
 		Utils::printConsole("                                                                            dodge qualm", { 120, 120, 120, 255 });
 		Utils::printConsole(" Type /help for a list of console commands",                                              {   0, 250, 250, 255 });
-
+		Utils::printConsole(" Active Australian Discord Link: https://discord.gg/WBDmmde", { 0, 250, 250, 255 });
+	
 		welcomeMsgShown = true;
 	}
 
