@@ -71,4 +71,5 @@ namespace ModelTextures
 	WeaponOperationResult ReplaceDeviceMaterials(ATrDevice* device, TArray<UMaterialInterface*> materials);
 	WeaponOperationResult ReplaceDeviceAnimSets(ATrDevice* device, TArray<UAnimSet*> animSets);
 	WeaponOperationResult ReplaceDeviceHandsMesh(ATrDevice* device, ATrDevice* replacement);
+	WeaponOperationResult SetupReplacementPositioning(ATrDevice* current, ATrDevice* replacement);
 }

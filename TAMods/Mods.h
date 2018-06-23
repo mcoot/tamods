@@ -48,6 +48,48 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 void CustomWeaponsTick(ATrDevice* currentDevice);
 void CustomWeaponsOnPlayerDeath(ATrPlayerController* pc);
 bool TrStationCollision_Touch(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+struct WeaponPositioningDetails {
+	unsigned long IsHidden;
+	unsigned char CurrentHand;
+	unsigned long UseMeshZoomOffset;
+	unsigned char ZoomedState;
+	UClass* DeviceClass;
+	bool bSmallWeapons;
+	bool bTinyWeapons;
+	UAnimSet* ArmsAnimSet;
+	
+	FVector HiddenWeaponsOffset;
+	FVector PlayerViewOffset;
+	FVector SmallWeaponsOffset;
+	FVector TinyWeaponsOffset;
+	FVector PositionPivotOffset;
+	FVector ZoomMeshOffset;
+	FVector CustomOffset;
+	FRotator WidescreenRotationOffset;
+	float WidescreenOffsetScaling;
+
+	WeaponPositioningDetails(ATrDevice* dev, FVector CustomOffset = {0.0f, 0.0f, 0.0f})
+	{
+		this->IsHidden = dev->bForceHidden;
+		this->CurrentHand = dev->GetHand();
+		this->UseMeshZoomOffset = dev->m_bUseMeshZoomOffset;
+		this->ZoomedState = dev->GetZoomedState();
+		this->DeviceClass = dev->StaticClass();
+		this->bSmallWeapons = dev->bSmallWeapons;
+		this->bTinyWeapons = dev->m_bTinyWeaponsEnabled;
+		this->ArmsAnimSet = dev->ArmsAnimSet;
+
+		this->HiddenWeaponsOffset = dev->HiddenWeaponsOffset;
+		this->PlayerViewOffset = dev->PlayerViewOffset;
+		this->SmallWeaponsOffset = dev->SmallWeaponsOffset;
+		this->TinyWeaponsOffset = dev->m_TinyWeaponsOffset;
+		this->PositionPivotOffset = dev->m_vPositionPivotOffset;
+		this->ZoomMeshOffset = dev->m_vZoomMeshOffset;
+		this->CustomOffset = CustomOffset;
+		this->WidescreenRotationOffset = dev->WidescreenRotationOffset;
+		this->WidescreenOffsetScaling = dev->WideScreenOffsetScaling;
+	}
+};
 
 // Show/hide/scale reticule, show/hide weapons
 bool TrVehicle_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

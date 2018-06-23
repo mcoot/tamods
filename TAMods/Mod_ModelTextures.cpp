@@ -3,6 +3,25 @@
 #include "Mods.h"
 #include "Mods_ModelTextures.h"
 
+static void PrintVectorDetails(char* message, FVector vec) {
+	Utils::console("%s = (%f, %f, %f)", message, vec.X, vec.Y, vec.Z);
+	Logger::log("%s = (%f, %f, %f)", message, vec.X, vec.Y, vec.Z);
+}
+
+static void PrintRotatorDetails(char* message, FRotator rot) {
+	Utils::console("%s = (Y %f, P %f, Ro %f)", message, rot.Yaw, rot.Pitch, rot.Roll);
+	Logger::log("%s = (Y %f, P %f, R %f)", message, rot.Yaw, rot.Pitch, rot.Roll);
+}
+
+static void PrintAnimSequenceNames(char* message, UAnimSet* animSet) {
+	if (!animSet) return;
+	for (int i = 0; i < animSet->Sequences.Count; ++i) {
+		UAnimSequence* seq = *animSet->Sequences.Get(i);
+		Utils::console("%s - %d: %s (idx %d)", message, i, seq->SequenceName.GetName(), seq->SequenceName.Index);
+		Logger::log("%s - %d: %s (idx %d)", message, i, seq->SequenceName.GetName(), seq->SequenceName.Index);
+	}
+}
+
 namespace ModelTextures
 {
 	WeaponOperationResult ReplaceDeviceMaterials(ATrDevice* device, TArray<UMaterialInterface*> materials) {
@@ -21,10 +40,30 @@ namespace ModelTextures
 			return WeaponOperationResult::WEAPONOP_FAILED;
 		}
 		USkeletalMeshComponent* mesh = (USkeletalMeshComponent*)(device->Mesh);
+
+		//if (animSets.Count > 0 && mesh->AnimSets.Count > 0) {
+		//	PrintAnimSequenceNames("[cur] AnimSet", *mesh->AnimSets.Get(0));
+		//	PrintAnimSequenceNames("[rep] AnimSet", *animSets.Get(0));
+		//}
+
 		for (int i = 0; i < min(animSets.Count, mesh->AnimSets.Count); ++i) {
-			mesh->AnimSets.Set(i, *animSets.Get(i));
+			UAnimSet* oldAnimSet = *mesh->AnimSets.Get(i);
+			UAnimSet* newAnimSet = *animSets.Get(i);
+			mesh->AnimSets.Set(i, newAnimSet);
+
+			// // Swap anim seqs name-for-name
+			//for (int j = 0; j < oldAnimSet->Sequences.Count; ++j) {
+			//	for (int k = 0; k < newAnimSet->Sequences.Count; ++k) {
+			//		FName oldSeqName = (*oldAnimSet->Sequences.Get(j))->SequenceName;
+			//		FName newSeqName = (*newAnimSet->Sequences.Get(k))->SequenceName;
+
+			//		if (oldSeqName == newSeqName) {
+			//			oldAnimSet->Sequences.Set(j, *newAnimSet->Sequences.Get(k));
+			//		}
+			//	}
+			//}
 		}
-		
+
 
 		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
 	}
@@ -33,23 +72,48 @@ namespace ModelTextures
 		if (!device || !device->m_FirstPersonHandsMesh || !device->m_FirstPersonHandsMesh->IsA(USkeletalMeshComponent::StaticClass())) {
 			return WeaponOperationResult::WEAPONOP_FAILED;
 		}
+		
+		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
+	}
 
-		replacement->CreateFirstPersonHandsMesh();
+	WeaponOperationResult SetupReplacementPositioning(ATrDevice* current, ATrDevice* replacement) {
+		//return WeaponOperationResult::WEAPONOP_SUCCEEDED;
 
-		if (!replacement || !replacement->m_FirstPersonHandsMesh /*|| !replacement->m_FirstPersonHandsMesh->IsA(USkeletalMeshComponent::StaticClass())*/) {
-			return WeaponOperationResult::WEAPONOP_FAILED;
+		if (!Utils::tr_pc) return WeaponOperationResult::WEAPONOP_SUCCEEDED;;
+		ATrPawn* aPawn = Utils::getPlayerPawn();
+		if (!aPawn || !aPawn->IsA(ATrPlayerPawn::StaticClass())) return WeaponOperationResult::WEAPONOP_SUCCEEDED;;
+		ATrPlayerPawn* pawn = (ATrPlayerPawn*)aPawn;
+		if (!pawn || !pawn->IsFirstPerson()) return WeaponOperationResult::WEAPONOP_SUCCEEDED;;
+
+		//Utils::console("Executing replacement positioning...");
+		
+		ATrDevice* defaultRep = (ATrDevice*)(replacement->StaticClass()->Default);
+		if (!defaultRep) {
+			Utils::console("Failed to get default replacement obj...");
+			WeaponOperationResult::WEAPONOP_FAILED;
 		}
-		
-		USkeletalMeshComponent* devMesh = (USkeletalMeshComponent*)(device->m_FirstPersonHandsMesh);
-		USkeletalMeshComponent* repMesh = (USkeletalMeshComponent*)(replacement->m_FirstPersonHandsMesh);
 
-		Utils::console("%d | %d", devMesh->Materials.Count, repMesh->Materials.Count);
+		USkeletalMeshComponent* defaultRepMesh = (USkeletalMeshComponent*)defaultRep->Mesh;
+		if (!defaultRepMesh) {
+			Utils::console("Failed to get default replacement mesh...");
+			WeaponOperationResult::WEAPONOP_FAILED;
+		}
 
-		//devMesh->SetSkeletalMesh(repMesh->SkeletalMesh, 1);
-		//device->AttachHandsMesh();
-		//device->UpdateHandsMesh(NULL);
-		
-		//device->CreateOverlayMesh();
+		USkeletalMeshComponent* repMesh = (USkeletalMeshComponent*)replacement->Mesh;
+		if (!repMesh) {
+			Utils::console("Failed to get replacement mesh...");
+			WeaponOperationResult::WEAPONOP_FAILED;
+		}
+		replacement->SetupArmsAnim();
+		current->HiddenWeaponsOffset = replacement->HiddenWeaponsOffset;
+		current->PlayerViewOffset = replacement->PlayerViewOffset;
+		current->SmallWeaponsOffset = replacement->SmallWeaponsOffset;
+		current->m_TinyWeaponsOffset = replacement->m_TinyWeaponsOffset;
+		current->m_vPositionPivotOffset = replacement->m_vPositionPivotOffset;
+		current->m_vZoomMeshOffset = replacement->m_vZoomMeshOffset;
+		current->WidescreenRotationOffset = replacement->WidescreenRotationOffset;
+		current->WideScreenOffsetScaling = replacement->WideScreenOffsetScaling;
+
 		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
 	}
 
@@ -114,9 +178,6 @@ namespace ModelTextures
 		// Setup the overlay mesh (ensures overlay effects e.g. regen, rage, shield pack look right)
 		existing->CreateOverlayMesh();
 
-		// Apply the hands mesh
-		//ReplaceDeviceHandsMesh(existing, swap->replacement);
-
 		if (!mesh->SkeletalMesh) {
 			return WeaponOperationResult::WEAPONOP_FAILED;
 		}
@@ -128,6 +189,11 @@ namespace ModelTextures
 
 		// Apply the new mesh's anim set
 		if (swap->swapAnimations && ReplaceDeviceAnimSets(existing, mesh->AnimSets) != WeaponOperationResult::WEAPONOP_SUCCEEDED) {
+			return WeaponOperationResult::WEAPONOP_FAILED;
+		}
+
+		// Set up the new mesh's positioning
+		if (SetupReplacementPositioning(existing, swap->replacement) != WeaponOperationResult::WEAPONOP_SUCCEEDED) {
 			return WeaponOperationResult::WEAPONOP_FAILED;
 		}
 
@@ -223,7 +289,6 @@ namespace ModelTextures
 		WeaponOperationResult r;
 		for (int eqp = 0; eqp < EQP_MAX; ++eqp) {
 			if (this->ShouldRefreshEquipPoint((TR_EQUIP_POINT)eqp, currentDevice, doGlobalRefresh)) {
-				Logger::log("[MT] Performing refresh on equip point %d", eqp);
 				r = this->ApplySwap((TR_EQUIP_POINT)eqp);
 				if (r != WeaponOperationResult::WEAPONOP_SUCCEEDED) {
 					return r;
@@ -236,7 +301,6 @@ namespace ModelTextures
 	void ModelSwapState::SwapStateTick(ATrDevice* currentDevice) {
 		WeaponOperationResult r = this->RefreshSwaps(currentDevice);
 		if (r != WeaponOperationResult::WEAPONOP_SUCCEEDED) {
-			Logger::log("[MT] Swap State Refresh failed with code %d", r);
 		}
 	}
 
@@ -273,6 +337,8 @@ Known bugs:
 static int g_cooldownIdx = 0;
 static std::set<UClass*> seenDevs = {};
 
+static int g_exploratoryTesting = false;
+
 static void reconcileSwapStateMapping() {
 	// Reconcile all equip points
 	for (int i = 0; i < EQP_MAX; ++i) {
@@ -307,8 +373,82 @@ static void reconcileSwapStateMapping() {
 	}
 }
 
+static void ExploratoryTesting(ATrDevice* currentDevice) {
+	if (!Utils::tr_pc) {
+		return;
+	}
+	ATrDevice* dev = (ATrDevice*)Utils::tr_pc->Spawn(ATrDevice_MIRVLauncher::StaticClass(), Utils::tr_pc, FName(0), Utils::tr_pc->Location, Utils::tr_pc->Rotation, NULL, 0);
+	dev->LoadMeshData();
+
+	UUDKSkeletalMeshComponent* curHSkel = currentDevice->m_FirstPersonHandsMesh;
+	if (curHSkel) {
+		//Utils::console("Animations: %d", curHSkel->Animations);
+		//if (curHSkel->Animations) {
+		//	Utils::console("Animset name: %s", (*curHSkel->AnimSets.Get(0))->GetStringName());
+		//}
+	}
+
+	ATrPlayerPawn* pawn = (ATrPlayerPawn*)Utils::getPlayerPawn();
+	UUDKSkeletalMeshComponent* pHand1 = pawn->ArmsMesh[0];
+	UUDKSkeletalMeshComponent* pHand2 = pawn->ArmsMesh[1];
+	
+	pHand1->SetHidden(true);
+	pHand2->SetHidden(true);
+
+	//if (!pHand1 || !pHand2) return;
+
+	//Utils::console("pHand1->SkeletalMesh: %d", pHand1->SkeletalMesh);
+	
+
+	//UUDKSkeletalMeshComponent* skel = dev->m_FirstPersonHandsMesh;
+	//Utils::console("Skel: %d", skel);
+	//if (!skel) return;
+
+	//Utils::console("Skel->SkeletalMesh        %d", skel->SkeletalMesh);
+	//Utils::console("Skel->MeshObject.Dummy    %d", skel->MeshObject.Dummy);
+	//Utils::console("Skel->AnimSets.Count      %d", skel->AnimSets.Count);
+	//Utils::console("Skel->Animations          %d", skel->Animations);
+	//Utils::console("Skel->Materials           %d", skel->Materials);
+	//Utils::console("Skel->ParentAnimComponent %d", skel->ParentAnimComponent);
+}
+
+#ifndef RELEASE
+void DebugCustomWeaponsBindFunc() {
+	Utils::console("[Bind triggered]");
+
+	ATrDevice* dev = Utils::getCurrentDeviceHelper();
+	if (!dev) return;
+
+	PrintVectorDetails("[dev] Location", dev->Location);
+	PrintVectorDetails("[dev] Relative location", dev->RelativeLocation);
+	PrintVectorDetails("[dev] Player view offset", dev->PlayerViewOffset);
+	PrintVectorDetails("[dev] Small weapons offset", dev->SmallWeaponsOffset);
+	PrintVectorDetails("[dev] Tiny weapons offset", dev->m_TinyWeaponsOffset);
+	PrintVectorDetails("[dev] m_vPositionPivotOffset", dev->m_vPositionPivotOffset);
+	Logger::log("[dev] Widescreen offset scaling = %f", dev->WideScreenOffsetScaling);
+	PrintRotatorDetails("[dev] Widescreen rotation offset = %f", dev->WidescreenRotationOffset);
+
+	
+
+	//ATrPawn* aPawn = Utils::getPlayerPawn();
+	//if (!aPawn || !aPawn->IsA(ATrPlayerPawn::StaticClass())) return;
+	//ATrPlayerPawn* pawn = (ATrPlayerPawn*)aPawn;
+
+	//UUDKSkeletalMeshComponent* pHand1 = pawn->ArmsMesh[0];
+	//UUDKSkeletalMeshComponent* pHand2 = pawn->ArmsMesh[1];
+
+	//if (!pHand1 || !pHand2) return;
+
+}
+#endif
+
 void CustomWeaponsTick(ATrDevice* currentDevice)
 {
+	if (g_exploratoryTesting) {
+		ExploratoryTesting(currentDevice);
+		return;
+	}
+
 	if (g_cooldownIdx % 100 != 0) {
 		return;
 	}

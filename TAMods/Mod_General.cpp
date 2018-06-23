@@ -186,8 +186,6 @@ bool TrEntryPlayerController_Destroyed(int ID, UObject *dwCallingObject, UFuncti
 	return false;
 }
 
-bool g_TESTFLAG = false;
-
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrDevice *that = (ATrDevice *)dwCallingObject;
@@ -195,98 +193,20 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 	// Poll for updating custom weapon models
 	CustomWeaponsTick(that);
 
-	// Don't modify weapon position if there's no custom weapon offset
-	 if (!g_config.customWeaponOffset && g_config.showWeapon)
-		return false;
+	// Set up the offsets expected for this weapon
+	WeaponPositioningDetails wepPos(that);
 
+	if (g_config.showWeapon && !g_config.customWeaponOffset) {
+		return false;
+	}
+
+	// If there's a custom weapon offset, add it in
+	if (g_config.customWeaponOffset)
+		wepPos.CustomOffset = g_config.weaponOffset;
 	
 	ATrDevice_eventSetPosition_Parms *params = (ATrDevice_eventSetPosition_Parms *)pParams;
 
-	if (g_TESTFLAG && Utils::tr_pc) {
-		Utils::console("[EXECUTING]");
-
-		ATrInventoryManager* invManager = (ATrInventoryManager*)(that->InvManager);
-
-		static ATrDevice_LightSpinfusor_MKD* phase;
-
-		if (!phase) {
-			phase = (ATrDevice_LightSpinfusor_MKD*)Utils::tr_pc->Spawn(ATrDevice_LightSpinfusor_MKD::StaticClass(), Utils::tr_pc, FName(0), Utils::tr_pc->Location, Utils::tr_pc->Rotation, NULL, 0);
-		}
-
-		if (!phase) {
-			Utils::console("Failed to spawn phase.");
-		}
-		Utils::console("Successfully spawned phase!");
-
-		static USkeletalMeshComponent* thatMesh;
-		static USkeletalMeshComponent* phaseMesh;
-
-		UTrDeviceContentData* phaseData = phase->LoadMeshData();
-		
-		if (!phaseMesh) {
-			phaseMesh = (USkeletalMeshComponent*)(phase->Mesh);
-		}
-		if (!thatMesh) {
-			thatMesh = (USkeletalMeshComponent*)(that->Mesh);
-		}
-		
-		if (!phaseMesh) {
-			Utils::console("Failed to retrive phase mesh.");
-		}
-		else {
-			Utils::console("Successfully retrieved phase mesh!");
-		}
-		
-
-		if (!thatMesh) {
-			Utils::console("Failed to retrieve current mesh.");
-		}
-		else {
-			Utils::console("Successfully retrieved current mesh!");
-		}
-
-		if (phaseMesh && thatMesh) {
-			if (phaseMesh->SkeletalMesh) {
-				thatMesh->SetSkeletalMesh(phaseMesh->SkeletalMesh, 1);
-				Utils::console("SET A SKELINGTON");
-			}
-			else {
-				Utils::console("Failed to access phase skeletal mesh");
-			}
-		}
-		
-		
-		//that->Mesh = phaseMesh;
-		//Utils::console("Set mesh to phase");
-		
-		//if (!thatMesh) {
-		//	Utils::console("Failed: no skeletal mesh");
-		//}
-		//else {
-		//	Utils::console("About to set skelington");
-		//	thatMesh->SetSkeletalMesh(thatMesh->SkeletalMesh, 1);
-		//	thatMesh->
-		//	Utils::console("Set skelington");
-		//}
-
-		
-
-		//Utils::console("Current materials: %d | phase materials: %d", that->Mesh->Materials.Count, phaseMesh->Materials.Count);
-
-		//for (int i = 0; i < phaseData->m_SkeletalMesh1p->Materials.Count; i++) {
-		//	that->Mesh->SetMaterial(i, *(phaseData->m_SkeletalMesh1p->Materials.Get(i)));
-		//}
-
-		//Utils::console("Set material!");
-		//phaseMesh->SetMat
-
-		g_TESTFLAG = false;
-	}
-
-	
-
 	FVector DrawOffset, ViewOffset, FinalSmallWeaponsOffset, FinalLocation, X, Y, Z;
-	unsigned char CurrentHand;
 	FRotator NewRotation, FinalRotation, HeadOffsRot;
 	ATrPlayerController *TrPC = (ATrPlayerController *)that->GetALocalPlayerController();
 	ATrHUD *TrH;
@@ -317,14 +237,13 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 	}
 
 	// Hide the weapon if hidden
-	CurrentHand = that->GetHand();
-	if (!g_config.showWeapon || that->bForceHidden || CurrentHand == HAND_Hidden)
+	if (!g_config.showWeapon || wepPos.IsHidden || wepPos.CurrentHand == HAND_Hidden)
 	{
 		that->Mesh->SetHidden(true);
 		params->Holder->ArmsMesh[0]->SetHidden(true);
 		params->Holder->ArmsMesh[1]->SetHidden(true);
 		NewRotation = params->Holder->eventGetViewRotation();
-		that->SetLocation(Geom::add(((ATrPawn *)that->Instigator)->GetPawnViewLocation(), that->TransformVectorByRotation(NewRotation, that->HiddenWeaponsOffset, false)));
+		that->SetLocation(Geom::add(((ATrPawn *)that->Instigator)->GetPawnViewLocation(), that->TransformVectorByRotation(NewRotation, wepPos.HiddenWeaponsOffset, false)));
 		that->SetRotation(NewRotation);
 		that->SetBase(that->Instigator, FVector(0, 0, 0), NULL, NULL);
 		return true;
@@ -347,19 +266,19 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 	}
 
 	// Adjust for the current hand
-	ViewOffset = Geom::add(that->PlayerViewOffset, g_config.weaponOffset);
-	FinalSmallWeaponsOffset = that->SmallWeaponsOffset;
+	ViewOffset = Geom::add(wepPos.PlayerViewOffset, wepPos.CustomOffset);
+	FinalSmallWeaponsOffset = wepPos.SmallWeaponsOffset;
 
-	if (that->m_bTinyWeaponsEnabled)
-		ViewOffset = Geom::add(ViewOffset, that->m_TinyWeaponsOffset);
+	if (wepPos.bTinyWeapons)
+		ViewOffset = Geom::add(ViewOffset, wepPos.TinyWeaponsOffset);
 
-	if (CurrentHand == HAND_Left)
+	if (wepPos.CurrentHand == HAND_Left)
 	{
-		FVector scale = ((ATrDevice *)that->StaticClass()->Default)->Mesh->Scale3D;
+		FVector scale = ((ATrDevice *)wepPos.DeviceClass->Default)->Mesh->Scale3D;
 		scale.Y *= -1.0f;
 		that->Mesh->SetScale3D(scale);
-		that->Mesh->SetRotation(that->Subtract_RotatorRotator({ 0, 0, 0 }, ((ATrDevice *)that->StaticClass()->Default)->Mesh->Rotation));
-		if (that->ArmsAnimSet)
+		that->Mesh->SetRotation(that->Subtract_RotatorRotator({ 0, 0, 0 }, ((ATrDevice *)wepPos.DeviceClass->Default)->Mesh->Rotation));
+		if (wepPos.ArmsAnimSet)
 		{
 			params->Holder->ArmsMesh[0]->SetScale3D(((AUDKPawn *)params->Holder->StaticClass()->Default)->ArmsMesh[0]->Scale3D);
 			params->Holder->ArmsMesh[0]->Scale3D.Y *= -1;
@@ -369,17 +288,17 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 		ViewOffset.Y *= -1.0f;
 		FinalSmallWeaponsOffset.Y *= -1.0f;
 	}
-	else if (CurrentHand == HAND_Centered)
+	else if (wepPos.CurrentHand == HAND_Centered)
 	{
 		ViewOffset.Y = 0.0f;
 		FinalSmallWeaponsOffset.Y = 0.0f;
 	}
-	else if (CurrentHand == HAND_Right)
+	else if (wepPos.CurrentHand == HAND_Right)
 	{
-		that->Mesh->SetScale3D(((ATrDevice *)that->StaticClass()->Default)->Mesh->Scale3D);
-		that->Mesh->SetRotation(((ATrDevice *)that->StaticClass()->Default)->Mesh->Rotation);
+		that->Mesh->SetScale3D(((ATrDevice *)wepPos.DeviceClass->Default)->Mesh->Scale3D);
+		that->Mesh->SetRotation(((ATrDevice *)wepPos.DeviceClass->Default)->Mesh->Rotation);
 
-		if (that->ArmsAnimSet)
+		if (wepPos.ArmsAnimSet)
 		{
 			params->Holder->ArmsMesh[0]->SetScale3D(((AUDKPawn *)params->Holder->StaticClass()->Default)->ArmsMesh[0]->Scale3D);
 			params->Holder->ArmsMesh[1]->SetScale3D(((AUDKPawn *)params->Holder->StaticClass()->Default)->ArmsMesh[1]->Scale3D);
@@ -388,11 +307,11 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 	if (bIsWideScreen)
 	{
-		ViewOffset = Geom::add(ViewOffset, Geom::scale(FinalSmallWeaponsOffset, that->WideScreenOffsetScaling));
-		if (that->bSmallWeapons)
+		ViewOffset = Geom::add(ViewOffset, Geom::scale(FinalSmallWeaponsOffset, wepPos.WidescreenOffsetScaling));
+		if (wepPos.bSmallWeapons)
 			ViewOffset = Geom::add(ViewOffset, Geom::scale(FinalSmallWeaponsOffset, 0.7f));
 	}
-	else if (that->bSmallWeapons)
+	else if (wepPos.bSmallWeapons)
 		ViewOffset = Geom::add(ViewOffset, FinalSmallWeaponsOffset);
 
 	// Calculate the draw offset
@@ -423,14 +342,14 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 
 		// Forward offset (position the 'head' of the pawn forward)
 		HeadOffset.X = TrP->m_fPawnViewForwardAmount;
-		DrawOffset = Geom::add(DrawOffset, that->TransformVectorByRotation(HeadOffsRot, Geom::add(HeadOffset, that->m_vPositionPivotOffset), 0));
+		DrawOffset = Geom::add(DrawOffset, that->TransformVectorByRotation(HeadOffsRot, Geom::add(HeadOffset, wepPos.PositionPivotOffset), 0));
 
 		// Zoom.
-		if (that->m_bUseMeshZoomOffset && that->GetZoomedState() != 0) // 0 == ZST_NotZoomed
+		if (wepPos.UseMeshZoomOffset && wepPos.ZoomedState != 0) // 0 == ZST_NotZoomed
 			if (TrPC)
 			{
 				//`log(TrPlayerController(PC).GetFOVAngle()@"    "@TrPlayerController(PC).DesiredFOV);
-				ViewOffset = Geom::add(ViewOffset, Geom::scale(that->m_vZoomMeshOffset, (1 - ((TrPC->FOVAngle - TrPC->DesiredFOV) / (TrPC->DefaultFOV - TrPC->DesiredFOV)))));
+				ViewOffset = Geom::add(ViewOffset, Geom::scale(wepPos.ZoomMeshOffset, (1 - ((TrPC->FOVAngle - TrPC->DesiredFOV) / (TrPC->DefaultFOV - TrPC->DesiredFOV)))));
 			}
 
 		// View offset.
@@ -471,7 +390,7 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 	that->LastRotation = NewRotation;
 
 	if (bIsWideScreen)
-		FinalRotation = that->Add_RotatorRotator(FinalRotation, that->WidescreenRotationOffset);
+		FinalRotation = that->Add_RotatorRotator(FinalRotation, wepPos.WidescreenRotationOffset);
 
 	// Add current kickback amount to rotation.
 	if (TrPC)

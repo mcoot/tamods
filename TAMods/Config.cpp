@@ -1143,6 +1143,9 @@ static void config_placeholder()
 void Lua::init()
 {
 	getGlobalNamespace(_state).
+#ifndef RELEASE
+		addFunction("debug_CustomWeaponsBindFunc", &DebugCustomWeaponsBindFunc).
+#endif
 		beginClass<FColor>("Color").
 			addData("r", &FColor::R).
 			addData("g", &FColor::G).

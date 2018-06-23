@@ -25,6 +25,10 @@
 #define RELEASE
 #define MODVERSION 0.7
 
+#ifndef RELEASE
+void DebugCustomWeaponsBindFunc();
+#endif
+
 struct MutedPlayer
 {
 	MutedPlayer(const std::string &pusername, const bool &pmuteVGS, const bool &pmuteText, const bool &pmuteDirectMessage)
