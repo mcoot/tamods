@@ -116,6 +116,7 @@
     <Content Include="Resources\ACDontop.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\background_bella1.png" />
     <None Include="Resources\background_sulfur31.png" />
     <None Include="Resources\background_sulfur4.png" />
     <None Include="Resources\background_sulfur3.png" />

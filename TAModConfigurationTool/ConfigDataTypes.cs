@@ -631,4 +631,47 @@ namespace TAModConfigurationTool
         }
     }
 
+    public class WeaponModelSwap : IComparable<WeaponModelSwap>
+    {
+        public readonly string origClass;
+        public readonly string origWeapon;
+        public string newClass;
+        public string newWeapon;
+
+        public WeaponModelSwap(string origClass, string origWeapon, string newClass, string newWeapon)
+        {
+            this.origClass = origClass;
+            this.origWeapon = origWeapon;
+            this.newClass = newClass;
+            this.newWeapon = newWeapon;
+        }
+
+        public int CompareTo(WeaponModelSwap other)
+        {
+            if (origClass.CompareTo(other.origClass) != 0)
+            {
+                return origClass.CompareTo(other.origClass);
+            }
+
+            return origWeapon.CompareTo(other.origWeapon);
+        }
+
+        public override bool Equals(object obj)
+        {
+            WeaponModelSwap wother = obj as WeaponModelSwap;
+            if (wother == null) return false;
+            return (origClass.Equals(wother.origClass) && origWeapon.Equals(wother.origWeapon));
+        }
+
+        public override int GetHashCode()
+        {
+            return origClass.GetHashCode() + 29 * origWeapon.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return $"{origClass}: {origWeapon} -> {newClass}: {newWeapon}";
+        }
+    }
+
 }

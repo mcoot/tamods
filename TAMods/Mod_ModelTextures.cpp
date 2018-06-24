@@ -114,6 +114,15 @@ namespace ModelTextures
 		current->WidescreenRotationOffset = replacement->WidescreenRotationOffset;
 		current->WideScreenOffsetScaling = replacement->WideScreenOffsetScaling;
 
+		current->FireOffset = replacement->FireOffset;
+		current->LockerOffset = replacement->LockerOffset;
+		current->m_vClientSideFireOffset = replacement->m_vClientSideFireOffset;
+		current->TargetFrictionOffset = replacement->TargetFrictionOffset;
+		current->PivotTranslation = replacement->PivotTranslation;
+
+		//PrintVectorDetails("Pivot translation", current->PivotTranslation);
+
+
 		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
 	}
 

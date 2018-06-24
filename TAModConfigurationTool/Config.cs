@@ -29,9 +29,10 @@ namespace TAModConfigurationTool
         private List<MutedPlayer> configMutedPlayers;
         private List<ProjectileSetting> configProjectileSettings;
         private List<ProjectileSwap> configProjectileSwaps;
+        private List<WeaponModelSwap> configWeaponModelSwaps;
         private Dictionary<string, string> assetFiles;
         private Dictionary<string, string> assetFilesDefault;
-        public string configVersion = "v0.6";
+        public string configVersion = "v0.7";
 
         public Config(string configPath, string configFilename)
         {
@@ -52,6 +53,7 @@ namespace TAModConfigurationTool
             lua.RegisterFunction("cloneProjectile", this, this.GetType().GetMethod("cloneProjectile"));
             lua.RegisterFunction("setProjectileColor", this, this.GetType().GetMethod("setProjectileColor"));
             lua.RegisterFunction("setProjectile", this, this.GetType().GetMethod("setProjectile"));
+            lua.RegisterFunction("setWeaponModel", this, this.GetType().GetMethod("setWeaponModel"));
 
 
             this.configPath = configPath;
@@ -64,6 +66,7 @@ namespace TAModConfigurationTool
             configMutedPlayers = new List<MutedPlayer>();
             configProjectileSettings = new List<ProjectileSetting>();
             configProjectileSwaps = new List<ProjectileSwap>();
+            configWeaponModelSwaps = new List<WeaponModelSwap>();
 
         }
 
@@ -607,9 +610,26 @@ namespace TAModConfigurationTool
             return cp;
         }
 
+        public List<WeaponModelSwap> getWeaponModelSwaps()
+        {
+            // Deep copy
+            List<WeaponModelSwap> cp = new List<WeaponModelSwap>();
+            foreach (WeaponModelSwap swap in configWeaponModelSwaps)
+            {
+                cp.Add(swap);
+            }
+            cp.Sort();
+            return cp;
+        }
+
         public void clearConfigProjectileSwaps()
         {
             configProjectileSwaps.Clear();
+        }
+
+        public void clearConfigWeaponModelSwaps()
+        {
+            configWeaponModelSwaps.Clear();
         }
 
         // Config save formats
@@ -828,6 +848,11 @@ namespace TAModConfigurationTool
             }
         }
 
+        private string formatWeaponModelSwap(WeaponModelSwap swap)
+        {
+            return $"setWeaponModel(\"{swap.origClass}\", \"{swap.origWeapon}\", \"{swap.newClass}\", \"{swap.newWeapon}\")";
+        }
+
         // Save the current config to the file, returning success
         public bool saveConfig()
         {
@@ -927,6 +952,14 @@ namespace TAModConfigurationTool
                 foreach (ProjectileSetting setting in configProjectileSettings)
                 {
                     flines.Add(formatProjectileSetting(setting));
+                }
+
+                // Weapon model swaps
+                flines.Add("");
+                flines.AddRange(formatGetStringLines(formatConfigHeading2("Swapped Weapon Models", 40)));
+                foreach (WeaponModelSwap swap in configWeaponModelSwaps)
+                {
+                    flines.Add(formatWeaponModelSwap(swap));
                 }
 
                 // Save custom asset files
@@ -1205,10 +1238,28 @@ namespace TAModConfigurationTool
             return true;
         }
 
+        public bool setWeaponModel(string origClass, string origWeapon, string newClass, string newWeapon)
+        {
+            configWeaponModelSwaps.Add(new WeaponModelSwap(origClass, origWeapon, newClass, newWeapon));
+            return true;
+        }
+
         public string getGameClassName(string gameClass)
         {
             // Use regex to check if it's a known class
-            if (Regex.IsMatch(gameClass, "(^(pathfinder|pth|path)$)", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(gameClass, "(^(light|lht)$)", RegexOptions.IgnoreCase))
+            {
+                return "Light";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(medium|med)$)", RegexOptions.IgnoreCase))
+            {
+                return "Medium";
+            }
+            else if (Regex.IsMatch(gameClass, "(^(heavy|hvy)$)", RegexOptions.IgnoreCase))
+            {
+                return "Heavy";
+            }
+            else if(Regex.IsMatch(gameClass, "(^(pathfinder|pth|path)$)", RegexOptions.IgnoreCase))
             {
                 return "Pathfinder";
             }

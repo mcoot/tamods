@@ -210,7 +210,7 @@ namespace TAModConfigurationTool
             listHitSound.Items.Add(createCustomSoundListWrapper("Air Mail", "sounds\\airmail.wav", "volumeAirMail", "customAirMailSound"));
             listHitSound.Items.Add(createCustomSoundListWrapper("Head Shot", "sounds\\headshot.wav", "volumeHeadShot", "customHeadShotSound"));
             listHitSound.Items.Add(createCustomSoundListWrapper("Artillery Shot", "sounds\\artilleryshot.wav", "volumeArtilleryShot", "customArtilleryShot"));
-            
+
             listHitSound.Items.Add(createCustomSoundListWrapper("Head Shot Kill", "sounds\\headshotkill.wav", "volumeHeadShotKill", "customHeadShotKill"));
             listHitSound.Items.Add(createCustomSoundListWrapper("Melee Kill", "sounds\\meleekill.wav", "volumeMeleeKill", "customMeleeKill"));
             listHitSound.Items.Add(createCustomSoundListWrapper("Road Kill", "sounds\\roadkill.wav", "volumeRoadKill", "customRoadKill"));
@@ -273,7 +273,7 @@ namespace TAModConfigurationTool
                         selectConfigPreset.SelectedIndex = selectConfigPreset.Items.IndexOf(presetName);
                         break;
                     }
-                    
+
                 }
             }
 
@@ -447,6 +447,13 @@ namespace TAModConfigurationTool
                 listProjectileSwap.Items.Add(swap);
             }
 
+            // Weapon Model Swaps
+            listWeaponSwap.Items.Clear();
+            foreach (WeaponModelSwap swap in config.getWeaponModelSwaps())
+            {
+                listWeaponSwap.Items.Add(swap);
+            }
+
             // Hit Sounds
             selectHitSoundMode.SelectedIndex = Math.Max(Math.Min(Convert.ToInt32(config.getConfigVar("hitSoundMode")), 3), 0);
 
@@ -463,7 +470,7 @@ namespace TAModConfigurationTool
             numHitSoundDamageRef.Value = Convert.ToInt32(config.getConfigVar("hitSoundDamageRef"));
             numHitSoundPitchMin.Value = Convert.ToDecimal(config.getConfigVar("hitSoundPitchMin"));
             numHitSoundPitchMax.Value = Convert.ToDecimal(config.getConfigVar("hitSoundPitchMax"));
-            
+
         }
 
         private void writeUIToConfig()
@@ -635,6 +642,12 @@ namespace TAModConfigurationTool
                 config.setProjectile(swap.projectile.gameClass, swap.projectile.weapon, swap.swapProjectile);
             }
 
+            config.clearConfigWeaponModelSwaps();
+            foreach (WeaponModelSwap swap in listWeaponSwap.Items)
+            {
+                config.setWeaponModel(swap.origClass, swap.origWeapon, swap.newClass, swap.newWeapon);
+            }
+
             // Hit Sounds
             //config.setConfigVar("hitSoundMode", Math.Max(0, Math.Min(3, selectHitSoundMode.SelectedIndex)));
 
@@ -769,60 +782,65 @@ namespace TAModConfigurationTool
 
             loadoutDetails["Light"] = new Dictionary<string, List<string>>();
             loadoutRegex["Light"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Light"]["impact"] = new List<String> { "Light Spinfusor", "Bolt Launcher", "Light Twinfusor", "Blinksfusor" };
-            loadoutRegex["Light"]["impact"] = new List<String> { "^(spin(fusor)?|light(spin)?(fusor)?)$", "^(bolt|boltlauncher)$", "^(twin|twinfusor|lighttwinfusor)$", "^(blinks?|blinks?fusor)$" };
+            loadoutDetails["Light"]["impact"] = new List<String> { "Light Spinfusor", "Dueling Spinfusor", "Stealth Spinfusor", "Bolt Launcher", "Light Twinfusor", "Blinksfusor" };
+            loadoutRegex["Light"]["impact"] = new List<String> { "^(spin(fusor)?|light(spin)?(fusor)?)$", "^(dueling(spin)?(fusor)?)$", "^(stealth(spin)?(fusor)?)$", "^(bolt|boltlauncher)$", "^(twin|twinfusor|lighttwinfusor)$", "^(blinks?|blinks?fusor)$" };
             loadoutDetails["Light"]["timed"] = new List<string> { "Light Grenade Launcher", "Jackal" };
             loadoutRegex["Light"]["timed"] = new List<String> { "^((light)?(gl|grenadelauncher)|lgl)$", "^(jackal)$" };
-            loadoutDetails["Light"]["specialty"] = new List<string> { "BXT", "Phase Rifle" };
-            loadoutRegex["Light"]["specialty"] = new List<String> { "^(bxt|bxt1|bxt1rifle)$", "^(phase|phaserifle)$" };
-            loadoutDetails["Light"]["automatic"] = new List<string> { "Falcon", "Light Assault Rifle" };
-            loadoutRegex["Light"]["automatic"] = new List<String> { "^(falcon)$", "^(lightassaultrifle|lar|ar|assaultrifle|rifle)$" };
-            loadoutDetails["Light"]["shortrange"] = new List<string> { "Shotgun", "Shocklance" };
-            loadoutRegex["Light"]["shortrange"] = new List<String> { "^(shotgun)$", "^(shocklance)$" };
-            loadoutDetails["Light"]["sidearms"] = new List<string> { "Sparrow", "Throwing Knives" };
-            loadoutRegex["Light"]["sidearms"] = new List<String> { "^(sparrow)$", "^(throwingknives|knives)$" };
+            loadoutDetails["Light"]["specialty"] = new List<string> { "BXT", "BXT-1A", "Phase Rifle", "SAP20" };
+            loadoutRegex["Light"]["specialty"] = new List<String> { "^(bxt|bxt1|bxt1rifle)$", "^((bxt1a|bxt-1a|bxt1-a|bxt-1a)(rifle)?)$", "^(phase|phaserifle)$", "^(sap(20)?(rifle)?)$" };
+            loadoutDetails["Light"]["automatic"] = new List<string> { "Falcon", "Light Assault Rifle", "Rhino SMG", "Arctic Rhino SMG" };
+            loadoutRegex["Light"]["automatic"] = new List<String> { "^(falcon)$", "^(lightassaultrifle|lar|ar|assaultrifle|rifle)$", "^(rhino(smg)?)$", "^(arcticrhino(smg)?)$" };
+            loadoutDetails["Light"]["shortrange"] = new List<string> { "Shotgun", "Holdout Shotgun", "Accurized Shotgun", "Shocklance" };
+            loadoutRegex["Light"]["shortrange"] = new List<String> { "^(shotgun)$", "^(holdout(shotgun)?)$", "^((accurized|accurised|sniper)(shotgun)?)$", "^(shocklance)$" };
+            loadoutDetails["Light"]["sidearms"] = new List<string> { "Sparrow", "Throwing Knives", "SN7 Silenced Pistol", "Arctic SN7" };
+            loadoutRegex["Light"]["sidearms"] = new List<String> { "^(sparrow)$", "^(throwingknives|knives)$", "^(sn7(silenced)?(pistol)?)$", "^(arcticsn7(silenced)?(pistol)?)$" };
 
-            loadoutDetails["Light"]["belt"] = new List<string> { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons" };
-            loadoutRegex["Light"]["belt"] = new List<string> { "^(nitrons?|impactnitrons?|impacts?)$", "^(explosivenitrons?|explosives?)$", "^(compactnitrons?|compacts?)$" };
+            loadoutDetails["Light"]["belt"] = new List<string> { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons", "Sticky Grenades", "Claymore Mines", "Prism Mines", "Chaff Grenades" };
+            loadoutRegex["Light"]["belt"] = new List<string> { "^(nitrons?|impactnitrons?|impacts?)$", "^(explosivenitrons?|explosives?)$", "^(compactnitrons?|compacts?)$", "^(stickygrenades?|sticky|stickies)$", "^(claymores?|claymoremines?)$", "^(prismmines?|mines?)$", "^(chaffs?(grenades?)?)$" };
             loadoutDetails["Light"]["pack"] = new List<string> { "Energy Recharge", "Thrust Pack" };
             loadoutRegex["Light"]["pack"] = new List<string> { "^(energyrecharge|energy)$", "^(thrustpack|thrust)$" };
 
 
             loadoutDetails["Medium"] = new Dictionary<string, List<string>>();
             loadoutRegex["Medium"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Medium"]["impact"] = new List<String> { "Spinfusor", "Thumper", "Twinfusor", "Blinksfusor" };
-            loadoutRegex["Medium"]["impact"] = new List<String> { "^(spinfusor|spin)$", "^(thumper)$", "^(twinfusor)$", "^(blinks?|blinks?fusor)$" };
-            loadoutDetails["Medium"]["timed"] = new List<string> { "Arx Buster", "Grenade Launcher" };
-            loadoutRegex["Medium"]["timed"] = new List<String> { "^(arxbuster|arx)$", "^(grenadelauncher|nadelauncher|launcher|gl)$" };
-            loadoutDetails["Medium"]["specialty"] = new List<string> { "Imroved repair tool", "ELF Projector" };
-            loadoutRegex["Medium"]["specialty"] = new List<String> { "^(improvedrepairtool|repairtool|repair)$", "^(elf(projector)?)$" };
-            loadoutDetails["Medium"]["automatic"] = new List<string> { "Assault Rifle", "NJ4", "NJ5", "Plasma Gun" };
-            loadoutRegex["Medium"]["automatic"] = new List<String> { "^(assaultrifle|rifle|ar)$", "^(nj5(-?b)?)$", "^(nj4smg|nj4)$", "^(plasmagun|plasma)$" };
+            loadoutDetails["Medium"]["impact"] = new List<String> { "Spinfusor", "Thumper", "Thumper D", "Thumper DX", "Twinfusor", "Blinksfusor" };
+            loadoutRegex["Medium"]["impact"] = new List<String> { "^(spinfusor|spin)$", "^(thumper)$", "^(thumperd)$", "^(thumperdx)$", "^(twinfusor)$", "^(blinks?|blinks?fusor)$" };
+            loadoutDetails["Medium"]["timed"] = new List<string> { "Arx Buster", "Dust Devil", "Grenade Launcher" };
+            loadoutRegex["Medium"]["timed"] = new List<String> { "^(arxbuster|arx)$", "^(dustdevil)$", "^(grenadelauncher|nadelauncher|launcher|gl)$" };
+            loadoutDetails["Medium"]["specialty"] = new List<string> { "Improved repair tool", "Long Range Repair Tool", "ELF Projector" };
+            loadoutRegex["Medium"]["specialty"] = new List<String> { "^(improvedrepairtool|repairtool|repair)$", "^(longrangerepairtool)$", "^(elf(projector)?)$" };
+            loadoutDetails["Medium"]["automatic"] = new List<string> { "Assault Rifle", "Gast Rifle", "NJ4", "Desert NJ4", "NJ5", "TCN4 SMG", "TCN4 Rockwind", "TC24", "Plasma Gun" };
+            loadoutRegex["Medium"]["automatic"] = new List<String> { "^(assaultrifle|rifle|ar)$", "^(gast('s)?(rifle)?)$", "^(nj4smg|nj4)$", "^(desertnj4|desertnj4smg)$", "^(nj5(-?b)?)$", "^(tcn4(smg)?)$", "^(tcn4rockwind(smg)?)$", "^(tc24)$", "^(plasmagun|plasma)$" };
             loadoutDetails["Medium"]["shortrange"] = new List<string> { "Sawed off", "Flak cannon" };
             loadoutRegex["Medium"]["shortrange"] = new List<String> { "^(sawed-?offshotgun|shotgun|sawed-?off)$", "^(flak(cannon)?)$" };
             loadoutDetails["Medium"]["sidearms"] = new List<string> { "Nova blaster", "Eagle Pistol" };
-            loadoutRegex["Medium"]["sidearms"] = new List<String> { "^(nova|blaster|novablaster)$", "^(eaglepistol|eagle|pistol)$"  };
+            loadoutRegex["Medium"]["sidearms"] = new List<String> { "^(nova|blaster|novablaster)$", "^(eaglepistol|eagle|pistol)$" };
 
-            loadoutDetails["Medium"]["belt"] = new List<string> { "Frag Grenades XL", "AP Grenades", "Proxies", "Short-fuse Frag Grenades" };
-            loadoutRegex["Medium"]["belt"] = new List<string> { "^(fraggrenades?(xl)?|frag(xl)?|grenades?(xl)?)$", "^(anti-?personnelgrenades?|aps?|apgrenades?)$", "^(proxmitys?(grenades?)?|proxies|proxys?)$", "^(short-?fusefraggrenades?|short-?fuses?)$" };
+            loadoutDetails["Medium"]["belt"] = new List<string> { "Frag Grenades XL", "AP Grenades", "EMP Grenades", "Blackout Grenades", "Cluster Grenades", "Proxies", "Short-fuse Frag Grenades" };
+            loadoutRegex["Medium"]["belt"] = new List<string> { "^(fraggrenades?(xl)?|frags?(xl)?|grenades?(xl)?)$", "^(anti-?personnelgrenades?|aps?|apgrenades?)$", "^(emps?|empgrenades?)$", "^(blackouts?|blackoutgrenades?)$", "^(clustergrenades?|clusters?)$", "^(proxmitys?(grenades?)?|proxies|proxys?)$", "^(short-?fusefraggrenades?|short-?fuses?)$" };
             loadoutDetails["Medium"]["pack"] = new List<string> { "Energy Pack", "Utility Pack" };
             loadoutRegex["Medium"]["pack"] = new List<string> { "^(energypack|energy)$", "^(utilitypack|utility)$" };
 
 
             loadoutDetails["Heavy"] = new Dictionary<string, List<string>>();
             loadoutRegex["Heavy"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Heavy"]["impact"] = new List<String> { "Heavy Spinfusor", "Heavy Bolt Launcher", "Heavy Blinksfusor", "Heavy Twinfusor" };
-            loadoutRegex["Heavy"]["impact"] = new List<String> { "^(heavy(spin)?(fusor)?|spin(fusor)?|fusor)$", "^(heavyboltlauncher|boltlauncher|bolt)$", "^((heavy)?blinks?(fusor)?)$", "^(heavytwinfusor|twinfusor|twin)$" };
-            loadoutDetails["Heavy"]["timed"] = new List<string> { "Fusion Mortar", "MIRV Launcher" };
-            loadoutRegex["Heavy"]["timed"] = new List<String> { "^(fusionmortar|mortar)$", "^(mirvlauncher|mirv)$" };
-            loadoutDetails["Heavy"]["specialty"] = new List<string> { "Saber Launcher", "Gladiator" };
-            loadoutRegex["Heavy"]["specialty"] = new List<String> { "^(saberlauncher|saber)$", "^(gladiator)$" };
-            loadoutDetails["Heavy"]["automatic"] = new List<string> { "Chaingun", "X1 LMG", "Plasma Cannon" };
-            loadoutRegex["Heavy"]["automatic"] = new List<String> { "^(chaingun)$", "^(x1|lmg|x1lmg)$", "^(plasmacannon|plasma)$" };
-            loadoutDetails["Heavy"]["shortrange"] = new List<string> { "Automatic Shotgun", "EFG" };
-            loadoutRegex["Heavy"]["shortrange"] = new List<String> { "^(automaticshotgun|shotgun)$", "^(efg)$" };
+            loadoutDetails["Heavy"]["impact"] = new List<String> { "Spinfusor MKD", "Spinfusor MK-X", "Heavy Spinfusor", "Devastator Spinfusor", "Heavy Bolt Launcher", "Heavy Blinksfusor", "Heavy Twinfusor" };
+            loadoutRegex["Heavy"]["impact"] = new List<String> { "^(spinfusormkd)$", "^(spinfusormk-?x)$", "^(heavy(spin)?(fusor)?|spin(fusor)?|fusor)$", "^(devastator(spinfusor)?)$", "^(heavyboltlauncher|boltlauncher|bolt)$", "^((heavy)?blinks?(fusor)?)$", "^(heavytwinfusor|twinfusor|twin)$" };
+            loadoutDetails["Heavy"]["timed"] = new List<string> { "Fusion Mortar", "Fusion Mortar Deluxe", "MIRV Launcher" };
+            loadoutRegex["Heavy"]["timed"] = new List<String> { "^(fusionmortar|mortar)$", "^((fusion)?mortardeluxe)$", "^(mirvlauncher|mirv)$" };
+            loadoutDetails["Heavy"]["specialty"] = new List<string> { "Saber Launcher", "Titan Launcher", "Gladiator" };
+            loadoutRegex["Heavy"]["specialty"] = new List<String> { "^(saberlauncher|saber)$", "^(titanlauncher|titan)$", "^(gladiator)$" };
+            loadoutDetails["Heavy"]["automatic"] = new List<string> { "Chaingun", "Chain Cannon", "X1 LMG", "Plasma Cannon" };
+            loadoutRegex["Heavy"]["automatic"] = new List<String> { "^(chaingun)$", "^(chaincannon)$", "^(x1|lmg|x1lmg)$", "^(plasmacannon|plasma)$" };
+            loadoutDetails["Heavy"]["shortrange"] = new List<string> { "Automatic Shotgun", "The Hammer", "EFG" };
+            loadoutRegex["Heavy"]["shortrange"] = new List<String> { "^(automaticshotgun|shotgun)$", "^((the)?hammer)$", "^(efg)$" };
             loadoutDetails["Heavy"]["sidearms"] = new List<string> { "Nova Colt", "Nova Blaster MX" };
             loadoutRegex["Heavy"]["sidearms"] = new List<String> { "^(novacolt|colt|nova)$", "^(mx|novablastermx|novamx|blaster(mx)?)$" };
+
+            loadoutDetails["Heavy"]["belt"] = new List<String> { "Frag Grenades", "Fractal Grenades", "Extended Fractals", "Mines", "Spinfusor Disks" };
+            loadoutRegex["Heavy"]["belt"] = new List<String> { "^(fraggrenades?|frags?)$", "^(fractals?|fractalgrenades?)$", "^(extendedfractals?(grenades)?)$", "^(mines?)$", "^(spinfusordisks?|spinfusordiscs?|spins?|disks?|discs?|spindisks?|spindiscs?)$" };
+            loadoutDetails["Heavy"]["pack"] = new List<String> { };
+            loadoutRegex["Heavy"]["pack"] = new List<String> { };
 
 
             crosshairDetails = new List<string>() { "Spinfusor", "SMG", "Rifle", "Locked On", "Crossbow", "Flamethrower", "Chaingun", "Thumper", "Nanite", "Shotgun", "Unknown", "Laser", "ch_v13", "Scope", "Nova Blaster", "Mortar", "Melee", "Shrike", "Spectator", "Chain", "BXT1", "Phase Rifle", "SAP20", "Plasma Gun" };
@@ -850,7 +868,7 @@ namespace TAModConfigurationTool
                 {"Console Chat Colour - PM", "whisperChatColor"},
                 {"HUD Chat Colour - Friendly", "friendlyHUDChatColor"},
                 {"HUD Chat Colour - Enemy", "enemyHUDChatColor"},
-                
+
                 {"Player Name Colour - Friendly", "friendlyColor"},
                 {"Player Name Colour - Enemy", "enemyColor"},
                 {"Player Marker Colour - Friendly", "friendlyMarkerColor"},
@@ -953,7 +971,7 @@ namespace TAModConfigurationTool
             weaponSelector.Items.Clear();
             if (classSelector.SelectedItem != null)
             {
-                foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms" })
+                foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms", "belt" })
                 {
                     foreach (string weapon in loadoutDetails[(string)classSelector.SelectedItem][type])
                     {
@@ -975,11 +993,11 @@ namespace TAModConfigurationTool
             {
                 if (listCrosshairs.SelectedItem != null)
                 {
-                    
+
                     curClass = ((CrosshairSetting)listCrosshairs.SelectedItem).gameClass;
 
-                    curWeapon = findMatchingLoadoutItem(curClass, "primary",  ((CrosshairSetting)listCrosshairs.SelectedItem).weapon);
-                    if (curWeapon == null) 
+                    curWeapon = findMatchingLoadoutItem(curClass, "primary", ((CrosshairSetting)listCrosshairs.SelectedItem).weapon);
+                    if (curWeapon == null)
                     {
                         curWeapon = findMatchingLoadoutItem(curClass, "secondary", ((CrosshairSetting)listCrosshairs.SelectedItem).weapon);
 
@@ -1091,7 +1109,7 @@ namespace TAModConfigurationTool
                     return;
                 }
             }
-            
+
             if (textMute.Text.Trim() != "")
             {
                 listMute.Items.Add(MutedPlayer.create_custom(textMute.Text.Trim(), checkMuteVGS.Checked, checkMuteText.Checked, checkMuteDirectMessages.Checked));
@@ -1132,7 +1150,7 @@ namespace TAModConfigurationTool
                 {
                     currentItem.value = null;
                 }
-                
+
             }
         }
 
@@ -1153,7 +1171,7 @@ namespace TAModConfigurationTool
                 }
             }
 
-            
+
         }
 
         private void listColorSettings_SelectedIndexChanged(object sender, EventArgs e)
@@ -1171,7 +1189,7 @@ namespace TAModConfigurationTool
                     Color col = (Color)currentItem.value;
                     colorColorSettings.setColor(col.R, col.G, col.B, col.A);
                 }
-                
+
             }
             colorColorSettings.Enabled = checkColorSettingOverride.Checked;
 
@@ -1198,7 +1216,7 @@ namespace TAModConfigurationTool
             // Select the right weapons
             selectProjectileSwapWeapon.SelectedItem = null;
             selectProjectileSwapWeapon_Swap.SelectedItem = null;
-            foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms" })
+            foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms", "belt" })
             {
                 if (selectProjectileSwapWeapon.SelectedItem == null)
                     selectProjectileSwapWeapon.SelectedItem = findMatchingLoadoutItem(((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.gameClass, type, ((ProjectileSwap)listProjectileSwap.SelectedItem).projectile.weapon);
@@ -1209,7 +1227,7 @@ namespace TAModConfigurationTool
             // Set the clone checkbox
             checkProjectileSwapClone.Checked = ((ProjectileSwap)listProjectileSwap.SelectedItem).swapProjectile.isClone;
 
-            
+
         }
 
         private void selectProjectileSwapClass_SelectedIndexChanged(object sender, EventArgs e)
@@ -1225,7 +1243,7 @@ namespace TAModConfigurationTool
         private void listProjectileSetting_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listProjectileSetting.SelectedItem == null) return;
-            
+
             updateSelectorWeaponListings(selectProjectileSettingWeapon, selectProjectileSettingClass);
 
             // Select the right class
@@ -1238,7 +1256,7 @@ namespace TAModConfigurationTool
 
             // Select the right weapon
             selectProjectileSettingWeapon.SelectedItem = null;
-            foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms" })
+            foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms", "belt" })
             {
                 selectProjectileSettingWeapon.SelectedItem = findMatchingLoadoutItem(((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.gameClass, type, ((ProjectileSetting)listProjectileSetting.SelectedItem).projectile.weapon);
                 if (selectProjectileSettingWeapon.SelectedItem != null)
@@ -1274,10 +1292,10 @@ namespace TAModConfigurationTool
         private void btnProjectileSettingSave_Click(object sender, EventArgs e)
         {
             if (selectProjectileSettingClass.SelectedItem == null || selectProjectileSettingWeapon.SelectedItem == null) return;
-            
+
             ProjectileSetting pNew = ProjectileSetting.setProjectileColor(Projectile.getProjectile((string)selectProjectileSettingClass.SelectedItem, (string)selectProjectileSettingWeapon.SelectedItem),
                 (Color)colorProjectileSetting.getColor(), Convert.ToSingle(numProjectileSettingIntensity.Value));
-            
+
             foreach (ProjectileSetting p in listProjectileSetting.Items)
             {
                 if (p.projectile.Equals(pNew.projectile))
@@ -1349,7 +1367,7 @@ namespace TAModConfigurationTool
             }
 
             if (soundFile == null || volume == null) return;
-            
+
             selectHitSoundFileSpecific.Items.Clear();
 
             if (soundFile.inputFilename != null)
@@ -1358,8 +1376,8 @@ namespace TAModConfigurationTool
             }
             selectHitSoundFileSpecific.Text = soundFile.inputFilename;
 
-            
-            string[] inputFiles = {};
+
+            string[] inputFiles = { };
             string relfile;
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\sounds\\"))
             {
@@ -1375,7 +1393,7 @@ namespace TAModConfigurationTool
                 }
                 selectHitSoundFileSpecific.Items.Add(relfile);
             }
-            
+
             trackHitSoundVolumeSpecific.Value = Convert.ToInt32(Convert.ToSingle(volume.value) * 100);
             checkHitSoundSpecific.Enabled = true;
             checkHitSoundSpecific.Checked = soundFile.doWrite;
@@ -1494,7 +1512,7 @@ namespace TAModConfigurationTool
             //Admin rights()
             wJect.StartInfo.Verb = "runas";
 
-            wJect.StartInfo.Arguments = "/dllname:TAMods.dll" + " /exename:TribesAscend.exe";         
+            wJect.StartInfo.Arguments = "/dllname:TAMods.dll" + " /exename:TribesAscend.exe";
 
             //Execute injection
             //TODO MUCH TESTING, POSSIBLE ISSUES, PROBABLY SHOULD LOCK MAIN APP
@@ -1528,7 +1546,73 @@ namespace TAModConfigurationTool
 
         }
 
+        private void selectWeaponModelSwapClass_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateSelectorWeaponListings(selectWeaponModelSwapWeapon, selectWeaponModelSwapClass);
+        }
 
+        private void selectWeaponModelSwapClass_Swap_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updateSelectorWeaponListings(selectWeaponModelSwapWeapon_Swap, selectWeaponModelSwapClass_Swap);
+        }
+
+        private void listWeaponSwap_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listWeaponSwap.SelectedItem == null) return;
+
+            // Select the right classes
+            selectWeaponModelSwapClass.SelectedItem = config.getGameClassName(((WeaponModelSwap)listWeaponSwap.SelectedItem).origClass);
+            selectWeaponModelSwapClass_Swap.SelectedItem = config.getGameClassName(((WeaponModelSwap)listWeaponSwap.SelectedItem).newClass);
+
+            // Update weapon boxes (disabling events!)
+            selectWeaponModelSwapClass.SelectedIndexChanged -= new EventHandler(selectProjectileSwapClass_SelectedIndexChanged);
+            selectWeaponModelSwapClass_Swap.SelectedIndexChanged -= new EventHandler(selectProjectileSwapClass_Swap_SelectedIndexChanged);
+            updateSelectorWeaponListings(selectWeaponModelSwapWeapon, selectWeaponModelSwapClass);
+            updateSelectorWeaponListings(selectWeaponModelSwapWeapon_Swap, selectWeaponModelSwapClass_Swap);
+            selectWeaponModelSwapClass.SelectedIndexChanged += new EventHandler(selectProjectileSwapClass_SelectedIndexChanged);
+            selectWeaponModelSwapClass_Swap.SelectedIndexChanged += new EventHandler(selectProjectileSwapClass_Swap_SelectedIndexChanged);
+
+            // Select the right weapons
+            selectWeaponModelSwapWeapon.SelectedItem = null;
+            selectWeaponModelSwapWeapon_Swap.SelectedItem = null;
+            foreach (string type in new List<String> { "impact", "timed", "specialty", "automatic", "shortrange", "sidearms", "belt" })
+            {
+                if (selectWeaponModelSwapWeapon.SelectedItem == null)
+                    selectWeaponModelSwapWeapon.SelectedItem = findMatchingLoadoutItem(((WeaponModelSwap)listWeaponSwap.SelectedItem).origClass, type, ((WeaponModelSwap)listWeaponSwap.SelectedItem).origWeapon);
+                if (selectWeaponModelSwapWeapon_Swap.SelectedItem == null)
+                    selectWeaponModelSwapWeapon_Swap.SelectedItem = findMatchingLoadoutItem(((WeaponModelSwap)listWeaponSwap.SelectedItem).newClass, type, ((WeaponModelSwap)listWeaponSwap.SelectedItem).newWeapon);
+            }
+        }
+
+        private void btnWeaponSwapSave_Click(object sender, EventArgs e)
+        {
+            if (selectWeaponModelSwapClass.SelectedItem == null || selectWeaponModelSwapWeapon.SelectedItem == null
+                    || selectWeaponModelSwapClass_Swap.SelectedItem == null || selectWeaponModelSwapWeapon_Swap.SelectedItem == null) return;
+
+            WeaponModelSwap newSwap = new WeaponModelSwap((string)selectWeaponModelSwapClass.SelectedItem, (string)selectWeaponModelSwapWeapon.SelectedItem,
+                                                           (string)selectWeaponModelSwapClass_Swap.SelectedItem, (string)selectWeaponModelSwapWeapon_Swap.SelectedItem);
+
+            // Remove existing entries
+            foreach (WeaponModelSwap swap in listWeaponSwap.Items)
+            {
+                if (swap.origClass == newSwap.origClass && swap.origWeapon == newSwap.origWeapon)
+                {
+                    listWeaponSwap.Items.Remove(swap);
+                    break;
+                }
+            }
+
+            listWeaponSwap.Items.Add(newSwap);
+            listWeaponSwap.SelectedItem = newSwap;
+        }
+
+        private void btnWeaponSwapDelete_Click(object sender, EventArgs e)
+        {
+            if (listWeaponSwap.SelectedItem != null)
+            {
+                listWeaponSwap.Items.Remove(listWeaponSwap.SelectedItem);
+            }
+        }
     }
 
 }

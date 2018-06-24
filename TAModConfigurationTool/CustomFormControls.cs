@@ -19,7 +19,7 @@ namespace TAModConfigurationTool
         protected override void OnPaint(System.Windows.Forms.PaintEventArgs e)
         {
 
-            e.Graphics.DrawImage(this.FindForm().BackgroundImage, -7, -20, 960, 540);
+            e.Graphics.DrawImage(this.FindForm().BackgroundImage, -5, -33, 1267, 768);
         }
     }
 
