@@ -805,6 +805,7 @@ static UParticleSystem *config_getProjectile(const std::string &pclass, const st
 			delete proj;
 			return NULL;
 		}
+		//Utils::console("%s - %d", weapon.c_str(), weapon_id);
 		g_config.wep_id_to_custom_proj[weapon_id] = proj;
 		g_config.proj_class_to_custom_proj[(int)proj->default_proj->Class] = proj;
 	}
@@ -840,7 +841,7 @@ static void config_setProjectile(const std::string &pclass, const std::string &w
 	proj->custom_ps = ps;
 }
 
-static bool config_setWeaponSwap(const std::string &pclass, const std::string &weapon, const std::string &swap_class, const std::string &swap_weapon, bool swapAnims) {
+static bool config_setWeaponSwap(const std::string &pclass, const std::string &weapon, const std::string &swap_class, const std::string &swap_weapon, bool swapAnims, bool leavePositioning = false) {
 	int current_weapon_id = getWeaponID(pclass, weapon);
 	int new_weapon_id = getWeaponID(swap_class, swap_weapon);
 	UClass* current_weapon_class = NULL;
@@ -865,6 +866,7 @@ static bool config_setWeaponSwap(const std::string &pclass, const std::string &w
 	cwp.normalClass = current_weapon_class;
 	cwp.replacementClass = new_weapon_class;
 	cwp.swapAnims = swapAnims;
+	cwp.leavePositioning = leavePositioning;
 	g_config.wep_class_to_custom_weapon[current_weapon_class] = cwp;
 
 	return true;

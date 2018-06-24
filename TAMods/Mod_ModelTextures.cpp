@@ -84,8 +84,6 @@ namespace ModelTextures
 		if (!aPawn || !aPawn->IsA(ATrPlayerPawn::StaticClass())) return WeaponOperationResult::WEAPONOP_SUCCEEDED;;
 		ATrPlayerPawn* pawn = (ATrPlayerPawn*)aPawn;
 		if (!pawn || !pawn->IsFirstPerson()) return WeaponOperationResult::WEAPONOP_SUCCEEDED;;
-
-		//Utils::console("Executing replacement positioning...");
 		
 		ATrDevice* defaultRep = (ATrDevice*)(replacement->StaticClass()->Default);
 		if (!defaultRep) {
@@ -202,7 +200,7 @@ namespace ModelTextures
 		}
 
 		// Set up the new mesh's positioning
-		if (SetupReplacementPositioning(existing, swap->replacement) != WeaponOperationResult::WEAPONOP_SUCCEEDED) {
+		if (swap->swapPositioning && SetupReplacementPositioning(existing, swap->replacement) != WeaponOperationResult::WEAPONOP_SUCCEEDED) {
 			return WeaponOperationResult::WEAPONOP_FAILED;
 		}
 
@@ -238,7 +236,7 @@ namespace ModelTextures
 		return this->Swaps[equipPoint];
 	}
 
-	WeaponOperationResult ModelSwapState::SetSwap(TR_EQUIP_POINT equipPoint, UClass* newSwapClass, bool isActive, bool swapAnimations) {
+	WeaponOperationResult ModelSwapState::SetSwap(TR_EQUIP_POINT equipPoint, UClass* newSwapClass, bool isActive, bool swapAnimations, bool swapPositioning) {
 		if (equipPoint < 0 || equipPoint >= EQP_MAX) {
 			return WeaponOperationResult::WEAPONOP_FAILED;
 		}
@@ -246,6 +244,7 @@ namespace ModelTextures
 		this->Swaps[equipPoint]->replacement = NULL;
 		this->Swaps[equipPoint]->isActive = isActive;
 		this->Swaps[equipPoint]->swapAnimations = swapAnimations;
+		this->Swaps[equipPoint]->swapPositioning = swapPositioning;
 
 		return WeaponOperationResult::WEAPONOP_SUCCEEDED;
 	}
@@ -369,14 +368,14 @@ static void reconcileSwapStateMapping() {
 		// Case: a new mapping has occurred, or a mapping has changed
 		if (hasCustomMapping && (!currentlySwapped || mSwap->replacementClass != it->second.replacementClass)) {
 			// Institute the swap
-			ModelTextures::g_SwapState->SetSwap((TR_EQUIP_POINT)i, it->second.replacementClass, true, it->second.swapAnims);
+			ModelTextures::g_SwapState->SetSwap((TR_EQUIP_POINT)i, it->second.replacementClass, true, it->second.swapAnims, !(it->second.leavePositioning));
 			continue;
 		}
 
 		// Case: no mapping exists, but a replacement is currently active
 		if (!hasCustomMapping && currentlySwapped) {
 			// Remove the existing swap
-			ModelTextures::g_SwapState->SetSwap((TR_EQUIP_POINT)i, dev->Class, false, true);
+			ModelTextures::g_SwapState->SetSwap((TR_EQUIP_POINT)i, dev->Class, false, true, true);
 			continue;
 		}
 	}

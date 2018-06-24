@@ -73,7 +73,9 @@ namespace Data
 			{ R"rx(^(nitrons?|impactnitrons?|impacts?)$)rx", CONST_WEAPON_ID_GRENADE_NITRON },
 			{ R"rx(^(compactnitrons?|compacts?)$)rx", CONST_WEAPON_ID_GRENADE_NITRON_MKD },
 			{ R"rx(^(explosivenitrons?|explosives?)$)rx", CONST_WEAPON_ID_GRENADE_ST },
+			{ R"rx(^(T5s?(grenades)?)$)rx", CONST_WEAPON_ID_GRENADE_T5 },
 			{ R"rx(^(stickygrenades?|sticky|stickies)$)rx", CONST_WEAPON_ID_GRENADE_STICKY },
+			{ R"rx(^(stickygrenades?xl|stickyxl|stickiesxl)$)rx", CONST_WEAPON_ID_GRENADE_STICKY_MKD },
 			{ R"rx(^(claymores?|claymoremines?)$)rx", CONST_WEAPON_ID_MINE_CLAYMORE },
 			{ R"rx(^(prismmines?|mines?)$)rx", CONST_WEAPON_ID_MINE_PRISM },
 			{ R"rx(^(chaffs?(grenades?)?)$)rx", CONST_WEAPON_ID_GRENADE_NINJASMOKE },
@@ -113,6 +115,7 @@ namespace Data
 			{ R"rx(^(flak(cannon)?)$)rx", CONST_WEAPON_ID_TC24 },
 				// Belt
 			{ R"rx(^(emps?|empgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_EMP },
+			{ R"rx(^(emps?xls?|emps?xlgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_EMP_MKD },
 			{ R"rx(^(blackouts?|blackoutgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_WHITEOUT },
 			{ R"rx(^(clustergrenades?|clusters?)$)rx", CONST_WEAPON_ID_MIRV_GRENADE },
 			{ R"rx(^(anti-?personnelgrenades?|aps?|apgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_AP },
@@ -154,6 +157,7 @@ namespace Data
 			{ R"rx(^(fraggrenades?|frags?)$)rx", CONST_WEAPON_ID_GRENADE },
 			{ R"rx(^(fractals?|fractalgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_SPIKE },
 			{ R"rx(^(extendedfractals?(grenades)?)$)rx", CONST_WEAPON_ID_GRENADE_SPIKE_MKD },
+			{ R"rx(^(lightsticky(grenades?)?|lightstickies)$)rx", CONST_WEAPON_ID_GRENADE_STICKY_LIGHT },
 			{ R"rx(^(mines?)$)rx", CONST_WEAPON_ID_MINE },
 			{ R"rx(^(spinfusordisks?|spinfusordiscs?|spins?|disks?|discs?|spindisks?|spindiscs?)$)rx", CONST_WEAPON_ID_SPINFUSOR_TOSS },
 		},
@@ -235,6 +239,7 @@ namespace Data
 	};
 
 	std::map<int, std::string> weapon_id_to_proj_name = {
+		// Light
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT, "LightSpinfusor" },
 		{ CONST_WEAPON_ID_LAUNCHER_BOLT, "BoltLauncher" },
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT_MKD, "LightSpinfusor_MKD" },
@@ -258,6 +263,17 @@ namespace Data
 		{ CONST_WEAPON_ID_PISTOL_SN7, "SN7" },
 		{ CONST_WEAPON_ID_THROWINGKNIVES, "ThrowingKnives" },
 		{ CONST_WEAPON_ID_PISTOL_SN7_MKD, "SN7_MKD" },
+		{ CONST_WEAPON_ID_GRENADE_NITRON, "ConcussionGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_NITRON_MKD, "ConcussionGrenade_MKD" },
+		{ CONST_WEAPON_ID_GRENADE_ST, "STGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_T5 , "GrenadeT5" },
+		{ CONST_WEAPON_ID_GRENADE_STICKY, "StickyGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_STICKY_MKD, "StickyGrenade_MKD" },
+		{ CONST_WEAPON_ID_MINE_CLAYMORE, "Claymore" },
+		{ CONST_WEAPON_ID_MINE_PRISM, "PrismMine" },
+		{ CONST_WEAPON_ID_GRENADE_NINJASMOKE, "NinjaSmoke" },
+
+		// Medium
 		{ CONST_WEAPON_ID_RIFLE_ASSAULT, "AssaultRifle" },
 		{ CONST_WEAPON_ID_SPINFUSOR, "Spinfusor" },
 		{ CONST_WEAPON_ID_RIFLE_ASSAULT_MKD, "AssaultRifle_MKD" },
@@ -281,6 +297,16 @@ namespace Data
 		{ CONST_WEAPON_ID_SHOTGUN_SAWED_OFF, "SawedOffShotgun" },
 		{ CONST_WEAPON_ID_PISTOL_SPARROW, "" },
 		{ CONST_WEAPON_ID_REPAIR_TOOL_SD_MKD, "" },
+		{ CONST_WEAPON_ID_GRENADE_EMP, "EMPGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_EMP_MKD, "EMPGrenade_MKD" },
+		{ CONST_WEAPON_ID_GRENADE_WHITEOUT, "WhiteOut" },
+		{ CONST_WEAPON_ID_MIRV_GRENADE, "MIRVGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_AP, "APGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_XL, "GrenadeXL" },
+		{ CONST_WEAPON_ID_PROXIMITY_GRENADE, "ProximityGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_XL_MKD, "GrenadeXL_MKD" },
+
+		// Heavy
 		{ CONST_WEAPON_ID_LAUNCHER_MORTAR, "MortarLauncher" },
 		{ CONST_WEAPON_ID_LAUNCHER_MIRV, "MIRVLauncher" },
 		{ CONST_WEAPON_ID_LAUNCHER_MORTAR_MKD, "MortarLauncher_MKD" },
@@ -302,13 +328,22 @@ namespace Data
 		{ CONST_WEAPON_ID_SHOTGUN_AUTO_MKD, "" },
 		{ CONST_WEAPON_ID_ELFPROJECTOR, "" },
 		{ CONST_WEAPON_ID_ELFFLAK, "ElfFlak" },
+		{ CONST_WEAPON_ID_GRENADE,  "Grenade" },
+		{ CONST_WEAPON_ID_GRENADE_SPIKE, "SpikeGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_SPIKE_MKD, "SpikeGrenade_MKD" },
+		{ CONST_WEAPON_ID_GRENADE_STICKY_LIGHT, "LightStickyGrenade" },
+		{ CONST_WEAPON_ID_MINE, "Mine" },
+		{ CONST_WEAPON_ID_SPINFUSOR_TOSS, "DiskToss" },
+
+		// Vehicle
 		{ CONST_WEAPON_ID_PILOT_GRAVCYCLE, "GravCyclePilot" },
 		{ CONST_WEAPON_ID_PILOT_SHRIKE, "ShrikePilot" },
 		{ CONST_WEAPON_ID_PILOT_BEOWULF, "BeowulfPilot" },
-		{ CONST_WEAPON_ID_GUNNER_BEOWULF, "BeowulfGunner" }
+		{ CONST_WEAPON_ID_GUNNER_BEOWULF, "BeowulfGunner" },
 	};
 
 	std::map<int, UClass*> weapon_id_to_weapon_class = {
+		// Light
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT, ATrDevice_LightSpinfusor::StaticClass() },
 		{ CONST_WEAPON_ID_LAUNCHER_BOLT, ATrDevice_BoltLauncher::StaticClass() },
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT_MKD, ATrDevice_LightSpinfusor_MKD::StaticClass() },
@@ -333,6 +368,17 @@ namespace Data
 		{ CONST_WEAPON_ID_LIGHTGRENADELAUNCHER, ATrDevice_GrenadeLauncher_Light::StaticClass() },
 		{ CONST_WEAPON_ID_THROWINGKNIVES, ATrDevice_ThrowingKnives::StaticClass() },
 		{ CONST_WEAPON_ID_PISTOL_SN7_MKD, ATrDevice_SN7_MKD::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_NITRON, ATrDevice_ConcussionGrenade::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_NITRON_MKD, ATrDevice_ConcussionGrenade_MKD::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_ST, ATrDevice_STGrenade::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_T5 , ATrDevice_GrenadeT5::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_STICKY, ATrDevice_StickyGrenade::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_STICKY_MKD, ATrDevice_StickyGrenade_MKD::StaticClass() },
+		{ CONST_WEAPON_ID_MINE_CLAYMORE, ATrDevice_Claymore::StaticClass() },
+		{ CONST_WEAPON_ID_MINE_PRISM, ATrDevice_PrismMineDeployable::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_NINJASMOKE, ATrDevice_NinjaSmoke::StaticClass() },
+
+		// Medium
 		{ CONST_WEAPON_ID_RIFLE_ASSAULT, ATrDevice_AssaultRifle::StaticClass() },
 		{ CONST_WEAPON_ID_SPINFUSOR, ATrDevice_Spinfusor::StaticClass() },
 		{ CONST_WEAPON_ID_RIFLE_ASSAULT_MKD, ATrDevice_AssaultRifle_MKD::StaticClass() },
@@ -356,6 +402,16 @@ namespace Data
 		{ CONST_WEAPON_ID_SHOTGUN_SAWED_OFF, ATrDevice_SawedOffShotgun::StaticClass() },
 		{ CONST_WEAPON_ID_PISTOL_SPARROW, ATrDevice_Sparrow::StaticClass() },
 		{ CONST_WEAPON_ID_REPAIR_TOOL_SD_MKD, ATrDevice_RepairToolSD_MKD::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_EMP, ATrDevice_EMPGrenade::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_EMP_MKD, ATrDevice_EMPGrenade_MKD::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_WHITEOUT, ATrDevice_WhiteOut::StaticClass() },
+		{ CONST_WEAPON_ID_MIRV_GRENADE, ATrDevice_MIRVGrenade::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_AP, ATrDevice_APGrenade::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_XL, ATrDevice_GrenadeXL::StaticClass() },
+		{ CONST_WEAPON_ID_PROXIMITY_GRENADE, ATrDevice_ProximityGrenade::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_XL_MKD, ATrDevice_GrenadeXL_MKD::StaticClass() },
+
+		// Heavy
 		{ CONST_WEAPON_ID_LAUNCHER_MORTAR, ATrDevice_MortarLauncher::StaticClass() },
 		{ CONST_WEAPON_ID_LAUNCHER_MIRV, ATrDevice_MIRVLauncher::StaticClass() },
 		{ CONST_WEAPON_ID_LAUNCHER_MORTAR_MKD, ATrDevice_MortarLauncher_MKD::StaticClass() },
@@ -380,7 +436,13 @@ namespace Data
 		{ CONST_WEAPON_ID_PILOT_GRAVCYCLE, ATrVehicleWeapon_GravCyclePilot::StaticClass() },
 		{ CONST_WEAPON_ID_PILOT_SHRIKE, ATrVehicleWeapon_ShrikePilot::StaticClass() },
 		{ CONST_WEAPON_ID_PILOT_BEOWULF, ATrVehicleWeapon_BeowulfPilot::StaticClass() },
-		{ CONST_WEAPON_ID_GUNNER_BEOWULF, ATrVehicleWeapon_BeowulfGunner::StaticClass() }
+		{ CONST_WEAPON_ID_GUNNER_BEOWULF, ATrVehicleWeapon_BeowulfGunner::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE,  ATrDevice_Grenade::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_SPIKE, ATrDevice_SpikeGrenade::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_SPIKE_MKD, ATrDevice_SpikeGrenade_MKD::StaticClass() },
+		{ CONST_WEAPON_ID_GRENADE_STICKY_LIGHT, ATrDevice_LightStickyGrenade::StaticClass() },
+		{ CONST_WEAPON_ID_MINE, ATrDevice_Mine::StaticClass() },
+		{ CONST_WEAPON_ID_SPINFUSOR_TOSS, ATrDevice_DiskToss::StaticClass() },
 	};
 
 	std::map<std::string, int> vehicle_weapons =

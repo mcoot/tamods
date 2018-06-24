@@ -10,12 +10,14 @@ namespace ModelTextures
 		ATrDevice* replacement;
 		bool isActive;
 		bool swapAnimations;
+		bool swapPositioning;
 
 		ModelSwapWeapon() {
 			this->replacementClass = NULL;
 			this->replacement = NULL;
 			this->isActive = false;
 			this->swapAnimations = true;
+			this->swapPositioning = true;
 		}
 	};
 
@@ -62,7 +64,7 @@ namespace ModelTextures
 
 		// Set the class a particular equip point should be swapped to
 		// Does not actually refresh the swaps
-		WeaponOperationResult SetSwap(TR_EQUIP_POINT equipPoint, UClass* newSwapClass, bool isActive, bool swapAnimations);
+		WeaponOperationResult SetSwap(TR_EQUIP_POINT equipPoint, UClass* newSwapClass, bool isActive, bool swapAnimations, bool swapPositioning);
 
 		// Ensure appropriate models are swapped
 		void SwapStateTick(ATrDevice* currentDevice);

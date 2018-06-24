@@ -795,8 +795,8 @@ namespace TAModConfigurationTool
             loadoutDetails["Light"]["sidearms"] = new List<string> { "Sparrow", "Throwing Knives", "SN7 Silenced Pistol", "Arctic SN7" };
             loadoutRegex["Light"]["sidearms"] = new List<String> { "^(sparrow)$", "^(throwingknives|knives)$", "^(sn7(silenced)?(pistol)?)$", "^(arcticsn7(silenced)?(pistol)?)$" };
 
-            loadoutDetails["Light"]["belt"] = new List<string> { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons", "Sticky Grenades", "Claymore Mines", "Prism Mines", "Chaff Grenades" };
-            loadoutRegex["Light"]["belt"] = new List<string> { "^(nitrons?|impactnitrons?|impacts?)$", "^(explosivenitrons?|explosives?)$", "^(compactnitrons?|compacts?)$", "^(stickygrenades?|sticky|stickies)$", "^(claymores?|claymoremines?)$", "^(prismmines?|mines?)$", "^(chaffs?(grenades?)?)$" };
+            loadoutDetails["Light"]["belt"] = new List<string> { "Impact Nitrons", "Explosive Nitrons", "Compact Nitrons", "T5 Grenades", "Sticky Grenades", "Sticky Grenades XL", "Claymore Mines", "Prism Mines", "Chaff Grenades" };
+            loadoutRegex["Light"]["belt"] = new List<string> { "^(nitrons?|impactnitrons?|impacts?)$", "^(explosivenitrons?|explosives?)$", "^(compactnitrons?|compacts?)$", "^(T5s?(grenades)?)$", "^(stickygrenades?|sticky|stickies)$", "^(stickygrenades?xl|stickyxl|stickiesxl)$", "^(claymores?|claymoremines?)$", "^(prismmines?|mines?)$", "^(chaffs?(grenades?)?)$" };
             loadoutDetails["Light"]["pack"] = new List<string> { "Energy Recharge", "Thrust Pack" };
             loadoutRegex["Light"]["pack"] = new List<string> { "^(energyrecharge|energy)$", "^(thrustpack|thrust)$" };
 
@@ -816,8 +816,8 @@ namespace TAModConfigurationTool
             loadoutDetails["Medium"]["sidearms"] = new List<string> { "Nova blaster", "Eagle Pistol" };
             loadoutRegex["Medium"]["sidearms"] = new List<String> { "^(nova|blaster|novablaster)$", "^(eaglepistol|eagle|pistol)$" };
 
-            loadoutDetails["Medium"]["belt"] = new List<string> { "Frag Grenades XL", "AP Grenades", "EMP Grenades", "Blackout Grenades", "Cluster Grenades", "Proxies", "Short-fuse Frag Grenades" };
-            loadoutRegex["Medium"]["belt"] = new List<string> { "^(fraggrenades?(xl)?|frags?(xl)?|grenades?(xl)?)$", "^(anti-?personnelgrenades?|aps?|apgrenades?)$", "^(emps?|empgrenades?)$", "^(blackouts?|blackoutgrenades?)$", "^(clustergrenades?|clusters?)$", "^(proxmitys?(grenades?)?|proxies|proxys?)$", "^(short-?fusefraggrenades?|short-?fuses?)$" };
+            loadoutDetails["Medium"]["belt"] = new List<string> { "Frag Grenades XL", "AP Grenades", "EMP Grenades", "EMP XL Grenades", "Blackout Grenades", "Cluster Grenades", "Proxies", "Short-fuse Frag Grenades" };
+            loadoutRegex["Medium"]["belt"] = new List<string> { "^(fraggrenades?(xl)?|frags?(xl)?|grenades?(xl)?)$", "^(anti-?personnelgrenades?|aps?|apgrenades?)$", "^(emps?|empgrenades?)$", "^(emps?xls?|emps?xlgrenades?)$", "^(blackouts?|blackoutgrenades?)$", "^(clustergrenades?|clusters?)$", "^(proxmitys?(grenades?)?|proxies|proxys?)$", "^(short-?fusefraggrenades?|short-?fuses?)$" };
             loadoutDetails["Medium"]["pack"] = new List<string> { "Energy Pack", "Utility Pack" };
             loadoutRegex["Medium"]["pack"] = new List<string> { "^(energypack|energy)$", "^(utilitypack|utility)$" };
 
@@ -837,8 +837,8 @@ namespace TAModConfigurationTool
             loadoutDetails["Heavy"]["sidearms"] = new List<string> { "Nova Colt", "Nova Blaster MX" };
             loadoutRegex["Heavy"]["sidearms"] = new List<String> { "^(novacolt|colt|nova)$", "^(mx|novablastermx|novamx|blaster(mx)?)$" };
 
-            loadoutDetails["Heavy"]["belt"] = new List<String> { "Frag Grenades", "Fractal Grenades", "Extended Fractals", "Mines", "Spinfusor Disks" };
-            loadoutRegex["Heavy"]["belt"] = new List<String> { "^(fraggrenades?|frags?)$", "^(fractals?|fractalgrenades?)$", "^(extendedfractals?(grenades)?)$", "^(mines?)$", "^(spinfusordisks?|spinfusordiscs?|spins?|disks?|discs?|spindisks?|spindiscs?)$" };
+            loadoutDetails["Heavy"]["belt"] = new List<String> { "Frag Grenades", "Fractal Grenades", "Extended Fractals", "Light Sticky Grenades", "Mines", "Spinfusor Disks" };
+            loadoutRegex["Heavy"]["belt"] = new List<String> { "^(fraggrenades?|frags?)$", "^(fractals?|fractalgrenades?)$", "^(extendedfractals?(grenades)?)$", "^(lightsticky(grenades?)?|lightstickies)$", "^(mines?)$", "^(spinfusordisks?|spinfusordiscs?|spins?|disks?|discs?|spindisks?|spindiscs?)$" };
             loadoutDetails["Heavy"]["pack"] = new List<String> { };
             loadoutRegex["Heavy"]["pack"] = new List<String> { };
 

@@ -177,6 +177,7 @@ public:
 			Utils::console("ERROR: Projectile could not be found for weapon #%d PLEASE REPORT TO /u/ensiss", pweapon_id);
 			return;
 		}
+		//Utils::console("SET %s ", def_proj_name);
 		default_ps = default_proj->ProjFlightTemplate;
 		weapon_id = pweapon_id;
 		custom_ps = cloneParticleSystem(default_ps);
@@ -200,6 +201,7 @@ struct CustomWeapon {
 	UClass* normalClass;
 	UClass* replacementClass;
 	bool swapAnims;
+	bool leavePositioning;
 };
 
 class Config
