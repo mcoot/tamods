@@ -1,6 +1,7 @@
 #include "Stats.h"
 #include <iomanip>
 #include <iostream>
+#include <ctime>
 
 Stats g_stats;
 
@@ -185,21 +186,25 @@ void Stats::printStats(bool savestats, bool saveteamstats, bool printstats, bool
 			}
 
 			Utils::printConsole("============Game Stats============\n", Utils::rgb(0, 255, 255));
-			std::string teamStatsString[2];
-			//BE Score,Player1,Player2,Player3,Player4,Player5,Player6,Player7
-			//DS Score,Player1,Player2,Player3,Player4,Player5,Player6,Player7
-			teamStatsString[0] = mapName + "," + std::to_string(getGameData::score(0)) + playersBE;
-			teamStatsString[1] = mapName + "," + std::to_string(getGameData::score(1)) + playersDS;
+			std::string teamStatsString;
 
-			for (int i = 0; i < 2; i++) Utils::printConsole(teamStatsString[i], Utils::rgb(255, 255, 255));
+			//Date, Map Name, Blood Eagle Score, BE Player1, BE Player2, BE Player3, BE Player4, BE Player5, BE Player6, BE Player7, Diamond Sword Score, DS Player1, DS Player2, DS Player3, DS Player4, DS Player5, DS Player6, DS Player7
+			auto t = std::time(nullptr);
+			auto tm = *std::localtime(&t);
+
+			std::ostringstream oss;
+			oss << std::put_time(&tm, "%Y-%m-%d %H-%M");
+			std::string locaTime = oss.str();
+
+			teamStatsString = locaTime + "," + mapName + "," + std::to_string(getGameData::score(0)) + playersBE + "," + std::to_string(getGameData::score(1)) + playersDS;
+
+			Utils::printConsole(teamStatsString, Utils::rgb(255, 255, 255));
 
 			Utils::printConsole("==================================\n", Utils::rgb(0, 255, 255));
 			if (saveteamstats) {
-				for (int i = 0; i < 2; i++) {
-					char * tempChar = new char[2 + 1];
-					std::strcpy(tempChar, teamStatsString[i].c_str());
-					saveStats(_gameStatsFile, "TAModsGameStats.csv", tempChar);
-				}
+				char * tempChar = new char[2 + 1];
+				std::strcpy(tempChar, teamStatsString.c_str());
+				saveStats(_gameStatsFile, "TribesMatchStats.csv", tempChar);
 			}
 		}
 	}
