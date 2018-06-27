@@ -1142,6 +1142,27 @@ static void config_placeholder()
 {
 }
 
+namespace ConfigEnums
+{
+	// Convenience constant enum values
+	// Teams
+	int TEAM_BLOOD_EAGLE = 0;
+	int TEAM_DIAMOND_SWORD = 1;
+	int TEAM_SPECTATOR = 255;
+
+	// Equip points
+	int EQUIPMENT_NONE = EQP_NONE;
+	int EQUIPMENT_MELEE = EQP_Melee;
+	int EQUIPMENT_PRIMARY = EQP_Primary;
+	int EQUIPMENT_SECONDARY = EQP_Secondary;
+	int EQUIPMENT_TERTIARY = EQP_Tertiary;
+	int EQUIPMENT_QUARTERNARY = EQP_Quaternary;
+	int EQUIPMENT_PACK = EQP_Pack;
+	int EQUIPMENT_BELT = EQP_Belt;
+	int EQUIPMENT_DEPLOYABLE = EQP_Deployable;
+	int EQUIPMENT_LASERTARGET = EQP_LaserTarget;
+};
+
 void Lua::init()
 {
 	getGlobalNamespace(_state).
@@ -2254,6 +2275,23 @@ void Lua::init()
 			addFunction("size",             &getViewPortData::size).
 			addFunction("isMainMenuOpen",   &getViewPortData::isMainMenuOpen).
 			addFunction("isScoreboardOpen", &getViewPortData::isScoreboardOpen).
+		endNamespace().
+		beginNamespace("enums").
+			// Team enum
+			addVariable("TEAM_BLOOD_EAGLE", &ConfigEnums::TEAM_BLOOD_EAGLE, false).
+			addVariable("TEAM_DIAMOND_SWORD", &ConfigEnums::TEAM_DIAMOND_SWORD, false).
+			addVariable("TEAM_SPECTATOR", &ConfigEnums::TEAM_SPECTATOR, false).
+			// Equip points enum
+			addVariable("EQUIPMENT_NONE", &ConfigEnums::EQUIPMENT_NONE, false).
+			addVariable("EQUIPMENT_MELEE", &ConfigEnums::EQUIPMENT_MELEE, false).
+			addVariable("EQUIPMENT_PRIMARY", &ConfigEnums::EQUIPMENT_PRIMARY, false).
+			addVariable("EQUIPMENT_SECONDARY", &ConfigEnums::EQUIPMENT_SECONDARY, false).
+			addVariable("EQUIPMENT_TERTIARY", &ConfigEnums::EQUIPMENT_TERTIARY, false).
+			addVariable("EQUIPMENT_QUARTERNARY", &ConfigEnums::EQUIPMENT_QUARTERNARY, false).
+			addVariable("EQUIPMENT_PACK", &ConfigEnums::EQUIPMENT_PACK, false).
+			addVariable("EQUIPMENT_BELT", &ConfigEnums::EQUIPMENT_BELT, false).
+			addVariable("EQUIPMENT_DEPLOYABLE", &ConfigEnums::EQUIPMENT_DEPLOYABLE, false).
+			addVariable("EQUIPMENT_LASERTARGET", &ConfigEnums::EQUIPMENT_LASERTARGET, false).
 		endNamespace().
 		beginNamespace("player").
 			addFunction("name",            &getPlayerData::name).
