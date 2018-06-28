@@ -468,6 +468,30 @@ ATrVehicle* getVehicleHelper()
 	}
 	return NULL;
 }
+std::string getVehicleData::name()
+{
+	ATrVehicle *v = getVehicleHelper();
+	if (v) {
+		std::string n = v->Name.GetName();
+		if (n == "TrVehicle_GravCycle") {
+			return "Grav Cycle";
+		}
+		else if (n == "TrVehicle_Beowulf") {
+			return "Beowulf";
+		}
+		else if (n == "TrVehicle_Shrike") {
+			return "Shrike";
+		}
+		else {
+			return n;
+		}
+	}
+	else {
+		return "unknown";
+	}
+
+	
+}
 int getVehicleData::health()
 {
 	ATrVehicle *v = getVehicleHelper();

@@ -2353,6 +2353,7 @@ void Lua::init()
 			addFunction("name",               &getCurrentWeaponData::name).
 		endNamespace().
 		beginNamespace("vehicle").
+			addFunction("name",		 &getVehicleData::name).
 			addFunction("health",    &getVehicleData::health).
 			addFunction("healthMax", &getVehicleData::healthMax).
 			addFunction("energyPct", &getVehicleData::energyPct).
