@@ -482,6 +482,12 @@ std::string getVehicleData::name()
 		else if (n == "TrVehicle_Shrike") {
 			return "Shrike";
 		}
+		else if (n == "TrVehicle_Havoc") {
+			return "Havoc";
+		}
+		else if (n == "TrVehicle_HERC") {
+			return "HERC";
+		}
 		else {
 			return n;
 		}
@@ -489,8 +495,77 @@ std::string getVehicleData::name()
 	else {
 		return "unknown";
 	}
+}
+std::string getVehicleData::seatName()
+{
+	ATrPawn *TrP = (ATrPawn *)Utils::tr_pc->Pawn;
 
-	
+	// All vehicles except gravcycle passenger
+	if (TrP->Weapon && TrP->Weapon->IsA(ATrVehicleWeapon::StaticClass())) {
+		ATrVehicleWeapon* vWeapon = (ATrVehicleWeapon *)TrP->Weapon;
+		if (vWeapon->IsA(ATrVehicleWeapon_GravCyclePilot::StaticClass())
+			|| vWeapon->IsA(ATrVehicleWeapon_ShrikePilot::StaticClass()) 
+			|| vWeapon->IsA(ATrVehicleWeapon_BeowulfPilot::StaticClass())
+			|| vWeapon->IsA(ATrVehicleWeapon_HERCPilot::StaticClass())
+			|| vWeapon->IsA(ATrVehicleWeapon_HavocPilot::StaticClass())) {
+			return "Pilot";
+		} 
+		else if (vWeapon->IsA(ATrVehicleWeapon_BeowulfGunner::StaticClass())
+				 || vWeapon->IsA(ATrVehicleWeapon_HERCGunner::StaticClass())) {
+			return "Gunner";
+		}
+		else {
+			return "unknown";
+		}
+	}
+	// Grav bike passenger
+	else if (TrP->m_RidingVehicle) {
+		return "Passenger";
+	}
+
+	// Not in a vehicle
+	return "unknown";
+}
+int getVehicleData::seatIndex() {
+	ATrPawn *TrP = (ATrPawn *)Utils::tr_pc->Pawn;
+
+	// All vehicles except gravcycle passenger
+	if (TrP->Weapon && TrP->Weapon->IsA(ATrVehicleWeapon::StaticClass())) {
+		ATrVehicleWeapon* vWeapon = (ATrVehicleWeapon *)TrP->Weapon;
+		if (vWeapon->IsA(ATrVehicleWeapon_GravCyclePilot::StaticClass())
+			|| vWeapon->IsA(ATrVehicleWeapon_ShrikePilot::StaticClass())
+			|| vWeapon->IsA(ATrVehicleWeapon_BeowulfPilot::StaticClass())
+			|| vWeapon->IsA(ATrVehicleWeapon_HERCPilot::StaticClass())
+			|| vWeapon->IsA(ATrVehicleWeapon_HavocPilot::StaticClass())) {
+			return 0;
+		}
+		else if (vWeapon->IsA(ATrVehicleWeapon_BeowulfGunner::StaticClass())
+			|| vWeapon->IsA(ATrVehicleWeapon_HERCGunner::StaticClass())) {
+			return 1;
+		}
+		else {
+			return 0;
+		}
+	}
+	// Grav bike passenger
+	else if (TrP->m_RidingVehicle) {
+		return 1;
+	}
+
+	return 0;
+}
+int getVehicleData::seatCount()
+{
+	std::string vName = name();
+	if (vName == "Grav Cycle" || vName == "Beowulf" || vName == "HERC") {
+		return 2;
+	}
+
+	if (vName != "unknown") {
+		return 1;
+	}
+
+	return 0;
 }
 int getVehicleData::health()
 {
@@ -765,7 +840,6 @@ std::string getRabbitData::leaderBoardName(unsigned const char &n)
 	if (Utils::tr_pc && Utils::tr_pc->WorldInfo && Utils::tr_pc->WorldInfo->GRI)
 	{
 		ATrGameReplicationInfo *gri = (ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI;
-
 		if (gri->m_RabbitLeaderBoard[n])
 			return Utils::f2std(gri->m_RabbitLeaderBoard[n]->PlayerName);
 	}
@@ -780,6 +854,7 @@ std::string getRabbitData::rabbitName()
 		if (gri->m_CurrentRabbitPRI)
 			return Utils::f2std(gri->m_CurrentRabbitPRI->PlayerName);
 	}
+
 	return "";
 }
 /////////////////////////////////////////////////////////////////////////////////////

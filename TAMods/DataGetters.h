@@ -74,7 +74,9 @@ namespace getCurrentWeaponData
 namespace getVehicleData
 {
 	std::string name();
-	bool seatAvailable();
+	std::string seatName();
+	int seatIndex();
+	int seatCount();
 	int health();
 	int healthMax();
 	float energyPct();

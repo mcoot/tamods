@@ -10,6 +10,8 @@ module.opts.x_barSize        = 15
 module.opts.y_barSize        = 20
 module.opts.x_barPadding     = 2
 module.opts.y_barPadding     = 2
+module.opts.Show_Vehicle_Name = true
+module.opts.Show_Vehicle_Seat = true
 module.opts.Full_Health      = rgba(211,240,220,150)
 module.opts.Low_Health       = rgba(230,30,30,150)
 module.opts.Energy           = rgba(150,200,200,150)
@@ -66,7 +68,10 @@ function module.draw(res_x, res_y)
 	end
 	drawSmallText(math.floor(vehicle.energyPct()*100), module.opts.Energy, xpos, ypos  + module.opts.y_barSize + (module.opts.y_barPadding * 2) + (module.opts.y_barSize / 2), 0, 1, 2)
 	
-	drawSmallText(vehicle.name(), module.opts.Full_Health, xright, ypos - 18, 2, 1, 2)
+	local vNameText = ""
+	if module.opts.Show_Vehicle_Name then vNameText = vehicle.name() end
+	if module.opts.Show_Vehicle_Seat then vNameText = vNameText .. " / " .. vehicle.seatName() end
+	drawSmallText(vNameText, module.opts.Full_Health, xright, ypos - 20, 2, 1, 2)
 end
 
 return module

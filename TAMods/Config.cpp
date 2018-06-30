@@ -1161,6 +1161,32 @@ namespace ConfigEnums
 	int EQUIPMENT_BELT = EQP_Belt;
 	int EQUIPMENT_DEPLOYABLE = EQP_Deployable;
 	int EQUIPMENT_LASERTARGET = EQP_LaserTarget;
+
+	// Reticules
+	int RETICULE_TYPE_SPINFUSOR = CONST_THR_SPINFUSOR;
+	int RETICULE_TYPE_SMG = CONST_THR_SMG;
+	int RETICULE_TYPE_RIFLE = CONST_THR_RIFLE;
+	int RETICULE_TYPE_LOCKED_ON = CONST_THR_LOCKED_ON;
+	int RETICULE_TYPE_CROSSBOW = CONST_THR_CROSSBOW;
+	int RETICULE_TYPE_FLAMETHROWER = CONST_THR_FLAME_THROWER;
+	int RETICULE_TYPE_CHAINGUN = CONST_THR_CHAIN_GUN;
+	int RETICULE_TYPE_THUMPER = CONST_THR_MISSILE;
+	int RETICULE_TYPE_NANITE = CONST_THR_NANITE;
+	int RETICULE_TYPE_SHOTGUN = CONST_THR_SHOTGUN;
+	int RETICULE_TYPE_UNKNOWN = CONST_THR_UNKNOWN;
+	int RETICULE_TYPE_LASER = CONST_THR_LASER;
+	int RETICULE_TYPE_CH_V13 = CONST_THR_CH_V13;
+	int RETICULE_TYPE_SCOPE = CONST_THR_SCOPE;
+	int RETICULE_TYPE_PISTOL = CONST_THR_STANDARD;
+	int RETICULE_TYPE_GRENADE_LAUNCHER = CONST_THR_GRENADE_LAUNCHER;
+	int RETICULE_TYPE_MELEE = CONST_THR_MELEE;
+	int RETICULE_TYPE_SHRIKE = CONST_THR_SHRIKE;
+	int RETICULE_TYPE_SPECTATOR = CONST_THR_FREE_SPECTATOR;
+	int RETICULE_TYPE_CHAIN = CONST_THR_RED_DOT;
+	int RETICULE_TYPE_BXT1 = CONST_THR_BXT1;
+	int RETICULE_TYPE_PHASE = CONST_THR_PHASERIFLE;
+	int RETICULE_TYPE_SAP20 = CONST_THR_SAP20;
+	int RETICULE_TYPE_PLASMA = CONST_THR_PLASMAGUN;
 };
 
 void Lua::init()
@@ -2292,6 +2318,31 @@ void Lua::init()
 			addVariable("EQUIPMENT_BELT", &ConfigEnums::EQUIPMENT_BELT, false).
 			addVariable("EQUIPMENT_DEPLOYABLE", &ConfigEnums::EQUIPMENT_DEPLOYABLE, false).
 			addVariable("EQUIPMENT_LASERTARGET", &ConfigEnums::EQUIPMENT_LASERTARGET, false).
+			// Reticule types enum
+			addVariable("RETICULE_TYPE_SPINFUSOR", &ConfigEnums::RETICULE_TYPE_SPINFUSOR, false).
+			addVariable("RETICULE_TYPE_SMG", &ConfigEnums::RETICULE_TYPE_SMG, false).
+			addVariable("RETICULE_TYPE_RIFLE", &ConfigEnums::RETICULE_TYPE_RIFLE, false).
+			addVariable("RETICULE_TYPE_LOCKED_ON", &ConfigEnums::RETICULE_TYPE_LOCKED_ON, false).
+			addVariable("RETICULE_TYPE_CROSSBOW", &ConfigEnums::RETICULE_TYPE_CROSSBOW, false).
+			addVariable("RETICULE_TYPE_FLAMETHROWER", &ConfigEnums::RETICULE_TYPE_FLAMETHROWER, false).
+			addVariable("RETICULE_TYPE_CHAINGUN", &ConfigEnums::RETICULE_TYPE_CHAINGUN, false).
+			addVariable("RETICULE_TYPE_THUMPER", &ConfigEnums::RETICULE_TYPE_THUMPER, false).
+			addVariable("RETICULE_TYPE_NANITE", &ConfigEnums::RETICULE_TYPE_NANITE, false).
+			addVariable("RETICULE_TYPE_SHOTGUN", &ConfigEnums::RETICULE_TYPE_SHOTGUN, false).
+			addVariable("RETICULE_TYPE_UNKNOWN", &ConfigEnums::RETICULE_TYPE_UNKNOWN, false).
+			addVariable("RETICULE_TYPE_LASER", &ConfigEnums::RETICULE_TYPE_LASER, false).
+			addVariable("RETICULE_TYPE_CH_V13", &ConfigEnums::RETICULE_TYPE_CH_V13, false).
+			addVariable("RETICULE_TYPE_SCOPE", &ConfigEnums::RETICULE_TYPE_SCOPE, false).
+			addVariable("RETICULE_TYPE_PISTOL", &ConfigEnums::RETICULE_TYPE_PISTOL, false).
+			addVariable("RETICULE_TYPE_GRENADE_LAUNCHER", &ConfigEnums::RETICULE_TYPE_GRENADE_LAUNCHER, false).
+			addVariable("RETICULE_TYPE_MELEE", &ConfigEnums::RETICULE_TYPE_MELEE, false).
+			addVariable("RETICULE_TYPE_SHRIKE", &ConfigEnums::RETICULE_TYPE_SHRIKE, false).
+			addVariable("RETICULE_TYPE_SPECTATOR", &ConfigEnums::RETICULE_TYPE_SPECTATOR, false).
+			addVariable("RETICULE_TYPE_CHAIN", &ConfigEnums::RETICULE_TYPE_CHAIN, false).
+			addVariable("RETICULE_TYPE_BXT1", &ConfigEnums::RETICULE_TYPE_BXT1, false).
+			addVariable("RETICULE_TYPE_PHASE", &ConfigEnums::RETICULE_TYPE_PHASE, false).
+			addVariable("RETICULE_TYPE_SAP20", &ConfigEnums::RETICULE_TYPE_SAP20, false).
+			addVariable("RETICULE_TYPE_PLASMA", &ConfigEnums::RETICULE_TYPE_PLASMA, false).
 		endNamespace().
 		beginNamespace("player").
 			addFunction("name",            &getPlayerData::name).
@@ -2353,13 +2404,16 @@ void Lua::init()
 			addFunction("name",               &getCurrentWeaponData::name).
 		endNamespace().
 		beginNamespace("vehicle").
-			addFunction("name",		 &getVehicleData::name).
-			addFunction("health",    &getVehicleData::health).
-			addFunction("healthMax", &getVehicleData::healthMax).
-			addFunction("energyPct", &getVehicleData::energyPct).
-			addFunction("ammo",      &getVehicleData::ammo).
-			addFunction("ammoMax",   &getVehicleData::ammoMax).
-			addFunction("speed",     &getVehicleData::speed).
+			addFunction("name",			&getVehicleData::name).
+			addFunction("seatName",		&getVehicleData::seatName).
+			addFunction("seatIndex",	&getVehicleData::seatIndex).
+			addFunction("seatCount",	&getVehicleData::seatCount).
+			addFunction("health",		&getVehicleData::health).
+			addFunction("healthMax",	&getVehicleData::healthMax).
+			addFunction("energyPct",	&getVehicleData::energyPct).
+			addFunction("ammo",			&getVehicleData::ammo).
+			addFunction("ammoMax",		&getVehicleData::ammoMax).
+			addFunction("speed",		&getVehicleData::speed).
 		endNamespace().
 		beginNamespace("game").
 			addFunction("type",              &getGameData::type).
