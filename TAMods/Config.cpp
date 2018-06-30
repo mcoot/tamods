@@ -1187,6 +1187,33 @@ namespace ConfigEnums
 	int RETICULE_TYPE_PHASE = CONST_THR_PHASERIFLE;
 	int RETICULE_TYPE_SAP20 = CONST_THR_SAP20;
 	int RETICULE_TYPE_PLASMA = CONST_THR_PLASMAGUN;
+
+	// Chat Channels
+	int CHAT_CHANNEL_GAME = GC_CC_INSTANCE;
+	int CHAT_CHANNEL_TEAM = GC_CC_LOCAL_TEAM;
+
+	// Input event types
+	int INPUT_EVENT_TYPE_PRESSED = IE_Pressed;
+	int INPUT_EVENT_TYPE_RELEASED = IE_Released;
+	int INPUT_EVENT_TYPE_REPEAT = IE_Repeat;
+	int INPUT_EVENT_TYPE_DOUBLECLICK = IE_DoubleClick;
+	int INPUT_EVENT_TYPE_AXIS = IE_Axis;
+
+	// Kill types
+	int KILL_TYPE_EXPLOSIVE = CONST_TRICON_KILLTYPE_EXPLOSIVE - 129;
+	int KILL_TYPE_STICKY = CONST_TRICON_KILLTYPE_STICKY - 129;
+	int KILL_TYPE_SQUISH = CONST_TRICON_KILLTYPE_SQUISH - 129;
+	int KILL_TYPE_MELEE = CONST_TRICON_KILLTYPE_MELEE - 129;
+	int KILL_TYPE_FALLING = CONST_TRICON_KILLTYPE_FALLING - 129;
+	int KILL_TYPE_VEHICLE = CONST_TRICON_KILLTYPE_VEHICLE - 129;
+	int KILL_TYPE_BULLET = CONST_TRICON_KILLTYPE_BULLET - 129;
+	int KILL_TYPE_SNIPER = CONST_TRICON_KILLTYPE_SNIPER - 129;
+	int KILL_TYPE_BASE_TURRET = CONST_TRICON_KILLTYPE_BASE_TURRET - 129;
+	int KILL_TYPE_HEADSHOT = CONST_TRICON_KILLTYPE_HEADSHOT - 129;
+	int KILL_TYPE_GENERIC = CONST_TRICON_KILLTYPE_GENERIC - 129;
+	int KILL_TYPE_SPINFUSOR = CONST_TRICON_KILLTYPE_SPINFUSOR - 129;
+	int KILL_TYPE_TURRET = CONST_TRICON_KILLTYPE_TURRET - 129;
+	int KILL_TYPE_CLAIMED = CONST_TRICON_ACCOLADE_BASE_DESTROY - 129;
 };
 
 void Lua::init()
@@ -1242,6 +1269,7 @@ void Lua::init()
 			addFunction("clear", &TArray<FOverheadNumber>::Clear).
 			addFunction("size", &TArray<FOverheadNumber>::Num).
 			addFunction("get", &TArray<FOverheadNumber>::Get).
+			addFunction("set", &TArray<FOverheadNumber>::Set).
 		endClass().
 
 		// Loadouts placeholders
@@ -2343,6 +2371,29 @@ void Lua::init()
 			addVariable("RETICULE_TYPE_PHASE", &ConfigEnums::RETICULE_TYPE_PHASE, false).
 			addVariable("RETICULE_TYPE_SAP20", &ConfigEnums::RETICULE_TYPE_SAP20, false).
 			addVariable("RETICULE_TYPE_PLASMA", &ConfigEnums::RETICULE_TYPE_PLASMA, false).
+			// Chat channels
+			addVariable("CHAT_CHANNEL_GAME", &ConfigEnums::CHAT_CHANNEL_GAME, false).
+			addVariable("CHAT_CHANNEL_TEAM", &ConfigEnums::CHAT_CHANNEL_TEAM, false).
+			// Input event types enum
+			addVariable("INPUT_EVENT_TYPE_PRESSED", &ConfigEnums::INPUT_EVENT_TYPE_PRESSED,false).
+			addVariable("INPUT_EVENT_TYPE_RELEASED", &ConfigEnums::INPUT_EVENT_TYPE_RELEASED,false).
+			addVariable("INPUT_EVENT_TYPE_REPEAT", &ConfigEnums::INPUT_EVENT_TYPE_REPEAT,false).
+			addVariable("INPUT_EVENT_TYPE_DOUBLECLICK", &ConfigEnums::INPUT_EVENT_TYPE_DOUBLECLICK,false).
+			// Kill types
+			addVariable("KILL_TYPE_EXPLOSIVE", &ConfigEnums::KILL_TYPE_EXPLOSIVE, false).
+			addVariable("KILL_TYPE_STICKY", &ConfigEnums::KILL_TYPE_STICKY, false).
+			addVariable("KILL_TYPE_SQUISH", &ConfigEnums::KILL_TYPE_SQUISH, false).
+			addVariable("KILL_TYPE_MELEE", &ConfigEnums::KILL_TYPE_MELEE, false).
+			addVariable("KILL_TYPE_FALLING", &ConfigEnums::KILL_TYPE_FALLING, false).
+			addVariable("KILL_TYPE_VEHICLE", &ConfigEnums::KILL_TYPE_VEHICLE, false).
+			addVariable("KILL_TYPE_BULLET", &ConfigEnums::KILL_TYPE_BULLET, false).
+			addVariable("KILL_TYPE_SNIPER", &ConfigEnums::KILL_TYPE_SNIPER, false).
+			addVariable("KILL_TYPE_BASE_TURRET", &ConfigEnums::KILL_TYPE_BASE_TURRET, false).
+			addVariable("KILL_TYPE_HEADSHOT", &ConfigEnums::KILL_TYPE_HEADSHOT, false).
+			addVariable("KILL_TYPE_GENERIC", &ConfigEnums::KILL_TYPE_GENERIC, false).
+			addVariable("KILL_TYPE_SPINFUSOR", &ConfigEnums::KILL_TYPE_SPINFUSOR, false).
+			addVariable("KILL_TYPE_TURRET", &ConfigEnums::KILL_TYPE_TURRET, false).
+			addVariable("KILL_TYPE_CLAIMED", &ConfigEnums::KILL_TYPE_CLAIMED, false).
 		endNamespace().
 		beginNamespace("player").
 			addFunction("name",            &getPlayerData::name).

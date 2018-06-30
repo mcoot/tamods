@@ -6,13 +6,14 @@ bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunc
 
 	int iconId = ((UTrAccolade *)params->Accolade->Default)->IconIndex;
 	std::string name = Utils::f2std(((UTrAccolade *)params->Accolade->Default)->FriendlyName);
+	bool isBadge = iconId >= 170 && iconId <= 263;
 
 	// Lua function
 	if (g_config.onQueueAccolade && !g_config.onQueueAccolade->isNil() && g_config.onQueueAccolade->isFunction())
 	{
 		try
 		{
-			(*g_config.onQueueAccolade)(iconId, name, NULL, false);
+			(*g_config.onQueueAccolade)(iconId, name, "", isBadge);
 		}
 		catch (const LuaException &e)
 		{
