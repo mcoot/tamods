@@ -1103,6 +1103,11 @@ static void config_searchSoundRe(const std::string &needle)
 	Utils::printConsole("Total: " + std::to_string(matches));
 }
 
+static ATrHUD* hud_getHud() 
+{
+	return Utils::tr_hud;
+}
+
 static FVector hud_project(ATrHUD *hud, FVector vec)
 {
 	return hud->Canvas->Project(vec);
@@ -2222,6 +2227,7 @@ void Lua::init()
 		beginClass<ATrHUD>("HUD").
 			addData("canvas", &ATrHUD::Canvas).
 		endClass().
+		addFunction("getHUD", &hud_getHud).
 		addFunction("project", &hud_project).
 		addFunction("drawDamageNumber", &hud_drawDamageNumber).
 		addFunction("isOnScreen", &hud_isOnScreen).
