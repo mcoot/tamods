@@ -2404,7 +2404,7 @@ void Lua::init()
 			// Text alignments
 			addVariable("TEXT_ALIGN_LEFT", &ConfigEnums::TEXT_ALIGN_LEFT, false).
 			addVariable("TEXT_ALIGN_CENTER", &ConfigEnums::TEXT_ALIGN_CENTER, false).
-			addVariable("TEXT_ALIGN_RIGHT", &ConfigEnums::TEXT_ALIGN_CENTER, false).
+			addVariable("TEXT_ALIGN_RIGHT", &ConfigEnums::TEXT_ALIGN_RIGHT, false).
 		endNamespace().
 		beginNamespace("player").
 			addFunction("name",            &getPlayerData::name).
