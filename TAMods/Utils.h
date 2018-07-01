@@ -43,10 +43,12 @@ namespace Utils
 	void drawText(const std::string &str, const FColor &col, float x, float y, const byte &align, const float &scale);
 	void drawSmallText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale);
 	void drawUTText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size);
+	void drawUTTextScaled(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size, const float &scale);
 	FVector2D getTextSizeMain(std::string str, const float &scale, const unsigned &size, const unsigned char &fontNum);
 	FVector2D getTextSize(const std::string &str, const float &scale);
 	FVector2D getSmallTextSize(const std::string &str, const float &scale);
 	FVector2D getUTTextSize(const std::string &str, const int &size);
+	FVector2D getUTTextSizeScaled(const std::string &str, const int &size, const float &scale);
 	void drawRect(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 	void drawBox(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 	void drawProgressBar(float x1, float y1, float x2, float y2, const FColor &col, const byte &dir, const float &alpha);

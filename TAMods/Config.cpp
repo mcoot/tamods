@@ -1214,6 +1214,11 @@ namespace ConfigEnums
 	int KILL_TYPE_SPINFUSOR = CONST_TRICON_KILLTYPE_SPINFUSOR - 129;
 	int KILL_TYPE_TURRET = CONST_TRICON_KILLTYPE_TURRET - 129;
 	int KILL_TYPE_CLAIMED = CONST_TRICON_ACCOLADE_BASE_DESTROY - 129;
+
+	// Text alignments
+	int TEXT_ALIGN_LEFT = 0;
+	int TEXT_ALIGN_CENTER = 1;
+	int TEXT_ALIGN_RIGHT = 2;
 };
 
 void Lua::init()
@@ -2313,16 +2318,18 @@ void Lua::init()
 		addFunction("sensitivity", &consoleCommands::luaSetSens).
 
 		// Custom HUD drawing functions
-		addFunction("drawText",         &Utils::drawText).
-		addFunction("drawSmallText",    &Utils::drawSmallText).
-		addFunction("drawUTText",       &Utils::drawUTText).
-		addFunction("getTextSize",      &Utils::getTextSize).
-		addFunction("getSmallTextSize", &Utils::getSmallTextSize).
-		addFunction("getUTTextSize",    &Utils::getUTTextSize).
-		addFunction("drawRect",         &Utils::drawRect).
-		addFunction("drawBox",          &Utils::drawBox).
-		addFunction("drawProgressBar",  &Utils::drawProgressBar).
-		addFunction("draw2dLine",       &Utils::draw2dLine).
+		addFunction("drawText",				&Utils::drawText).
+		addFunction("drawSmallText",		&Utils::drawSmallText).
+		addFunction("drawUTText",			&Utils::drawUTText).
+		addFunction("drawUTTextScaled",		&Utils::drawUTTextScaled).
+		addFunction("getTextSize",			&Utils::getTextSize).
+		addFunction("getSmallTextSize",		&Utils::getSmallTextSize).
+		addFunction("getUTTextSize",		&Utils::getUTTextSize).
+		addFunction("getUTTextSizeScaled",	&Utils::getUTTextSizeScaled).
+		addFunction("drawRect",				&Utils::drawRect).
+		addFunction("drawBox",				&Utils::drawBox).
+		addFunction("drawProgressBar",		&Utils::drawProgressBar).
+		addFunction("draw2dLine",			&Utils::draw2dLine).
 
 		// Custom HUD getter functions
 		beginNamespace("viewPort").
@@ -2394,6 +2401,10 @@ void Lua::init()
 			addVariable("KILL_TYPE_SPINFUSOR", &ConfigEnums::KILL_TYPE_SPINFUSOR, false).
 			addVariable("KILL_TYPE_TURRET", &ConfigEnums::KILL_TYPE_TURRET, false).
 			addVariable("KILL_TYPE_CLAIMED", &ConfigEnums::KILL_TYPE_CLAIMED, false).
+			// Text alignments
+			addVariable("TEXT_ALIGN_LEFT", &ConfigEnums::TEXT_ALIGN_LEFT, false).
+			addVariable("TEXT_ALIGN_CENTER", &ConfigEnums::TEXT_ALIGN_CENTER, false).
+			addVariable("TEXT_ALIGN_RIGHT", &ConfigEnums::TEXT_ALIGN_CENTER, false).
 		endNamespace().
 		beginNamespace("player").
 			addFunction("name",            &getPlayerData::name).

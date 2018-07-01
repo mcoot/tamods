@@ -312,6 +312,11 @@ void Utils::drawUTText(const std::string &str, const FColor &col, float x, float
 	drawTextMain(str, col, x, y, align, shadowSize, 1.0f, size, 3);
 }
 
+void Utils::drawUTTextScaled(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size, const float &scale)
+{
+	drawTextMain(str, col, x, y, align, shadowSize, scale, size, 3);
+}
+
 FVector2D Utils::getTextSize(const std::string &str, const float &scale)
 {
 	if (!(tr_hud && tr_hud->Canvas))
@@ -367,6 +372,12 @@ FVector2D Utils::getUTTextSize(const std::string &str, const int &size)
 	canvas.Font = ut_hud->GetFontSizeIndex(size);
 	canvas.StrLen(wch, &xl, &yl);
 	return{ xl, yl };
+}
+
+FVector2D Utils::getUTTextSizeScaled(const std::string &str, const int &size, const float &scale)
+{
+	FVector2D unscaledRes = getUTTextSize(str, size);
+	return{unscaledRes.X * scale, unscaledRes.Y * scale};
 }
 
 void Utils::drawRect(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col)
