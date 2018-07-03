@@ -803,8 +803,8 @@ namespace TAModConfigurationTool
 
             loadoutDetails["Medium"] = new Dictionary<string, List<string>>();
             loadoutRegex["Medium"] = new Dictionary<string, List<string>>();
-            loadoutDetails["Medium"]["impact"] = new List<String> { "Spinfusor", "Thumper", "Thumper D", "Thumper DX", "Twinfusor", "Blinksfusor" };
-            loadoutRegex["Medium"]["impact"] = new List<String> { "^(spinfusor|spin)$", "^(thumper)$", "^(thumperd)$", "^(thumperdx)$", "^(twinfusor)$", "^(blinks?|blinks?fusor)$" };
+            loadoutDetails["Medium"]["impact"] = new List<String> { "Spinfusor", "Honorfusor", "Thumper", "Thumper D", "Thumper DX", "Twinfusor", "Blinksfusor" };
+            loadoutRegex["Medium"]["impact"] = new List<String> { "^(spinfusor|spin)$", "^(honorfusor|honourfusor|honor)$", "^(thumper)$", "^(thumperd)$", "^(thumperdx)$", "^(twinfusor)$", "^(blinks?|blinks?fusor)$" };
             loadoutDetails["Medium"]["timed"] = new List<string> { "Arx Buster", "Dust Devil", "Grenade Launcher" };
             loadoutRegex["Medium"]["timed"] = new List<String> { "^(arxbuster|arx)$", "^(dustdevil)$", "^(grenadelauncher|nadelauncher|launcher|gl)$" };
             loadoutDetails["Medium"]["specialty"] = new List<string> { "Improved repair tool", "Long Range Repair Tool", "ELF Projector" };
