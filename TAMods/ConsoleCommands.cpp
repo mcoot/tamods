@@ -184,6 +184,7 @@ namespace consoleCommands
 
 		{ L"/setbind",          { &cmd_utcommandwrapper, L"/setbind <key> <command> (Bind game functions to a key)" } },
 		{ L"/setsensitivity",   { &cmd_utcommandwrapper, L"/setsensitivity <value> (Change the mouse sensitivity. Alias: /sens)" } },
+		{ L"/sens",				{ &cmd_utcommandwrapper, L"/sens <value> (Change the mouse sensitivity. Alias: /setsensitivity)" } },
 		{ L"/gamma",            { &cmd_utcommandwrapper, L"/gamma <value> (Change the display gamma)" } },
 		// These have been disabled as /reconnect actually allows players to become unkickable :(
 		//{ L"/disconnect",       { &cmd_utcommandwrapper, L"/disconnect (Disconnect from the server)" } },
