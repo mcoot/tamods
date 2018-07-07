@@ -2416,6 +2416,7 @@ void Lua::init()
 			addFunction("name",            &getPlayerData::name).
 			addFunction("isAlive",         &getPlayerData::isAlive).
 			addFunction("isFirstPerson",   &getPlayerData::isFirstPerson).
+			addFunction("isSkiing",		   &getPlayerData::isSkiing).
 			addFunction("isRaged",         &getPlayerData::isRaged).
 			addFunction("isVehicle",       &getPlayerData::isVehicle).
 			addFunction("isShielded",      &getPlayerData::isShielded).

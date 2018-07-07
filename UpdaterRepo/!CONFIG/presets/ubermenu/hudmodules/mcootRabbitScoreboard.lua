@@ -2,8 +2,8 @@ local module = {}
 
 module.name               		= "mcootRabbitScoreboard"  -- This HAS to be the same as the filename minus the trailing .lua
 module.opts 					= {}
-module.opts.Offset_X  			= 90
-module.opts.Offset_Y   			= 10
+module.opts.Offset_X  			= 5
+module.opts.Offset_Y   			= 5
 module.opts.Use_UT_Text			= true
 module.opts.Use_Small_Text		= false
 module.opts.FirstPlace_Size		= 2
@@ -53,7 +53,7 @@ function module.draw(res_x, res_y)
 	textSizes[2] = module.opts.ThirdPlace_Size
 	textSizes[3] = module.opts.MyPlace_Size
 	
-	local xRightPos = math.floor(module.opts.Offset_X / 100 * res_x)
+	local xPos = math.floor(module.opts.Offset_X / 100 * res_x)
 	local yPos = math.floor(module.opts.Offset_Y / 100 * res_y)
 	
 	local totalBoxSize = {}
@@ -75,7 +75,7 @@ function module.draw(res_x, res_y)
 	end
 	totalBoxSize.x = totalBoxSize.x + 25
 	
-	local xPos = xRightPos - totalBoxSize.x
+	local xRightPos = xPos + totalBoxSize.x
 	
 	-- Draw the leaderboard background
 	drawRect(xPos - module.opts.Box_Padding, yPos - (getAnyTextSize(rabbit.leaderBoardName(0), textSizes[0], 1.0, 1.1).y / 2), xPos + totalBoxSize.x + module.opts.Box_Padding, yPos + totalBoxSize.y, module.opts.Background)
@@ -115,7 +115,6 @@ function module.draw(res_x, res_y)
 		local rankOrdSize = getAnyTextSize(ordinalSuffix, module.opts.Ranking_Size / 2, 1.0, 1.1)
 		local totalRankWidth = rankNumSize.x + rankOrdSize.x
 		-- Draw rank
-		console(enums.TEXT_ALIGN_RIGHT)
 		drawAnyText(curRank, module.opts.SelfColor, xPos + totalBoxSize.x / 2 - (totalRankWidth / 2), yPos + totalBoxSize.y + (rankNumSize.y / 2), enums.TEXT_ALIGN_LEFT, module.opts.Ranking_Size)
 		drawAnyText(ordinalSuffix, module.opts.SelfColor, xPos + totalBoxSize.x / 2 - (totalRankWidth / 2) + rankNumSize.x, yPos + totalBoxSize.y + (rankNumSize.y / 3), enums.TEXT_ALIGN_LEFT, module.opts.Ranking_Size / 2)
 		

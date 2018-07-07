@@ -48,6 +48,14 @@ bool getPlayerData::isFirstPerson()
 		return Utils::tr_pc->Pawn->IsFirstPerson();
 	return true;
 }
+bool getPlayerData::isSkiing()
+{
+	if (Utils::tr_pc && Utils::tr_pc->Pawn && Utils::tr_pc->Pawn->IsA(ATrPlayerPawn::StaticClass())) {
+		return ((ATrPlayerPawn*)Utils::tr_pc->Pawn)->r_bIsSkiing;
+	}
+		
+	return false;
+}
 bool getPlayerData::isRaged()
 {
 	ATrPawn *TrP = Utils::getPlayerPawn();

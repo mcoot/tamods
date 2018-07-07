@@ -14,6 +14,7 @@ namespace getPlayerData
 	std::string name();
 	bool isAlive();
 	bool isFirstPerson();
+	bool isSkiing();
 	bool isRaged();
 	bool isVehicle();
 	bool isShielded();
