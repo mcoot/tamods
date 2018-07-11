@@ -41,7 +41,7 @@ void Stats::resetStats() {
 void Stats::saveStats(bool savestats, bool saveteamstats) {
 	std::ofstream f;
 	if (savestats) {
-		f.open("TAModsStats.csv");
+		f.open("TAModsStats.csv", std::ios::out | std::ios::app);
 		std::vector<std::string> statsLines = getStatsLines();
 		for (std::string s : statsLines) {
 			f << s;
@@ -51,7 +51,9 @@ void Stats::saveStats(bool savestats, bool saveteamstats) {
 	}
 
 	if (saveteamstats) {
-		f.open("TribesMatchStats.csv");
+		f.open("TribesMatchStats.csv", std::ios::out | std::ios::app);
+		f << getGameStatsString();
+		f << std::endl;
 		f.close();
 	}
 }
@@ -176,6 +178,7 @@ std::string Stats::getGameStatsString()
 		std::string locaTime = oss.str();
 
 		teamStatsString = locaTime + "," + mapName + "," + std::to_string(getGameData::score(0)) + playersBE + "," + std::to_string(getGameData::score(1)) + playersDS;
+		return teamStatsString;
 	}
 }
 
@@ -192,7 +195,7 @@ void Stats::printStats(bool printstats, bool printteamstats) {
 
 		Utils::printConsole("\n============Player Stats============\n", Utils::rgb(0, 255, 255));
 		std::vector<std::string> stats = getStatsLines();
-		for (int i = 0; i < stats.size(); i++) {
+		for (size_t i = 0; i < stats.size(); i++) {
 			std::string tempString = stats[i];
 			Utils::printConsole(tempString, Utils::rgb(255, 255, 255));
 		}
