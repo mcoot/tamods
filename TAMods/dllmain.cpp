@@ -108,7 +108,6 @@ void onDLLProcessDetach()
 	Logger::log("DLL Process Detach");
 	Hooks::cleanup();
 	Logger::cleanup();
-	Stats::cleanup();
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason, LPVOID lpReserved)
