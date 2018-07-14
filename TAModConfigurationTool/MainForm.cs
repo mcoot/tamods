@@ -94,7 +94,11 @@ namespace TAModConfigurationTool
 
             // General settings
             // Display settings
-            checkStatsRecord.Checked = false;
+            checkStatsRecord.Checked = true;
+            checkStatsRecordGame.Checked = false;
+            checkStatsSave.Checked = false;
+            checkStatsSaveGame.Enabled = false;
+            checkStatsSaveGame.Checked = false;
             checkShowWeapon.Checked = true;
             checkShowHUDWeapons.Checked = true;
             checkShowPlayerModel.Checked = true;
@@ -280,6 +284,11 @@ namespace TAModConfigurationTool
             // General settings
             // Display settings
             checkStatsRecord.Checked = (bool)config.getConfigVar("recordStats");
+            checkStatsRecordGame.Checked = (bool)config.getConfigVar("recordTeamStats");
+            checkStatsSave.Checked = (bool)config.getConfigVar("saveStats");
+            checkStatsSave.Enabled = checkStatsRecordGame.Enabled;
+            checkStatsSaveGame.Checked = (bool)config.getConfigVar("saveTeamStats");
+            checkStatsSaveGame.Enabled = checkStatsRecordGame.Checked;
             checkShowWeapon.Checked = (bool)config.getConfigVar("showWeapon");
             checkShowHUDWeapons.Checked = (bool)config.getConfigVar("showHUDWeapons");
             checkShowPlayerModel.Checked = (bool)config.getConfigVar("showBodyMesh");
@@ -488,6 +497,9 @@ namespace TAModConfigurationTool
             // General Settings
             // Display Settings
             config.setConfigVar("recordStats", checkStatsRecord.Checked);
+            config.setConfigVar("recordTeamStats", checkStatsRecordGame.Checked);
+            config.setConfigVar("saveStats", checkStatsSave.Checked);
+            config.setConfigVar("saveTeamStats", checkStatsSaveGame.Checked);
             config.setConfigVar("showWeapon", checkShowWeapon.Checked);
             config.setConfigVar("showHUDWeapons", checkShowHUDWeapons.Checked);
             config.setConfigVar("showBodyMesh", checkShowPlayerModel.Checked);
@@ -1611,6 +1623,24 @@ namespace TAModConfigurationTool
             if (listWeaponSwap.SelectedItem != null)
             {
                 listWeaponSwap.Items.Remove(listWeaponSwap.SelectedItem);
+            }
+        }
+
+        private void checkStatsRecord_CheckedChanged(object sender, EventArgs e)
+        {
+            checkStatsSave.Enabled = checkStatsRecord.Checked;
+            if (!checkStatsSave.Enabled)
+            {
+                checkStatsSave.Checked = false;
+            }
+        }
+
+        private void checkStatsRecordGame_CheckedChanged(object sender, EventArgs e)
+        {
+            checkStatsSaveGame.Enabled = checkStatsRecordGame.Checked;
+            if (!checkStatsSaveGame.Enabled)
+            {
+                checkStatsSaveGame.Checked = false;
             }
         }
     }

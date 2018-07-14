@@ -106,6 +106,9 @@
             this.radioDamageNumberLimit = new System.Windows.Forms.RadioButton();
             this.radioDamageNumberShow = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkStatsSaveGame = new System.Windows.Forms.CheckBox();
+            this.checkStatsSave = new System.Windows.Forms.CheckBox();
+            this.checkStatsRecordGame = new System.Windows.Forms.CheckBox();
             this.label88 = new System.Windows.Forms.Label();
             this.numConsoleTransparency = new System.Windows.Forms.NumericUpDown();
             this.label87 = new System.Windows.Forms.Label();
@@ -1342,6 +1345,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.checkStatsSaveGame);
+            this.panel1.Controls.Add(this.checkStatsSave);
+            this.panel1.Controls.Add(this.checkStatsRecordGame);
             this.panel1.Controls.Add(this.label88);
             this.panel1.Controls.Add(this.numConsoleTransparency);
             this.panel1.Controls.Add(this.label87);
@@ -1368,11 +1374,48 @@
             this.panel1.Size = new System.Drawing.Size(273, 530);
             this.panel1.TabIndex = 2;
             // 
+            // checkStatsSaveGame
+            // 
+            this.checkStatsSaveGame.AutoSize = true;
+            this.checkStatsSaveGame.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStatsSaveGame.Location = new System.Drawing.Point(10, 106);
+            this.checkStatsSaveGame.Margin = new System.Windows.Forms.Padding(4);
+            this.checkStatsSaveGame.Name = "checkStatsSaveGame";
+            this.checkStatsSaveGame.Size = new System.Drawing.Size(133, 23);
+            this.checkStatsSaveGame.TabIndex = 40;
+            this.checkStatsSaveGame.Text = "Save Game Stats";
+            this.checkStatsSaveGame.UseVisualStyleBackColor = true;
+            // 
+            // checkStatsSave
+            // 
+            this.checkStatsSave.AutoSize = true;
+            this.checkStatsSave.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStatsSave.Location = new System.Drawing.Point(11, 81);
+            this.checkStatsSave.Margin = new System.Windows.Forms.Padding(4);
+            this.checkStatsSave.Name = "checkStatsSave";
+            this.checkStatsSave.Size = new System.Drawing.Size(134, 23);
+            this.checkStatsSave.TabIndex = 39;
+            this.checkStatsSave.Text = "Save Player Stats";
+            this.checkStatsSave.UseVisualStyleBackColor = true;
+            // 
+            // checkStatsRecordGame
+            // 
+            this.checkStatsRecordGame.AutoSize = true;
+            this.checkStatsRecordGame.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkStatsRecordGame.Location = new System.Drawing.Point(11, 58);
+            this.checkStatsRecordGame.Margin = new System.Windows.Forms.Padding(4);
+            this.checkStatsRecordGame.Name = "checkStatsRecordGame";
+            this.checkStatsRecordGame.Size = new System.Drawing.Size(147, 23);
+            this.checkStatsRecordGame.TabIndex = 38;
+            this.checkStatsRecordGame.Text = "Record Game Stats";
+            this.checkStatsRecordGame.UseVisualStyleBackColor = true;
+            this.checkStatsRecordGame.CheckedChanged += new System.EventHandler(this.checkStatsRecordGame_CheckedChanged);
+            // 
             // label88
             // 
             this.label88.AutoSize = true;
             this.label88.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label88.Location = new System.Drawing.Point(16, 261);
+            this.label88.Location = new System.Drawing.Point(15, 332);
             this.label88.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label88.Name = "label88";
             this.label88.Size = new System.Drawing.Size(89, 19);
@@ -1383,7 +1426,7 @@
             // 
             this.numConsoleTransparency.DecimalPlaces = 2;
             this.numConsoleTransparency.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numConsoleTransparency.Location = new System.Drawing.Point(123, 257);
+            this.numConsoleTransparency.Location = new System.Drawing.Point(122, 328);
             this.numConsoleTransparency.Margin = new System.Windows.Forms.Padding(4);
             this.numConsoleTransparency.Maximum = new decimal(new int[] {
             10,
@@ -1408,7 +1451,7 @@
             // 
             this.label87.AutoSize = true;
             this.label87.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(71, 226);
+            this.label87.Location = new System.Drawing.Point(70, 297);
             this.label87.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(39, 19);
@@ -1419,7 +1462,7 @@
             // 
             this.numConsoleScale.DecimalPlaces = 2;
             this.numConsoleScale.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numConsoleScale.Location = new System.Drawing.Point(123, 223);
+            this.numConsoleScale.Location = new System.Drawing.Point(122, 294);
             this.numConsoleScale.Margin = new System.Windows.Forms.Padding(4);
             this.numConsoleScale.Maximum = new decimal(new int[] {
             10,
@@ -1444,7 +1487,7 @@
             // 
             this.label86.AutoSize = true;
             this.label86.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label86.Location = new System.Drawing.Point(8, 193);
+            this.label86.Location = new System.Drawing.Point(7, 264);
             this.label86.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(86, 28);
@@ -1455,7 +1498,7 @@
             // 
             this.checkShowPlayerModel.AutoSize = true;
             this.checkShowPlayerModel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkShowPlayerModel.Location = new System.Drawing.Point(11, 81);
+            this.checkShowPlayerModel.Location = new System.Drawing.Point(10, 152);
             this.checkShowPlayerModel.Margin = new System.Windows.Forms.Padding(4);
             this.checkShowPlayerModel.Name = "checkShowPlayerModel";
             this.checkShowPlayerModel.Size = new System.Drawing.Size(216, 23);
@@ -1470,16 +1513,17 @@
             this.checkStatsRecord.Location = new System.Drawing.Point(11, 36);
             this.checkStatsRecord.Margin = new System.Windows.Forms.Padding(4);
             this.checkStatsRecord.Name = "checkStatsRecord";
-            this.checkStatsRecord.Size = new System.Drawing.Size(146, 23);
+            this.checkStatsRecord.Size = new System.Drawing.Size(148, 23);
             this.checkStatsRecord.TabIndex = 31;
-            this.checkStatsRecord.Text = "Record Stats (beta)";
+            this.checkStatsRecord.Text = "Record Player Stats";
             this.checkStatsRecord.UseVisualStyleBackColor = true;
+            this.checkStatsRecord.CheckedChanged += new System.EventHandler(this.checkStatsRecord_CheckedChanged);
             // 
             // label42
             // 
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(163, 363);
+            this.label42.Location = new System.Drawing.Point(162, 434);
             this.label42.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(32, 19);
@@ -1490,7 +1534,7 @@
             // 
             this.label73.AutoSize = true;
             this.label73.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(9, 363);
+            this.label73.Location = new System.Drawing.Point(8, 434);
             this.label73.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(76, 19);
@@ -1500,7 +1544,7 @@
             // numSkiBarMax
             // 
             this.numSkiBarMax.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numSkiBarMax.Location = new System.Drawing.Point(96, 357);
+            this.numSkiBarMax.Location = new System.Drawing.Point(95, 428);
             this.numSkiBarMax.Margin = new System.Windows.Forms.Padding(4);
             this.numSkiBarMax.Maximum = new decimal(new int[] {
             1000,
@@ -1515,7 +1559,7 @@
             // 
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(163, 331);
+            this.label41.Location = new System.Drawing.Point(162, 402);
             this.label41.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(32, 19);
@@ -1526,7 +1570,7 @@
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.Location = new System.Drawing.Point(9, 331);
+            this.label40.Location = new System.Drawing.Point(8, 402);
             this.label40.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(74, 19);
@@ -1536,7 +1580,7 @@
             // numSkiBarMin
             // 
             this.numSkiBarMin.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numSkiBarMin.Location = new System.Drawing.Point(96, 325);
+            this.numSkiBarMin.Location = new System.Drawing.Point(95, 396);
             this.numSkiBarMin.Margin = new System.Windows.Forms.Padding(4);
             this.numSkiBarMin.Maximum = new decimal(new int[] {
             1000,
@@ -1551,7 +1595,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(5, 295);
+            this.label39.Location = new System.Drawing.Point(4, 366);
             this.label39.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(150, 28);
@@ -1562,7 +1606,7 @@
             // 
             this.checkShowFirstPersonAmmo.AutoSize = true;
             this.checkShowFirstPersonAmmo.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkShowFirstPersonAmmo.Location = new System.Drawing.Point(11, 103);
+            this.checkShowFirstPersonAmmo.Location = new System.Drawing.Point(10, 174);
             this.checkShowFirstPersonAmmo.Margin = new System.Windows.Forms.Padding(4);
             this.checkShowFirstPersonAmmo.Name = "checkShowFirstPersonAmmo";
             this.checkShowFirstPersonAmmo.Size = new System.Drawing.Size(219, 23);
@@ -1585,7 +1629,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 156);
+            this.label1.Location = new System.Drawing.Point(6, 227);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 19);
@@ -1596,7 +1640,7 @@
             // 
             this.numCrosshairScale.DecimalPlaces = 2;
             this.numCrosshairScale.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numCrosshairScale.Location = new System.Drawing.Point(123, 153);
+            this.numCrosshairScale.Location = new System.Drawing.Point(122, 224);
             this.numCrosshairScale.Margin = new System.Windows.Forms.Padding(4);
             this.numCrosshairScale.Maximum = new decimal(new int[] {
             10,
@@ -1621,7 +1665,7 @@
             // 
             this.checkShowCrosshair.AutoSize = true;
             this.checkShowCrosshair.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkShowCrosshair.Location = new System.Drawing.Point(11, 129);
+            this.checkShowCrosshair.Location = new System.Drawing.Point(10, 200);
             this.checkShowCrosshair.Margin = new System.Windows.Forms.Padding(4);
             this.checkShowCrosshair.Name = "checkShowCrosshair";
             this.checkShowCrosshair.Size = new System.Drawing.Size(125, 23);
@@ -1634,7 +1678,7 @@
             // 
             this.checkShowWeapon.AutoSize = true;
             this.checkShowWeapon.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkShowWeapon.Location = new System.Drawing.Point(11, 59);
+            this.checkShowWeapon.Location = new System.Drawing.Point(10, 130);
             this.checkShowWeapon.Margin = new System.Windows.Forms.Padding(4);
             this.checkShowWeapon.Name = "checkShowWeapon";
             this.checkShowWeapon.Size = new System.Drawing.Size(161, 23);
@@ -4061,6 +4105,9 @@
         private System.Windows.Forms.Button btnWeaponSwapDelete;
         private System.Windows.Forms.Button btnWeaponSwapSave;
         private System.Windows.Forms.ListBox listWeaponSwap;
+        private System.Windows.Forms.CheckBox checkStatsSaveGame;
+        private System.Windows.Forms.CheckBox checkStatsSave;
+        private System.Windows.Forms.CheckBox checkStatsRecordGame;
     }
 }
 

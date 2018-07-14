@@ -85,7 +85,7 @@ namespace TAModConfigurationTool
             {
                 { "General", new List<string>()
                     {
-                        "showErrorNotifications", "recordStats"
+                        "showErrorNotifications", "recordStats", "recordTeamStats", "saveStats", "saveTeamStats"
                     }
                 },
 
@@ -167,7 +167,10 @@ namespace TAModConfigurationTool
             configVarsDefault = new Dictionary<String, Object>()
             {
                 { "showErrorNotifications", true },
-                { "recordStats", false },
+                { "recordStats", true },
+                { "recordTeamStats", false },
+                { "saveStats", false },
+                { "saveTeamStats", false },
                 { "showWeapon", true },
                 { "showHUDWeapons", true },
                 { "showBodyMesh", true },
