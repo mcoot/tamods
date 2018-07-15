@@ -246,6 +246,12 @@
 		<file version="0.7">!CONFIG/presets/ubermenu/hudmodules/dodgeSpeedBar.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeScoreboard.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/dodgeServerAdminBinds.lua</file>
+        <file version="0.7">!CONFIG/presets/ubermenu/hudmodules/indiIFF_Healthbars.lua</file>
+        <file version="0.7">!CONFIG/presets/ubermenu/hudmodules/mcootKillNotifications.lua</file>
+        <file version="0.7">!CONFIG/presets/ubermenu/hudmodules/mcootRabbitScoreboard.lua</file>
+        <file version="0.7">!CONFIG/presets/ubermenu/hudmodules/mcootSpeedbars.lua</file>
+        <file version="0.7">!CONFIG/presets/ubermenu/hudmodules/mcootStats.lua</file>
+        <file version="0.7">!CONFIG/presets/ubermenu/hudmodules/mcootVehicleHealthEnergy.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Example.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Global_Colors.lua</file>
 		<file version="0.65">!CONFIG/presets/ubermenu/hudmodules/Horizontal_Weapon_List.lua</file>
