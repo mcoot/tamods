@@ -23,6 +23,8 @@
 
 // Uncomment for release
 #define RELEASE
+// Uncomment for T:A server build
+//#define SERVER
 #define MODVERSION 0.7
 
 #ifndef RELEASE
