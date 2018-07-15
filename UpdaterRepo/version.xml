@@ -1,6 +1,6 @@
 <TAMods>
 	<files channel="stable">
-		<file version="0.652">TAMods.dll</file>
+		<file version="0.7">TAMods.dll</file>
 		<file version="0.65">!CONFIG/examples/basic_damage_numbers.lua</file>
 		<file version="0.65">!CONFIG/examples/custom_projectiles.lua</file>
 		<file version="0.65">!CONFIG/examples/Dots.lua</file>
@@ -452,7 +452,7 @@
 		<file version="0.7">!CONFIG/routes/TrCTF-Terminus_DS_LHT_SPAGHETTl_(TERM-Loop_WIP_8)_48s.route</file>
 		<file version="1">Config/KeraLua.dll</file>
 		<file version="1">Config/NLua.dll</file>
-		<file version="0.651">Config/TAModsConfigurationTool.exe</file>
+		<file version="0.7">Config/TAModsConfigurationTool.exe</file>
 		<file version="1">Config/x64/lua52.dll</file>
 		<file version="1">Config/x86/lua52.dll</file>
 	</files>

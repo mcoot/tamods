@@ -637,13 +637,17 @@ namespace TAModConfigurationTool
         public readonly string origWeapon;
         public string newClass;
         public string newWeapon;
+        public bool updateAnims;
+        public bool leavePositioning;
 
-        public WeaponModelSwap(string origClass, string origWeapon, string newClass, string newWeapon)
+        public WeaponModelSwap(string origClass, string origWeapon, string newClass, string newWeapon, bool updateAnims = true, bool leavePositioning = false)
         {
             this.origClass = origClass;
             this.origWeapon = origWeapon;
             this.newClass = newClass;
             this.newWeapon = newWeapon;
+            this.updateAnims = updateAnims;
+            this.leavePositioning = leavePositioning;
         }
 
         public int CompareTo(WeaponModelSwap other)
@@ -670,7 +674,7 @@ namespace TAModConfigurationTool
 
         public override string ToString()
         {
-            return $"{origClass}: {origWeapon} -> {newClass}: {newWeapon}";
+            return $"{origClass}: {origWeapon} -> {newClass}: {newWeapon} ({(updateAnims ? "Update Animations" : "Don't Update Animations")}, {(leavePositioning ? "Don't Update Positioning" : "Update Positioning")})";
         }
     }
 

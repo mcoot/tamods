@@ -657,7 +657,7 @@ namespace TAModConfigurationTool
             config.clearConfigWeaponModelSwaps();
             foreach (WeaponModelSwap swap in listWeaponSwap.Items)
             {
-                config.setWeaponModel(swap.origClass, swap.origWeapon, swap.newClass, swap.newWeapon);
+                config.setWeaponModel(swap.origClass, swap.origWeapon, swap.newClass, swap.newWeapon, swap.updateAnims, swap.leavePositioning);
             }
 
             // Hit Sounds
@@ -1594,6 +1594,10 @@ namespace TAModConfigurationTool
                 if (selectWeaponModelSwapWeapon_Swap.SelectedItem == null)
                     selectWeaponModelSwapWeapon_Swap.SelectedItem = findMatchingLoadoutItem(((WeaponModelSwap)listWeaponSwap.SelectedItem).newClass, type, ((WeaponModelSwap)listWeaponSwap.SelectedItem).newWeapon);
             }
+
+            // Setup anim/pos checks
+            checkWeaponModelSwapUpdateAnims.Checked = ((WeaponModelSwap)listWeaponSwap.SelectedItem).updateAnims;
+            checkWeaponModelSwapUpdatePositioning.Checked = !((WeaponModelSwap)listWeaponSwap.SelectedItem).leavePositioning;
         }
 
         private void btnWeaponSwapSave_Click(object sender, EventArgs e)
@@ -1602,7 +1606,8 @@ namespace TAModConfigurationTool
                     || selectWeaponModelSwapClass_Swap.SelectedItem == null || selectWeaponModelSwapWeapon_Swap.SelectedItem == null) return;
 
             WeaponModelSwap newSwap = new WeaponModelSwap((string)selectWeaponModelSwapClass.SelectedItem, (string)selectWeaponModelSwapWeapon.SelectedItem,
-                                                           (string)selectWeaponModelSwapClass_Swap.SelectedItem, (string)selectWeaponModelSwapWeapon_Swap.SelectedItem);
+                                                           (string)selectWeaponModelSwapClass_Swap.SelectedItem, (string)selectWeaponModelSwapWeapon_Swap.SelectedItem,
+                                                           checkWeaponModelSwapUpdateAnims.Checked, !checkWeaponModelSwapUpdatePositioning.Checked);
 
             // Remove existing entries
             foreach (WeaponModelSwap swap in listWeaponSwap.Items)

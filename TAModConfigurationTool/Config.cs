@@ -853,7 +853,7 @@ namespace TAModConfigurationTool
 
         private string formatWeaponModelSwap(WeaponModelSwap swap)
         {
-            return $"setWeaponModel(\"{swap.origClass}\", \"{swap.origWeapon}\", \"{swap.newClass}\", \"{swap.newWeapon}\")";
+            return $"setWeaponModel(\"{swap.origClass}\", \"{swap.origWeapon}\", \"{swap.newClass}\", \"{swap.newWeapon}\", {swap.updateAnims.ToString().ToLower()}, {swap.leavePositioning.ToString().ToLower()})";
         }
 
         // Save the current config to the file, returning success
@@ -1241,9 +1241,9 @@ namespace TAModConfigurationTool
             return true;
         }
 
-        public bool setWeaponModel(string origClass, string origWeapon, string newClass, string newWeapon)
+        public bool setWeaponModel(string origClass, string origWeapon, string newClass, string newWeapon, bool updateAnims, bool leavePositioning)
         {
-            configWeaponModelSwaps.Add(new WeaponModelSwap(origClass, origWeapon, newClass, newWeapon));
+            configWeaponModelSwaps.Add(new WeaponModelSwap(origClass, origWeapon, newClass, newWeapon, updateAnims, leavePositioning));
             return true;
         }
 

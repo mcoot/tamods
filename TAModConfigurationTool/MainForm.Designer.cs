@@ -30,13 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnSaveConfig = new System.Windows.Forms.Button();
-            this.btnInject = new System.Windows.Forms.Button();
-            this.panel23 = new System.Windows.Forms.Panel();
-            this.label85 = new System.Windows.Forms.Label();
-            this.selectConfigPreset = new System.Windows.Forms.ComboBox();
-            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabGeneral = new TAModConfigurationTool.TransTabPage();
             this.panel20 = new System.Windows.Forms.Panel();
@@ -227,6 +220,13 @@
             this.label81 = new System.Windows.Forms.Label();
             this.numRouteDrawInterval = new System.Windows.Forms.NumericUpDown();
             this.label83 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnSaveConfig = new System.Windows.Forms.Button();
+            this.btnInject = new System.Windows.Forms.Button();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.label85 = new System.Windows.Forms.Label();
+            this.selectConfigPreset = new System.Windows.Forms.ComboBox();
+            this.fileHitSound = new System.Windows.Forms.OpenFileDialog();
             this.tabLoadout = new TAModConfigurationTool.TransTabPage();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label67 = new System.Windows.Forms.Label();
@@ -296,9 +296,9 @@
             this.selectHitSoundMode = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
+            this.checkWeaponModelSwapUpdateAnims = new System.Windows.Forms.CheckBox();
+            this.checkWeaponModelSwapUpdatePositioning = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.panel23.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.panel20.SuspendLayout();
@@ -346,6 +346,8 @@
             this.panel21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteDrawInterval)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.panel23.SuspendLayout();
             this.tabLoadout.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -380,78 +382,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.977324F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1249, 631);
             this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
-            this.flowLayoutPanel1.Controls.Add(this.btnInject);
-            this.flowLayoutPanel1.Controls.Add(this.panel23);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 572);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1241, 55);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnSaveConfig
-            // 
-            this.btnSaveConfig.Location = new System.Drawing.Point(4, 4);
-            this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(4);
-            this.btnSaveConfig.Name = "btnSaveConfig";
-            this.btnSaveConfig.Size = new System.Drawing.Size(123, 38);
-            this.btnSaveConfig.TabIndex = 2;
-            this.btnSaveConfig.Text = "Save Config";
-            this.btnSaveConfig.UseVisualStyleBackColor = true;
-            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
-            // 
-            // btnInject
-            // 
-            this.btnInject.Enabled = false;
-            this.btnInject.Location = new System.Drawing.Point(135, 4);
-            this.btnInject.Margin = new System.Windows.Forms.Padding(4);
-            this.btnInject.Name = "btnInject";
-            this.btnInject.Size = new System.Drawing.Size(123, 38);
-            this.btnInject.TabIndex = 2;
-            this.btnInject.Text = "Inject";
-            this.btnInject.UseVisualStyleBackColor = true;
-            this.btnInject.Visible = false;
-            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
-            // 
-            // panel23
-            // 
-            this.panel23.Controls.Add(this.label85);
-            this.panel23.Controls.Add(this.selectConfigPreset);
-            this.panel23.Location = new System.Drawing.Point(266, 4);
-            this.panel23.Margin = new System.Windows.Forms.Padding(4);
-            this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(340, 38);
-            this.panel23.TabIndex = 3;
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(4, 10);
-            this.label85.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(82, 17);
-            this.label85.TabIndex = 5;
-            this.label85.Text = "Use Preset:";
-            // 
-            // selectConfigPreset
-            // 
-            this.selectConfigPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.selectConfigPreset.FormattingEnabled = true;
-            this.selectConfigPreset.Location = new System.Drawing.Point(91, 5);
-            this.selectConfigPreset.Margin = new System.Windows.Forms.Padding(4);
-            this.selectConfigPreset.Name = "selectConfigPreset";
-            this.selectConfigPreset.Size = new System.Drawing.Size(228, 24);
-            this.selectConfigPreset.TabIndex = 4;
-            // 
-            // fileHitSound
-            // 
-            this.fileHitSound.Filter = "Wave files|*.wav";
-            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // tabControlMain
             // 
@@ -2315,6 +2245,8 @@
             // 
             // panel24
             // 
+            this.panel24.Controls.Add(this.checkWeaponModelSwapUpdatePositioning);
+            this.panel24.Controls.Add(this.checkWeaponModelSwapUpdateAnims);
             this.panel24.Controls.Add(this.label92);
             this.panel24.Controls.Add(this.label93);
             this.panel24.Controls.Add(this.selectWeaponModelSwapWeapon_Swap);
@@ -2329,7 +2261,7 @@
             this.panel24.Location = new System.Drawing.Point(4, 4);
             this.panel24.Margin = new System.Windows.Forms.Padding(4);
             this.panel24.Name = "panel24";
-            this.panel24.Size = new System.Drawing.Size(317, 267);
+            this.panel24.Size = new System.Drawing.Size(317, 301);
             this.panel24.TabIndex = 13;
             // 
             // label92
@@ -2907,6 +2839,78 @@
             this.label83.Size = new System.Drawing.Size(206, 32);
             this.label83.TabIndex = 4;
             this.label83.Text = "Route Recording";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.Transparent;
+            this.flowLayoutPanel1.Controls.Add(this.btnSaveConfig);
+            this.flowLayoutPanel1.Controls.Add(this.btnInject);
+            this.flowLayoutPanel1.Controls.Add(this.panel23);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 572);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1241, 55);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // btnSaveConfig
+            // 
+            this.btnSaveConfig.Location = new System.Drawing.Point(4, 4);
+            this.btnSaveConfig.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSaveConfig.Name = "btnSaveConfig";
+            this.btnSaveConfig.Size = new System.Drawing.Size(123, 38);
+            this.btnSaveConfig.TabIndex = 2;
+            this.btnSaveConfig.Text = "Save Config";
+            this.btnSaveConfig.UseVisualStyleBackColor = true;
+            this.btnSaveConfig.Click += new System.EventHandler(this.btnSaveConfig_Click);
+            // 
+            // btnInject
+            // 
+            this.btnInject.Enabled = false;
+            this.btnInject.Location = new System.Drawing.Point(135, 4);
+            this.btnInject.Margin = new System.Windows.Forms.Padding(4);
+            this.btnInject.Name = "btnInject";
+            this.btnInject.Size = new System.Drawing.Size(123, 38);
+            this.btnInject.TabIndex = 2;
+            this.btnInject.Text = "Inject";
+            this.btnInject.UseVisualStyleBackColor = true;
+            this.btnInject.Visible = false;
+            this.btnInject.Click += new System.EventHandler(this.btnInject_Click);
+            // 
+            // panel23
+            // 
+            this.panel23.Controls.Add(this.label85);
+            this.panel23.Controls.Add(this.selectConfigPreset);
+            this.panel23.Location = new System.Drawing.Point(266, 4);
+            this.panel23.Margin = new System.Windows.Forms.Padding(4);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(340, 38);
+            this.panel23.TabIndex = 3;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(4, 10);
+            this.label85.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(82, 17);
+            this.label85.TabIndex = 5;
+            this.label85.Text = "Use Preset:";
+            // 
+            // selectConfigPreset
+            // 
+            this.selectConfigPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.selectConfigPreset.FormattingEnabled = true;
+            this.selectConfigPreset.Location = new System.Drawing.Point(91, 5);
+            this.selectConfigPreset.Margin = new System.Windows.Forms.Padding(4);
+            this.selectConfigPreset.Name = "selectConfigPreset";
+            this.selectConfigPreset.Size = new System.Drawing.Size(228, 24);
+            this.selectConfigPreset.TabIndex = 4;
+            // 
+            // fileHitSound
+            // 
+            this.fileHitSound.Filter = "Wave files|*.wav";
+            this.fileHitSound.FileOk += new System.ComponentModel.CancelEventHandler(this.fileHitSound_FileOk);
             // 
             // tabLoadout
             // 
@@ -3724,6 +3728,30 @@
             this.label28.TabIndex = 46;
             this.label28.Text = "Sound Settings";
             // 
+            // checkWeaponModelSwapUpdateAnims
+            // 
+            this.checkWeaponModelSwapUpdateAnims.AutoSize = true;
+            this.checkWeaponModelSwapUpdateAnims.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkWeaponModelSwapUpdateAnims.Location = new System.Drawing.Point(23, 228);
+            this.checkWeaponModelSwapUpdateAnims.Margin = new System.Windows.Forms.Padding(4);
+            this.checkWeaponModelSwapUpdateAnims.Name = "checkWeaponModelSwapUpdateAnims";
+            this.checkWeaponModelSwapUpdateAnims.Size = new System.Drawing.Size(149, 23);
+            this.checkWeaponModelSwapUpdateAnims.TabIndex = 61;
+            this.checkWeaponModelSwapUpdateAnims.Text = "Update Animations";
+            this.checkWeaponModelSwapUpdateAnims.UseVisualStyleBackColor = true;
+            // 
+            // checkWeaponModelSwapUpdatePositioning
+            // 
+            this.checkWeaponModelSwapUpdatePositioning.AutoSize = true;
+            this.checkWeaponModelSwapUpdatePositioning.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkWeaponModelSwapUpdatePositioning.Location = new System.Drawing.Point(23, 258);
+            this.checkWeaponModelSwapUpdatePositioning.Margin = new System.Windows.Forms.Padding(4);
+            this.checkWeaponModelSwapUpdatePositioning.Name = "checkWeaponModelSwapUpdatePositioning";
+            this.checkWeaponModelSwapUpdatePositioning.Size = new System.Drawing.Size(147, 23);
+            this.checkWeaponModelSwapUpdatePositioning.TabIndex = 62;
+            this.checkWeaponModelSwapUpdatePositioning.Text = "Update Positioning";
+            this.checkWeaponModelSwapUpdatePositioning.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3742,9 +3770,6 @@
             this.Text = "TAMods Configuration Tool vX.X";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel23.ResumeLayout(false);
-            this.panel23.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.panel20.ResumeLayout(false);
@@ -3811,6 +3836,9 @@
             this.panel21.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteETAInterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numRouteDrawInterval)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
             this.tabLoadout.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
@@ -4108,6 +4136,8 @@
         private System.Windows.Forms.CheckBox checkStatsSaveGame;
         private System.Windows.Forms.CheckBox checkStatsSave;
         private System.Windows.Forms.CheckBox checkStatsRecordGame;
+        private System.Windows.Forms.CheckBox checkWeaponModelSwapUpdatePositioning;
+        private System.Windows.Forms.CheckBox checkWeaponModelSwapUpdateAnims;
     }
 }
 
