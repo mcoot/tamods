@@ -180,6 +180,7 @@ std::string Stats::getGameStatsString()
 		teamStatsString = locaTime + "," + mapName + "," + std::to_string(getGameData::score(0)) + playersBE + "," + std::to_string(getGameData::score(1)) + playersDS;
 		return teamStatsString;
 	}
+	return "";
 }
 
 void Stats::printStats(bool printstats, bool printteamstats) {
