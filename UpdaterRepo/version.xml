@@ -1,6 +1,6 @@
 <TAMods>
 	<files channel="stable">
-		<file version="0.7">TAMods.dll</file>
+		<file version="0.701">TAMods.dll</file>
 		<file version="0.65">!CONFIG/examples/basic_damage_numbers.lua</file>
 		<file version="0.65">!CONFIG/examples/custom_projectiles.lua</file>
 		<file version="0.65">!CONFIG/examples/Dots.lua</file>
