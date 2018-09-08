@@ -1,5 +1,7 @@
 #pragma once
 
+#include "buildconfig.h"
+
 #include <string>
 #include <regex>
 #include <map>
@@ -9,8 +11,8 @@ typedef bool(*CallbackType)(UObject*);
 
 namespace Utils
 {
-	FColor rgba(byte r, byte g, byte b, byte alpha);
-	FColor rgb(byte r, byte g, byte b);
+	FColor rgba(unsigned char r, unsigned char g, unsigned char b, unsigned char alpha);
+	FColor rgb(unsigned char r, unsigned char g, unsigned char b);
 	int rgb2int(const FColor &col);
 	FLinearColor linCol(const FColor &col);
 	FColor lerpColor(const FColor &a, const FColor &b, const float &alpha);
@@ -39,11 +41,11 @@ namespace Utils
 	void openConsole(const std::string &text);
 
 	// Canvas drawing
-	void drawTextMain(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale, const unsigned &size, const unsigned char &fontNum);
-	void drawText(const std::string &str, const FColor &col, float x, float y, const byte &align, const float &scale);
-	void drawSmallText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale);
-	void drawUTText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size);
-	void drawUTTextScaled(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size, const float &scale);
+	void drawTextMain(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const int &shadowSize, const float &scale, const unsigned &size, const unsigned char &fontNum);
+	void drawText(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const float &scale);
+	void drawSmallText(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const int &shadowSize, const float &scale);
+	void drawUTText(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const int &shadowSize, const unsigned &size);
+	void drawUTTextScaled(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const int &shadowSize, const unsigned &size, const float &scale);
 	FVector2D getTextSizeMain(std::string str, const float &scale, const unsigned &size, const unsigned char &fontNum);
 	FVector2D getTextSize(const std::string &str, const float &scale);
 	FVector2D getSmallTextSize(const std::string &str, const float &scale);
@@ -51,7 +53,7 @@ namespace Utils
 	FVector2D getUTTextSizeScaled(const std::string &str, const int &size, const float &scale);
 	void drawRect(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 	void drawBox(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
-	void drawProgressBar(float x1, float y1, float x2, float y2, const FColor &col, const byte &dir, const float &alpha);
+	void drawProgressBar(float x1, float y1, float x2, float y2, const FColor &col, const unsigned char &dir, const float &alpha);
 	void draw2dLine(const float &x1, const float &y1, const float &x2, const float &y2, const FColor &col);
 
 	ATrDevice* getDeviceByEquipPointHelper(unsigned const char &n);

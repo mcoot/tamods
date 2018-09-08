@@ -31,6 +31,10 @@ void addClientModeHooks()
 	Hooks::addUScript(&TrHUD_DrawMarkerText, "Function TribesGame.TrHUD.DrawMarkerText"); // Custom text size
 	Hooks::addUScript(&TrHUD_DrawHealthBar, "Function TribesGame.TrHUD.DrawHealthBar");
 
+	// Hook the slot update for the scoreboard to allow for showing serverside ping
+	// DISABLED
+	//Hooks::addUScript(&TrScoreboard_UpdateSlot, "Function TribesGame.TrScoreboard.UpdateSlot");
+
 	// Custom HUD
 	Hooks::addUScript(&TrRabbitLeaderboard_Show, "Function TribesGame.TrRabbitLeaderboard.Show"); // Hide rabbit leaderboard when T:As team scores HUD option is disabled
 	Hooks::addUScript(&GFxTrReticules_EnableVehicleAmmoClip, "Function TribesGame.GfxTrReticules.EnableVehicleAmmoClip"); // Hide ammo clip when Credits/CallIns HUD option is disabled
@@ -114,7 +118,7 @@ void onDLLProcessAttach()
 	}
 
 	// Pass true to log hookable functions
-	Hooks::init(true);
+	Hooks::init(false);
 }
 
 void onDLLProcessDetach()

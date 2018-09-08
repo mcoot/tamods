@@ -79,8 +79,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;TAMODS_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\boost_1_68_0;C:\nlohmannjson\include;C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -89,9 +88,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;xaudio2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\boost_1_68_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <!-- <PostBuildEvent> -->
-      <!-- <Command>copy /Y "$(LocalDebuggerCommand)" "$(registry:HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders@Personal)\Games\TA Mods\"</Command> -->
+    <!-- <Command>copy /Y "$(LocalDebuggerCommand)" "$(registry:HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders@Personal)\Games\TA Mods\"</Command> -->
     <!-- </PostBuildEvent> -->
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -193,6 +193,7 @@
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="Mod_ModelTextures.cpp" />
     <ClCompile Include="Stats.cpp" />
+    <ClCompile Include="TAModsServerClient.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
@@ -210,6 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio.h" />
+    <ClInclude Include="buildconfig.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConsoleCommands.h" />
     <ClInclude Include="Data.h" />
@@ -230,7 +232,11 @@
     <ClInclude Include="Routes.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="StateSaving.h" />
+    <ClInclude Include="stdlibs.h" />
     <ClInclude Include="Stopwatch.h" />
+    <ClInclude Include="TAModsServerClient.h" />
+    <ClInclude Include="TAModsServerTypes.h" />
+    <ClInclude Include="TCP.h" />
     <ClInclude Include="Wave.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="Logger.h" />

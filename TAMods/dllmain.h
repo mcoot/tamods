@@ -1,10 +1,9 @@
 #pragma once
 
+#include "buildconfig.h"
+
 #include <iostream>
 #include <string>
-#include <Windows.h>
-#include <mmsystem.h>
-#include <stdlib.h>
 #include "SdkHeaders.h"
 
 #include "Hooks.h"

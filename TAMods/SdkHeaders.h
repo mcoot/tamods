@@ -13,9 +13,8 @@
 
 #pragma once
 
-#include <string>
-#include <cstring>
-#include <Windows.h>
+#include "stdlibs.h"
+
 
 /*
 # ========================================================================================= #

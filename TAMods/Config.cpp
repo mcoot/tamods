@@ -195,6 +195,9 @@ void Config::reset()
 	// HUD scaling
 	IFFScale			 = 1.0f;
 
+	// Whether to use the ping replicated from the server, or locally calculated
+	useServerSidePing = false;
+
 	// Console
 	consoleSize          = 0.75f;
 	consoleTransparency  = 0.80f;
@@ -669,6 +672,9 @@ void Config::setVariables()
 
 	// HUD scaling
 	SET_VARIABLE(float, IFFScale);
+
+	// Whether to use the ping replicated from the server, or locally calculated
+	SET_VARIABLE(bool, useServerSidePing);
 
 	// Console
 	SET_VARIABLE(float, consoleSize);

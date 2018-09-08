@@ -150,6 +150,11 @@ namespace ModelTextures
 			}
 			this->Swaps[equipPoint]->replacement = dev;
 		}
+
+		if (!this->Swaps[equipPoint]->replacement) {
+			return WeaponOperationResult::WEAPONOP_FAILED;
+		}
+
 		// Ensure its mesh data is loaded
 		UTrDeviceContentData* data = this->Swaps[equipPoint]->replacement->LoadMeshData();
 		if (!data) {
@@ -424,17 +429,21 @@ static void ExploratoryTesting(ATrDevice* currentDevice) {
 void DebugCustomWeaponsBindFunc() {
 	Utils::console("[Bind triggered]");
 
-	ATrDevice* dev = Utils::getCurrentDeviceHelper();
-	if (!dev) return;
+	if (Utils::tr_pc) {
+		Utils::console("SERVER IP IS: %s", Utils::f2std(Utils::tr_pc->GetServerNetworkAddress()).c_str());
+	}
 
-	PrintVectorDetails("[dev] Location", dev->Location);
-	PrintVectorDetails("[dev] Relative location", dev->RelativeLocation);
-	PrintVectorDetails("[dev] Player view offset", dev->PlayerViewOffset);
-	PrintVectorDetails("[dev] Small weapons offset", dev->SmallWeaponsOffset);
-	PrintVectorDetails("[dev] Tiny weapons offset", dev->m_TinyWeaponsOffset);
-	PrintVectorDetails("[dev] m_vPositionPivotOffset", dev->m_vPositionPivotOffset);
-	Logger::log("[dev] Widescreen offset scaling = %f", dev->WideScreenOffsetScaling);
-	PrintRotatorDetails("[dev] Widescreen rotation offset = %f", dev->WidescreenRotationOffset);
+	//ATrDevice* dev = Utils::getCurrentDeviceHelper();
+	//if (!dev) return;
+
+	//PrintVectorDetails("[dev] Location", dev->Location);
+	//PrintVectorDetails("[dev] Relative location", dev->RelativeLocation);
+	//PrintVectorDetails("[dev] Player view offset", dev->PlayerViewOffset);
+	//PrintVectorDetails("[dev] Small weapons offset", dev->SmallWeaponsOffset);
+	//PrintVectorDetails("[dev] Tiny weapons offset", dev->m_TinyWeaponsOffset);
+	//PrintVectorDetails("[dev] m_vPositionPivotOffset", dev->m_vPositionPivotOffset);
+	//Logger::log("[dev] Widescreen offset scaling = %f", dev->WideScreenOffsetScaling);
+	//PrintRotatorDetails("[dev] Widescreen rotation offset = %f", dev->WidescreenRotationOffset);
 
 	
 

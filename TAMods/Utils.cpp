@@ -26,7 +26,7 @@ FLinearColor Utils::linCol(const FColor &col)
 	return lcol;
 }
 
-FColor Utils::rgba(byte r, byte g, byte b, byte alpha)
+FColor Utils::rgba(unsigned char r, unsigned char g, unsigned char b, unsigned char alpha)
 {
 	FColor col;
 	col.R = r;
@@ -36,7 +36,7 @@ FColor Utils::rgba(byte r, byte g, byte b, byte alpha)
 	return col;
 }
 
-FColor Utils::rgb(byte r, byte g, byte b)
+FColor Utils::rgb(unsigned char r, unsigned char g, unsigned char b)
 {
 	return rgba(r, g, b, 255);
 }
@@ -251,7 +251,7 @@ void Utils::openConsole(const std::string &text)
 	}
 }
 
-void Utils::drawTextMain(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale, const unsigned &size, const unsigned char &fontNum)
+void Utils::drawTextMain(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const int &shadowSize, const float &scale, const unsigned &size, const unsigned char &fontNum)
 {
 	if (!(tr_hud && tr_hud->Canvas))
 		return;
@@ -297,22 +297,22 @@ void Utils::drawTextMain(const std::string &str, const FColor &col, float x, flo
 	canvas.DrawTextW(wch, true, scale, scale, &tr_hud->m_nNameFontRenderInfo);
 }
 
-void Utils::drawText(const std::string &str, const FColor &col, float x, float y, const byte &align, const float &scale)
+void Utils::drawText(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const float &scale)
 {
 	drawTextMain(str, col, x, y, align, 0, scale, 0, 1);
 }
 
-void Utils::drawSmallText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const float &scale)
+void Utils::drawSmallText(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const int &shadowSize, const float &scale)
 {
 	drawTextMain(str, col, x, y, align, shadowSize, scale, 0, 2);
 }
 
-void Utils::drawUTText(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size)
+void Utils::drawUTText(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const int &shadowSize, const unsigned &size)
 {
 	drawTextMain(str, col, x, y, align, shadowSize, 1.0f, size, 3);
 }
 
-void Utils::drawUTTextScaled(const std::string &str, const FColor &col, float x, float y, const byte &align, const int &shadowSize, const unsigned &size, const float &scale)
+void Utils::drawUTTextScaled(const std::string &str, const FColor &col, float x, float y, const unsigned char &align, const int &shadowSize, const unsigned &size, const float &scale)
 {
 	drawTextMain(str, col, x, y, align, shadowSize, scale, size, 3);
 }
@@ -402,7 +402,7 @@ void Utils::drawBox(const float &x1, const float &y1, const float &x2, const flo
 	canvas.DrawBox(x2 - x1, y2 - y1);
 }
 
-void Utils::drawProgressBar(float x1, float y1, float x2, float y2, const FColor &col, const byte &dir, const float &alpha)
+void Utils::drawProgressBar(float x1, float y1, float x2, float y2, const FColor &col, const unsigned char &dir, const float &alpha)
 {
 	float width = (x2 - x1) * alpha;
 	float height = (y2 - y1) * alpha;

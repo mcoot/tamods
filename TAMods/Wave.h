@@ -7,7 +7,8 @@
 #ifndef WAVE_H
 #define WAVE_H
 
-#include <windows.h>
+#include "buildconfig.h"
+
 #include <xaudio2.h>
 #include <fstream>
 

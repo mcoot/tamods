@@ -1,8 +1,9 @@
 #pragma once
 
+#include "buildconfig.h"
+
 #include <cstdio>
 #include <cstdarg>
-#include <Windows.h>
 #include <string>
 
 namespace Logger

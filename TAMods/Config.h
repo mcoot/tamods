@@ -21,12 +21,6 @@
 #include "StateSaving.h"
 #include "Stopwatch.h"
 
-// Uncomment for release
-#define RELEASE
-// Uncomment for T:A server build
-//#define SERVER
-#define MODVERSION 0.7
-
 #ifndef RELEASE
 void DebugCustomWeaponsBindFunc();
 #endif
@@ -380,6 +374,9 @@ public:
 
 	// HUD scaling
 	float IFFScale;
+
+	// Whether to use the ping replicated from the server, or locally calculated
+	bool useServerSidePing;
 
 	// Console
 	float consoleSize;
