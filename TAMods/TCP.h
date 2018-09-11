@@ -166,7 +166,7 @@ namespace TCP {
 		}
 
 		void stop() {
-			Logger::log("stopping connection... error code is %d: %s", error_state.value(), error_state.message());
+			//Logger::log("stopping connection... error code is %d: %s", error_state.value(), error_state.message());
 			stopped = true;
 			socket.close();
 
@@ -191,6 +191,7 @@ namespace TCP {
 		typedef std::function<void(const json&)> RecvHandlerType;
 	private:
 		std::function<void()> onConnectHandler;
+		std::function<void()> onConnectFailedHandler;
 	private:
 
 		void handle_connect(const boost::system::error_code& conErr) {
@@ -200,14 +201,24 @@ namespace TCP {
 				// async_connect automatically opens the socket
 				// If the socket is still closed, then timeout occurred
 				// Also check if in an error state
-				stop();
 				error_state = boost::system::error_code(boost::system::errc::connection_aborted, boost::system::generic_category());
+				stop();
+
+				if (onConnectFailedHandler) {
+					onConnectFailedHandler();
+				}
+
 				return;
 			}
 			else if (conErr) {
 				// Connection error
-				stop();
 				error_state = conErr;
+				stop();
+
+				if (onConnectFailedHandler) {
+					onConnectFailedHandler();
+				}
+
 				return;
 			}
 
@@ -221,10 +232,11 @@ namespace TCP {
 			static_assert(std::is_integral<SizeType>::value, "SizeType type parameter must be an integral type");
 		}
 
-		virtual void start(std::string host, int port, std::function<void()> connect_handler = NULL, std::function<void(boost::system::error_code&)> stop_handler = NULL) {
+		virtual void start(std::string host, int port, std::function<void()> connect_handler = NULL, std::function<void()> connect_timeout_handler = NULL, std::function<void(boost::system::error_code&)> stop_handler = NULL) {
 			stopped = false;
 			onConnectHandler = connect_handler;
 			onStopHandler = stop_handler;
+			onConnectFailedHandler = connect_timeout_handler;
 			boost::asio::ip::address addr = boost::asio::ip::address::from_string(host, error_state);
 			if (error_state) {
 				return;

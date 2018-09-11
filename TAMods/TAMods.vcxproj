@@ -98,6 +98,7 @@
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConsoleCommands.cpp" />
+    <ClCompile Include="CustomServerManager.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataGetters.cpp" />
     <ClCompile Include="Geom.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="buildconfig.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConsoleCommands.h" />
+    <ClInclude Include="CustomServerManager.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataGetters.h" />
     <ClInclude Include="dllmain.h" />

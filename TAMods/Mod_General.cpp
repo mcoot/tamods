@@ -3,10 +3,28 @@
 
 bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
-	Utils::tr_pc = (ATrPlayerController *)dwCallingObject;
+	ATrPlayerController* that = (ATrPlayerController *)dwCallingObject;
+	
+	Utils::tr_pc = that;
+
+	if (that->WorldInfo && that->WorldInfo->NetMode == NM_Client) {
+		Logger::log("About to attempt to initiate connection to server");
+		std::string serverAddress = Utils::f2std(that->GetServerNetworkAddress());
+		// If not in roam map, attempt connection in case this is a compatible modded server
+		g_CustomServerManager.start(serverAddress);
+	}
 
 	return false;
 }
+
+bool TrPC_Destroyed(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	// If the client is connected to a modded server, disconnect
+	Logger::log("About to disconnect from serverclient.disconnect();");
+	g_CustomServerManager.stop();
+	Logger::log("Disconnected");
+	return false;
+}
+
 
 bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {

@@ -1,10 +1,13 @@
 #pragma once
 
+#include "buildconfig.h"
+
 #include <fstream>
 #include <string>
 #include <regex>
 #include <queue>
 #include <map>
+
 #include "Logger.h"
 #include "Utils.h"
 #include "Data.h"
@@ -20,6 +23,8 @@
 #include "SoundEffect.h"
 #include "StateSaving.h"
 #include "Stopwatch.h"
+
+#include "CustomServerManager.h"
 
 #ifndef RELEASE
 void DebugCustomWeaponsBindFunc();
