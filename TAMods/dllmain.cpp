@@ -11,6 +11,8 @@ void addClientModeHooks()
 {
 	// General
 	Hooks::add(&TrPC_InitInputSystem, "Function TribesGame.TrPlayerController.InitInputSystem"); // Used to set Utils::tr_pc
+	//Hooks::add(&TrPC_PostBeginPlay, "Function TribesGame.TrPlayerController.PostBeginPlay", Hooks::POST);
+
 	Hooks::add(&TrPC_Destroyed, "Function TribesGame.TrPlayerController.Destroyed", Hooks::POST);
 	Hooks::add(&TrGVC_PostRender, "Function TribesGame.TrGameViewportClient.PostRender");
 	Hooks::add(&TrChatConsole_InputKey, "Function TribesGame.TrChatConsole.InputKey"); // Lua keybindings

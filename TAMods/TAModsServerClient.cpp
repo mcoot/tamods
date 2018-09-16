@@ -21,7 +21,7 @@ namespace TAModsServer {
 		iosThread = std::make_shared<std::thread>([&] {
 			boost::asio::io_service::work work(ios);
 			attachHandlers();
-			tcpClient->start(host, port, std::bind(&Client::handler_OnConnect, this), std::bind(&Client::handler_OnConnectTimeOut, this));
+			tcpClient->start(host, port, [this] {if (onConnectHandler) { onConnectHandler(); }}, [this] {if (onConnectFailedHandler) { onConnectFailedHandler(); }});
 
 			ios.run();
 		});
@@ -44,12 +44,17 @@ namespace TAModsServer {
 
 	}
 
-	void Client::handler_OnConnect() {
-		Logger::log("[Connected]");
-	}
+	void Client::sendPlayerConnectionMessage(FUniqueNetId id) {
+		PlayerConnectionMessage msg;
+		msg.protocolVersion = TAMODS_PROTOCOL_VERSION;
+		msg.uniquePlayerId = id;
 
-	void Client::handler_OnConnectTimeOut() {
-		Logger::log("[Failed to connect: timed out]");
+		json j;
+		msg.toJson(j);
+
+		Logger::log("Sending PlayerConnectionMessage: %s", j.dump().c_str());
+
+		tcpClient->send(msg.getMessageKind(), j);
 	}
 
 

@@ -8,11 +8,17 @@ bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction
 	Utils::tr_pc = that;
 
 	if (that->WorldInfo && that->WorldInfo->NetMode == NM_Client) {
-		Logger::log("About to attempt to initiate connection to server");
+		Logger::log("About to attempt to initiate connection to server | tr_pc = %d, pri = %d", Utils::tr_pc, Utils::tr_pc->PlayerReplicationInfo);
 		std::string serverAddress = Utils::f2std(that->GetServerNetworkAddress());
 		// If not in roam map, attempt connection in case this is a compatible modded server
 		g_CustomServerManager.start(serverAddress);
 	}
+
+	return false;
+}
+
+bool TrPC_PostBeginPlay(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	Logger::log("[PostBeginPlay DISABLED HOOK]");
 
 	return false;
 }
@@ -22,6 +28,15 @@ bool TrPC_Destroyed(int id, UObject *dwCallingObject, UFunction* pFunction, void
 	Logger::log("About to disconnect from serverclient.disconnect();");
 	g_CustomServerManager.stop();
 	Logger::log("Disconnected");
+	return false;
+}
+
+bool TrPC_LoadPlayerProfile(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	Logger::log("[LoadPlayerProfile] Utils::tr_pc = %d", Utils::tr_pc);
+	if (Utils::tr_pc) {
+		Logger::log("Utils::tr_pc->PlayerReplicationInfo = %d", Utils::tr_pc->PlayerReplicationInfo);
+	}
+
 	return false;
 }
 

@@ -10,10 +10,16 @@
 class CustomServerManager {
 public:
 	TAModsServer::Client client;
+public:
+	CustomServerManager() : 
+		client([this] {handler_OnConnect(); }, [this] {handler_OnConnectTimeOut(); })
+	{}
 
-	// NEXT: Hook on server connect, establish connection, test message with netcat
 	void start(std::string serverAddress);
 	void stop();
+
+	void handler_OnConnect();
+	void handler_OnConnectTimeOut();
 };
 
 extern CustomServerManager g_CustomServerManager;

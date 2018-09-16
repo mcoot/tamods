@@ -12,3 +12,20 @@ void CustomServerManager::stop() {
 	}
 	
 }
+
+void CustomServerManager::handler_OnConnect() {
+	if (!Utils::tr_pc || !Utils::tr_pc->Player) {
+		// Something is very wrong
+		g_CustomServerManager.stop();
+		return;
+	}
+
+	// Identify this client to the server
+	FUniqueNetId netId = ((ULocalPlayer*)Utils::tr_pc->Player)->eventGetUniqueNetId();
+	Logger::log("Sending player connection message with netId %d", netId);
+	client.sendPlayerConnectionMessage(netId);
+}
+
+void CustomServerManager::handler_OnConnectTimeOut() {
+	Logger::log("[Failed to connect: timed out]");
+}

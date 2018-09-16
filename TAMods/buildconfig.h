@@ -14,3 +14,5 @@
 // Uncomment for T:A server build
 //#define SERVER
 #define MODVERSION 0.7
+
+#define TAMODS_PROTOCOL_VERSION "0.1.0"
