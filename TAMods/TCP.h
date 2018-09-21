@@ -166,7 +166,7 @@ namespace TCP {
 		}
 
 		void stop() {
-			//Logger::log("stopping connection... error code is %d: %s", error_state.value(), error_state.message());
+			//Logger::log("stopping connection... error code is %d: %s", error_state.value(), error_state.message().c_str());
 			stopped = true;
 			socket.close();
 

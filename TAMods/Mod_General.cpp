@@ -7,9 +7,10 @@ bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction
 	
 	Utils::tr_pc = that;
 
-	if (that->WorldInfo && that->WorldInfo->NetMode == NM_Client) {
-		Logger::log("About to attempt to initiate connection to server | tr_pc = %d, pri = %d", Utils::tr_pc, Utils::tr_pc->PlayerReplicationInfo);
+	if (that && that->WorldInfo && that->WorldInfo->NetMode == NM_Client) {
+		Logger::log("About to attempt to initiate connection to server");
 		std::string serverAddress = Utils::f2std(that->GetServerNetworkAddress());
+		Logger::log("Connecting to server at %s", serverAddress.c_str());
 		// If not in roam map, attempt connection in case this is a compatible modded server
 		g_CustomServerManager.start(serverAddress);
 	}

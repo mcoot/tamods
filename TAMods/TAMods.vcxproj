@@ -101,6 +101,7 @@
     <ClCompile Include="CustomServerManager.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="DataGetters.cpp" />
+    <ClCompile Include="GameBalanceData.cpp" />
     <ClCompile Include="Geom.cpp" />
     <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="libpng\png.c" />
@@ -166,6 +167,7 @@
     <ClCompile Include="Mod_Console.cpp" />
     <ClCompile Include="Mod_DamageNumbers.cpp" />
     <ClCompile Include="Mod_FlagEventSounds.cpp" />
+    <ClCompile Include="Mod_GameBalance.cpp" />
     <ClCompile Include="Mod_General.cpp" />
     <ClCompile Include="Mod_HitSounds.cpp" />
     <ClCompile Include="Mod_HudMod.cpp" />
@@ -219,6 +221,7 @@
     <ClInclude Include="Data.h" />
     <ClInclude Include="DataGetters.h" />
     <ClInclude Include="dllmain.h" />
+    <ClInclude Include="GameBalance.h" />
     <ClInclude Include="Geom.h" />
     <ClInclude Include="libpng\png.h" />
     <ClInclude Include="libpng\pngconf.h" />

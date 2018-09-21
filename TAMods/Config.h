@@ -23,6 +23,7 @@
 #include "SoundEffect.h"
 #include "StateSaving.h"
 #include "Stopwatch.h"
+#include "GameBalance.h"
 
 #include "CustomServerManager.h"
 
