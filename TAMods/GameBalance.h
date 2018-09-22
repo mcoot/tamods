@@ -72,25 +72,33 @@ namespace GameBalance {
 	class Property {
 	public:
 		typedef std::function<bool(PropValue, UObject*)> ApplyFunc;
+		typedef std::function<bool(UObject*, PropValue&)> GetFunc;
 	protected:
 		// The allowed type of the value
 		ValueType type;
 		// Function which applies the given PropValue to an object, returning success
 		ApplyFunc applier;
+		// Function which returns the current value of the Prop from an object
+		GetFunc getter;
 	public:
 		Property() :
 			type(ValueType::INTEGER),
-			applier([](PropValue p, UObject* obj) { return false; })
+			applier([](PropValue p, UObject* obj) { return false; }),
+			getter([](UObject* obj, PropValue& ret) { return false; })
 		{}
-		Property(ValueType type, ApplyFunc applier) :
+		Property(ValueType type, ApplyFunc applier, GetFunc getter) :
 			type(type),
-			applier(applier) {}
+			applier(applier),
+			getter(getter)
+		{}
 
 		ValueType getType();
 
 		// Attempt to apply the given value of this property, returning success
 		// Will fail if the value is the wrong type or the applier fails
 		bool apply(PropValue value, UObject* obj);
+		// Attempt to retrieve the value of this property from the given object, returning success
+		bool get(UObject* obj, PropValue& ret);
 	};
 
 	namespace Items {
@@ -111,4 +119,13 @@ namespace GameBalance {
 
 	}
 
+	// Tracks the original values of changed properties, so they can be reversed on disconnect
+	class GameBalanceTracker {
+		Items::ItemsConfig origItemProps;
+	public:
+		void recordItemProp(int itemId, Items::PropId propId, PropValue val);
+		void revert();
+	};
 }
+
+extern GameBalance::GameBalanceTracker g_gameBalanceTracker;

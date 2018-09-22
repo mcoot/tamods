@@ -14,6 +14,7 @@ void CustomServerManager::stop() {
 }
 
 void CustomServerManager::handler_OnConnect() {
+	Logger::log("[Connected]");
 	if (!Utils::tr_pc || !Utils::tr_pc->Player) {
 		// Something is very wrong
 		g_CustomServerManager.stop();

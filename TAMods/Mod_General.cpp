@@ -28,6 +28,8 @@ bool TrPC_Destroyed(int id, UObject *dwCallingObject, UFunction* pFunction, void
 	// If the client is connected to a modded server, disconnect
 	Logger::log("About to disconnect from serverclient.disconnect();");
 	g_CustomServerManager.stop();
+	// Remove any game balance modifications this server imposed
+	g_gameBalanceTracker.revert();
 	Logger::log("Disconnected");
 	return false;
 }

@@ -18,9 +18,10 @@ namespace TAModsServer {
 		tcpClient = std::make_shared<TCP::Client<uint32_t> >(ios);
 
 		// Run handlers in a new thread
-		iosThread = std::make_shared<std::thread>([&] {
+		iosThread = std::make_shared<std::thread>([this, host, port] {
 			boost::asio::io_service::work work(ios);
 			attachHandlers();
+			Logger::log("About to start connection!!!");
 			tcpClient->start(host, port, [this] {if (onConnectHandler) { onConnectHandler(); }}, [this] {if (onConnectFailedHandler) { onConnectFailedHandler(); }});
 
 			ios.run();
@@ -41,7 +42,9 @@ namespace TAModsServer {
 	}
 
 	void Client::attachHandlers() {
-
+		tcpClient->add_handler(DCSRV_MSG_KIND_GAME_BALANCE_DETAILS, [this](const json& j) {
+			handle_GameBalanceDetailsMessage(j);
+		});
 	}
 
 	void Client::sendPlayerConnectionMessage(FUniqueNetId id) {

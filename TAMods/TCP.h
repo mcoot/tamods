@@ -195,6 +195,7 @@ namespace TCP {
 	private:
 
 		void handle_connect(const boost::system::error_code& conErr) {
+			Logger::log("HANDLE_CONNECT: %d", conErr.value());
 			if (stopped) return;
 
 			if (!socket.is_open()) {
@@ -239,10 +240,11 @@ namespace TCP {
 			onConnectFailedHandler = connect_timeout_handler;
 			boost::asio::ip::address addr = boost::asio::ip::address::from_string(host, error_state);
 			if (error_state) {
+				Logger::log("Failed to build address %s due to error (%d): %s", host, error_state.value(), error_state.message().c_str());
 				return;
 			}
 			tcp::endpoint endpoint(addr, port);
-
+			Logger::log("ABOUT TO ATTEMPT CONNECTION");
 			socket.async_connect(endpoint, boost::bind(&Client::handle_connect, this, _1));
 		}
 	};

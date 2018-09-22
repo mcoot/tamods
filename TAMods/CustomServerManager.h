@@ -11,15 +11,15 @@ class CustomServerManager {
 public:
 	TAModsServer::Client client;
 public:
+	void handler_OnConnect();
+	void handler_OnConnectTimeOut();
+
 	CustomServerManager() : 
 		client([this] {handler_OnConnect(); }, [this] {handler_OnConnectTimeOut(); })
 	{}
 
 	void start(std::string serverAddress);
 	void stop();
-
-	void handler_OnConnect();
-	void handler_OnConnectTimeOut();
 };
 
 extern CustomServerManager g_CustomServerManager;

@@ -18,6 +18,8 @@
 namespace TAModsServer {
 
 	class Client {
+	public:
+		typedef std::function<void(const json&)> RecvHandlerType;
 	private:
 		boost::asio::io_service ios;
 		std::shared_ptr<std::thread> iosThread;
@@ -28,12 +30,15 @@ namespace TAModsServer {
 	private:
 		void attachHandlers();
 	public:
-		Client(std::function<void()> connect_handler, std::function<void()> connect_failed_handler) : 
+		Client(std::function<void()> connect_handler, std::function<void()> connect_failed_handler) :
 			onConnectHandler(connect_handler), 
 			onConnectFailedHandler(connect_failed_handler) {}
+		
 		bool connect(std::string host, int port);
 		bool disconnect();
 		bool isConnected();
+
+		void handle_GameBalanceDetailsMessage(const json& j);
 
 		void sendPlayerConnectionMessage(FUniqueNetId id);
 	};
