@@ -5,7 +5,9 @@
 #include <functional>
 #include <map>
 
+#include "Logger.h"
 #include "SdkHeaders.h"
+#include "Utils.h"
 
 namespace GameBalance {
 
@@ -105,10 +107,21 @@ namespace GameBalance {
 
 		enum class PropId {
 			INVALID = 0,
+
+			// Ammo
 			CLIP_AMMO = 1000,
 			SPARE_AMMO = 1001,
 			AMMO_PER_SHOT = 1002,
-			LOW_AMMO_CUTOFF = 1003
+			LOW_AMMO_CUTOFF = 1003,
+
+			// Reload / Firing
+			RELOAD_TIME = 2000,
+			FIRE_INTERVAL = 2001,
+			HOLD_TO_FIRE = 2002,
+
+			// Damage
+			DAMAGE = 3000,
+			EXPLOSIVE_RADIUS = 3001
 		};
 
 		// Actual weapon properties
