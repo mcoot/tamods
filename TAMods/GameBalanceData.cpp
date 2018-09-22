@@ -1,42 +1,53 @@
 #include "GameBalance.h"
 
 namespace GameBalance {
+
+	// Decorator function to generically handle applying a property specific to a TrDevice
+	static std::function<bool(PropValue, UObject*)> deviceAdapter(std::function<bool(PropValue, ATrDevice*)> f) {
+		return [f](PropValue p, UObject* obj) {
+			if (!obj->IsA(ATrDevice::StaticClass())) {
+				return false;
+			}
+			return f(p, (ATrDevice*)obj);
+		};
+	}
+
 	namespace Items {
 
 		static const Property CLIP_AMMO(
 			ValueType::INTEGER,
-			[](PropValue p, ATrDevice* dev) {
+			deviceAdapter([](PropValue p, ATrDevice* dev) {
 			if (p.valInt < 0) return false;
 			dev->MaxAmmoCount = p.valInt;
 			return true;
-		}
+		})
 		);
 
 		static const Property SPARE_AMMO(
 			ValueType::INTEGER,
-			[](PropValue p, ATrDevice* dev) {
+			deviceAdapter([](PropValue p, ATrDevice* dev) {
 			if (p.valInt < 0) return false;
 			dev->m_nMaxCarriedAmmo = p.valInt;
 			return true;
-		}
+		})
 		);
 
 		static const Property AMMO_PER_SHOT(
 			ValueType::INTEGER,
-			[](PropValue p, ATrDevice* dev) {
+			deviceAdapter([](PropValue p, ATrDevice* dev) {
 			if (p.valInt < 0) return false;
 			dev->ShotCost.Set(0, p.valInt);
 			return true;
-		}
+		})
 		);
 
 		static const Property LOW_AMMO_CUTOFF(
 			ValueType::INTEGER,
-			[](PropValue p, ATrDevice* dev) {
+			deviceAdapter([](PropValue p, ATrDevice* dev) {
 			if (p.valInt < 0) return false;
 			dev->m_nLowAmmoWarning = p.valInt;
 			return true;
-		}
+		})
 		);
 
 		std::map<PropId, Property> properties = {
