@@ -15,6 +15,28 @@ namespace GameBalance {
 		return (ATrProjectile*)projClass->Default;
 	}
 
+	static UTrDmgType_Base* getWeaponDefaultDamageType(ATrDevice* dev) {
+		UClass* dmgTypeClass = NULL;
+
+		ATrProjectile* defProj = getWeaponDefaultProj(dev);
+		if (defProj) {
+			// Projectile
+			dmgTypeClass = defProj->MyDamageType;
+		}
+		else {
+			// Hitscan
+			dmgTypeClass = dev->InstantHitDamageTypes.GetStd(0);
+		}
+
+		if (!dmgTypeClass) return NULL;
+
+		if (!dmgTypeClass->Default || !dmgTypeClass->Default->IsA(UTrDmgType_Base::StaticClass())) {
+			return NULL;
+		}
+
+		return (UTrDmgType_Base*)dmgTypeClass->Default;
+	}
+
 	// Decorators to convert UObject* to some subtype of it
 	template <typename T>
 	static std::function<bool(PropValue, UObject*)> applierAdapter(std::function<bool(PropValue, T*)> f) {
@@ -48,6 +70,22 @@ namespace GameBalance {
 			ATrProjectile* defProj = getWeaponDefaultProj(dev);
 			if (!defProj) return false;
 			return f(dev, defProj, ret);
+		});
+	}
+
+	// Decorator functions to handle properties specific to DamageTypes associated with a TrDevice
+	static std::function<bool(PropValue, UObject*)> deviceDamageTypeApplierAdapter(std::function<bool(PropValue, ATrDevice*, UTrDmgType_Base*)> f) {
+		return applierAdapter<ATrDevice>([f](PropValue p, ATrDevice* dev) {
+			UTrDmgType_Base* dmgType = getWeaponDefaultDamageType(dev);
+			if (!dmgType) return false;
+			return f(p, dev, dmgType);
+		});
+	}
+	static std::function<bool(UObject*, PropValue&)> deviceDamageTypeGetterAdapter(std::function<bool(ATrDevice*, UTrDmgType_Base*, PropValue&)> f) {
+		return getterAdapter<ATrDevice>([f](ATrDevice* dev, PropValue& ret) {
+			UTrDmgType_Base* dmgType = getWeaponDefaultDamageType(dev);
+			if (!dmgType) return false;
+			return f(dev, dmgType, ret);
 		});
 	}
 
@@ -285,6 +323,182 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property ENERGY_DRAIN(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_EnergyDrainAmount = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_EnergyDrainAmount);
+			return true;
+		})
+			);
+		static const Property MAX_DAMAGE_RANGE_PROPORTION(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fMaxDamageRangePct = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fMaxDamageRangePct);
+			return true;
+		})
+			);
+		static const Property MIN_DAMAGE_RANGE_PROPORTION(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fMinDamageRangePct = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fMinDamageRangePct);
+			return true;
+		})
+			);
+		static const Property MIN_DAMAGE_PROPORTION(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fMinDamagePct = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fMinDamagePct);
+			return true;
+		})
+			);
+		static const Property BULLET_DAMAGE_RANGE(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fBulletDamageRange = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fBulletDamageRange);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_ARMOR_MULTIPLIER(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstArmor = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstArmor);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_GENERATOR_MULTIPLIER(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstGenerators = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstGenerators);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_BASE_TURRET_MULTIPLIER(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstBaseTurrets = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstBaseTurrets);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_BASE_SENSOR_MULTIPLIER(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstBaseSensors = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstBaseSensors);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_GRAVCYCLE_MULTIPLIER(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstGravCycle = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstGravCycle);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_BEOWULF_MULTIPLIER(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstBeowulf = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstBeowulf);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_SHRIKE_MULTIPLIER(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstShrike = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstShrike);
+			return true;
+		})
+			);
+		static const Property DOES_GIB_ON_KILL(
+			ValueType::BOOLEAN,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_bCausesGib = p.valBool;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromBool(dmgType->m_bCausesGib);
+			return true;
+		})
+			);
+		static const Property GIB_IMPULSE_RADIUS(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fGibRadius = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fGibRadius);
+			return true;
+		})
+			);
+		static const Property GIB_STRENGTH(
+			ValueType::FLOAT,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_fGibStrength = p.valFloat;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fGibStrength);
+			return true;
+		})
+			);
+		static const Property DOES_IMPULSE_FLAG(
+			ValueType::BOOLEAN,
+			deviceDamageTypeApplierAdapter([](PropValue p, ATrDevice* dev, UTrDmgType_Base* dmgType) {
+			dmgType->m_bImpulsesFlags = p.valBool;
+			return true;
+		}),
+			deviceDamageTypeGetterAdapter([](ATrDevice* dev, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromBool(dmgType->m_bImpulsesFlags);
+			return true;
+		})
+			);
 
 		// Projectile / Tracer
 		static const Property PROJECTILE_SPEED(
@@ -514,6 +728,22 @@ namespace GameBalance {
 			{PropId::IMPACT_MOMENTUM, IMPACT_MOMENTUM},
 			{PropId::SELF_IMPACT_MOMENTUM_MULTIPLIER, SELF_IMPACT_MOMENTUM_MULTIPLIER},
 			{PropId::SELF_IMPACT_EXTRA_Z_MOMENTUM, SELF_IMPACT_EXTRA_Z_MOMENTUM},
+			{PropId::ENERGY_DRAIN, ENERGY_DRAIN},
+			{PropId::MAX_DAMAGE_RANGE_PROPORTION, MAX_DAMAGE_RANGE_PROPORTION},
+			{PropId::MIN_DAMAGE_RANGE_PROPORTION, MIN_DAMAGE_RANGE_PROPORTION},
+			{PropId::MIN_DAMAGE_PROPORTION, MIN_DAMAGE_PROPORTION},
+			{PropId::BULLET_DAMAGE_RANGE, BULLET_DAMAGE_RANGE},
+			{PropId::DAMAGE_AGAINST_ARMOR_MULTIPLIER, DAMAGE_AGAINST_ARMOR_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_GENERATOR_MULTIPLIER, DAMAGE_AGAINST_GENERATOR_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_BASE_TURRET_MULTIPLIER, DAMAGE_AGAINST_BASE_TURRET_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_BASE_SENSOR_MULTIPLIER, DAMAGE_AGAINST_BASE_SENSOR_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_GRAVCYCLE_MULTIPLIER, DAMAGE_AGAINST_GRAVCYCLE_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_BEOWULF_MULTIPLIER, DAMAGE_AGAINST_BEOWULF_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_SHRIKE_MULTIPLIER, DAMAGE_AGAINST_SHRIKE_MULTIPLIER},
+			{PropId::DOES_GIB_ON_KILL, DOES_GIB_ON_KILL},
+			{PropId::GIB_IMPULSE_RADIUS, GIB_IMPULSE_RADIUS},
+			{PropId::GIB_STRENGTH, GIB_STRENGTH},
+			{PropId::DOES_IMPULSE_FLAG, DOES_IMPULSE_FLAG},
 
 			// Projectile / Tracer
 			{PropId::PROJECTILE_SPEED, PROJECTILE_SPEED},
