@@ -15,89 +15,89 @@ namespace GameBalance {
 		return (ATrProjectile*)projClass->Default;
 	}
 
-	// Decorator functions to generically handle applying a property specific to a TrDevice
-	static std::function<bool(PropValue, UObject*)> deviceApplierAdapter(std::function<bool(PropValue, ATrDevice*)> f) {
+	// Decorators to convert UObject* to some subtype of it
+	template <typename T>
+	static std::function<bool(PropValue, UObject*)> applierAdapter(std::function<bool(PropValue, T*)> f) {
 		return [f](PropValue p, UObject* obj) {
-			if (!obj->IsA(ATrDevice::StaticClass())) {
+			if (!obj->IsA(T::StaticClass())) {
 				return false;
 			}
-			return f(p, (ATrDevice*)obj);
+			return f(p, (T*)obj);
 		};
 	}
-	static std::function<bool(UObject*, PropValue&)> deviceGetterAdapter(std::function<bool(ATrDevice*, PropValue&)> f) {
-		return [f](UObject* obj, PropValue& ret) {
-			if (!obj->IsA(ATrDevice::StaticClass())) {
+	template <typename T>
+	static std::function<bool(UObject*, PropValue&)> getterAdapter(std::function<bool(T*, PropValue&)> f) {
+		return [f](UObject* obj, PropValue& p) {
+			if (!obj->IsA(T::StaticClass())) {
 				return false;
 			}
-			return f((ATrDevice*)obj, ret);
+			return f((T*)obj, p);
 		};
 	}
 
 	// Decorator functions to handle properties specific to TrDevices which spawn projectiles
 	static std::function<bool(PropValue, UObject*)> projDeviceApplierAdapter(std::function<bool(PropValue, ATrDevice*, ATrProjectile*)> f) {
-		return deviceApplierAdapter([f](PropValue p, ATrDevice* dev) {
+		return applierAdapter<ATrDevice>([f](PropValue p, ATrDevice* dev) {
 			ATrProjectile* defProj = getWeaponDefaultProj(dev);
 			if (!defProj) return false;
 			return f(p, dev, defProj);
 		});
 	}
 	static std::function<bool(UObject*, PropValue&)> projDeviceGetterAdapter(std::function<bool(ATrDevice*, ATrProjectile*, PropValue&)> f) {
-		return deviceGetterAdapter([f](ATrDevice* dev, PropValue& ret) {
+		return getterAdapter<ATrDevice>([f](ATrDevice* dev, PropValue& ret) {
 			ATrProjectile* defProj = getWeaponDefaultProj(dev);
 			if (!defProj) return false;
 			return f(dev, defProj, ret);
 		});
 	}
 
-
-
 	namespace Items {
 
 		// Ammo
 		static const Property CLIP_AMMO(
 			ValueType::INTEGER,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valInt < 0) return false;
 			dev->MaxAmmoCount = p.valInt;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromInt(dev->MaxAmmoCount);
 			return true;
 		})
 			);
 		static const Property SPARE_AMMO(
 			ValueType::INTEGER,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valInt < 0) return false;
 			dev->m_nMaxCarriedAmmo = p.valInt;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromInt(dev->m_nMaxCarriedAmmo);
 			return true;
 		})
 			);
 		static const Property AMMO_PER_SHOT(
 			ValueType::INTEGER,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valInt < 0) return false;
 			dev->ShotCost.Set(0, p.valInt);
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromInt(dev->ShotCost.GetStd(0));
 			return true;
 		})
 			);
 		static const Property LOW_AMMO_CUTOFF(
 			ValueType::INTEGER,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valInt < 0) return false;
 			dev->m_nLowAmmoWarning = p.valInt;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromInt(dev->m_nLowAmmoWarning);
 			return true;
 		})
@@ -106,69 +106,69 @@ namespace GameBalance {
 		// Reload / Firing
 		static const Property RELOAD_TIME(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valFloat < 0) return false;
 			dev->m_fReloadTime = p.valFloat;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->m_fReloadTime);
 			return true;
 		})
 			);
 		static const Property FIRE_INTERVAL(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valFloat < 0) return false;
 			dev->FireInterval.Set(0, p.valFloat);
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->FireInterval.GetStd(0));
 			return true;
 		})
 			);
 		static const Property HOLD_TO_FIRE(
 			ValueType::BOOLEAN,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_bAllowHoldDownFire = p.valBool;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromBool(dev->m_bAllowHoldDownFire);
 			return true;
 		})
 			);
 		static const Property CAN_ZOOM(
 			ValueType::BOOLEAN,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_bCanZoom = p.valBool;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromBool(dev->m_bCanZoom);
 			return true;
 		})
 			);
 		static const Property RELOAD_SINGLE(
 			ValueType::BOOLEAN,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_bReloadSingles = p.valBool;
 			dev->m_bCanEarlyAbortReload = p.valBool;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromBool(dev->m_bReloadSingles);
 			return true;
 		})
 			);
 		static const Property RELOAD_APPLICATION_PROPORTION(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_fPctTimeBeforeReload = p.valFloat;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->m_fPctTimeBeforeReload);
 			return true;
 		})
@@ -177,7 +177,7 @@ namespace GameBalance {
 		// Damage
 		static const Property DAMAGE(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valFloat < 0) return false;
 
 			ATrProjectile* defProj = getWeaponDefaultProj(dev);
@@ -192,7 +192,7 @@ namespace GameBalance {
 			}
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			// Is this weapon a projectile or hitscan weapon?
 			ATrProjectile* defProj = getWeaponDefaultProj(dev);
 
@@ -233,7 +233,7 @@ namespace GameBalance {
 			);
 		static const Property IMPACT_MOMENTUM(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valFloat < 0) return false;
 
 			ATrProjectile* defProj = getWeaponDefaultProj(dev);
@@ -248,7 +248,7 @@ namespace GameBalance {
 			}
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			// Is this weapon a projectile or hitscan weapon?
 			ATrProjectile* defProj = getWeaponDefaultProj(dev);
 
@@ -413,11 +413,11 @@ namespace GameBalance {
 			);
 		static const Property HITSCAN_RANGE(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->WeaponRange = p.valFloat;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->WeaponRange);
 			return true;
 		})
@@ -426,66 +426,66 @@ namespace GameBalance {
 		// Accuracy 
 		static const Property ACCURACY(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_fDefaultAccuracy = p.valFloat;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->m_fDefaultAccuracy);
 			return true;
 		})
 			);
 		static const Property ACCURACY_LOSS_ON_SHOT(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_fAccuracyLossOnShot = p.valFloat;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->m_fAccuracyLossOnShot);
 			return true;
 		})
 			);
 		static const Property ACCURACY_LOSS_ON_JUMP(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_fAccuracyLossOnJump = p.valFloat;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->m_fAccuracyLossOnJump);
 			return true;
 		})
 			);
 		static const Property ACCURACY_LOSS_ON_WEAPON_SWITCH(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_fAccuracyLossOnWeaponSwitch = p.valFloat;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->m_fAccuracyLossOnWeaponSwitch);
 			return true;
 		})
 			);
 		static const Property ACCURACY_LOSS_MAX(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_fAccuracyLossMax = p.valFloat;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->m_fAccuracyLossMax);
 			return true;
 		})
 			);
 		static const Property ACCURACY_CORRECTION_RATE(
 			ValueType::FLOAT,
-			deviceApplierAdapter([](PropValue p, ATrDevice* dev) {
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			dev->m_fAccuracyCorrectionRate = p.valFloat;
 			return true;
 		}),
-			deviceGetterAdapter([](ATrDevice* dev, PropValue& ret) {
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->m_fAccuracyCorrectionRate);
 			return true;
 		})
@@ -537,5 +537,59 @@ namespace GameBalance {
 			{PropId::ACCURACY_CORRECTION_RATE, ACCURACY_CORRECTION_RATE},
 		};
 
+	}
+
+	namespace Classes {
+		static const Property HEALTH_POOL(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_nMaxHealthPool = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_nMaxHealthPool);
+			return true;
+		})
+			);
+
+		std::map<PropId, Property> properties = {
+			{PropId::HEALTH_POOL, HEALTH_POOL},
+		};
+	}
+
+	namespace Vehicles {
+		static const Property HEALTH_POOL(
+			ValueType::INTEGER,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->HealthMax = p.valInt;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromInt(veh->HealthMax);
+			return true;
+		})
+			);
+
+		std::map<PropId, Property> properties = {
+			{PropId::HEALTH_POOL, HEALTH_POOL},
+		};
+	}
+
+	namespace VehicleWeapons {
+		static const Property CLIP_AMMO(
+			ValueType::INTEGER,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->MaxAmmoCount = p.valInt;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromInt(wep->MaxAmmoCount);
+			return true;
+		})
+			);
+
+		std::map<PropId, Property> properties = {
+			{PropId::CLIP_AMMO, CLIP_AMMO},
+		};
 	}
 }

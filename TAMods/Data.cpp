@@ -449,9 +449,56 @@ namespace Data
 	std::map<std::string, int> vehicle_weapons =
 	{
 		{ R"rx(^(grav(cycle|bike)?)$)rx", CONST_WEAPON_ID_PILOT_GRAVCYCLE },
-		{ R"rx(^(shrike)$)rx", CONST_WEAPON_ID_PILOT_SHRIKE },
+		{ R"rx(^(shrike(pilot)?)$)rx", CONST_WEAPON_ID_PILOT_SHRIKE },
 		{ R"rx(^(tank|beowulf(cann?on|pilot)?)$)rx", CONST_WEAPON_ID_PILOT_BEOWULF },
-		{ R"rx(^((tank|beowulf)(gunner|chaingun|chain|gun))$)rx", CONST_WEAPON_ID_GUNNER_BEOWULF }
+		{ R"rx(^((tank|beowulf)(gunner|chaingun|chain|gun))$)rx", CONST_WEAPON_ID_GUNNER_BEOWULF },
+		{ R"rx(^(havoc)$)rx", CONST_WEAPON_ID_PILOT_HAVOC },
+		{ R"rx(^(herc(cann?on|pilot))$)rx", CONST_WEAPON_ID_PILOT_HERC },
+		{ R"rx(^(herc(gunner|chaingun|chain|gun))$)rx", CONST_WEAPON_ID_GUNNER_HERC },
+	};
+
+	std::map<int, UClass*> vehicle_weapon_id_to_class = {
+		{CONST_WEAPON_ID_PILOT_GRAVCYCLE, ATrVehicleWeapon_GravCyclePilot::StaticClass()},
+		{CONST_WEAPON_ID_PILOT_SHRIKE, ATrVehicleWeapon_ShrikePilot::StaticClass()},
+		{CONST_WEAPON_ID_PILOT_BEOWULF, ATrVehicleWeapon_BeowulfPilot::StaticClass()},
+		{CONST_WEAPON_ID_GUNNER_BEOWULF, ATrVehicleWeapon_BeowulfGunner::StaticClass()},
+		{CONST_WEAPON_ID_PILOT_HAVOC, ATrVehicleWeapon_HavocPilot::StaticClass()},
+		{CONST_WEAPON_ID_PILOT_HERC, ATrVehicleWeapon_HERCPilot::StaticClass()},
+		{CONST_WEAPON_ID_GUNNER_HERC, ATrVehicleWeapon_HERCGunner::StaticClass()},
+	};
+
+	std::map<int, std::string> vehicle_weapon_id_to_name = {
+		{CONST_WEAPON_ID_PILOT_GRAVCYCLE, "GravCyclePilot"},
+		{CONST_WEAPON_ID_PILOT_SHRIKE, "ShrikePilot"},
+		{CONST_WEAPON_ID_PILOT_BEOWULF, "BeowulfPilot"},
+		{CONST_WEAPON_ID_GUNNER_BEOWULF, "BeowulfGunner"},
+		{CONST_WEAPON_ID_PILOT_HAVOC, "HavocPilot"},
+		{CONST_WEAPON_ID_PILOT_HERC, "HERCPilot"},
+		{CONST_WEAPON_ID_GUNNER_HERC, "HERCGunner"},
+	};
+
+	std::map<std::string, int> vehicles = {
+		{ R"rx(^(grav(cycle|bike)?)$)rx", 1 },
+		{ R"rx(^(tank|beowulf)$)rx", 2 },
+		{ R"rx(^(shrike)$)rx", 3 },
+		{ R"rx(^(havoc)$)rx", 4 },
+		{ R"rx(^(herc)$)rx", 5 },
+	};
+
+	std::map<int, std::string> vehicle_id_to_name = {
+		{1, "GravCycle"},
+		{2, "Beowulf"},
+		{3, "Shrike"},
+		{4, "Havoc"},
+		{5, "HERC"},
+	};
+
+	std::map<int, UClass*> vehicle_id_to_class = {
+		{1, ATrVehicle_GravCycle::StaticClass()},
+		{2, ATrVehicle_Beowulf::StaticClass()},
+		{3, ATrVehicle_Shrike::StaticClass()},
+		{4, ATrVehicle_Havoc::StaticClass()},
+		{5, ATrVehicle_HERC::StaticClass()},
 	};
 
 	std::map<std::string, int> classes =
@@ -493,6 +540,18 @@ namespace Data
 		CONST_CLASS_TYPE_LIGHT,
 		CONST_CLASS_TYPE_MEDIUM,
 		CONST_CLASS_TYPE_HEAVY
+	};
+
+	std::map<int, UClass*> class_id_to_class = {
+		{CONST_CLASS_TYPE_LIGHT, UTrFamilyInfo_Light_Pathfinder::StaticClass()},
+		{CONST_CLASS_TYPE_MEDIUM, UTrFamilyInfo_Medium_Soldier::StaticClass()},
+		{CONST_CLASS_TYPE_HEAVY, UTrFamilyInfo_Heavy_Juggernaught::StaticClass()},
+	};
+
+	std::map<int, std::string> class_id_to_name = {
+		{CONST_CLASS_TYPE_LIGHT, "Light_Pathfinder"},
+		{CONST_CLASS_TYPE_MEDIUM, "Medium_Soldier"},
+		{CONST_CLASS_TYPE_HEAVY, "Heavy_Juggernaught"},
 	};
 
 	std::map<int, int> class_id_to_nb =
