@@ -499,6 +499,28 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property MELEE_DAMAGE_RADIUS(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
+			dev->m_fDamageRadius = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fDamageRadius);
+			return true;
+		})
+			);
+		static const Property MELEE_CONE_ANGLE(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
+			dev->m_fConeAttackAngle = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fConeAttackAngle);
+			return true;
+		})
+			);
 
 		// Projectile / Tracer
 		static const Property PROJECTILE_SPEED(
@@ -744,6 +766,8 @@ namespace GameBalance {
 			{PropId::GIB_IMPULSE_RADIUS, GIB_IMPULSE_RADIUS},
 			{PropId::GIB_STRENGTH, GIB_STRENGTH},
 			{PropId::DOES_IMPULSE_FLAG, DOES_IMPULSE_FLAG},
+			{PropId::MELEE_DAMAGE_RADIUS, MELEE_DAMAGE_RADIUS},
+			{PropId::MELEE_CONE_ANGLE, MELEE_CONE_ANGLE},
 
 			// Projectile / Tracer
 			{PropId::PROJECTILE_SPEED, PROJECTILE_SPEED},

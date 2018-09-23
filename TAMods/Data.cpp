@@ -55,6 +55,7 @@ namespace Data
 			{ R"rx(^((bxt1a|bxt-1a|bxt1-a|bxt-1a)(rifle)?)$)rx", CONST_WEAPON_ID_RIFLE_SNIPER_MKD },
 			{ R"rx(^(phase|phaserifle)$)rx", CONST_WEAPON_ID_RIFLE_PHASE },
 			{ R"rx(^(sap(20)?(rifle)?)$)rx", CONST_WEAPON_ID_SAP20 },
+			{ R"rx(^(melee|knife|sword)$)rx", CONST_WEAPON_ID_MELEE },
 			// Bullet
 			{ R"rx(^(falcon)$)rx", CONST_WEAPON_ID_PISTOL_FALCON },
 			{ R"rx(^(lightassaultrifle|lar|ar|assaultrifle|rifle)$)rx", CONST_WEAPON_ID_RIFLE_ASSAULT_LIGHT },
@@ -91,15 +92,16 @@ namespace Data
 			{ R"rx(^(twinfusor)$)rx", CONST_WEAPON_ID_TWINFUSOR },
 			{ R"rx(^(blinks?|blinks?fusor)$)rx", CONST_WEAPON_ID_SPINFUSOR_100X },
 			{ R"rx(^(honorfusor|honourfusor|honor)$)rx", CONST_WEAPON_ID_HONORFUSOR },
-				// Timed
+			// Timed
 			{ R"rx(^(arxbuster|arx)$)rx", CONST_WEAPON_ID_ARX_BUSTER },
 			{ R"rx(^(dustdevil)$)rx", CONST_WEAPON_ID_ARX_BUSTER_MKD },
 			{ R"rx(^(grenadelauncher|nadelauncher|launcher|gl)$)rx", CONST_WEAPON_ID_LAUNCHER_GRENADE },
-				// Speciality
+			// Speciality
 			{ R"rx(^(improvedrepairtool|repairtool|repair)$)rx", CONST_WEAPON_ID_REPAIR_TOOL_SD },
 			{ R"rx(^(longrangerepairtool)$)rx", CONST_WEAPON_ID_REPAIR_TOOL_SD_MKD },
 			{ R"rx(^(elf(projector)?)$)rx", CONST_WEAPON_ID_ELFPROJECTOR },
-				// Bullet
+			{ R"rx(^(melee|knife|sword)$)rx", CONST_WEAPON_ID_MELEE },
+			// Bullet
 			{ R"rx(^(assaultrifle|rifle|ar)$)rx", CONST_WEAPON_ID_RIFLE_ASSAULT },
 			{ R"rx(^(gast('s)?(rifle)?)$)rx", CONST_WEAPON_ID_RIFLE_ASSAULT_MKD },
 			{ R"rx(^(nj4smg|nj4)$)rx", CONST_WEAPON_ID_SMG_NJ4 },
@@ -111,10 +113,10 @@ namespace Data
 			{ R"rx(^(plasmagun|plasma)$)rx", CONST_WEAPON_ID_PLASMA_GUN },
 			{ R"rx(^(nova|blaster|novablaster)$)rx", CONST_WEAPON_ID_PISTOL_NOVA_COLT },
 			{ R"rx(^(eaglepistol|eagle|pistol)$)rx", CONST_WEAPON_ID_PISTOL_EAGLE },
-				// Short range
+			// Short range
 			{ R"rx(^(sawed-?offshotgun|shotgun|sawed-?off)$)rx", CONST_WEAPON_ID_SHOTGUN_SAWED_OFF },
 			{ R"rx(^(flak(cannon)?)$)rx", CONST_WEAPON_ID_TC24 },
-				// Belt
+			// Belt
 			{ R"rx(^(emps?|empgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_EMP },
 			{ R"rx(^(emps?xls?|emps?xlgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_EMP_MKD },
 			{ R"rx(^(blackouts?|blackoutgrenades?)$)rx", CONST_WEAPON_ID_GRENADE_WHITEOUT },
@@ -143,6 +145,7 @@ namespace Data
 			{ R"rx(^(saberlauncher|saber)$)rx", CONST_WEAPON_ID_LAUNCHER_SABER },
 			{ R"rx(^(titanlauncher|titan)$)rx", CONST_WEAPON_ID_LAUNCHER_SABER_MKD },
 			{ R"rx(^(gladiator)$)rx", CONST_WEAPON_ID_SPIKELAUNCHER },
+			{ R"rx(^(melee|knife|sword)$)rx", CONST_WEAPON_ID_MELEE },
 			// Bullet
 			{ R"rx(^(chaingun)$)rx", CONST_WEAPON_ID_CHAINGUN },
 			{ R"rx(^(chaincannon)$)rx", CONST_WEAPON_ID_CHAINGUN_MKD },
@@ -165,6 +168,7 @@ namespace Data
 	};
 
 	std::map<int, std::string> weapon_id_to_name = {
+		{ CONST_WEAPON_ID_MELEE, "Melee" },
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT, "LightSpinfusor" },
 		{ CONST_WEAPON_ID_LAUNCHER_BOLT, "BoltLauncher" },
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT_MKD, "LightSpinfusor_MKD" },
@@ -240,6 +244,8 @@ namespace Data
 	};
 
 	std::map<int, std::string> weapon_id_to_proj_name = {
+		{ CONST_WEAPON_ID_MELEE, "" },
+
 		// Light
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT, "LightSpinfusor" },
 		{ CONST_WEAPON_ID_LAUNCHER_BOLT, "BoltLauncher" },
@@ -344,6 +350,7 @@ namespace Data
 	};
 
 	std::map<int, UClass*> weapon_id_to_weapon_class = {
+		{ CONST_WEAPON_ID_MELEE, ATrDevice_Melee::StaticClass() },
 		// Light
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT, ATrDevice_LightSpinfusor::StaticClass() },
 		{ CONST_WEAPON_ID_LAUNCHER_BOLT, ATrDevice_BoltLauncher::StaticClass() },

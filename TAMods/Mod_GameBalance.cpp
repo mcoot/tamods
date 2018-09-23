@@ -37,7 +37,8 @@ static void applyPropConfig(std::map<int, UClass*>& relevantClassDefs, std::map<
 		bool isClassCase = std::is_same<IdType, Classes::PropId>::value;
 		bool isVehicleCase = std::is_same<IdType, Vehicles::PropId>::value;
 		bool isVehicleWeaponCase = std::is_same<IdType, VehicleWeapons::PropId>::value;
-		if (isClassCase || isVehicleCase || isVehicleWeaponCase) {
+		bool isMeleeCase = std::is_same<IdType, Items::PropId>::value && elem.first == CONST_WEAPON_ID_MELEE; // Melee is special cased because it has BE and DS variants
+		if (isClassCase || isVehicleCase || isVehicleWeaponCase || isMeleeCase) {
 			std::string namePrefix;
 			std::string name;
 			if (isClassCase) {
@@ -55,18 +56,37 @@ static void applyPropConfig(std::map<int, UClass*>& relevantClassDefs, std::map<
 				auto& wepName = Data::vehicle_weapon_id_to_name.find(elem.first);
 				name = wepName->second;
 			}
+			else if (isMeleeCase) {
+				namePrefix = "TrDevice";
+				auto& meleeName = Data::weapon_id_to_name.find(elem.first);
+				name = meleeName->second;
+			}
 
 			// Find the default object given this name
 			std::string defName = namePrefix + "_" + name + " TribesGame.Default__" + namePrefix + "_" + name;
-			if (isClassCase) {
+			if (isClassCase || isMeleeCase) {
 				// Need both BE and DS variants in this case
 				std::string beName = namePrefix + "_" + name + "_BE" + " TribesGame.Default__" + namePrefix + "_" + name + "_BE";
 				std::string dsName = namePrefix + "_" + name + "_DS" + " TribesGame.Default__" + namePrefix + "_" + name + "_DS";
-				UObject* objBE = UObject::FindObject<UTrFamilyInfo>(beName.c_str());
-				UObject* objDS = UObject::FindObject<UTrFamilyInfo>(dsName.c_str());
+				UObject* objNormal = NULL;
+				UObject* objBE = NULL;
+				UObject* objDS = NULL;
+				if (isClassCase) {
+					objBE = UObject::FindObject<UTrFamilyInfo>(beName.c_str());
+					objDS = UObject::FindObject<UTrFamilyInfo>(dsName.c_str());
+				}
+				else if (isMeleeCase) {
+					objBE = UObject::FindObject<ATrDevice>(beName.c_str());
+					objDS = UObject::FindObject<ATrDevice>(dsName.c_str());
+					objNormal = UObject::FindObject<ATrDevice>(defName.c_str());
+				}
+				
 				if (objBE && objDS) {
 					objectsToApplyOn.push_back(objBE);
 					objectsToApplyOn.push_back(objDS);
+				}
+				if (objNormal) {
+					objectsToApplyOn.push_back(objNormal);
 				}
 			}
 			else if (isVehicleCase) {
