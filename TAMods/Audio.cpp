@@ -2,6 +2,7 @@
 
 void Audio::Initialize()
 {
+#ifndef WIN7_COMPATIBLE
 	UINT32 flags = 0;
 
 	CoInitializeEx(NULL, COINIT_MULTITHREADED);
@@ -22,22 +23,27 @@ void Audio::Initialize()
 	//MusicEngine->CreateMasteringVoice(&m_musicMasteringVoice);
 
 	m_audioAvailable = true;
+#endif
 }
 
 void Audio::SuspendAudio()
 {
+#ifndef WIN7_COMPATIBLE
 	if (m_audioAvailable)
 	{
 		//MusicEngine->StopEngine();
 		SoundEffectEngine->StopEngine();
 	}
+#endif
 }
 
 void Audio::ResumeAudio()
 {
+#ifndef WIN7_COMPATIBLE
 	if (m_audioAvailable)
 	{
 		//MusicEngine->StartEngine();
 		SoundEffectEngine->StartEngine();
 	}
+#endif
 }

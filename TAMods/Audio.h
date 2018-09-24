@@ -1,5 +1,10 @@
 #pragma once
+
+#include "buildconfig.h"
+
+#ifndef WIN7_COMPATIBLE
 #include <xaudio2.h>
+#endif
 
 // Using XAudio 2.7 requires the DirectX SDK
 //#include <C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include\comdecl.h>
@@ -24,7 +29,6 @@ public:
 public:
 	//IXAudio2* MusicEngine;
 	IXAudio2* SoundEffectEngine;
-
 protected:
 	bool m_audioAvailable = false;
 	//IXAudio2MasteringVoice* m_musicMasteringVoice;

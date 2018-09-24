@@ -3,24 +3,29 @@
 
 SoundEffect* SoundEffect::Initialize(IXAudio2* masteringEngine, std::string* filePath, float* volume)
 {
+#ifndef WIN7_COMPATIBLE
 	m_masteringEngine = masteringEngine;
 	m_filePath = filePath;
 	m_configVolumeVar = volume;
 	m_basePath = Utils::getConfigDir();
 	m_audioAvailable = CreateVoice();
+#endif
 	return this;
 }
 
 void SoundEffect::Reload()
 {
+#ifndef WIN7_COMPATIBLE
 	if (m_audioAvailable)
 		m_sourceVoice->DestroyVoice();
 
 	m_audioAvailable = CreateVoice();
+#endif
 }
 
 bool SoundEffect::CreateVoice()
 {
+#ifndef WIN7_COMPATIBLE
 	std::string fullPath;
 
 	if (!m_filePath->empty())
@@ -38,12 +43,13 @@ bool SoundEffect::CreateVoice()
 	// set volume
 	if (m_configVolumeVar)
 		m_sourceVoice->SetVolume(*m_configVolumeVar);
-
+#endif
 	return true;
 }
 
 void SoundEffect::Play(float pitch)
 {
+#ifndef WIN7_COMPATIBLE
 	if (!m_audioAvailable)
 	{
 		// Audio is not available so just return
@@ -55,10 +61,12 @@ void SoundEffect::Play(float pitch)
 	m_sourceVoice->SetFrequencyRatio(pitch);
 	m_sourceVoice->SubmitSourceBuffer(m_soundData.xaBuffer());
 	m_sourceVoice->Start();
+#endif
 }
 
 void SoundEffect::Stop()
 {
+#ifndef WIN7_COMPATIBLE
 	if (!m_audioAvailable)
 	{
 		// Audio is not available so just return
@@ -66,22 +74,28 @@ void SoundEffect::Stop()
 	}
 	m_sourceVoice->Stop();
 	m_sourceVoice->FlushSourceBuffers();
+#endif
 }
 
 void SoundEffect::SetVolume(float volume)
 {
+#ifndef WIN7_COMPATIBLE
 	if (m_audioAvailable)
 		m_sourceVoice->SetVolume(volume);
+#endif
 }
 
 void SoundEffect::RefreshVolume()
 {
+#ifndef WIN7_COMPATIBLE
 	if (m_audioAvailable && m_configVolumeVar)
 		m_sourceVoice->SetVolume(*m_configVolumeVar);
+#endif
 }
 
 bool SoundEffect::CurrentlyPlaying()
 {
+#ifndef WIN7_COMPATIBLE
 	XAUDIO2_VOICE_STATE state;
 	m_sourceVoice->GetState(&state);
 
@@ -89,4 +103,5 @@ bool SoundEffect::CurrentlyPlaying()
 		return true;
 	else
 		return false;
+#endif
 }

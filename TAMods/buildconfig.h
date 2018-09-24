@@ -13,6 +13,25 @@
 //#define RELEASE
 // Uncomment for T:A server build
 //#define SERVER
+
+#define WIN7_COMPATIBLE
+
 #define MODVERSION 0.7
 
 #define TAMODS_PROTOCOL_VERSION "0.1.0"
+
+#ifdef WIN7_COMPATIBLE
+typedef unsigned char byte;
+struct IXAudio2 {
+	bool meaningless;
+};
+struct IXAudio2MasteringVoice {
+	bool meaningless;
+};
+struct IXAudio2SourceVoice {
+	bool meaningless;
+};
+struct Wave {
+	bool meaningless;
+};
+#endif

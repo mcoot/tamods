@@ -1,7 +1,15 @@
 #pragma once
+
+#include "buildconfig.h"
+
+#include <string>
+#ifndef WIN7_COMPATIBLE
 #include <xaudio2.h>
+#endif
 #include <algorithm> // std::replace
+#ifndef WIN7_COMPATIBLE
 #include "Wave.h"
+#endif
 
 class SoundEffect
 {
