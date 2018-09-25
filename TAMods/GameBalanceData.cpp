@@ -658,6 +658,39 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property FIRE_OFFSET_X(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
+			dev->FireOffset.X = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->FireOffset.X);
+			return true;
+		})
+			);
+		static const Property FIRE_OFFSET_Y(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
+			dev->FireOffset.Y = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->FireOffset.Y);
+			return true;
+		})
+			);
+		static const Property FIRE_OFFSET_Z(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
+			dev->FireOffset.Z = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->FireOffset.Z);
+			return true;
+		})
+			);
 
 		// Accuracy 
 		static const Property ACCURACY(
@@ -781,6 +814,9 @@ namespace GameBalance {
 			{PropId::PROJECTILE_MESH_SCALE, PROJECTILE_MESH_SCALE},
 			{PropId::PROJECTILE_LIGHT_RADIUS, PROJECTILE_LIGHT_RADIUS},
 			{PropId::HITSCAN_RANGE, HITSCAN_RANGE},
+			{PropId::FIRE_OFFSET_X, FIRE_OFFSET_X},
+			{PropId::FIRE_OFFSET_Y, FIRE_OFFSET_Y},
+			{PropId::FIRE_OFFSET_Z, FIRE_OFFSET_Z},
 
 			// Accuracy
 			{PropId::ACCURACY, ACCURACY},
@@ -794,6 +830,7 @@ namespace GameBalance {
 	}
 
 	namespace Classes {
+		// Base stats
 		static const Property HEALTH_POOL(
 			ValueType::FLOAT,
 			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
@@ -805,9 +842,392 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property ENERGY_POOL(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->r_fMaxPowerPool = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->r_fMaxPowerPool);
+			return true;
+		})
+			);
+		static const Property ENERGY_RECHARGE_RATE(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fPowerPoolRechargeRate = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fPowerPoolRechargeRate);
+			return true;
+		})
+			);
+		static const Property INITIAL_JET_ENERGY_COST(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fJetpackInitialCost = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fJetpackInitialCost);
+			return true;
+		})
+			);
+		static const Property JET_ENERGY_COST(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fJetpackPowerPoolCost = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fJetpackPowerPoolCost);
+			return true;
+		})
+			);
+		static const Property REGEN_TIME(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fSecondsBeforeAutoHeal = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fSecondsBeforeAutoHeal);
+			return true;
+		})
+			);
+		static const Property REGEN_RATE(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fHealthPoolRechargeRate = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fHealthPoolRechargeRate);
+			return true;
+		})
+			);
+		static const Property LOW_HEALTH_THRESHOLD(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fLowHealthThreshold = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fLowHealthThreshold);
+			return true;
+		})
+			);
+
+		// Movement / Skiing
+		static const Property MASS(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fMass = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fMass);
+			return true;
+		})
+			);
+		static const Property GROUND_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fMaxGroundSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fMaxGroundSpeed);
+			return true;
+		})
+			);
+		static const Property MAX_SKIING_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFIMaxSkiSpeed = p.valFloat;
+			fi->m_fFITerminalSkiSpeed = p.valFloat + 500;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFIMaxSkiSpeed);
+			return true;
+		})
+			);
+		static const Property MAX_SKI_CONTROL(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFIMaxSkiControlPct = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFIMaxSkiControlPct);
+			return true;
+		})
+			);
+		static const Property SKI_CONTROL_PEAK_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFIPeakSkiControlSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFIPeakSkiControlSpeed);
+			return true;
+		})
+			);
+		static const Property SKI_CONTROL_VARIANCE(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFISkiControlSigmaSquare = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFISkiControlSigmaSquare);
+			return true;
+		})
+			);
+		static const Property SKI_SLOPE_GRAVITY(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFISkiSlopeGravityBoost = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFISkiSlopeGravityBoost);
+			return true;
+		})
+			);
+		static const Property VEHICLE_SPEED_INHERITENCE(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fVehicleSpeedInheritPercent = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fVehicleSpeedInheritPercent);
+			return true;
+		})
+			);
+		static const Property MOMENTUM_DAMPENING_ENABLED(
+			ValueType::BOOLEAN,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_bMomentumDampingEnabled = p.valBool;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromBool(fi->m_bMomentumDampingEnabled);
+			return true;
+		})
+			);
+		static const Property MOMENTUM_DAMPENING_THRESHOLD(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fMomentumDampingSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fMomentumDampingSpeed);
+			return true;
+		})
+			);
+		static const Property MOMENTUM_DAMPENING_PROPORTION(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fMomentumDampingPct = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fMomentumDampingPct);
+			return true;
+		})
+			);
+
+		// Jetting / Air Control
+		static const Property MAX_JETTING_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFIMaxJetpackThrustSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFIMaxJetpackThrustSpeed);
+			return true;
+		})
+			);
+		static const Property JET_ACCELERATION(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFlightAcceleration = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFlightAcceleration);
+			return true;
+		})
+			);
+		static const Property INITIAL_JET_ACCELERATION_MULTIPLIER(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fJetpackInitAccelMultiplier = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fJetpackInitAccelMultiplier);
+			return true;
+		})
+			);
+		static const Property INITIAL_JET_LENGTH(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fJetpackInitTotalTime = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fJetpackInitTotalTime);
+			return true;
+		})
+			);
+		static const Property FORWARD_JET_PROPORTION(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFIForwardJettingPct = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFIForwardJettingPct);
+			return true;
+		})
+			);
+		static const Property JET_BOOST_MAX_GROUND_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFIMaxJetpackBoostGroundspeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFIMaxJetpackBoostGroundspeed);
+			return true;
+		})
+			);
+		static const Property AIR_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFIAirSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFIAirSpeed);
+			return true;
+		})
+			);
+		static const Property AIR_CONTROL(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fFIAirControl = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fFIAirControl);
+			return true;
+		})
+			);
+		static const Property AIR_CONTROL_MIN_MULTIPLIER(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_vAirControlMultiplier.X = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_vAirControlMultiplier.X);
+			return true;
+		})
+			);
+		static const Property AIR_CONTROL_REDUCTION_RANGE_MAX(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_vAirControlReductionRange.X = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_vAirControlReductionRange.X);
+			return true;
+		})
+			);
+		static const Property AIR_CONTROL_REDUCTION_RANGE_MIN(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_vAirControlReductionRange.Y = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_vAirControlReductionRange.Y);
+			return true;
+		})
+			);
+
+		// Collision
+		static const Property COLLISION_CYLINDER_RADIUS(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fCollisionRadius = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fCollisionRadius);
+			return true;
+		})
+			);
+		static const Property COLLISION_CYLINDER_HEIGHT(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_fCollisionHeight = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_fCollisionHeight);
+			return true;
+		})
+			);
 
 		std::map<PropId, Property> properties = {
+			// Base stats
 			{PropId::HEALTH_POOL, HEALTH_POOL},
+			{PropId::ENERGY_POOL, ENERGY_POOL},
+			{PropId::ENERGY_RECHARGE_RATE, ENERGY_RECHARGE_RATE},
+			{PropId::INITIAL_JET_ENERGY_COST, INITIAL_JET_ENERGY_COST},
+			{PropId::JET_ENERGY_COST, JET_ENERGY_COST},
+			{PropId::REGEN_TIME, REGEN_TIME},
+			{PropId::REGEN_RATE, REGEN_RATE},
+			{PropId::LOW_HEALTH_THRESHOLD, LOW_HEALTH_THRESHOLD},
+			// Movement / Skiing
+			{PropId::MASS, MASS},
+			{PropId::GROUND_SPEED, GROUND_SPEED},
+			{PropId::MAX_SKIING_SPEED, MAX_SKIING_SPEED},
+			{PropId::MAX_SKI_CONTROL, MAX_SKI_CONTROL},
+			{PropId::SKI_CONTROL_PEAK_SPEED, SKI_CONTROL_PEAK_SPEED},
+			{PropId::SKI_CONTROL_VARIANCE, SKI_CONTROL_VARIANCE},
+			{PropId::SKI_SLOPE_GRAVITY, SKI_SLOPE_GRAVITY},
+			{PropId::VEHICLE_SPEED_INHERITENCE, VEHICLE_SPEED_INHERITENCE},
+			{PropId::MOMENTUM_DAMPENING_ENABLED, MOMENTUM_DAMPENING_ENABLED},
+			{PropId::MOMENTUM_DAMPENING_THRESHOLD, MOMENTUM_DAMPENING_THRESHOLD},
+			{PropId::MOMENTUM_DAMPENING_PROPORTION, MOMENTUM_DAMPENING_PROPORTION},
+			// Jetting / Air Control
+			{PropId::MAX_JETTING_SPEED, MAX_JETTING_SPEED},
+			{PropId::JET_ACCELERATION, JET_ACCELERATION},
+			{PropId::INITIAL_JET_ACCELERATION_MULTIPLIER, INITIAL_JET_ACCELERATION_MULTIPLIER},
+			{PropId::INITIAL_JET_LENGTH, INITIAL_JET_LENGTH},
+			{PropId::FORWARD_JET_PROPORTION, FORWARD_JET_PROPORTION},
+			{PropId::JET_BOOST_MAX_GROUND_SPEED, JET_BOOST_MAX_GROUND_SPEED},
+			{PropId::AIR_SPEED, AIR_SPEED},
+			{PropId::AIR_CONTROL, AIR_CONTROL},
+			{PropId::AIR_CONTROL_MIN_MULTIPLIER, AIR_CONTROL_MIN_MULTIPLIER},
+			{PropId::AIR_CONTROL_REDUCTION_RANGE_MAX, AIR_CONTROL_REDUCTION_RANGE_MAX},
+			{PropId::AIR_CONTROL_REDUCTION_RANGE_MIN, AIR_CONTROL_REDUCTION_RANGE_MIN},
+			// Collision
+			{PropId::COLLISION_CYLINDER_RADIUS, COLLISION_CYLINDER_RADIUS},
+			{PropId::COLLISION_CYLINDER_HEIGHT, COLLISION_CYLINDER_HEIGHT},
 		};
 	}
 
@@ -823,9 +1243,21 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property ENERGY_POOL(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->r_fMaxPowerPool = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->r_fMaxPowerPool);
+			return true;
+		})
+			);
 
 		std::map<PropId, Property> properties = {
 			{PropId::HEALTH_POOL, HEALTH_POOL},
+			{PropId::ENERGY_POOL, ENERGY_POOL},
 		};
 	}
 

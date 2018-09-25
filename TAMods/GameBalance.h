@@ -8,6 +8,7 @@
 #include "Logger.h"
 #include "SdkHeaders.h"
 #include "Utils.h"
+#include "Lua.h"
 
 namespace GameBalance {
 
@@ -70,6 +71,20 @@ namespace GameBalance {
 		static PropValue fromInt(int val) { return PropValue(val); }
 		static PropValue fromFloat(float val) { return PropValue(val); }
 		static PropValue fromString(std::string val) { return PropValue(val); }
+
+		LuaRef getAsLuaRef(luabridge::lua_State* lua_state) {
+			switch (type) {
+			case ValueType::BOOLEAN:
+				return LuaRef(lua_state, valBool);
+			case ValueType::INTEGER:
+				return LuaRef(lua_state, valInt);
+			case ValueType::FLOAT:
+				return LuaRef(lua_state, valFloat);
+			case ValueType::STRING:
+				return LuaRef(lua_state, valString);
+			}
+			return LuaRef(lua_state);
+		}
 
 	};
 
@@ -162,6 +177,9 @@ namespace GameBalance {
 			PROJECTILE_MESH_SCALE = 4008,
 			PROJECTILE_LIGHT_RADIUS = 4009,
 			HITSCAN_RANGE = 4010,
+			FIRE_OFFSET_X = 4011,
+			FIRE_OFFSET_Y = 4012,
+			FIRE_OFFSET_Z = 4013,
 
 			// Accuracy
 			ACCURACY = 5000,
@@ -189,6 +207,7 @@ namespace GameBalance {
 			JAMMER_PACK_RANGE = 7010,
 			ENERGY_RECHARGE_PACK_AMOUNT = 7011,
 			ENERGY_PACK_BUFF_AMOUNT = 7012,
+			STEALTH_PACK_MAX_SPEED = 7013,
 
 			// Deployable
 			DEPLOYABLE_RANGE = 8000,
@@ -221,10 +240,11 @@ namespace GameBalance {
 			HEALTH_POOL = 1000,
 			ENERGY_POOL = 1001,
 			ENERGY_RECHARGE_RATE = 1002,
-			JET_ENERGY_COST = 1003,
-			REGEN_TIME = 1004,
-			REGEN_RATE = 1005,
-			LOW_HEALTH_THRESHOLD = 1006,
+			INITIAL_JET_ENERGY_COST = 1003,
+			JET_ENERGY_COST = 1004,
+			REGEN_TIME = 1005,
+			REGEN_RATE = 1006,
+			LOW_HEALTH_THRESHOLD = 1007,
 
 			// Movement / Skiing
 			MASS = 2000,
@@ -241,15 +261,16 @@ namespace GameBalance {
 
 			// Jetting / Air Control
 			MAX_JETTING_SPEED = 3000,
-			AIR_CONTROL_BASE = 3001,
-			AIR_CONTROL_MAX = 3002,
-			AIR_CONTROL_MIN = 3003,
-			AIR_CONTROL_REDUCTION_RANGE_MAX = 3004,
-			AIR_CONTROL_REDUCTION_RANGE_MIN = 3005,
-			JET_ACCELERATION = 3006,
-			INITIAL_JET_ACCELERATION = 3007,
-			INITIAL_JET_LENGTH = 3008,
-			AIR_SPEED = 3009,
+			JET_ACCELERATION = 3001,
+			INITIAL_JET_ACCELERATION_MULTIPLIER = 3002,
+			INITIAL_JET_LENGTH = 3003,
+			FORWARD_JET_PROPORTION = 3004,
+			JET_BOOST_MAX_GROUND_SPEED = 3005,
+			AIR_SPEED = 3006,
+			AIR_CONTROL = 3007,
+			AIR_CONTROL_MIN_MULTIPLIER = 3009,
+			AIR_CONTROL_REDUCTION_RANGE_MAX = 3010,
+			AIR_CONTROL_REDUCTION_RANGE_MIN = 3011,
 
 			// Collision
 			COLLISION_CYLINDER_RADIUS = 4000,
