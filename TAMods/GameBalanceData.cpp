@@ -1254,14 +1254,355 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property ENERGY_RECHARGE_RATE(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fPowerPoolRechargeRate = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fPowerPoolRechargeRate);
+			return true;
+		})
+			);
+		static const Property IS_ARMORED(
+			ValueType::BOOLEAN,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_bUsesArmoredMultiplier = p.valBool;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromBool(veh->m_bUsesArmoredMultiplier);
+			return true;
+		})
+			);
+		static const Property IS_HOMING_TARGET(
+			ValueType::BOOLEAN,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->bHomingTarget = p.valBool;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromBool(veh->bHomingTarget);
+			return true;
+		})
+			);
+		static const Property CAN_CARRY_FLAG_AS_PILOT(
+			ValueType::BOOLEAN,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			if (veh->Seats.Count == 0) return false;
+			veh->Seats.Data[0].ValidFlagSeat = p.valBool;
+			veh->bCanCarryFlag = veh->Seats.Data[0].ValidFlagSeat || (veh->Seats.Count >= 2 && veh->Seats.Data[1].ValidFlagSeat);
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			if (veh->Seats.Count == 0) return false;
+			ret = PropValue::fromBool(veh->Seats.Data[0].ValidFlagSeat);
+			return true;
+		})
+			);
+		static const Property CAN_CARRY_FLAG_AS_PASSENGER(
+			ValueType::BOOLEAN,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			if (veh->Seats.Count < 2) return false;
+			veh->Seats.Data[1].ValidFlagSeat = p.valBool;
+			veh->bCanCarryFlag = veh->Seats.Data[0].ValidFlagSeat || veh->Seats.Data[1].ValidFlagSeat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			if (veh->Seats.Count < 2) return false;
+			ret = PropValue::fromBool(veh->Seats.Data[1].ValidFlagSeat);
+			return true;
+		})
+			);
+		static const Property TIME_BEFORE_SELFDESTRUCT(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fTimeToReset = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fTimeToReset);
+			return true;
+		})
+			);
+
+		// Movement
+		static const Property MAX_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->MaxSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->MaxSpeed);
+			return true;
+		})
+			);
+		static const Property MAX_DIVING_SPEED_MULTIPLIER(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fDivingMaxSpeedMultiplier = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fDivingMaxSpeedMultiplier);
+			return true;
+		})
+			);
+		static const Property BOOST_MULTIPLIER(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fBoostMultiplier = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fBoostMultiplier);
+			return true;
+		})
+			);
+		static const Property BOOST_ENERGY_COST(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fBoostEnergyPerSec = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fBoostEnergyPerSec);
+			return true;
+		})
+			);
+		static const Property BOOST_MIN_USABLE_PROPORTION(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fBoostReactivatePct = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fBoostReactivatePct);
+			return true;
+		})
+			);
+		static const Property MAX_PLAYER_EXIT_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fMaxPawnLeaveSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fMaxPawnLeaveSpeed);
+			return true;
+		})
+			);
+		static const Property GRAVITY_SCALE(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->CustomGravityScaling = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->CustomGravityScaling);
+			return true;
+		})
+			);
+
+		// Self-Damage
+		static const Property MAX_CRASH_DAMAGE(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fWallMaxDamage = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fWallMaxDamage);
+			return true;
+		})
+			);
+		static const Property MIN_CRASH_DAMAGE(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fWallMinDamage = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fWallMinDamage);
+			return true;
+		})
+			);
+		static const Property MAX_CRASH_DAMAGE_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fWallMaxDamageSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fWallMaxDamageSpeed);
+			return true;
+		})
+			);
+		static const Property MIN_CRASH_DAMAGE_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fWallMinDamageSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fWallMinDamageSpeed);
+			return true;
+		})
+			);
+		static const Property MAX_VEHICLE_CRASH_DAMAGE(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fVehicleMaxDamage = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fVehicleMaxDamage);
+			return true;
+		})
+			);
+		static const Property MIN_VEHICLE_CRASH_DAMAGE(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fVehicleMinDamage = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fVehicleMinDamage);
+			return true;
+		})
+			);
+		static const Property MAX_VEHICLE_CRASH_DAMAGE_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fVehicleMaxDamageSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fVehicleMaxDamageSpeed);
+			return true;
+		})
+			);
+		static const Property MIN_VEHICLE_CRASH_DAMAGE_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fVehicleMinDamageSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fVehicleMinDamageSpeed);
+			return true;
+		})
+			);
+
+		// Ramming
+		static const Property RAM_MIN_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->MinRunOverSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->MinRunOverSpeed);
+			return true;
+		})
+			);
+		static const Property RAM_MAX_DAMAGE(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fPawnMaxDamage = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fPawnMaxDamage);
+			return true;
+		})
+			);
+		static const Property RAM_MIN_DAMAGE(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fPawnMinDamage = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fPawnMinDamage);
+			return true;
+		})
+			);
+		static const Property RAM_MAX_DAMAGE_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fPawnMaxDamageSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fPawnMaxDamageSpeed);
+			return true;
+		})
+			);
+		static const Property RAM_PLAYER_PUSH_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fPawnPushSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fPawnPushSpeed);
+			return true;
+		})
+			);
+		static const Property RAM_FLAG_PUSH_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
+			veh->m_fFlagPushSpeed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
+			ret = PropValue::fromFloat(veh->m_fFlagPushSpeed);
+			return true;
+		})
+			);
 
 		std::map<PropId, Property> properties = {
+			// Base Stats
 			{PropId::HEALTH_POOL, HEALTH_POOL},
 			{PropId::ENERGY_POOL, ENERGY_POOL},
+			{PropId::ENERGY_RECHARGE_RATE, ENERGY_RECHARGE_RATE},
+			{PropId::IS_ARMORED, IS_ARMORED},
+			{PropId::IS_HOMING_TARGET, IS_HOMING_TARGET},
+			{PropId::CAN_CARRY_FLAG_AS_PILOT, CAN_CARRY_FLAG_AS_PILOT},
+			{PropId::CAN_CARRY_FLAG_AS_PASSENGER, CAN_CARRY_FLAG_AS_PASSENGER},
+			{PropId::TIME_BEFORE_SELFDESTRUCT, TIME_BEFORE_SELFDESTRUCT},
+			// Movement
+			{PropId::MAX_SPEED, MAX_SPEED},
+			{PropId::MAX_DIVING_SPEED_MULTIPLIER, MAX_DIVING_SPEED_MULTIPLIER},
+			{PropId::BOOST_MULTIPLIER, BOOST_MULTIPLIER},
+			{PropId::BOOST_ENERGY_COST, BOOST_ENERGY_COST},
+			{PropId::BOOST_MIN_USABLE_PROPORTION, BOOST_MIN_USABLE_PROPORTION},
+			{PropId::MAX_PLAYER_EXIT_SPEED, MAX_PLAYER_EXIT_SPEED},
+			{PropId::GRAVITY_SCALE, GRAVITY_SCALE},
+			// Self-Damage
+			{PropId::MAX_CRASH_DAMAGE, MAX_CRASH_DAMAGE},
+			{PropId::MIN_CRASH_DAMAGE, MIN_CRASH_DAMAGE},
+			{PropId::MAX_CRASH_DAMAGE_SPEED, MAX_CRASH_DAMAGE_SPEED},
+			{PropId::MIN_CRASH_DAMAGE_SPEED, MIN_CRASH_DAMAGE_SPEED},
+			{PropId::MAX_VEHICLE_CRASH_DAMAGE, MAX_VEHICLE_CRASH_DAMAGE},
+			{PropId::MIN_VEHICLE_CRASH_DAMAGE, MIN_VEHICLE_CRASH_DAMAGE},
+			{PropId::MAX_VEHICLE_CRASH_DAMAGE_SPEED, MAX_VEHICLE_CRASH_DAMAGE_SPEED},
+			{PropId::MIN_VEHICLE_CRASH_DAMAGE_SPEED, MIN_VEHICLE_CRASH_DAMAGE_SPEED},
+			// Ramming
+			{PropId::RAM_MIN_SPEED, RAM_MIN_SPEED},
+			{PropId::RAM_MAX_DAMAGE, RAM_MAX_DAMAGE},
+			{PropId::RAM_MIN_DAMAGE, RAM_MIN_DAMAGE},
+			{PropId::RAM_MAX_DAMAGE_SPEED, RAM_MAX_DAMAGE_SPEED},
+			{PropId::RAM_PLAYER_PUSH_SPEED, RAM_PLAYER_PUSH_SPEED},
+			{PropId::RAM_FLAG_PUSH_SPEED, RAM_FLAG_PUSH_SPEED},
 		};
 	}
 
 	namespace VehicleWeapons {
+		// Ammo
 		static const Property CLIP_AMMO(
 			ValueType::INTEGER,
 			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
@@ -1273,9 +1614,105 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property SPARE_AMMO(
+			ValueType::INTEGER,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->m_nCarriedAmmo = p.valInt;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromInt(wep->m_nCarriedAmmo);
+			return true;
+		})
+			);
+		static const Property AMMO_PER_SHOT(
+			ValueType::INTEGER,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->ShotCost.Set(0, p.valInt);
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromInt(wep->ShotCost.GetStd(0));
+			return true;
+		})
+			);
+
+		// Reload / Firing
+		static const Property RELOAD_TIME(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->m_fReloadTime = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromFloat(wep->m_fReloadTime);
+			return true;
+		})
+			);
+		static const Property FIRE_INTERVAL(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->FireInterval.Set(0, p.valFloat);
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromFloat(wep->FireInterval.GetStd(0));
+			return true;
+		})
+			);
+		static const Property RELOAD_SINGLE(
+			ValueType::BOOLEAN,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->m_bReloadSingles = p.valBool;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromBool(wep->m_bReloadSingles);
+			return true;
+		})
+			);
+		static const Property RELOAD_APPLICATION_PROPORTION(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->m_fPctTimeBeforeReload = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromFloat(wep->m_fPctTimeBeforeReload);
+			return true;
+		})
+			);
+		static const Property BURST_SHOT_COUNT(
+			ValueType::INTEGER,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			if (!wep->IsA(ATrVehicleWeapon_BurstShot::StaticClass())) return false;
+			ATrVehicleWeapon_BurstShot* wepbs = (ATrVehicleWeapon_BurstShot*)wep;
+			wepbs->m_nBurstShotCount = p.valInt;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			if (!wep->IsA(ATrVehicleWeapon_BurstShot::StaticClass())) return false;
+			ATrVehicleWeapon_BurstShot* wepbs = (ATrVehicleWeapon_BurstShot*)wep;
+			ret = PropValue::fromInt(wepbs->m_nBurstShotCount);
+			return true;
+		})
+			);
+
+		// Damage / Impact
 
 		std::map<PropId, Property> properties = {
+			// Ammo
 			{PropId::CLIP_AMMO, CLIP_AMMO},
+			{PropId::SPARE_AMMO, SPARE_AMMO},
+			{PropId::AMMO_PER_SHOT, AMMO_PER_SHOT},
+			// Reload / Firing
+			{PropId::RELOAD_TIME, RELOAD_TIME},
+			{PropId::FIRE_INTERVAL, FIRE_INTERVAL},
+			{PropId::RELOAD_APPLICATION_PROPORTION, RELOAD_APPLICATION_PROPORTION},
+			{PropId::BURST_SHOT_COUNT, BURST_SHOT_COUNT},
+			// Damage / Impact
+			// Projectile
+			// Accuracy
 		};
 	}
 }

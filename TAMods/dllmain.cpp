@@ -6,9 +6,12 @@ void addServerModeHooks()
 
 }
 
+FString testy(L"TrFamilyInfo_Light_Sentinel");
+
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
+
 	// General
 	Hooks::add(&TrPC_InitInputSystem, "Function TribesGame.TrPlayerController.InitInputSystem"); // Used to set Utils::tr_pc
 	//Hooks::add(&TrPC_PostBeginPlay, "Function TribesGame.TrPlayerController.PostBeginPlay", Hooks::POST);
