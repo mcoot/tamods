@@ -30,7 +30,6 @@ bool TrPC_Destroyed(int id, UObject *dwCallingObject, UFunction* pFunction, void
 	g_CustomServerManager.stop();
 	// Remove any game balance modifications this server imposed
 	g_gameBalanceTracker.revert();
-	Logger::log("Disconnected");
 	return false;
 }
 

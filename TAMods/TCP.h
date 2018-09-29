@@ -195,6 +195,7 @@ namespace TCP {
 	private:
 
 		void handle_connect(const boost::system::error_code& conErr) {
+			Logger::log("handle_connect called; stopped? %d | is_open? %d | conErr? %d", stopped, socket.is_open(), conErr.value());
 			if (stopped) return;
 
 			if (!socket.is_open()) {
@@ -247,7 +248,7 @@ namespace TCP {
 				return;
 			}
 			tcp::endpoint endpoint(addr, port);
-			Logger::log("ABOUT TO ATTEMPT CONNECTION");
+			Logger::log("ABOUT TO ATTEMPT CONNECTION; existing error state is %d", error_state.value());
 			socket.async_connect(endpoint, boost::bind(&Client::handle_connect, this, _1));
 		}
 	};

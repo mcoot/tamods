@@ -9,14 +9,12 @@
 
 class CustomServerManager {
 public:
-	TAModsServer::Client client;
+	std::shared_ptr<TAModsServer::Client> client;
 public:
 	void handler_OnConnect();
 	void handler_OnConnectTimeOut();
 
-	CustomServerManager() : 
-		client([this] {handler_OnConnect(); }, [this] {handler_OnConnectTimeOut(); })
-	{}
+	CustomServerManager() {}
 
 	void start(std::string serverAddress);
 	void stop();
