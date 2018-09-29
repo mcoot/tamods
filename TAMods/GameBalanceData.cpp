@@ -2,23 +2,24 @@
 
 namespace GameBalance {
 
-	static ATrProjectile* getWeaponDefaultProj(ATrDevice* dev) {
+	template <typename ProjType>
+	static ProjType* getWeaponDefaultProj(AWeapon* dev) {
 		if (dev->WeaponProjectiles.Count == 0) return NULL;
 
 		UClass* projClass = dev->WeaponProjectiles.GetStd(0);
 		if (!projClass) return NULL;
 
-		if (!projClass->Default || !projClass->Default->IsA(ATrProjectile::StaticClass())) {
+		if (!projClass->Default || !projClass->Default->IsA(ProjType::StaticClass())) {
 			return NULL;
 		}
 
-		return (ATrProjectile*)projClass->Default;
+		return (ProjType*)projClass->Default;
 	}
 
-	static UTrDmgType_Base* getWeaponDefaultDamageType(ATrDevice* dev) {
+	static UTrDmgType_Base* getWeaponDefaultDamageType(AWeapon* dev) {
 		UClass* dmgTypeClass = NULL;
 
-		ATrProjectile* defProj = getWeaponDefaultProj(dev);
+		ATrProjectile* defProj = getWeaponDefaultProj<ATrProjectile>(dev);
 		if (defProj) {
 			// Projectile
 			dmgTypeClass = defProj->MyDamageType;
@@ -35,6 +36,23 @@ namespace GameBalance {
 		}
 
 		return (UTrDmgType_Base*)dmgTypeClass->Default;
+	}
+
+	template <typename EffectType>
+	static EffectType* getDefaultEffect(FEffectInfo effi) {
+		UClass* effClass = effi.effectClass;
+		if (!effClass || !effClass->Default || !effClass->Default->IsA(EffectType::StaticClass())) return NULL;
+
+		return (EffectType*)effClass->Default;
+	}
+
+	template <typename DepType>
+	static DepType* getDefaultDeployable(ATrDevice* dev) {
+		if (dev->m_WeaponDeployables.Count == 0) return NULL;
+		UClass* depClass = dev->m_WeaponDeployables.GetStd(0);
+		if (!depClass || !depClass->Default || !depClass->Default->IsA(DepType::StaticClass())) return NULL;
+
+		return (DepType*)depClass->Default;
 	}
 
 	// Decorators to convert UObject* to some subtype of it
@@ -57,17 +75,39 @@ namespace GameBalance {
 		};
 	}
 
+	// Decorators to get the default of another arbitrary class in addition to the object for modification
+	template <typename T, typename ExtraDefault>
+	static std::function<bool(PropValue, UObject*)> applierAdapterWithAdditionalClass(std::function<bool(PropValue, T*, ExtraDefault*)> f) {
+		return applierAdapter<T>([f](PropValue p, T* t) {
+			UClass* cls = ExtraDefault::StaticClass();
+			if (!cls) return false;
+			if (!cls->Default || !cls->Default->IsA(ExtraDefault::StaticClass())) return false;
+			return f(p, t, (ExtraDefault*)cls->Default);
+		});
+	}
+	template <typename T, typename ExtraDefault>
+	static std::function<bool(UObject*, PropValue&)> getterAdapterWithAdditionalClass(std::function<bool(T*, ExtraDefault*, PropValue&)> f) {
+		return getterAdapter<T>([f](T* t, PropValue& p) {
+			UClass* cls = ExtraDefault::StaticClass();
+			if (!cls) return false;
+			if (!cls->Default || !cls->Default->IsA(ExtraDefault::StaticClass())) return false;
+			return f(t, (ExtraDefault*)cls->Default, p);
+		});
+	}
+
 	// Decorator functions to handle properties specific to TrDevices which spawn projectiles
-	static std::function<bool(PropValue, UObject*)> projDeviceApplierAdapter(std::function<bool(PropValue, ATrDevice*, ATrProjectile*)> f) {
-		return applierAdapter<ATrDevice>([f](PropValue p, ATrDevice* dev) {
-			ATrProjectile* defProj = getWeaponDefaultProj(dev);
+	template <typename DevType, typename ProjType>
+	static std::function<bool(PropValue, UObject*)> projDeviceApplierAdapter(std::function<bool(PropValue, DevType*, ProjType*)> f) {
+		return applierAdapter<DevType>([f](PropValue p, DevType* dev) {
+			ProjType* defProj = getWeaponDefaultProj<ProjType>(dev);
 			if (!defProj) return false;
 			return f(p, dev, defProj);
 		});
 	}
-	static std::function<bool(UObject*, PropValue&)> projDeviceGetterAdapter(std::function<bool(ATrDevice*, ATrProjectile*, PropValue&)> f) {
-		return getterAdapter<ATrDevice>([f](ATrDevice* dev, PropValue& ret) {
-			ATrProjectile* defProj = getWeaponDefaultProj(dev);
+	template <typename DevType, typename ProjType>
+	static std::function<bool(UObject*, PropValue&)> projDeviceGetterAdapter(std::function<bool(DevType*, ProjType*, PropValue&)> f) {
+		return getterAdapter<DevType>([f](DevType* dev, PropValue& ret) {
+			ProjType* defProj = getWeaponDefaultProj< ProjType>(dev);
 			if (!defProj) return false;
 			return f(dev, defProj, ret);
 		});
@@ -83,6 +123,60 @@ namespace GameBalance {
 	}
 	static std::function<bool(UObject*, PropValue&)> deviceDamageTypeGetterAdapter(std::function<bool(ATrDevice*, UTrDmgType_Base*, PropValue&)> f) {
 		return getterAdapter<ATrDevice>([f](ATrDevice* dev, PropValue& ret) {
+			UTrDmgType_Base* dmgType = getWeaponDefaultDamageType(dev);
+			if (!dmgType) return false;
+			return f(dev, dmgType, ret);
+		});
+	}
+
+	// Decorator functions to handle properties specific to an Effect associated with an item
+	template <typename DevType, typename EffectType>
+	static std::function<bool(PropValue, UObject*)> effectDeviceApplierAdapter(std::function<bool(PropValue, DevType*, EffectType*)> f) {
+		return applierAdapter<DevType>([f](PropValue p, DevType* dev) {
+			if (dev->m_EffectInfo.Count == 0) return false;
+			EffectType* eff = getDefaultEffect<EffectType>(dev->m_EffectInfo.GetStd(0));
+			if (!eff) return false;
+			return f(p, dev, eff);
+		});
+	}
+	template <typename DevType, typename EffectType>
+	static std::function<bool(UObject*, PropValue&)> effectDeviceGetterAdapter(std::function<bool(DevType*, EffectType*, PropValue&)> f) {
+		return getterAdapter<DevType>([f](DevType* dev, PropValue& ret) {
+			if (dev->m_EffectInfo.Count == 0) return false;
+			EffectType* eff = getDefaultEffect<EffectType>(dev->m_EffectInfo.GetStd(0));
+			if (!eff) return false;
+			return f(dev, eff, ret);
+		});
+	}
+
+	// Decorator functions to handle properties specific to a Deployable associated with an item
+	template <typename DevType, typename DepType>
+	static std::function<bool(PropValue, UObject*)> deployableDeviceApplierAdapter(std::function<bool(PropValue, DevType*, DepType*)> f) {
+		return applierAdapter<DevType>([f](PropValue p, DevType* dev) {
+			DepType* dep = getDefaultDeployable<DepType>(dev);
+			if (!dep) return false;
+			return f(p, dev, dep);
+		});
+	}
+	template <typename DevType, typename DepType>
+	static std::function<bool(UObject*, PropValue&)> deployableDeviceGetterAdapter(std::function<bool(DevType*, DepType*, PropValue&)> f) {
+		return getterAdapter<DevType>([f](DevType* dev, PropValue& ret) {
+			DepType* dep = getDefaultDeployable<DepType>(dev);
+			if (!dep) return false;
+			return f(dev, dep, ret);
+		});
+	}
+
+	// Decorator functions to handle properties specific to DamageTypes associated with a vehicle weapon
+	static std::function<bool(PropValue, UObject*)> vehDeviceDamageTypeApplierAdapter(std::function<bool(PropValue, ATrVehicleWeapon*, UTrDmgType_Base*)> f) {
+		return applierAdapter<ATrVehicleWeapon>([f](PropValue p, ATrVehicleWeapon* dev) {
+			UTrDmgType_Base* dmgType = getWeaponDefaultDamageType(dev);
+			if (!dmgType) return false;
+			return f(p, dev, dmgType);
+		});
+	}
+	static std::function<bool(UObject*, PropValue&)> vehDeviceDamageTypeGetterAdapter(std::function<bool(ATrVehicleWeapon*, UTrDmgType_Base*, PropValue&)> f) {
+		return getterAdapter<ATrVehicleWeapon>([f](ATrVehicleWeapon* dev, PropValue& ret) {
 			UTrDmgType_Base* dmgType = getWeaponDefaultDamageType(dev);
 			if (!dmgType) return false;
 			return f(dev, dmgType, ret);
@@ -218,7 +312,7 @@ namespace GameBalance {
 			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valFloat < 0) return false;
 
-			ATrProjectile* defProj = getWeaponDefaultProj(dev);
+			ATrProjectile* defProj = getWeaponDefaultProj< ATrProjectile>(dev);
 
 			if (defProj) {
 				// Projectile
@@ -232,7 +326,7 @@ namespace GameBalance {
 		}),
 			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			// Is this weapon a projectile or hitscan weapon?
-			ATrProjectile* defProj = getWeaponDefaultProj(dev);
+			ATrProjectile* defProj = getWeaponDefaultProj<ATrProjectile>(dev);
 
 			if (defProj) {
 				// Projectile
@@ -247,24 +341,24 @@ namespace GameBalance {
 			);
 		static const Property EXPLOSIVE_RADIUS(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			if (p.valFloat < 0) return false;
 
 			proj->DamageRadius = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->DamageRadius);
 			return true;
 		})
 			);
 		static const Property DIRECT_HIT_MULTIPLIER(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->m_fDirectHitMultiplier = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->m_fDirectHitMultiplier);
 			return true;
 		})
@@ -274,7 +368,7 @@ namespace GameBalance {
 			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valFloat < 0) return false;
 
-			ATrProjectile* defProj = getWeaponDefaultProj(dev);
+			ATrProjectile* defProj = getWeaponDefaultProj<ATrProjectile>(dev);
 
 			if (defProj) {
 				// Projectile
@@ -288,7 +382,7 @@ namespace GameBalance {
 		}),
 			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
 			// Is this weapon a projectile or hitscan weapon?
-			ATrProjectile* defProj = getWeaponDefaultProj(dev);
+			ATrProjectile* defProj = getWeaponDefaultProj<ATrProjectile>(dev);
 
 			if (defProj) {
 				// Projectile
@@ -303,22 +397,22 @@ namespace GameBalance {
 			);
 		static const Property SELF_IMPACT_MOMENTUM_MULTIPLIER(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->m_fInstigatorMomentumTransferMultiplier = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->m_fInstigatorMomentumTransferMultiplier);
 			return true;
 		})
 			);
 		static const Property SELF_IMPACT_EXTRA_Z_MOMENTUM(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->m_fInstigatorExtraZMomentum = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->m_fInstigatorExtraZMomentum);
 			return true;
 		})
@@ -521,70 +615,90 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property PHASE_DAMAGE_PER_ENERGY(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_PhaseRifle>([](PropValue p, ATrDevice_PhaseRifle* dev) {
+			dev->m_DamagePerEnergy = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_PhaseRifle>([](ATrDevice_PhaseRifle* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_DamagePerEnergy);
+			return true;
+		})
+			);
+		static const Property PHASE_MAX_CONSUMED_ENERGY(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_PhaseRifle>([](PropValue p, ATrDevice_PhaseRifle* dev) {
+			dev->m_MaxEnergyConsumed = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_PhaseRifle>([](ATrDevice_PhaseRifle* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_MaxEnergyConsumed);
+			return true;
+		})
+			);
 
 		// Projectile / Tracer
 		static const Property PROJECTILE_SPEED(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->Speed = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->Speed);
 			return true;
 		})
 			);
 		static const Property PROJECTILE_MAX_SPEED(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->MaxSpeed = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->MaxSpeed);
 			return true;
 		})
 			);
 		static const Property COLLISION_SIZE(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->CheckRadius = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->CheckRadius);
 			return true;
 		})
 			);
 		static const Property PROJECTILE_INHERITENCE(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->m_fProjInheritVelocityPct = p.valFloat;
 			proj->m_fProjInheritVelocityPctZ = p.valFloat;
 			proj->m_fMaxProjInheritPct = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->m_fProjInheritVelocityPct);
 			return true;
 		})
 			);
 		static const Property PROJECTILE_LIFESPAN(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->LifeSpan = p.valFloat;
-			//proj->m_fMaxLifespan = p.valFloat;
-			//proj->m_fMinLifespan = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->LifeSpan);
 			return true;
 		})
 			);
 		static const Property PROJECTILE_GRAVITY(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->CustomGravityScaling = p.valFloat;
 			if (proj->CustomGravityScaling == 0.0f) {
 				proj->Physics = PHYS_Projectile;
@@ -594,41 +708,41 @@ namespace GameBalance {
 			}
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->CustomGravityScaling);
 			return true;
 		})
 			);
 		static const Property PROJECTILE_TERMINAL_VELOCITY(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->TerminalVelocity = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->TerminalVelocity);
 			return true;
 		})
 			);
 		static const Property PROJECTILE_BOUNCE_DAMPING(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->m_fBounceDampingPercent = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->m_fBounceDampingPercent);
 			return true;
 		})
 			);
 		static const Property PROJECTILE_MESH_SCALE(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			if (!proj->m_ProjMesh) return false;
 			proj->m_ProjMesh->SetScale(p.valFloat);
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			if (!proj->m_ProjMesh) return false;
 			ret = PropValue::fromFloat(proj->m_ProjMesh->Scale);
 			return true;
@@ -636,12 +750,12 @@ namespace GameBalance {
 			);
 		static const Property PROJECTILE_LIGHT_RADIUS(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			if (!proj->m_ProjMesh) return false;
 			proj->ProjectileLight->Radius = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
 			if (!proj->m_ProjMesh) return false;
 			ret = PropValue::fromFloat(proj->ProjectileLight->Radius);
 			return true;
@@ -760,6 +874,300 @@ namespace GameBalance {
 		})
 			);
 
+		// Grenade
+		static const Property THROW_DELAY(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_AutoFire>([](PropValue p, ATrDevice_AutoFire* dev) {
+			dev->m_fBuildupTime = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_AutoFire>([](ATrDevice_AutoFire* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fBuildupTime);
+			return true;
+		})
+			);
+		static const Property THROW_PULL_PIN_TIME(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_AutoFire>([](PropValue p, ATrDevice_AutoFire* dev) {
+			dev->m_fPullPinTime = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_AutoFire>([](ATrDevice_AutoFire* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fPullPinTime);
+			return true;
+		})
+			);
+
+		// Pack
+		static const Property PACK_SUSTAINED_ENERGY_COST(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Pack>([](PropValue p, ATrDevice_Pack* dev) {
+			dev->m_fDefaultPowerPoolCostPerSec = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Pack>([](ATrDevice_Pack* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fDefaultPowerPoolCostPerSec);
+			return true;
+		})
+			);
+		static const Property THRUST_PACK_ENERGY_COST(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Blink>([](PropValue p, ATrDevice_Blink* dev) {
+			dev->m_fPowerPoolCost = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Blink>([](ATrDevice_Blink* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fPowerPoolCost);
+			return true;
+		})
+			);
+		static const Property THRUST_PACK_IMPULSE(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Blink>([](PropValue p, ATrDevice_Blink* dev) {
+			dev->m_vBlinkImpulse.X = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Blink>([](ATrDevice_Blink* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_vBlinkImpulse.X);
+			return true;
+		})
+			);
+		static const Property THRUST_PACK_SIDEWAYS_IMPULSE(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Blink>([](PropValue p, ATrDevice_Blink* dev) {
+			dev->m_vBlinkImpulse.Y = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Blink>([](ATrDevice_Blink* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_vBlinkImpulse.Y);
+			return true;
+		})
+			);
+		static const Property THRUST_PACK_MIN_VERTICAL_IMPULSE(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Blink>([](PropValue p, ATrDevice_Blink* dev) {
+			dev->m_fMinZImpulse = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Blink>([](ATrDevice_Blink* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fMinZImpulse);
+			return true;
+		})
+			);
+		static const Property THRUST_PACK_COOLDOWN_TIME(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Blink>([](PropValue p, ATrDevice_Blink* dev) {
+			dev->m_fCooldownTime = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Blink>([](ATrDevice_Blink* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fCooldownTime);
+			return true;
+		})
+			);
+		static const Property THRUST_PACK_SPEED_RANGE_START(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Blink>([](PropValue p, ATrDevice_Blink* dev) {
+			dev->m_fSpeedCapThresholdStart = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Blink>([](ATrDevice_Blink* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fSpeedCapThresholdStart);
+			return true;
+		})
+			);
+		static const Property THRUST_PACK_SPEED_RANGE_END(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Blink>([](PropValue p, ATrDevice_Blink* dev) {
+			dev->m_fSpeedCapThreshold = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Blink>([](ATrDevice_Blink* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fSpeedCapThreshold);
+			return true;
+		})
+			);
+		static const Property THRUST_PACK_SPEED_CAP_REDUCTION(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Blink>([](PropValue p, ATrDevice_Blink* dev) {
+			dev->m_fSpeedCapPct = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Blink>([](ATrDevice_Blink* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fSpeedCapPct);
+			return true;
+		})
+			);
+		static const Property SHIELD_PACK_ENERGY_COST_PER_DAMAGE_POINT(
+			ValueType::FLOAT,
+			applierAdapterWithAdditionalClass<ATrDevice_ShieldPack, ATrPawn>([](PropValue p, ATrDevice_ShieldPack* dev, ATrPawn* pawn) {
+			pawn->m_fShieldMultiple = p.valFloat;
+			return true;
+		}),
+			getterAdapterWithAdditionalClass<ATrDevice_ShieldPack, ATrPawn>([](ATrDevice_ShieldPack* dev, ATrPawn* pawn, PropValue& ret) {
+			ret = PropValue::fromFloat(pawn->m_fShieldMultiple);
+			return true;
+		})
+			);
+		static const Property JAMMER_PACK_RANGE(
+			ValueType::FLOAT,
+			applierAdapterWithAdditionalClass<ATrDevice_JammerPack, ATrPawn>([](PropValue p, ATrDevice_JammerPack* dev, ATrPawn* pawn) {
+			pawn->m_fJamEffectRadius = p.valFloat;
+			return true;
+		}),
+			getterAdapterWithAdditionalClass<ATrDevice_JammerPack, ATrPawn>([](ATrDevice_JammerPack* dev, ATrPawn* pawn, PropValue& ret) {
+			ret = PropValue::fromFloat(pawn->m_fJamEffectRadius);
+			return true;
+		})
+			);
+		static const Property PACK_BUFF_AMOUNT(
+			ValueType::FLOAT,
+			effectDeviceApplierAdapter<ATrDevice_Pack, UTrEffect>([](PropValue p, ATrDevice_Pack* dev, UTrEffect* eff) {
+			eff->m_fValue = p.valFloat;
+			return true;
+		}),
+			getterAdapterWithAdditionalClass<ATrDevice_Pack, UTrEffect>([](ATrDevice_Pack* dev, UTrEffect* eff, PropValue& ret) {
+			ret = PropValue::fromFloat(eff->m_fValue);
+			return true;
+		})
+			);
+		static const Property STEALTH_PACK_MAX_SPEED(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_Stealth>([](PropValue p, ATrDevice_Stealth* dev) {
+			dev->m_fPulseSpeedThreshold = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Stealth>([](ATrDevice_Stealth* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fPulseSpeedThreshold);
+			return true;
+		})
+			);
+
+		// Deployable / Turret
+		static const Property DEPLOYABLE_RANGE(
+			ValueType::FLOAT,
+			deployableDeviceApplierAdapter<ATrDevice_Deployable, ATrDeployable>([](PropValue p, ATrDevice_Deployable* dev, ATrDeployable* dep) {
+			dep->m_fDamageRadius = p.valFloat;
+			return true;
+		}),
+			deployableDeviceGetterAdapter<ATrDevice_Deployable, ATrDeployable>([](ATrDevice_Deployable* dev, ATrDeployable* dep, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fDamageRadius);
+			return true;
+		})
+			);
+		static const Property DEPLOYABLE_MAX_ALLOWED(
+			ValueType::INTEGER,
+			deployableDeviceApplierAdapter<ATrDevice_Deployable, ATrDeployable>([](PropValue p, ATrDevice_Deployable* dev, ATrDeployable* dep) {
+			dev->m_nPerPlayerMaxDeployed = p.valInt;
+			return true;
+		}),
+			deployableDeviceGetterAdapter<ATrDevice_Deployable, ATrDeployable>([](ATrDevice_Deployable* dev, ATrDeployable* dep, PropValue& ret) {
+			ret = PropValue::fromInt(dev->m_nPerPlayerMaxDeployed);
+			return true;
+		})
+			);
+		static const Property DEPLOYABLE_MIN_PROXIMITY(
+			ValueType::FLOAT,
+			deployableDeviceApplierAdapter<ATrDevice_Deployable, ATrDeployable>([](PropValue p, ATrDevice_Deployable* dev, ATrDeployable* dep) {
+			dev->m_fOtherDeployableProximityCheck = p.valFloat;
+			return true;
+		}),
+			deployableDeviceGetterAdapter<ATrDevice_Deployable, ATrDeployable>([](ATrDevice_Deployable* dev, ATrDeployable* dep, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fOtherDeployableProximityCheck);
+			return true;
+		})
+			);
+		static const Property TURRET_TIME_TO_ACQUIRE_TARGET(
+			ValueType::FLOAT,
+			deployableDeviceApplierAdapter<ATrDevice_Deployable, ATrDeployable_Turret>([](PropValue p, ATrDevice_Deployable* dev, ATrDeployable_Turret* dep) {
+			dep->m_fTimeToAcquireTarget = p.valFloat;
+			return true;
+		}),
+			deployableDeviceGetterAdapter<ATrDevice_Deployable, ATrDeployable_Turret>([](ATrDevice_Deployable* dev, ATrDeployable_Turret* dep, PropValue& ret) {
+			ret = PropValue::fromFloat(dep->m_fTimeToAcquireTarget);
+			return true;
+		})
+			);
+		static const Property TURRET_CAN_TARGET_VEHICLES(
+			ValueType::BOOLEAN,
+			deployableDeviceApplierAdapter<ATrDevice_Deployable, ATrDeployable_Turret>([](PropValue p, ATrDevice_Deployable* dev, ATrDeployable_Turret* dep) {
+			dep->m_bCanTargetVehicles = p.valBool;
+			return true;
+		}),
+			deployableDeviceGetterAdapter<ATrDevice_Deployable, ATrDeployable_Turret>([](ATrDevice_Deployable* dev, ATrDeployable_Turret* dep, PropValue& ret) {
+			ret = PropValue::fromBool(dep->m_bCanTargetVehicles);
+			return true;
+		})
+			);
+
+		// Mines
+		static const Property MINE_DEPLOY_TIME(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Mine>([](PropValue p, ATrDevice* dev, ATrProj_Mine* proj) {
+			proj->m_fDeploySeconds = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Mine>([](ATrDevice* dev, ATrProj_Mine* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fDeploySeconds);
+			return true;
+		})
+			);
+		static const Property MINE_MAX_ALLOWED(
+			ValueType::INTEGER,
+			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
+			proj->m_nPerPlayerMaxDeployed = p.valInt;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProjectile>([](ATrDevice* dev, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromInt(proj->m_nPerPlayerMaxDeployed);
+			return true;
+		})
+			);
+		static const Property MINE_COLLISION_CYLINDER_RADIUS(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Mine>([](PropValue p, ATrDevice* dev, ATrProj_Mine* proj) {
+			proj->m_fDetonationRadius = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Mine>([](ATrDevice* dev, ATrProj_Mine* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fDetonationRadius);
+			return true;
+		})
+			);
+		static const Property MINE_COLLISION_CYLINDER_HEIGHT(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Mine>([](PropValue p, ATrDevice* dev, ATrProj_Mine* proj) {
+			proj->m_fDetonationHeight = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Mine>([](ATrDevice* dev, ATrProj_Mine* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fDetonationHeight);
+			return true;
+		})
+			);
+		static const Property CLAYMORE_DETONATION_ANGLE(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Claymore>([](PropValue p, ATrDevice* dev, ATrProj_Claymore* proj) {
+			proj->m_fDetonationAngle = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Claymore>([](ATrDevice* dev, ATrProj_Claymore* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fDetonationAngle);
+			return true;
+		})
+			);
+		static const Property PRISM_MINE_TRIP_DISTANCE(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_PrismMine>([](PropValue p, ATrDevice* dev, ATrProj_PrismMine* proj) {
+			proj->m_fTripDistance = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_PrismMine>([](ATrDevice* dev, ATrProj_PrismMine* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fTripDistance);
+			return true;
+		})
+			);
+
 		// Main mapping
 		std::map<PropId, Property> properties = {
 			// Ammo
@@ -825,6 +1233,40 @@ namespace GameBalance {
 			{PropId::ACCURACY_LOSS_ON_WEAPON_SWITCH, ACCURACY_LOSS_ON_WEAPON_SWITCH},
 			{PropId::ACCURACY_LOSS_MAX, ACCURACY_LOSS_MAX},
 			{PropId::ACCURACY_CORRECTION_RATE, ACCURACY_CORRECTION_RATE},
+
+			// Grenade
+			{PropId::THROW_DELAY, THROW_DELAY},
+			{PropId::THROW_PULL_PIN_TIME, THROW_PULL_PIN_TIME},
+
+			// Pack
+			{PropId::PACK_SUSTAINED_ENERGY_COST, PACK_SUSTAINED_ENERGY_COST},
+			{PropId::THRUST_PACK_ENERGY_COST, THRUST_PACK_ENERGY_COST},
+			{PropId::THRUST_PACK_IMPULSE, THRUST_PACK_IMPULSE},
+			{PropId::THRUST_PACK_SIDEWAYS_IMPULSE, THRUST_PACK_SIDEWAYS_IMPULSE},
+			{PropId::THRUST_PACK_MIN_VERTICAL_IMPULSE, THRUST_PACK_MIN_VERTICAL_IMPULSE},
+			{PropId::THRUST_PACK_COOLDOWN_TIME, THRUST_PACK_COOLDOWN_TIME},
+			{PropId::THRUST_PACK_SPEED_RANGE_START, THRUST_PACK_SPEED_RANGE_START},
+			{PropId::THRUST_PACK_SPEED_RANGE_END, THRUST_PACK_SPEED_RANGE_END},
+			{PropId::THRUST_PACK_SPEED_CAP_REDUCTION, THRUST_PACK_SPEED_CAP_REDUCTION},
+			{PropId::SHIELD_PACK_ENERGY_COST_PER_DAMAGE_POINT, SHIELD_PACK_ENERGY_COST_PER_DAMAGE_POINT},
+			{PropId::JAMMER_PACK_RANGE, JAMMER_PACK_RANGE},
+			{PropId::PACK_BUFF_AMOUNT, PACK_BUFF_AMOUNT},
+			{PropId::STEALTH_PACK_MAX_SPEED, STEALTH_PACK_MAX_SPEED},
+
+			// Deployable / Turret
+			{PropId::DEPLOYABLE_RANGE, DEPLOYABLE_RANGE},
+			{PropId::DEPLOYABLE_MAX_ALLOWED, DEPLOYABLE_MAX_ALLOWED},
+			{PropId::DEPLOYABLE_MIN_PROXIMITY, DEPLOYABLE_MIN_PROXIMITY},
+			{PropId::TURRET_TIME_TO_ACQUIRE_TARGET, TURRET_TIME_TO_ACQUIRE_TARGET},
+			{PropId::TURRET_CAN_TARGET_VEHICLES, TURRET_CAN_TARGET_VEHICLES},
+
+			// Mines
+			{PropId::MINE_DEPLOY_TIME, MINE_DEPLOY_TIME},
+			{PropId::MINE_MAX_ALLOWED, MINE_MAX_ALLOWED},
+			{PropId::MINE_COLLISION_CYLINDER_RADIUS, MINE_COLLISION_CYLINDER_RADIUS},
+			{PropId::MINE_COLLISION_CYLINDER_HEIGHT, MINE_COLLISION_CYLINDER_HEIGHT},
+			{PropId::CLAYMORE_DETONATION_ANGLE, CLAYMORE_DETONATION_ANGLE},
+			{PropId::PRISM_MINE_TRIP_DISTANCE, PRISM_MINE_TRIP_DISTANCE},
 		};
 
 	}
@@ -1699,6 +2141,359 @@ namespace GameBalance {
 			);
 
 		// Damage / Impact
+		static const Property DAMAGE(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->Damage = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->Damage);
+			return true;
+		})
+			);
+		static const Property EXPLOSIVE_RADIUS(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->DamageRadius = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->DamageRadius);
+			return true;
+		})
+			);
+		static const Property DIRECT_HIT_MULTIPLIER(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->m_fDirectHitMultiplier = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fDirectHitMultiplier);
+			return true;
+		})
+			);
+		static const Property MOMENTUM_TRANSFER(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->MomentumTransfer = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->MomentumTransfer);
+			return true;
+		})
+			);
+		static const Property ENERGY_DRAIN(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_EnergyDrainAmount = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_EnergyDrainAmount);
+			return true;
+		})
+			);
+		static const Property MAX_DAMAGE_RANGE_PROPORTION(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fMaxDamageRangePct = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fMaxDamageRangePct);
+			return true;
+		})
+			);
+		static const Property MIN_DAMAGE_RANGE_PROPORTION(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fMinDamageRangePct = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fMinDamageRangePct);
+			return true;
+		})
+			);
+		static const Property MIN_DAMAGE_PROPORTION(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fMinDamagePct = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fMinDamagePct);
+			return true;
+		})
+			);
+		static const Property BULLET_DAMAGE_RANGE(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fBulletDamageRange = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fBulletDamageRange);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_ARMOR_MULTIPLIER(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstArmor = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstArmor);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_GENERATOR_MULTIPLIER(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstGenerators = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstGenerators);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_BASE_TURRET_MULTIPLIER(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstBaseTurrets = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstBaseTurrets);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_BASE_SENSOR_MULTIPLIER(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstBaseSensors = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstBaseSensors);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_GRAVCYCLE_MULTIPLIER(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstGravCycle = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstGravCycle);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_BEOWULF_MULTIPLIER(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstBeowulf = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstBeowulf);
+			return true;
+		})
+			);
+		static const Property DAMAGE_AGAINST_SHRIKE_MULTIPLIER(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fDamageMultiplierAgainstShrike = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fDamageMultiplierAgainstShrike);
+			return true;
+		})
+			);
+		static const Property DOES_GIB_ON_KILL(
+			ValueType::BOOLEAN,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->bAlwaysGibs = p.valBool;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromBool(dmgType->bAlwaysGibs);
+			return true;
+		})
+			);
+		static const Property GIB_IMPULSE_RADIUS(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fGibRadius = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fGibRadius);
+			return true;
+		})
+			);
+		static const Property GIB_STRENGTH(
+			ValueType::FLOAT,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_fGibStrength = p.valFloat;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromFloat(dmgType->m_fGibStrength);
+			return true;
+		})
+			);
+		static const Property DOES_IMPULSE_FLAG(
+			ValueType::BOOLEAN,
+			vehDeviceDamageTypeApplierAdapter([](PropValue p, ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType) {
+			dmgType->m_bImpulsesFlags = p.valBool;
+			return true;
+		}),
+			vehDeviceDamageTypeGetterAdapter([](ATrVehicleWeapon* wep, UTrDmgType_Base* dmgType, PropValue& ret) {
+			ret = PropValue::fromBool(dmgType->m_bImpulsesFlags);
+			return true;
+		})
+			);
+
+		// Projectile
+		static const Property PROJECTILE_SPEED(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->Speed = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->Speed);
+			return true;
+		})
+			);
+		static const Property PROJECTILE_MAX_SPEED(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->MaxSpeed = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->MaxSpeed);
+			return true;
+		})
+			);
+		static const Property COLLISION_SIZE(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->CheckRadius = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->CheckRadius);
+			return true;
+		})
+			);
+		static const Property PROJECTILE_INHERITENCE(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->m_fMaxProjInheritPct = p.valFloat;
+			proj->m_fProjInheritVelocityPct = p.valFloat;
+			proj->m_fProjInheritVelocityPctZ = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fProjInheritVelocityPct);
+			return true;
+		})
+			);
+		static const Property PROJECTILE_LIFESPAN(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->LifeSpan = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->LifeSpan);
+			return true;
+		})
+			);
+		static const Property PROJECTILE_GRAVITY(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->CustomGravityScaling = p.valFloat;
+			if (proj->CustomGravityScaling == 0.0f) {
+				proj->Physics = PHYS_Projectile;
+			}
+			else {
+				proj->Physics = PHYS_Falling;
+			}
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->CustomGravityScaling);
+			return true;
+		})
+			);
+		static const Property PROJECTILE_TERMINAL_VELOCITY(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
+			proj->TerminalVelocity = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrVehicleWeapon, ATrProjectile>([](ATrVehicleWeapon* wep, ATrProjectile* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->TerminalVelocity);
+			return true;
+		})
+			);
+
+		// Accuracy
+		static const Property ACCURACY(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->m_fDefaultAccuracy = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromFloat(wep->m_fDefaultAccuracy);
+			return true;
+		})
+			);
+		static const Property ACCURACY_LOSS_ON_SHOT(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->m_fAccuracyLossOnShot = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromFloat(wep->m_fAccuracyLossOnShot);
+			return true;
+		})
+			);
+		static const Property ACCURACY_LOSS_MAX(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->m_fAccuracyLossMax = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromFloat(wep->m_fAccuracyLossMax);
+			return true;
+		})
+			);
+		static const Property ACCURACY_CORRECTION_RATE(
+			ValueType::FLOAT,
+			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
+			wep->m_fAccuracyCorrectionRate = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
+			ret = PropValue::fromFloat(wep->m_fAccuracyCorrectionRate);
+			return true;
+		})
+			);
 
 		std::map<PropId, Property> properties = {
 			// Ammo
@@ -1711,8 +2506,39 @@ namespace GameBalance {
 			{PropId::RELOAD_APPLICATION_PROPORTION, RELOAD_APPLICATION_PROPORTION},
 			{PropId::BURST_SHOT_COUNT, BURST_SHOT_COUNT},
 			// Damage / Impact
+			{PropId::DAMAGE, DAMAGE},
+			{PropId::EXPLOSIVE_RADIUS, EXPLOSIVE_RADIUS},
+			{PropId::DIRECT_HIT_MULTIPLIER, DIRECT_HIT_MULTIPLIER},
+			{PropId::MOMENTUM_TRANSFER, MOMENTUM_TRANSFER},
+			{PropId::ENERGY_DRAIN, ENERGY_DRAIN},
+			{PropId::MAX_DAMAGE_RANGE_PROPORTION, MAX_DAMAGE_RANGE_PROPORTION},
+			{PropId::MIN_DAMAGE_RANGE_PROPORTION, MIN_DAMAGE_RANGE_PROPORTION},
+			{PropId::MIN_DAMAGE_PROPORTION, MIN_DAMAGE_PROPORTION},
+			{PropId::BULLET_DAMAGE_RANGE, BULLET_DAMAGE_RANGE},
+			{PropId::DAMAGE_AGAINST_ARMOR_MULTIPLIER, DAMAGE_AGAINST_ARMOR_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_GENERATOR_MULTIPLIER, DAMAGE_AGAINST_GENERATOR_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_BASE_TURRET_MULTIPLIER, DAMAGE_AGAINST_BASE_TURRET_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_BASE_SENSOR_MULTIPLIER, DAMAGE_AGAINST_BASE_SENSOR_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_GRAVCYCLE_MULTIPLIER, DAMAGE_AGAINST_GRAVCYCLE_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_BEOWULF_MULTIPLIER, DAMAGE_AGAINST_BEOWULF_MULTIPLIER},
+			{PropId::DAMAGE_AGAINST_SHRIKE_MULTIPLIER, DAMAGE_AGAINST_SHRIKE_MULTIPLIER},
+			{PropId::DOES_GIB_ON_KILL, DOES_GIB_ON_KILL},
+			{PropId::GIB_IMPULSE_RADIUS, GIB_IMPULSE_RADIUS},
+			{PropId::GIB_STRENGTH, GIB_STRENGTH},
+			{PropId::DOES_IMPULSE_FLAG, DOES_IMPULSE_FLAG},
 			// Projectile
+			{PropId::PROJECTILE_SPEED, PROJECTILE_SPEED},
+			{PropId::PROJECTILE_MAX_SPEED, PROJECTILE_MAX_SPEED},
+			{PropId::COLLISION_SIZE, COLLISION_SIZE},
+			{PropId::PROJECTILE_INHERITENCE, PROJECTILE_INHERITENCE},
+			{PropId::PROJECTILE_LIFESPAN, PROJECTILE_LIFESPAN},
+			{PropId::PROJECTILE_GRAVITY, PROJECTILE_GRAVITY},
+			{PropId::PROJECTILE_TERMINAL_VELOCITY, PROJECTILE_TERMINAL_VELOCITY},
 			// Accuracy
+			{PropId::ACCURACY, ACCURACY},
+			{PropId::ACCURACY_LOSS_ON_SHOT, ACCURACY_LOSS_ON_SHOT},
+			{PropId::ACCURACY_LOSS_MAX, ACCURACY_LOSS_MAX},
+			{PropId::ACCURACY_CORRECTION_RATE, ACCURACY_CORRECTION_RATE},
 		};
 	}
 }
