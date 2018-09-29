@@ -195,10 +195,10 @@ namespace TCP {
 	private:
 
 		void handle_connect(const boost::system::error_code& conErr) {
-			Logger::log("HANDLE_CONNECT: %d", conErr.value());
 			if (stopped) return;
 
 			if (!socket.is_open()) {
+				Logger::log("Handling connect failed due to closed socket");
 				// async_connect automatically opens the socket
 				// If the socket is still closed, then timeout occurred
 				// Also check if in an error state
@@ -209,9 +209,11 @@ namespace TCP {
 					onConnectFailedHandler();
 				}
 
+				Logger::log("Done handling failed conn");
 				return;
 			}
 			else if (conErr) {
+				Logger::log("Handling connect failed: %d", conErr.value());
 				// Connection error
 				error_state = conErr;
 				stop();
@@ -220,6 +222,7 @@ namespace TCP {
 					onConnectFailedHandler();
 				}
 
+				Logger::log("Done handling failed conn");
 				return;
 			}
 

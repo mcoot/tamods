@@ -672,7 +672,7 @@ namespace GameBalance {
 			return true;
 		})
 			);
-		static const Property PROJECTILE_INHERITENCE(
+		static const Property PROJECTILE_INHERITANCE(
 			ValueType::FLOAT,
 			projDeviceApplierAdapter<ATrDevice, ATrProjectile>([](PropValue p, ATrDevice* dev, ATrProjectile* proj) {
 			proj->m_fProjInheritVelocityPct = p.valFloat;
@@ -1214,7 +1214,7 @@ namespace GameBalance {
 			{PropId::PROJECTILE_SPEED, PROJECTILE_SPEED},
 			{PropId::PROJECTILE_MAX_SPEED, PROJECTILE_MAX_SPEED},
 			{PropId::COLLISION_SIZE, COLLISION_SIZE},
-			{PropId::PROJECTILE_INHERITENCE, PROJECTILE_INHERITENCE},
+			{PropId::PROJECTILE_INHERITANCE, PROJECTILE_INHERITANCE},
 			{PropId::PROJECTILE_LIFESPAN, PROJECTILE_LIFESPAN},
 			{PropId::PROJECTILE_GRAVITY, PROJECTILE_GRAVITY},
 			{PropId::PROJECTILE_TERMINAL_VELOCITY, PROJECTILE_TERMINAL_VELOCITY},
@@ -1441,7 +1441,7 @@ namespace GameBalance {
 			return true;
 		})
 			);
-		static const Property VEHICLE_SPEED_INHERITENCE(
+		static const Property VEHICLE_SPEED_INHERITANCE(
 			ValueType::FLOAT,
 			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
 			fi->m_fVehicleSpeedInheritPercent = p.valFloat;
@@ -1651,7 +1651,7 @@ namespace GameBalance {
 			{PropId::SKI_CONTROL_PEAK_SPEED, SKI_CONTROL_PEAK_SPEED},
 			{PropId::SKI_CONTROL_VARIANCE, SKI_CONTROL_VARIANCE},
 			{PropId::SKI_SLOPE_GRAVITY, SKI_SLOPE_GRAVITY},
-			{PropId::VEHICLE_SPEED_INHERITENCE, VEHICLE_SPEED_INHERITENCE},
+			{PropId::VEHICLE_SPEED_INHERITANCE, VEHICLE_SPEED_INHERITANCE},
 			{PropId::MOMENTUM_DAMPENING_ENABLED, MOMENTUM_DAMPENING_ENABLED},
 			{PropId::MOMENTUM_DAMPENING_THRESHOLD, MOMENTUM_DAMPENING_THRESHOLD},
 			{PropId::MOMENTUM_DAMPENING_PROPORTION, MOMENTUM_DAMPENING_PROPORTION},
@@ -2396,7 +2396,7 @@ namespace GameBalance {
 			return true;
 		})
 			);
-		static const Property PROJECTILE_INHERITENCE(
+		static const Property PROJECTILE_INHERITANCE(
 			ValueType::FLOAT,
 			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
 			proj->m_fMaxProjInheritPct = p.valFloat;
@@ -2530,7 +2530,7 @@ namespace GameBalance {
 			{PropId::PROJECTILE_SPEED, PROJECTILE_SPEED},
 			{PropId::PROJECTILE_MAX_SPEED, PROJECTILE_MAX_SPEED},
 			{PropId::COLLISION_SIZE, COLLISION_SIZE},
-			{PropId::PROJECTILE_INHERITENCE, PROJECTILE_INHERITENCE},
+			{PropId::PROJECTILE_INHERITANCE, PROJECTILE_INHERITANCE},
 			{PropId::PROJECTILE_LIFESPAN, PROJECTILE_LIFESPAN},
 			{PropId::PROJECTILE_GRAVITY, PROJECTILE_GRAVITY},
 			{PropId::PROJECTILE_TERMINAL_VELOCITY, PROJECTILE_TERMINAL_VELOCITY},
