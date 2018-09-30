@@ -1729,6 +1729,7 @@ namespace GameBalance {
 			ValueType::INTEGER,
 			applierAdapter<ATrVehicle>([](PropValue p, ATrVehicle* veh) {
 			veh->HealthMax = p.valInt;
+			veh->Health = veh->HealthMax;
 			return true;
 		}),
 			getterAdapter<ATrVehicle>([](ATrVehicle* veh, PropValue& ret) {
