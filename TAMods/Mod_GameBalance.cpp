@@ -20,96 +20,86 @@ static void recordBalanceTrackerProp(std::map<int, std::map<IdType, PropValue> >
 	props[elemId][propId] = val;
 }
 
+template <typename BaseClass>
+static std::vector<UObject*> getDefaultObjects(std::map<int, std::string>& relevantClassNames, std::string prefix, std::vector<std::string> variants, int elemId) {
+	auto& name_it = relevantClassNames.find(elemId);
+	if (name_it == relevantClassNames.end()) return std::vector<UObject*>();
+
+	std::string name = name_it->second;
+
+	std::vector<std::string> toFind;
+	if (variants.empty()) {
+		toFind.push_back(prefix + "_" + name + " TribesGame.Default__" + prefix + "_" + name);
+	}
+	else {
+		for (auto& v : variants) {
+			toFind.push_back(prefix + "_" + name + (v.empty() ? "" : "_") + v + " TribesGame.Default__" + prefix + "_" + name + (v.empty() ? "" : "_") + v);
+		}
+	}
+
+	std::vector<UObject*> found;
+
+	for (auto& n : toFind) {
+		UObject* obj = UObject::FindObject<BaseClass>(n.c_str());
+		if (obj) {
+			found.push_back(obj);
+		}
+	}
+
+	return found;
+}
+
+template <typename IdType>
+static std::vector<UObject*> getDefaultObjectsForProps(int elemId) {
+	bool isItemsCase = std::is_same<IdType, Items::PropId>::value;
+	bool isMeleeCase = isItemsCase && elemId == CONST_WEAPON_ID_MELEE; // Melee is special cased because it has BE and DS variants
+	bool isClassCase = std::is_same<IdType, Classes::PropId>::value;
+	bool isVehicleCase = std::is_same<IdType, Vehicles::PropId>::value;
+	bool isVehicleWeaponCase = std::is_same<IdType, VehicleWeapons::PropId>::value;
+
+	std::string prefix;
+	std::vector<std::string> variants;
+	std::map<int, std::string> relevantClassNames;
+	if (isItemsCase) {
+		prefix = "TrDevice";
+		relevantClassNames = Data::item_id_to_name;
+		if (isMeleeCase) {
+			variants.push_back("");
+			variants.push_back("BE");
+			variants.push_back("DS");
+		}
+		return getDefaultObjects<ATrDevice>(relevantClassNames, prefix, variants, elemId);
+	}
+	else if (isClassCase) {
+		prefix = "TrFamilyInfo";
+		relevantClassNames = Data::class_id_to_name;
+		variants.push_back("");
+		variants.push_back("BE");
+		variants.push_back("DS");
+		return getDefaultObjects<UTrFamilyInfo>(relevantClassNames, prefix, variants, elemId);
+	}
+	else if (isVehicleCase) {
+		prefix = "TrVehicle";
+		relevantClassNames = Data::vehicle_id_to_name;
+		return getDefaultObjects<ATrVehicle>(relevantClassNames, prefix, variants, elemId);
+	}
+	else if (isVehicleWeaponCase) {
+		prefix = "TrVehicleWeapon";
+		relevantClassNames = Data::vehicle_weapon_id_to_name;
+		return getDefaultObjects<ATrVehicleWeapon>(relevantClassNames, prefix, variants, elemId);
+	}
+
+	return std::vector<UObject*>();
+}
+
 template <typename IdType>
 static void applyPropConfig(std::map<int, UClass*>& relevantClassDefs, std::map<IdType, Property>& propDefs, std::map<int, std::map<IdType, PropValue> >& trackerProps, 
 							UClass* requiredSuperClass, std::map<int, std::map<IdType, PropValue> >& props) {
 	for (auto& elem : props) {
-		auto& elem_it = relevantClassDefs.find(elem.first);
-		if (elem_it == relevantClassDefs.end()) {
-			Logger::log("Unable to set property; invalid id %d", elem.first);
-			continue;
-		}
-
-		std::vector<UObject*> objectsToApplyOn;
-
-		// Special case for non-items, because the generated SDK can't get the default properly from the static class
-		// Have to do a search by name instead
-		bool isClassCase = std::is_same<IdType, Classes::PropId>::value;
-		bool isVehicleCase = std::is_same<IdType, Vehicles::PropId>::value;
-		bool isVehicleWeaponCase = std::is_same<IdType, VehicleWeapons::PropId>::value;
-		bool isMeleeCase = std::is_same<IdType, Items::PropId>::value && elem.first == CONST_WEAPON_ID_MELEE; // Melee is special cased because it has BE and DS variants
-		if (isClassCase || isVehicleCase || isVehicleWeaponCase || isMeleeCase) {
-			std::string namePrefix;
-			std::string name;
-			if (isClassCase) {
-				namePrefix = "TrFamilyInfo";
-				auto& fiName = Data::class_id_to_name.find(elem.first);
-				name = fiName->second;
-			}
-			else if (isVehicleCase) {
-				namePrefix = "TrVehicle";
-				auto& vehName = Data::vehicle_id_to_name.find(elem.first);
-				name = vehName->second;
-			}
-			else if (isVehicleWeaponCase) {
-				namePrefix = "TrVehicleWeapon";
-				auto& wepName = Data::vehicle_weapon_id_to_name.find(elem.first);
-				name = wepName->second;
-			}
-			else if (isMeleeCase) {
-				namePrefix = "TrDevice";
-				auto& meleeName = Data::weapon_id_to_name.find(elem.first);
-				name = meleeName->second;
-			}
-
-			// Find the default object given this name
-			std::string defName = namePrefix + "_" + name + " TribesGame.Default__" + namePrefix + "_" + name;
-			if (isClassCase || isMeleeCase) {
-				// Need both BE and DS variants in this case
-				std::string beName = namePrefix + "_" + name + "_BE" + " TribesGame.Default__" + namePrefix + "_" + name + "_BE";
-				std::string dsName = namePrefix + "_" + name + "_DS" + " TribesGame.Default__" + namePrefix + "_" + name + "_DS";
-				UObject* objNormal = NULL;
-				UObject* objBE = NULL;
-				UObject* objDS = NULL;
-				if (isClassCase) {
-					objBE = UObject::FindObject<UTrFamilyInfo>(beName.c_str());
-					objDS = UObject::FindObject<UTrFamilyInfo>(dsName.c_str());
-				}
-				else if (isMeleeCase) {
-					objBE = UObject::FindObject<ATrDevice>(beName.c_str());
-					objDS = UObject::FindObject<ATrDevice>(dsName.c_str());
-					objNormal = UObject::FindObject<ATrDevice>(defName.c_str());
-				}
-				
-				if (objBE && objDS) {
-					objectsToApplyOn.push_back(objBE);
-					objectsToApplyOn.push_back(objDS);
-				}
-				if (objNormal) {
-					objectsToApplyOn.push_back(objNormal);
-				}
-			}
-			else if (isVehicleCase) {
-				UObject* obj = UObject::FindObject<ATrVehicle>(defName.c_str());
-				if (obj) objectsToApplyOn.push_back(obj);
-			}
-			else if (isVehicleWeaponCase) {
-				UObject* obj = UObject::FindObject<ATrVehicleWeapon>(defName.c_str());
-				if (obj) objectsToApplyOn.push_back(obj);
-			}
-
-			if (objectsToApplyOn.empty()) {
-				Logger::log("Unable to set property; failed to get default object for id %d", elem.first);
-				continue;
-			}
-		}
-
+		// Get the default objects to apply to
+		std::vector<UObject*> objectsToApplyOn = getDefaultObjectsForProps<IdType>(elem.first);
 		if (objectsToApplyOn.empty()) {
-			if (!elem_it->second || !elem_it->second->Default || !elem_it->second->Default->IsA(requiredSuperClass)) {
-				Logger::log("Unable to set property; failed to get default object for id %d", elem.first);
-				continue;
-			}
-			objectsToApplyOn.push_back(elem_it->second->Default);
+			Logger::log("Unable to set properties; failed to get a default object for id %d", elem.first);
 		}
 
 		for (auto& prop : elem.second) {
@@ -120,7 +110,7 @@ static void applyPropConfig(std::map<int, UClass*>& relevantClassDefs, std::map<
 				continue;
 			}
 
-			recordBalanceTrackerProp(trackerProps, elem_it->first, prop.first, prop.second);
+			recordBalanceTrackerProp(trackerProps, elem.first, prop.first, prop.second);
 			for (auto& obj : objectsToApplyOn) {
 				it->second.apply(prop.second, obj);
 			}

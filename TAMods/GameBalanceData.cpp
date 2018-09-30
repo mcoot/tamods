@@ -57,41 +57,57 @@ namespace GameBalance {
 
 	// Decorators to convert UObject* to some subtype of it
 	template <typename T>
-	static std::function<bool(PropValue, UObject*)> applierAdapter(std::function<bool(PropValue, T*)> f) {
-		return [f](PropValue p, UObject* obj) {
-			if (!obj->IsA(T::StaticClass())) {
-				return false;
+	static std::function<bool(PropValue, UObject*)> applierAdapter(std::function<bool(PropValue, T*)> f, bool performCheck = true) {
+		return [f, performCheck](PropValue p, UObject* obj) {
+			if (!obj) return false;
+			if (performCheck) {
+				if (!(T::StaticClass())) return false;
+				if (!obj->IsA(T::StaticClass()) && std::string(T::StaticClass()->Name.GetName()) != std::string(obj->Name.GetName())) {
+					return false;
+				}
 			}
+
 			return f(p, (T*)obj);
 		};
 	}
 	template <typename T>
-	static std::function<bool(UObject*, PropValue&)> getterAdapter(std::function<bool(T*, PropValue&)> f) {
-		return [f](UObject* obj, PropValue& p) {
-			if (!obj->IsA(T::StaticClass())) {
-				return false;
+	static std::function<bool(UObject*, PropValue&)> getterAdapter(std::function<bool(T*, PropValue&)> f, bool performCheck = true) {
+		return [f, performCheck](UObject* obj, PropValue& p) {
+			if (!obj) return false;
+			if (performCheck) {
+				if (!(T::StaticClass())) return false;
+				if (!obj->IsA(T::StaticClass()) && std::string(T::StaticClass()->Name.GetName()) != std::string(obj->Name.GetName())) {
+					return false;
+				}
 			}
+
 			return f((T*)obj, p);
 		};
 	}
 
 	// Decorators to get the default of another arbitrary class in addition to the object for modification
 	template <typename T, typename ExtraDefault>
-	static std::function<bool(PropValue, UObject*)> applierAdapterWithAdditionalClass(std::function<bool(PropValue, T*, ExtraDefault*)> f) {
-		return applierAdapter<T>([f](PropValue p, T* t) {
-			UClass* cls = ExtraDefault::StaticClass();
-			if (!cls) return false;
-			if (!cls->Default || !cls->Default->IsA(ExtraDefault::StaticClass())) return false;
-			return f(p, t, (ExtraDefault*)cls->Default);
+	static std::function<bool(PropValue, UObject*)> applierAdapterWithAdditionalClass(std::string searchClassName, std::function<bool(PropValue, T*, ExtraDefault*)> f) {
+		return applierAdapter<T>([f, searchClassName](PropValue p, T* t) {
+			UObject* obj;
+
+			std::string lookupName = searchClassName + " TribesGame.Default__" + searchClassName;
+			obj = UObject::FindObject<ExtraDefault>(lookupName.c_str());
+			if (!obj) return false;
+
+			return f(p, t, (ExtraDefault*)obj);
 		});
 	}
 	template <typename T, typename ExtraDefault>
-	static std::function<bool(UObject*, PropValue&)> getterAdapterWithAdditionalClass(std::function<bool(T*, ExtraDefault*, PropValue&)> f) {
-		return getterAdapter<T>([f](T* t, PropValue& p) {
-			UClass* cls = ExtraDefault::StaticClass();
-			if (!cls) return false;
-			if (!cls->Default || !cls->Default->IsA(ExtraDefault::StaticClass())) return false;
-			return f(t, (ExtraDefault*)cls->Default, p);
+	static std::function<bool(UObject*, PropValue&)> getterAdapterWithAdditionalClass(std::string searchClassName, std::function<bool(T*, ExtraDefault*, PropValue&)> f) {
+		return getterAdapter<T>([f, searchClassName](T* t, PropValue& p) {
+			UObject* obj;
+
+			std::string lookupName = searchClassName + " TribesGame.Default__" + searchClassName;
+			obj = UObject::FindObject<ExtraDefault>(lookupName.c_str());
+			if (!obj) return false;
+
+			return f(t, (ExtraDefault*)obj, p);
 		});
 	}
 
@@ -1000,22 +1016,22 @@ namespace GameBalance {
 			);
 		static const Property SHIELD_PACK_ENERGY_COST_PER_DAMAGE_POINT(
 			ValueType::FLOAT,
-			applierAdapterWithAdditionalClass<ATrDevice_ShieldPack, ATrPawn>([](PropValue p, ATrDevice_ShieldPack* dev, ATrPawn* pawn) {
+			applierAdapterWithAdditionalClass<ATrDevice_ShieldPack, ATrPawn>("TrPawn", [](PropValue p, ATrDevice_ShieldPack* dev, ATrPawn* pawn) {
 			pawn->m_fShieldMultiple = p.valFloat;
 			return true;
 		}),
-			getterAdapterWithAdditionalClass<ATrDevice_ShieldPack, ATrPawn>([](ATrDevice_ShieldPack* dev, ATrPawn* pawn, PropValue& ret) {
+			getterAdapterWithAdditionalClass<ATrDevice_ShieldPack, ATrPawn>("TrPawn", [](ATrDevice_ShieldPack* dev, ATrPawn* pawn, PropValue& ret) {
 			ret = PropValue::fromFloat(pawn->m_fShieldMultiple);
 			return true;
 		})
 			);
 		static const Property JAMMER_PACK_RANGE(
 			ValueType::FLOAT,
-			applierAdapterWithAdditionalClass<ATrDevice_JammerPack, ATrPawn>([](PropValue p, ATrDevice_JammerPack* dev, ATrPawn* pawn) {
+			applierAdapterWithAdditionalClass<ATrDevice_JammerPack, ATrPawn>("TrPawn", [](PropValue p, ATrDevice_JammerPack* dev, ATrPawn* pawn) {
 			pawn->m_fJamEffectRadius = p.valFloat;
 			return true;
 		}),
-			getterAdapterWithAdditionalClass<ATrDevice_JammerPack, ATrPawn>([](ATrDevice_JammerPack* dev, ATrPawn* pawn, PropValue& ret) {
+			getterAdapterWithAdditionalClass<ATrDevice_JammerPack, ATrPawn>("TrPawn", [](ATrDevice_JammerPack* dev, ATrPawn* pawn, PropValue& ret) {
 			ret = PropValue::fromFloat(pawn->m_fJamEffectRadius);
 			return true;
 		})
@@ -1026,7 +1042,7 @@ namespace GameBalance {
 			eff->m_fValue = p.valFloat;
 			return true;
 		}),
-			getterAdapterWithAdditionalClass<ATrDevice_Pack, UTrEffect>([](ATrDevice_Pack* dev, UTrEffect* eff, PropValue& ret) {
+			effectDeviceGetterAdapter<ATrDevice_Pack, UTrEffect>([](ATrDevice_Pack* dev, UTrEffect* eff, PropValue& ret) {
 			ret = PropValue::fromFloat(eff->m_fValue);
 			return true;
 		})
@@ -2137,18 +2153,14 @@ namespace GameBalance {
 			);
 		static const Property BURST_SHOT_COUNT(
 			ValueType::INTEGER,
-			applierAdapter<ATrVehicleWeapon>([](PropValue p, ATrVehicleWeapon* wep) {
-			if (!wep->IsA(ATrVehicleWeapon_BurstShot::StaticClass())) return false;
-			ATrVehicleWeapon_BurstShot* wepbs = (ATrVehicleWeapon_BurstShot*)wep;
-			wepbs->m_nBurstShotCount = p.valInt;
+			applierAdapter<ATrVehicleWeapon_BurstShot>([](PropValue p, ATrVehicleWeapon_BurstShot* wep) {
+			wep->m_nBurstShotCount = p.valInt;
 			return true;
-		}),
-			getterAdapter<ATrVehicleWeapon>([](ATrVehicleWeapon* wep, PropValue& ret) {
-			if (!wep->IsA(ATrVehicleWeapon_BurstShot::StaticClass())) return false;
-			ATrVehicleWeapon_BurstShot* wepbs = (ATrVehicleWeapon_BurstShot*)wep;
-			ret = PropValue::fromInt(wepbs->m_nBurstShotCount);
+		}, false), // Don't check class due to SDK weirdness (it gets the static class horrifically wrong)
+			getterAdapter<ATrVehicleWeapon_BurstShot>([](ATrVehicleWeapon_BurstShot* wep, PropValue& ret) {
+			ret = PropValue::fromInt(wep->m_nBurstShotCount);
 			return true;
-		})
+		}, false)
 			);
 
 		// Damage / Impact
@@ -2185,7 +2197,7 @@ namespace GameBalance {
 			return true;
 		})
 			);
-		static const Property MOMENTUM_TRANSFER(
+		static const Property IMPACT_MOMENTUM(
 			ValueType::FLOAT,
 			projDeviceApplierAdapter<ATrVehicleWeapon, ATrProjectile>([](PropValue p, ATrVehicleWeapon* wep, ATrProjectile* proj) {
 			proj->MomentumTransfer = p.valFloat;
@@ -2520,7 +2532,7 @@ namespace GameBalance {
 			{PropId::DAMAGE, DAMAGE},
 			{PropId::EXPLOSIVE_RADIUS, EXPLOSIVE_RADIUS},
 			{PropId::DIRECT_HIT_MULTIPLIER, DIRECT_HIT_MULTIPLIER},
-			{PropId::MOMENTUM_TRANSFER, MOMENTUM_TRANSFER},
+			{PropId::IMPACT_MOMENTUM, IMPACT_MOMENTUM},
 			{PropId::ENERGY_DRAIN, ENERGY_DRAIN},
 			{PropId::MAX_DAMAGE_RANGE_PROPORTION, MAX_DAMAGE_RANGE_PROPORTION},
 			{PropId::MIN_DAMAGE_RANGE_PROPORTION, MIN_DAMAGE_RANGE_PROPORTION},

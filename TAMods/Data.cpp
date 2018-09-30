@@ -167,80 +167,220 @@ namespace Data
 		},
 	};
 
-	std::map<int, std::string> weapon_id_to_name = {
+	std::map<std::string, int> packs[3] = {
+		{
+			{ R"rx(^(thrust(pack)?)$)rx", CONST_ITEM_PACK_BLINK },
+			{ R"rx(^((light)?energy(pack)?)$)rx", CONST_ITEM_PACK_RECHARGE_PATHFINDER },
+			{ R"rx(^(stealth(pack)?)$)rx", CONST_ITEM_PACK_STEALTH },
+			{ R"rx(^((light)?utility(pack)?)$)rx", CONST_ITEM_PACK_RECHARGE_SENTINEL }
+		},
+		{
+			{ R"rx(^((light)?turret)$)rx", CONST_WEAPON_ID_TURRET_LIGHT },
+			{ R"rx(^(dropstation)$)rx", CONST_WEAPON_ID_DROPJAMMER },
+			{ R"rx(^(shield(pack)?)$)rx", CONST_ITEM_PACK_SHIELD },
+			{ R"rx(^(util(ity)?(pack)?)$)rx", CONST_ITEM_PACK_UTILITY_SOLDIER },
+			{ R"rx(^(jammer(pack)?)$)rx", CONST_ITEM_PACK_JAMMER },
+			{ R"rx(^(exr(turret)?)$)rx", CONST_WEAPON_ID_TURRET_EXR }
+
+		},
+		{
+			{ R"rx(^(forcefield)$)rx", CONST_WEAPON_ID_FORCEFIELD },
+			{ R"rx(^((heavy)?energy(pack)?)$)rx", CONST_ITEM_PACK_ENERGY_BRUTE },
+			{ R"rx(^((heavy)?shield(pack)?)$)rx", CONST_ITEM_PACK_HEAVYSHIELD },
+			{ R"rx(^((heavy)?utility(pack)?)$)rx", CONST_ITEM_PACK_SURVIVAL }
+		}
+	};
+
+	std::map<std::string, int> skins[3] = {
+		{
+			{ R"rx(^(pth|pathfinder|light|lht)$)rx", CONST_ITEM_SKIN_PATHFINDER },
+			{ R"rx(^(inf|infiltrator)$)rx", CONST_ITEM_SKIN_INFILTRATOR },
+			{ R"rx(^(sen|sentinel)$)rx", CONST_ITEM_SKIN_SENTINEL },
+			{ R"rx(^(freerunner)$)rx", CONST_ITEM_SKIN_PATHFINDER_MERC },
+			{ R"rx(^(mercenary)$)rx", CONST_ITEM_SKIN_INFILTRATOR_MERC },
+			{ R"rx(^(assassin)$)rx", CONST_ITEM_SKIN_INFILTRATOR_ASSASSIN },
+			{ R"rx(^(specter|spectre)$)rx", CONST_ITEM_SKIN_SENTINEL_MERC }
+		},
+		{
+			{ R"rx(^(sld|soldier|med(ium)?)$)rx", CONST_ITEM_SKIN_SOLDIER },
+			{ R"rx(^(tcn|technician)$)rx", CONST_ITEM_SKIN_TECHNICIAN },
+			{ R"rx(^(rdr|raider)$)rx", CONST_ITEM_SKIN_RAIDER },
+			{ R"rx(^(mercenary)$)rx", CONST_ITEM_SKIN_RAIDER_MERC },
+			{ R"rx(^(griever)$)rx", CONST_ITEM_SKIN_RAIDER_GRIEVER },
+			{ R"rx(^(specialist)$)rx", CONST_ITEM_SKIN_TECHNICIAN_MERC },
+			{ R"rx(^(synthrall)$)rx", CONST_ITEM_SKIN_SOLDIER_MERC }
+		},
+		{
+			{ R"rx(^(jug|juggernaut|heavy|hvy)$)rx", CONST_ITEM_SKIN_JUGGERNAUT },
+			{ R"rx(^(dmb|doombringer)$)rx", CONST_ITEM_SKIN_DOOMBRINGER },
+			{ R"rx(^(brt|brute)$)rx", CONST_ITEM_SKIN_BRUTE },
+			{ R"rx(^(crusher)$)rx", CONST_ITEM_SKIN_BRUTE_MERC },
+			{ R"rx(^(executioner)$)rx", CONST_ITEM_SKIN_DOOMBRINGER_MERC },
+			{ R"rx(^((the)?forlorn)$)rx", CONST_ITEM_SKIN_JUGGERNAUT_MERC }
+		}
+	};
+
+	std::map<std::string, int> voices = {
+		{ R"rx(^(light|lht)$)rx", CONST_ITEM_VOICE_LIGHT },
+		{ R"rx(^(med(ium)?)$)rx", CONST_ITEM_VOICE_MEDIUM },
+		{ R"rx(^(heavy|hvy)$)rx", CONST_ITEM_VOICE_HEAVY },
+		{ R"rx(^(battleworn)$)rx", CONST_ITEM_VOICE_DARK },
+		{ R"rx(^(femmefatale)$)rx", CONST_ITEM_VOICE_FEM1 },
+		{ R"rx(^(ms\.?wilderzone)$)rx", CONST_ITEM_VOICE_FEM2 },
+		{ R"rx(^(diskerdundee|aus(tralian)?)$)rx", CONST_ITEM_VOICE_AUS },
+		{ R"rx(^(tb|totalbiscuit)$)rx", CONST_ITEM_VOICE_TOTALBISCUIT },
+		{ R"rx(^(stowaway)$)rx", CONST_ITEM_VOICE_STOWAWAY },
+		{ R"rx(^(t2(fem(ale)?)?heroine)$)rx", CONST_ITEM_VOICE_T2FEM01 },
+		{ R"rx(^(t2(fem(ale)?)?pro(fessional)?)$)rx", CONST_ITEM_VOICE_T2FEM02 },
+		{ R"rx(^(t2(fem(ale)?)?cadet)$)rx", CONST_ITEM_VOICE_T2FEM03 },
+		{ R"rx(^(t2(fem(ale)?)?veteran)$)rx", CONST_ITEM_VOICE_T2FEM04 },
+		{ R"rx(^(t2(fem(ale)?)?amazon)$)rx", CONST_ITEM_VOICE_T2FEM05 },
+		{ R"rx(^(t2(male)?hero)$)rx", CONST_ITEM_VOICE_T2MALE01 },
+		{ R"rx(^(t2(male)?iceman)$)rx", CONST_ITEM_VOICE_T2MALE02 },
+		{ R"rx(^(t2(male)?rogue)$)rx", CONST_ITEM_VOICE_T2MALE03 },
+		{ R"rx(^(t2(male)?hardcase)$)rx", CONST_ITEM_VOICE_T2MALE04 },
+		{ R"rx(^(t2(male)?psycho)$)rx", CONST_ITEM_VOICE_T2MALE05 },
+		{ R"rx(^(t2(bioderm)?warrior)$)rx", CONST_ITEM_VOICE_T2BDERM01 },
+		{ R"rx(^(t2(bioderm)?monster)$)rx", CONST_ITEM_VOICE_T2BDERM02 },
+		{ R"rx(^(t2(bioderm)?predator)$)rx", CONST_ITEM_VOICE_T2BDERM03 }
+	};
+
+	std::map<int, std::string> item_id_to_name = {
 		{ CONST_WEAPON_ID_MELEE, "Melee" },
+
+		// Light
+		// Impact
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT, "LightSpinfusor" },
 		{ CONST_WEAPON_ID_LAUNCHER_BOLT, "BoltLauncher" },
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT_MKD, "LightSpinfusor_MKD" },
 		{ CONST_WEAPON_ID_LIGHTTWINFUSOR, "LightTwinfusor" },
 		{ CONST_WEAPON_ID_SPINFUSOR_LIGHT_100X, "LightSpinfusor_100X" },
-		{ CONST_WEAPON_ID_SHOTGUN, "Shotgun" },
-		{ CONST_WEAPON_ID_RIFLE_ASSAULT_LIGHT, "LightAssaultRifle" },
-		{ CONST_WEAPON_ID_SHOTGUN_MKD, "Shotgun_MKD" },
+		{ CONST_WEAPON_ID_STEALTHLIGHTSPINFUSOR, "StealthLightSpinfusor" },
+		// Timed
+		{ CONST_WEAPON_ID_LIGHTGRENADELAUNCHER, "GrenadeLauncher_Light" },
+		{ CONST_WEAPON_ID_REMOTE_ARX_BUSTER, "RemoteArxBuster" },
+		// Speciality
 		{ CONST_WEAPON_ID_RIFLE_SNIPER, "SniperRifle" },
 		{ CONST_WEAPON_ID_RIFLE_PHASE, "PhaseRifle" },
 		{ CONST_WEAPON_ID_RIFLE_SNIPER_MKD, "SniperRifle_MKD" },
 		{ CONST_WEAPON_ID_SAP20, "SAP20" },
-		{ CONST_WEAPON_ID_PISTOL_NOVA_COLT, "NovaColt" },
+		// Bullet
 		{ CONST_WEAPON_ID_PISTOL_FALCON, "Falcon" },
-		{ CONST_WEAPON_ID_PISTOL_NOVA_COLT_MKD, "NovaColt_MKD" },
-		{ CONST_WEAPON_ID_ACCURIZEDSHOTGUN, "AccurizedShotgun" },
+		{ CONST_WEAPON_ID_RIFLE_ASSAULT_LIGHT, "LightAssaultRifle" },
+		{ CONST_WEAPON_ID_PISTOL_SPARROW, "Sparrow" },
+		{ CONST_WEAPON_ID_THROWINGKNIVES, "ThrowingKnives" },
 		{ CONST_WEAPON_ID_SMG_RHINO, "RhinoSMG" },
-		{ CONST_WEAPON_ID_STEALTHLIGHTSPINFUSOR, "StealthLightSpinfusor" },
-		{ CONST_WEAPON_ID_REMOTE_ARX_BUSTER, "RemoteArxBuster" },
 		{ CONST_WEAPON_ID_SMG_RHINO_MKD, "RhinoSMG_MKD" },
 		{ CONST_WEAPON_ID_PISTOL_SN7, "SN7" },
-		{ CONST_WEAPON_ID_LIGHTGRENADELAUNCHER, "LightGrenadeLauncher" },
-		{ CONST_WEAPON_ID_THROWINGKNIVES, "ThrowingKnives" },
 		{ CONST_WEAPON_ID_PISTOL_SN7_MKD, "SN7_MKD" },
-		{ CONST_WEAPON_ID_RIFLE_ASSAULT, "AssaultRifle" },
+		// Short Range
+		{ CONST_WEAPON_ID_SHOTGUN, "Shotgun" },
+		{ CONST_WEAPON_ID_SHOTGUN_MKD, "Shotgun_MKD" },
+		{ CONST_WEAPON_ID_ACCURIZEDSHOTGUN, "AccurizedShotgun" },
+		{ CONST_WEAPON_ID_PISTOL_H1, "H1" },
+		// Belt
+		{ CONST_WEAPON_ID_GRENADE_NITRON, "ConcussionGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_NITRON_MKD, "ConcussionGrenade_MKD" },
+		{ CONST_WEAPON_ID_GRENADE_ST, "STGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_T5 , "GrenadeT5" },
+		{ CONST_WEAPON_ID_GRENADE_STICKY, "StickyGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_STICKY_MKD, "StickyGrenade_MKD" },
+		{ CONST_WEAPON_ID_MINE_CLAYMORE, "Claymore" },
+		{ CONST_WEAPON_ID_MINE_PRISM, "PrismMineDeployable" },
+		{ CONST_WEAPON_ID_GRENADE_NINJASMOKE, "NinjaSmoke" },
+		// Pack
+		{ CONST_ITEM_PACK_BLINK, "Blink" },
+		{ CONST_ITEM_PACK_RECHARGE_PATHFINDER, "ERechargePack_Pathfinder" },
+		{ CONST_ITEM_PACK_STEALTH, "Stealth" },
+		{ CONST_ITEM_PACK_RECHARGE_SENTINEL, "ERechargePack_Sentinel" },
+
+		// Medium
+		// Impact
 		{ CONST_WEAPON_ID_SPINFUSOR, "Spinfusor" },
-		{ CONST_WEAPON_ID_RIFLE_ASSAULT_MKD, "AssaultRifle_MKD" },
-		{ CONST_WEAPON_ID_TWINFUSOR, "Twinfusor" },
-		{ CONST_WEAPON_ID_THUMPER_D, "ThumperD" },
-		{ CONST_WEAPON_ID_PISTOL_EAGLE, "Eagle" },
-		{ CONST_WEAPON_ID_THUMPERD_MKD, "ThumperD_MKD" },
-		{ CONST_WEAPON_ID_SPINFUSOR_100X, "Spinfusor_100X" },
-		{ CONST_WEAPON_ID_ARX_BUSTER, "ArxBuster" },
-		{ CONST_WEAPON_ID_LAUNCHER_GRENADE, "GrenadeLauncher" },
-		{ CONST_WEAPON_ID_PLASMA_GUN, "PlasmaGun" },
-		{ CONST_WEAPON_ID_ARX_BUSTER_MKD, "ArxBuster_MKD" },
-		{ CONST_WEAPON_ID_SMG_NJ4, "NJ4SMG" },
-		{ CONST_WEAPON_ID_NJ5SMG, "NJ5SMG" },
-		{ CONST_WEAPON_ID_SMG_NJ4_MKD, "NJ4SMG_MKD" },
-		{ CONST_WEAPON_ID_SMG_TCN4, "TCN4SMG" },
 		{ CONST_WEAPON_ID_THUMPER, "Thumper" },
-		{ CONST_WEAPON_ID_SMG_TCN4_MKD, "TCN4SMG_MKD" },
-		{ CONST_WEAPON_ID_TC24, "TC24" },
+		{ CONST_WEAPON_ID_THUMPER_D, "ThumperD" },
+		{ CONST_WEAPON_ID_THUMPERD_MKD, "ThumperD_MKD" },
+		{ CONST_WEAPON_ID_TWINFUSOR, "Twinfusor" },
+		{ CONST_WEAPON_ID_SPINFUSOR_100X, "Spinfusor_100X" },
+		{ CONST_WEAPON_ID_HONORFUSOR, "Honorfusor" },
+		// Timed
+		{ CONST_WEAPON_ID_ARX_BUSTER, "ArxBuster" },
+		{ CONST_WEAPON_ID_ARX_BUSTER_MKD, "ArxBuster_MKD" },
+		{ CONST_WEAPON_ID_LAUNCHER_GRENADE, "GrenadeLauncher" },
+		// Speciality
 		{ CONST_WEAPON_ID_REPAIR_TOOL_SD, "RepairToolSD" },
-		{ CONST_WEAPON_ID_SHOTGUN_SAWED_OFF, "SawedOffShotgun" },
-		{ CONST_WEAPON_ID_PISTOL_SPARROW, "Sparrow" },
 		{ CONST_WEAPON_ID_REPAIR_TOOL_SD_MKD, "RepairToolSD_MKD" },
+		{ CONST_WEAPON_ID_ELFPROJECTOR, "ElfProjector" },
+		// Bullet
+		{ CONST_WEAPON_ID_RIFLE_ASSAULT, "AssaultRifle" },
+		{ CONST_WEAPON_ID_RIFLE_ASSAULT_MKD, "AssaultRifle_MKD" },
+		{ CONST_WEAPON_ID_SMG_NJ4, "NJ4SMG" },
+		{ CONST_WEAPON_ID_SMG_NJ4_MKD, "NJ4SMG_MKD" },
+		{ CONST_WEAPON_ID_NJ5SMG, "NJ5SMG" },
+		{ CONST_WEAPON_ID_SMG_TCN4, "TCN4SMG" },
+		{ CONST_WEAPON_ID_SMG_TCN4_MKD, "TCN4SMG_MKD" },
+		{ CONST_WEAPON_ID_PLASMA_GUN, "PlasmaGun" },
+		{ CONST_WEAPON_ID_PISTOL_NOVA_COLT, "NovaColt" },
+		{ CONST_WEAPON_ID_PISTOL_EAGLE, "Eagle" },
+		// Short range
+		{ CONST_WEAPON_ID_SHOTGUN_SAWED_OFF, "SawedOffShotgun" },
+		{ CONST_WEAPON_ID_TC24, "TC24" },
+		// Belt
+		{ CONST_WEAPON_ID_GRENADE_EMP, "EMPGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_EMP_MKD, "EMPGrenade_MKD" },
+		{ CONST_WEAPON_ID_GRENADE_WHITEOUT, "WhiteOut" },
+		{ CONST_WEAPON_ID_MIRV_GRENADE, "MIRVGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_AP, "APGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_XL, "GrenadeXL" },
+		{ CONST_WEAPON_ID_PROXIMITY_GRENADE, "ProximityGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_XL_MKD, "GrenadeXL_MKD" },
+		// Pack
+		{ CONST_WEAPON_ID_TURRET_LIGHT, "LightTurretDeployable" },
+		{ CONST_WEAPON_ID_DROPJAMMER, "DropJammerDeployable" },
+		{ CONST_ITEM_PACK_SHIELD, "ShieldPack" },
+		{ CONST_ITEM_PACK_UTILITY_SOLDIER, "UtilityPack_Soldier" },
+		{ CONST_ITEM_PACK_JAMMER, "JammerPack" },
+		{ CONST_WEAPON_ID_TURRET_EXR, "AntiAirTurretDeployable" },
+
+		// Heavy
+		// Impact
+		{ CONST_WEAPON_ID_SPINFUSOR_D, "SpinfusorD" },
+		{ CONST_WEAPON_ID_SPINFUSOR_D_MKD, "SpinfusorD_MKD" },
+		{ CONST_WEAPON_ID_SPINFUSOR_HEAVY, "HeavySpinfusor" },
+		{ CONST_WEAPON_ID_SPINFUSOR_HEAVY_MKD, "HeavySpinfusor_MKD" },
+		{ CONST_WEAPON_ID_LAUNCHER_BOLT_HEAVY, "HeavyBoltLauncher" },
+		{ CONST_WEAPON_ID_HEAVYTWINFUSOR, "HeavyTwinfusor" },
+		// Timed
+		{ CONST_WEAPON_ID_LAUNCHER_MORTAR_MKD, "MortarLauncher_MKD" },
 		{ CONST_WEAPON_ID_LAUNCHER_MORTAR, "MortarLauncher" },
 		{ CONST_WEAPON_ID_LAUNCHER_MIRV, "MIRVLauncher" },
-		{ CONST_WEAPON_ID_LAUNCHER_MORTAR_MKD, "MortarLauncher_MKD" },
-		{ CONST_WEAPON_ID_SPINFUSOR_D, "SpinfusorD" },
-		{ CONST_WEAPON_ID_RIFLE_ASSAULT_X1, "X1Rifle" },
-		{ CONST_WEAPON_ID_SPINFUSOR_D_MKD, "SpinfusorD_MKD" },
-		{ CONST_WEAPON_ID_HEAVYTWINFUSOR, "HeavyTwinfusor" },
-		{ CONST_WEAPON_ID_CHAINGUN, "ChainGun" },
-		{ CONST_WEAPON_ID_LAUNCHER_BOLT_HEAVY, "HeavyBoltLauncher" },
-		{ CONST_WEAPON_ID_CHAINGUN_MKD, "ChainGun_MKD" },
+		// Speciality
 		{ CONST_WEAPON_ID_LAUNCHER_SABER, "SaberLauncher" },
 		{ CONST_WEAPON_ID_LAUNCHER_SABER_MKD, "SaberLauncher_MKD" },
-		{ CONST_WEAPON_ID_SPINFUSOR_HEAVY, "HeavySpinfusor" },
 		{ CONST_WEAPON_ID_SPIKELAUNCHER, "SpikeLauncher" },
-		{ CONST_WEAPON_ID_SPINFUSOR_HEAVY_MKD, "HeavySpinfusor_MKD" },
-		{ CONST_WEAPON_ID_SHOTGUN_AUTO, "AutoShotgun" },
+		// Bullet
+		{ CONST_WEAPON_ID_CHAINGUN, "ChainGun" },
+		{ CONST_WEAPON_ID_CHAINGUN_MKD, "ChainGun_MKD" },
+		{ CONST_WEAPON_ID_RIFLE_ASSAULT_X1, "X1Rifle" },
 		{ CONST_WEAPON_ID_PLASMA_CANNON, "PlasmaCannon" },
 		{ CONST_WEAPON_ID_PISTOL_NOVA_SLUG, "NovaSlug" },
+		{ CONST_WEAPON_ID_PISTOL_NOVA_COLT_MKD, "NovaColt_MKD" },
+		// Short Range
+		{ CONST_WEAPON_ID_SHOTGUN_AUTO, "AutoShotgun" },
 		{ CONST_WEAPON_ID_SHOTGUN_AUTO_MKD, "AutoShotgun_MKD" },
-		{ CONST_WEAPON_ID_ELFPROJECTOR, "ElfProjector" },
 		{ CONST_WEAPON_ID_ELFFLAK, "ElfFlak" },
-		{ CONST_WEAPON_ID_PILOT_GRAVCYCLE, "GravCyclePilot" },
-		{ CONST_WEAPON_ID_PILOT_SHRIKE, "ShrikePilot" },
-		{ CONST_WEAPON_ID_PILOT_BEOWULF, "BeowulfPilot" },
-		{ CONST_WEAPON_ID_GUNNER_BEOWULF, "BeowulfGunner" }
+		// Belt
+		{ CONST_WEAPON_ID_GRENADE, "Grenade" },
+		{ CONST_WEAPON_ID_GRENADE_SPIKE, "SpikeGrenade" },
+		{ CONST_WEAPON_ID_GRENADE_SPIKE_MKD, "SpikeGrenade_MKD" },
+		{ CONST_WEAPON_ID_GRENADE_STICKY_LIGHT, "LightStickyGrenade" },
+		{ CONST_WEAPON_ID_MINE, "Mine" },
+		{ CONST_WEAPON_ID_SPINFUSOR_TOSS, "DiskToss" },
+		// Pack
+		{ CONST_WEAPON_ID_FORCEFIELD, "ForceFieldDeployable" },
+		{ CONST_ITEM_PACK_ENERGY_BRUTE, "EnergyPack_Brute" },
+		{ CONST_ITEM_PACK_HEAVYSHIELD, "HeavyShieldPack" },
+		{ CONST_ITEM_PACK_SURVIVAL, "SurvivalPack" },
 	};
 
 	std::map<int, std::string> weapon_id_to_proj_name = {
@@ -438,7 +578,7 @@ namespace Data
 		{ CONST_WEAPON_ID_SHOTGUN_AUTO, ATrDevice_AutoShotgun::StaticClass() },
 		{ CONST_WEAPON_ID_PLASMA_CANNON, ATrDevice_PlasmaCannon::StaticClass() },
 		{ CONST_WEAPON_ID_PISTOL_NOVA_SLUG, ATrDevice_NovaSlug::StaticClass() },
-		{ CONST_WEAPON_ID_SHOTGUN_AUTO_MKD, ATrDevice_AutoShotgun::StaticClass() },
+		{ CONST_WEAPON_ID_SHOTGUN_AUTO_MKD, ATrDevice_AutoShotgun_MKD::StaticClass() },
 		{ CONST_WEAPON_ID_ELFPROJECTOR, ATrDevice_ElfProjector::StaticClass() },
 		{ CONST_WEAPON_ID_ELFFLAK, ATrDevice_ElfFlak::StaticClass() },
 		{ CONST_WEAPON_ID_PILOT_GRAVCYCLE, ATrVehicleWeapon_GravCyclePilot::StaticClass() },
