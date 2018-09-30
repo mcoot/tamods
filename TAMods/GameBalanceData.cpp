@@ -321,6 +321,28 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property BURST_SHOT_COUNT(
+			ValueType::INTEGER,
+			applierAdapter<ATrDevice_LightAssaultRifle>([](PropValue p, ATrDevice_LightAssaultRifle* dev) {
+			dev->m_nShotBurstCount = p.valInt;
+			return true;
+		}),
+			getterAdapter<ATrDevice_LightAssaultRifle>([](ATrDevice_LightAssaultRifle* dev, PropValue& ret) {
+			ret = PropValue::fromInt(dev->m_nShotBurstCount);
+			return true;
+		})
+			);
+		static const Property BURST_SHOT_REFIRE_TIME(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_LightAssaultRifle>([](PropValue p, ATrDevice_LightAssaultRifle* dev) {
+			dev->m_fBurtShotRefireTime = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_LightAssaultRifle>([](ATrDevice_LightAssaultRifle* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fBurtShotRefireTime);
+			return true;
+		})
+			);
 
 		// Damage
 		static const Property DAMAGE(
@@ -1199,6 +1221,8 @@ namespace GameBalance {
 			{PropId::CAN_ZOOM, CAN_ZOOM},
 			{PropId::RELOAD_SINGLE, RELOAD_SINGLE},
 			{PropId::RELOAD_APPLICATION_PROPORTION, RELOAD_APPLICATION_PROPORTION},
+			{PropId::BURST_SHOT_COUNT, BURST_SHOT_COUNT},
+			{PropId::BURST_SHOT_REFIRE_TIME, BURST_SHOT_REFIRE_TIME},
 
 			// Damage / Impact
 			{PropId::DAMAGE, DAMAGE},
