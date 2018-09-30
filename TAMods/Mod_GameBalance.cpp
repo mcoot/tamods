@@ -165,6 +165,9 @@ namespace GameBalance {
 	// Revert modified game balance changes back to their defaults
 	void GameBalanceTracker::revert() {
 		applyItemProperties(origItemProps);
+		applyClassProperties(origClassProps);
+		applyVehicleProperties(origVehicleProps);
+		applyVehicleWeaponProperties(origVehicleWeaponProps);
 	}
 }
 
@@ -177,4 +180,7 @@ void TAModsServer::Client::handle_GameBalanceDetailsMessage(const json& j) {
 	}
 
 	applyItemProperties(msg.itemProperties);
+	applyClassProperties(msg.classProperties);
+	applyVehicleProperties(msg.vehicleProperties);
+	applyVehicleWeaponProperties(msg.vehicleWeaponProperties);
 }

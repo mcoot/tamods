@@ -73,6 +73,101 @@ namespace TAModsServer {
 	class GameBalanceDetailsMessage : public Message {
 	public:
 		GameBalance::Items::ItemsConfig itemProperties;
+		GameBalance::Classes::ClassesConfig classProperties;
+		GameBalance::Vehicles::VehiclesConfig vehicleProperties;
+		GameBalance::VehicleWeapons::VehicleWeaponsConfig vehicleWeaponProperties;
+	private:
+		void addPropValToJson(json& j, int propId, GameBalance::PropValue val) {
+			switch (val.type) {
+			case GameBalance::ValueType::BOOLEAN:
+				j[std::to_string(propId)] = val.valBool;
+				break;
+			case GameBalance::ValueType::INTEGER:
+				j[std::to_string(propId)] = val.valInt;
+				break;
+			case GameBalance::ValueType::FLOAT:
+				j[std::to_string(propId)] = val.valFloat;
+				break;
+			case GameBalance::ValueType::STRING:
+				j[std::to_string(propId)] = val.valString;
+				break;
+			}
+		}
+
+		bool readPropValFromJson(const json& j, GameBalance::ValueType expectedType, GameBalance::PropValue& ret) {
+			switch (expectedType) {
+			case GameBalance::ValueType::BOOLEAN:
+				if (!j.is_boolean()) {
+					return false;
+				}
+				ret = GameBalance::PropValue::fromBool(j.get<bool>());
+				break;
+			case GameBalance::ValueType::INTEGER:
+				if (!j.is_number_integer()) {
+					return false;
+				}
+				ret = GameBalance::PropValue::fromInt(j.get<int>());
+				break;
+			case GameBalance::ValueType::FLOAT:
+				if (!j.is_number()) {
+					return false;
+				}
+				ret = GameBalance::PropValue::fromFloat(j.get<float>());
+				break;
+			case GameBalance::ValueType::STRING:
+				if (!j.is_string()) {
+					return false;
+				}
+				ret = GameBalance::PropValue::fromString(j.get<std::string>());
+				break;
+			}
+			return true;
+		}
+
+		template <typename IdType>
+		bool readPropConfig(json& j, std::map<IdType, GameBalance::Property>& propDefs, std::map<int, std::map<IdType, GameBalance::PropValue> >& ret) {
+			for (json::iterator elem_it = j.begin(); elem_it != j.end(); ++elem_it) {
+				std::map<IdType, GameBalance::PropValue> curElemConfig;
+
+				int elemId;
+				try {
+					elemId = std::stoi(elem_it.key());
+				}
+				catch (std::invalid_argument&) {
+					return false;
+				}
+
+				json curElem = j[elem_it.key()];
+				for (json::iterator prop_it = curElem.begin(); prop_it != curElem.end(); ++prop_it) {
+
+					IdType propId;
+					try {
+						propId = (IdType)std::stoi(prop_it.key());
+					}
+					catch (std::invalid_argument&) {
+						return false;
+					}
+
+					auto& propDefIt = propDefs.find(propId);
+					if (propDefIt == propDefs.end()) {
+						// Ignore unknown property IDs
+						continue;
+					}
+
+					GameBalance::PropValue propVal;
+					if (!readPropValFromJson(*prop_it, propDefIt->second.getType(), propVal)) {
+						Logger::log("Unable to read item prop config for propId %d on elem %d: wrong type (should be %s)",
+							propId, elemId,
+							GameBalance::getValueTypeName(propDefIt->second.getType()).c_str());
+						continue;
+					}
+
+					curElemConfig[propId] = propVal;
+				}
+				ret[elemId] = curElemConfig;
+			}
+			return true;
+		}
 	public:
 		short getMessageKind() override {
 			return DCSRV_MSG_KIND_GAME_BALANCE_DETAILS;
@@ -80,33 +175,52 @@ namespace TAModsServer {
 
 		void toJson(json& j) {
 			json jItemProps = json::object();
+			json jClassProps = json::object();
+			json jVehicleProps = json::object();
+			json jVehicleWeaponProps = json::object();
 
 			for (auto& item : itemProperties) {
 				json curItem;
 				for (auto& prop : item.second) {
-					switch (prop.second.type) {
-					case GameBalance::ValueType::BOOLEAN:
-						curItem[std::to_string((int)prop.first)] = prop.second.valBool;
-						break;
-					case GameBalance::ValueType::INTEGER:
-						curItem[std::to_string((int)prop.first)] = prop.second.valInt;
-						break;
-					case GameBalance::ValueType::FLOAT:
-						curItem[std::to_string((int)prop.first)] = prop.second.valFloat;
-						break;
-					case GameBalance::ValueType::STRING:
-						curItem[std::to_string((int)prop.first)] = prop.second.valString;
-						break;
-					}
+					addPropValToJson(curItem, (int)prop.first, prop.second);
 				}
 				jItemProps[std::to_string(item.first)] = curItem;
 			}
-
 			j["item_properties"] = jItemProps;
+
+			for (auto& item : classProperties) {
+				json curItem;
+				for (auto& prop : item.second) {
+					addPropValToJson(curItem, (int)prop.first, prop.second);
+				}
+				jClassProps[std::to_string(item.first)] = curItem;
+			}
+			j["class_properties"] = jClassProps;
+
+			for (auto& item : vehicleProperties) {
+				json curItem;
+				for (auto& prop : item.second) {
+					addPropValToJson(curItem, (int)prop.first, prop.second);
+				}
+				jVehicleProps[std::to_string(item.first)] = curItem;
+			}
+			j["vehicle_properties"] = jVehicleProps;
+
+			for (auto& item : vehicleWeaponProperties) {
+				json curItem;
+				for (auto& prop : item.second) {
+					addPropValToJson(curItem, (int)prop.first, prop.second);
+				}
+				jVehicleWeaponProps[std::to_string(item.first)] = curItem;
+			}
+			j["vehicle_weapon_properties"] = jVehicleWeaponProps;
 		}
 
 		bool fromJson(const json& j) {
 			itemProperties.clear();
+			classProperties.clear();
+			vehicleProperties.clear();
+			vehicleWeaponProperties.clear();
 
 			auto& itemPropsIt = j.find("item_properties");
 			if (itemPropsIt == j.end()) {
@@ -114,70 +228,35 @@ namespace TAModsServer {
 			}
 			json itemProps = j["item_properties"];
 
-			for (json::iterator item_it = itemProps.begin(); item_it != itemProps.end(); ++item_it) {
-				GameBalance::Items::PropMapping curItemConfig;
+			auto& classPropsIt = j.find("class_properties");
+			if (classPropsIt == j.end()) {
+				return false;
+			}
+			json classProps = j["class_properties"];
 
-				int itemId;
-				try {
-					itemId = std::stoi(item_it.key());
-				}
-				catch (std::invalid_argument&) {
-					return false;
-				}
+			auto& vehiclePropsIt = j.find("vehicle_properties");
+			if (vehiclePropsIt == j.end()) {
+				return false;
+			}
+			json vehicleProps = j["vehicle_properties"];
 
-				json curItem = itemProps[item_it.key()];
-				for (json::iterator prop_it = curItem.begin(); prop_it != curItem.end(); ++prop_it) {
+			auto& vehicleWeaponPropsIt = j.find("vehicle_weapon_properties");
+			if (vehicleWeaponPropsIt == j.end()) {
+				return false;
+			}
+			json vehicleWeaponProps = j["vehicle_weapon_properties"];
 
-					GameBalance::Items::PropId propId;
-					try {
-						propId = (GameBalance::Items::PropId)std::stoi(prop_it.key());
-					}
-					catch (std::invalid_argument&) {
-						return false;
-					}
-
-					auto& propDefIt = GameBalance::Items::properties.find(propId);
-					if (propDefIt == GameBalance::Items::properties.end()) {
-						// Ignore unknown property IDs
-						continue;
-					}
-
-					GameBalance::PropValue propVal;
-
-					switch (propDefIt->second.getType()) {
-					case GameBalance::ValueType::BOOLEAN:
-						if (!prop_it->is_boolean()) {
-							Logger::log("Unable to read item prop config for propId %d on item %d: wrong type (should be boolean)", propId, itemId);
-							continue;
-						}
-						propVal = GameBalance::PropValue::fromBool(prop_it->get<bool>());
-						break;
-					case GameBalance::ValueType::INTEGER:
-						if (!prop_it->is_number_integer()) {
-							Logger::log("Unable to read item prop config for propId %d on item %d: wrong type (should be integer)", propId, itemId);
-							continue;
-						}
-						propVal = GameBalance::PropValue::fromInt(prop_it->get<int>());
-						break;
-					case GameBalance::ValueType::FLOAT:
-						if (!prop_it->is_number()) {
-							Logger::log("Unable to read item prop config for propId %d on item %d: wrong type (should be float)", propId, itemId);
-							continue;
-						}
-						propVal = GameBalance::PropValue::fromFloat(prop_it->get<float>());
-						break;
-					case GameBalance::ValueType::STRING:
-						if (!prop_it->is_string()) {
-							Logger::log("Unable to read item prop config for propId %d on item %d: wrong type (should be string)", propId, itemId);
-							continue;
-						}
-						propVal = GameBalance::PropValue::fromString(prop_it->get<std::string>());
-						break;
-					}
-
-					curItemConfig[propId] = propVal;
-				}
-				itemProperties[itemId] = curItemConfig;
+			if (!readPropConfig(itemProps, GameBalance::Items::properties, itemProperties)) {
+				return false;
+			}
+			if (!readPropConfig(classProps, GameBalance::Classes::properties, classProperties)) {
+				return false;
+			}
+			if (!readPropConfig(vehicleProps, GameBalance::Vehicles::properties, vehicleProperties)) {
+				return false;
+			}
+			if (!readPropConfig(vehicleWeaponProps, GameBalance::VehicleWeapons::properties, vehicleWeaponProperties)) {
+				return false;
 			}
 
 			return true;
