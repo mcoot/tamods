@@ -1564,7 +1564,7 @@ namespace GameBalance {
 			return true;
 		})
 			);
-		static const Property AIR_CONTROL(
+		static const Property DEFAULT_AIR_CONTROL(
 			ValueType::FLOAT,
 			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
 			fi->m_fFIAirControl = p.valFloat;
@@ -1575,7 +1575,7 @@ namespace GameBalance {
 			return true;
 		})
 			);
-		static const Property AIR_CONTROL_MIN_MULTIPLIER(
+		static const Property AIR_CONTROL_MAX_MULTIPLIER(
 			ValueType::FLOAT,
 			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
 			fi->m_vAirControlMultiplier.X = p.valFloat;
@@ -1583,6 +1583,17 @@ namespace GameBalance {
 		}),
 			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
 			ret = PropValue::fromFloat(fi->m_vAirControlMultiplier.X);
+			return true;
+		})
+			);
+		static const Property AIR_CONTROL_MIN_MULTIPLIER(
+			ValueType::FLOAT,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+			fi->m_vAirControlMultiplier.Y = p.valFloat;
+			return true;
+		}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+			ret = PropValue::fromFloat(fi->m_vAirControlMultiplier.Y);
 			return true;
 		})
 			);
@@ -1663,7 +1674,7 @@ namespace GameBalance {
 			{PropId::FORWARD_JET_PROPORTION, FORWARD_JET_PROPORTION},
 			{PropId::JET_BOOST_MAX_GROUND_SPEED, JET_BOOST_MAX_GROUND_SPEED},
 			{PropId::AIR_SPEED, AIR_SPEED},
-			{PropId::AIR_CONTROL, AIR_CONTROL},
+			{PropId::DEFAULT_AIR_CONTROL, DEFAULT_AIR_CONTROL},
 			{PropId::AIR_CONTROL_MIN_MULTIPLIER, AIR_CONTROL_MIN_MULTIPLIER},
 			{PropId::AIR_CONTROL_REDUCTION_RANGE_MAX, AIR_CONTROL_REDUCTION_RANGE_MAX},
 			{PropId::AIR_CONTROL_REDUCTION_RANGE_MIN, AIR_CONTROL_REDUCTION_RANGE_MIN},
