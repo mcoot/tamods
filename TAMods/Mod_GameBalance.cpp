@@ -72,7 +72,7 @@ static std::vector<UObject*> getDefaultObjectsForProps(int elemId) {
 	}
 	else if (isClassCase) {
 		prefix = "TrFamilyInfo";
-		relevantClassNames = Data::class_id_to_name;
+		relevantClassNames = Data::armor_class_id_to_name;
 		variants.push_back("");
 		variants.push_back("BE");
 		variants.push_back("DS");

@@ -74,10 +74,11 @@ namespace Data
 			{ R"rx(^(nitrons?|impactnitrons?|impacts?)$)rx", CONST_WEAPON_ID_GRENADE_NITRON },
 			{ R"rx(^(compactnitrons?|compacts?)$)rx", CONST_WEAPON_ID_GRENADE_NITRON_MKD },
 			{ R"rx(^(explosivenitrons?|explosives?)$)rx", CONST_WEAPON_ID_GRENADE_ST },
-			{ R"rx(^(T5s?(grenades)?)$)rx", CONST_WEAPON_ID_GRENADE_T5 },
+			{ R"rx(^(t5s?(grenades)?)$)rx", CONST_WEAPON_ID_GRENADE_T5 },
 			{ R"rx(^(stickygrenades?|sticky|stickies)$)rx", CONST_WEAPON_ID_GRENADE_STICKY },
 			{ R"rx(^(stickygrenades?xl|stickyxl|stickiesxl)$)rx", CONST_WEAPON_ID_GRENADE_STICKY_MKD },
 			{ R"rx(^(claymores?|claymoremines?)$)rx", CONST_WEAPON_ID_MINE_CLAYMORE },
+			{ R"rx(^(motionmines?)$)rx", CONST_WEAPON_ID_MINE_ARMOREDCLAYMORE },
 			{ R"rx(^(prismmines?|mines?)$)rx", CONST_WEAPON_ID_MINE_PRISM },
 			{ R"rx(^(chaffs?(grenades?)?)$)rx", CONST_WEAPON_ID_GRENADE_NINJASMOKE },
 		},
@@ -191,6 +192,30 @@ namespace Data
 		}
 	};
 
+	std::map<std::string, int> perks = {
+		{ R"rx(^(survivalist)$)rx", CONST_ITEM_PERK_SURVIVALIST },
+		{ R"rx(^(safefall)$)rx", CONST_ITEM_PERK_SAFEFALL },
+		{ R"rx(^(safetythird)$)rx", CONST_ITEM_PERK_SAFETYTHIRD },
+		{ R"rx(^(reach)$)rx", CONST_ITEM_PERK_REACH },
+		{ R"rx(^(wheeldeal)$)rx", CONST_ITEM_PERK_WHEELDEAL },
+		{ R"rx(^(bountyhunter)$)rx", CONST_ITEM_PERK_BOUNTYHUNTER },
+		{ R"rx(^(closecombat|cc)$)rx", CONST_ITEM_PERK_CLOSECOMBAT },
+		{ R"rx(^(stealthy)$)rx", CONST_ITEM_PERK_STEALTHY },
+		{ R"rx(^(supercapacitor)$)rx", CONST_ITEM_PERK_SUPERCAPACITOR },
+		{ R"rx(^(ultracapacitor)$)rx", CONST_ITEM_PERK_ULTRACAPACITOR },
+		{ R"rx(^(ego(centric)?)$)rx", CONST_ITEM_PERK_EGOCENTRIC },
+		{ R"rx(^(pilot)$)rx", CONST_ITEM_PERK_PILOT },
+		{ R"rx(^(superheavy)$)rx", CONST_ITEM_PERK_SUPERHEAVY },
+		{ R"rx(^(quickdraw|qd)$)rx", CONST_ITEM_PERK_QUICKDRAW },
+		{ R"rx(^(mechanic)$)rx", CONST_ITEM_PERK_MECHANIC },
+		{ R"rx(^(determination)$)rx", CONST_ITEM_PERK_DETERMINATION },
+		{ R"rx(^(looter)$)rx", CONST_ITEM_PERK_LOOTER },
+		{ R"rx(^(potentialenergy)$)rx", CONST_ITEM_PERK_POTENTIALENERGY },
+		{ R"rx(^(sonicpunch)$)rx", CONST_ITEM_PERK_SONICPUNCH },
+		{ R"rx(^(rage)$)rx", CONST_ITEM_PERK_RAGE },
+		{ R"rx(^(lightweight)$)rx", CONST_ITEM_PERK_LIGHTWEIGHT },
+	};
+
 	std::map<std::string, int> skins[3] = {
 		{
 			{ R"rx(^(pth|pathfinder|light|lht)$)rx", CONST_ITEM_SKIN_PATHFINDER },
@@ -286,6 +311,7 @@ namespace Data
 		{ CONST_WEAPON_ID_GRENADE_STICKY, "StickyGrenade" },
 		{ CONST_WEAPON_ID_GRENADE_STICKY_MKD, "StickyGrenade_MKD" },
 		{ CONST_WEAPON_ID_MINE_CLAYMORE, "Claymore" },
+		{ CONST_WEAPON_ID_MINE_ARMOREDCLAYMORE, "ArmoredClaymore" },
 		{ CONST_WEAPON_ID_MINE_PRISM, "PrismMineDeployable" },
 		{ CONST_WEAPON_ID_GRENADE_NINJASMOKE, "NinjaSmoke" },
 		// Pack
@@ -383,6 +409,30 @@ namespace Data
 		{ CONST_ITEM_PACK_SURVIVAL, "SurvivalPack" },
 	};
 
+	std::map<int, std::string> perk_id_to_name = {
+		{ CONST_ITEM_PERK_SURVIVALIST, "Survivalist" },
+		{ CONST_ITEM_PERK_SAFEFALL, "SafeFall" },
+		{ CONST_ITEM_PERK_SAFETYTHIRD, "SafetyThird" },
+		{ CONST_ITEM_PERK_REACH, "Reach" },
+		{ CONST_ITEM_PERK_WHEELDEAL, "WheelDeal" },
+		{ CONST_ITEM_PERK_BOUNTYHUNTER, "BountyHunter" },
+		{ CONST_ITEM_PERK_CLOSECOMBAT, "CloseCombat" },
+		{ CONST_ITEM_PERK_STEALTHY, "Stealthy" },
+		{ CONST_ITEM_PERK_SUPERCAPACITOR, "SuperCapacitor" },
+		{ CONST_ITEM_PERK_ULTRACAPACITOR, "UltraCapacitor" },
+		{ CONST_ITEM_PERK_EGOCENTRIC, "Egocentric" },
+		{ CONST_ITEM_PERK_PILOT, "Pilot" },
+		{ CONST_ITEM_PERK_SUPERHEAVY, "SuperHeavy" },
+		{ CONST_ITEM_PERK_QUICKDRAW, "QuickDraw" },
+		{ CONST_ITEM_PERK_MECHANIC, "Mechanic" },
+		{ CONST_ITEM_PERK_DETERMINATION, "Determination" },
+		{ CONST_ITEM_PERK_LOOTER, "Looter" },
+		{ CONST_ITEM_PERK_POTENTIALENERGY, "PotentialEnergy" },
+		{ CONST_ITEM_PERK_SONICPUNCH, "SonicPunch" },
+		{ CONST_ITEM_PERK_RAGE, "Rage" },
+		{ CONST_ITEM_PERK_LIGHTWEIGHT, "Lightweight" },
+	};
+
 	std::map<int, std::string> weapon_id_to_proj_name = {
 		{ CONST_WEAPON_ID_MELEE, "" },
 
@@ -419,6 +469,7 @@ namespace Data
 		{ CONST_WEAPON_ID_MINE_CLAYMORE, "Claymore" },
 		{ CONST_WEAPON_ID_MINE_PRISM, "PrismMine" },
 		{ CONST_WEAPON_ID_GRENADE_NINJASMOKE, "NinjaSmoke" },
+		{ CONST_WEAPON_ID_MINE_ARMOREDCLAYMORE, "ArmoredClaymore" },
 
 		// Medium
 		{ CONST_WEAPON_ID_RIFLE_ASSAULT, "AssaultRifle" },
@@ -525,6 +576,7 @@ namespace Data
 		{ CONST_WEAPON_ID_MINE_CLAYMORE, ATrDevice_Claymore::StaticClass() },
 		{ CONST_WEAPON_ID_MINE_PRISM, ATrDevice_PrismMineDeployable::StaticClass() },
 		{ CONST_WEAPON_ID_GRENADE_NINJASMOKE, ATrDevice_NinjaSmoke::StaticClass() },
+		{ CONST_WEAPON_ID_MINE_ARMOREDCLAYMORE, ATrDevice_ArmoredClaymore::StaticClass() },
 
 		// Medium
 		{ CONST_WEAPON_ID_RIFLE_ASSAULT, ATrDevice_AssaultRifle::StaticClass() },
@@ -653,6 +705,68 @@ namespace Data
 		{ R"rx(^(light|lht)$)rx", 1 },
 		{ R"rx(^(medium|med)$)rx", 2 },
 		{ R"rx(^(heavy|hvy)$)rx", 3 }
+	};
+
+	std::map<std::string, int> armor_class_to_id =
+	{
+		// GOTY classes
+		// Light
+		{ R"rx(^(light|lht|pathfinder|pth)$)rx", CONST_CLASS_TYPE_LIGHT_PATHFINDER },
+		{ R"rx(^(sentinel|sen)$)rx", CONST_CLASS_TYPE_LIGHT_SENTINEL },
+		{ R"rx(^(infiltrator|inf)$)rx", CONST_CLASS_TYPE_LIGHT_INFILTRATOR },
+		// Medium
+		{ R"rx(^(medium|med|soldier|sld)$)rx", CONST_CLASS_TYPE_MEDIUM_SOLDIER },
+		{ R"rx(^(raider|rdr)$)rx", CONST_CLASS_TYPE_MEDIUM_RAIDER },
+		{ R"rx(^(technician|tcn)$)rx", CONST_CLASS_TYPE_MEDIUM_TECHNICIAN },
+		// Heavy
+		{ R"rx(^(heavy|hvy|juggernaught|juggernaut|jug)$)rx", CONST_CLASS_TYPE_HEAVY_JUGGERNAUGHT },
+		{ R"rx(^(doombringer|dmb)$)rx", CONST_CLASS_TYPE_HEAVY_DOOMBRINGER },
+		{ R"rx(^(brute|brt)$)rx", CONST_CLASS_TYPE_HEAVY_BRUTE },
+
+		// Older removed classes
+		// Light
+		{ R"rx(^(architect)$)rx", CONST_CLASS_TYPE_LIGHT_ARCHITECT },
+		{ R"rx(^(jumper)$)rx", CONST_CLASS_TYPE_LIGHT_JUMPER },
+		{ R"rx(^(wraith)$)rx", CONST_CLASS_TYPE_LIGHT_WRAITH },
+		// Medium
+		{ R"rx(^(ranger)$)rx", CONST_CLASS_TYPE_MEDIUM_RANGER },
+		{ R"rx(^(scrambler)$)rx", CONST_CLASS_TYPE_MEDIUM_SCRAMBLER },
+		{ R"rx(^(engineer)$)rx", CONST_CLASS_TYPE_MEDIUM_ENGINEER },
+		{ R"rx(^(warder)$)rx", CONST_CLASS_TYPE_MEDIUM_WARDER },
+		// Heavy
+		{ R"rx(^(marauder)$)rx", CONST_CLASS_TYPE_HEAVY_MARAUDER },
+		{ R"rx(^(rook)$)rx", CONST_CLASS_TYPE_HEAVY_ROOK },
+	};
+
+	std::map<int, std::string> armor_class_id_to_name =
+	{
+		// GOTY classes
+		// Light
+		{ CONST_CLASS_TYPE_LIGHT_PATHFINDER, "Light_Pathfinder" },
+		{ CONST_CLASS_TYPE_LIGHT_SENTINEL, "Light_Sentinel" },
+		{ CONST_CLASS_TYPE_LIGHT_INFILTRATOR, "Light_Infiltrator" },
+		// Medium
+		{ CONST_CLASS_TYPE_MEDIUM_SOLDIER, "Medium_Soldier" },
+		{ CONST_CLASS_TYPE_MEDIUM_RAIDER, "Medium_Raider" },
+		{ CONST_CLASS_TYPE_MEDIUM_TECHNICIAN, "Medium_Technician" },
+		// Heavy
+		{ CONST_CLASS_TYPE_HEAVY_JUGGERNAUGHT, "Heavy_Juggernaught" },
+		{ CONST_CLASS_TYPE_HEAVY_DOOMBRINGER, "Heavy_Doombringer" },
+		{ CONST_CLASS_TYPE_HEAVY_BRUTE, "Heavy_Brute" },
+
+		// Older removed classes
+		// Light
+		{ CONST_CLASS_TYPE_LIGHT_ARCHITECT, "Light_Architect" },
+		{ CONST_CLASS_TYPE_LIGHT_JUMPER, "Light_Jumper" },
+		{ CONST_CLASS_TYPE_LIGHT_WRAITH, "Light_Wraith" },
+		// Medium
+		{ CONST_CLASS_TYPE_MEDIUM_RANGER, "Medium_Ranger" },
+		{ CONST_CLASS_TYPE_MEDIUM_SCRAMBLER, "Medium_Scrambler" },
+		{ CONST_CLASS_TYPE_MEDIUM_ENGINEER, "Medium_Engineer" },
+		{ CONST_CLASS_TYPE_MEDIUM_WARDER, "Medium_Warder" },
+		// Heavy
+		{ CONST_CLASS_TYPE_HEAVY_MARAUDER, "Heavy_Marauder" },
+		{ CONST_CLASS_TYPE_HEAVY_ROOK, "Heavy_Rook" },
 	};
 
 	std::map<std::string, int> crosshairs =

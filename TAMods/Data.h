@@ -64,7 +64,12 @@
 namespace Data
 {
 	extern std::map<std::string, int> weapons[3];
+	extern std::map<std::string, int> packs[3];
+	extern std::map<std::string, int> skins[3];
+	extern std::map<std::string, int> perks;
+	extern std::map<std::string, int> voices;
 	extern std::map<int, std::string> item_id_to_name;
+	extern std::map<int, std::string> perk_id_to_name;
 	extern std::map<int, std::string> weapon_id_to_proj_name;
 	extern std::map<int, UClass*> weapon_id_to_weapon_class;
 	extern std::map<std::string, int> vehicle_weapons;
@@ -74,6 +79,8 @@ namespace Data
 	extern std::map<int, std::string> vehicle_id_to_name;
 	extern std::map<int, UClass*> vehicle_id_to_class;
 	extern std::map<std::string, int> classes;
+	extern std::map<std::string, int> armor_class_to_id;
+	extern std::map<int, std::string> armor_class_id_to_name;
 	extern std::map<std::string, int> crosshairs;
 	extern int classes_id[3];
 	extern std::map<int, UClass*> class_id_to_class;
