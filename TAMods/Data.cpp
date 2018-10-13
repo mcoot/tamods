@@ -190,7 +190,9 @@ namespace Data
 			{ R"rx(^(forcefield)$)rx", CONST_WEAPON_ID_FORCEFIELD },
 			{ R"rx(^((heavy)?energy(pack)?)$)rx", CONST_ITEM_PACK_ENERGY_BRUTE },
 			{ R"rx(^((heavy)?shield(pack)?)$)rx", CONST_ITEM_PACK_HEAVYSHIELD },
-			{ R"rx(^((heavy)?utility(pack)?)$)rx", CONST_ITEM_PACK_SURVIVAL }
+			{ R"rx(^((heavy)?utility(pack)?)$)rx", CONST_ITEM_PACK_SURVIVAL },
+			{ R"rx(^((heavy)?energypool(pack)?)$)rx", CONST_ITEM_PACK_ENERGY_JUGGERNAUT },
+			{ R"rx(^((heavy)?regen(pack)?)$)rx", CONST_ITEM_PACK_REGEN },
 		}
 	};
 
@@ -411,6 +413,8 @@ namespace Data
 		{ CONST_ITEM_PACK_ENERGY_BRUTE, "EnergyPack_Brute" },
 		{ CONST_ITEM_PACK_HEAVYSHIELD, "HeavyShieldPack" },
 		{ CONST_ITEM_PACK_SURVIVAL, "SurvivalPack" },
+		{ CONST_ITEM_PACK_ENERGY_JUGGERNAUT, "EnergyPack_Juggernaut" },
+		{ CONST_ITEM_PACK_REGEN, "RegenPack" },
 	};
 
 	std::map<int, std::string> perk_id_to_name = {
