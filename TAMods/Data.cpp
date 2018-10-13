@@ -126,6 +126,8 @@ namespace Data
 			{ R"rx(^(fraggrenades?(xl)?|frags?(xl)?|grenades?(xl)?)$)rx", CONST_WEAPON_ID_GRENADE_XL },
 			{ R"rx(^(proxmitys?(grenades?)?|proxies|proxys?)$)rx", CONST_WEAPON_ID_PROXIMITY_GRENADE },
 			{ R"rx(^(short-?fusefraggrenades?|short-?fuses?)$)rx", CONST_WEAPON_ID_GRENADE_XL_MKD },
+			{ R"rx(^(tcng)$)rx", CONST_WEAPON_ID_TCNG },
+			{ R"rx(^(short-?fuses?tcng)$)rx", CONST_WEAPON_ID_TCNG_MKD },
 		},
 
 		// Heavy
@@ -360,6 +362,8 @@ namespace Data
 		{ CONST_WEAPON_ID_GRENADE_XL, "GrenadeXL" },
 		{ CONST_WEAPON_ID_PROXIMITY_GRENADE, "ProximityGrenade" },
 		{ CONST_WEAPON_ID_GRENADE_XL_MKD, "GrenadeXL_MKD" },
+		{ CONST_WEAPON_ID_TCNG, "TCNG"  },
+		{ CONST_WEAPON_ID_TCNG_MKD, "TCNG_MKD"  },
 		// Pack
 		{ CONST_WEAPON_ID_TURRET_LIGHT, "LightTurretDeployable" },
 		{ CONST_WEAPON_ID_DROPJAMMER, "DropJammerDeployable" },
@@ -503,6 +507,8 @@ namespace Data
 		{ CONST_WEAPON_ID_GRENADE_XL, "GrenadeXL" },
 		{ CONST_WEAPON_ID_PROXIMITY_GRENADE, "ProximityGrenade" },
 		{ CONST_WEAPON_ID_GRENADE_XL_MKD, "GrenadeXL_MKD" },
+		{ CONST_WEAPON_ID_TCNG, "TCNG"  },
+		{ CONST_WEAPON_ID_TCNG_MKD, "TCNG_MKD" },
 
 		// Heavy
 		{ CONST_WEAPON_ID_LAUNCHER_MORTAR, "MortarLauncher" },
@@ -610,6 +616,8 @@ namespace Data
 		{ CONST_WEAPON_ID_GRENADE_XL, ATrDevice_GrenadeXL::StaticClass() },
 		{ CONST_WEAPON_ID_PROXIMITY_GRENADE, ATrDevice_ProximityGrenade::StaticClass() },
 		{ CONST_WEAPON_ID_GRENADE_XL_MKD, ATrDevice_GrenadeXL_MKD::StaticClass() },
+		{ CONST_WEAPON_ID_TCNG, ATrDevice_TCNG::StaticClass() },
+		{ CONST_WEAPON_ID_TCNG_MKD, ATrDevice_TCNG_MKD::StaticClass() },
 
 		// Heavy
 		{ CONST_WEAPON_ID_LAUNCHER_MORTAR, ATrDevice_MortarLauncher::StaticClass() },
