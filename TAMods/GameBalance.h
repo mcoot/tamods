@@ -411,6 +411,7 @@ namespace GameBalance {
 	class GameBalanceTracker {
 	public:
 		Items::ItemsConfig origItemProps;
+		Items::DeviceValuesConfig origDeviceValueProps;
 		Classes::ClassesConfig origClassProps;
 		Vehicles::VehiclesConfig origVehicleProps;
 		VehicleWeapons::VehicleWeaponsConfig origVehicleWeaponProps;

@@ -4,22 +4,6 @@ using namespace GameBalance;
 
 GameBalanceTracker g_gameBalanceTracker;
 
-template <typename IdType>
-static void recordBalanceTrackerProp(std::map<int, std::map<IdType, PropValue> >& props, int elemId, IdType propId, PropValue val) {
-	auto& item_it = props.find(elemId);
-	if (item_it == props.end()) {
-		props[elemId] = std::map<IdType, PropValue>();
-	}
-
-	auto& prop_it = props[elemId].find(propId);
-	if (prop_it != props[elemId].end()) {
-		// Only want to record the *original* value, do not overwrite
-		return;
-	}
-
-	props[elemId][propId] = val;
-}
-
 template <typename BaseClass>
 static std::vector<UObject*> getDefaultObjects(std::map<int, std::string>& relevantClassNames, std::string prefix, std::vector<std::string> variants, int elemId) {
 	auto& name_it = relevantClassNames.find(elemId);
@@ -92,6 +76,58 @@ static std::vector<UObject*> getDefaultObjectsForProps(int elemId) {
 	return std::vector<UObject*>();
 }
 
+static std::vector<DeviceValueMod> getValueMod(int elemId) {
+	std::vector<UObject*> objects;
+	if (Data::armor_class_id_to_armor_mod_name.find(elemId) != Data::armor_class_id_to_armor_mod_name.end()) {
+		objects = getDefaultObjects<ATrArmorMod>(Data::armor_class_id_to_armor_mod_name, "TrArmorMod", std::vector<std::string>(), elemId);
+	}
+	else {
+		objects = getDefaultObjectsForProps<Items::PropId>(elemId);
+	}
+	if (objects.empty()) {
+		Logger::log("Failed to get object with id %d", elemId);
+		return std::vector<DeviceValueMod>();
+	}
+
+	ATrDevice* dev = (ATrDevice*)objects[0];
+
+	std::vector<DeviceValueMod> out;
+	for (int i = 0; i < dev->BaseMod.Modifications.Count; ++i) {
+		DeviceValueMod curMod;
+		curMod.modType = dev->BaseMod.Modifications.GetStd(i).ModType;
+		curMod.value = dev->BaseMod.Modifications.GetStd(i).Value;
+
+		out.push_back(curMod);
+	}
+
+	return out;
+}
+
+template <typename IdType>
+static void recordBalanceTrackerProp(std::map<int, std::map<IdType, PropValue> >& props, int elemId, IdType propId, PropValue val) {
+	auto& item_it = props.find(elemId);
+	if (item_it == props.end()) {
+		props[elemId] = std::map<IdType, PropValue>();
+	}
+
+	auto& prop_it = props[elemId].find(propId);
+	if (prop_it != props[elemId].end()) {
+		// Only want to record the *original* value, do not overwrite
+		return;
+	}
+
+	props[elemId][propId] = val;
+}
+
+static void recordBalanceTrackerValueMod(Items::DeviceValuesConfig& cfg, int elemId) {
+	auto& item_it = cfg.find(elemId);
+	if (item_it != cfg.end()) {
+		// Only want to record the original value
+		return;
+	}
+	cfg[elemId] = getValueMod(elemId);
+}
+
 template <typename IdType>
 static void applyPropConfig(std::map<int, UClass*>& relevantClassDefs, std::map<IdType, Property>& propDefs, std::map<int, std::map<IdType, PropValue> >& trackerProps, 
 							UClass* requiredSuperClass, std::map<int, std::map<IdType, PropValue> >& props) {
@@ -118,10 +154,13 @@ static void applyPropConfig(std::map<int, UClass*>& relevantClassDefs, std::map<
 	}
 }
 
-static void applyValueModConfig(Items::DeviceValuesConfig config) {
+static void applyValueModConfig(Items::DeviceValuesConfig& config, Items::DeviceValuesConfig& trackerConfig) {
 	Logger::log("Applying valuemods...");
 	for (auto& elem : config) {
 		Logger::log("Applying valuemods to item %d", elem.first);
+
+		recordBalanceTrackerValueMod(trackerConfig, elem.first);
+
 		// Get the object/s needed to modify
 		// Item is either a regular item or an armour mod; in the former case it will have a class id rather than an item ID
 		std::vector<UObject*> objects;
@@ -156,7 +195,7 @@ static void applyItemProperties(Items::ItemsConfig& cfg) {
 
 static void applyDeviceValueProperties(Items::DeviceValuesConfig& cfg) {
 	// Game balance tracker!!!
-	applyValueModConfig(cfg);
+	applyValueModConfig(cfg, g_gameBalanceTracker.origDeviceValueProps);
 }
 
 static void applyClassProperties(Classes::ClassesConfig& cfg) {
@@ -202,6 +241,7 @@ namespace GameBalance {
 	// Revert modified game balance changes back to their defaults
 	void GameBalanceTracker::revert() {
 		applyItemProperties(origItemProps);
+		applyDeviceValueProperties(origDeviceValueProps);
 		applyClassProperties(origClassProps);
 		applyVehicleProperties(origVehicleProps);
 		applyVehicleWeaponProperties(origVehicleWeaponProps);
