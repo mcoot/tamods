@@ -81,6 +81,8 @@ namespace Data
 	extern std::map<std::string, int> classes;
 	extern std::map<std::string, int> armor_class_to_id;
 	extern std::map<int, std::string> armor_class_id_to_name;
+	extern std::map<int, std::string> armor_class_id_to_armor_mod_name;
+	extern std::map<std::string, int> value_mod_types;
 	extern std::map<std::string, int> crosshairs;
 	extern int classes_id[3];
 	extern std::map<int, UClass*> class_id_to_class;

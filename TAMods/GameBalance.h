@@ -120,6 +120,12 @@ namespace GameBalance {
 		bool get(UObject* obj, PropValue& ret);
 	};
 
+	// A TrValueModifier setting
+	struct DeviceValueMod {
+		int modType;
+		float value;
+	};
+
 	namespace Items {
 
 		enum class PropId {
@@ -235,7 +241,7 @@ namespace GameBalance {
 
 		typedef std::map<PropId, PropValue> PropMapping;
 		typedef std::map<int, PropMapping> ItemsConfig;
-
+		typedef std::map<int, std::vector<DeviceValueMod> > DeviceValuesConfig;
 	}
 
 	namespace Classes {

@@ -118,8 +118,45 @@ static void applyPropConfig(std::map<int, UClass*>& relevantClassDefs, std::map<
 	}
 }
 
+static void applyValueModConfig(Items::DeviceValuesConfig config) {
+	Logger::log("Applying valuemods...");
+	for (auto& elem : config) {
+		Logger::log("Applying valuemods to item %d", elem.first);
+		// Get the object/s needed to modify
+		// Item is either a regular item or an armour mod; in the former case it will have a class id rather than an item ID
+		std::vector<UObject*> objects;
+		if (Data::armor_class_id_to_armor_mod_name.find(elem.first) != Data::armor_class_id_to_armor_mod_name.end()) {
+			objects = getDefaultObjects<ATrArmorMod>(Data::armor_class_id_to_armor_mod_name, "TrArmorMod", std::vector<std::string>(), elem.first);
+		}
+		else {
+			objects = getDefaultObjectsForProps<Items::PropId>(elem.first);
+		}
+
+		for (auto& obj : objects) {
+			// All objects should be Devices
+			ATrDevice* dev = (ATrDevice*)obj;
+
+			// Reset existing modifications
+			dev->BaseMod.Modifications.Clear();
+			// Apply modifications
+			for (DeviceValueMod& mod : elem.second) {
+				Logger::log("Applying mod { %d, %f} to item %d", mod.modType, mod.value, elem.first);
+				FDeviceModification devMod;
+				devMod.ModType = mod.modType;
+				devMod.Value = mod.value;
+				dev->BaseMod.Modifications.Add(devMod);
+			}
+		}
+	}
+}
+
 static void applyItemProperties(Items::ItemsConfig& cfg) {
 	applyPropConfig(Data::weapon_id_to_weapon_class, Items::properties, g_gameBalanceTracker.origItemProps, ATrDevice::StaticClass(), cfg);
+}
+
+static void applyDeviceValueProperties(Items::DeviceValuesConfig& cfg) {
+	// Game balance tracker!!!
+	applyValueModConfig(cfg);
 }
 
 static void applyClassProperties(Classes::ClassesConfig& cfg) {
@@ -178,8 +215,11 @@ void TAModsServer::Client::handle_GameBalanceDetailsMessage(const json& j) {
 		Logger::log("Failed to parse game balance details from server: %s", j.dump().c_str());
 		return;
 	}
+	Logger::log("Retrieved game balance message from json");
 
 	applyItemProperties(msg.itemProperties);
+	Logger::log("About to apply device value props");
+	applyDeviceValueProperties(msg.deviceValueProperties);
 	applyClassProperties(msg.classProperties);
 	applyVehicleProperties(msg.vehicleProperties);
 	applyVehicleWeaponProperties(msg.vehicleWeaponProperties);

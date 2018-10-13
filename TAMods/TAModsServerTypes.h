@@ -73,6 +73,7 @@ namespace TAModsServer {
 	class GameBalanceDetailsMessage : public Message {
 	public:
 		GameBalance::Items::ItemsConfig itemProperties;
+		GameBalance::Items::DeviceValuesConfig deviceValueProperties;
 		GameBalance::Classes::ClassesConfig classProperties;
 		GameBalance::Vehicles::VehiclesConfig vehicleProperties;
 		GameBalance::VehicleWeapons::VehicleWeaponsConfig vehicleWeaponProperties;
@@ -168,6 +169,51 @@ namespace TAModsServer {
 			}
 			return true;
 		}
+
+		bool readValueModConfig(json& j, GameBalance::Items::DeviceValuesConfig& ret) {
+			for (json::iterator elem_it = j.begin(); elem_it != j.end(); ++elem_it) {
+				int elemId;
+				try {
+					elemId = std::stoi(elem_it.key());
+				}
+				catch (std::invalid_argument&) {
+					return false;
+				}
+
+				std::vector<GameBalance::DeviceValueMod> currentItemMods;
+				json curElem = j[elem_it.key()];
+				for (json::iterator mod_it = curElem.begin(); mod_it != curElem.end(); ++mod_it) {
+					json curValueModJson = *mod_it;
+					// Each element in the array should just have one item defining a mod
+					json::iterator curModIt = mod_it->begin();
+					if (curModIt == mod_it->end()) {
+						return false;
+					}
+					int valueModType;
+					try {
+						valueModType = std::stoi(curModIt.key());
+					}
+					catch (std::invalid_argument&) {
+						return false;
+					}
+					json curModValue = curModIt.value();
+					if (!curModValue.is_number()) {
+						// Value mod values should be numbers
+						return false;
+					}
+					float val = curModIt.value().get<float>();
+
+					GameBalance::DeviceValueMod mod;
+					mod.modType = valueModType;
+					mod.value = val;
+
+					currentItemMods.push_back(mod);
+				}
+				ret[elemId] = currentItemMods;
+			}
+
+			return true;
+		}
 	public:
 		short getMessageKind() override {
 			return DCSRV_MSG_KIND_GAME_BALANCE_DETAILS;
@@ -175,6 +221,7 @@ namespace TAModsServer {
 
 		void toJson(json& j) {
 			json jItemProps = json::object();
+			json jDeviceValueProps = json::object();
 			json jClassProps = json::object();
 			json jVehicleProps = json::object();
 			json jVehicleWeaponProps = json::object();
@@ -187,6 +234,17 @@ namespace TAModsServer {
 				jItemProps[std::to_string(item.first)] = curItem;
 			}
 			j["item_properties"] = jItemProps;
+
+			for (auto& item : deviceValueProperties) {
+				json curItem = json::array();
+				for (auto& valueMod : item.second) {
+					json curValueMod;
+					curValueMod[std::to_string(valueMod.modType)] = valueMod.value;
+					curItem.push_back(curValueMod);
+				}
+				jDeviceValueProps[std::to_string(item.first)] = curItem;
+			}
+			j["device_value_properties"] = jDeviceValueProps;
 
 			for (auto& item : classProperties) {
 				json curItem;
@@ -218,6 +276,7 @@ namespace TAModsServer {
 
 		bool fromJson(const json& j) {
 			itemProperties.clear();
+			deviceValueProperties.clear();
 			classProperties.clear();
 			vehicleProperties.clear();
 			vehicleWeaponProperties.clear();
@@ -227,6 +286,12 @@ namespace TAModsServer {
 				return false;
 			}
 			json itemProps = j["item_properties"];
+
+			auto& deviceValuePropsIt = j.find("device_value_properties");
+			if (deviceValuePropsIt == j.end()) {
+				return false;
+			}
+			json deviceValueProps = j["device_value_properties"];
 
 			auto& classPropsIt = j.find("class_properties");
 			if (classPropsIt == j.end()) {
@@ -247,6 +312,9 @@ namespace TAModsServer {
 			json vehicleWeaponProps = j["vehicle_weapon_properties"];
 
 			if (!readPropConfig(itemProps, GameBalance::Items::properties, itemProperties)) {
+				return false;
+			}
+			if (!readValueModConfig(deviceValueProps, deviceValueProperties)) {
 				return false;
 			}
 			if (!readPropConfig(classProps, GameBalance::Classes::properties, classProperties)) {
