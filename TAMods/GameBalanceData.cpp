@@ -344,6 +344,28 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property SPINUP_TIME(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_ChainGun>([](PropValue p, ATrDevice_ChainGun* dev) {
+			dev->m_fBuildupTime = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_ChainGun>([](ATrDevice_ChainGun* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fBuildupTime);
+			return true;
+		})
+			);
+		static const Property SHOTGUN_SHOT_COUNT(
+			ValueType::INTEGER,
+			applierAdapter<ATrDevice_Shotgun>([](PropValue p, ATrDevice_Shotgun* dev) {
+			dev->m_nMinShotCount = p.valInt;
+			return true;
+		}),
+			getterAdapter<ATrDevice_Shotgun>([](ATrDevice_Shotgun* dev, PropValue& ret) {
+			ret = PropValue::fromInt(dev->m_nMinShotCount);
+			return true;
+		})
+			);
 
 		// Damage
 		static const Property DAMAGE(
@@ -673,6 +695,50 @@ namespace GameBalance {
 		}),
 			getterAdapter<ATrDevice_PhaseRifle>([](ATrDevice_PhaseRifle* dev, PropValue& ret) {
 			ret = PropValue::fromFloat(dev->m_MaxEnergyConsumed);
+			return true;
+		})
+			);
+		static const Property BXT_CHARGE_MAX_DAMAGE(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_SniperRifle>([](PropValue p, ATrDevice_SniperRifle* dev) {
+			dev->m_fMaxAimedDamage = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_SniperRifle>([](ATrDevice_SniperRifle* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fMaxAimedDamage);
+			return true;
+		})
+			);
+		static const Property BXT_CHARGE_TIME(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_SniperRifle>([](PropValue p, ATrDevice_SniperRifle* dev) {
+			dev->r_fAimChargeTime = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_SniperRifle>([](ATrDevice_SniperRifle* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->r_fAimChargeTime);
+			return true;
+		})
+			);
+		static const Property BXT_CHARGE_MULT_COEFFICIENT(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_SniperRifle>([](PropValue p, ATrDevice_SniperRifle* dev) {
+			dev->m_fMultCoeff = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_SniperRifle>([](ATrDevice_SniperRifle* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fMultCoeff);
+			return true;
+		})
+			);
+		static const Property BXT_CHARGE_DIV_COEFFICIENT(
+			ValueType::FLOAT,
+			applierAdapter<ATrDevice_SniperRifle>([](PropValue p, ATrDevice_SniperRifle* dev) {
+			dev->m_fDivCoeff = p.valFloat;
+			return true;
+		}),
+			getterAdapter<ATrDevice_SniperRifle>([](ATrDevice_SniperRifle* dev, PropValue& ret) {
+			ret = PropValue::fromFloat(dev->m_fDivCoeff);
 			return true;
 		})
 			);
@@ -1224,6 +1290,8 @@ namespace GameBalance {
 			{PropId::RELOAD_APPLICATION_PROPORTION, RELOAD_APPLICATION_PROPORTION},
 			{PropId::BURST_SHOT_COUNT, BURST_SHOT_COUNT},
 			{PropId::BURST_SHOT_REFIRE_TIME, BURST_SHOT_REFIRE_TIME},
+			{PropId::SPINUP_TIME, SPINUP_TIME},
+			{PropId::SHOTGUN_SHOT_COUNT, SHOTGUN_SHOT_COUNT},
 
 			// Damage / Impact
 			{PropId::DAMAGE, DAMAGE},
@@ -1250,6 +1318,12 @@ namespace GameBalance {
 			{PropId::DOES_IMPULSE_FLAG, DOES_IMPULSE_FLAG},
 			{PropId::MELEE_DAMAGE_RADIUS, MELEE_DAMAGE_RADIUS},
 			{PropId::MELEE_CONE_ANGLE, MELEE_CONE_ANGLE},
+			{PropId::PHASE_DAMAGE_PER_ENERGY, PHASE_DAMAGE_PER_ENERGY},
+			{PropId::PHASE_MAX_CONSUMED_ENERGY, PHASE_MAX_CONSUMED_ENERGY},
+			{PropId::BXT_CHARGE_MAX_DAMAGE, BXT_CHARGE_MAX_DAMAGE},
+			{PropId::BXT_CHARGE_TIME, BXT_CHARGE_TIME},
+			{PropId::BXT_CHARGE_MULT_COEFFICIENT, BXT_CHARGE_MULT_COEFFICIENT},
+			{PropId::BXT_CHARGE_DIV_COEFFICIENT, BXT_CHARGE_DIV_COEFFICIENT},
 
 			// Projectile / Tracer
 			{PropId::PROJECTILE_SPEED, PROJECTILE_SPEED},
