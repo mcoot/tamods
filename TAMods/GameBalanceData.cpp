@@ -219,6 +219,7 @@ namespace GameBalance {
 			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valInt < 0) return false;
 			dev->m_nMaxCarriedAmmo = p.valInt;
+			dev->m_nCarriedAmmo = p.valInt;
 			return true;
 		}),
 			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
