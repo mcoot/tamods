@@ -106,6 +106,16 @@ void performGOTYRename() {
 	static FString devastatorSpinName(L"Devastator Spinfusor");
 	static FString devastatorSpinInfo(L"A favorite among heavies, the Devastator variant deals a little less damage overall, but packs a significantly harder punch on a direct hit, and has a larger explosion radius.");
 	performItemRename("TrDevice", "HeavySpinfusor_MKD", devastatorSpinName, devastatorSpinInfo);
+
+	// Light Utility Pack -> Lightweight Pack
+	static FString lightUtilName(L"Lightweight Pack");
+	static FString lightUtilInfo(L"Reduces your mass by 30% and gives 25 extra energy");
+	performItemRename("TrDevice", "ERechargePack_Sentinel", lightUtilName, lightUtilInfo);
+
+	// Light Energy Pack -> Energy Recharge Pack
+	static FString lightEnergyName(L"Light Energy Pack");
+	static FString lightEnergyInfo(L"Improves energy regeneration by 18%");
+	performItemRename("TrDevice", "ERechargePack_Pathfinder", lightEnergyName, lightEnergyInfo);
 }
 
 bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
