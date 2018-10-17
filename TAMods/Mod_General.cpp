@@ -42,6 +42,71 @@ bool TrPC_LoadPlayerProfile(int id, UObject *dwCallingObject, UFunction* pFuncti
 	return false;
 }
 
+static void performClassRename(std::string fiName, FString& friendlyName, FString& abbreviation) {
+	std::string baseName = "TrFamilyInfo_" + fiName + " TribesGame.Default__TrFamilyInfo_" + fiName;
+	std::string beName = "TrFamilyInfo_" + fiName + "_BE" + " TribesGame.Default__TrFamilyInfo_" + fiName + "_BE";
+	std::string dsName = "TrFamilyInfo_" + fiName + "_DS" + " TribesGame.Default__TrFamilyInfo_" + fiName + "_DS";
+
+	std::vector<UTrFamilyInfo*> fis;
+	fis.push_back(UObject::FindObject<UTrFamilyInfo>(baseName.c_str()));
+	fis.push_back(UObject::FindObject<UTrFamilyInfo>(beName.c_str()));
+	fis.push_back(UObject::FindObject<UTrFamilyInfo>(dsName.c_str()));
+
+	for (auto& fi : fis) {
+		fi->FriendlyName = friendlyName;
+		fi->Abbreviation = abbreviation;
+	}
+}
+
+static void performItemRename(std::string itemPrefix, std::string itemClassName, FString& itemName, FString& infoDescription) {
+	std::string baseName = itemPrefix + "_" + itemClassName + " TribesGame.Default__" + itemPrefix + "_" + itemClassName;
+	ATrDevice* item = UObject::FindObject<ATrDevice>(baseName.c_str());
+
+	item->ItemName = itemName;
+	item->InfoPanelDescription = infoDescription;
+}
+
+static void performSkinRename(std::string itemClassName, FString& itemName, FString& infoDescription) {
+	std::string baseName = "TrSkin_" + itemClassName + " TribesGame.Default__TrSkin_" + itemClassName;
+	UTrSkin* item = UObject::FindObject<UTrSkin>(baseName.c_str());
+
+	item->ItemName = itemName;
+	item->InfoPanelDescription = infoDescription;
+}
+
+// Rename items/classes that changed in OOTB back to their GOTY values
+void performGOTYRename() {
+	// Light -> Pathfinder
+	static FString pthName(L"Pathfinder");
+	static FString pthAbbrev(L"PTH");
+	performClassRename("Light_Pathfinder", pthName, pthAbbrev);
+
+	// Medium -> Soldier
+	static FString sldName(L"Soldier");
+	static FString sldAbbrev(L"SLD");
+	performClassRename("Medium_Soldier", sldName, sldAbbrev);
+
+	// Heavy -> Juggernaut
+	static FString jugName(L"Juggernaut");
+	static FString jugAbbrev(L"JUG");
+	performClassRename("Heavy_Juggernaught", jugName, jugAbbrev);
+	
+	// Default skins
+	performSkinRename("Pathfinder", pthName, FString());
+	performSkinRename("Soldier", sldName, FString());
+	performSkinRename("Juggernaut", jugName, FString());
+
+
+	// Spare Spin
+	static FString spareSpinName(L"Spare Spinfusor");
+	static FString spareSpinInfo(L"Some Soldiers like to bring an extra Spinfusor as a secondary. This variant has a reduced direct-hit damage bonus compared to Thumpers or other Spinfusors, but retains all other benefits of the Disk.");
+	performItemRename("TrDevice", "Spinfusor_100X", spareSpinName, spareSpinInfo);
+
+	// Devastator Spin
+	static FString devastatorSpinName(L"Devastator Spinfusor");
+	static FString devastatorSpinInfo(L"A favorite among heavies, the Devastator variant deals a little less damage overall, but packs a significantly harder punch on a direct hit, and has a larger explosion radius.");
+	performItemRename("TrDevice", "HeavySpinfusor_MKD", devastatorSpinName, devastatorSpinInfo);
+}
 
 bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {

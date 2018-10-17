@@ -6,8 +6,6 @@ void addServerModeHooks()
 
 }
 
-FString testy(L"TrFamilyInfo_Light_Sentinel");
-
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
@@ -121,6 +119,11 @@ void onDLLProcessAttach()
 		// Hooks for T:A client
 		addClientModeHooks();
 #endif
+	}
+
+	// If enabled, rename OOTB classes/items to GOTY versions
+	if (g_config.useGOTYNaming) {
+		performGOTYRename();
 	}
 
 	// Pass true to log hookable functions

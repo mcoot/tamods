@@ -198,6 +198,8 @@ void Config::reset()
 	// Whether to use the ping replicated from the server, or locally calculated
 	useServerSidePing = false;
 
+	useGOTYNaming = false;
+
 	// Console
 	consoleSize          = 0.75f;
 	consoleTransparency  = 0.80f;
@@ -675,6 +677,8 @@ void Config::setVariables()
 
 	// Whether to use the ping replicated from the server, or locally calculated
 	SET_VARIABLE(bool, useServerSidePing);
+
+	SET_VARIABLE(bool, useGOTYNaming);
 
 	// Console
 	SET_VARIABLE(float, consoleSize);
