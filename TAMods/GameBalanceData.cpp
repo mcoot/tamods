@@ -1004,22 +1004,22 @@ namespace GameBalance {
 			);
 		static const Property STUCK_DAMAGE_MULTIPLIER(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter<ATrDevice_Grenade, ATrProj_Grenade>([](PropValue p, ATrDevice_Grenade* dev, ATrProj_Grenade* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Grenade>([](PropValue p, ATrDevice* dev, ATrProj_Grenade* proj) {
 			proj->m_fStuckDamageMultiplier = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter<ATrDevice_Grenade, ATrProj_Grenade>([](ATrDevice_Grenade* dev, ATrProj_Grenade* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Grenade>([](ATrDevice* dev, ATrProj_Grenade* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->m_fStuckDamageMultiplier);
 			return true;
 		})
 			);
 		static const Property STUCK_MOMENTUM_MULTIPLIER(
 			ValueType::FLOAT,
-			projDeviceApplierAdapter<ATrDevice_Grenade, ATrProj_Grenade>([](PropValue p, ATrDevice_Grenade* dev, ATrProj_Grenade* proj) {
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Grenade>([](PropValue p, ATrDevice* dev, ATrProj_Grenade* proj) {
 			proj->m_fStuckMomentumMultiplier = p.valFloat;
 			return true;
 		}),
-			projDeviceGetterAdapter<ATrDevice_Grenade, ATrProj_Grenade>([](ATrDevice_Grenade* dev, ATrProj_Grenade* proj, PropValue& ret) {
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Grenade>([](ATrDevice* dev, ATrProj_Grenade* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->m_fStuckMomentumMultiplier);
 			return true;
 		})
