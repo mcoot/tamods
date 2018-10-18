@@ -1002,6 +1002,28 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property STUCK_DAMAGE_MULTIPLIER(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice_Grenade, ATrProj_Grenade>([](PropValue p, ATrDevice_Grenade* dev, ATrProj_Grenade* proj) {
+			proj->m_fStuckDamageMultiplier = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice_Grenade, ATrProj_Grenade>([](ATrDevice_Grenade* dev, ATrProj_Grenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fStuckDamageMultiplier);
+			return true;
+		})
+			);
+		static const Property STUCK_MOMENTUM_MULTIPLIER(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice_Grenade, ATrProj_Grenade>([](PropValue p, ATrDevice_Grenade* dev, ATrProj_Grenade* proj) {
+			proj->m_fStuckMomentumMultiplier = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice_Grenade, ATrProj_Grenade>([](ATrDevice_Grenade* dev, ATrProj_Grenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fStuckMomentumMultiplier);
+			return true;
+		})
+			);
 
 		// Pack
 		static const Property PACK_SUSTAINED_ENERGY_COST(
@@ -1352,6 +1374,8 @@ namespace GameBalance {
 			// Grenade
 			{PropId::THROW_DELAY, THROW_DELAY},
 			{PropId::THROW_PULL_PIN_TIME, THROW_PULL_PIN_TIME},
+			{PropId::STUCK_DAMAGE_MULTIPLIER, STUCK_DAMAGE_MULTIPLIER},
+			{PropId::STUCK_MOMENTUM_MULTIPLIER, STUCK_MOMENTUM_MULTIPLIER},
 
 			// Pack
 			{PropId::PACK_SUSTAINED_ENERGY_COST, PACK_SUSTAINED_ENERGY_COST},

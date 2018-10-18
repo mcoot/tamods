@@ -155,9 +155,7 @@ static void applyPropConfig(std::map<int, UClass*>& relevantClassDefs, std::map<
 }
 
 static void applyValueModConfig(Items::DeviceValuesConfig& config, Items::DeviceValuesConfig& trackerConfig) {
-	Logger::log("Applying valuemods...");
 	for (auto& elem : config) {
-		Logger::log("Applying valuemods to item %d", elem.first);
 
 		recordBalanceTrackerValueMod(trackerConfig, elem.first);
 
@@ -179,7 +177,6 @@ static void applyValueModConfig(Items::DeviceValuesConfig& config, Items::Device
 			dev->BaseMod.Modifications.Clear();
 			// Apply modifications
 			for (DeviceValueMod& mod : elem.second) {
-				Logger::log("Applying mod { %d, %f} to item %d", mod.modType, mod.value, elem.first);
 				FDeviceModification devMod;
 				devMod.ModType = mod.modType;
 				devMod.Value = mod.value;
