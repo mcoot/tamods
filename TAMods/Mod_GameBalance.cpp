@@ -174,7 +174,13 @@ static void applyValueModConfig(Items::DeviceValuesConfig& config, Items::Device
 			ATrDevice* dev = (ATrDevice*)obj;
 
 			// Reset existing modifications
-			dev->BaseMod.Modifications.Clear();
+			// Here I'm deliberately leaking memory by losing the reference to the existing BaseMod.Modifications data
+			// (since TArray doesn't have a destructor that frees it)
+			// Actually freeing the original data intermittently causes crashes (maybe due to UnrealScript GC interaction?)
+			// The amount of memory leaked should hopefully not be too large;
+			// On server, it will leak: 8 bytes * no. of mods on device * no. times setValueMods is called
+			// On client, it will leak that many for every server join
+			dev->BaseMod.Modifications = TArray<FDeviceModification>();
 			// Apply modifications
 			for (DeviceValueMod& mod : elem.second) {
 				FDeviceModification devMod;

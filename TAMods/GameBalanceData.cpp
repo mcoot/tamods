@@ -9,7 +9,7 @@ namespace GameBalance {
 		UClass* projClass = dev->WeaponProjectiles.GetStd(0);
 		if (!projClass) return NULL;
 
-		if (!projClass->Default || !projClass->Default->IsA(ProjType::StaticClass())) {
+		if (!projClass->Default) {
 			return NULL;
 		}
 
@@ -742,6 +742,94 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property FRACTAL_DURATION(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_SpikeGrenade>([](PropValue p, ATrDevice* dev, ATrProj_SpikeGrenade* proj) {
+			proj->m_fFractalTime = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_SpikeGrenade>([](ATrDevice* dev, ATrProj_SpikeGrenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fFractalTime);
+			return true;
+		})
+			);
+		static const Property FRACTAL_SHARD_INTERVAL(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_SpikeGrenade>([](PropValue p, ATrDevice* dev, ATrProj_SpikeGrenade* proj) {
+			proj->m_fFractalInterval = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_SpikeGrenade>([](ATrDevice* dev, ATrProj_SpikeGrenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fFractalInterval);
+			return true;
+		})
+			);
+		static const Property FRACTAL_ASCENT_TIME(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_SpikeGrenade>([](PropValue p, ATrDevice* dev, ATrProj_SpikeGrenade* proj) {
+			proj->m_fAscentTime = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_SpikeGrenade>([](ATrDevice* dev, ATrProj_SpikeGrenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fAscentTime);
+			return true;
+		})
+			);
+		static const Property FRACTAL_ASCENT_HEIGHT(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_SpikeGrenade>([](PropValue p, ATrDevice* dev, ATrProj_SpikeGrenade* proj) {
+			proj->m_fAscentHeight = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_SpikeGrenade>([](ATrDevice* dev, ATrProj_SpikeGrenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fAscentHeight);
+			return true;
+		})
+			);
+		static const Property FRACTAL_SHARD_DISTANCE(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_SpikeGrenade>([](PropValue p, ATrDevice* dev, ATrProj_SpikeGrenade* proj) {
+			proj->m_fFractalShotDistance = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_SpikeGrenade>([](ATrDevice* dev, ATrProj_SpikeGrenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fFractalShotDistance);
+			return true;
+		})
+			);
+		static const Property FRACTAL_SHARD_HEIGHT(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_SpikeGrenade>([](PropValue p, ATrDevice* dev, ATrProj_SpikeGrenade* proj) {
+			proj->m_fZFractalShotDistance = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_SpikeGrenade>([](ATrDevice* dev, ATrProj_SpikeGrenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fZFractalShotDistance);
+			return true;
+		})
+			);
+		static const Property FRACTAL_SHARD_DAMAGE(
+			ValueType::INTEGER,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_SpikeGrenade>([](PropValue p, ATrDevice* dev, ATrProj_SpikeGrenade* proj) {
+			proj->m_nFractalDamage = p.valInt;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_SpikeGrenade>([](ATrDevice* dev, ATrProj_SpikeGrenade* proj, PropValue& ret) {
+			ret = PropValue::fromInt(proj->m_nFractalDamage);
+			return true;
+		})
+			);
+		static const Property FRACTAL_SHARD_DAMAGE_RADIUS(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_SpikeGrenade>([](PropValue p, ATrDevice* dev, ATrProj_SpikeGrenade* proj) {
+			proj->m_fFractalDamageRadius = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_SpikeGrenade>([](ATrDevice* dev, ATrProj_SpikeGrenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fFractalDamageRadius);
+			return true;
+		})
+			);
 
 		// Projectile / Tracer
 		static const Property PROJECTILE_SPEED(
@@ -1021,6 +1109,50 @@ namespace GameBalance {
 		}),
 			projDeviceGetterAdapter<ATrDevice, ATrProj_Grenade>([](ATrDevice* dev, ATrProj_Grenade* proj, PropValue& ret) {
 			ret = PropValue::fromFloat(proj->m_fStuckMomentumMultiplier);
+			return true;
+		})
+			);
+		static const Property FUSE_TIMER(
+			ValueType::FLOAT,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Grenade>([](PropValue p, ATrDevice* dev, ATrProj_Grenade* proj) {
+			proj->m_fExplosionTime = p.valFloat;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Grenade>([](ATrDevice* dev, ATrProj_Grenade* proj, PropValue& ret) {
+			ret = PropValue::fromFloat(proj->m_fExplosionTime);
+			return true;
+		})
+			);
+		static const Property EXPLODE_ON_CONTACT(
+			ValueType::BOOLEAN,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Grenade>([](PropValue p, ATrDevice* dev, ATrProj_Grenade* proj) {
+			proj->m_bExplodeOnTouchEvent = p.valBool;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Grenade>([](ATrDevice* dev, ATrProj_Grenade* proj, PropValue& ret) {
+			ret = PropValue::fromBool(proj->m_bExplodeOnTouchEvent);
+			return true;
+		})
+			);
+		static const Property EXPLODE_ON_FUSE(
+			ValueType::BOOLEAN,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Grenade>([](PropValue p, ATrDevice* dev, ATrProj_Grenade* proj) {
+			proj->m_bTimedExplosion = p.valBool;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Grenade>([](ATrDevice* dev, ATrProj_Grenade* proj, PropValue& ret) {
+			ret = PropValue::fromBool(proj->m_bTimedExplosion);
+			return true;
+		})
+			);
+		static const Property MUST_BOUNCE_BEFORE_EXPLODE(
+			ValueType::BOOLEAN,
+			projDeviceApplierAdapter<ATrDevice, ATrProj_Grenade>([](PropValue p, ATrDevice* dev, ATrProj_Grenade* proj) {
+			proj->m_bBounceRequiredForExplode = p.valBool;
+			return true;
+		}),
+			projDeviceGetterAdapter<ATrDevice, ATrProj_Grenade>([](ATrDevice* dev, ATrProj_Grenade* proj, PropValue& ret) {
+			ret = PropValue::fromBool(proj->m_bBounceRequiredForExplode);
 			return true;
 		})
 			);
@@ -1346,6 +1478,14 @@ namespace GameBalance {
 			{PropId::BXT_CHARGE_TIME, BXT_CHARGE_TIME},
 			{PropId::BXT_CHARGE_MULT_COEFFICIENT, BXT_CHARGE_MULT_COEFFICIENT},
 			{PropId::BXT_CHARGE_DIV_COEFFICIENT, BXT_CHARGE_DIV_COEFFICIENT},
+			{PropId::FRACTAL_DURATION, FRACTAL_DURATION},
+			{PropId::FRACTAL_SHARD_INTERVAL, FRACTAL_SHARD_INTERVAL},
+			{PropId::FRACTAL_ASCENT_TIME, FRACTAL_ASCENT_TIME},
+			{PropId::FRACTAL_ASCENT_HEIGHT, FRACTAL_ASCENT_HEIGHT},
+			{PropId::FRACTAL_SHARD_DISTANCE, FRACTAL_SHARD_DISTANCE},
+			{PropId::FRACTAL_SHARD_HEIGHT, FRACTAL_SHARD_HEIGHT},
+			{PropId::FRACTAL_SHARD_DAMAGE, FRACTAL_SHARD_DAMAGE},
+			{PropId::FRACTAL_SHARD_DAMAGE_RADIUS, FRACTAL_SHARD_DAMAGE_RADIUS},
 
 			// Projectile / Tracer
 			{PropId::PROJECTILE_SPEED, PROJECTILE_SPEED},
@@ -1376,6 +1516,10 @@ namespace GameBalance {
 			{PropId::THROW_PULL_PIN_TIME, THROW_PULL_PIN_TIME},
 			{PropId::STUCK_DAMAGE_MULTIPLIER, STUCK_DAMAGE_MULTIPLIER},
 			{PropId::STUCK_MOMENTUM_MULTIPLIER, STUCK_MOMENTUM_MULTIPLIER},
+			{PropId::FUSE_TIMER, FUSE_TIMER},
+			{PropId::EXPLODE_ON_CONTACT, EXPLODE_ON_CONTACT},
+			{PropId::EXPLODE_ON_FUSE, EXPLODE_ON_FUSE},
+			{PropId::MUST_BOUNCE_BEFORE_EXPLODE, MUST_BOUNCE_BEFORE_EXPLODE},
 
 			// Pack
 			{PropId::PACK_SUSTAINED_ENERGY_COST, PACK_SUSTAINED_ENERGY_COST},
