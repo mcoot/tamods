@@ -515,6 +515,10 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 		else if (timer) timer->SetFloat(L"textColor", (float)0xDDFFDD);
 	}
 
+	if (g_config.useServerSidePing && that->TrPlayerOwner && that->TrPlayerOwner->PlayerReplicationInfo) {
+		that->TrPlayerOwner->PlayerReplicationInfo->ExactPing = g_CustomServerManager.updatedGameState.playerPing;
+	}
+
 	return false;
 }
 

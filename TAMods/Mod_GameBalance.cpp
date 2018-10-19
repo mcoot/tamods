@@ -267,3 +267,16 @@ void TAModsServer::Client::handle_GameBalanceDetailsMessage(const json& j) {
 	applyVehicleProperties(msg.vehicleProperties);
 	applyVehicleWeaponProperties(msg.vehicleWeaponProperties);
 }
+
+void TAModsServer::Client::handle_StateUpdateMessage(const json& j) {
+	StateUpdateMessage msg;
+
+	if (!msg.fromJson(j)) {
+		Logger::log("Failed to parse game state update details from server: %s", j.dump().c_str());
+		return;
+	}
+
+	if (!Utils::tr_pc || !Utils::tr_pc->PlayerReplicationInfo) return;
+
+	g_CustomServerManager.updatedGameState.playerPing = msg.playerPing;
+}

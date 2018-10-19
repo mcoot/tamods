@@ -39,6 +39,7 @@ namespace TAModsServer {
 		bool isConnected();
 
 		void handle_GameBalanceDetailsMessage(const json& j);
+		void handle_StateUpdateMessage(const json& j);
 
 		void sendPlayerConnectionMessage(FUniqueNetId id);
 	};

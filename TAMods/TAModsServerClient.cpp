@@ -45,6 +45,9 @@ namespace TAModsServer {
 		tcpClient->add_handler(DCSRV_MSG_KIND_GAME_BALANCE_DETAILS, [this](const json& j) {
 			handle_GameBalanceDetailsMessage(j);
 		});
+		tcpClient->add_handler(DCSRV_MSG_KIND_STATE_UPDATE, [this](const json& j) {
+			handle_StateUpdateMessage(j);
+		});
 	}
 
 	void Client::sendPlayerConnectionMessage(FUniqueNetId id) {

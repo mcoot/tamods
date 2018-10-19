@@ -7,9 +7,14 @@
 #include "TAModsServerTypes.h"
 #include "TAModsServerClient.h"
 
+struct CustomUpdatedGameState {
+	float playerPing;
+};
+
 class CustomServerManager {
 public:
 	std::shared_ptr<TAModsServer::Client> client;
+	CustomUpdatedGameState updatedGameState;
 public:
 	void handler_OnConnect();
 	void handler_OnConnectTimeOut();
