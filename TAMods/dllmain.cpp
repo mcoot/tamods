@@ -9,6 +9,13 @@ void addServerModeHooks()
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
+	// Manually set Sparrow, Eagle and Colt to be hold to fire
+	// Since they are marked as non-hold to fire but the implementation in the base game is broken
+	// Since TAMods fixes that, if we don't mark them as hold to fire they won't be in game
+	((ATrDevice_Sparrow*)(ATrDevice_Sparrow::StaticClass()->Default))->m_bAllowHoldDownFire = true;
+	((ATrDevice_Eagle*)(ATrDevice_Eagle::StaticClass()->Default))->m_bAllowHoldDownFire = true;
+	((ATrDevice_NovaSlug*)(ATrDevice_NovaSlug::StaticClass()->Default))->m_bAllowHoldDownFire = true;
+
 	Hooks::addUScript(&TrDevice_FireAmmunition, "Function TribesGame.TrDevice.FireAmmunition");
 
 	// General
