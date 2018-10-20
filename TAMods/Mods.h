@@ -49,6 +49,8 @@ void performGOTYRename();
 
 // Weapon position
 bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+// Fix weapons that should not be hold to fire
+void TrDevice_FireAmmunition(ATrDevice* that, ATrDevice_execFireAmmunition_Parms* params, void* result, Hooks::CallInfo callInfo);
 
 // Weapon model / texture swapping
 void CustomWeaponsTick(ATrDevice* currentDevice);

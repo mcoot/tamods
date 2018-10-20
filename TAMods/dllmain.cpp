@@ -9,6 +9,7 @@ void addServerModeHooks()
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
+	Hooks::addUScript(&TrDevice_FireAmmunition, "Function TribesGame.TrDevice.FireAmmunition");
 
 	// General
 	Hooks::add(&TrPC_InitInputSystem, "Function TribesGame.TrPlayerController.InitInputSystem"); // Used to set Utils::tr_pc
