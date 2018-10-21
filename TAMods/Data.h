@@ -3,6 +3,8 @@
 #include <string>
 #include <regex>
 #include <map>
+#include "Logger.h"
+#include "Utils.h"
 #include "SdkHeaders.h"
 
 #define CONST_MAP_ID_CTF_KATABATIC              1447
@@ -63,6 +65,8 @@
 
 namespace Data
 {
+	int getItemId(const std::string& className, const std::string &itemName);
+
 	extern std::map<std::string, int> weapons[3];
 	extern std::map<std::string, int> packs[3];
 	extern std::map<std::string, int> skins[3];

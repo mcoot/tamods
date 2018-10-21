@@ -16,8 +16,6 @@ void addClientModeHooks()
 	((ATrDevice_Eagle*)(ATrDevice_Eagle::StaticClass()->Default))->m_bAllowHoldDownFire = true;
 	((ATrDevice_NovaSlug*)(ATrDevice_NovaSlug::StaticClass()->Default))->m_bAllowHoldDownFire = true;
 
-	Hooks::addUScript(&TrDevice_FireAmmunition, "Function TribesGame.TrDevice.FireAmmunition");
-
 	// General
 	Hooks::add(&TrPC_InitInputSystem, "Function TribesGame.TrPlayerController.InitInputSystem"); // Used to set Utils::tr_pc
 	//Hooks::add(&TrPC_PostBeginPlay, "Function TribesGame.TrPlayerController.PostBeginPlay", Hooks::POST);
@@ -38,6 +36,8 @@ void addClientModeHooks()
 	Hooks::add(&TrPC_Dead_BeginState, "Function TrPlayerController.Dead.BeginState", Hooks::POST); // Stop stopwatch and route replay/recording
 	Hooks::add(&TrPC_PlayerWalking_ToggleJetpack, "Function TrPlayerController.PlayerWalking.ToggleJetpack"); // To abort replays when pressing jet
 
+	Hooks::addUScript(&TrDevice_FireAmmunition, "Function TribesGame.TrDevice.FireAmmunition");
+	Hooks::addUScript(&TrDevice_Shotgun_AddSpreadWithAccuracy, "Function TribesGame.TrDevice_Shotgun.AddSpreadWithAccuracy");
 																											  // HUD modification
 	Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers
 	Hooks::addUScript(&TrHUD_DrawMarkerText, "Function TribesGame.TrHUD.DrawMarkerText"); // Custom text size

@@ -1078,6 +1078,17 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property SHOTGUN_USE_GOTY_SPREAD(
+			ValueType::BOOLEAN,
+			applierAdapter<ATrDevice_Shotgun>([](PropValue p, ATrDevice_Shotgun* dev) {
+			// Doesn't actually modify a real property; this is implemented in clientside TAMods
+			return true;
+		}),
+			getterAdapter<ATrDevice_Shotgun>([](ATrDevice_Shotgun* dev, PropValue& ret) {
+			// Doesn't proxy to a real underlying value, so don't modify the returned propvalue
+			return true;
+		})
+			);
 
 		// Grenade
 		static const Property THROW_DELAY(
@@ -1523,6 +1534,7 @@ namespace GameBalance {
 			{PropId::ACCURACY_LOSS_MAX, ACCURACY_LOSS_MAX},
 			{PropId::ACCURACY_CORRECTION_RATE, ACCURACY_CORRECTION_RATE},
 			{PropId::SHOTGUN_INNER_ACCURACY, SHOTGUN_INNER_ACCURACY},
+			{PropId::SHOTGUN_USE_GOTY_SPREAD, SHOTGUN_USE_GOTY_SPREAD},
 
 			// Grenade
 			{PropId::THROW_DELAY, THROW_DELAY},

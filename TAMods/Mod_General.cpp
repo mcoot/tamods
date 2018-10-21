@@ -559,3 +559,19 @@ void TrDevice_FireAmmunition(ATrDevice* that, ATrDevice_execFireAmmunition_Parms
 		}
 	}
 }
+
+void TrDevice_Shotgun_AddSpreadWithAccuracy(ATrDevice_Shotgun* that, ATrDevice_Shotgun_execAddSpreadWithAccuracy_Parms* params, FRotator* result, Hooks::CallInfo callInfo) {
+	bool shouldUseGotySpread = false;
+	GameBalance::PropValue prop;
+	if (GameBalance::Items::getWeaponProp(that->DBWeaponId, (int)GameBalance::Items::PropId::SHOTGUN_USE_GOTY_SPREAD, prop)) {
+		shouldUseGotySpread = prop.valBool;
+	}
+
+	if (shouldUseGotySpread) {
+		*result = that->ATrDevice::AddSpreadWithAccuracy(params->BaseAim, params->fAccuracy);
+	}
+	else {
+		*result = that->ATrDevice_Shotgun::AddSpreadWithAccuracy(params->BaseAim, params->fAccuracy);
+	}
+	
+}

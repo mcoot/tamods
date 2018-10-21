@@ -1128,3 +1128,37 @@ namespace Data
 		{ CONST_MAP_ID_BLITZ_DRYDOCK,              "[Blitz] Drydock" },
 	};
 }
+
+namespace Data {
+	int getItemId(const std::string& className, const std::string &itemName) {
+		if (Utils::cleanString(className) == "vehicle")
+			return Utils::searchMapId(vehicle_weapons, itemName, "", false);
+
+		int classId = Utils::searchMapId(classes, className, "", false) - 1;
+		if (classId == -1) return 0;
+
+		// Try to find this as a weapon
+		int res = Utils::searchMapId(weapons[classId], itemName, "", false);
+		if (res) return res;
+
+		// Try to find this as a pack
+		res = Utils::searchMapId(packs[classId], itemName, "", false);
+		if (res) return res;
+
+		// Try to find this as a perk
+		res = Utils::searchMapId(perks, itemName, "", false);
+		if (res) return res;
+
+		// Try to find this as a skin
+		res = Utils::searchMapId(skins[classId], itemName, "", false);
+		if (res) return res;
+
+		// Try to find this as a voice
+		res = Utils::searchMapId(voices, itemName, "", false);
+		if (res) return res;
+
+		Logger::log("Searched for ID of item %s on class %s and failed to find it", itemName.c_str(), className.c_str());
+
+		return 0;
+	}
+}

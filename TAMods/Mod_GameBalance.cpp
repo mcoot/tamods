@@ -76,6 +76,105 @@ static std::vector<UObject*> getDefaultObjectsForProps(int elemId) {
 	return std::vector<UObject*>();
 }
 
+template <typename IdType>
+static bool getProp(std::map<IdType, Property>& propDefs, std::map<IdType, PropValue>& props, int elemId, int intPropId, PropValue& ret) {
+	std::vector<UObject*> defObjs = getDefaultObjectsForProps<IdType>(elemId);
+	if (defObjs.empty()) {
+		Logger::log("Unable to get property %d; could not get default objects for item %d", intPropId, elemId);
+		return false;
+	}
+
+	// Use the first object returned; they ought to all be the same
+	UObject* objToReadFrom = defObjs[0];
+
+	auto& it = propDefs.find((IdType)intPropId);
+	if (it == propDefs.end()) {
+		// Non-existent property, fail
+		Logger::log("Unable to get property; invalid property id %d", intPropId);
+		return false;
+	}
+	GameBalance::PropValue val;
+
+	// Find the value of this property in the map
+	// And set it based on that value
+	auto& pvalIt = props.find((IdType)intPropId);
+	if (pvalIt != props.end()) {
+		val = pvalIt->second;
+	}
+
+	// For most properties, the value is a proxy to an underlying game value
+	// Grab the 'true' value from that
+	if (!it->second.get(objToReadFrom, val)) {
+		// Failed get
+		Logger::log("Failed to get property with id %d", intPropId);
+		return false;
+	}
+
+	ret = val;
+
+	return true;
+}
+
+bool GameBalance::Items::getWeaponProp(int itemId, int intPropId, PropValue& ret) {
+	Items::PropMapping propMap;
+	auto& it = g_gameBalanceTracker.curItemProps.find(itemId);
+	if (it != g_gameBalanceTracker.curItemProps.end()) {
+		propMap = it->second;
+	}
+
+	if (!getProp(Items::properties, propMap, itemId, intPropId, ret)) {
+		Logger::log("Unable to get property config for item %d", itemId);
+		return false;
+	}
+
+	return true;
+}
+
+bool GameBalance::Classes::getClassProp(int classId, int intPropId, PropValue& ret) {
+	Classes::PropMapping propMap;
+	auto& it = g_gameBalanceTracker.curClassProps.find(classId);
+	if (it != g_gameBalanceTracker.curClassProps.end()) {
+		propMap = it->second;
+	}
+
+	if (!getProp(Classes::properties, propMap, classId, intPropId, ret)) {
+		Logger::log("Unable to get property config for class %d", classId);
+		return false;
+	}
+
+	return true;
+}
+
+bool GameBalance::Vehicles::getVehicleProp(int vehicleId, int intPropId, PropValue& ret) {
+	Vehicles::PropMapping propMap;
+	auto& it = g_gameBalanceTracker.curVehicleProps.find(vehicleId);
+	if (it != g_gameBalanceTracker.curVehicleProps.end()) {
+		propMap = it->second;
+	}
+
+	if (!getProp(Vehicles::properties, propMap, vehicleId, intPropId, ret)) {
+		Logger::log("Unable to get property config for vehicle %d", vehicleId);
+		return false;
+	}
+
+	return true;
+}
+
+bool GameBalance::VehicleWeapons::getVehicleWeaponProp(int vehicleWeaponId, int intPropId, PropValue& ret) {
+	VehicleWeapons::PropMapping propMap;
+	auto& it = g_gameBalanceTracker.curVehicleWeaponProps.find(vehicleWeaponId);
+	if (it != g_gameBalanceTracker.curVehicleWeaponProps.end()) {
+		propMap = it->second;
+	}
+
+	if (!getProp(VehicleWeapons::properties, propMap, vehicleWeaponId, intPropId, ret)) {
+		Logger::log("Unable to get property config for vehicle %d", vehicleWeaponId);
+		return false;
+	}
+
+	return false;
+}
+
 static std::vector<DeviceValueMod> getValueMod(int elemId) {
 	std::vector<UObject*> objects;
 	if (Data::armor_class_id_to_armor_mod_name.find(elemId) != Data::armor_class_id_to_armor_mod_name.end()) {
@@ -104,7 +203,7 @@ static std::vector<DeviceValueMod> getValueMod(int elemId) {
 }
 
 template <typename IdType>
-static void recordBalanceTrackerProp(std::map<int, std::map<IdType, PropValue> >& props, int elemId, IdType propId, PropValue val) {
+static void recordBalanceTrackerProp(std::map<IdType, Property>& propDefs, std::map<int, std::map<IdType, PropValue> >& props, int elemId, IdType propId) {
 	auto& item_it = props.find(elemId);
 	if (item_it == props.end()) {
 		props[elemId] = std::map<IdType, PropValue>();
@@ -113,6 +212,13 @@ static void recordBalanceTrackerProp(std::map<int, std::map<IdType, PropValue> >
 	auto& prop_it = props[elemId].find(propId);
 	if (prop_it != props[elemId].end()) {
 		// Only want to record the *original* value, do not overwrite
+		return;
+	}
+
+	PropValue val;
+	if (!getProp(propDefs, props[elemId], elemId, (int)propId, val)) {
+		// Failed to get property
+		Logger::log("Failed to record balance tracker prop for prop %d on item %d", propId, elemId);
 		return;
 	}
 
@@ -146,7 +252,7 @@ static void applyPropConfig(std::map<int, UClass*>& relevantClassDefs, std::map<
 				continue;
 			}
 
-			recordBalanceTrackerProp(trackerProps, elem.first, prop.first, prop.second);
+			recordBalanceTrackerProp(propDefs, trackerProps, elem.first, prop.first);
 			for (auto& obj : objectsToApplyOn) {
 				it->second.apply(prop.second, obj);
 			}
@@ -258,14 +364,18 @@ void TAModsServer::Client::handle_GameBalanceDetailsMessage(const json& j) {
 		Logger::log("Failed to parse game balance details from server: %s", j.dump().c_str());
 		return;
 	}
-	Logger::log("Retrieved game balance message from json");
 
-	applyItemProperties(msg.itemProperties);
-	Logger::log("About to apply device value props");
-	applyDeviceValueProperties(msg.deviceValueProperties);
-	applyClassProperties(msg.classProperties);
-	applyVehicleProperties(msg.vehicleProperties);
-	applyVehicleWeaponProperties(msg.vehicleWeaponProperties);
+	g_gameBalanceTracker.curItemProps = msg.itemProperties;
+	g_gameBalanceTracker.curDeviceValueProps = msg.deviceValueProperties;
+	g_gameBalanceTracker.curClassProps = msg.classProperties;
+	g_gameBalanceTracker.curVehicleProps = msg.vehicleProperties;
+	g_gameBalanceTracker.curVehicleWeaponProps = msg.vehicleWeaponProperties;
+
+	applyItemProperties(g_gameBalanceTracker.curItemProps);
+	applyDeviceValueProperties(g_gameBalanceTracker.curDeviceValueProps);
+	applyClassProperties(g_gameBalanceTracker.curClassProps);
+	applyVehicleProperties(g_gameBalanceTracker.curVehicleProps);
+	applyVehicleWeaponProperties(g_gameBalanceTracker.curVehicleWeaponProps);
 }
 
 void TAModsServer::Client::handle_StateUpdateMessage(const json& j) {

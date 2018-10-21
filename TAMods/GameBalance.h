@@ -213,6 +213,7 @@ namespace GameBalance {
 			ACCURACY_LOSS_MAX = 5004,
 			ACCURACY_CORRECTION_RATE = 5005,
 			SHOTGUN_INNER_ACCURACY = 5006,
+			SHOTGUN_USE_GOTY_SPREAD = 5007,
 
 			// Grenade
 			THROW_DELAY = 6000,
@@ -263,6 +264,8 @@ namespace GameBalance {
 		typedef std::map<PropId, PropValue> PropMapping;
 		typedef std::map<int, PropMapping> ItemsConfig;
 		typedef std::map<int, std::vector<DeviceValueMod> > DeviceValuesConfig;
+
+		bool getWeaponProp(int itemId, int intPropId, PropValue& ret);
 	}
 
 	namespace Classes {
@@ -317,6 +320,7 @@ namespace GameBalance {
 		typedef std::map<PropId, PropValue> PropMapping;
 		typedef std::map<int, PropMapping> ClassesConfig;
 
+		bool getClassProp(int classId, int intPropId, PropValue& ret);
 	}
 
 	namespace Vehicles {
@@ -366,6 +370,8 @@ namespace GameBalance {
 
 		typedef std::map<PropId, PropValue> PropMapping;
 		typedef std::map<int, PropMapping> VehiclesConfig;
+
+		bool getVehicleProp(int vehicleId, int intPropId, PropValue& ret);
 	}
 
 	namespace VehicleWeapons {
@@ -426,6 +432,8 @@ namespace GameBalance {
 
 		typedef std::map<PropId, PropValue> PropMapping;
 		typedef std::map<int, PropMapping> VehicleWeaponsConfig;
+
+		bool getVehicleWeaponProp(int vehicleWeaponId, int intPropId, PropValue& ret);
 	}
 
 	// Tracks the original values of changed properties, so they can be reversed on disconnect
@@ -436,6 +444,12 @@ namespace GameBalance {
 		Classes::ClassesConfig origClassProps;
 		Vehicles::VehiclesConfig origVehicleProps;
 		VehicleWeapons::VehicleWeaponsConfig origVehicleWeaponProps;
+		
+		Items::ItemsConfig curItemProps;
+		Items::DeviceValuesConfig curDeviceValueProps;
+		Classes::ClassesConfig curClassProps;
+		Vehicles::VehiclesConfig curVehicleProps;
+		VehicleWeapons::VehicleWeaponsConfig curVehicleWeaponProps;
 	public:
 		void revert();
 	};
