@@ -806,7 +806,8 @@ namespace Data
 		{ CONST_CLASS_TYPE_MEDIUM_RAIDER, "Raider" },
 		{ CONST_CLASS_TYPE_MEDIUM_TECHNICIAN, "Technician" },
 		// Heavy
-		{ CONST_CLASS_TYPE_HEAVY_JUGGERNAUGHT, "Juggernaught" },
+		// HiRez couldn't decide if it was "Juggernaught" or "Juggernaut"
+		{ CONST_CLASS_TYPE_HEAVY_JUGGERNAUGHT, "Juggernaut" },
 		{ CONST_CLASS_TYPE_HEAVY_DOOMBRINGER, "Doombringer" },
 		{ CONST_CLASS_TYPE_HEAVY_BRUTE, "Brute" },
 
