@@ -148,6 +148,7 @@ namespace GameBalance {
 			BURST_SHOT_REFIRE_TIME = 2007,
 			SPINUP_TIME = 2008,
 			SHOTGUN_SHOT_COUNT = 2009,
+			SHOT_ENERGY_COST = 2010,
 
 			// Damage / Impact
 			DAMAGE = 3000,

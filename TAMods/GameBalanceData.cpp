@@ -366,6 +366,17 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property SHOT_ENERGY_COST(
+			ValueType::INTEGER,
+			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
+			dev->m_PowerPoolCost.Set(0, p.valInt);
+			return true;
+		}),
+			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
+			ret = PropValue::fromInt(dev->m_PowerPoolCost.GetStd(0));
+			return true;
+		})
+			);
 
 		// Damage
 		static const Property DAMAGE(
@@ -1469,6 +1480,7 @@ namespace GameBalance {
 			{PropId::BURST_SHOT_REFIRE_TIME, BURST_SHOT_REFIRE_TIME},
 			{PropId::SPINUP_TIME, SPINUP_TIME},
 			{PropId::SHOTGUN_SHOT_COUNT, SHOTGUN_SHOT_COUNT},
+			{PropId::SHOT_ENERGY_COST, SHOT_ENERGY_COST},
 
 			// Damage / Impact
 			{PropId::DAMAGE, DAMAGE},

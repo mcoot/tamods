@@ -38,7 +38,8 @@ struct FRigidBodyState
 	struct FQuat                                       Quaternion;                                       		// 0x0010 (0x0010) [0x0000000000000000]              
 	struct FVector                                     LinVel;                                           		// 0x0020 (0x000C) [0x0000000000000000]              
 	struct FVector                                     AngVel;                                           		// 0x002C (0x000C) [0x0000000000000000]              
-	unsigned char                                      bNewData;                                         		// 0x0038 (0x0001) [0x0000000000000000]              
+	unsigned char                                      bNewData;                                         		// 0x0038 (0x0001) [0x0000000000000000] 
+	int unknownDataToFixOffset;
 };
 
 // ScriptStruct Engine.Actor.RigidBodyContactInfo
@@ -4179,6 +4180,7 @@ struct FVehicleState
 	unsigned char                                      ServerRise;                                       		// 0x0043 (0x0001) [0x0000000000000000]              
 	unsigned long                                      bServerHandbrake : 1;                             		// 0x0044 (0x0004) [0x0000000000000000] [0x00000001] 
 	int                                                ServerView;                                       		// 0x0048 (0x0004) [0x0000000000000000]              
+	int unknownDataToFixOffset;
 };
 
 // ScriptStruct Engine.Terrain.TerrainHeight
