@@ -22,6 +22,9 @@ using json = nlohmann::json;
 #define DCSRV_MSG_KIND_PLAYER_CONNECTION 0x1000
 #define DCSRV_MSG_KIND_GAME_BALANCE_DETAILS 0x1001
 #define DCSRV_MSG_KIND_STATE_UPDATE 0x1002
+#define DCSRV_MSG_KIND_MESSAGE_TO_CLIENT 0x1003
+#define DCSRV_MSG_KIND_ROLE_LOGIN 0x1004
+#define DCSRV_MSG_KIND_EXECUTE_COMMAND 0x1005
 
 namespace TAModsServer {
 
@@ -348,6 +351,142 @@ namespace TAModsServer {
 			auto& it = j.find("player_ping");
 			if (it == j.end()) return false;
 			playerPing = j["player_ping"];
+
+			return true;
+		}
+	};
+
+	class MessageToClientMessage : public Message {
+	public:
+		struct ConsoleMsgDetails {
+			std::string message;
+			unsigned char r;
+			unsigned char g;
+			unsigned char b;
+			unsigned char a;
+		};
+		struct IngameMsgDetails {
+			bool doShow;
+			std::string message;
+			float time;
+			int priority;
+		};
+	public:
+		std::vector<ConsoleMsgDetails> consoleMessages;
+		IngameMsgDetails ingameMessage;
+	public:
+		short getMessageKind() override {
+			return DCSRV_MSG_KIND_MESSAGE_TO_CLIENT;
+		}
+
+		void toJson(json& j) {
+			j["console_messages"] = json::array();
+			for (auto& msg : consoleMessages) {
+				json curMsg = json::object();
+				curMsg["message"] = msg.message;
+				curMsg["r"] = msg.r;
+				curMsg["g"] = msg.g;
+				curMsg["b"] = msg.b;
+				curMsg["a"] = msg.a;
+				j["console_messages"].push_back(curMsg);
+			}
+
+			j["ingame_message"] = json::object();
+			j["ingame_message"]["do_show"] = ingameMessage.doShow;
+			j["ingame_message"]["message"] = ingameMessage.message;
+			j["ingame_message"]["time"] = ingameMessage.time;
+			j["ingame_message"]["priority"] = ingameMessage.priority;
+		}
+
+		bool fromJson(const json& j) {
+			if (j.find("console_messages") == j.end()) return false;
+
+			json consoleMessagesJson = j["console_messages"];
+			for (json::iterator it = consoleMessagesJson.begin(); it != consoleMessagesJson.end(); ++it) {
+				json curMsgJson = *it;
+
+				if (curMsgJson.find("message") == curMsgJson.end()) return false;
+				if (curMsgJson.find("r") == curMsgJson.end()) return false;
+				if (curMsgJson.find("g") == curMsgJson.end()) return false;
+				if (curMsgJson.find("b") == curMsgJson.end()) return false;
+				if (curMsgJson.find("a") == curMsgJson.end()) return false;
+
+				ConsoleMsgDetails details;
+				details.message = curMsgJson["message"].get<std::string>();
+				details.r = curMsgJson["r"].get<unsigned char>();
+				details.g = curMsgJson["g"].get<unsigned char>();
+				details.b = curMsgJson["b"].get<unsigned char>();
+				details.a = curMsgJson["a"].get<unsigned char>();
+
+				consoleMessages.push_back(details);
+			}
+
+			if (j.find("ingame_message") == j.end()) return false;
+			json ingameMessageJson = j["ingame_message"];
+
+			if (ingameMessageJson.find("do_show") == ingameMessageJson.end()) return false;
+
+			ingameMessage.doShow = ingameMessageJson["do_show"].get<bool>();
+			if (ingameMessage.doShow) {
+				if (ingameMessageJson.find("message") == ingameMessageJson.end()) return false;
+				if (ingameMessageJson.find("time") == ingameMessageJson.end()) return false;
+				if (ingameMessageJson.find("priority") == ingameMessageJson.end()) return false;
+
+				ingameMessage.message = ingameMessageJson["message"].get<std::string>();
+				ingameMessage.time = ingameMessageJson["time"].get<float>();
+				ingameMessage.priority = ingameMessageJson["priority"].get<int>();
+			}
+
+
+			return true;
+		}
+	};
+
+	class RoleLoginMessage : public Message {
+	public:
+		std::string role;
+		std::string password;
+	public:
+		short getMessageKind() override {
+			return DCSRV_MSG_KIND_ROLE_LOGIN;
+		}
+
+		void toJson(json& j) {
+			j["role"] = role;
+			j["password"] = password;
+		}
+
+		bool fromJson(const json& j) {
+			if (j.find("role") == j.end()) return false;
+			role = j["role"].get<std::string>();
+
+			if (j.find("password") == j.end()) return false;
+			password = j["password"].get<std::string>();
+
+			return true;
+		}
+	};
+
+	class ExecuteCommandMessage : public Message {
+	public:
+		bool rawLua;
+		std::string commandString;
+	public:
+		short getMessageKind() override {
+			return DCSRV_MSG_KIND_EXECUTE_COMMAND;
+		}
+
+		void toJson(json& j) {
+			j["raw_lua"] = rawLua;
+			j["command_string"] = commandString;
+		}
+
+		bool fromJson(const json& j) {
+			if (j.find("raw_lua") == j.end()) return false;
+			rawLua = j["raw_lua"].get<bool>();
+
+			if (j.find("command_string") == j.end()) return false;
+			commandString = j["command_string"].get<std::string>();
 
 			return true;
 		}

@@ -48,6 +48,9 @@ namespace TAModsServer {
 		tcpClient->add_handler(DCSRV_MSG_KIND_STATE_UPDATE, [this](const json& j) {
 			handle_StateUpdateMessage(j);
 		});
+		tcpClient->add_handler(DCSRV_MSG_KIND_MESSAGE_TO_CLIENT, [this](const json& j) {
+			handle_MessageToClientMessage(j);
+		});
 	}
 
 	void Client::sendPlayerConnectionMessage(FUniqueNetId id) {
@@ -58,10 +61,32 @@ namespace TAModsServer {
 		json j;
 		msg.toJson(j);
 
-		Logger::log("Sending PlayerConnectionMessage: %s", j.dump().c_str());
+		tcpClient->send(msg.getMessageKind(), j);
+	}
+
+	void Client::sendRoleLoginMessage(std::string role, std::string password) {
+		RoleLoginMessage msg;
+		msg.role = role;
+		msg.password = password;
+
+		json j;
+		msg.toJson(j);
+
+		Logger::log("Sending player connection message: %s", j.dump().c_str());
 
 		tcpClient->send(msg.getMessageKind(), j);
 	}
 
+	void Client::sendExecLuaMessage(std::string commandString) {
+		ExecuteCommandMessage msg;
+
+		msg.rawLua = true;
+		msg.commandString = commandString;
+
+		json j;
+		msg.toJson(j);
+
+		tcpClient->send(msg.getMessageKind(), j);
+	}
 
 }

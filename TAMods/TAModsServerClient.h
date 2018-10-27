@@ -40,8 +40,11 @@ namespace TAModsServer {
 
 		void handle_GameBalanceDetailsMessage(const json& j);
 		void handle_StateUpdateMessage(const json& j);
+		void handle_MessageToClientMessage(const json& j);
 
 		void sendPlayerConnectionMessage(FUniqueNetId id);
+		void sendRoleLoginMessage(std::string role, std::string password);
+		void sendExecLuaMessage(std::string commandString);
 	};
 
 }

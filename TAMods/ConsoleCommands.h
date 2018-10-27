@@ -62,6 +62,9 @@ namespace consoleCommands
 	void cmd_map(const std::wstring &cmd, const std::wstring &params);
 	void cmd_mapnext(const std::wstring &cmd, const std::wstring &params);
 
+	void cmd_srv_login(const std::wstring& cmd, const std::wstring& params);
+	void cmd_srv_execlua(const std::wstring& cmd, const std::wstring& params);
+
 	void cmd_findobjects(const std::wstring &cmd, const std::wstring &params);
 	void cmd_develcommands(const std::wstring &cmd, const std::wstring &params);
 }
