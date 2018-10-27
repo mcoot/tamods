@@ -30,6 +30,8 @@ void addClientModeHooks()
 	Hooks::add(&TrDeployable_FinalizeDeployment, "Function TribesGame.TrDeployable.FinalizeDeployment", Hooks::POST); // Disable base turrets
 	Hooks::add(&TrPowerGenerator_PostBeginPlay, "Function TribesGame.TrPowerGenerator.PostBeginPlay", Hooks::POST); // Disable generators
 
+	Hooks::addUScript(&UGFxTrMenuMoviePlayer_HideMovie, "Function TribesGame.GFxTrMenuMoviePlayer.HideMovie"); // Fix for getting stuck in menus post map-switch
+
 																													// Route/state saving
 	Hooks::add(&TrHUD_Tick, "Function TribesGame.TrHUD.Tick"); // Time in roam map and stopwatch
 	Hooks::add(&TrEntryPlayerController_Destroyed, "Function TribesGame.TrEntryPlayerController.Destroyed"); // Reset array of states after map load

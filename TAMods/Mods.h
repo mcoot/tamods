@@ -44,6 +44,9 @@ void TrHUD_SendLocalMessageToChat(ATrHUD *that, ATrHUD_execSendLocalMessageToCha
 void TrHUD_AddUpdateToKillMessage(ATrHUD *that, ATrHUD_execAddUpdateToKillMessage_Parms *params);
 bool TrPC_AddChatToConsole(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
+// Fix for getting stuck in the menu after a map switch on a custom server
+void UGFxTrMenuMoviePlayer_HideMovie(UGFxTrMenuMoviePlayer* that, UGFxTrMenuMoviePlayer_eventHideMovie_Parms* params, void* result, Hooks::CallInfo callInfo);
+
 // Rename items that changed in OOTB back to their GOTY values
 void performGOTYRename();
 

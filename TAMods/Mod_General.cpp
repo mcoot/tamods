@@ -575,3 +575,12 @@ void TrDevice_Shotgun_AddSpreadWithAccuracy(ATrDevice_Shotgun* that, ATrDevice_S
 	}
 	
 }
+
+void UGFxTrMenuMoviePlayer_HideMovie(UGFxTrMenuMoviePlayer* that, UGFxTrMenuMoviePlayer_eventHideMovie_Parms* params, void* result, Hooks::CallInfo callInfo) {
+	ATrPlayerController* pc = (ATrPlayerController*)that->eventGetPC();
+	if (pc->r_bNeedLoadout) {
+		// On custom servers this flag fails to get cleared, causing the client to get stuck in the menu
+		that->bEndOfMatch = false;
+	}
+	that->eventHideMovie();
+}
