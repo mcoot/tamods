@@ -560,6 +560,10 @@ void TrDevice_FireAmmunition(ATrDevice* that, ATrDevice_execFireAmmunition_Parms
 	}
 }
 
+void TrDevice_NovaSlug_StartFire(ATrDevice_NovaSlug* that, ATrDevice_NovaSlug_execStartFire_Parms* params, void* result, Hooks::CallInfo callInfo) {
+	that->ATrDevice::StartFire(params->FireModeNum);
+}
+
 void TrDevice_Shotgun_AddSpreadWithAccuracy(ATrDevice_Shotgun* that, ATrDevice_Shotgun_execAddSpreadWithAccuracy_Parms* params, FRotator* result, Hooks::CallInfo callInfo) {
 	bool shouldUseGotySpread = false;
 	GameBalance::PropValue prop;

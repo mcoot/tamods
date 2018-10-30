@@ -6,6 +6,40 @@ void addServerModeHooks()
 
 }
 
+static void fixPingDependencies() {
+	std::vector<UClass*> toFix = {
+		ATrDevice_NovaSlug::StaticClass(),
+
+		// Not working?
+		ATrDevice_Shotgun::StaticClass(),
+		ATrDevice_Shotgun_MKD::StaticClass(),
+		ATrDevice_AccurizedShotgun::StaticClass(),
+		ATrDevice_SawedOffShotgun::StaticClass(),
+		ATrDevice_AutoShotgun::StaticClass(),
+		ATrDevice_AutoShotgun_MKD::StaticClass(),
+
+		ATrDevice_LightTwinfusor::StaticClass(),
+		ATrDevice_Twinfusor::StaticClass(),
+		ATrDevice_HeavyTwinfusor::StaticClass(),
+		ATrDevice_SniperRifle::StaticClass(),
+		ATrDevice_SniperRifle_MKD::StaticClass(),
+		ATrDevice_PhaseRifle::StaticClass(),
+		ATrDevice_SAP20::StaticClass(),
+		ATrDevice_GrenadeLauncher::StaticClass(),
+		ATrDevice_GrenadeLauncher_Light::StaticClass(),
+		ATrDevice_ArxBuster::StaticClass(),
+		ATrDevice_ArxBuster_MKD::StaticClass(),
+		ATrDevice_RemoteArxBuster::StaticClass(),
+		ATrDevice_PlasmaGun::StaticClass(),
+		ATrDevice_PlasmaCannon::StaticClass(),
+	};
+
+	for (auto& cls : toFix) {
+		ATrDevice* default = (ATrDevice*)cls->Default;
+		default->m_bForceReplicateAmmoOnFire = true;
+	}
+}
+
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
@@ -15,6 +49,8 @@ void addClientModeHooks()
 	((ATrDevice_Sparrow*)(ATrDevice_Sparrow::StaticClass()->Default))->m_bAllowHoldDownFire = true;
 	((ATrDevice_Eagle*)(ATrDevice_Eagle::StaticClass()->Default))->m_bAllowHoldDownFire = true;
 	((ATrDevice_NovaSlug*)(ATrDevice_NovaSlug::StaticClass()->Default))->m_bAllowHoldDownFire = true;
+
+	fixPingDependencies();
 
 	// General
 	Hooks::add(&TrPC_InitInputSystem, "Function TribesGame.TrPlayerController.InitInputSystem"); // Used to set Utils::tr_pc
@@ -38,6 +74,7 @@ void addClientModeHooks()
 	Hooks::add(&TrPC_PlayerWalking_ToggleJetpack, "Function TrPlayerController.PlayerWalking.ToggleJetpack"); // To abort replays when pressing jet
 
 	Hooks::addUScript(&TrDevice_FireAmmunition, "Function TribesGame.TrDevice.FireAmmunition");
+	//Hooks::addUScript(&TrDevice_NovaSlug_StartFire, "Function TribesGame.TrDevice_NovaSlug.FireAmmunition");
 	Hooks::addUScript(&TrDevice_Shotgun_AddSpreadWithAccuracy, "Function TribesGame.TrDevice_Shotgun.AddSpreadWithAccuracy");
 																											  // HUD modification
 	Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers

@@ -196,9 +196,9 @@ void Config::reset()
 	IFFScale			 = 1.0f;
 
 	// Whether to use the ping replicated from the server, or locally calculated
-	useServerSidePing = false;
+	useServerSidePing = true;
 
-	useGOTYNaming = false;
+	useGOTYNaming = true;
 
 	// Console
 	consoleSize          = 0.75f;
