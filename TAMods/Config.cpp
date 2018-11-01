@@ -198,7 +198,7 @@ void Config::reset()
 	// Whether to use the ping replicated from the server, or locally calculated
 	useServerSidePing = true;
 
-	useGOTYNaming = true;
+	useGOTYMode = true;
 
 	// Console
 	consoleSize          = 0.75f;
@@ -678,7 +678,7 @@ void Config::setVariables()
 	// Whether to use the ping replicated from the server, or locally calculated
 	SET_VARIABLE(bool, useServerSidePing);
 
-	SET_VARIABLE(bool, useGOTYNaming);
+	SET_VARIABLE(bool, useGOTYMode);
 
 	// Console
 	SET_VARIABLE(float, consoleSize);

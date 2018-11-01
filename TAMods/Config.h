@@ -384,9 +384,11 @@ public:
 	// Whether to use the ping replicated from the server, or locally calculated
 	bool useServerSidePing;
 
+	// Whether to use settings expected when playing GOTY, including:
 	// Whether to convert class and item names back to GOTY values, where different
 	// E.g. Medium -> Soldier, Heavy Blinksfusor -> Devastator Spinfusor
-	bool useGOTYNaming;
+	// and also whether to show Perks in the menu and encode perks/voice items
+	bool useGOTYMode;
 
 	// Console
 	float consoleSize;

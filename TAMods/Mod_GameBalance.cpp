@@ -52,6 +52,9 @@ static std::vector<UObject*> getDefaultObjectsForProps(int elemId) {
 			variants.push_back("BE");
 			variants.push_back("DS");
 		}
+		if (Data::perk_id_to_name.find(elemId) != Data::perk_id_to_name.end()) {
+			prefix = "TrPerk";
+		}
 		return getDefaultObjects<ATrDevice>(relevantClassNames, prefix, variants, elemId);
 	}
 	else if (isClassCase) {

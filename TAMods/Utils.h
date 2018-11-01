@@ -32,6 +32,11 @@ namespace Utils
 	// Map
 	int searchMapId(const std::map<std::string, int> map, const std::string &str, const std::string &location = "", bool print_on_fail = true);
 
+	// Perk encoding
+	int perks_Encode(int perkA, int perkB);
+	int perks_DecodeA(int encoded);
+	int perks_DecodeB(int encoded);
+
 	// UE3 utils
 	void notify(const std::string &title, const std::string &msg);
 	void notify(wchar_t *title, const char *format, ...);
@@ -68,6 +73,7 @@ namespace Utils
 	extern UTrGameViewportClient *tr_gvc;
 	extern ATrHUD *tr_hud;
 	extern AUTHUD *ut_hud;
+	extern UGFxTrMenuMoviePlayer* tr_menuMovie;
 
 	extern UTexture2D *whiteTexture;
 	extern UFont *mainFont;

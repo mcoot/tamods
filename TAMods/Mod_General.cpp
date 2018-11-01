@@ -52,6 +52,8 @@ static void performClassRename(std::string fiName, FString& friendlyName, FStrin
 	fis.push_back(UObject::FindObject<UTrFamilyInfo>(beName.c_str()));
 	fis.push_back(UObject::FindObject<UTrFamilyInfo>(dsName.c_str()));
 
+	static FString laserStr(L"TribesGameContent.TrDevice_LaserTargeter_Content");
+
 	for (auto& fi : fis) {
 		fi->FriendlyName = friendlyName;
 		fi->Abbreviation = abbreviation;
@@ -116,6 +118,36 @@ void performGOTYRename() {
 	static FString lightEnergyName(L"Light Energy Pack");
 	static FString lightEnergyInfo(L"Improves energy regeneration by 18%");
 	performItemRename("TrDevice", "ERechargePack_Pathfinder", lightEnergyName, lightEnergyInfo);
+
+	// Set up perk lists correctly
+	UTrPerkList* perkListDef = (UTrPerkList*)UTrPerkList::StaticClass()->Default;
+
+	perkListDef->PerkListA.Clear();
+	perkListDef->PerkListA.Add(FString(L"TrPerk_Rage"));
+	perkListDef->PerkListA.Add(FString(L"TrPerk_SuperCapacitor"));
+	perkListDef->PerkListA.Add(FString(L"TrPerk_Reach"));
+	perkListDef->PerkListA.Add(FString(L"TrPerk_Looter"));
+	perkListDef->PerkListA.Add(FString(L"TrPerk_SafeFall"));
+	perkListDef->PerkListA.Add(FString(L"TrPerk_WheelDeal"));
+	perkListDef->PerkListA.Add(FString(L"TrPerk_BountyHunter"));
+	perkListDef->PerkListA.Add(FString(L"TrPerk_CloseCombat"));
+	perkListDef->PerkListA.Add(FString(L"TrPerk_SafetyThird"));
+	perkListDef->PerkListA.Add(FString(L"TrPerk_Stealthy"));
+	
+	perkListDef->PerkListB.Clear();
+	perkListDef->PerkListB.Add(FString(L"TrPerk_SonicPunch"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_PotentialEnergy"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_Determination"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_Egocentric"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_Pilot"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_Survivalist"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_SuperHeavy"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_UltraCapacitor"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_QuickDraw"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_Mechanic"));
+	perkListDef->PerkListB.Add(FString(L"TrPerk_Lightweight"));
+
+
 }
 
 bool TrGVC_PostRender(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)

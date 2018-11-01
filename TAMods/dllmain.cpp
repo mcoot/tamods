@@ -145,6 +145,12 @@ void addClientModeHooks()
 	Hooks::addUScript(&TrChatConsole_AddOnlineFriendHelp, "Function TribesGame.TrChatConsole.AddOnlineFriendHelp");
 	Hooks::addUScript(&TrChatConsole_Open_PostRender_Console, "Function TrChatConsole.Open.PostRender_Console");
 	Hooks::addUScript(&TrChatConsole_Typing_PostRender_Console, "Function TrChatConsole.Typing.PostRender_Console");
+
+	// Menu modification
+	Hooks::addUScript(&GFxTrPage_Main_TakeAction, "Function TribesGame.GFxTrPage_Main.TakeAction");
+	Hooks::addUScript(&GFxTrPage_Equip_FillOption, "Function TribesGame.GFxTrPage_Equip.FillOption");
+	Hooks::addUScript(&GFxTrPage_Class_SpecialAction, "Function TribesGame.GFxTrPage_Class.SpecialAction");
+	Hooks::addUScript(&GFxTrPage_Equip_SpecialAction, "Function TribesGame.GFxTrPage_Equip.SpecialAction");
 }
 
 void onDLLProcessAttach()
@@ -168,7 +174,7 @@ void onDLLProcessAttach()
 	}
 
 	// If enabled, rename OOTB classes/items to GOTY versions
-	if (g_config.useGOTYNaming) {
+	if (g_config.useGOTYMode) {
 		performGOTYRename();
 	}
 

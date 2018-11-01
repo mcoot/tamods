@@ -10,6 +10,7 @@ namespace Utils
 	UTrGameViewportClient *tr_gvc = NULL;
 	ATrHUD *tr_hud = NULL;
 	AUTHUD *ut_hud = UObject::FindObject<AUTHUD>("UTHUD UTGame.Default__UTHUD");
+	UGFxTrMenuMoviePlayer *tr_menuMovie = NULL;
 
 	UTexture2D *whiteTexture = UObject::FindObject<UTexture2D>("Texture2D EngineResources.WhiteSquareTexture");
 	UFont *mainFont = UObject::FindObject<UFont>("Font Hud_Items.NameForeground");
@@ -176,6 +177,21 @@ int Utils::searchMapId(const std::map<std::string, int> map, const std::string &
 		console("WARNING: searched item '%s' could not be identified as %s", str.c_str(), location.c_str());
 	return (0);
 }
+
+// Perk encoding
+
+int Utils::perks_Encode(int perkA, int perkB) {
+	return (perkA << 16) | perkB;
+}
+
+int Utils::perks_DecodeA(int encoded) {
+	return encoded >> 16;
+}
+
+int Utils::perks_DecodeB(int encoded) {
+	return encoded & 0x0000FFFF;
+}
+
 
 void Utils::notify(const std::string &title, const std::string &str)
 {
