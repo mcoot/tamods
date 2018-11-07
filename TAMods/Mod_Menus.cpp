@@ -167,6 +167,33 @@ void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_exec
 	fillClassPageEquipMenu(that, mp, eqpPoint, itemsToShow);
 }
 
+void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo) {
+	if (!g_config.useGOTYMode || that->PageActions.GetStd(params->ActionIndex)->ActionNumber == that->NumRenameLoadout) {
+		// For OOTB and the rename option, offload to the normal implementation
+		*result = that->FillOption(params->ActionIndex);
+		return;
+	}
+
+	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
+	UTrEquipInterface* eqpInterface = mp->EquipInterface;
+
+	int equipPoint = that->PageActions.GetStd(params->ActionIndex)->ActionNumber;
+
+	if (equipPoint != EQP_PerkA && equipPoint != EQP_PerkB) {
+		// For non-perk slots, offload to the normal implementation
+		*result = that->FillOption(params->ActionIndex);
+		return;
+	}
+
+	int encodedPerks = eqpInterface->GetActiveEquipId(that->LoadoutClassId, EQP_Tertiary, that->ActiveLoadout);
+	int perkA = Utils::perks_DecodeA(encodedPerks);
+	int perkB = Utils::perks_DecodeB(encodedPerks);
+
+	int equipId = equipPoint == EQP_PerkA ? perkA : perkB;
+
+	*result = that->FillEquipTypes(equipId, params->ActionIndex);
+}
+
 void GFxTrPage_Equip_SpecialAction(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execSpecialAction_Parms* params, void* result, Hooks::CallInfo callInfo) {
 	if (!g_config.useGOTYMode || (that->LoadoutEquipType != EQP_PerkA && that->LoadoutEquipType != EQP_PerkB)) {
 		// Normal logic in OOTB mode, and in GOTY mode for everything except perks
