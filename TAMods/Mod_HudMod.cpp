@@ -515,10 +515,6 @@ bool TrHUD_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pP
 		else if (timer) timer->SetFloat(L"textColor", (float)0xDDFFDD);
 	}
 
-	if (g_config.useServerSidePing && that->TrPlayerOwner && that->TrPlayerOwner->PlayerReplicationInfo) {
-		that->TrPlayerOwner->PlayerReplicationInfo->ExactPing = g_CustomServerManager.updatedGameState.playerPing;
-	}
-
 	return false;
 }
 
@@ -575,36 +571,4 @@ static bool hasScoreboardSlotChanged(FTrScoreSlot slot, ATrPlayerReplicationInfo
 	if (Utils::f2std(slot.ClassAbb) != Utils::f2std(pri->GetCurrentClassAbb())) return true;
 
 	return false;
-}
-
-void TrScoreboard_UpdateSlot(UTrScoreboard* that, UTrScoreboard_execUpdateSlot_Parms* params, bool* result, Hooks::CallInfo* callInfo) {
-	//Logger::log("[UpdateSlot] Should use serverping? %d", g_config.useServerSidePing);
-	if (hasScoreboardSlotChanged(that->ScoreboardSlots[params->Index], params->PRI, that->bCheckPing))
-	{
-		that->ScoreboardSlots[params->Index].PlayerName = params->PRI->PlayerName;
-		that->ScoreboardSlots[params->Index].Score = params->PRI->m_nCreditsEarned;
-		that->ScoreboardSlots[params->Index].Kills = params->PRI->m_nKills;
-		that->ScoreboardSlots[params->Index].Assists = params->PRI->m_nAssists;
-		that->ScoreboardSlots[params->Index].Rank = params->PRI->GetPlayerRankNum();
-		that->ScoreboardSlots[params->Index].RankIcon = params->PRI->GetRankIcon();
-		that->ScoreboardSlots[params->Index].ClassAbb = params->PRI->GetCurrentClassAbb();
-
-		// Use exact ping if us, normal ping otherwise (local is more accurate and non-replicated)
-		if (!g_config.useServerSidePing && Utils::tr_pc && params->PRI == Utils::tr_pc->PlayerReplicationInfo)
-		{
-			//Logger::log("[UpdateSlot] ExactPing update");
-			that->ScoreboardSlots[params->Index].Ping = int(params->PRI->ExactPing*1000.0);
-		}
-		else
-		{
-			//Logger::log("[UpdateSlot] Server-side ping update");
-			that->ScoreboardSlots[params->Index].Ping = params->PRI->Ping * 4;
-		}
-
-		that->bUpdated = true;
-		*result = true;
-		return;
-	}
-
-	*result = false;
 }

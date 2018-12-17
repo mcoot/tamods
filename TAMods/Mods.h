@@ -30,7 +30,6 @@ bool TrHUD_eventPostRender(int id, UObject *dwCallingObject, UFunction* pFunctio
 bool TrFlagBase_PostRenderFor(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrHUD_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPlayerController_ClientReceiveVGSCommand(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-void TrScoreboard_UpdateSlot(UTrScoreboard* that, UTrScoreboard_execUpdateSlot_Parms* params, bool* result, Hooks::CallInfo* callInfo);
 
 // Custom HUD
 void TrRabbitLeaderboard_Show(UTrRabbitLeaderboard *that);

@@ -195,9 +195,6 @@ void Config::reset()
 	// HUD scaling
 	IFFScale			 = 1.0f;
 
-	// Whether to use the ping replicated from the server, or locally calculated
-	useServerSidePing = true;
-
 	useGOTYMode = true;
 
 	// Console
@@ -674,9 +671,6 @@ void Config::setVariables()
 
 	// HUD scaling
 	SET_VARIABLE(float, IFFScale);
-
-	// Whether to use the ping replicated from the server, or locally calculated
-	SET_VARIABLE(bool, useServerSidePing);
 
 	SET_VARIABLE(bool, useGOTYMode);
 

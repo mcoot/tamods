@@ -381,9 +381,6 @@ public:
 	// HUD scaling
 	float IFFScale;
 
-	// Whether to use the ping replicated from the server, or locally calculated
-	bool useServerSidePing;
-
 	// Whether to use settings expected when playing GOTY, including:
 	// Whether to convert class and item names back to GOTY values, where different
 	// E.g. Medium -> Soldier, Heavy Blinksfusor -> Devastator Spinfusor
