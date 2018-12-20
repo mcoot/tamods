@@ -50,7 +50,8 @@ void addClientModeHooks()
 	((ATrDevice_Eagle*)(ATrDevice_Eagle::StaticClass()->Default))->m_bAllowHoldDownFire = true;
 	((ATrDevice_NovaSlug*)(ATrDevice_NovaSlug::StaticClass()->Default))->m_bAllowHoldDownFire = true;
 
-	fixPingDependencies();
+	// Disabled due to bugs
+	//fixPingDependencies();
 
 	// General
 	Hooks::add(&TrPC_InitInputSystem, "Function TribesGame.TrPlayerController.InitInputSystem"); // Used to set Utils::tr_pc
