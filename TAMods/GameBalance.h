@@ -2,6 +2,7 @@
 
 #include "buildconfig.h"
 
+#include <string>
 #include <functional>
 #include <map>
 
@@ -66,6 +67,56 @@ namespace GameBalance {
 			return *this;
 		}
 
+		template <typename T>
+		bool get(T& ret) { return false; }
+
+		template <>
+		bool get<bool>(bool& ret) {
+			if (type == ValueType::BOOLEAN) {
+				ret = valBool;
+				return true;
+			}
+			return false;
+		}
+
+		template <>
+		bool get<int>(int& ret) {
+			if (type == ValueType::INTEGER) {
+				ret = valInt;
+				return true;
+			}
+			return false;
+		}
+
+		template <>
+		bool get<float>(float& ret) {
+			if (type == ValueType::FLOAT) {
+				ret = valFloat;
+				return true;
+			}
+			return false;
+		}
+
+		template <>
+		bool get<std::string>(std::string& ret) {
+			if (type == ValueType::STRING) {
+				ret = valString;
+				return true;
+			}
+			return false;
+		}
+
+		template <typename T>
+		T getOrDefault(T def) {
+			T ret;
+			if (get(ret)) {
+				return ret;
+			}
+			else {
+				return def;
+			}
+		}
+
 		// Static methods for constructing from a specific type
 		static PropValue fromBool(bool val) { return PropValue(val); }
 		static PropValue fromInt(int val) { return PropValue(val); }
@@ -125,6 +176,8 @@ namespace GameBalance {
 		int modType;
 		float value;
 	};
+
+	typedef std::map<std::string, PropValue> ReplicatedSettings;
 
 	namespace Items {
 
@@ -440,6 +493,7 @@ namespace GameBalance {
 	// Tracks the original values of changed properties, so they can be reversed on disconnect
 	class GameBalanceTracker {
 	public:
+		ReplicatedSettings replicatedSettings;
 		Items::ItemsConfig origItemProps;
 		Items::DeviceValuesConfig origDeviceValueProps;
 		Classes::ClassesConfig origClassProps;
@@ -452,6 +506,11 @@ namespace GameBalance {
 		Vehicles::VehiclesConfig curVehicleProps;
 		VehicleWeapons::VehicleWeaponsConfig curVehicleWeaponProps;
 	public:
+		template <typename T>
+		T getReplicatedSetting(std::string key, T def) {
+			if (replicatedSettings.find(key) == replicatedSettings.end()) return def;
+			return replicatedSettings[key].getOrDefault(def);
+		}
 		void revert();
 	};
 }

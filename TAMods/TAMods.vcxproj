@@ -164,6 +164,7 @@
     </ClCompile>
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Mod_AccoladeSounds.cpp" />
+    <ClCompile Include="Mod_CallIn.cpp" />
     <ClCompile Include="Mod_Console.cpp" />
     <ClCompile Include="Mod_DamageNumbers.cpp" />
     <ClCompile Include="Mod_FlagEventSounds.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="Mod_HudMod.cpp" />
     <ClCompile Include="Mod_Menus.cpp" />
     <ClCompile Include="Mod_Projectiles.cpp" />
+    <ClCompile Include="Mod_Reimpl.cpp" />
     <ClCompile Include="Mod_Reticules.cpp" />
     <ClCompile Include="Mod_Routes.cpp" />
     <ClCompile Include="Mod_ServerSettings.cpp" />

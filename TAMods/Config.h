@@ -240,6 +240,7 @@ public:
 	bool    showFirstPersonAmmo;
 	bool    showBodyMesh;
 	bool    showCrosshair;
+	bool	showLaserCrosshair;
 	float   crosshairScale;
 	FColor  crosshairColor;
 

@@ -53,6 +53,14 @@ void addClientModeHooks()
 	// Disabled due to bugs
 	//fixPingDependencies();
 
+	Hooks::addUScript(&TrDevice_CalcHUDAimChargePercent, "Function TribesGame.TrDevice.CalcHUDAimChargePercent");
+	Hooks::addUScript(&TrDevice_LaserTargeter_OnStartConstantFire, "Function TribesGame.TrDevice_LaserTargeter.OnStartConstantFire");
+	Hooks::addUScript(&TrDevice_LaserTargeter_OnEndConstantFire, "Function TribesGame.TrDevice_LaserTargeter.OnEndConstantFire");
+	Hooks::addUScript(&TrDevice_LaserTargeter_UpdateTarget, "Function TribesGame.TrDevice_LaserTargeter.UpdateTarget");
+	//Hooks::addUScript(&TrDevice_LaserTargeter_GetLaserStartAndEnd, "Function TribesGame.TrDevice_LaserTargeter.GetLaserStartAndEnd");
+	//Hooks::addUScript(&TrDevice_LaserTargeter_SpawnLaserEffect, "Function TribesGame.TrDevice_LaserTargeter.SpawnLaserEffect");
+	Hooks::addUScript(&TrDevice_LaserTargeter_UpdateLaserEffect, "Function TribesGame.TrDevice_LaserTargeter.UpdateLaserEffect");
+
 	// General
 	Hooks::add(&TrPC_InitInputSystem, "Function TribesGame.TrPlayerController.InitInputSystem"); // Used to set Utils::tr_pc
 

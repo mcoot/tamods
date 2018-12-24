@@ -76,6 +76,7 @@ namespace TAModsServer {
 
 	class GameBalanceDetailsMessage : public Message {
 	public:
+		GameBalance::ReplicatedSettings replicatedSettings;
 		GameBalance::Items::ItemsConfig itemProperties;
 		GameBalance::Items::DeviceValuesConfig deviceValueProperties;
 		GameBalance::Classes::ClassesConfig classProperties;
@@ -97,6 +98,24 @@ namespace TAModsServer {
 				j[std::to_string(propId)] = val.valString;
 				break;
 			}
+		}
+
+		// Doesn't in integer type PropValues, since it's not possible to know if it ought to be a float or integer type
+		bool readAnyPropVal(const json& j, GameBalance::PropValue& ret) {
+			if (j.is_boolean()) {
+				ret = GameBalance::PropValue::fromBool(j.get<bool>());
+			}
+			else if (j.is_number()) {
+				ret = GameBalance::PropValue::fromFloat(j.get<float>());
+			}
+			else if (j.is_string()) {
+				ret = GameBalance::PropValue::fromString(j.get<std::string>());
+			}
+			else {
+				return false;
+			}
+
+			return true;
 		}
 
 		bool readPropValFromJson(const json& j, GameBalance::ValueType expectedType, GameBalance::PropValue& ret) {
@@ -125,6 +144,19 @@ namespace TAModsServer {
 				}
 				ret = GameBalance::PropValue::fromString(j.get<std::string>());
 				break;
+			}
+			return true;
+		}
+
+		bool readReplicatedSettings(json& j, GameBalance::ReplicatedSettings& ret) {
+			for (json::iterator it = j.begin(); it != j.end(); ++it) {
+				GameBalance::PropValue propVal;
+				if (!readAnyPropVal(*it, propVal)) {
+					Logger::log("Unable to read replicated setting value for %s", it.key());
+					continue;
+				}
+
+				ret[it.key()] = propVal;
 			}
 			return true;
 		}
@@ -224,11 +256,30 @@ namespace TAModsServer {
 		}
 
 		void toJson(json& j) {
+			json jReplicatedSettings = json::object();
 			json jItemProps = json::object();
 			json jDeviceValueProps = json::object();
 			json jClassProps = json::object();
 			json jVehicleProps = json::object();
 			json jVehicleWeaponProps = json::object();
+
+			for (auto& s : replicatedSettings) {
+				switch (s.second.type) {
+				case GameBalance::ValueType::BOOLEAN:
+					jReplicatedSettings[s.first] = s.second.valBool;
+					break;
+				case GameBalance::ValueType::INTEGER:
+					jReplicatedSettings[s.first] = s.second.valInt;
+					break;
+				case GameBalance::ValueType::FLOAT:
+					jReplicatedSettings[s.first] = s.second.valFloat;
+					break;
+				case GameBalance::ValueType::STRING:
+					jReplicatedSettings[s.first] = s.second.valString;
+					break;
+				}
+			}
+			j["replicated_settings"] = jReplicatedSettings;
 
 			for (auto& item : itemProperties) {
 				json curItem;
@@ -285,6 +336,12 @@ namespace TAModsServer {
 			vehicleProperties.clear();
 			vehicleWeaponProperties.clear();
 
+			auto& repSettingsIt = j.find("replicated_settings");
+			if (repSettingsIt == j.end()) {
+				return false;
+			}
+			json repSettingsJson = j["replicated_settings"];
+
 			auto& itemPropsIt = j.find("item_properties");
 			if (itemPropsIt == j.end()) {
 				return false;
@@ -314,6 +371,10 @@ namespace TAModsServer {
 				return false;
 			}
 			json vehicleWeaponProps = j["vehicle_weapon_properties"];
+
+			if (!readReplicatedSettings(repSettingsJson, replicatedSettings)) {
+				return false;
+			}
 
 			if (!readPropConfig(itemProps, GameBalance::Items::properties, itemProperties)) {
 				return false;

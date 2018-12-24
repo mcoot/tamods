@@ -30,11 +30,26 @@ bool TrPlayerPawn_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, v
 		if (reticule->ReticulesMC && reticule->ActiveReticule)
 		{
 			wchar_t buff[128];
-
+			
 			float offset = g_config.showCrosshair ? 0.0f : 9999.0f;
+			float laserOffset = g_config.showLaserCrosshair ? 0.0f : offset;
 
 			// Hide/show crosshair
-			reticule->ReticulesMC->SetFloat(L"_y", -offset);
+			for (int reti = 1; reti < 25; reti++) {
+				wsprintf(buff, L"_root.reticulesMC.reticules.reticule_%02d_mc", reti);
+				UGFxObject *obj = ((UGFxMoviePlayer *)reticule->Outer)->GetVariableObject(buff, NULL);
+				if (obj)
+				{
+					if (reti == CONST_THR_LASER) {
+						obj->SetFloat(L"_y", -laserOffset);
+					}
+					else {
+						obj->SetFloat(L"_y", -offset);
+					}
+				}
+			}
+
+			//reticule->ReticulesMC->SetFloat(L"_y", -offset);
 			reticule->ActiveReticule->SetFloat(L"_y", offset / g_config.crosshairScale);
 
 			// Resize crosshair

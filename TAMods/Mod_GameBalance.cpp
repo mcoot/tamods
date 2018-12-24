@@ -352,6 +352,7 @@ namespace GameBalance {
 
 	// Revert modified game balance changes back to their defaults
 	void GameBalanceTracker::revert() {
+		replicatedSettings.clear();
 		applyItemProperties(origItemProps);
 		applyDeviceValueProperties(origDeviceValueProps);
 		applyClassProperties(origClassProps);
@@ -368,6 +369,7 @@ void TAModsServer::Client::handle_GameBalanceDetailsMessage(const json& j) {
 		return;
 	}
 
+	g_gameBalanceTracker.replicatedSettings = msg.replicatedSettings;
 	g_gameBalanceTracker.curItemProps = msg.itemProperties;
 	g_gameBalanceTracker.curDeviceValueProps = msg.deviceValueProperties;
 	g_gameBalanceTracker.curClassProps = msg.classProperties;

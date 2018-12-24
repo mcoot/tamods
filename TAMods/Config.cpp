@@ -62,6 +62,7 @@ void Config::reset()
 	showFirstPersonAmmo    = false;
 	showBodyMesh           = true;
 	showCrosshair          = true;
+	showLaserCrosshair	   = false;
 	crosshairScale         = 1;
 	crosshairColor         = Utils::rgb(255, 255, 255);
 
@@ -513,6 +514,7 @@ void Config::setVariables()
 	SET_VARIABLE(bool, showFirstPersonAmmo);
 	SET_VARIABLE(bool, showBodyMesh);
 	SET_VARIABLE(bool, showCrosshair);
+	SET_VARIABLE(bool, showLaserCrosshair);
 	SET_VARIABLE(float, crosshairScale);
 	SET_VARIABLE(FColor, crosshairColor);
 
