@@ -1,177 +1,136 @@
-//#include "Mods.h"
-//
-//////////////////////////
-//// Laser Targeter modifications
-//// Used to re-enable call-ins
-//////////////////////////
-//
-//// Cache for cooldown/buildup time for 
-//struct _LaserTargetCacheInfo {
-//	long long playerId = -1;
-//	float lastInvCallInTime;
-//	float invCallInEndTime;
-//};
-//
-//static std::map<long long, _LaserTargetCacheInfo> firingLaserTargetTimes;
-//
-//static _LaserTargetCacheInfo ltCache_get(ATrDevice_LaserTargeter* that) {
-//	if (!that->Owner || !that->Owner->IsA(APawn::StaticClass())) return _LaserTargetCacheInfo();
-//
-//	APawn* pawn = (APawn*)that->Owner;
-//	if (!pawn->PlayerReplicationInfo) return _LaserTargetCacheInfo();
-//	long long playerId = TAModsServer::netIdToLong(pawn->PlayerReplicationInfo->UniqueId);
-//
-//	_LaserTargetCacheInfo v;
-//	if (firingLaserTargetTimes.find(playerId) != firingLaserTargetTimes.end()) {
-//		v = firingLaserTargetTimes[playerId];
-//	}
-//	v.playerId = playerId;
-//
-//	return v;
-//}
-//
-//static void ltCache_setFiring(ATrDevice_LaserTargeter* that) {
-//	if (!that->WorldInfo || !that->Owner || !that->Owner->IsA(APawn::StaticClass())) return;
-//
-//	_LaserTargetCacheInfo v = ltCache_get(that);
-//	
-//	
-//
-//	firingLaserTargetTimes[v.playerId] = v;
-//}
-//
-//static void ltCache_recordCallIn(ATrDevice_LaserTargeter* that) {
-//	if (!that->WorldInfo || !that->Owner || !that->Owner->IsA(APawn::StaticClass())) return;
-//
-//	_LaserTargetCacheInfo v = ltCache_get(that);
-//	v.lastTimeInvStationCalled = that->WorldInfo->TimeSeconds;
-//	firingLaserTargetTimes[v.playerId] = v;
-//}
-//
-//static void ltCache_stopFiring(ATrDevice_LaserTargeter* that) {
-//	if (!that->Owner || !that->Owner->IsA(APawn::StaticClass())) return;
-//
-//	_LaserTargetCacheInfo v = ltCache_get(that);
-//	v.isFiring = false;
-//
-//	firingLaserTargetTimes[v.playerId] = v;
-//}
-//
-//static bool ltCache_isFiring(ATrDevice_LaserTargeter* that) {
-//	if (!that->WorldInfo || !that->Owner || !that->Owner->IsA(APawn::StaticClass())) return false;
-//	_LaserTargetCacheInfo v = ltCache_get(that);
-//
-//	return v.isFiring;
-//}
-//
-//static float ltCache_buildUpTimePassed(ATrDevice_LaserTargeter* that) {
-//	if (!that->WorldInfo || !that->Owner || !that->Owner->IsA(APawn::StaticClass())) return false;
-//	_LaserTargetCacheInfo v = ltCache_get(that);
-//
-//	return that->WorldInfo->TimeSeconds - v.lastTimeFiringStarted;
-//}
-//
-//static float ltCache_cooldownTimePassed(ATrDevice_LaserTargeter* that) {
-//	if (!that->WorldInfo || !that->Owner || !that->Owner->IsA(APawn::StaticClass())) return false;
-//	_LaserTargetCacheInfo v = ltCache_get(that);
-//
-//	return that->WorldInfo->TimeSeconds - v.lastTimeInvStationCalled;
-//}
-//
-//static bool ltCache_canFire(ATrDevice_LaserTargeter* that, float buildUpSeconds, float cooldownSeconds) {
-//	if (!that->WorldInfo || !that->Owner || !that->Owner->IsA(APawn::StaticClass())) return false;
-//
-//	bool doneBuildUp = ltCache_buildUpTimePassed(that) >= buildUpSeconds;
-//	bool doneCooldown = ltCache_cooldownTimePassed(that) >= cooldownSeconds;
-//
-//	return ltCache_isFiring(that) && doneBuildUp && doneCooldown;
-//}
-//
-//void ResetLaserTargetCallInCache() {
-//	firingLaserTargetTimes.clear();
-//}
-//
-//bool getTargetLocationAndNormal(ATrDevice_LaserTargeter* that, FVector& startLoc, FVector& targetLoc, FVector& targetLocNormal) {
-//	FVector startTrace = that->InstantFireStartTrace();
-//	FVector endTrace = that->InstantFireEndTrace(startTrace);
-//
-//	targetLocNormal = FVector(0, 0, 1);
-//
-//	TArray<FImpactInfo> impactList;
-//
-//	FImpactInfo testImpact = that->CalcWeaponFire(startTrace, endTrace, FVector(0, 0, 0), 0, &impactList);
-//
-//	if (that->NotEqual_VectorVector(testImpact.HitLocation, startTrace) || that->NotEqual_VectorVector(testImpact.HitLocation, endTrace)) {
-//		targetLoc = testImpact.HitLocation;
-//		targetLocNormal = testImpact.HitNormal;
-//	}
-//
-//	startLoc = startTrace;
-//
-//	// TODO: Check validity of target location!!!
-//	return testImpact.HitActor != NULL;
-//}
-//
-//void TrDevice_LaserTargeter_OnStartConstantFire(ATrDevice_LaserTargeter* that, ATrDevice_LaserTargeter_execOnStartConstantFire_Parms* params, void* result, Hooks::CallInfo* callInfo) {
-//	ltCache_setFiring(that);
-//	that->OnStartConstantFire();
-//}
-//
-//static float TrDevice_LaserTargeter_CalcHUDAimChargePercent(ATrDevice_LaserTargeter* that) {
-//	Logger::log("Calculating aim charge percent for targeter!");
-//	// Don't show call-in progress if not firing or on cooldown
-//	if (ltCache_cooldownTimePassed(that) < g_gameBalanceTracker.getReplicatedSetting("InventoryCallInCooldownTime", 10.f)) {
-//		return 0.f;
-//	}
-//
-//	float buildUpPassed = ltCache_buildUpTimePassed(that);
-//	float buildUpTime = g_gameBalanceTracker.getReplicatedSetting("InventoryCallInBuildUpTime", 2.f);
-//	float progress =  buildUpPassed / buildUpTime;
-//	Logger::log("Calculated aim charge percent for targeter: %f/%f = %f!", buildUpPassed, buildUpTime, progress);
-//	return that->FClamp(progress, 0.f, 1.f);
-//}
-//
-//void TrDevice_CalcHUDAimChargePercent(ATrDevice* that, ATrDevice_execCalcHUDAimChargePercent_Parms* params, float* result, Hooks::CallInfo callInfo) {
-//	Logger::log("Calculating aim charge percent!");
-//	*result = that->CalcHUDAimChargePercent();
-//
-//	if (that->IsA(ATrDevice_LaserTargeter::StaticClass())) {
-//		*result = TrDevice_LaserTargeter_CalcHUDAimChargePercent((ATrDevice_LaserTargeter*)that);
-//	}
-//}
-//
-//void TrDevice_LaserTargeter_OnEndConstantFire(ATrDevice_LaserTargeter* that, ATrDevice_LaserTargeter_execOnEndConstantFire_Parms* params, void* result, Hooks::CallInfo* callInfo) {
-//	if (!g_gameBalanceTracker.getReplicatedSetting("EnableInventoryCallIn", false)) {
-//		// Call-In logic not required
-//		that->OnEndConstantFire();
-//		ltCache_stopFiring(that);
-//		return;
-//	}
-//
-//	float buildUpTime = g_gameBalanceTracker.getReplicatedSetting("InventoryCallInBuildUpTime", 2.f);
-//	float cooldownTime = g_gameBalanceTracker.getReplicatedSetting("InventoryCallInCooldownTime", 10.f);
-//
-//	bool canFireCallIn = ltCache_canFire(that, buildUpTime, cooldownTime);
-//	ltCache_stopFiring(that);
-//
-//	if (!canFireCallIn) {
-//		that->OnEndConstantFire();
-//		return;
-//	}
-//
-//	// Call in an inventory station
-//	ltCache_recordCallIn(that);
-//
-//	static ATrCallIn_SupportInventory* callIn = (ATrCallIn_SupportInventory*)that->Spawn(ATrCallIn_SupportInventory::StaticClass(), that->Owner, FName(), FVector(), FRotator(), NULL, false);
-//	callIn->Initialize(0, 0, 0);
-//
-//	FVector laserStart;
-//	FVector laserEnd;
-//	FVector hitNormal;
-//	bool hasLaserHit = getTargetLocationAndNormal(that, laserStart, laserEnd, hitNormal);
-//	that->UpdateTarget(hasLaserHit, laserEnd);
-//
-//	callIn->FireCompletedCallIn(1, laserEnd, hitNormal);
-//
-//	that->OnEndConstantFire();
-//}
+#include "Mods.h"
+
+////////////////////////
+// Display charge in hud
+////////////////////////
+
+float TrDevice_SniperRifle_CalcHUDAimChargePercent(ATrDevice_SniperRifle* that) {
+	if (that->WorldInfo->NetMode != NM_DedicatedServer && that->r_fAimChargeTime > 0) {
+		return that->m_fAimChargeDeltaTime / that->r_fAimChargeTime;
+	}
+	return 0.0f;
+}
+
+void TrDevice_SniperRifle_PlayScopeRechargeSound(ATrDevice_SniperRifle* that, ATrDevice_SniperRifle_execPlayScopeRechargeSound_Parms* params, void* result, Hooks::CallInfo* callInfo) {
+	if (that->m_ScopeChargeSound) {
+		that->m_ScopeChargeSound->Stop();
+		that->m_ScopeChargeSound->FadeIn(0.1f, 1.0f);
+	}
+}
+
+void TrDevice_SniperRifle_StopScopeRechargeSound(ATrDevice_SniperRifle* that, ATrDevice_SniperRifle_execStopScopeRechargeSound_Parms* params, void* result, Hooks::CallInfo* callInfo) {
+	if (that->m_ScopeChargeSound && that->m_ScopeChargeSound->IsPlaying() && that->m_ScopeChargeSound->FadeOutTargetVolume != 0.0f) {
+		that->m_ScopeChargeSound->FadeOut(0.2f, 0.0f);
+	}
+}
+
+void TrDevice_CalcHUDAimChargePercent(ATrDevice* that, ATrDevice_execCalcHUDAimChargePercent_Parms* params, float* result, Hooks::CallInfo callInfo) {
+	*result = that->CalcHUDAimChargePercent();
+
+	if (that->IsA(ATrDevice_LaserTargeter::StaticClass())) {
+		*result = TrDevice_LaserTargeter_CalcHUDAimChargePercent((ATrDevice_LaserTargeter*)that);
+	}
+	else if (that->IsA(ATrDevice_SniperRifle::StaticClass())) {
+		*result = TrDevice_SniperRifle_CalcHUDAimChargePercent((ATrDevice_SniperRifle*)that);
+	}
+}
+
+bool TrDevice_SniperRifle_Tick(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	ATrDevice_SniperRifle* that = (ATrDevice_SniperRifle*)dwCallingObject;
+	ATrDevice_SniperRifle_eventTick_Parms* params = (ATrDevice_SniperRifle_eventTick_Parms*)pParams;
+
+	if (!g_gameBalanceTracker.getReplicatedSetting("UseGOTYBXTCharging", false)) {
+		that->eventTick(params->DeltaTime);
+		return true;
+	}
+
+	if (!that->Owner) {
+		that->ATrDevice::eventTick(params->DeltaTime);
+		return true;
+	}
+	ATrPawn* owner = (ATrPawn*)that->Owner;
+
+	if (!that->Instigator || !that->Instigator->Controller) {
+		that->ATrDevice::eventTick(params->DeltaTime);
+		return true;
+	}
+	ATrPlayerController* pc = (ATrPlayerController*)that->Instigator->Controller;
+
+	// If not zoomed, no charge
+	if (pc->m_ZoomState == ZST_NotZoomed) {
+		that->m_fAimChargeDeltaTime = 0.f;
+	}
+	else {
+		float interpDeltaTime = params->DeltaTime;
+
+		if (owner->Physics == PHYS_Falling || owner->Physics == PHYS_Flying || that->VSizeSq(owner->Velocity) > 490000) {
+			interpDeltaTime *= 0.5f;
+		}
+
+		// Increment charge time
+		that->m_fAimChargeDeltaTime += interpDeltaTime;
+	}
+
+	if (that->m_fAimChargeDeltaTime >= that->r_fAimChargeTime) {
+		that->StopScopeRechargeSound();
+	}
+
+	that->ATrDevice::eventTick(params->DeltaTime);
+
+	return true;
+}
+
+void ATrPlayerController_ResetZoomDuration(ATrPlayerController* that, ATrPlayerController_execResetZoomDuration_Parms* params, void* result, Hooks::CallInfo* callInfo) {
+	if (!g_gameBalanceTracker.getReplicatedSetting("UseGOTYBXTCharging", false)) {
+		that->ResetZoomDuration(params->bPlayRechargeSoundOnWeapon);
+		return;
+	}
+	
+	if (!that->Pawn || !that->Pawn->Weapon) return;
+
+	if (that->WorldInfo->NetMode == NM_DedicatedServer) return;
+
+	that->c_fHUDZoomDuration = 0;
+
+	if (!that->Pawn->Weapon->IsA(ATrDevice_SniperRifle::StaticClass())) return;
+
+	ATrDevice_SniperRifle* dev = (ATrDevice_SniperRifle*)that->Pawn->Weapon;
+
+	if (params->bPlayRechargeSoundOnWeapon && that->m_ZoomState != ZST_NotZoomed) {
+		//dev->PlayScopeRechargeSound();
+		TrDevice_SniperRifle_PlayScopeRechargeSound(dev, NULL, NULL, NULL);
+	}
+	else {
+		TrDevice_SniperRifle_StopScopeRechargeSound(dev, NULL, NULL, NULL);
+	}
+}
+
+void TrDevice_SniperRifle_ModifyInstantHitDamage(ATrDevice_SniperRifle* that, ATrDevice_SniperRifle_execModifyInstantHitDamage_Parms* params, float* result, Hooks::CallInfo* callInfo) {
+	if (!g_gameBalanceTracker.getReplicatedSetting("UseGOTYBXTCharging", false)) {
+		that->ModifyInstantHitDamage(params->FiringMode, params->Impact, params->Damage);
+		return;
+	}
+	
+	float damage = params->Damage;
+
+	if (that->Instigator && that->Instigator->Controller) {
+		ATrPlayerController* pc = (ATrPlayerController*)that->Instigator->Controller;
+
+		if (pc && pc->m_ZoomState != ZST_NotZoomed) {
+			// Polynomial scale, 16x^2
+			float aimChargePct = that->FMin(that->r_fAimChargeTime, that->m_fAimChargeDeltaTime);
+			aimChargePct = that->FMin((that->m_fMultCoeff * aimChargePct * aimChargePct) / that->m_fDivCoeff, 1.0f);
+
+			if (aimChargePct > 0 && that->r_fAimChargeTime > 0) {
+				if (that->m_fMaxAimedDamage > damage) {
+					damage += (that->m_fMaxAimedDamage - damage) * aimChargePct;
+				}
+			}
+		}
+	}
+
+	// Reset the aim charge
+	that->m_fAimChargeDeltaTime = 0.f;
+
+	*result = that->ATrDevice::ModifyInstantHitDamage(params->FiringMode, params->Impact, damage);
+}

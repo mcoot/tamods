@@ -283,20 +283,10 @@ void TrDevice_LaserTargeter_OnEndConstantFire(ATrDevice_LaserTargeter* that, ATr
 	}
 }
 
-void TrDevice_CalcHUDAimChargePercent(ATrDevice* that, ATrDevice_execCalcHUDAimChargePercent_Parms* params, float* result, Hooks::CallInfo callInfo) {
-	*result = that->CalcHUDAimChargePercent();
-
-	if (that->IsA(ATrDevice_LaserTargeter::StaticClass())) {
-		*result = callInData.CalcHUDAimChargePercent((ATrDevice_LaserTargeter*)that);
-		if (Utils::tr_hud) {
-			UGfxTrHud* hudMovie = (UGfxTrHud*)Utils::tr_hud->HudMovie;
-			if (hudMovie && hudMovie->Reticules) {
-				//hudMovie->m_nLastPercentLaser = (int)(*result * 100);
-				//hudMovie->Reticules->SetLaserPowerupPercentage((int)(*result * 100));
-			}
-		}
-	}
+float TrDevice_LaserTargeter_CalcHUDAimChargePercent(ATrDevice_LaserTargeter* that) {
+	return callInData.CalcHUDAimChargePercent(that);
 }
+
 
 // Disabled due to OutParam weirdness
 void TrDevice_LaserTargeter_GetLaserStartAndEnd(ATrDevice_LaserTargeter* that, ATrDevice_LaserTargeter_execGetLaserStartAndEnd_Parms* params, void* result, Hooks::CallInfo* callInfo) {

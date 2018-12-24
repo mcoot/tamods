@@ -53,6 +53,12 @@ void addClientModeHooks()
 	// Disabled due to bugs
 	//fixPingDependencies();
 
+	Hooks::addUScript(&TrDevice_SniperRifle_PlayScopeRechargeSound, "Function TribesGame.TrDevice_SniperRifle.PlayScopeRechargeSound");
+	Hooks::addUScript(&TrDevice_SniperRifle_StopScopeRechargeSound, "Function TribesGame.TrDevice_SniperRifle.StopScopeRechargeSound");
+	Hooks::addUScript(&TrDevice_SniperRifle_ModifyInstantHitDamage, "Function TribesGame.TrDevice_SniperRifle.ModifyInstantHitDamage");
+	Hooks::add(&TrDevice_SniperRifle_Tick, "Function TribesGame.TrDevice_SniperRifle.Tick");
+	Hooks::addUScript(&ATrPlayerController_ResetZoomDuration, "Function TribesGame.TrPlayerController.ResetZoomDuration");
+
 	Hooks::addUScript(&TrDevice_CalcHUDAimChargePercent, "Function TribesGame.TrDevice.CalcHUDAimChargePercent");
 	Hooks::addUScript(&TrDevice_LaserTargeter_OnStartConstantFire, "Function TribesGame.TrDevice_LaserTargeter.OnStartConstantFire");
 	Hooks::addUScript(&TrDevice_LaserTargeter_OnEndConstantFire, "Function TribesGame.TrDevice_LaserTargeter.OnEndConstantFire");
