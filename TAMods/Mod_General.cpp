@@ -554,44 +554,6 @@ bool TrDevice_SetPosition(int ID, UObject *dwCallingObject, UFunction* pFunction
 	return true;
 }
 
-void TrDevice_FireAmmunition(ATrDevice* that, ATrDevice_execFireAmmunition_Parms* params, void* result, Hooks::CallInfo callInfo) {
-	if (!that->ReplicateAmmoOnWeaponFire()) {
-		that->r_bReadyToFire = false;
-	}
-
-	if (!that->m_bAllowHoldDownFire) {
-		that->m_bWantsToFire = false;
-	}
-
-	that->AUTWeapon::FireAmmunition();
-	if (!that->m_bAllowHoldDownFire) {
-		that->StopFire(0);
-	}
-
-	that->PlayFireAnimation(0);
-	that->eventCauseMuzzleFlash();
-	that->ShakeView();
-
-	that->PayAccuracyForShot();
-	that->eventUpdateShotsFired(false);
-
-	bool bKickedBack = that->AddKickback();
-
-	ATrPawn* pawn = (ATrPawn*)that->Instigator;
-
-	if (pawn) {
-		ATrPlayerController* pc = (ATrPlayerController*)pawn->Controller;
-
-		if (bKickedBack && pc && pawn->Weapon == that) {
-			FVector StartTrace = pawn->GetWeaponStartTraceLocation(that);
-			FVector AimVector = Geom::rotationToVector(that->GetAimForCamera(StartTrace));
-			FVector EndTrace = that->Add_VectorVector(StartTrace, that->Multiply_VectorFloat(AimVector, that->GetWeaponRange()));
-			FVector kbVec = that->Normal(that->Subtract_VectorVector(EndTrace, pawn->GetPawnViewLocation()));
-			pc->OnKickback(that->Subtract_RotatorRotator(Geom::vectorToRotation(kbVec), pawn->eventGetViewRotation()), that->m_fKickbackBlendOutTime);
-		}
-	}
-}
-
 void TrDevice_NovaSlug_StartFire(ATrDevice_NovaSlug* that, ATrDevice_NovaSlug_execStartFire_Parms* params, void* result, Hooks::CallInfo callInfo) {
 	that->ATrDevice::StartFire(params->FireModeNum);
 }

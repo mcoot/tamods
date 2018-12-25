@@ -90,7 +90,8 @@ void addClientModeHooks()
 	Hooks::add(&TrPC_PlayerWalking_ToggleJetpack, "Function TrPlayerController.PlayerWalking.ToggleJetpack"); // To abort replays when pressing jet
 
 	Hooks::addUScript(&TrDevice_FireAmmunition, "Function TribesGame.TrDevice.FireAmmunition");
-	//Hooks::addUScript(&TrDevice_NovaSlug_StartFire, "Function TribesGame.TrDevice_NovaSlug.FireAmmunition");
+	Hooks::addUScript(&TrDevice_NovaSlug_FireAmmunition, "Function TribesGame.TrDevice_NovaSlug.FireAmmunition");
+	//Hooks::addUScript(&TrDevice_NovaSlug_StartFire, "Function TribesGame.TrDevice_NovaSlug.StartFire");
 	Hooks::addUScript(&TrDevice_Shotgun_AddSpreadWithAccuracy, "Function TribesGame.TrDevice_Shotgun.AddSpreadWithAccuracy");
 																											  // HUD modification
 	Hooks::add(&TrHUD_eventPostRender, "Function TribesGame.TrHUD.PostRender"); // Damage numbers
