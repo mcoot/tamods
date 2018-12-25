@@ -53,6 +53,7 @@ namespace getWeaponData
 	int ammoMaxCarried(unsigned const char &n);
 	int ammoTotal(unsigned const char &n);
 	std::string name(unsigned const char &n);
+	int itemId(unsigned const char &n);
 }
 namespace getCurrentWeaponData
 {
@@ -71,6 +72,12 @@ namespace getCurrentWeaponData
 	int reticuleIndex();
 	unsigned char equippedAt();
 	std::string name();
+	int itemId();
+
+	bool isZoomed();
+	float sniperChargePct();
+	float laserTargeterChargePct();
+	float sniperDamage();
 }
 namespace getVehicleData
 {

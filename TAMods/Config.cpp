@@ -2460,23 +2460,29 @@ void Lua::init()
 			addFunction("ammoMaxCarried",     &getWeaponData::ammoMaxCarried).
 			addFunction("ammoTotal",          &getWeaponData::ammoTotal).
 			addFunction("name",               &getWeaponData::name).
+			addFunction("itemId",			  &getWeaponData::itemId).
 		endNamespace().
 		beginNamespace("currentWeapon").
-			addFunction("isReadyToFire",      &getCurrentWeaponData::isReadyToFire).
-			addFunction("isReloading",        &getCurrentWeaponData::isReloading).
-			addFunction("isReloaded",         &getCurrentWeaponData::isReloaded).
-			addFunction("isPack",             &getCurrentWeaponData::isPack).
-			addFunction("isLowAmmo",          &getCurrentWeaponData::isLowAmmo).
-			addFunction("reloadTimeFull",     &getCurrentWeaponData::reloadTimeFull).
-			addFunction("reloadTime",         &getCurrentWeaponData::reloadTime).
-			addFunction("ammo",               &getCurrentWeaponData::ammo).
-			addFunction("ammoMax",            &getCurrentWeaponData::ammoMax).
-			addFunction("ammoCarried",        &getCurrentWeaponData::ammoCarried).
-			addFunction("ammoMaxCarried",     &getCurrentWeaponData::ammoMaxCarried).
-			addFunction("ammoTotal",          &getCurrentWeaponData::ammoTotal).
-			addFunction("reticuleIndex",      &getCurrentWeaponData::reticuleIndex).
-			addFunction("equippedAt",         &getCurrentWeaponData::equippedAt).
-			addFunction("name",               &getCurrentWeaponData::name).
+			addFunction("isReadyToFire",			&getCurrentWeaponData::isReadyToFire).
+			addFunction("isReloading",				&getCurrentWeaponData::isReloading).
+			addFunction("isReloaded",				&getCurrentWeaponData::isReloaded).
+			addFunction("isPack",					&getCurrentWeaponData::isPack).
+			addFunction("isLowAmmo",				&getCurrentWeaponData::isLowAmmo).
+			addFunction("reloadTimeFull",			&getCurrentWeaponData::reloadTimeFull).
+			addFunction("reloadTime",				&getCurrentWeaponData::reloadTime).
+			addFunction("ammo",						&getCurrentWeaponData::ammo).
+			addFunction("ammoMax",					&getCurrentWeaponData::ammoMax).
+			addFunction("ammoCarried",				&getCurrentWeaponData::ammoCarried).
+			addFunction("ammoMaxCarried",			&getCurrentWeaponData::ammoMaxCarried).
+			addFunction("ammoTotal",				&getCurrentWeaponData::ammoTotal).
+			addFunction("reticuleIndex",			&getCurrentWeaponData::reticuleIndex).
+			addFunction("equippedAt",				&getCurrentWeaponData::equippedAt).
+			addFunction("name",						&getCurrentWeaponData::name).
+			addFunction("itemId",					&getCurrentWeaponData::itemId).
+			addFunction("isZoomed",				    &getCurrentWeaponData::isZoomed).
+			addFunction("sniperChargePct",			&getCurrentWeaponData::sniperChargePct).
+			addFunction("laserTargeterChargePct",	&getCurrentWeaponData::laserTargeterChargePct).
+			addFunction("sniperDamage",				&getCurrentWeaponData::sniperDamage).
 		endNamespace().
 		beginNamespace("vehicle").
 			addFunction("name",			&getVehicleData::name).

@@ -340,6 +340,13 @@ std::string getWeaponData::name(unsigned const char &n)
 
 	return "unknown";
 }
+int getWeaponData::itemId(unsigned const char &n)
+{
+	ATrDevice *dev = Utils::getDeviceByEquipPointHelper(n);
+	if (dev) return dev->DBWeaponId;
+
+	return 0;
+}
 /////////////////////////////////////////////////////////////////////////////////////
 bool getCurrentWeaponData::isReadyToFire()
 {
@@ -459,6 +466,73 @@ std::string getCurrentWeaponData::name()
 	if (dev) return Utils::f2std(dev->ItemName);
 
 	return "unknown";
+}
+int getCurrentWeaponData::itemId() 
+{
+	ATrDevice *dev = Utils::getCurrentDeviceHelper();
+	if (!dev) return 0;
+
+	return dev->DBWeaponId;
+}
+bool getCurrentWeaponData::isZoomed()
+{
+	if (!Utils::tr_pc) return false;
+
+	return Utils::tr_pc->m_ZoomState != ZST_NotZoomed;
+}
+float getCurrentWeaponData::sniperChargePct() 
+{
+	ATrDevice *dev = Utils::getCurrentDeviceHelper();
+	if (!dev) return 0;
+
+	if (dev->IsA(ATrDevice_SniperRifle::StaticClass())) {
+		return dev->FMin(TrDevice_SniperRifle_CalcHUDAimChargePercent((ATrDevice_SniperRifle*)dev), 1.0f);
+	}
+	else if (dev->IsA(ATrDevice_PhaseRifle::StaticClass())) {
+		ATrDevice_PhaseRifle* phase = (ATrDevice_PhaseRifle*)dev;
+		return dev->FMin(getPlayerData::energy() / phase->m_MaxEnergyConsumed, 1);
+	}
+	
+	return 0;
+}
+float getCurrentWeaponData::laserTargeterChargePct()
+{
+	ATrDevice *dev = Utils::getCurrentDeviceHelper();
+	if (!dev) return 0;
+
+	if (!dev->IsA(ATrDevice_LaserTargeter::StaticClass())) return 0;
+
+	return dev->FMin(TrDevice_LaserTargeter_CalcHUDAimChargePercent((ATrDevice_LaserTargeter*)dev), 1.0f);
+}
+float getCurrentWeaponData::sniperDamage() 
+{
+	ATrDevice *dev = Utils::getCurrentDeviceHelper();
+	if (!dev) return 0;
+
+	if (dev->IsA(ATrDevice_SniperRifle::StaticClass())) {
+		ATrDevice_SniperRifle* bxt = (ATrDevice_SniperRifle*)dev;
+
+		float damage = bxt->InstantHitDamage.GetStd(0);
+
+		// Polynomial scale, 16x^2
+		float aimChargePct = bxt->FMin(bxt->r_fAimChargeTime, bxt->m_fAimChargeDeltaTime);
+		aimChargePct = bxt->FMin((bxt->m_fMultCoeff * aimChargePct * aimChargePct) / bxt->m_fDivCoeff, 1.0f);
+
+		if (aimChargePct > 0 && bxt->r_fAimChargeTime > 0) {
+			if (bxt->m_fMaxAimedDamage > damage) {
+				damage += (bxt->m_fMaxAimedDamage - damage) * aimChargePct;
+			}
+		}
+
+		return damage;
+	}
+	else if (dev->IsA(ATrDevice_PhaseRifle::StaticClass())) {
+		ATrDevice_PhaseRifle* phase = (ATrDevice_PhaseRifle*)dev;
+		
+		return phase->InstantHitDamage.GetStd(0) + (phase->FMin(getPlayerData::energy(), phase->m_MaxEnergyConsumed) * phase->m_DamagePerEnergy);
+	}
+
+	return 0;
 }
 /////////////////////////////////////////////////////////////////////////////////////
 ATrVehicle* getVehicleHelper()
