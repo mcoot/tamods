@@ -2434,6 +2434,7 @@ void Lua::init()
 			addFunction("classId",         &getPlayerData::classId).
 			addFunction("health",          &getPlayerData::health).
 			addFunction("healthMax",       &getPlayerData::healthMax).
+			addFunction("timeUntilRegen",  &getPlayerData::timeUntilRegen).
 			addFunction("speed",           &getPlayerData::speed).
 			addFunction("respawnTime",     &getPlayerData::respawnTime).
 			addFunction("numDeployables",  &getPlayerData::numDeployables).
@@ -2504,6 +2505,7 @@ void Lua::init()
 			addFunction("isOver",            &getGameData::isOver).
 			addFunction("isGenUp",           &getGameData::isGenUp).
 			addFunction("isWarmUp",          &getGameData::isWarmUp).
+			addFunction("isOvertime",          &getGameData::isOvertime).
 			addFunction("genAutoRepairTime", &getGameData::genAutoRepairTime).
 			addFunction("overTimeLimit",     &getGameData::overTimeLimit).
 			addFunction("score",             &getGameData::score).

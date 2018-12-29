@@ -26,6 +26,7 @@ namespace getPlayerData
 	int classId();
 	int health();
 	int healthMax();
+	float timeUntilRegen();
 	int speed();
 	int respawnTime();
 	int numDeployables();
@@ -101,6 +102,7 @@ namespace getGameData
 	bool isOver();
 	bool isGenUp(unsigned const char &n);
 	bool isWarmUp();
+	bool isOvertime();
 	int genAutoRepairTime(unsigned const char &n);
 	int overTimeLimit();
 	int score(unsigned const char &n);

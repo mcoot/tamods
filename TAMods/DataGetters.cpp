@@ -147,6 +147,14 @@ int getPlayerData::healthMax()
 
 	return 0;
 }
+float getPlayerData::timeUntilRegen()
+{
+	ATrPawn *TrP = Utils::getPlayerPawn();
+	if (TrP)
+		return TrP->m_fSecondsBeforeAutoHeal;
+
+	return 0;
+}
 int getPlayerData::speed()
 {
 	ATrPawn *TrP = Utils::getPlayerPawn();
@@ -772,6 +780,14 @@ bool getGameData::isWarmUp()
 		return ((ATrGameReplicationInfo *)Utils::tr_pc->WorldInfo->GRI)->bWarmupRound;
 
 	return false;
+}
+bool getGameData::isOvertime()
+{
+	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo->Game) return false;
+
+	ATrGame* game = (ATrGame*)Utils::tr_pc->WorldInfo->Game;
+
+	return game->bOverTime;
 }
 int getGameData::genAutoRepairTime(unsigned const char &n)
 {
