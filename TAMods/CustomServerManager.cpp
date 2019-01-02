@@ -4,7 +4,20 @@ CustomServerManager g_CustomServerManager;
 
 void CustomServerManager::start(std::string serverAddress) {
 	client = std::make_shared<TAModsServer::Client>([this] {handler_OnConnect(); }, [this] {handler_OnConnectTimeOut(); });
-	client->connect(serverAddress, 7778);
+
+	std::string serverHost = serverAddress;
+	int port = 7777;
+
+	size_t portPos = serverAddress.rfind(':');
+	if (portPos != std::string::npos) {
+		try {
+			port = std::stoi(serverAddress.substr(portPos + 1));
+			serverHost = serverAddress.substr(0, portPos);
+		}
+		catch (std::invalid_argument&) {}
+	}
+
+	client->connect(serverHost, port);
 }
 
 void CustomServerManager::stop() {
