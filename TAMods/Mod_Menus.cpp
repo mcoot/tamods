@@ -22,7 +22,7 @@ static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that) {
 		eqpPointsToShow.erase(std::remove(eqpPointsToShow.begin(), eqpPointsToShow.end(), EQP_Tertiary), eqpPointsToShow.end());
 
 		// Rename perk menu options
-		that->OptionSubtext.Clear();
+		that->OptionSubtext = TArray<FString>();
 		that->OptionSubtext.Add(FString(L"PRIMARY WEAPON"));
 		that->OptionSubtext.Add(FString(L"SECONDARY WEAPON"));
 		that->OptionSubtext.Add(FString(L"BELT ITEM"));
