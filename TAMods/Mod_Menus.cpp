@@ -1,5 +1,30 @@
 #include "Mods.h"
 
+static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that) {
+	UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
+
+	that->ClearActions();
+
+	if (!moviePlayer->User->m_ChoseRegion || !moviePlayer->User->m_ChoseRegion2) {
+		that->AddActionPage(moviePlayer->Pages->RegionSettingsPage);
+	}
+	else {
+		that->AddActionPage(moviePlayer->Pages->NewPlayNowPage);
+	}
+
+	that->AddActionPage(moviePlayer->Pages->ClassesPage);
+	that->AddActionPage(moviePlayer->Pages->TrainingMatchPage);
+
+	// Replace the Watch Now page with a button to switch server mode
+	that->OptionTitles.Set(3, FString(L"SWITCH GAME TYPE"));
+	that->AddAction();
+
+	that->AddActionPage(moviePlayer->Pages->SocialPage);
+	that->AddActionPage(moviePlayer->Pages->StorePage);
+	that->AddActionPage(moviePlayer->Pages->SettingsPage);
+	that->AddActionNumber(that->NumQuit);
+}
+
 static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that) {
 	that->ClearActions();
 
@@ -51,13 +76,42 @@ static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that) {
 	that->AddActionNumber(that->NumRenameLoadout);
 }
 
-// Override so that we can do initialization when the player first clicks on something in the menus
-void GFxTrPage_Main_TakeAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeAction_Parms* params, int* result, Hooks::CallInfo callInfo) {
+static bool menusAreInitialised = false;
+
+static void initCustomMenus(UGFxTrMenuMoviePlayer* menuMovie) {
+	if (menusAreInitialised) return;
+
 	// Set the global reference to the main menu instance
-	Utils::tr_menuMovie = (UGFxTrMenuMoviePlayer*)that->Outer;
+	Utils::tr_menuMovie = menuMovie;
+
+	// Initialize the main menu changes
+	GFxTrPage_Main_SetItems(Utils::tr_menuMovie->Pages->MainPage);
 
 	// Initialise the class changes
 	GFxTrPage_Class_SetItems(Utils::tr_menuMovie->Pages->ClassPage);
+
+	menusAreInitialised = true;
+}
+
+bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	UTrLoginManager* that = (UTrLoginManager*)dwCallingObject;
+	UTrLoginManager_execLogin_Parms* params = (UTrLoginManager_execLogin_Parms*)pParams;
+	bool* result = (bool*)pResult;
+
+	Logger::log("LOGIN");
+
+	// Initialise the menus on login
+	initCustomMenus((UGFxTrMenuMoviePlayer*)that->Outer);
+
+	// Normal login
+	*result = that->Login(params->UserName, params->Password, params->bShouldRemember);
+	return true;
+}
+
+// Override so that we can do initialization when the player first clicks on something in the menus
+void GFxTrPage_Main_TakeAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeAction_Parms* params, int* result, Hooks::CallInfo callInfo) {
+	// If the user logged in prior to injecting, initialise menus now
+	initCustomMenus((UGFxTrMenuMoviePlayer*)that->Outer);
 
 	// Perform the normal action
 	*result = that->TakeAction(params->ActionIndex, params->DataList);

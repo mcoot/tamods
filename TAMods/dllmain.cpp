@@ -160,6 +160,8 @@ void addClientModeHooks()
 	Hooks::addUScript(&TrChatConsole_Typing_PostRender_Console, "Function TrChatConsole.Typing.PostRender_Console");
 
 	// Menu modification
+	// Login hook is borked
+	//Hooks::add(&TrLoginManager_Login, "Function TribesGame.TrLoginManager.Login");
 	Hooks::addUScript(&GFxTrPage_Main_TakeAction, "Function TribesGame.GFxTrPage_Main.TakeAction");
 	Hooks::addUScript(&GFxTrPage_Class_SpecialAction, "Function TribesGame.GFxTrPage_Class.SpecialAction");
 	Hooks::addUScript(&GFxTrPage_Class_FillOption, "Function TribesGame.GFxTrPage_Class.FillOption");
