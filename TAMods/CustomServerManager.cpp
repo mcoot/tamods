@@ -21,7 +21,7 @@ void CustomServerManager::start(std::string serverAddress) {
 }
 
 void CustomServerManager::stop() {
-	if (!client || client->isConnected()) {
+	if (client && client->isConnected()) {
 		client->disconnect();
 		Logger::log("Disconnected");
 	}
