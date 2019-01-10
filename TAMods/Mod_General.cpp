@@ -8,6 +8,10 @@ bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction
 	Utils::tr_pc = that;
 
 	if (that && that->WorldInfo && that->WorldInfo->NetMode == NM_Client) {
+		if (g_CustomServerManager.isConnected()) {
+			Logger::log("Closing old direct connection to server");
+			g_CustomServerManager.stop();
+		}
 		Logger::log("About to attempt to initiate direct connection to server");
 		std::string serverUrl = Utils::f2std(that->WorldInfo->GetAddressURL());
 		Logger::log("Connecting to server at %s", serverUrl.c_str());

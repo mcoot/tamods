@@ -20,6 +20,10 @@ void CustomServerManager::start(std::string serverAddress) {
 	client->connect(serverHost, port);
 }
 
+bool CustomServerManager::isConnected() {
+	return client && client->isConnected();
+}
+
 void CustomServerManager::stop() {
 	if (client && client->isConnected()) {
 		client->disconnect();

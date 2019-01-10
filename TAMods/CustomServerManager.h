@@ -22,6 +22,7 @@ public:
 	CustomServerManager() {}
 
 	void start(std::string serverAddress);
+	bool isConnected();
 	void stop();
 };
 

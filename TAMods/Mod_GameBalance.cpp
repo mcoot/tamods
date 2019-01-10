@@ -51,6 +51,7 @@ static std::vector<UObject*> getDefaultObjectsForProps(int elemId) {
 			variants.push_back("");
 			variants.push_back("BE");
 			variants.push_back("DS");
+			variants.push_back("MC");
 		}
 		if (Data::perk_id_to_name.find(elemId) != Data::perk_id_to_name.end()) {
 			prefix = "TrPerk";
