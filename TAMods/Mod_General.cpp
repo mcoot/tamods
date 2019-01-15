@@ -1,6 +1,7 @@
 #include "Mods.h"
 #include "NameCryptor.h"
 
+
 bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrPlayerController* that = (ATrPlayerController *)dwCallingObject;
@@ -8,14 +9,17 @@ bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction
 	Utils::tr_pc = that;
 
 	if (that && that->WorldInfo && that->WorldInfo->NetMode == NM_Client) {
-		if (g_CustomServerManager.isConnected()) {
-			Logger::log("Closing old direct connection to server");
-			g_CustomServerManager.stop();
-		}
+		//if (g_CustomServerManager.isConnected()) {
+		//	Logger::log("Closing old direct connection to server");
+		//	g_CustomServerManager.stop();
+		//}
 		Logger::log("About to attempt to initiate direct connection to server");
 		std::string serverUrl = Utils::f2std(that->WorldInfo->GetAddressURL());
 		Logger::log("Connecting to server at %s", serverUrl.c_str());
 		// If not in roam map, attempt connection in case this is a compatible modded server
+		//Sleep(1000);
+		g_CustomServerManager = CustomServerManager();
+
 		g_CustomServerManager.start(serverUrl);
 	}
 
@@ -31,7 +35,10 @@ bool TrPC_PostBeginPlay(int id, UObject *dwCallingObject, UFunction* pFunction, 
 bool TrPC_Destroyed(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
 	// If the client is connected to a modded server, disconnect
 	Logger::log("About to disconnect from serverclient.disconnect();");
+	//if (g_CustomServerManager.isConnected()) {
 	g_CustomServerManager.stop();
+	//}
+	
 	// Remove any game balance modifications this server imposed
 	g_gameBalanceTracker.revert();
 	return false;
@@ -44,6 +51,13 @@ bool TrPC_LoadPlayerProfile(int id, UObject *dwCallingObject, UFunction* pFuncti
 	}
 
 	return false;
+}
+
+void UTGame_EndGame(AUTGame* that, AUTGame_execEndGame_Parms* params, void* result, Hooks::CallInfo* callInfo) {
+	//if (g_CustomServerManager.isConnected()) {
+	//	g_CustomServerManager.stop();
+	//}
+	that->EndGame(params->Winner, params->Reason);
 }
 
 static void performClassRename(std::string fiName, FString& friendlyName, FString& abbreviation) {

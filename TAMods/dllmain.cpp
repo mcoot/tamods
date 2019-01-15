@@ -40,9 +40,19 @@ static void fixPingDependencies() {
 	}
 }
 
+static void testing_PrintOutGObjectIndices() {
+	for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
+	{
+		UObject* Object = UObject::GObjObjects()->Data[i];
+		Logger::log("%d \t\t | %s", i, Object->GetFullName());
+	}
+}
+
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
+	//testing_PrintOutGObjectIndices();
+
 	// Manually set Sparrow, Eagle and Colt to be hold to fire
 	// Since they are marked as non-hold to fire but the implementation in the base game is broken
 	// Since TAMods fixes that, if we don't mark them as hold to fire they won't be in game
@@ -80,6 +90,8 @@ void addClientModeHooks()
 	Hooks::add(&TrDeployable_FinalizeDeployment, "Function TribesGame.TrDeployable.FinalizeDeployment", Hooks::POST); // Disable base turrets
 	Hooks::add(&TrPowerGenerator_PostBeginPlay, "Function TribesGame.TrPowerGenerator.PostBeginPlay", Hooks::POST); // Disable generators
 
+	Hooks::addUScript(&UTGame_EndGame, "Function UTGame.UTGame.EndGame");
+
 	// Shouldn't be necessary as this has been done serverside...
 	//Hooks::addUScript(&UGFxTrMenuMoviePlayer_HideMovie, "Function TribesGame.GFxTrMenuMoviePlayer.HideMovie"); // Fix for getting stuck in menus post map-switch
 
@@ -88,6 +100,7 @@ void addClientModeHooks()
 	Hooks::add(&TrEntryPlayerController_Destroyed, "Function TribesGame.TrEntryPlayerController.Destroyed"); // Reset array of states after map load
 	Hooks::add(&TrPC_Dead_BeginState, "Function TrPlayerController.Dead.BeginState", Hooks::POST); // Stop stopwatch and route replay/recording
 	Hooks::add(&TrPC_PlayerWalking_ToggleJetpack, "Function TrPlayerController.PlayerWalking.ToggleJetpack"); // To abort replays when pressing jet
+
 
 	Hooks::addUScript(&TrDevice_FireAmmunition, "Function TribesGame.TrDevice.FireAmmunition");
 	Hooks::addUScript(&TrDevice_NovaSlug_FireAmmunition, "Function TribesGame.TrDevice_NovaSlug.FireAmmunition");

@@ -37,6 +37,7 @@ namespace TCP {
 
 		void handle_read(boost::system::error_code readErr) {
 			if (stopped) return;
+
 			if (readErr) {
 				error_state = readErr;
 				stop();
@@ -74,6 +75,7 @@ namespace TCP {
 				return;
 			}
 			std::string msgString = std::string(rawMsg.begin(), rawMsg.end());
+			
 			// Parse the message into json
 			json msgJson;
 			try {
@@ -84,6 +86,7 @@ namespace TCP {
 				stop();
 				return;
 			}
+
 
 			// Call the handler for this kind of message
 			// If there is no handler, ignore the message
@@ -166,10 +169,12 @@ namespace TCP {
 		}
 
 		void stop() {
+			if (stopped) return;
 			//Logger::log("stopping connection... error code is %d: %s", error_state.value(), error_state.message().c_str());
 			stopped = true;
+			socket.shutdown(tcp::socket::shutdown_both, error_state);
 			socket.close();
-
+			Logger::log("stopped connection... error code is %d: %s", error_state.value(), error_state.message().c_str());
 			if (onStopHandler) {
 				onStopHandler(error_state);
 			}
@@ -248,7 +253,6 @@ namespace TCP {
 				return;
 			}
 			tcp::endpoint endpoint(addr, port);
-			Logger::log("ABOUT TO ATTEMPT CONNECTION; existing error state is %d", error_state.value());
 			socket.async_connect(endpoint, boost::bind(&Client::handle_connect, this, _1));
 		}
 	};

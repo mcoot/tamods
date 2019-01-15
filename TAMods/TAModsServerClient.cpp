@@ -16,14 +16,12 @@ namespace TAModsServer {
 
 	bool Client::connect(std::string host, int port) {
 		tcpClient = std::make_shared<TCP::Client<uint32_t> >(ios);
-
 		// Run handlers in a new thread
 		iosThread = std::make_shared<std::thread>([this, host, port] {
 			boost::asio::io_service::work work(ios);
 			attachHandlers();
-			Logger::log("About to start connection!!!");
-			tcpClient->start(host, port, [this] {if (onConnectHandler) { onConnectHandler(); }}, [this] {if (onConnectFailedHandler) { onConnectFailedHandler(); }});
 
+			tcpClient->start(host, port, [this] {if (onConnectHandler) { onConnectHandler(); }}, [this] {if (onConnectFailedHandler) { onConnectFailedHandler(); }});
 			ios.run();
 		});
 

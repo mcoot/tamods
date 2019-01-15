@@ -231,9 +231,9 @@ static void ServerPerformCallIn(ATrDevice_LaserTargeter* that, FVector endLocati
 		ATrCallIn_SupportInventory* callIn = (ATrCallIn_SupportInventory*)that->Spawn(ATrCallIn_SupportInventory::StaticClass(),
 			that->Owner, FName(), FVector(), FRotator(), NULL, false);
 		callIn->Initialize(0, 0, 0);
+		callInData.RecordActivation(that);
 		if (callIn->FireCompletedCallIn(1, endLocation, hitNormal)) {
 			CallInConfirmed(that);
-			callInData.RecordActivation(that);
 		}
 
 		callIn->bPendingDelete = true;

@@ -3,7 +3,9 @@
 CustomServerManager g_CustomServerManager;
 
 void CustomServerManager::start(std::string serverAddress) {
-	client = std::make_shared<TAModsServer::Client>([this] {handler_OnConnect(); }, [this] {handler_OnConnectTimeOut(); });
+	if (!client) {
+		client = std::make_shared<TAModsServer::Client>([this] {handler_OnConnect(); }, [this] {handler_OnConnectTimeOut(); });
+	}
 
 	std::string serverHost = serverAddress;
 	int port = 7777;
@@ -25,9 +27,10 @@ bool CustomServerManager::isConnected() {
 }
 
 void CustomServerManager::stop() {
-	if (client && client->isConnected()) {
+	if (client) {
 		client->disconnect();
 		Logger::log("Disconnected");
+		//client.reset();
 	}
 	
 }
@@ -41,7 +44,7 @@ void CustomServerManager::handler_OnConnect() {
 	Logger::log("[Connected]");
 	if (!Utils::tr_pc || !Utils::tr_pc->Player) {
 		// Something is very wrong
-		g_CustomServerManager.stop();
+		//g_CustomServerManager.stop();
 		return;
 	}
 
