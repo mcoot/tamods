@@ -26,7 +26,7 @@ namespace getPlayerData
 	int classId();
 	int health();
 	int healthMax();
-	float timeUntilRegen();
+	float regenTime();
 	int speed();
 	int respawnTime();
 	int numDeployables();

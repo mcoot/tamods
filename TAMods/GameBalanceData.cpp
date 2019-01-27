@@ -384,7 +384,13 @@ namespace GameBalance {
 			applierAdapter<ATrDevice>([](PropValue p, ATrDevice* dev) {
 			if (p.valFloat < 0) return false;
 
-			ATrProjectile* defProj = getWeaponDefaultProj< ATrProjectile>(dev);
+			if (dev->IsA(ATrDevice_Deployable::StaticClass())) {
+				ATrDeployable* dep = getDefaultDeployable<ATrDeployable>(dev);
+				if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+				dev = (ATrDevice*)dep->m_DeviceClass->Default;
+			}
+
+			ATrProjectile* defProj = getWeaponDefaultProj<ATrProjectile>(dev);
 
 			if (defProj) {
 				// Projectile
@@ -397,6 +403,12 @@ namespace GameBalance {
 			return true;
 		}),
 			getterAdapter<ATrDevice>([](ATrDevice* dev, PropValue& ret) {
+			if (dev->IsA(ATrDevice_Deployable::StaticClass())) {
+				ATrDeployable* dep = getDefaultDeployable<ATrDeployable>(dev);
+				if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+				dev = (ATrDevice*)dep->m_DeviceClass->Default;
+			}
+
 			// Is this weapon a projectile or hitscan weapon?
 			ATrProjectile* defProj = getWeaponDefaultProj<ATrProjectile>(dev);
 

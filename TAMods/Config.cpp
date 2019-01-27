@@ -2436,7 +2436,7 @@ void Lua::init()
 			addFunction("classId",         &getPlayerData::classId).
 			addFunction("health",          &getPlayerData::health).
 			addFunction("healthMax",       &getPlayerData::healthMax).
-			addFunction("timeUntilRegen",  &getPlayerData::timeUntilRegen).
+			addFunction("regenTime",	   &getPlayerData::regenTime).
 			addFunction("speed",           &getPlayerData::speed).
 			addFunction("respawnTime",     &getPlayerData::respawnTime).
 			addFunction("numDeployables",  &getPlayerData::numDeployables).

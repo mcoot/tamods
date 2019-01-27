@@ -147,11 +147,11 @@ int getPlayerData::healthMax()
 
 	return 0;
 }
-float getPlayerData::timeUntilRegen()
+float getPlayerData::regenTime()
 {
 	ATrPawn *TrP = Utils::getPlayerPawn();
-	if (TrP)
-		return TrP->m_fSecondsBeforeAutoHeal;
+	if (TrP && TrP->WorldInfo)
+		return TrP->FMax(0.f, TrP->m_fSecondsBeforeAutoHeal);
 
 	return 0;
 }
