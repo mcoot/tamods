@@ -126,6 +126,7 @@ void addClientModeHooks()
 	Hooks::add(&TrFlagBase_PostRenderFor, "Function TribesGame.TrFlagBase.PostRenderFor"); // Only show flag icon when it's off-stand
 
 	Hooks::add(&TrHUD_ChatMessageReceived, "Function TribesGame.TrHUD.ChatMessageReceived");
+	Hooks::add(&GFxTrMenuMoviePlayer_ChatMessageReceived, "Function TribesGame.GFxTrMenuMoviePlayer.ChatMessageReceived");
 	Hooks::add(&TrPlayerController_ClientReceiveVGSCommand, "Function TribesGame.TrPlayerController.ClientReceiveVGSCommand");
 
 	// Damage numbers
@@ -176,6 +177,7 @@ void addClientModeHooks()
 	// Login hook is borked
 	//Hooks::add(&TrLoginManager_Login, "Function TribesGame.TrLoginManager.Login");
 	Hooks::addUScript(&GFxTrPage_Main_TakeAction, "Function TribesGame.GFxTrPage_Main.TakeAction");
+	Hooks::addUScript(&GFxTrPage_Main_SpecialAction, "Function TribesGame.GFxTrPage_Main.SpecialAction");
 	Hooks::addUScript(&GFxTrPage_Class_SpecialAction, "Function TribesGame.GFxTrPage_Class.SpecialAction");
 	Hooks::addUScript(&GFxTrPage_Class_FillOption, "Function TribesGame.GFxTrPage_Class.FillOption");
 	Hooks::addUScript(&GFxTrPage_Equip_SpecialAction, "Function TribesGame.GFxTrPage_Equip.SpecialAction");

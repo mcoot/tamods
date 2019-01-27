@@ -17,11 +17,12 @@ module.status              = false
 -- The drawing function for this module
 function module.draw(res_x, res_y)
 	if hud_data.alive then
+    
 		damageCheck()
 		if module.timerOn == true then
 			local xpos = math.floor(module.opts.X_Position / 100 * res_x)
 			local ypos = math.floor(module.opts.Y_Position / 100 * res_y)
-			local color = lerpColor(module.opts.color1, module.opts.color2, math.ceil(module.endTime - game.realTimeSeconds()) / 14)
+			local color = lerpColor(module.opts.color1, module.opts.color2, math.ceil(module.endTime - game.realTimeSeconds()) / player.regenTime())
 			if math.ceil(module.endTime - game.realTimeSeconds()) < 0 then
 				module.timerOn = false
 			else
@@ -32,7 +33,7 @@ function module.draw(res_x, res_y)
 end
 
 function setTimer()
-	module.endTime = game.realTimeSeconds() + 14
+	module.endTime = game.realTimeSeconds() + player.regenTime()
 	module.timerOn = true
 end
 

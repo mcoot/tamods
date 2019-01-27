@@ -199,6 +199,7 @@
     <ClCompile Include="Mod_ModelTextures.cpp" />
     <ClCompile Include="Stats.cpp" />
     <ClCompile Include="TAModsServerClient.cpp" />
+    <ClCompile Include="TAServerControlClient.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="zlib\adler32.c" />
     <ClCompile Include="zlib\compress.c" />
@@ -243,6 +244,7 @@
     <ClInclude Include="Stopwatch.h" />
     <ClInclude Include="TAModsServerClient.h" />
     <ClInclude Include="TAModsServerTypes.h" />
+    <ClInclude Include="TAServerControlClient.h" />
     <ClInclude Include="TCP.h" />
     <ClInclude Include="Wave.h" />
     <ClInclude Include="Hooks.h" />
@@ -327,6 +329,9 @@
     <ClInclude Include="zlib\zconf.h" />
     <ClInclude Include="zlib\zlib.h" />
     <ClInclude Include="zlib\zutil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TAServerControlTypes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,6 +2,8 @@
 
 #include "buildconfig.h"
 
+#include <locale>
+#include <codecvt>
 #include <string>
 #include <regex>
 #include <map>

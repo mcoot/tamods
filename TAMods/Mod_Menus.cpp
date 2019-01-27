@@ -1,5 +1,7 @@
 #include "Mods.h"
 
+#define ACTION_NUM_SWITCH_GAMEMODE 3
+
 static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that) {
 	UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
 
@@ -17,12 +19,40 @@ static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that) {
 
 	// Replace the Watch Now page with a button to switch server mode
 	that->OptionTitles.Set(3, FString(L"SWITCH GAME TYPE"));
-	that->AddAction();
+	that->AddActionNumber(ACTION_NUM_SWITCH_GAMEMODE);
 
 	that->AddActionPage(moviePlayer->Pages->SocialPage);
 	that->AddActionPage(moviePlayer->Pages->StorePage);
 	that->AddActionPage(moviePlayer->Pages->SettingsPage);
 	that->AddActionNumber(that->NumQuit);
+}
+
+void GFxTrPage_Main_SpecialAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execSpecialAction_Parms* params) {
+	UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
+	
+	if (params->Action->ActionNumber == ACTION_NUM_SWITCH_GAMEMODE) {
+		ATrPlayerController* pc = (ATrPlayerController*)moviePlayer->eventGetPC();
+		
+		// Ask the login server to switch the player's game mode
+		g_TAServerControlClient.sendSwitchMode();
+		return;
+	}
+
+	that->SpecialAction(params->Action);
+}
+
+bool GFxTrMenuMoviePlayer_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	UGFxTrMenuMoviePlayer* that = (UGFxTrMenuMoviePlayer*)dwCallingObject;
+	UGFxTrMenuMoviePlayer_execChatMessageReceived_Parms* params = (UGFxTrMenuMoviePlayer_execChatMessageReceived_Parms*)pParams;
+
+	// Check whether this is a control message from the server
+	if (params->Channel == GC_CC_HELP) {
+		std::wstring msg(params->Message.Data);
+		g_TAServerControlClient.handleControlMessage(msg);
+		return true;
+	}
+
+	return false;
 }
 
 static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that) {
@@ -80,6 +110,9 @@ static bool menusAreInitialised = false;
 
 static void initCustomMenus(UGFxTrMenuMoviePlayer* menuMovie) {
 	if (menusAreInitialised) return;
+
+	// Indicate to the server that we are a modded client, so we can receive control messages
+	g_TAServerControlClient.sendConnect();
 
 	// Set the global reference to the main menu instance
 	Utils::tr_menuMovie = menuMovie;

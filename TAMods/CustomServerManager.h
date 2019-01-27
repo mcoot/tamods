@@ -6,6 +6,7 @@
 
 #include "TAModsServerTypes.h"
 #include "TAModsServerClient.h"
+#include "TAServerControlClient.h"
 
 struct CustomUpdatedGameState {
 	float playerPing;

@@ -372,6 +372,9 @@
     <ClCompile Include="Mod_CallIn.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
+    <ClCompile Include="TAServerControlClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h">
@@ -710,5 +713,13 @@
     <ClInclude Include="GameBalance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TAServerControlClient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TAServerControlTypes.h">
+      <Filter>Header Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
