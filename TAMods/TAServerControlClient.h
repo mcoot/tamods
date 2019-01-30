@@ -13,12 +13,10 @@ namespace TAServerControl {
 	public:
 		typedef std::function<void(const json&)> RecvHandlerType;
 	private:
-		std::string gameSettingMode;
+		std::string gameSettingMode = "ootb";
 	private:
 		void send(Message& msg);
 	public:
-		Client() {}
-
 		void handleControlMessage(std::wstring msg);
 
 		std::string getCurrentGameSettingMode();

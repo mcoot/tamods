@@ -205,9 +205,9 @@ void onDLLProcessAttach()
 	}
 
 	// If enabled, rename OOTB classes/items to GOTY versions
-	if (g_config.useGOTYMode) {
-		performGOTYRename();
-	}
+	//if (g_config.useGOTYMode) {
+	//	performGOTYRename();
+	//}
 
 	// Pass true to log hookable functions
 	Hooks::init(false);

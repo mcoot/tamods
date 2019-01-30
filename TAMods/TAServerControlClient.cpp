@@ -57,19 +57,6 @@ namespace TAServerControl {
 		send(SwitchModeMessage());
 	}
 
-	void Client::handle_ModeInfoMessage(const json& j) {
-		ModeInfoMessage msg;
-
-		if (!msg.fromJson(j)) {
-			Logger::log("Failed to read mode info control message");
-			return;
-		}
-
-		gameSettingMode = msg.game_setting_mode;
-		// TODO: Switch menus / clientside mode stuff
-		Logger::log("Switched game mode to %s", gameSettingMode.c_str());
-	}
-
 }
 
 TAServerControl::Client g_TAServerControlClient;
