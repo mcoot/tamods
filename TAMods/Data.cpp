@@ -129,6 +129,7 @@ namespace Data
 			{ R"rx(^(tcng(grenade)?)$)rx", CONST_WEAPON_ID_TCNG },
 			{ R"rx(^(tcng(quick|short)?-?fuse(grenade)?)$)rx", CONST_WEAPON_ID_TCNG_MKD },
 			{ R"rx(^(motionsensors?)$)rx", CONST_WEAPON_ID_MOTIONALARM },
+			{ R"rx(^(repairkits?)$)rx", CONST_WEAPON_ID_REPAIR_DEPLOYABLE },
 		},
 
 		// Heavy
@@ -371,6 +372,7 @@ namespace Data
 		{ CONST_WEAPON_ID_TCNG, "TCNG"  },
 		{ CONST_WEAPON_ID_TCNG_MKD, "TCNG_MKD"  },
 		{ CONST_WEAPON_ID_MOTIONALARM, "MotionSensorDeployable" },
+		{ CONST_WEAPON_ID_REPAIR_DEPLOYABLE, "RepairDeployable" },
 		// Pack
 		{ CONST_WEAPON_ID_TURRET_LIGHT, "LightTurretDeployable" },
 		{ CONST_WEAPON_ID_DROPJAMMER, "DropJammerDeployable" },
@@ -599,6 +601,7 @@ namespace Data
 		{ CONST_WEAPON_ID_TCNG, "TCNG"  },
 		{ CONST_WEAPON_ID_TCNG_MKD, "TCNG_MKD" },
 		{ CONST_WEAPON_ID_MOTIONALARM, "MotionSensor" },
+		{ CONST_WEAPON_ID_REPAIR_DEPLOYABLE, "RepairDeployable" },
 
 		// Heavy
 		{ CONST_WEAPON_ID_LAUNCHER_MORTAR, "MortarLauncher" },
@@ -711,6 +714,7 @@ namespace Data
 		{ CONST_WEAPON_ID_TCNG, ATrDevice_TCNG::StaticClass() },
 		{ CONST_WEAPON_ID_TCNG_MKD, ATrDevice_TCNG_MKD::StaticClass() },
 		{ CONST_WEAPON_ID_MOTIONALARM, ATrDevice_MotionSensorDeployable::StaticClass() },
+		{ CONST_WEAPON_ID_REPAIR_DEPLOYABLE, ATrDevice_RepairDeployable::StaticClass() },
 
 		// Heavy
 		{ CONST_WEAPON_ID_LAUNCHER_MORTAR, ATrDevice_MortarLauncher::StaticClass() },
