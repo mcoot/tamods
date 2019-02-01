@@ -25,6 +25,8 @@ namespace TAServerControl {
 		void sendSwitchMode();
 
 		void handle_ModeInfoMessage(const json& j);
+		void handle_MenuDataMessage(const json& j);
+		void handle_LoadoutsMessage(const json& j);
 	};
 
 }

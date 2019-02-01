@@ -25,13 +25,12 @@ namespace TAServerControl {
 		std::stringstream s;
 		s << msgString.c_str();
 		std::string narrowMsgString = std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(msgString);
-
 		json msgJson;
 		try {
 			msgJson = json::parse(narrowMsgString);
 		}
 		catch (const json::parse_error&) {
-			Logger::log("Failed to parse control message json");
+			Logger::log("Failed to parse control message json: \"%s\"", narrowMsgString.c_str());
 			return;
 		}
 		if (msgJson.find("msg_id") == msgJson.end()) {
@@ -44,6 +43,13 @@ namespace TAServerControl {
 		switch (msg_id) {
 		case TASRVCTRL_MSG_KIND_LOGIN_2_CLIENT_MODEINFO:
 			handle_ModeInfoMessage(msgJson);
+			break;
+		case TASRVCTRL_MSG_KIND_LOGIN_2_CLIENT_MENUDATA:
+			handle_MenuDataMessage(msgJson);
+			break;
+		case TASRVCTRL_MSG_KIND_LOGIN_2_CLIENT_LOADOUTS:
+			handle_LoadoutsMessage(msgJson);
+			break;
 		default:
 			break;
 		}

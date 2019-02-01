@@ -544,3 +544,25 @@ void TAServerControl::Client::handle_ModeInfoMessage(const json& j) {
 	//	Utils::tr_menuMovie->eventSetPlayerInLogin(false);
 	//}
 }
+
+void TAServerControl::Client::handle_MenuDataMessage(const json& j) {
+	Logger::log("Got menu data: %s", j.dump().c_str());
+	MenuDataMessage msg;
+	if (!msg.fromJson(j)) {
+		Logger::log("Failed to read menu data control message");
+		return;
+	}
+
+	Logger::log("Data: %s", msg.menu_item.dump().c_str());
+}
+
+void TAServerControl::Client::handle_LoadoutsMessage(const json& j) {
+	LoadoutsMessage msg;
+	if (!msg.fromJson(j)) {
+		Logger::log("Failed to read loadouts control message");
+		return;
+	}
+
+	Logger::log("Got loadouts!");
+	Logger::log("Data: %s", msg.loadout_item.dump().c_str());
+}
