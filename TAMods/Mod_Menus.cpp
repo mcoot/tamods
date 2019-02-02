@@ -115,12 +115,36 @@ static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
 	that->AddActionNumber(that->NumRenameLoadout);
 }
 
+static void GFxTrPage_Classes_SetItems(UGFxTrPage* that, bool gotyMode) {
+	that->ClearActions();
+
+	std::vector<int> ootbClasses = { CONST_CLASS_TYPE_LIGHT, CONST_CLASS_TYPE_MEDIUM, CONST_CLASS_TYPE_HEAVY };
+	std::vector<int> gotyClasses = {
+		CONST_CLASS_TYPE_LIGHT_PATHFINDER,
+		CONST_CLASS_TYPE_LIGHT_SENTINEL,
+		CONST_CLASS_TYPE_LIGHT_INFILTRATOR,
+		CONST_CLASS_TYPE_MEDIUM_SOLDIER,
+		CONST_CLASS_TYPE_MEDIUM_RAIDER,
+		CONST_CLASS_TYPE_MEDIUM_TECHNICIAN,
+		CONST_CLASS_TYPE_HEAVY_JUGGERNAUGHT,
+		CONST_CLASS_TYPE_HEAVY_DOOMBRINGER,
+		CONST_CLASS_TYPE_HEAVY_BRUTE,
+	};
+	std::vector<int> currentClasses = gotyMode ? gotyClasses : ootbClasses;
+
+	for (int class_id : currentClasses) {
+		that->AddActionNumber(class_id);
+	}
+}
+
 static void initialiseMenus(UGFxTrMenuMoviePlayer* menuMovie, std::string gameSettingMode) {
 	// Initialize the main menu changes
 	GFxTrPage_Main_SetItems(Utils::tr_menuMovie->Pages->MainPage, gameSettingMode != "ootb");
 
 	// Initialise the class changes
 	GFxTrPage_Class_SetItems(Utils::tr_menuMovie->Pages->ClassPage, gameSettingMode != "ootb");
+	GFxTrPage_Classes_SetItems(Utils::tr_menuMovie->Pages->ClassesPage, gameSettingMode != "ootb");
+	GFxTrPage_Classes_SetItems(Utils::tr_menuMovie->Pages->ClassSelectPage, gameSettingMode != "ootb");
 }
 
 bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
@@ -152,217 +176,6 @@ void GFxTrPage_Main_TakeAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeAc
 
 	// Perform the normal action
 	*result = that->TakeAction(params->ActionIndex, params->DataList);
-}
-
-static void fillClassPageEquipMenu(UGFxTrPage_Class* that, UGFxTrMenuMoviePlayer* mp, int eqpPoint, std::vector<int> items) {
-	mp->Pages->EquipPage->ClearActions();
-	mp->Pages->EquipPage->bParentLocked = that->bClassLocked;
-	mp->Pages->EquipPage->ActiveLoadout = that->ActiveLoadout;
-	mp->Pages->EquipPage->LoadoutClassId = that->LoadoutClassId;
-	mp->Pages->EquipPage->LoadoutEquipType = eqpPoint;
-
-	that->bViewingEquip = true;
-
-	for (int id : items) {
-		mp->Pages->EquipPage->AddActionNumber(id);
-	}
-}
-
-void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_execSpecialAction_Parms* params, void* result, Hooks::CallInfo callInfo) {
-	if (g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
-		// Want to show OOTB menus
-		that->SpecialAction(params->Action);
-		return;
-	}
-
-	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
-	UTrEquipInterface* eqpInterface = mp->EquipInterface;
-
-	// Rename loadout case
-	if (params->Action->ActionNumber == that->NumRenameLoadout) {
-		if (eqpInterface->IsClassOwned(that->LoadoutClassId) && eqpInterface->IsLoadoutOwned(that->LoadoutClassId, that->ActiveLoadout)) {
-			that->PopupNum = that->NumRenameLoadout;
-			mp->QueuePopup();
-		}
-		return;
-	}
-
-	// Equipment slot case
-	int eqpPoint = params->Action->ActionNumber;
-	
-	// Show equip page directly
-	std::vector<int> itemsToShow;
-
-	if (eqpPoint == EQP_Primary) {
-		// Running in GOTY mode; need to show the primary ('impact') weapons directly
-		int filter = 0;
-		switch (that->LoadoutClassId) {
-		case CONST_CLASS_TYPE_LIGHT:
-			filter = 11126;
-			break;
-		case CONST_CLASS_TYPE_MEDIUM:
-			filter = 11131;
-			break;
-		case CONST_CLASS_TYPE_HEAVY:
-			filter = 11136;
-			break;
-		}
-
-
-		for (int id = eqpInterface->GetFirstEquipIdFiltered(that->LoadoutClassId, eqpPoint, filter); id != 0; id = eqpInterface->GetNextEquipIdFiltered(that->LoadoutClassId, eqpPoint, filter, id)) {
-			itemsToShow.push_back(id);
-		}
-	}
-	else if (eqpPoint == EQP_Secondary) {
-		// Running in GOTY mode; need to show the secondary ('timed') weapons directly
-		int filter = 0;
-		switch (that->LoadoutClassId) {
-		case CONST_CLASS_TYPE_LIGHT:
-			filter = 11142;
-			break;
-		case CONST_CLASS_TYPE_MEDIUM:
-			filter = 11133;
-			break;
-		case CONST_CLASS_TYPE_HEAVY:
-			filter = 11139;
-			break;
-		}
-
-
-		for (int id = eqpInterface->GetFirstEquipIdFiltered(that->LoadoutClassId, eqpPoint, filter); id != 0; id = eqpInterface->GetNextEquipIdFiltered(that->LoadoutClassId, eqpPoint, filter, id)) {
-			itemsToShow.push_back(id);
-		}
-	}
-	else if (eqpPoint == EQP_PerkA) {
-		itemsToShow = Data::perks_by_slot[0];
-	}
-	else if (eqpPoint == EQP_PerkB) {
-		itemsToShow = Data::perks_by_slot[1];
-	}
-	else {
-		for (int i = 0; i < eqpInterface->GetEquipCount(that->LoadoutClassId, eqpPoint); ++i) {
-			itemsToShow.push_back(eqpInterface->GetEquipId(that->LoadoutClassId, eqpPoint, i));
-		}
-	}
-
-	fillClassPageEquipMenu(that, mp, eqpPoint, itemsToShow);
-}
-
-void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo) {
-	if ((g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") || that->PageActions.GetStd(params->ActionIndex)->ActionNumber == that->NumRenameLoadout) {
-		// For OOTB and the rename option, offload to the normal implementation
-		*result = that->FillOption(params->ActionIndex);
-		return;
-	}
-
-	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
-	UTrEquipInterface* eqpInterface = mp->EquipInterface;
-
-	int equipPoint = that->PageActions.GetStd(params->ActionIndex)->ActionNumber;
-
-	if (equipPoint != EQP_PerkA && equipPoint != EQP_PerkB) {
-		// For non-perk slots, offload to the normal implementation
-		*result = that->FillOption(params->ActionIndex);
-		return;
-	}
-
-	int encodedPerks = eqpInterface->GetActiveEquipId(that->LoadoutClassId, EQP_Tertiary, that->ActiveLoadout);
-	int perkA = Utils::perks_DecodeA(encodedPerks);
-	int perkB = Utils::perks_DecodeB(encodedPerks);
-
-	int equipId = equipPoint == EQP_PerkA ? perkA : perkB;
-
-	*result = that->FillEquipTypes(equipId, params->ActionIndex);
-}
-
-void GFxTrPage_Equip_SpecialAction(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execSpecialAction_Parms* params, void* result, Hooks::CallInfo callInfo) {
-	if ((g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") || (that->LoadoutEquipType != EQP_PerkA && that->LoadoutEquipType != EQP_PerkB)) {
-		// Normal logic in OOTB mode, and in GOTY mode for everything except perks
-		that->SpecialAction(params->Action);
-		return;
-	}
-
-	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
-	UTrEquipInterface* eqpInterface = mp->EquipInterface;
-
-	int encodedPerks = eqpInterface->GetActiveEquipId(that->LoadoutClassId, EQP_Tertiary, that->ActiveLoadout);
-	int perkA = Utils::perks_DecodeA(encodedPerks);
-	int perkB = Utils::perks_DecodeB(encodedPerks);
-
-	// Validate these are real perks in case the login server loadouts are old
-	// And just remove invalid perks
-	if (Data::perk_id_to_name.find(perkA) == Data::perk_id_to_name.end()) {
-		perkA = 0;
-	}
-	if (Data::perk_id_to_name.find(perkB) == Data::perk_id_to_name.end()) {
-		perkB = 0;
-	}
-
-	if (params->Action->ActionNumber == ((that->LoadoutEquipType == EQP_PerkA) ? perkA : perkB)) {
-		// Perk not changed, exit early
-		return;
-	}
-
-	if (that->LoadoutEquipType == EQP_PerkA) {
-		perkA = params->Action->ActionNumber;
-	}
-	else {
-		perkB = params->Action->ActionNumber;
-	}
-
-	int updatedPerk = (that->LoadoutEquipType == EQP_PerkA) ? perkA : perkB;
-	int updatedEncodedPerks = Utils::perks_Encode(perkA, perkB);
-
-	ATrPlayerController* pc = (ATrPlayerController*)mp->eventGetPC();
-
-	if (!eqpInterface->SetActiveEquipId(that->LoadoutClassId, EQP_Tertiary, that->ActiveLoadout, updatedEncodedPerks)) {
-		// Failed to set tertiary weapon to new encoded perks
-		if (pc) {
-			pc->TestTrainingSlot(EQP_Tertiary, updatedEncodedPerks);
-		}
-		return;
-	}
-
-	UClass* equipClass = mp->EquipHelper->GetEquipClass(updatedPerk);
-	if (equipClass) {
-		ATrDevice* equipDef = (ATrDevice*)equipClass->Default;
-		if (equipDef) {
-			FString updateStr = that->Concat_StrStr(equipDef->ItemName, FString(L" EQUIPPED"));
-			mp->UpdateStatus(mp->Caps(updateStr));
-		}
-	}
-
-	that->RefreshButtons();
-}
-
-void GFxTrPage_Equip_FillOption(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo) {
-	*result = that->FillOption(params->ActionIndex);
-
-	if ((g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") || (that->LoadoutEquipType != EQP_PerkA && that->LoadoutEquipType != EQP_PerkB)) {
-		// Don't adjust in OOTB mode, or for non-perk slots
-		return;
-	}
-
-	// Unlock all perks
-	(*result)->SetFloat(FString(L"bLocked"), (float)that->bParentLocked);
-
-	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
-	UTrEquipInterface* eqpInterface = mp->EquipInterface;
-
-	int itemId = that->PageActions.GetStd(params->ActionIndex)->ActionNumber;
-
-	int encodedPerks = eqpInterface->GetActiveEquipId(that->LoadoutClassId, EQP_Tertiary, that->ActiveLoadout);
-	int perkA = Utils::perks_DecodeA(encodedPerks);
-	int perkB = Utils::perks_DecodeB(encodedPerks);
-	int equipId = that->LoadoutEquipType == EQP_PerkA ? perkA : perkB;
-
-	// Mark this perk as selected if needed
-	if (itemId == equipId) {
-		(*result)->SetFloat(FString(L"bItemSelected"), 2);
-	}
-	else {
-		(*result)->SetFloat(FString(L"bItemSelected"), 1);
-	}
 }
 
 static void performClassRename(std::string fiName, FString& friendlyName, FString& abbreviation) {
@@ -546,14 +359,13 @@ void TAServerControl::Client::handle_ModeInfoMessage(const json& j) {
 }
 
 void TAServerControl::Client::handle_MenuDataMessage(const json& j) {
-	Logger::log("Got menu data: %s", j.dump().c_str());
 	MenuDataMessage msg;
 	if (!msg.fromJson(j)) {
 		Logger::log("Failed to read menu data control message");
 		return;
 	}
 
-	Logger::log("Data: %s", msg.menu_item.dump().c_str());
+	//Logger::log("Data: %s", msg.menu_item.dump().c_str());
 }
 
 void TAServerControl::Client::handle_LoadoutsMessage(const json& j) {
@@ -563,6 +375,5 @@ void TAServerControl::Client::handle_LoadoutsMessage(const json& j) {
 		return;
 	}
 
-	Logger::log("Got loadouts!");
-	Logger::log("Data: %s", msg.loadout_item.dump().c_str());
+	//Logger::log("Data: %s", msg.loadout_item.dump().c_str());
 }

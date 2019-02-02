@@ -8,6 +8,7 @@
 
 #include "SdkHeaders.h"
 #include "Logger.h"
+#include "Mod_MenusTypes.h"
 
 using json = nlohmann::json;
 
@@ -133,19 +134,20 @@ namespace TAServerControl {
 
 	class MenuDataMessage : public Message {
 	public:
-		json menu_item;
+		ModdedMenuData::MenuItem menu_item;
 	public:
 		short getMessageKind() override {
 			return TASRVCTRL_MSG_KIND_LOGIN_2_CLIENT_MENUDATA;
 		}
 
 		void toJson(json& j) {
-			j["menu_item"] = menu_item;
+			// We don't actually ever send this
 		}
 
 		bool fromJson(const json& j) {
 			if (j.find("menu_item") == j.end()) return false;
-			menu_item = j["menu_item"];
+			json menuItemJson = j["menu_item"];
+			menu_item = ModdedMenuData::MenuItem(menuItemJson);
 
 			return true;
 		}
@@ -153,19 +155,20 @@ namespace TAServerControl {
 
 	class LoadoutsMessage : public Message {
 	public:
-		json loadout_item;
+		ModdedMenuData::LoadoutItem loadout_item;
 	public:
 		short getMessageKind() override {
 			return TASRVCTRL_MSG_KIND_LOGIN_2_CLIENT_LOADOUTS;
 		}
 
 		void toJson(json& j) {
-			j["loadout_item"] = loadout_item;
+			// We don't actually ever send this
 		}
 
 		bool fromJson(const json& j) {
 			if (j.find("loadout_item") == j.end()) return false;
-			loadout_item = j["loadout_item"];
+			json loadoutItemJson = j["loadout_item"];
+			loadout_item = ModdedMenuData::LoadoutItem(loadoutItemJson);
 
 			return true;
 		}

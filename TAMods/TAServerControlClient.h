@@ -13,6 +13,7 @@ namespace TAServerControl {
 	public:
 		typedef std::function<void(const json&)> RecvHandlerType;
 	private:
+		bool knownToBeModded = false;
 		std::string gameSettingMode = "ootb";
 	private:
 		void send(Message& msg);
@@ -20,6 +21,7 @@ namespace TAServerControl {
 		void handleControlMessage(std::wstring msg);
 
 		std::string getCurrentGameSettingMode();
+		bool isKnownToBeModded();
 
 		void sendConnect();
 		void sendSwitchMode();
