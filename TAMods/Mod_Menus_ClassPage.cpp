@@ -16,7 +16,7 @@ static void fillClassPageEquipMenu(UGFxTrPage_Class* that, UGFxTrMenuMoviePlayer
 }
 
 void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_execSpecialAction_Parms* params, void* result, Hooks::CallInfo callInfo) {
-	if (g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
+	if (!g_TAServerControlClient.isKnownToBeModded() || g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
 		// Want to show OOTB menus
 		that->SpecialAction(params->Action);
 		return;
@@ -27,12 +27,17 @@ void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_exec
 
 	// Rename loadout case
 	if (params->Action->ActionNumber == that->NumRenameLoadout) {
-		if (eqpInterface->IsClassOwned(that->LoadoutClassId) && eqpInterface->IsLoadoutOwned(that->LoadoutClassId, that->ActiveLoadout)) {
-			that->PopupNum = that->NumRenameLoadout;
-			mp->QueuePopup();
-		}
+		that->PopupNum = that->NumRenameLoadout;
+		mp->QueuePopup();
 		return;
 	}
+
+	// Use menus retrieved over control channel
+	std::vector<int> item_ids = g_ModdedMenuData.get_class(that->LoadoutClassId).get_equipment(params->Action->ActionNumber);
+
+	fillClassPageEquipMenu(that, mp, params->Action->ActionNumber, item_ids);
+	return;
+	// OLD STUFF BELOW
 
 	// Equipment slot case
 	int eqpPoint = params->Action->ActionNumber;

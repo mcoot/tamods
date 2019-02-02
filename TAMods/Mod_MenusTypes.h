@@ -1,10 +1,10 @@
 #pragma once
 
+#include <mutex>
 #include <sstream>
 #include <map>
 
 #include <nlohmann/json.hpp>
-
 
 #include "SdkHeaders.h"
 #include "Logger.h"
@@ -13,71 +13,31 @@ using json = nlohmann::json;
 
 namespace ModdedMenuData {
 
-	enum class MenuItemKind {
-		INVALID,
-		WEAPON,
-		BELT,
-		PACK,
-		SKIN,
-		PERKA,
-		PERKB,
-		VOICE
+	class GameClass {
+	private:
+		std::map<int, std::vector<int> > data;
+	public:
+		GameClass();
+
+		void add_item(int equip_point, int item_id);
+		void clear();
+
+		std::vector<int> get_equipment(int equip_point);
 	};
 
-	struct MenuItem {
+	class MenuData {
+	private:
+		std::mutex menuDataMutex;
+		std::string timestamp = "";
+		std::map<int, GameClass> data;
 	public:
-		int id;
-		MenuItemKind kind;
-		std::string category;
-		int class_id;
-	public:
-		MenuItem() :
-			id(0),
-			kind(MenuItemKind::INVALID),
-			category(""),
-			class_id(0)
-		{}
-		MenuItem(int id, MenuItemKind kind, std::string category, int class_id) : 
-			id(id), 
-			kind(kind), 
-			category(category), 
-			class_id(class_id) 
-		{}
+		MenuData();
 
-		MenuItem(json& j);
-	};
-
-	struct LoadoutItem {
-	public:
-		int class_id;
-		int loadout_index;
-		int equip_position;
-		int item_id;
-		std::string str_val;
-	public:
-		LoadoutItem() :
-			class_id(0),
-			loadout_index(0),
-			equip_position(0),
-			item_id(0),
-			str_val("")
-		{}
-		LoadoutItem(int class_id, int loadout_index, int equip_point, int item_id) :
-			class_id(class_id),
-			loadout_index(loadout_index),
-			equip_position(equip_point),
-			item_id(item_id),
-			str_val("")
-		{}
-		LoadoutItem(int class_id, int loadout_index, int equip_point, std::string str_val) :
-			class_id(class_id),
-			loadout_index(loadout_index),
-			equip_position(equip_point),
-			item_id(0),
-			str_val(str_val)
-		{}
-
-		LoadoutItem(json& j);
+		void process_menudata_message(int class_id, std::string kind, std::string category, int item_id, std::string msg_timestamp);
+		
+		GameClass get_class(int class_id);
 	};
 
 }
+
+extern ModdedMenuData::MenuData g_ModdedMenuData;

@@ -2,6 +2,8 @@
 
 #include "buildconfig.h"
 
+#include <mutex>
+
 #include "Utils.h"
 #include "Logger.h"
 

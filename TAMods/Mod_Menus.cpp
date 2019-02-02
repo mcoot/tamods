@@ -365,7 +365,7 @@ void TAServerControl::Client::handle_MenuDataMessage(const json& j) {
 		return;
 	}
 
-	//Logger::log("Data: %s", msg.menu_item.dump().c_str());
+	g_ModdedMenuData.process_menudata_message(msg.class_id, msg.kind, msg.category, msg.item_id, msg.timestamp);
 }
 
 void TAServerControl::Client::handle_LoadoutsMessage(const json& j) {
