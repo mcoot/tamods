@@ -62,31 +62,32 @@ void GFxTrPage_Equip_SpecialAction(UGFxTrPage_Equip* that, UGFxTrPage_Equip_exec
 }
 
 void GFxTrPage_Equip_FillOption(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo) {
-	*result = that->FillOption(params->ActionIndex);
-
-	if ((g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") || (that->LoadoutEquipType != EQP_PerkA && that->LoadoutEquipType != EQP_PerkB)) {
-		// Don't adjust in OOTB mode, or for non-perk slots
-		return;
-	}
-
-	// Unlock all perks
-	(*result)->SetFloat(FString(L"bLocked"), (float)that->bParentLocked);
-
 	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
 	UTrEquipInterface* eqpInterface = mp->EquipInterface;
 
-	int itemId = that->PageActions.GetStd(params->ActionIndex)->ActionNumber;
+	*result = that->FillOption(params->ActionIndex);
 
-	int encodedPerks = eqpInterface->GetActiveEquipId(that->LoadoutClassId, EQP_Tertiary, that->ActiveLoadout);
-	int perkA = Utils::perks_DecodeA(encodedPerks);
-	int perkB = Utils::perks_DecodeB(encodedPerks);
-	int equipId = that->LoadoutEquipType == EQP_PerkA ? perkA : perkB;
-
-	// Mark this perk as selected if needed
-	if (itemId == equipId) {
-		(*result)->SetFloat(FString(L"bItemSelected"), 2);
+	if (!g_TAServerControlClient.isKnownToBeModded() || g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
+		return;
 	}
-	else {
-		(*result)->SetFloat(FString(L"bItemSelected"), 1);
+
+	// Unlock everything
+	(*result)->SetFloat(FString(L"bLocked"), (float)that->bParentLocked);
+
+	if (that->LoadoutEquipType == EQP_PerkA || that->LoadoutEquipType == EQP_PerkB) {
+		int itemId = that->PageActions.GetStd(params->ActionIndex)->ActionNumber;
+
+		int encodedPerks = eqpInterface->GetActiveEquipId(that->LoadoutClassId, EQP_Tertiary, that->ActiveLoadout);
+		int perkA = Utils::perks_DecodeA(encodedPerks);
+		int perkB = Utils::perks_DecodeB(encodedPerks);
+		int equipId = that->LoadoutEquipType == EQP_PerkA ? perkA : perkB;
+
+		// Mark this perk as selected if needed
+		if (itemId == equipId) {
+			(*result)->SetFloat(FString(L"bItemSelected"), 2);
+		}
+		else {
+			(*result)->SetFloat(FString(L"bItemSelected"), 1);
+		}
 	}
 }
