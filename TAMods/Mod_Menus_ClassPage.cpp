@@ -11,6 +11,7 @@ static void fillClassPageEquipMenu(UGFxTrPage_Class* that, UGFxTrMenuMoviePlayer
 	that->bViewingEquip = true;
 
 	for (int id : items) {
+		Logger::log("Adding item to equip page: %d", id);
 		mp->Pages->EquipPage->AddActionNumber(id);
 	}
 }
@@ -22,6 +23,8 @@ void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_exec
 		return;
 	}
 
+	Logger::log("Doing class specialaction on action number %d on class %d!", params->Action->ActionNumber, that->LoadoutClassId);
+
 	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
 	UTrEquipInterface* eqpInterface = mp->EquipInterface;
 
@@ -32,72 +35,17 @@ void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_exec
 		return;
 	}
 
+	Logger::log("About to get menu data");
+
 	// Use menus retrieved over control channel
 	std::vector<int> item_ids = g_ModdedMenuData.get_class(that->LoadoutClassId).get_equipment(params->Action->ActionNumber);
 
+	Logger::log("Got menu data");
+
 	fillClassPageEquipMenu(that, mp, params->Action->ActionNumber, item_ids);
+
+	Logger::log("Filled equip menu");
 	return;
-	// OLD STUFF BELOW
-
-	// Equipment slot case
-	int eqpPoint = params->Action->ActionNumber;
-
-	// Show equip page directly
-	std::vector<int> itemsToShow;
-
-	if (eqpPoint == EQP_Primary) {
-		// Running in GOTY mode; need to show the primary ('impact') weapons directly
-		int filter = 0;
-		switch (that->LoadoutClassId) {
-		case CONST_CLASS_TYPE_LIGHT:
-			filter = 11126;
-			break;
-		case CONST_CLASS_TYPE_MEDIUM:
-			filter = 11131;
-			break;
-		case CONST_CLASS_TYPE_HEAVY:
-			filter = 11136;
-			break;
-		}
-
-
-		for (int id = eqpInterface->GetFirstEquipIdFiltered(that->LoadoutClassId, eqpPoint, filter); id != 0; id = eqpInterface->GetNextEquipIdFiltered(that->LoadoutClassId, eqpPoint, filter, id)) {
-			itemsToShow.push_back(id);
-		}
-	}
-	else if (eqpPoint == EQP_Secondary) {
-		// Running in GOTY mode; need to show the secondary ('timed') weapons directly
-		int filter = 0;
-		switch (that->LoadoutClassId) {
-		case CONST_CLASS_TYPE_LIGHT:
-			filter = 11142;
-			break;
-		case CONST_CLASS_TYPE_MEDIUM:
-			filter = 11133;
-			break;
-		case CONST_CLASS_TYPE_HEAVY:
-			filter = 11139;
-			break;
-		}
-
-
-		for (int id = eqpInterface->GetFirstEquipIdFiltered(that->LoadoutClassId, eqpPoint, filter); id != 0; id = eqpInterface->GetNextEquipIdFiltered(that->LoadoutClassId, eqpPoint, filter, id)) {
-			itemsToShow.push_back(id);
-		}
-	}
-	else if (eqpPoint == EQP_PerkA) {
-		itemsToShow = Data::perks_by_slot[0];
-	}
-	else if (eqpPoint == EQP_PerkB) {
-		itemsToShow = Data::perks_by_slot[1];
-	}
-	else {
-		for (int i = 0; i < eqpInterface->GetEquipCount(that->LoadoutClassId, eqpPoint); ++i) {
-			itemsToShow.push_back(eqpInterface->GetEquipId(that->LoadoutClassId, eqpPoint, i));
-		}
-	}
-
-	fillClassPageEquipMenu(that, mp, eqpPoint, itemsToShow);
 }
 
 void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo) {
@@ -112,17 +60,23 @@ void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFil
 
 	int equipPoint = that->PageActions.GetStd(params->ActionIndex)->ActionNumber;
 
-	if (equipPoint != EQP_PerkA && equipPoint != EQP_PerkB) {
-		// For non-perk slots, offload to the normal implementation
-		*result = that->FillOption(params->ActionIndex);
-		return;
+	Logger::log("Filling out class option properly for eqp %d", equipPoint);
+
+	if (equipPoint == that->NumRenameLoadout) {
+		UGFxObject* obj = mp->CreateObject(L"Object", NULL);
+
+		obj->SetFloat(L"actionID", params->ActionIndex);
+		obj->SetString(L"itemTitle", L"RENAME LOADOUT", NULL);
+		obj->SetString(L"itemSubTitle", L"SELECT TO RENAME THIS LOADOUT", NULL);
+
+		*result = obj;
+		Logger::log("Rename case...");
 	}
+	else {
+		int equipId = g_ModdedLoadoutsData.get_loadout_item(that->LoadoutClassId, that->ActiveLoadout, equipPoint);
+		Logger::log("Got current equip id %d", equipId);
+		if (equipId == -1) equipId = 0;
 
-	int encodedPerks = eqpInterface->GetActiveEquipId(that->LoadoutClassId, EQP_Tertiary, that->ActiveLoadout);
-	int perkA = Utils::perks_DecodeA(encodedPerks);
-	int perkB = Utils::perks_DecodeB(encodedPerks);
-
-	int equipId = equipPoint == EQP_PerkA ? perkA : perkB;
-
-	*result = that->FillEquipTypes(equipId, params->ActionIndex);
+		*result = that->FillEquipTypes(equipId, params->ActionIndex);
+	}
 }

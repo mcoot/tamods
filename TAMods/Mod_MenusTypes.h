@@ -8,6 +8,8 @@
 
 #include "SdkHeaders.h"
 #include "Logger.h"
+#include "Utils.h"
+#include "Data.h"
 
 using json = nlohmann::json;
 
@@ -38,6 +40,25 @@ namespace ModdedMenuData {
 		GameClass get_class(int class_id);
 	};
 
+	struct LoadoutDef {
+		std::map<int, int> equips;
+		std::string name;
+	};
+
+	class LoadoutsData {
+	private:
+		std::mutex loadoutDataMutex;
+		std::map<int, std::vector<LoadoutDef>> data;
+	public:
+		LoadoutsData();
+
+		void process_loadoutdata_message(int class_id, int loadout_index, int equip_point, int item_id, std::string string_val);
+
+		int get_loadout_item(int class_id, int loadout_index, int equip_point);
+		std::string get_loadout_name(int class_id, int loadout_index);
+	};
+
 }
 
 extern ModdedMenuData::MenuData g_ModdedMenuData;
+extern ModdedMenuData::LoadoutsData g_ModdedLoadoutsData;

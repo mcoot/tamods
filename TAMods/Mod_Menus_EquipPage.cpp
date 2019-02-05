@@ -65,29 +65,49 @@ void GFxTrPage_Equip_FillOption(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execFil
 	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
 	UTrEquipInterface* eqpInterface = mp->EquipInterface;
 
-	*result = that->FillOption(params->ActionIndex);
-
 	if (!g_TAServerControlClient.isKnownToBeModded() || g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
+		// Normal logic in OOTB mode, and in GOTY mode for everything except perks
+		*result = that->FillOption(params->ActionIndex);
 		return;
 	}
 
-	// Unlock everything
-	(*result)->SetFloat(FString(L"bLocked"), (float)that->bParentLocked);
+	UGFxObject* obj = mp->CreateObject(L"Object", NULL);
+	obj->SetFloat(L"actionID", params->ActionIndex);
 
-	if (that->LoadoutEquipType == EQP_PerkA || that->LoadoutEquipType == EQP_PerkB) {
-		int itemId = that->PageActions.GetStd(params->ActionIndex)->ActionNumber;
+	int equipId = that->PageActions.GetStd(params->ActionIndex)->ActionNumber;
+	UClass* equip = that->LoadoutEquipType == EQP_Skin ? mp->EquipHelper->GetSkinClass(equipId) : mp->EquipHelper->GetEquipClass(equipId);
 
-		int encodedPerks = eqpInterface->GetActiveEquipId(that->LoadoutClassId, EQP_Tertiary, that->ActiveLoadout);
-		int perkA = Utils::perks_DecodeA(encodedPerks);
-		int perkB = Utils::perks_DecodeB(encodedPerks);
-		int equipId = that->LoadoutEquipType == EQP_PerkA ? perkA : perkB;
+	bool isItemSelected = equipId == g_ModdedLoadoutsData.get_loadout_item(that->LoadoutClassId, that->ActiveLoadout, that->LoadoutEquipType);
 
-		// Mark this perk as selected if needed
-		if (itemId == equipId) {
-			(*result)->SetFloat(FString(L"bItemSelected"), 2);
-		}
-		else {
-			(*result)->SetFloat(FString(L"bItemSelected"), 1);
-		}
+	//if (that->LoadoutEquipType == EQP_Skin) {
+	//	*result = that->FillSkin(params->ActionIndex);
+	//	return;
+	//}
+
+	obj->SetFloat(L"bLocked", that->bParentLocked ? 1 : 0);
+	if (equip) {
+		Logger::log("About to set itemTitle option for eqp %d, item %d; equip = %p (%s)", that->LoadoutEquipType, equipId, equip, equip ? equip->GetFullName() : "(null)");
+		Logger::log("equip->Default = %p (%s)", equip->Default, equip->Default ? equip->Default->GetFullName() : "(null)");
+
+		obj->SetString(L"itemTitle", that->LoadoutEquipType == EQP_Skin ? that->Caps(((UTrSkin*)equip->Default)->ItemName) : that->Caps(((ATrDevice*)equip->Default)->ItemName), NULL);
+		Logger::log("Set itemTitle!");
 	}
+	else {
+		obj->SetString(L"itemTitle", L"UNDEFINED", NULL);
+	}
+
+	
+	obj->SetFloat(L"bItemSelected", isItemSelected ? 2 : 1);
+
+	obj->SetString(L"itemSubTitle", L"MASTERED", NULL);
+	obj->SetString(L"itemRibbonLabel", L"", NULL);
+	obj->SetFloat(L"ribbonType", 0);
+	obj->SetFloat(L"hasRibbon", 0);
+
+	if (mp->EquipInterface->HasReticule(equipId)) {
+		obj->SetFloat(L"bReticule", 1);
+	}
+
+	*result = obj;
+	return;
 }

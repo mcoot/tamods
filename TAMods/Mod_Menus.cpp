@@ -375,5 +375,5 @@ void TAServerControl::Client::handle_LoadoutsMessage(const json& j) {
 		return;
 	}
 
-	//Logger::log("Data: %s", msg.loadout_item.dump().c_str());
+	g_ModdedLoadoutsData.process_loadoutdata_message(msg.class_id, msg.loadout_index, msg.equip_point, msg.item_id, msg.string_val);
 }
