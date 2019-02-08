@@ -11,7 +11,6 @@ static void fillClassPageEquipMenu(UGFxTrPage_Class* that, UGFxTrMenuMoviePlayer
 	that->bViewingEquip = true;
 
 	for (int id : items) {
-		Logger::log("Adding item to equip page: %d", id);
 		mp->Pages->EquipPage->AddActionNumber(id);
 	}
 }
@@ -23,8 +22,6 @@ void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_exec
 		return;
 	}
 
-	Logger::log("Doing class specialaction on action number %d on class %d!", params->Action->ActionNumber, that->LoadoutClassId);
-
 	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
 	UTrEquipInterface* eqpInterface = mp->EquipInterface;
 
@@ -35,17 +32,32 @@ void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_exec
 		return;
 	}
 
-	Logger::log("About to get menu data");
-
 	// Use menus retrieved over control channel
 	std::vector<int> item_ids = g_ModdedMenuData.get_class(that->LoadoutClassId).get_equipment(params->Action->ActionNumber);
 
-	Logger::log("Got menu data");
-
 	fillClassPageEquipMenu(that, mp, params->Action->ActionNumber, item_ids);
-
-	Logger::log("Filled equip menu");
 	return;
+}
+
+void GFxTrPage_Class_PopupComplete(UGFxTrPage_Class* that, UGFxTrPage_Class_execPopupComplete_Parms* params) {
+	if (!g_TAServerControlClient.isKnownToBeModded() || g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
+		// Want to show OOTB menus
+		that->PopupComplete(params->Action, params->TextInput);
+		return;
+	}
+
+	if (that->PopupNum == that->NumRenameLoadout) {
+
+		std::string newLoadoutName = Utils::f2std(params->TextInput);
+
+		if (params->Action == 1 && newLoadoutName != "") {
+			g_ModdedLoadoutsData.update_loadout_name(that->LoadoutClassId, that->ActiveLoadout, newLoadoutName);
+			g_TAServerControlClient.sendLoadoutUpdate(that->LoadoutClassId, that->ActiveIndex, EQP_NONE, -1, newLoadoutName);
+			that->RefreshButtons();
+		}
+
+		that->PopupNum = CONST_INDEX_NONE;
+	}
 }
 
 void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo) {
@@ -60,8 +72,6 @@ void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFil
 
 	int equipPoint = that->PageActions.GetStd(params->ActionIndex)->ActionNumber;
 
-	Logger::log("Filling out class option properly for eqp %d", equipPoint);
-
 	if (equipPoint == that->NumRenameLoadout) {
 		UGFxObject* obj = mp->CreateObject(L"Object", NULL);
 
@@ -70,11 +80,9 @@ void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFil
 		obj->SetString(L"itemSubTitle", L"SELECT TO RENAME THIS LOADOUT", NULL);
 
 		*result = obj;
-		Logger::log("Rename case...");
 	}
 	else {
 		int equipId = g_ModdedLoadoutsData.get_loadout_item(that->LoadoutClassId, that->ActiveLoadout, equipPoint);
-		Logger::log("Got current equip id %d", equipId);
 		if (equipId == -1) equipId = 0;
 
 		*result = that->FillEquipTypes(equipId, params->ActionIndex);

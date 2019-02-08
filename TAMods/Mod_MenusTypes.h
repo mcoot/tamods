@@ -55,7 +55,9 @@ namespace ModdedMenuData {
 		void process_loadoutdata_message(int class_id, int loadout_index, int equip_point, int item_id, std::string string_val);
 
 		int get_loadout_item(int class_id, int loadout_index, int equip_point);
+		void update_loadout_item(int class_id, int loadout_index, int equip_point, int new_item_id);
 		std::string get_loadout_name(int class_id, int loadout_index);
+		void update_loadout_name(int class_id, int loadout_index, std::string new_name);
 	};
 
 }

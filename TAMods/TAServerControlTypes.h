@@ -79,9 +79,10 @@ namespace TAServerControl {
 	class LoadoutChangeMessage : public Message {
 	public:
 		int game_class;
-		int loadout_num;
-		int loadout_slot;
-		int equipment_item;
+		int loadout_index;
+		int equip_point;
+		int item_id;
+		std::string string_val;
 	public:
 		short getMessageKind() override {
 			return TASRVCTRL_MSG_KIND_CLIENT_2_LOGIN_LOADOUTCHANGE;
@@ -89,24 +90,34 @@ namespace TAServerControl {
 
 		void toJson(json& j) {
 			j["game_class"] = game_class;
-			j["loadout_num"] = loadout_num;
+			j["loadout_index"] = loadout_index;
+
+			std::map<int, int> eqpMapping = {
+				{EQP_Primary, 1086},
+				{EQP_Secondary, 1087},
+				{EQP_Tertiary, 1765},
+				{EQP_Pack, 1088},
+				{EQP_Belt, 1089},
+				{EQP_Skin, 1093},
+				{EQP_Voice, 1094},
+			};
+
+			int loadout_slot = 1341;
+			if (eqpMapping.find(equip_point) != eqpMapping.end()) {
+				loadout_slot = eqpMapping[equip_point];
+			}
 			j["loadout_slot"] = loadout_slot;
-			j["equipment_item"] = equipment_item;
+			if (loadout_slot == 1341) {
+				j["value"] = string_val;
+			}
+			else {
+				j["value"] = item_id;
+			}
+			
 		}
 
 		bool fromJson(const json& j) {
-			if (j.find("game_class") == j.end()) return false;
-			game_class = j["game_class"];
-
-			if (j.find("loadout_num") == j.end()) return false;
-			game_class = j["loadout_num"];
-
-			if (j.find("loadout_slot") == j.end()) return false;
-			game_class = j["loadout_slot"];
-
-			if (j.find("equipment_item") == j.end()) return false;
-			game_class = j["equipment_item"];
-
+			// We never actually receive this
 			return true;
 		}
 	};

@@ -27,6 +27,7 @@ namespace TAServerControl {
 
 		void sendConnect();
 		void sendSwitchMode();
+		void sendLoadoutUpdate(int class_id, int loadout_index, int equip_point, int item_id, std::string string_val);
 
 		void handle_ModeInfoMessage(const json& j);
 		void handle_MenuDataMessage(const json& j);
