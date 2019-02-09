@@ -179,6 +179,7 @@ void addClientModeHooks()
 	Hooks::addUScript(&GFxTrPage_Main_TakeAction, "Function TribesGame.GFxTrPage_Main.TakeAction");
 	Hooks::addUScript(&GFxTrPage_Main_SpecialAction, "Function TribesGame.GFxTrPage_Main.SpecialAction");
 	Hooks::addUScript(&GFxTrPage_Class_SpecialAction, "Function TribesGame.GFxTrPage_Class.SpecialAction");
+	Hooks::addUScript(&GFxTrPage_Class_PopupData, "Function TribesGame.GFxTrPage_Class.PopupData");
 	Hooks::addUScript(&GFxTrPage_Class_PopupComplete, "Function TribesGame.GFxTrPage_Class.PopupComplete");
 	Hooks::addUScript(&GFxTrPage_Class_FillOption, "Function TribesGame.GFxTrPage_Class.FillOption");
 	Hooks::addUScript(&GFxTrPage_Equip_SpecialAction, "Function TribesGame.GFxTrPage_Equip.SpecialAction");

@@ -190,7 +190,7 @@ namespace ModdedMenuData {
 			return;
 		}
 		if (loadout_index < 0 || loadout_index >= 9) {
-			Logger::log("Attempting to read loadout data for invalid loadout index %d", loadout_index);
+			Logger::log("Attempting to read loadout data for invalid loadout index %d on class %d", loadout_index, class_id);
 			return;
 		}
 		if (data[class_id][loadout_index].equips.find(equip_point) == data[class_id][loadout_index].equips.end()) {
@@ -203,11 +203,11 @@ namespace ModdedMenuData {
 
 	std::string LoadoutsData::get_loadout_name(int class_id, int loadout_index) {
 		if (data.find(class_id) == data.end()) {
-			Logger::log("Attempting to read loadout data for invalid class %d", class_id);
+			Logger::log("Attempting to read loadout name for invalid class %d", class_id);
 			return "";
 		}
 		if (loadout_index < 0 || loadout_index >= 9) {
-			Logger::log("Attempting to read loadout data for invalid loadout index %d", loadout_index);
+			Logger::log("Attempting to read loadout name for invalid loadout index %d on class %d", loadout_index, class_id);
 			return "";
 		}
 

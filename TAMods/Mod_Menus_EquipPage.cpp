@@ -8,8 +8,6 @@ void GFxTrPage_Equip_SpecialAction(UGFxTrPage_Equip* that, UGFxTrPage_Equip_exec
 		return;
 	}
 
-	Logger::log("Making change!");
-
 	UGFxTrMenuMoviePlayer* mp = (UGFxTrMenuMoviePlayer*)that->Outer;
 
 	g_ModdedLoadoutsData.update_loadout_item(that->LoadoutClassId, that->ActiveLoadout, that->LoadoutEquipType, params->Action->ActionNumber);

@@ -69,18 +69,6 @@ namespace TAServerControl {
 	void Client::sendSwitchMode() {
 		send(SwitchModeMessage());
 	}
-
-	void Client::sendLoadoutUpdate(int class_id, int loadout_index, int equip_point, int item_id, std::string string_val) {
-		LoadoutChangeMessage msg;
-		msg.game_class = class_id;
-		msg.loadout_index = loadout_index;
-		msg.equip_point = equip_point;
-		msg.item_id = item_id;
-		msg.string_val = string_val;
-
-		send(msg);
-	}
-
 }
 
 TAServerControl::Client g_TAServerControlClient;

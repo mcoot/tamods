@@ -377,3 +377,26 @@ void TAServerControl::Client::handle_LoadoutsMessage(const json& j) {
 
 	g_ModdedLoadoutsData.process_loadoutdata_message(msg.class_id, msg.loadout_index, msg.equip_point, msg.item_id, msg.string_val);
 }
+
+void TAServerControl::Client::sendLoadoutUpdate(int class_id, int loadout_index, int equip_point, int item_id, std::string string_val) {
+	LoadoutChangeMessage msg;
+	msg.game_class = class_id;
+	msg.loadout_index = loadout_index;
+	msg.equip_point = equip_point;
+	msg.item_id = item_id;
+	msg.string_val = string_val;
+
+	if (equip_point == EQP_PerkA || equip_point == EQP_PerkB) {
+		msg.equip_point = EQP_Tertiary;
+		if (equip_point == EQP_PerkA) {
+			msg.item_id = Utils::perks_Encode(item_id, g_ModdedLoadoutsData.get_loadout_item(class_id, loadout_index, EQP_PerkB));
+			Logger::log("Setting perk A to %d: %d", item_id, msg.item_id);
+		}
+		else {
+			msg.item_id = Utils::perks_Encode(g_ModdedLoadoutsData.get_loadout_item(class_id, loadout_index, EQP_PerkA), item_id);
+			Logger::log("Setting perk B to %d: %d", item_id, msg.item_id);
+		}
+	}
+
+	send(msg);
+}

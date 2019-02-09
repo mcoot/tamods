@@ -39,6 +39,22 @@ void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_exec
 	return;
 }
 
+void GFxTrPage_Class_PopupData(UGFxTrPage_Class* that, UGFxTrPage_Class_execPopupData_Parms* params) {
+	that->PopupData(params->Obj);
+	if (!g_TAServerControlClient.isKnownToBeModded() || g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
+		return;
+	}
+
+	if (!params->Obj) return;
+
+	std::string nameStr = g_ModdedLoadoutsData.get_loadout_name(that->LoadoutClassId, that->ActiveLoadout);
+	std::wstring nameWideStr(nameStr.begin(), nameStr.end());
+
+	if (that->PopupNum == that->NumRenameLoadout) {
+		params->Obj->SetString(L"popupBody", (wchar_t*)nameWideStr.c_str(), NULL);
+	}
+}
+
 void GFxTrPage_Class_PopupComplete(UGFxTrPage_Class* that, UGFxTrPage_Class_execPopupComplete_Parms* params) {
 	if (!g_TAServerControlClient.isKnownToBeModded() || g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
 		// Want to show OOTB menus
@@ -52,7 +68,7 @@ void GFxTrPage_Class_PopupComplete(UGFxTrPage_Class* that, UGFxTrPage_Class_exec
 
 		if (params->Action == 1 && newLoadoutName != "") {
 			g_ModdedLoadoutsData.update_loadout_name(that->LoadoutClassId, that->ActiveLoadout, newLoadoutName);
-			g_TAServerControlClient.sendLoadoutUpdate(that->LoadoutClassId, that->ActiveIndex, EQP_NONE, -1, newLoadoutName);
+			g_TAServerControlClient.sendLoadoutUpdate(that->LoadoutClassId, that->ActiveLoadout, EQP_NONE, -1, newLoadoutName);
 			that->RefreshButtons();
 		}
 
