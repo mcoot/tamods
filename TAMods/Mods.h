@@ -163,6 +163,7 @@ void TrRabbitScoreMessage_ClientReceive(UTrRabbitScoreMessage *that, UTrRabbitSc
 
 // Menu modifications
 bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+void GFxTrPage_FillOptions(UGFxTrPage* that, UGFxTrPage_execFillOptions_Parms* params, UGFxObject** result);
 void GFxTrPage_Main_TakeAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeAction_Parms* params, int* result, Hooks::CallInfo callInfo);
 void GFxTrPage_Main_SpecialAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execSpecialAction_Parms* params);
 void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_execSpecialAction_Parms* params, void* result, Hooks::CallInfo callInfo);
@@ -173,6 +174,7 @@ void GFxTrPage_Equip_SpecialAction(UGFxTrPage_Equip* that, UGFxTrPage_Equip_exec
 void GFxTrPage_Equip_FillOption(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo);
 void GFxTrPage_Loadouts_TakeAction(UGFxTrPage_Loadouts* that, UGFxTrPage_Loadouts_execTakeAction_Parms* params, int* result);
 void GFxTrPage_Loadouts_FillOption(UGFxTrPage_Loadouts* that, UGFxTrPage_Loadouts_execFillOption_Parms* params, UGFxObject** result);
+bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 // Equip interface
 void TrEquipInterface_IsClassOwned(UTrEquipInterface* that, UTrEquipInterface_execIsClassOwned_Parms* params, bool* result);

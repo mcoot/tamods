@@ -11,7 +11,7 @@ void GFxTrPage_Loadouts_TakeAction(UGFxTrPage_Loadouts* that, UGFxTrPage_Loadout
 	}
 
 	std::string loadoutNameStr = std::to_string(params->ActionIndex) + ". " + g_ModdedLoadoutsData.get_loadout_name(that->LoadoutClassId, params->ActionIndex);
-	std::wstring loadoutNameWideStr = std::wstring(loadoutNameStr.begin(), loadoutNameStr.end());
+	std::wstring loadoutNameWideStr(loadoutNameStr.begin(), loadoutNameStr.end());
 	// Disabled due to crash
 	//mp->Pages->ClassPage->PageLabelOverride = (wchar_t*)loadoutNameWideStr.c_str();
 

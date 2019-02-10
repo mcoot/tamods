@@ -76,8 +76,31 @@ void GFxTrPage_Class_PopupComplete(UGFxTrPage_Class* that, UGFxTrPage_Class_exec
 	}
 }
 
+void GFxTrPage_FillOptions(UGFxTrPage* that, UGFxTrPage_execFillOptions_Parms* params, UGFxObject** result) {
+	*result = that->FillOptions(params->DataList);
+
+	if (!g_TAServerControlClient.isKnownToBeModded() || g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
+		// Want to show OOTB menus
+		return;
+	}
+
+	if (that->IsA(UGFxTrPage_Class::StaticClass())) {
+		UGFxTrPage_Class* pg = (UGFxTrPage_Class*)that;
+		// Set the class menu loadout title correctly
+		if (*result) {
+			std::string loadoutNameStr = g_ModdedLoadoutsData.get_loadout_name(pg->LoadoutClassId, pg->ActiveLoadout);
+			std::wstring loadoutNameWideStr(loadoutNameStr.begin(), loadoutNameStr.end());
+			
+			(*result)->SetString(L"menuTitle", (wchar_t*)loadoutNameWideStr.c_str(), NULL);
+		}
+		return;
+	}
+
+	
+}
+
 void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo) {
-	if ((g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") || that->PageActions.GetStd(params->ActionIndex)->ActionNumber == that->NumRenameLoadout) {
+	if (!g_TAServerControlClient.isKnownToBeModded() || (g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") || that->PageActions.GetStd(params->ActionIndex)->ActionNumber == that->NumRenameLoadout) {
 		// For OOTB and the rename option, offload to the normal implementation
 		*result = that->FillOption(params->ActionIndex);
 		return;
