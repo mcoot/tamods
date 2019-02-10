@@ -582,7 +582,6 @@ bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction
 	if (!TrPI) return false;
 
 	if (TrPI->InVGSLoadoutMode()) {
-		Logger::log("custom vgs menu!");
 		int classId = TrPI->GetVGSClassId();
 		that->VGSMenuList = params->List;
 		that->m_VGSMenuListCount = 1;
@@ -600,7 +599,6 @@ bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction
 		for (int i = 0; i < LST_MAX; ++i) {
 			std::string loadoutNameStr = std::to_string(i+1) + ": " + g_ModdedLoadoutsData.get_loadout_name(classId, i);
 			std::wstring loadoutNameWideStr(loadoutNameStr.begin(), loadoutNameStr.end());
-			Logger::log("adding entry: %s", loadoutNameStr.c_str());
 			that->AddVGSEntry((wchar_t*)loadoutNameWideStr.c_str(), true);
 		}
 	}
