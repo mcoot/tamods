@@ -179,6 +179,7 @@ void TrEquipInterface_IsClassOwned(UTrEquipInterface* that, UTrEquipInterface_ex
 void TrEquipInterface_IsEquipOwned(UTrEquipInterface* that, UTrEquipInterface_execIsEquipOwned_Parms* params, bool* result);
 void TrEquipInterface_IsLoadoutOwned(UTrEquipInterface* that, UTrEquipInterface_execIsLoadoutOwned_Parms* params, bool* result);
 void TrEquipInterface_GetClassId(UTrEquipInterface* that, UTrEquipInterface_execGetClassId_Parms* params, int* result);
+void TrPlayerController_GetFamilyInfoFromId(ATrPlayerController* that, ATrPlayerController_execGetFamilyInfoFromId_Parms* params, UClass** result);
 
 // Sniper rifle and laser targeter
 void TrDevice_CalcHUDAimChargePercent(ATrDevice* that, ATrDevice_execCalcHUDAimChargePercent_Parms* params, float* result, Hooks::CallInfo callInfo);

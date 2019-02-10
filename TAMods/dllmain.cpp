@@ -192,6 +192,7 @@ void addClientModeHooks()
 	Hooks::addUScript(&TrEquipInterface_IsEquipOwned, "Function TribesGame.TrEquipInterface.IsEquipOwned");
 	Hooks::addUScript(&TrEquipInterface_IsLoadoutOwned, "Function TribesGame.TrEquipInterface.IsLoadoutOwned");
 	Hooks::addUScript(&TrEquipInterface_GetClassId, "Function TribesGame.TrEquipInterface.GetClassId");
+	Hooks::addUScript(&TrPlayerController_GetFamilyInfoFromId, "Function TribesGame.TrPlayerController.GetFamilyInfoFromId");
 }
 
 void onDLLProcessAttach()

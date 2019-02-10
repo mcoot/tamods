@@ -1051,9 +1051,15 @@ namespace Data
 	};
 
 	std::map<int, UClass*> class_id_to_class = {
-		{CONST_CLASS_TYPE_LIGHT, UTrFamilyInfo_Light_Pathfinder::StaticClass()},
-		{CONST_CLASS_TYPE_MEDIUM, UTrFamilyInfo_Medium_Soldier::StaticClass()},
-		{CONST_CLASS_TYPE_HEAVY, UTrFamilyInfo_Heavy_Juggernaught::StaticClass()},
+		{CONST_CLASS_TYPE_LIGHT_PATHFINDER, UTrFamilyInfo_Light_Pathfinder::StaticClass()},
+		{CONST_CLASS_TYPE_LIGHT_SENTINEL, UTrFamilyInfo_Light_Sentinel::StaticClass()},
+		{CONST_CLASS_TYPE_LIGHT_INFILTRATOR, UTrFamilyInfo_Light_Infiltrator::StaticClass()},
+		{CONST_CLASS_TYPE_MEDIUM_SOLDIER, UTrFamilyInfo_Medium_Soldier::StaticClass()},
+		{CONST_CLASS_TYPE_MEDIUM_RAIDER, UTrFamilyInfo_Medium_Raider::StaticClass()},
+		{CONST_CLASS_TYPE_MEDIUM_TECHNICIAN, UTrFamilyInfo_Medium_Technician::StaticClass()},
+		{CONST_CLASS_TYPE_HEAVY_JUGGERNAUGHT, UTrFamilyInfo_Heavy_Juggernaught::StaticClass()},
+		{CONST_CLASS_TYPE_HEAVY_DOOMBRINGER, UTrFamilyInfo_Heavy_Doombringer::StaticClass()},
+		{CONST_CLASS_TYPE_HEAVY_BRUTE, UTrFamilyInfo_Heavy_Brute::StaticClass()},
 	};
 
 	std::map<int, std::string> class_id_to_name = {

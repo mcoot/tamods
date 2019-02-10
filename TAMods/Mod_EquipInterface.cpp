@@ -66,3 +66,12 @@ void TrEquipInterface_GetClassId(UTrEquipInterface* that, UTrEquipInterface_exec
 		*result = that->GetClassId(params->Index);
 	}
 }
+
+void TrPlayerController_GetFamilyInfoFromId(ATrPlayerController* that, ATrPlayerController_execGetFamilyInfoFromId_Parms* params, UClass** result) {
+	if (Data::class_id_to_class.find(params->ClassId) == Data::class_id_to_class.end()) {
+		*result = NULL;
+	}
+	else {
+		*result = Data::class_id_to_class[params->ClassId];
+	}
+}
