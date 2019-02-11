@@ -572,3 +572,36 @@ static bool hasScoreboardSlotChanged(FTrScoreSlot slot, ATrPlayerReplicationInfo
 
 	return false;
 }
+
+bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+
+	UGfxTrHud* that = (UGfxTrHud*)dwCallingObject;
+	UGfxTrHud_execLoadVGSMenu_Parms* params = (UGfxTrHud_execLoadVGSMenu_Parms*)pParams;
+
+	UTrPlayerInput* TrPI = (UTrPlayerInput*)that->m_TrPC->PlayerInput;
+	if (!TrPI) return false;
+
+	if (TrPI->InVGSLoadoutMode()) {
+		int classId = TrPI->GetVGSClassId();
+		that->VGSMenuList = params->List;
+		that->m_VGSMenuListCount = 1;
+
+		ATrPlayerController_execGetFamilyInfoFromId_Parms fiParams;
+		fiParams.ClassId = classId;
+		UClass* fiClass;
+		TrPlayerController_GetFamilyInfoFromId(that->m_TrPC, &fiParams, &fiClass);
+		UTrFamilyInfo* familyInfo = (UTrFamilyInfo*)fiClass->Default;
+
+		if (that->RetrieveGFxObject(L"vgs_mc.tfVgsTitle", &that->VGS) != NULL) {
+			that->VGS->SetText(that->Concat_StrStr(that->Caps(familyInfo->FriendlyName), L" (NUMKEYS)"), NULL);
+		}
+
+		for (int i = 0; i < LST_MAX; ++i) {
+			std::string loadoutNameStr = std::to_string(i+1) + ": " + g_ModdedLoadoutsData.get_loadout_name(classId, i);
+			std::wstring loadoutNameWideStr(loadoutNameStr.begin(), loadoutNameStr.end());
+			that->AddVGSEntry((wchar_t*)loadoutNameWideStr.c_str(), true);
+		}
+	}
+
+	return false;
+}

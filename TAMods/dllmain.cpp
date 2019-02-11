@@ -176,12 +176,29 @@ void addClientModeHooks()
 	// Menu modification
 	// Login hook is borked
 	//Hooks::add(&TrLoginManager_Login, "Function TribesGame.TrLoginManager.Login");
-	Hooks::addUScript(&GFxTrPage_Main_TakeAction, "Function TribesGame.GFxTrPage_Main.TakeAction");
+	Hooks::addUScript(&GFxTrPage_Main_TakeFocus, "Function TribesGame.GFxTrPage_Main.TakeFocus");
 	Hooks::addUScript(&GFxTrPage_Main_SpecialAction, "Function TribesGame.GFxTrPage_Main.SpecialAction");
+	Hooks::addUScript(&GFxTrPage_FillOptions, "Function TribesGame.GFxTrPage.FillOptions");
 	Hooks::addUScript(&GFxTrPage_Class_SpecialAction, "Function TribesGame.GFxTrPage_Class.SpecialAction");
+	Hooks::addUScript(&GFxTrPage_Class_PopupData, "Function TribesGame.GFxTrPage_Class.PopupData");
+	Hooks::addUScript(&GFxTrPage_Class_PopupComplete, "Function TribesGame.GFxTrPage_Class.PopupComplete");
 	Hooks::addUScript(&GFxTrPage_Class_FillOption, "Function TribesGame.GFxTrPage_Class.FillOption");
 	Hooks::addUScript(&GFxTrPage_Equip_SpecialAction, "Function TribesGame.GFxTrPage_Equip.SpecialAction");
 	Hooks::addUScript(&GFxTrPage_Equip_FillOption, "Function TribesGame.GFxTrPage_Equip.FillOption");
+	Hooks::addUScript(&GFxTrPage_Loadouts_TakeAction, "Function TribesGame.GFxTrPage_Loadouts.TakeAction");
+	Hooks::addUScript(&GFxTrPage_Loadouts_FillOption, "Function TribesGame.GFxTrPage_Loadouts.FillOption");
+	Hooks::add(&GFxTrHud_LoadVGSMenu, "Function TribesGame.GfxTrHud.LoadVGSMenu", Hooks::POST);
+
+	// Equip Interface
+	Hooks::addUScript(&TrEquipInterface_IsClassOwned, "Function TribesGame.TrEquipInterface.IsClassOwned");
+	Hooks::addUScript(&TrEquipInterface_IsEquipOwned, "Function TribesGame.TrEquipInterface.IsEquipOwned");
+	Hooks::addUScript(&TrEquipInterface_IsLoadoutOwned, "Function TribesGame.TrEquipInterface.IsLoadoutOwned");
+	Hooks::addUScript(&TrEquipInterface_GetClassId, "Function TribesGame.TrEquipInterface.GetClassId");
+	Hooks::addUScript(&TrEquipInterface_GetEquipId, "Function TribesGame.TrEquipInterface.GetEquipId");
+	Hooks::addUScript(&TrEquipInterface_GetEquipIdFiltered, "Function TribesGame.TrEquipInterface.GetEquipIdFiltered");
+	Hooks::addUScript(&TrEquipInterface_GetActiveEquipId, "Function TribesGame.TrEquipInterface.GetActiveEquipId");
+	Hooks::addUScript(&TrInventoryHelper_GetFamilyClass, "Function TribesGame.TrInventoryHelper.GetFamilyClass");
+	Hooks::addUScript(&TrPlayerController_GetFamilyInfoFromId, "Function TribesGame.TrPlayerController.GetFamilyInfoFromId");
 }
 
 void onDLLProcessAttach()

@@ -6,6 +6,10 @@ namespace TAServerControl {
 		return gameSettingMode;
 	}
 
+	bool Client::isKnownToBeModded() {
+		return knownToBeModded;
+	}
+
 	void Client::send(Message& msg) {
 		json j;
 
@@ -21,6 +25,9 @@ namespace TAServerControl {
 	}
 
 	void Client::handleControlMessage(std::wstring msgString) {
+		// Received a control message; therefore must be modded
+		knownToBeModded = true;
+
 		// Parse the message into json
 		std::stringstream s;
 		s << msgString.c_str();
@@ -62,7 +69,6 @@ namespace TAServerControl {
 	void Client::sendSwitchMode() {
 		send(SwitchModeMessage());
 	}
-
 }
 
 TAServerControl::Client g_TAServerControlClient;

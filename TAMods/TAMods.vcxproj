@@ -166,12 +166,17 @@
     <ClCompile Include="Mod_CallIn.cpp" />
     <ClCompile Include="Mod_Console.cpp" />
     <ClCompile Include="Mod_DamageNumbers.cpp" />
+    <ClCompile Include="Mod_EquipInterface.cpp" />
     <ClCompile Include="Mod_FlagEventSounds.cpp" />
     <ClCompile Include="Mod_GameBalance.cpp" />
     <ClCompile Include="Mod_General.cpp" />
     <ClCompile Include="Mod_HitSounds.cpp" />
     <ClCompile Include="Mod_HudMod.cpp" />
     <ClCompile Include="Mod_Menus.cpp" />
+    <ClCompile Include="Mod_MenusTypes.cpp" />
+    <ClCompile Include="Mod_Menus_ClassPage.cpp" />
+    <ClCompile Include="Mod_Menus_EquipPage.cpp" />
+    <ClCompile Include="Mod_Menus_LoadoutsPage.cpp" />
     <ClCompile Include="Mod_Projectiles.cpp" />
     <ClCompile Include="Mod_Reimpl.cpp" />
     <ClCompile Include="Mod_Reticules.cpp" />
@@ -234,6 +239,7 @@
     <ClInclude Include="libpng\pngpriv.h" />
     <ClInclude Include="libpng\pngstruct.h" />
     <ClInclude Include="Mods_ModelTextures.h" />
+    <ClInclude Include="Mod_MenusTypes.h" />
     <ClInclude Include="NameCryptor.h" />
     <ClInclude Include="ParticleModuleHelper.h" />
     <ClInclude Include="Profiler.h" />

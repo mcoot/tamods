@@ -163,13 +163,31 @@ void TrRabbitScoreMessage_ClientReceive(UTrRabbitScoreMessage *that, UTrRabbitSc
 
 // Menu modifications
 bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
-void GFxTrPage_Main_TakeAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeAction_Parms* params, int* result, Hooks::CallInfo callInfo);
+void GFxTrPage_FillOptions(UGFxTrPage* that, UGFxTrPage_execFillOptions_Parms* params, UGFxObject** result);
+void GFxTrPage_Main_TakeFocus(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeFocus_Parms* params, int* result, Hooks::CallInfo callInfo);
 void GFxTrPage_Main_SpecialAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execSpecialAction_Parms* params);
 void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_execSpecialAction_Parms* params, void* result, Hooks::CallInfo callInfo);
+void GFxTrPage_Class_PopupData(UGFxTrPage_Class* that, UGFxTrPage_Class_execPopupData_Parms* params);
+void GFxTrPage_Class_PopupComplete(UGFxTrPage_Class* that, UGFxTrPage_Class_execPopupComplete_Parms* params);
 void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo);
 void GFxTrPage_Equip_SpecialAction(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execSpecialAction_Parms* params, void* result, Hooks::CallInfo callInfo);
 void GFxTrPage_Equip_FillOption(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execFillOption_Parms* params, UGFxObject** result, Hooks::CallInfo callInfo);
+void GFxTrPage_Loadouts_TakeAction(UGFxTrPage_Loadouts* that, UGFxTrPage_Loadouts_execTakeAction_Parms* params, int* result);
+void GFxTrPage_Loadouts_FillOption(UGFxTrPage_Loadouts* that, UGFxTrPage_Loadouts_execFillOption_Parms* params, UGFxObject** result);
+bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
+// Equip interface
+void TrEquipInterface_IsClassOwned(UTrEquipInterface* that, UTrEquipInterface_execIsClassOwned_Parms* params, bool* result);
+void TrEquipInterface_IsEquipOwned(UTrEquipInterface* that, UTrEquipInterface_execIsEquipOwned_Parms* params, bool* result);
+void TrEquipInterface_IsLoadoutOwned(UTrEquipInterface* that, UTrEquipInterface_execIsLoadoutOwned_Parms* params, bool* result);
+void TrEquipInterface_GetClassId(UTrEquipInterface* that, UTrEquipInterface_execGetClassId_Parms* params, int* result);
+void TrEquipInterface_GetEquipId(UTrEquipInterface* that, UTrEquipInterface_execGetEquipId_Parms* params, int* result);
+void TrEquipInterface_GetEquipIdFiltered(UTrEquipInterface* that, UTrEquipInterface_execGetEquipIdFiltered_Parms* params, int* result);
+void TrEquipInterface_GetActiveEquipId(UTrEquipInterface* that, UTrEquipInterface_execGetActiveEquipId_Parms* params, int* result);
+void TrInventoryHelper_GetFamilyClass(UTrInventoryHelper* that, UTrInventoryHelper_execGetFamilyClass_Parms* params, UClass** result);
+void TrPlayerController_GetFamilyInfoFromId(ATrPlayerController* that, ATrPlayerController_execGetFamilyInfoFromId_Parms* params, UClass** result);
+
+// Sniper rifle and laser targeter
 void TrDevice_CalcHUDAimChargePercent(ATrDevice* that, ATrDevice_execCalcHUDAimChargePercent_Parms* params, float* result, Hooks::CallInfo callInfo);
 float TrDevice_LaserTargeter_CalcHUDAimChargePercent(ATrDevice_LaserTargeter* that);
 float TrDevice_SniperRifle_CalcHUDAimChargePercent(ATrDevice_SniperRifle* that);
