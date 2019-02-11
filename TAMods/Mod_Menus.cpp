@@ -30,6 +30,18 @@ bool GFxTrMenuMoviePlayer_ChatMessageReceived(int ID, UObject *dwCallingObject, 
 	return false;
 }
 
+static void GFxTrPage_Main_UpdateGameModeUI(UGFxTrPage_Main* that, bool gotyMode) {
+	if (gotyMode) {
+		that->OptionTitles.Set(3, L"> SWITCH TO OOTB <");
+		that->OptionSubtext.Set(0, L"Current mode: GOTY");
+	}
+	else {
+		that->OptionTitles.Set(3, L"> SWITCH TO GOTY <");
+		that->OptionSubtext.Set(0, L"Current mode: OOTB");
+	}
+	that->RefreshButtons();
+}
+
 static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that, bool gotyMode) {
 	UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
 
@@ -46,7 +58,6 @@ static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that, bool gotyMode) {
 	that->AddActionPage(moviePlayer->Pages->TrainingMatchPage);
 
 	// Replace the Watch Now page with a button to switch server mode
-	that->OptionTitles.Set(3, FString(L"SWITCH GAME TYPE"));
 	that->AddActionNumber(ACTION_NUM_SWITCH_GAMEMODE);
 
 	that->AddActionPage(moviePlayer->Pages->SocialPage);
@@ -163,8 +174,8 @@ bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction
 }
 
 static bool hasConnectedControlChannel = false;
-// Override so that we can do initialization when the player first clicks on something in the menus
-void GFxTrPage_Main_TakeAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeAction_Parms* params, int* result, Hooks::CallInfo callInfo) {
+// Override so that we can do initialization when the player first mouses over something in the menus
+void GFxTrPage_Main_TakeFocus(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeFocus_Parms* params, int* result, Hooks::CallInfo callInfo) {
 	// Set the global reference to the main menu instance
 	Utils::tr_menuMovie = (UGFxTrMenuMoviePlayer*)that->Outer;
 
@@ -175,7 +186,7 @@ void GFxTrPage_Main_TakeAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeAc
 	}
 
 	// Perform the normal action
-	*result = that->TakeAction(params->ActionIndex, params->DataList);
+	*result = that->TakeFocus(params->ActionIndex, params->DataList);
 }
 
 static void performClassRename(std::string fiName, FString& friendlyName, FString& abbreviation) {
@@ -351,11 +362,10 @@ void TAServerControl::Client::handle_ModeInfoMessage(const json& j) {
 
 	gameSettingMode = msg.game_setting_mode;
 	setupGameSettingMode(gameSettingMode);
+	if (Utils::tr_menuMovie) {
+		GFxTrPage_Main_UpdateGameModeUI(Utils::tr_menuMovie->Pages->MainPage, gameSettingMode != "ootb");
+	}
 	Logger::log("Switched game mode to %s", gameSettingMode.c_str());
-
-	//if (Utils::tr_menuMovie) {
-	//	Utils::tr_menuMovie->eventSetPlayerInLogin(false);
-	//}
 }
 
 void TAServerControl::Client::handle_MenuDataMessage(const json& j) {

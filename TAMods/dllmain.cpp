@@ -176,7 +176,7 @@ void addClientModeHooks()
 	// Menu modification
 	// Login hook is borked
 	//Hooks::add(&TrLoginManager_Login, "Function TribesGame.TrLoginManager.Login");
-	Hooks::addUScript(&GFxTrPage_Main_TakeAction, "Function TribesGame.GFxTrPage_Main.TakeAction");
+	Hooks::addUScript(&GFxTrPage_Main_TakeFocus, "Function TribesGame.GFxTrPage_Main.TakeFocus");
 	Hooks::addUScript(&GFxTrPage_Main_SpecialAction, "Function TribesGame.GFxTrPage_Main.SpecialAction");
 	Hooks::addUScript(&GFxTrPage_FillOptions, "Function TribesGame.GFxTrPage.FillOptions");
 	Hooks::addUScript(&GFxTrPage_Class_SpecialAction, "Function TribesGame.GFxTrPage_Class.SpecialAction");
