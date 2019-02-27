@@ -199,6 +199,9 @@ void addClientModeHooks()
 	Hooks::addUScript(&TrEquipInterface_GetActiveEquipId, "Function TribesGame.TrEquipInterface.GetActiveEquipId");
 	Hooks::addUScript(&TrInventoryHelper_GetFamilyClass, "Function TribesGame.TrInventoryHelper.GetFamilyClass");
 	Hooks::addUScript(&TrPlayerController_GetFamilyInfoFromId, "Function TribesGame.TrPlayerController.GetFamilyInfoFromId");
+
+	// Rage pack capper speed dependency fix
+	Hooks::addUScript(&TrPlayerController_PlayerWalking_ProcessMove, "Function TrPlayerController.PlayerWalking.ProcessMove");
 }
 
 void onDLLProcessAttach()
