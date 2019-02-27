@@ -173,16 +173,19 @@ bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction
 	return true;
 }
 
-static bool hasConnectedControlChannel = false;
+
+
+static std::chrono::time_point<std::chrono::system_clock> lastConnectionAttemptTime((std::chrono::time_point<std::chrono::system_clock>::min)());
 // Override so that we can do initialization when the player first mouses over something in the menus
 void GFxTrPage_Main_TakeFocus(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeFocus_Parms* params, int* result, Hooks::CallInfo callInfo) {
 	// Set the global reference to the main menu instance
 	Utils::tr_menuMovie = (UGFxTrMenuMoviePlayer*)that->Outer;
-
-	if (!hasConnectedControlChannel) {
+	
+	// Rety connection every 5 seconds if it doesn't succeed
+	if (!g_TAServerControlClient.isKnownToBeModded() && std::chrono::system_clock::now() > lastConnectionAttemptTime + std::chrono::seconds(5)) {
 		// Indicate to the server that we are a modded client, so we can receive control messages
 		g_TAServerControlClient.sendConnect();
-		hasConnectedControlChannel = true;
+		lastConnectionAttemptTime = std::chrono::system_clock::now();
 	}
 
 	// Perform the normal action

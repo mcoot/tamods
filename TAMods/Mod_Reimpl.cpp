@@ -48,6 +48,138 @@ void TrDevice_FireAmmunition(ATrDevice* that, ATrDevice_execFireAmmunition_Parms
 }
 
 ////////////////////////
+// Thrust pack rage dependency fix
+////////////////////////
+
+void TrPlayerController_PlayerWalking_ProcessMove(ATrPlayerController* that, APlayerController_execProcessMove_Parms* params) {
+	ATrPawn* TrP = (ATrPawn*)that->Pawn;
+	if (!TrP) return;
+
+	if (that->m_bBlink) {
+
+
+		if (TrP->Physics != PHYS_Falling && TrP->Physics != PHYS_Flying) {
+			TrP->SetPhysics(PHYS_Falling);
+		}
+
+		ATrPlayerController_execGetBlinkPackAccel_Parms callParams;
+		callParams.BlinkPackPctEffectiveness = 0;
+		callParams.newAccel = FVector(0, 0, 0);
+		TrPlayerController_GetBlinkPackAccel(that, &callParams, NULL, NULL);
+		TrP->Velocity = Geom::add(TrP->Velocity, callParams.newAccel);
+
+		if (that->Role == ROLE_Authority) {
+			TrP->r_nBlinked++;
+		}
+
+		TrP->PlayBlinkPackEffect();
+
+		if (that->Role == ROLE_Authority) {
+			that->Pawn->SetRemoteViewPitch(that->Rotation.Pitch);
+		}
+		return;
+	}
+
+	if (that->m_bPressingJetpack) {
+		if (that->Pawn->Physics != PHYS_Flying) {
+			if (that->m_bJumpJet) {
+				that->bPressedJump = true;
+				that->CheckJumpOrDuck();
+			}
+
+			that->Pawn->SetPhysics(PHYS_Flying);
+		}
+	}
+	else {
+		if (that->Pawn->Physics == PHYS_Flying) {
+			that->Pawn->SetPhysics(PHYS_Falling);
+		}
+	}
+
+	if (that->Role == ROLE_Authority) {
+		that->Pawn->SetRemoteViewPitch(that->Rotation.Pitch);
+	}
+
+	that->Pawn->Acceleration = params->newAccel;
+
+	if (that->Pawn->Physics != PHYS_Flying) {
+		that->CheckJumpOrDuck();
+	}
+}
+
+void TrPlayerController_GetBlinkPackAccel(ATrPlayerController* that, ATrPlayerController_execGetBlinkPackAccel_Parms* params, void* result, Hooks::CallInfo* callInfo) {
+	if (!g_gameBalanceTracker.getReplicatedSetting("RageThrustPackDependsOnCapperSpeed", true)) {
+		that->GetBlinkPackAccel(&(params->newAccel), &(params->BlinkPackPctEffectiveness));
+		return;
+	}
+
+	FVector NewAccel;
+	float BlinkPackPctEffectiveness;
+
+	ATrPawn* TrP = (ATrPawn*)that->Pawn;
+	ATrPlayerReplicationInfo* TrPRI = (ATrPlayerReplicationInfo*)TrP->PlayerReplicationInfo;
+	ATrDevice_Blink* BlinkPack = (ATrDevice_Blink*)that->GetDeviceByEquipPoint(EQP_Pack);
+
+	if (!TrP || !BlinkPack) {
+		return;
+	}
+
+	if (!TrP->IsA(ATrPawn::StaticClass()) || !BlinkPack->IsA(ATrDevice_Blink::StaticClass())) return;
+
+	FVector ViewPos;
+	FRotator ViewRot;
+	that->eventGetPlayerViewPoint(&ViewPos, &ViewRot);
+
+	// Start with a local-space impulse amount
+	//NewAccel = BlinkPack->GetBlinkImpulse();
+	NewAccel = BlinkPack->m_vBlinkImpulse;
+	if (TrPRI) {
+		UTrValueModifier* VM = TrPRI->GetCurrentValueModifier();
+		if (VM) {
+			NewAccel = Geom::mult(NewAccel, 1.0 + VM->m_fBlinkPackPotencyBuffPct);
+		}
+	}
+
+	// Transform from local to world space
+	NewAccel = that->GreaterGreater_VectorRotator(NewAccel, ViewRot);
+
+	// Always make sure we have upward impulse
+	if (NewAccel.Z <= BlinkPack->m_fMinZImpulse) {
+		NewAccel.Z = BlinkPack->m_fMinZImpulse;
+	}
+
+	// Modify acceleration based on the power pool
+	BlinkPackPctEffectiveness = BlinkPack->m_fPowerPoolCost > 0.0f ? that->FClamp(TrP->GetPowerPoolPercent() * 100 / BlinkPack->m_fPowerPoolCost, 0.0f, 1.0f) : 1.0f;
+
+	// Modify the acceleration based on a speed cap
+	float PawnSpeed = that->VSize(TrP->Velocity);
+	float BlinkPackSpeedCapMultiplier = 1.0f;
+	if ((that->Dot_VectorVector(that->Normal(TrP->Velocity), Geom::rotationToVector(ViewRot)) >= 0) && PawnSpeed > BlinkPack->m_fSpeedCapThresholdStart) {
+		BlinkPackSpeedCapMultiplier = that->Lerp(1.0f, BlinkPack->m_fSpeedCapPct, that->FPctByRange(that->Min(PawnSpeed, BlinkPack->m_fSpeedCapThreshold), BlinkPack->m_fSpeedCapThresholdStart, BlinkPack->m_fSpeedCapThreshold));
+	}
+	BlinkPackPctEffectiveness *= BlinkPackSpeedCapMultiplier;
+
+	// Apply the effectiveness debuf
+	NewAccel = that->Multiply_FloatVector(BlinkPackPctEffectiveness, NewAccel);
+
+	// Take energy from the player
+	//BlinkPack->OnBlink(BlinkPackPctEffectiveness, false);
+	float VMMultiplier = 1.0f;
+	if (TrPRI) {
+		UTrValueModifier* VM = TrPRI->GetCurrentValueModifier();
+		if (VM) {
+			VMMultiplier = 1.0f - VM->m_fPackEnergyCostBuffPct;
+		}
+	}
+	TrP->ConsumePowerPool(BlinkPack->m_fPowerPoolCost * VMMultiplier);
+	TrP->SyncClientCurrentPowerPool();
+
+	// Out params
+	params->newAccel = NewAccel;
+	params->BlinkPackPctEffectiveness = BlinkPackPctEffectiveness;
+}
+
+////////////////////////
 // Display charge in hud
 ////////////////////////
 
@@ -87,8 +219,7 @@ bool TrDevice_SniperRifle_Tick(int ID, UObject *dwCallingObject, UFunction* pFun
 	ATrDevice_SniperRifle_eventTick_Parms* params = (ATrDevice_SniperRifle_eventTick_Parms*)pParams;
 
 	if (!g_gameBalanceTracker.getReplicatedSetting("UseGOTYBXTCharging", false)) {
-		that->eventTick(params->DeltaTime);
-		return true;
+		return false;
 	}
 
 	if (!that->Owner) {

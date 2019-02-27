@@ -243,6 +243,7 @@
     <ClInclude Include="NameCryptor.h" />
     <ClInclude Include="ParticleModuleHelper.h" />
     <ClInclude Include="Profiler.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="Routes.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="StateSaving.h" />
