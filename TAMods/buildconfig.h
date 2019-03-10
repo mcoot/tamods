@@ -16,7 +16,7 @@
 
 #define WIN7_COMPATIBLE
 
-#define MODVERSION 1.0
+#define MODVERSION 1.01
 
 #define TAMODS_PROTOCOL_VERSION "0.1.0"
 

@@ -184,6 +184,7 @@
     <ClCompile Include="Mod_ServerSettings.cpp" />
     <ClCompile Include="Mod_StateSaving.cpp" />
     <ClCompile Include="Mod_Stopwatch.cpp" />
+    <ClCompile Include="Mod_Vehicles.cpp" />
     <ClCompile Include="NameCryptor.cpp" />
     <ClCompile Include="ParticleModuleHelper.cpp" />
     <ClCompile Include="Profiler.cpp" />
