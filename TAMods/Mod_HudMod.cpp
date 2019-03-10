@@ -574,6 +574,9 @@ static bool hasScoreboardSlotChanged(FTrScoreSlot slot, ATrPlayerReplicationInfo
 }
 
 bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	if (!g_TAServerControlClient.isKnownToBeModded() || g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
+		return false;
+	}
 
 	UGfxTrHud* that = (UGfxTrHud*)dwCallingObject;
 	UGfxTrHud_execLoadVGSMenu_Parms* params = (UGfxTrHud_execLoadVGSMenu_Parms*)pParams;
@@ -581,7 +584,41 @@ bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction
 	UTrPlayerInput* TrPI = (UTrPlayerInput*)that->m_TrPC->PlayerInput;
 	if (!TrPI) return false;
 
-	if (TrPI->InVGSLoadoutMode()) {
+	if (TrPI->InVGSClassMode()) {
+		that->VGSMenuList = params->List;
+		that->m_VGSMenuListCount = 1;
+
+		//if (that->RetrieveGFxObject(L"vgs_mc.tfVgsTitle", &that->VGS) != NULL) {
+		//	that->VGS->SetText(L"PICK CLASS (USE NUMKEYS)", NULL);
+		//}
+
+		std::vector<int> gotyClasses = {
+			CONST_CLASS_TYPE_LIGHT_PATHFINDER,
+			CONST_CLASS_TYPE_LIGHT_SENTINEL,
+			CONST_CLASS_TYPE_LIGHT_INFILTRATOR,
+			CONST_CLASS_TYPE_MEDIUM_SOLDIER,
+			CONST_CLASS_TYPE_MEDIUM_RAIDER,
+			CONST_CLASS_TYPE_MEDIUM_TECHNICIAN,
+			CONST_CLASS_TYPE_HEAVY_JUGGERNAUGHT,
+			CONST_CLASS_TYPE_HEAVY_DOOMBRINGER,
+			CONST_CLASS_TYPE_HEAVY_BRUTE,
+		};
+
+		for (int i = 0; i < gotyClasses.size(); ++i) {
+			UClass* FamilyInfo = Data::class_id_to_class[gotyClasses[i]];
+			UTrFamilyInfo* defaultFI = (UTrFamilyInfo*)FamilyInfo->Default;
+
+			if (defaultFI) {
+				std::string numStr = std::to_string(i + 1) + ": ";
+				std::wstring numWideStr(numStr.begin(), numStr.end());
+				that->AddVGSEntry(that->Concat_StrStr((wchar_t*)numWideStr.c_str(), that->Caps(defaultFI->FriendlyName)), true);
+			}
+			else {
+				that->AddVGSEntry(L"<UNKNOWN>", true);
+			}
+		}
+	}
+	else if (TrPI->InVGSLoadoutMode()) {
 		int classId = TrPI->GetVGSClassId();
 		that->VGSMenuList = params->List;
 		that->m_VGSMenuListCount = 1;
@@ -601,6 +638,41 @@ bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction
 			std::wstring loadoutNameWideStr(loadoutNameStr.begin(), loadoutNameStr.end());
 			that->AddVGSEntry((wchar_t*)loadoutNameWideStr.c_str(), true);
 		}
+	}
+
+	return false;
+}
+
+bool TrPlayerInput_OnVGSNumKeyPressed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	if (!g_TAServerControlClient.isKnownToBeModded() || g_TAServerControlClient.getCurrentGameSettingMode() == "ootb") {
+		return false;
+	}
+
+	UTrPlayerInput* that = (UTrPlayerInput*)dwCallingObject;
+	UTrPlayerInput_eventOnVGSNumKeyPressed_Parms* params = (UTrPlayerInput_eventOnVGSNumKeyPressed_Parms*)pParams;
+	
+	if (params->Index == CONST_INDEX_NONE) {
+		return false;
+	}
+
+	if (that->m_bInVGSClassMode) {
+		std::vector<int> gotyClasses = {
+			CONST_CLASS_TYPE_LIGHT_PATHFINDER,
+			CONST_CLASS_TYPE_LIGHT_SENTINEL,
+			CONST_CLASS_TYPE_LIGHT_INFILTRATOR,
+			CONST_CLASS_TYPE_MEDIUM_SOLDIER,
+			CONST_CLASS_TYPE_MEDIUM_RAIDER,
+			CONST_CLASS_TYPE_MEDIUM_TECHNICIAN,
+			CONST_CLASS_TYPE_HEAVY_JUGGERNAUGHT,
+			CONST_CLASS_TYPE_HEAVY_DOOMBRINGER,
+			CONST_CLASS_TYPE_HEAVY_BRUTE,
+		};
+
+		if (params->Index >= 0 && params->Index < gotyClasses.size()) {
+			that->StartVGSLoadouts(gotyClasses[params->Index]);
+		}
+
+		return true;
 	}
 
 	return false;

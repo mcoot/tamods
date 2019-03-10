@@ -51,6 +51,11 @@ static void testing_PrintOutGObjectIndices() {
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
+	UClass* havocClass = UObject::FindClass("Class TribesGame.TrVehicle_Havoc");
+	ATrVehicle_Havoc* havoc = (ATrVehicle_Havoc*)havocClass->Default;
+	havoc->m_VehicleType = VEHICLE_Havoc;
+	havoc->m_sName = L"Havoc";
+
 	//testing_PrintOutGObjectIndices();
 
 	// Manually set Sparrow, Eagle and Colt to be hold to fire
@@ -188,6 +193,10 @@ void addClientModeHooks()
 	Hooks::addUScript(&GFxTrPage_Loadouts_TakeAction, "Function TribesGame.GFxTrPage_Loadouts.TakeAction");
 	Hooks::addUScript(&GFxTrPage_Loadouts_FillOption, "Function TribesGame.GFxTrPage_Loadouts.FillOption");
 	Hooks::add(&GFxTrHud_LoadVGSMenu, "Function TribesGame.GfxTrHud.LoadVGSMenu", Hooks::POST);
+	Hooks::add(&TrPlayerInput_OnVGSNumKeyPressed, "Function TribesGame.TrPlayerInput.OnVGSNumKeyPressed");
+
+	// Vehicle menu
+	Hooks::addUScript(TrPlayerController_OpenVehicleMenu, "Function TribesGame.TrPlayerController.OpenVehicleMenu");
 
 	// Equip Interface
 	Hooks::addUScript(&TrEquipInterface_IsClassOwned, "Function TribesGame.TrEquipInterface.IsClassOwned");

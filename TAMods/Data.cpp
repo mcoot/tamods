@@ -639,6 +639,9 @@ namespace Data
 		{ CONST_WEAPON_ID_PILOT_SHRIKE, "ShrikePilot" },
 		{ CONST_WEAPON_ID_PILOT_BEOWULF, "BeowulfPilot" },
 		{ CONST_WEAPON_ID_GUNNER_BEOWULF, "BeowulfGunner" },
+		{ CONST_WEAPON_ID_PILOT_HAVOC, "HavocPilot" },
+		{ CONST_WEAPON_ID_PILOT_HERC, "HERCPilot" },
+		{ CONST_WEAPON_ID_GUNNER_HERC, "HERCGunner" },
 	};
 
 	std::map<int, UClass*> weapon_id_to_weapon_class = {
@@ -742,6 +745,9 @@ namespace Data
 		{ CONST_WEAPON_ID_PILOT_SHRIKE, ATrVehicleWeapon_ShrikePilot::StaticClass() },
 		{ CONST_WEAPON_ID_PILOT_BEOWULF, ATrVehicleWeapon_BeowulfPilot::StaticClass() },
 		{ CONST_WEAPON_ID_GUNNER_BEOWULF, ATrVehicleWeapon_BeowulfGunner::StaticClass() },
+		{ CONST_WEAPON_ID_PILOT_HAVOC, ATrVehicleWeapon_HavocPilot::StaticClass() },
+		{ CONST_WEAPON_ID_PILOT_HERC, ATrVehicleWeapon_HERCPilot::StaticClass() },
+		{ CONST_WEAPON_ID_GUNNER_HERC, ATrVehicleWeapon_HERCGunner::StaticClass() },
 		{ CONST_WEAPON_ID_GRENADE,  ATrDevice_Grenade::StaticClass() },
 		{ CONST_WEAPON_ID_GRENADE_AP_HEAVY, ATrDevice_HeavyAPGrenade::StaticClass() },
 		{ CONST_WEAPON_ID_GRENADE_AP_HEAVY_MKD, ATrDevice_HeavyAPGrenade_MKD::StaticClass() },
@@ -784,27 +790,27 @@ namespace Data
 	};
 
 	std::map<std::string, int> vehicles = {
-		{ R"rx(^(grav(cycle|bike)?)$)rx", 1 },
-		{ R"rx(^(tank|beowulf)$)rx", 2 },
-		{ R"rx(^(shrike)$)rx", 3 },
-		{ R"rx(^(havoc)$)rx", 4 },
-		{ R"rx(^(herc)$)rx", 5 },
+		{ R"rx(^(grav(cycle|bike)?)$)rx", VEHICLE_GravCycle },
+		{ R"rx(^(shrike)$)rx", VEHICLE_Shrike },
+		{ R"rx(^(tank|beowulf)$)rx", VEHICLE_Beowulf },
+		{ R"rx(^(herc)$)rx", VEHICLE_HERC },
+		{ R"rx(^(havoc)$)rx", VEHICLE_Havoc },
 	};
 
 	std::map<int, std::string> vehicle_id_to_name = {
-		{1, "GravCycle"},
-		{2, "Beowulf"},
-		{3, "Shrike"},
-		{4, "Havoc"},
-		{5, "HERC"},
+		{VEHICLE_GravCycle, "GravCycle"},
+		{VEHICLE_Shrike, "Shrike"},
+		{VEHICLE_Beowulf, "Beowulf"},
+		{VEHICLE_HERC, "HERC"},
+		{VEHICLE_Havoc, "Havoc"},
 	};
 
 	std::map<int, UClass*> vehicle_id_to_class = {
-		{1, ATrVehicle_GravCycle::StaticClass()},
-		{2, ATrVehicle_Beowulf::StaticClass()},
-		{3, ATrVehicle_Shrike::StaticClass()},
-		{4, ATrVehicle_Havoc::StaticClass()},
-		{5, ATrVehicle_HERC::StaticClass()},
+		{VEHICLE_GravCycle, ATrVehicle_GravCycle::StaticClass()},
+		{VEHICLE_Shrike, ATrVehicle_Shrike::StaticClass()},
+		{VEHICLE_Beowulf, ATrVehicle_Beowulf::StaticClass()},
+		{VEHICLE_HERC, ATrVehicle_HERC::StaticClass()},
+		{VEHICLE_Havoc, ATrVehicle_Havoc::StaticClass()},
 	};
 
 	std::map<std::string, int> classes =

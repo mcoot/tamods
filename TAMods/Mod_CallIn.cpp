@@ -150,13 +150,127 @@ void ResetLaserTargetCallInCache() {
 //// Used to re-enable call-ins
 //////////////////////////
 
+// The length of the extent box use to check for collisions.
+float collisionExtentUnits = 100;
+
+// The following explanation was for the planar trace version. Some specifics
+// are not relevant. The size of each individual extent surface. If this length
+// is 10 times smaller than the length of the extent box then you are
+// essentially using 10*10=100 extent traces. Diving by 4 results in 16 traces,
+// by is 25 traces, etc. 10 is probably overkill if the extent length is small
+// but performace needs to be tested.
+
+// Since we're not using planar tracing but line tracing then this value is
+// basically the distance between neighbouring line traces.
+float subCollisionExtentUnits = collisionExtentUnits / 7;
+
+// The length of the extent box used to search for neighbouring inventories.
+// Basically the same thing as collisionExtentUnits.
+// Obviously this cannot differentiate between enemy or friendly inventories.
+float nearbyInventoryExtentUnits = 700;
+
+// Same thing as subCollisionExtentUnits but for nearbyInventoryExtentUnits.
+float subNearbyInventoryExtentUnits = nearbyInventoryExtentUnits / 7;
+
+// Any terrain with surface normal angle above this wil be rejected (too steep).
+float angle_terrain_max = 70;
+
+// Any mesh with surface normal angle above this wil be rejected (too steep).
+// Basically for stuff around the map like pillars.
+float angle_mesh_max = 40;
+
+// Check that the surface normal angle is within our set bounds.
+// Also have to check what exactly we hit in order to check the angle.
+bool TraceNormalAngleCheck(AActor* HitActor, FVector HitNormal) {
+	float angle = (std::acos(HitNormal.Z / Geom::distance3D(FVector(), HitNormal))) * CONST_RadToDeg;
+	char* name = HitActor->GetName();
+	bool isTerrain = strncmp(name, "Terrain", 7) == 0;
+	bool isMesh = strncmp(name, "StaticMes", 8) == 0;
+	bool isWorldInfo = strncmp(name, "WorldInfo", 9) == 0;
+	bool res = (isTerrain && angle < angle_terrain_max) || ((isMesh || isWorldInfo) && angle < angle_mesh_max);
+	return res;
+	// If we didn't hit terrain, mesh or worldinfo then it's very probable
+	// the inventory can't be placed at where ever actor was hit.
+}
+
+// Basically a normal non-zero extent trace.
+// This checks if any actor is hit. If so, checks if its terrain or not.
+// If !checkForInvo then we're probably doing the collision check, where only
+// Terrain is valid to collide with. If checkForInvo then we're obviously
+// checking for nearby inventories. Return true -> Valid position. Return false
+// -> Invalid position.
+bool LineTrace(FVector end, FVector start, bool bTraceActors, FVector extent, int bExtraTraceFlags, FVector* HitLocation, FVector* HitNormal, FTraceHitInfo* HitInfo, AActor* a, bool checkForInvo = false) {
+	HitInfo = NULL;
+	AActor* hitActor = a->Trace(end, start, 1, extent, 0, HitLocation, HitNormal, HitInfo);
+	if (hitActor) {
+		char* name = hitActor->GetName();
+		if (!checkForInvo) {
+			if (strncmp(name, "Terrain", 7) == 0)  // Hit terrain.
+				return true;
+			return false;  // Hit something but it wasn't terrain.
+		}
+		else {
+			if (strncmp(name, "TrInven", 7) == 0)  // Hit Invo.
+				return false;
+			if (strncmp(name, "TrCallIn", 8) == 0)  // Hit Invo.
+				return false;
+			return true;  // Didn't hit Invo.
+		}
+	}
+
+	// Some sort of check for Level stuff, if trace returns null but still hit
+	// something. Probably broken but might be useful for future things.
+	if (!hitActor && HitInfo) {
+		// return false;
+	}
+
+	// Didn't hit anything at all, so this location is safe.
+	// Doesn't really stop spawning invos on the edge of a surface...
+	// Perhaps first check what mesh we're aiming at? Hmmm.
+	return true;
+}
+
+// This calls the line trace by using math, division and loops.
+// This has lines from the air all the way to the ground (wherever that may be)
+// for a given X-Y coordinate. The zoffset is the literally the Z offset of the
+// plane from the hitlocation. We should keep it to around 1. Delta is just the
+// length of subNearbyInventoryExtentUnits.
+
+bool SplitLineTrace(FVector end, FVector start, bool bTraceActors, FVector extent, int bExtraTraceFlags, FVector* HitLocation, FVector* HitNormal, FTraceHitInfo* HitInfo, AActor* a, float delta, float zoffset, bool checkForInvo = false) {
+	FVector hitLocation = *HitLocation;  // We need to keep the original
+										 // hitlocation so we can use it values.
+	FVector newHitLocation;              // The pointer to this vector will be used for
+										 // further tracing. Its value is not actually useful.
+	bool res = true;
+	float pos_z = hitLocation.Z + zoffset;  // Set the end trace Z position to be like a lot lower than
+											// where we originally hit. So zoffset is a large negative.
+	FVector splitExtent = { delta, delta, 0 };
+	for (float y = hitLocation.Y - extent.Y + delta / 2; y < hitLocation.Y + extent.Y; y += delta) {
+		float pos_y = y;
+		for (float x = hitLocation.X - extent.X + delta / 2; x < hitLocation.X + extent.X; x += delta) {
+			float pos_x = x;
+			FVector startpos = { pos_x, pos_y, start.Z };  // The start position for tracing must have
+														 // the same X-Y as the end position, but with
+														 // the original Z value of the start vector.
+			FVector pos = { pos_x, pos_y, pos_z };         // End location
+			bool r = LineTrace(pos, startpos, 1, splitExtent, 0, &newHitLocation, HitNormal, HitInfo, a, checkForInvo);
+			if (!r) {  // Hit something that wasn't terrain OR an inventory was hit,
+					   // so early exit.
+				return false;
+			}
+			res = res && r;
+		}
+	}
+	return res;
+}
+
 static bool IsValidTargetLocation(ATrDevice_LaserTargeter* that, FVector currentTarget, FVector prevTarget, AActor* hitTarget) {
 	// Unfortunately the original version of this was native, and doesn't exist in OOTB :(
 	// So I've reimplemented it from scratch with traces yaaaaay
 
 	// Rules:
 	// 1) Nowhere is valid in pre-round
-	// 2) Must not collide with flag
+	// 2) Must not collide with flag, other inv stations etc.
 	// 3) Must not be underneath any world geometry (e.g. inside a base)
 
 	// Check we aren't in preround
@@ -183,15 +297,28 @@ static bool IsValidTargetLocation(ATrDevice_LaserTargeter* that, FVector current
 		return false;
 	}
 
-	// Now, we want to check if we're going to hit a flag
-	hitActor = that->Trace(podFallEnd, podFallStart, true, FVector(10, 10, 10), 0, &hitLocation, &hitNormal, &hitInfo);
-	if (hitActor) {
-		// Should probably check that it is a flag, but thus far flags are the only thing that seem to trigger
-		// Maybe turrets do too (haven't tested) but that's probably a good thing if so
+	// Find where the actual final location is. Maybe its equivalent to
+	// currentTarget? Trace again just to make sure.
+	FVector landLocationBottomed = { landLocation.X, landLocation.Y, landLocation.Z - 1000 };
+	hitActor = that->Trace(landLocationBottomed, podFallStart, 1, FVector(), 0, &hitLocation, &hitNormal, &hitInfo);
+	if (hitActor) {  // What did we hit? Terrain, WorldInfo, Mesh etc?
+		if (TraceNormalAngleCheck(hitActor,
+			hitNormal)) {  // Is the surface normal angle within our bounds?
+			bool res = true;
+			// First lets check for neighbouring inventories.
+			res = res && SplitLineTrace(hitLocation, podFallStart, 1, { nearbyInventoryExtentUnits, nearbyInventoryExtentUnits, 0 }, 0, &hitLocation, &hitNormal, &hitInfo, that, subNearbyInventoryExtentUnits, -10000, true);
+			if (!res)
+				return false;  // Early exit because an inventory is too close to the
+							   // target location.
+			// Now lets do the collision checking.
+			res = res && SplitLineTrace(hitLocation, podFallStart, 1, { collisionExtentUnits, collisionExtentUnits, 0 }, 0, &hitLocation, &hitNormal, &hitInfo, that, subCollisionExtentUnits, 1, false);
+			return res;
+		}
+		// The surface normal of the hitactor was too high.
 		return false;
 	}
-
-	return true;
+	// No hit actor found, so probably looking at the sky.
+	return false;
 }
 
 static bool GetLaserStartAndEnd(ATrDevice_LaserTargeter* that, FVector& startLocation, FVector& endLocation, FVector& endLocationNormal) {

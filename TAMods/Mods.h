@@ -175,6 +175,10 @@ void GFxTrPage_Equip_FillOption(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execFil
 void GFxTrPage_Loadouts_TakeAction(UGFxTrPage_Loadouts* that, UGFxTrPage_Loadouts_execTakeAction_Parms* params, int* result);
 void GFxTrPage_Loadouts_FillOption(UGFxTrPage_Loadouts* that, UGFxTrPage_Loadouts_execFillOption_Parms* params, UGFxObject** result);
 bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool TrPlayerInput_OnVGSNumKeyPressed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+
+// Allow adding new vehicle options
+void TrPlayerController_OpenVehicleMenu(ATrPlayerController* that, ATrPlayerController_execOpenVehicleMenu_Parms* params);
 
 // Equip interface
 void TrEquipInterface_IsClassOwned(UTrEquipInterface* that, UTrEquipInterface_execIsClassOwned_Parms* params, bool* result);
