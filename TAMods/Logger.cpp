@@ -40,35 +40,36 @@ bool Logger::isQuiet()
 
 void Logger::log(const char *format, ...)
 {
-	char buff[256];
-	va_list args;
-
+	// Only log things more important or equal to the current level
 	if (_quiet)
 		return;
+	if (!openFile()) return;
 
-	if (!openFile())
-		return;
-
+	va_list args;
 	va_start(args, format);
+	int line_length = _vscprintf(format, args);
+	char* buff = (char*)malloc((line_length + 1) * sizeof(char));
 	vsprintf(buff, format, args);
 	va_end(args);
 	fprintf(_file, "%s\n", buff);
 	fflush(_file);
+
+	free(buff);
 }
 
 void Logger::noln(const char *format, ...)
 {
-	char buff[256];
-	va_list args;
-
 	if (_quiet)
 		return;
+	if (!openFile()) return;
 
-	if (!openFile())
-		return;
-
+	va_list args;
 	va_start(args, format);
+	int line_length = _vscprintf(format, args);
+	char* buff = (char*)malloc((line_length + 1) * sizeof(char));
 	vsprintf(buff, format, args);
 	va_end(args);
 	fprintf(_file, buff);
+
+	free(buff);
 }
