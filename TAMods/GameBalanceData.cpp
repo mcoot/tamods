@@ -1404,6 +1404,67 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		// Forcefield
+		static const Property FORCEFIELD_MIN_DAMAGE(
+			ValueType::FLOAT,
+			deployableDeviceApplierAdapter<ATrDevice_Deployable, ATrDeployable_ForceField>([](PropValue p, ATrDevice_Deployable* dev, ATrDeployable_ForceField* dep) {
+			if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+			ATrSubDevice_ForceField* subdev = (ATrSubDevice_ForceField*)dep->m_DeviceClass->Default;
+			subdev->m_MinDamage = p.valFloat;
+			return true;
+		}),
+			deployableDeviceGetterAdapter<ATrDevice_Deployable, ATrDeployable_ForceField>([](ATrDevice_Deployable* dev, ATrDeployable_ForceField* dep, PropValue& ret) {
+			if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+			ATrSubDevice_ForceField* subdev = (ATrSubDevice_ForceField*)dep->m_DeviceClass->Default;
+			ret = PropValue::fromFloat(subdev->m_MinDamage);
+			return true;
+		})
+			);
+		static const Property FORCEFIELD_MAX_DAMAGE(
+			ValueType::FLOAT,
+			deployableDeviceApplierAdapter<ATrDevice_Deployable, ATrDeployable_ForceField>([](PropValue p, ATrDevice_Deployable* dev, ATrDeployable_ForceField* dep) {
+			if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+			ATrSubDevice_ForceField* subdev = (ATrSubDevice_ForceField*)dep->m_DeviceClass->Default;
+			subdev->m_MaxDamage = p.valFloat;
+			return true;
+		}),
+			deployableDeviceGetterAdapter<ATrDevice_Deployable, ATrDeployable_ForceField>([](ATrDevice_Deployable* dev, ATrDeployable_ForceField* dep, PropValue& ret) {
+			if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+			ATrSubDevice_ForceField* subdev = (ATrSubDevice_ForceField*)dep->m_DeviceClass->Default;
+			ret = PropValue::fromFloat(subdev->m_MaxDamage);
+			return true;
+		})
+			);
+		static const Property FORCEFIELD_MIN_DAMAGE_SPEED(
+			ValueType::FLOAT,
+			deployableDeviceApplierAdapter<ATrDevice_Deployable, ATrDeployable_ForceField>([](PropValue p, ATrDevice_Deployable* dev, ATrDeployable_ForceField* dep) {
+			if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+			ATrSubDevice_ForceField* subdev = (ATrSubDevice_ForceField*)dep->m_DeviceClass->Default;
+			subdev->m_MinSpeed = p.valFloat;
+			return true;
+		}),
+			deployableDeviceGetterAdapter<ATrDevice_Deployable, ATrDeployable_ForceField>([](ATrDevice_Deployable* dev, ATrDeployable_ForceField* dep, PropValue& ret) {
+			if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+			ATrSubDevice_ForceField* subdev = (ATrSubDevice_ForceField*)dep->m_DeviceClass->Default;
+			ret = PropValue::fromFloat(subdev->m_MinSpeed);
+			return true;
+		})
+			);
+		static const Property FORCEFIELD_MAX_DAMAGE_SPEED(
+			ValueType::FLOAT,
+			deployableDeviceApplierAdapter<ATrDevice_Deployable, ATrDeployable_ForceField>([](PropValue p, ATrDevice_Deployable* dev, ATrDeployable_ForceField* dep) {
+			if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+			ATrSubDevice_ForceField* subdev = (ATrSubDevice_ForceField*)dep->m_DeviceClass->Default;
+			subdev->m_MaxSpeed = p.valFloat;
+			return true;
+		}),
+			deployableDeviceGetterAdapter<ATrDevice_Deployable, ATrDeployable_ForceField>([](ATrDevice_Deployable* dev, ATrDeployable_ForceField* dep, PropValue& ret) {
+			if (!dep || !dep->m_DeviceClass || !dep->m_DeviceClass->Default) return false;
+			ATrSubDevice_ForceField* subdev = (ATrSubDevice_ForceField*)dep->m_DeviceClass->Default;
+			ret = PropValue::fromFloat(subdev->m_MaxSpeed);
+			return true;
+		})
+			);
 
 		// Mines
 		static const Property MINE_DEPLOY_TIME(
@@ -1591,6 +1652,10 @@ namespace GameBalance {
 			{PropId::DEPLOYABLE_MIN_PROXIMITY, DEPLOYABLE_MIN_PROXIMITY},
 			{PropId::TURRET_TIME_TO_ACQUIRE_TARGET, TURRET_TIME_TO_ACQUIRE_TARGET},
 			{PropId::TURRET_CAN_TARGET_VEHICLES, TURRET_CAN_TARGET_VEHICLES},
+			{ PropId::FORCEFIELD_MIN_DAMAGE, FORCEFIELD_MIN_DAMAGE },
+			{ PropId::FORCEFIELD_MAX_DAMAGE, FORCEFIELD_MAX_DAMAGE },
+			{ PropId::FORCEFIELD_MIN_DAMAGE_SPEED, FORCEFIELD_MIN_DAMAGE_SPEED },
+			{ PropId::FORCEFIELD_MAX_DAMAGE_SPEED, FORCEFIELD_MAX_DAMAGE_SPEED },
 
 			// Mines
 			{PropId::MINE_DEPLOY_TIME, MINE_DEPLOY_TIME},
