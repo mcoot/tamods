@@ -31,14 +31,18 @@ bool GFxTrMenuMoviePlayer_ChatMessageReceived(int ID, UObject *dwCallingObject, 
 }
 
 static void GFxTrPage_Main_UpdateGameModeUI(UGFxTrPage_Main* that, bool gotyMode) {
+	wchar_t* switchText, *curModeText;
 	if (gotyMode) {
-		that->OptionTitles.Set(3, L"> SWITCH TO OOTB <");
-		that->OptionSubtext.Set(0, L"Current mode: GOTY");
+		switchText = fStringCache["> SWITCH TO OOTB <"];
+		curModeText = fStringCache["Current mode: GOTY"];
 	}
 	else {
-		that->OptionTitles.Set(3, L"> SWITCH TO GOTY <");
-		that->OptionSubtext.Set(0, L"Current mode: OOTB");
+		switchText = fStringCache["> SWITCH TO GOTY <"];
+		curModeText = fStringCache["Current mode: OOTB"];
 	}
+
+	that->OptionTitles.Set(3, switchText);
+	that->OptionSubtext.Set(0, curModeText);
 	that->RefreshButtons();
 }
 
@@ -89,14 +93,14 @@ static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
 
 		// Rename perk menu options
 		that->OptionSubtext = TArray<FString>();
-		that->OptionSubtext.Add(FString(L"PRIMARY WEAPON"));
-		that->OptionSubtext.Add(FString(L"SECONDARY WEAPON"));
-		that->OptionSubtext.Add(FString(L"BELT ITEM"));
-		that->OptionSubtext.Add(FString(L"PACK"));
-		that->OptionSubtext.Add(FString(L"PRIMARY PERK"));
-		that->OptionSubtext.Add(FString(L"SECONDARY PERK"));
-		that->OptionSubtext.Add(FString(L"SKIN"));
-		that->OptionSubtext.Add(FString(L"VOICE"));
+		that->OptionSubtext.Add(fStringCache["PRIMARY WEAPON"]);
+		that->OptionSubtext.Add(fStringCache["SECONDARY WEAPON"]);
+		that->OptionSubtext.Add(fStringCache["BELT ITEM"]);
+		that->OptionSubtext.Add(fStringCache["PACK"]);
+		that->OptionSubtext.Add(fStringCache["PRIMARY PERK"]);
+		that->OptionSubtext.Add(fStringCache["SECONDARY PERK"]);
+		that->OptionSubtext.Add(fStringCache["SKIN"]);
+		that->OptionSubtext.Add(fStringCache["VOICE"]);
 	}
 	else {
 		// Don't show the perk slots
@@ -105,13 +109,13 @@ static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
 
 		// Rename class menu options
 		that->OptionSubtext = TArray<FString>();
-		that->OptionSubtext.Add(FString(L"SLOT ONE"));
-		that->OptionSubtext.Add(FString(L"SLOT TWO"));
-		that->OptionSubtext.Add(FString(L"SLOT THREE"));
-		that->OptionSubtext.Add(FString(L"BELT ITEM"));
-		that->OptionSubtext.Add(FString(L"PACK"));
-		that->OptionSubtext.Add(FString(L"SKIN"));
-		that->OptionSubtext.Add(FString(L"VOICE"));
+		that->OptionSubtext.Add(fStringCache["SLOT ONE"]);
+		that->OptionSubtext.Add(fStringCache["SLOT TWO"]);
+		that->OptionSubtext.Add(fStringCache["SLOT THREE"]);
+		that->OptionSubtext.Add(fStringCache["BELT ITEM"]);
+		that->OptionSubtext.Add(fStringCache["PACK"]);
+		that->OptionSubtext.Add(fStringCache["SKIN"]);
+		that->OptionSubtext.Add(fStringCache["VOICE"]);
 	}
 
 	for (auto& eqp : eqpPointsToShow) {
@@ -192,7 +196,7 @@ void GFxTrPage_Main_TakeFocus(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeFoc
 	*result = that->TakeFocus(params->ActionIndex, params->DataList);
 }
 
-static void performClassRename(std::string fiName, FString& friendlyName, FString& abbreviation) {
+static void performClassRename(std::string fiName, wchar_t* friendlyName, wchar_t* abbreviation) {
 	std::string baseName = "TrFamilyInfo_" + fiName + " TribesGame.Default__TrFamilyInfo_" + fiName;
 	std::string beName = "TrFamilyInfo_" + fiName + "_BE" + " TribesGame.Default__TrFamilyInfo_" + fiName + "_BE";
 	std::string dsName = "TrFamilyInfo_" + fiName + "_DS" + " TribesGame.Default__TrFamilyInfo_" + fiName + "_DS";
@@ -210,7 +214,7 @@ static void performClassRename(std::string fiName, FString& friendlyName, FStrin
 	}
 }
 
-static void performItemRename(std::string itemPrefix, std::string itemClassName, FString& itemName, FString& infoDescription) {
+static void performItemRename(std::string itemPrefix, std::string itemClassName, wchar_t* itemName, wchar_t* infoDescription) {
 	std::string baseName = itemPrefix + "_" + itemClassName + " TribesGame.Default__" + itemPrefix + "_" + itemClassName;
 	ATrDevice* item = UObject::FindObject<ATrDevice>(baseName.c_str());
 
@@ -218,7 +222,7 @@ static void performItemRename(std::string itemPrefix, std::string itemClassName,
 	item->InfoPanelDescription = infoDescription;
 }
 
-static void performSkinRename(std::string itemClassName, FString& itemName, FString& infoDescription) {
+static void performSkinRename(std::string itemClassName, wchar_t* itemName, wchar_t* infoDescription) {
 	std::string baseName = "TrSkin_" + itemClassName + " TribesGame.Default__TrSkin_" + itemClassName;
 	UTrSkin* item = UObject::FindObject<UTrSkin>(baseName.c_str());
 
@@ -229,35 +233,32 @@ static void performSkinRename(std::string itemClassName, FString& itemName, FStr
 // Rename items/classes that changed in OOTB back to their GOTY values
 void performGOTYRename() {
 	// Light -> Pathfinder
-	static FString pthName(L"Pathfinder");
-	static FString pthAbbrev(L"PTH");
-	performClassRename("Light_Pathfinder", pthName, pthAbbrev);
+	wchar_t* pthName = fStringCache["Pathfinder"];
+	performClassRename("Light_Pathfinder", pthName, fStringCache["PTH"]);
 
 	// Medium -> Soldier
-	static FString sldName(L"Soldier");
-	static FString sldAbbrev(L"SLD");
-	performClassRename("Medium_Soldier", sldName, sldAbbrev);
+	wchar_t* sldName = fStringCache["Soldier"];
+	performClassRename("Medium_Soldier", sldName, fStringCache["SLD"]);
 
 	// Heavy -> Juggernaut
-	static FString jugName(L"Juggernaut");
-	static FString jugAbbrev(L"JUG");
-	performClassRename("Heavy_Juggernaught", jugName, jugAbbrev);
+	wchar_t* jugName = fStringCache["Juggernaut"];
+	performClassRename("Heavy_Juggernaught", jugName, fStringCache["JUG"]);
 
 	// Default skins
-	performSkinRename("Pathfinder", pthName, FString());
-	performSkinRename("Soldier", sldName, FString());
-	performSkinRename("Juggernaut", jugName, FString());
+	performSkinRename("Pathfinder", pthName, fStringCache[""]);
+	performSkinRename("Soldier", sldName, fStringCache[""]);
+	performSkinRename("Juggernaut", jugName, fStringCache[""]);
 
 
 	// Spare Spin
-	static FString spareSpinName(L"Spare Spinfusor");
-	static FString spareSpinInfo(L"Some Soldiers like to bring an extra Spinfusor as a secondary. This variant has a reduced direct-hit damage bonus compared to Thumpers or other Spinfusors, but retains all other benefits of the Disk.");
-	performItemRename("TrDevice", "Spinfusor_100X", spareSpinName, spareSpinInfo);
+	performItemRename("TrDevice", "Spinfusor_100X", fStringCache["Spare Spinfusor"], 
+		fStringCache["Some Soldiers like to bring an extra Spinfusor as a secondary. This variant has a reduced direct-hit damage bonus compared to Thumpers or other Spinfusors, but retains all other benefits of the Disk."]
+	);
 
 	// Devastator Spin
-	static FString devastatorSpinName(L"Devastator Spinfusor");
-	static FString devastatorSpinInfo(L"A favorite among heavies, the Devastator variant deals a little less damage overall, but packs a significantly harder punch on a direct hit, and has a larger explosion radius.");
-	performItemRename("TrDevice", "HeavySpinfusor_MKD", devastatorSpinName, devastatorSpinInfo);
+	performItemRename("TrDevice", "HeavySpinfusor_MKD", fStringCache["Devastator Spinfusor"], 
+		fStringCache["A favorite among heavies, the Devastator variant deals a little less damage overall, but packs a significantly harder punch on a direct hit, and has a larger explosion radius."]
+	);
 
 	//// Light Utility Pack -> Lightweight Pack
 	//static FString lightUtilName(L"Lightweight Pack");
@@ -273,29 +274,29 @@ void performGOTYRename() {
 	UTrPerkList* perkListDef = (UTrPerkList*)UTrPerkList::StaticClass()->Default;
 
 	perkListDef->PerkListA.Clear();
-	perkListDef->PerkListA.Add(FString(L"TrPerk_Rage"));
-	perkListDef->PerkListA.Add(FString(L"TrPerk_SuperCapacitor"));
-	perkListDef->PerkListA.Add(FString(L"TrPerk_Reach"));
-	perkListDef->PerkListA.Add(FString(L"TrPerk_Looter"));
-	perkListDef->PerkListA.Add(FString(L"TrPerk_SafeFall"));
-	perkListDef->PerkListA.Add(FString(L"TrPerk_WheelDeal"));
-	perkListDef->PerkListA.Add(FString(L"TrPerk_BountyHunter"));
-	perkListDef->PerkListA.Add(FString(L"TrPerk_CloseCombat"));
-	perkListDef->PerkListA.Add(FString(L"TrPerk_SafetyThird"));
-	perkListDef->PerkListA.Add(FString(L"TrPerk_Stealthy"));
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_Rage"]);
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_SuperCapacitor"]);
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_Reach"]);
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_Looter"]);
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_SafeFall"]);
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_WheelDeal"]);
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_BountyHunter"]);
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_CloseCombat"]);
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_SafetyThird"]);
+	perkListDef->PerkListA.Add(fStringCache["TrPerk_Stealthy"]);
 
 	perkListDef->PerkListB.Clear();
-	perkListDef->PerkListB.Add(FString(L"TrPerk_SonicPunch"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_PotentialEnergy"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_Determination"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_Egocentric"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_Pilot"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_Survivalist"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_SuperHeavy"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_UltraCapacitor"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_QuickDraw"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_Mechanic"));
-	perkListDef->PerkListB.Add(FString(L"TrPerk_Lightweight"));
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_SonicPunch"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_PotentialEnergy"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_Determination"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_Egocentric"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_Pilot"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_Survivalist"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_SuperHeavy"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_UltraCapacitor"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_QuickDraw"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_Mechanic"]);
+	perkListDef->PerkListB.Add(fStringCache["TrPerk_Lightweight"]);
 
 
 }
@@ -303,35 +304,28 @@ void performGOTYRename() {
 // Rename items/classes to what they should be in OOTB
 void performOOTBRename() {
 	// Light -> Pathfinder
-	static FString pthName(L"Light");
-	static FString pthAbbrev(L"LHT");
-	performClassRename("Light_Pathfinder", pthName, pthAbbrev);
+	wchar_t* pthName = fStringCache["Light"];
+	performClassRename("Light_Pathfinder", pthName, fStringCache["LHT"]);
 
 	// Medium -> Soldier
-	static FString sldName(L"Medium");
-	static FString sldAbbrev(L"MED");
-	performClassRename("Medium_Soldier", sldName, sldAbbrev);
+	wchar_t* sldName = fStringCache["Medium"];
+	performClassRename("Medium_Soldier", sldName, fStringCache["MED"]);
 
 	// Heavy -> Juggernaut
-	static FString jugName(L"Heavy");
-	static FString jugAbbrev(L"HVY");
-	performClassRename("Heavy_Juggernaught", jugName, jugAbbrev);
+	wchar_t* jugName = fStringCache["Heavy"];
+	performClassRename("Heavy_Juggernaught", jugName, fStringCache["HVY"]);
 
 	// Default skins
-	performSkinRename("Pathfinder", pthName, FString());
-	performSkinRename("Soldier", sldName, FString());
-	performSkinRename("Juggernaut", jugName, FString());
+	performSkinRename("Pathfinder", pthName, fStringCache[""]);
+	performSkinRename("Soldier", sldName, fStringCache[""]);
+	performSkinRename("Juggernaut", jugName, fStringCache[""]);
 
 
 	// Spare Spin
-	static FString spareSpinName(L"Blinksfusor");
-	static FString spareSpinInfo(L"100 percent inheritence variant of the spinfusor");
-	performItemRename("TrDevice", "Spinfusor_100X", spareSpinName, spareSpinInfo);
+	performItemRename("TrDevice", "Spinfusor_100X", fStringCache["Blinksfusor"], fStringCache["100 percent inheritence variant of the spinfusor"]);
 
 	// Devastator Spin
-	static FString devastatorSpinName(L"Heavy Blinksfusor");
-	static FString devastatorSpinInfo(L"100 percent inheritence variant of the heavy spinfusor");
-	performItemRename("TrDevice", "HeavySpinfusor_MKD", devastatorSpinName, devastatorSpinInfo);
+	performItemRename("TrDevice", "HeavySpinfusor_MKD", fStringCache["Heavy Blinksfusor"], fStringCache["100 percent inheritence variant of the heavy spinfusor"]);
 
 	//// Light Utility Pack -> Lightweight Pack
 	//static FString lightUtilName(L"Lightweight Pack");

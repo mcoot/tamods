@@ -115,8 +115,8 @@ void GFxTrPage_Class_FillOption(UGFxTrPage_Class* that, UGFxTrPage_Class_execFil
 		UGFxObject* obj = mp->CreateObject(L"Object", NULL);
 
 		obj->SetFloat(L"actionID", params->ActionIndex);
-		obj->SetString(L"itemTitle", L"RENAME LOADOUT", NULL);
-		obj->SetString(L"itemSubTitle", L"SELECT TO RENAME THIS LOADOUT", NULL);
+		obj->SetString(L"itemTitle", fStringCache["RENAME LOADOUT"], NULL);
+		obj->SetString(L"itemSubTitle", fStringCache["SELECT TO RENAME THIS LOADOUT"], NULL);
 
 		*result = obj;
 	}

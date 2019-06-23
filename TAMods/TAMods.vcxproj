@@ -162,6 +162,7 @@
       </PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="MemoisedCache.cpp" />
     <ClCompile Include="Mod_AccoladeSounds.cpp" />
     <ClCompile Include="Mod_CallIn.cpp" />
     <ClCompile Include="Mod_Console.cpp" />
@@ -239,6 +240,7 @@
     <ClInclude Include="libpng\pnglibconf.h" />
     <ClInclude Include="libpng\pngpriv.h" />
     <ClInclude Include="libpng\pngstruct.h" />
+    <ClInclude Include="MemoisedCache.h" />
     <ClInclude Include="Mods_ModelTextures.h" />
     <ClInclude Include="Mod_MenusTypes.h" />
     <ClInclude Include="NameCryptor.h" />

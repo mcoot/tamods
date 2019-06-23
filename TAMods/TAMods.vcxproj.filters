@@ -393,6 +393,9 @@
     <ClCompile Include="Mod_Vehicles.cpp">
       <Filter>Source Files\Mods</Filter>
     </ClCompile>
+    <ClCompile Include="MemoisedCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h">
@@ -738,6 +741,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoisedCache.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

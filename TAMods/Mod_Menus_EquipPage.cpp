@@ -17,7 +17,7 @@ void GFxTrPage_Equip_SpecialAction(UGFxTrPage_Equip* that, UGFxTrPage_Equip_exec
 	if (equipClass) {
 		ATrDevice* equipDef = (ATrDevice*)equipClass->Default;
 		if (equipDef) {
-			FString updateStr = that->Concat_StrStr(equipDef->ItemName, FString(L" EQUIPPED"));
+			FString updateStr = that->Concat_StrStr(equipDef->ItemName, fStringCache[" EQUIPPED"]);
 			mp->UpdateStatus(mp->Caps(updateStr));
 		}
 	}
@@ -55,13 +55,13 @@ void GFxTrPage_Equip_FillOption(UGFxTrPage_Equip* that, UGFxTrPage_Equip_execFil
 		obj->SetString(L"itemTitle", that->LoadoutEquipType == EQP_Skin ? that->Caps(((UTrSkin*)equip->Default)->ItemName) : that->Caps(((ATrDevice*)equip->Default)->ItemName), NULL);
 	}
 	else {
-		obj->SetString(L"itemTitle", L"UNDEFINED", NULL);
+		obj->SetString(L"itemTitle", fStringCache["UNDEFINED"], NULL);
 	}
 
 	obj->SetFloat(L"bItemSelected", isItemSelected ? 2 : 1);
 
-	obj->SetString(L"itemSubTitle", L"MASTERED", NULL);
-	obj->SetString(L"itemRibbonLabel", L"", NULL);
+	obj->SetString(L"itemSubTitle", fStringCache["MASTERED"], NULL);
+	obj->SetString(L"itemRibbonLabel", fStringCache[""], NULL);
 	obj->SetFloat(L"ribbonType", 0);
 	obj->SetFloat(L"hasRibbon", 0);
 

@@ -614,7 +614,7 @@ bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction
 				that->AddVGSEntry(that->Concat_StrStr((wchar_t*)numWideStr.c_str(), that->Caps(defaultFI->FriendlyName)), true);
 			}
 			else {
-				that->AddVGSEntry(L"<UNKNOWN>", true);
+				that->AddVGSEntry(fStringCache["<UNKNOWN>"], true);
 			}
 		}
 	}
@@ -630,7 +630,7 @@ bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction
 		UTrFamilyInfo* familyInfo = (UTrFamilyInfo*)fiClass->Default;
 
 		if (that->RetrieveGFxObject(L"vgs_mc.tfVgsTitle", &that->VGS) != NULL) {
-			that->VGS->SetText(that->Concat_StrStr(that->Caps(familyInfo->FriendlyName), L" (NUMKEYS)"), NULL);
+			that->VGS->SetText(that->Concat_StrStr(that->Caps(familyInfo->FriendlyName), fStringCache[" (NUMKEYS)"]), NULL);
 		}
 
 		for (int i = 0; i < LST_MAX; ++i) {

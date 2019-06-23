@@ -54,7 +54,7 @@ void addClientModeHooks()
 	UClass* havocClass = UObject::FindClass("Class TribesGame.TrVehicle_Havoc");
 	ATrVehicle_Havoc* havoc = (ATrVehicle_Havoc*)havocClass->Default;
 	havoc->m_VehicleType = VEHICLE_Havoc;
-	havoc->m_sName = L"Havoc";
+	havoc->m_sName = fStringCache["Havoc"];
 
 	//testing_PrintOutGObjectIndices();
 

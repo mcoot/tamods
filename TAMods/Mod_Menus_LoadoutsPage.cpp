@@ -36,10 +36,10 @@ void GFxTrPage_Loadouts_FillOption(UGFxTrPage_Loadouts* that, UGFxTrPage_Loadout
 
 	obj->SetFloat(L"bLocked", 0);
 	if (that->bInSelection) {
-		obj->SetString(L"itemSubTitle", L"SELECT TO EQUIP", NULL);
+		obj->SetString(L"itemSubTitle", fStringCache["SELECT TO EQUIP"], NULL);
 	}
 	else {
-		obj->SetString(L"itemSubTitle", L"SELECT TO MODIFY", NULL);
+		obj->SetString(L"itemSubTitle", fStringCache["SELECT TO MODIFY"], NULL);
 	}
 
 	*result = obj;
