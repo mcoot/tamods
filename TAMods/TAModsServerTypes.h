@@ -463,21 +463,20 @@ namespace TAModsServer {
 			if (j.find("console_messages") == j.end()) return false;
 
 			json consoleMessagesJson = j["console_messages"];
-			for (json::iterator it = consoleMessagesJson.begin(); it != consoleMessagesJson.end(); ++it) {
-				json curMsgJson = *it;
-
-				if (curMsgJson.find("message") == curMsgJson.end()) return false;
-				if (curMsgJson.find("r") == curMsgJson.end()) return false;
-				if (curMsgJson.find("g") == curMsgJson.end()) return false;
-				if (curMsgJson.find("b") == curMsgJson.end()) return false;
-				if (curMsgJson.find("a") == curMsgJson.end()) return false;
+			if (!consoleMessagesJson.is_array()) return false;
+			for (auto& elem : consoleMessagesJson) {
+				if (elem.find("message") == elem.end()) return false;
+				if (elem.find("r") == elem.end()) return false;
+				if (elem.find("g") == elem.end()) return false;
+				if (elem.find("b") == elem.end()) return false;
+				if (elem.find("a") == elem.end()) return false;
 
 				ConsoleMsgDetails details;
-				details.message = curMsgJson["message"].get<std::string>();
-				details.r = curMsgJson["r"].get<unsigned char>();
-				details.g = curMsgJson["g"].get<unsigned char>();
-				details.b = curMsgJson["b"].get<unsigned char>();
-				details.a = curMsgJson["a"].get<unsigned char>();
+				details.message = elem["message"].get<std::string>();
+				details.r = elem["r"].get<unsigned char>();
+				details.g = elem["g"].get<unsigned char>();
+				details.b = elem["b"].get<unsigned char>();
+				details.a = elem["a"].get<unsigned char>();
 
 				consoleMessages.push_back(details);
 			}
@@ -485,6 +484,7 @@ namespace TAModsServer {
 			if (j.find("ingame_message") == j.end()) return false;
 			json ingameMessageJson = j["ingame_message"];
 
+			if (!ingameMessageJson.is_object()) return false;
 			if (ingameMessageJson.find("do_show") == ingameMessageJson.end()) return false;
 
 			ingameMessage.doShow = ingameMessageJson["do_show"].get<bool>();

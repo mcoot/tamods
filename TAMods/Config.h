@@ -437,3 +437,10 @@ public:
 	// Bools for reloading
 	bool shouldReloadTrHud;
 };
+
+class GlobalState {
+public:
+	int matchStartXp = 0;
+};
+
+extern GlobalState g_GlobalState;

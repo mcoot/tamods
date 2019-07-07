@@ -173,6 +173,7 @@
     <ClCompile Include="Mod_General.cpp" />
     <ClCompile Include="Mod_HitSounds.cpp" />
     <ClCompile Include="Mod_HudMod.cpp" />
+    <ClCompile Include="Mod_MatchSummary.cpp" />
     <ClCompile Include="Mod_Menus.cpp" />
     <ClCompile Include="Mod_MenusTypes.cpp" />
     <ClCompile Include="Mod_Menus_ClassPage.cpp" />

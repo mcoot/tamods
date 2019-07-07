@@ -1220,6 +1220,67 @@ namespace Data
 		{ CONST_MAP_ID_BLITZ_KATABATIC,            "[Blitz] Katabatic" },
 		{ CONST_MAP_ID_BLITZ_DRYDOCK,              "[Blitz] Drydock" },
 	};
+
+	std::map<int, std::string> map_id_to_filename = {
+		{ CONST_MAP_ID_CTF_KATABATIC,			   "TrCTF-Katabatic" },
+		{ CONST_MAP_ID_CTF_ARXNOVENA,              "TrCTF-ArxNovena" },
+		{ CONST_MAP_ID_CTF_DRYDOCK,                "TrCTF-Drydock" },
+		{ CONST_MAP_ID_RABBIT_OUTSKIRTS,           "TrRabbit-ArxNovena" },
+		{ CONST_MAP_ID_RABBIT_QUICKSAND,           "TrRabbit-BellaOmega" },
+		{ CONST_MAP_ID_CTF_CROSSFIRE,              "TrCTF-Crossfire" },
+		{ CONST_MAP_ID_RABBIT_CROSSFIRE,           "TrRabbit-Crossfire" },
+		{ CONST_MAP_ID_TDM_DRYDOCKNIGHT,           "TrTeamRabbit-Drydock" },
+		{ CONST_MAP_ID_TDM_CROSSFIRE,              "TrTeamRabbit-Crossfire" },
+		{ CONST_MAP_ID_TDM_QUICKSAND,              "TrTeamRabbit-BellaOmega" },
+		{ CONST_MAP_ID_TDM_NIGHTABATIC,            "TrTeamRabbit-NightKatabatic" },
+		{ CONST_MAP_ID_TDM_INFERNO,                "TrTeamRabbit-Harabec" },
+		{ CONST_MAP_ID_TDM_SULFURCOVE,             "TrTeamRabbit-CrossfireSmall" },
+		{ CONST_MAP_ID_TDM_OUTSKIRTS,              "TrTeamRabbit-ArxNovena" },
+		{ CONST_MAP_ID_RABBIT_INFERNO,             "TrRabbit-Harabec" },
+		{ CONST_MAP_ID_CTF_TEMPLERUINS,            "TrCTF-RuinsOfHarabec" },
+		{ CONST_MAP_ID_RABBIT_NIGHTABATIC,         "TrRabbit-NightKatabatic" },
+		{ CONST_MAP_ID_ARENA_AIRARENA,             "TrArena-Airarena" },
+		{ CONST_MAP_ID_RABBIT_SULFURCOVE,          "TrRabbit-CrossfireSmall" },
+		{ CONST_MAP_ID_ARENA_WALLEDIN,             "TrArena-Walledin" },
+		{ CONST_MAP_ID_ARENA_LAVAARENA,            "TrArena-Lavarena" },
+		{ CONST_MAP_ID_CTF_TARTARUS,               "TrCTF-Tartarus" },
+		{ CONST_MAP_ID_CTF_CANYONCRUSADEREVIVAL,   "TrCTF-CanyonCrusadeRev" },
+		{ CONST_MAP_ID_CTF_RAINDANCE,              "TrCTF-Raindance" },
+		{ CONST_MAP_ID_CAH_KATABATIC,              "TrCaH-Katabatic" },
+		{ CONST_MAP_ID_CTF_STONEHENGE,             "TrCTF-Stonehenge2" },
+		{ CONST_MAP_ID_CTF_SUNSTAR,                "TrCTF-Sunstar" },
+		{ CONST_MAP_ID_CAH_OUTSKIRTS3P,            "TrCaH-ArxOutskirts_3p" },
+		{ CONST_MAP_ID_CAH_RAINDANCE,              "TrCaH-Raindance" },
+		{ CONST_MAP_ID_CAH_DRYDOCKNIGHT,           "TrCaH-Drydock" },
+		{ CONST_MAP_ID_ARENA_HINTERLANDS,          "TrArena-Hinterland" },
+		{ CONST_MAP_ID_CTF_PERMAFROST,             "TrCTF-Permafrost" },
+		{ CONST_MAP_ID_CAH_SULFURCOVE,             "TrCaH-FrossfireSmall" },
+		{ CONST_MAP_ID_TDM_MIASMA,                 "TrTeamRabbit-Tartarus" },
+		{ CONST_MAP_ID_CAH_TARTARUS,               "TrCaH-Tartarus" },
+		{ CONST_MAP_ID_CTF_DANGEROUSCROSSING,      "TrCTF-DangerousCrossing" },
+		{ CONST_MAP_ID_BLITZ_CROSSFIRE,            "TrCTFBlitz-Crossfire" },
+		{ CONST_MAP_ID_CTF_BLUESHIFT,              "TrCTF-Blueshift" },
+		{ CONST_MAP_ID_ARENA_WHITEOUT,             "TrArena-Whiteout" },
+		{ CONST_MAP_ID_ARENA_FRAYTOWN,             "TrArena-Fraytown" },
+		{ CONST_MAP_ID_ARENA_UNDERCROFT,           "TrArena-Undercroft" },
+		{ CONST_MAP_ID_CAH_CANYONCRUSADEREVIVAL,   "TrCaH-CanyonCrusadeRev" },
+		{ CONST_MAP_ID_BLITZ_CANYONCRUSADEREVIVAL, "TrCTFBlitz-CanyonCrusadeRev" },
+		{ CONST_MAP_ID_BLITZ_BELLAOMEGA,           "TrCTFBlitz-BellaOmega" },
+		{ CONST_MAP_ID_CTF_BELLAOMEGANS,           "TrCTF-BellaOmegaNS" },
+		{ CONST_MAP_ID_BLITZ_BLUESHIFT,            "TrCTFBlitz-Blueshift" },
+		{ CONST_MAP_ID_CTF_TERMINUS,               "TrCTF-Terminus" },
+		{ CONST_MAP_ID_BLITZ_TERMINUS,             "TrCTFBlitz-Terminus" },
+		{ CONST_MAP_ID_CTF_ICECOASTER,             "TrCTF-IceCoaster" },
+		{ CONST_MAP_ID_BLITZ_ICECOASTER,           "TrCTFBlitz-IceCoaster" },
+		{ CONST_MAP_ID_CTF_PERDITION,              "TrCTF-Perdition" },
+		{ CONST_MAP_ID_TDM_PERDITION,              "TrTeamRabbit-Perdition" },
+		{ CONST_MAP_ID_CTF_HELLFIRE,               "TrCTF-Hellfire" },
+		{ CONST_MAP_ID_BLITZ_HELLFIRE,             "TrCTFBlitz-Hellfire" },
+		{ CONST_MAP_ID_CTF_BELLAOMEGA,             "TrCTF-BellaOmega" },
+		{ CONST_MAP_ID_BLITZ_ARXNOVENA,            "TrCTFBlitz-ArxNovena" },
+		{ CONST_MAP_ID_BLITZ_KATABATIC,            "TrCTFBlitz-Katabatic" },
+		{ CONST_MAP_ID_BLITZ_DRYDOCK,              "TrCTFBlitz-Drydock" },
+	};
 }
 
 namespace Data {
@@ -1253,5 +1314,104 @@ namespace Data {
 		Logger::log("Searched for ID of item %s on class %s and failed to find it", itemName.c_str(), className.c_str());
 
 		return 0;
+	}
+
+	static std::vector<int> rankThresholds = {
+			CONST_RANK_XP,
+			CONST_RANK_XP01,
+			CONST_RANK_XP02,
+			CONST_RANK_XP03,
+			CONST_RANK_XP04,
+			CONST_RANK_XP05,
+			CONST_RANK_XP06,
+			CONST_RANK_XP07,
+			CONST_RANK_XP08,
+			CONST_RANK_XP09,
+			CONST_RANK_XP10,
+			CONST_RANK_XP11,
+			CONST_RANK_XP12,
+			CONST_RANK_XP13,
+			CONST_RANK_XP14,
+			CONST_RANK_XP15,
+			CONST_RANK_XP16,
+			CONST_RANK_XP17,
+			CONST_RANK_XP18,
+			CONST_RANK_XP19,
+			CONST_RANK_XP20,
+			CONST_RANK_XP21,
+			CONST_RANK_XP22,
+			CONST_RANK_XP23,
+			CONST_RANK_XP24,
+			CONST_RANK_XP25,
+			CONST_RANK_XP26,
+			CONST_RANK_XP27,
+			CONST_RANK_XP28,
+			CONST_RANK_XP29,
+			CONST_RANK_XP30,
+			CONST_RANK_XP31,
+			CONST_RANK_XP32,
+			CONST_RANK_XP33,
+			CONST_RANK_XP34,
+			CONST_RANK_XP35,
+			CONST_RANK_XP36,
+			CONST_RANK_XP37,
+			CONST_RANK_XP38,
+			CONST_RANK_XP39,
+			CONST_RANK_XP40,
+			CONST_RANK_XP41,
+			CONST_RANK_XP42,
+			CONST_RANK_XP43,
+			CONST_RANK_XP44,
+			CONST_RANK_XP45,
+			CONST_RANK_XP46,
+			CONST_RANK_XP47,
+			CONST_RANK_XP48,
+			CONST_RANK_XP49,
+	};
+
+	UClass* getRankByXp(int rankXp) {
+		static TArray<UClass*> rawRankUClasses = UObject::FindAllDuplicateClasses("Class TribesGame.TrRank");
+		static std::map<int, UClass*> rankClassMapping;
+
+		Logger::log("Finding rank for xp value %d", rankXp);
+
+		int rankNum = 0;
+		while (rankNum < rankThresholds.size() && rankXp > rankThresholds[rankNum]) rankNum++;
+
+		if (rankClassMapping.find(rankNum) != rankClassMapping.end()) {
+			return rankClassMapping[rankNum];
+		}
+
+		for (int i = 0; i < rawRankUClasses.Count; ++i) {
+			if (!rawRankUClasses.GetStd(i)) continue;
+			UTrRank* rankDef = (UTrRank*)rawRankUClasses.GetStd(i)->Default;
+			if (!rankDef) continue;
+			if (rankDef->Rank == rankNum) {
+				rankClassMapping[rankNum] = rawRankUClasses.GetStd(i);
+				return rankClassMapping[rankNum];
+			}
+		}
+
+		return NULL;
+	}
+
+	int getTotalXpByRank(int rankNum, int xp) {
+		return rankThresholds[min(rankNum - 1, 49)] + xp;
+	}
+
+	int getXpFromPlayerProfile(UTgPlayerProfile* profile) {
+		// profile->XpLevel is used _really_ inconsistently
+		// Sometimes it represents *total* XP
+		// Sometimes it is XP above rank
+		int clampedRankNum = min(50, max(1, profile->Rank));
+
+		// See if it lines up with being total XP
+		if (profile->XpLevel >= rankThresholds[clampedRankNum - 1]) {
+			return profile->XpLevel;
+		}
+		else {
+			// Assume it is XP above rank
+			return getTotalXpByRank(profile->Rank, profile->XpLevel);
+		}
 	}
 }

@@ -48,6 +48,12 @@ static void testing_PrintOutGObjectIndices() {
 	}
 }
 
+static bool GenericLoggingEventHook(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	std::string fName = pFunction ? pFunction->Name.GetName() : "<null ufunction>";
+	Logger::log("Call in function: %s", fName.c_str());
+	return false;
+}
+
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
@@ -69,6 +75,7 @@ void addClientModeHooks()
 
 	// Disabled due to bugs
 	//fixPingDependencies();
+
 
 	Hooks::addUScript(&TrDevice_SniperRifle_PlayScopeRechargeSound, "Function TribesGame.TrDevice_SniperRifle.PlayScopeRechargeSound");
 	Hooks::addUScript(&TrDevice_SniperRifle_StopScopeRechargeSound, "Function TribesGame.TrDevice_SniperRifle.StopScopeRechargeSound");
@@ -131,6 +138,9 @@ void addClientModeHooks()
 	Hooks::add(&TrPC_AddChatToConsole, "Function TribesGame.TrPlayerController.AddChatToConsole"); // Redirect PMs
 
 	Hooks::add(&TrFlagBase_PostRenderFor, "Function TribesGame.TrFlagBase.PostRenderFor"); // Only show flag icon when it's off-stand
+
+	Hooks::add(&TrPlayerController_ClientFadeToSummary, "Function TribesGame.TrPlayerController.ClientFadeToSummary", Hooks::POST); // Match end summary for custom servers
+	Hooks::addUScript(&TrSummaryHelper_GetRankFromXP, "Function TribesGame.TrSummaryHelper.GetRankFromXP"); // Getting rank class
 
 	Hooks::add(&TrHUD_ChatMessageReceived, "Function TribesGame.TrHUD.ChatMessageReceived");
 	Hooks::add(&GFxTrMenuMoviePlayer_ChatMessageReceived, "Function TribesGame.GFxTrMenuMoviePlayer.ChatMessageReceived");

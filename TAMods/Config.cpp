@@ -1,6 +1,7 @@
 #include "Config.h"
 
 Config g_config;
+GlobalState g_GlobalState;
 
 Config::TogglableIcon Config::togglable_icons[] =
 {

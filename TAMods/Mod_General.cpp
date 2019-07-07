@@ -8,19 +8,17 @@ bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction
 	
 	Utils::tr_pc = that;
 
-	if (that && that->WorldInfo && that->WorldInfo->NetMode == NM_Client) {
-		//if (g_CustomServerManager.isConnected()) {
-		//	Logger::log("Closing old direct connection to server");
-		//	g_CustomServerManager.stop();
-		//}
-		Logger::log("About to attempt to initiate direct connection to server");
+	if (g_TAServerControlClient.isKnownToBeModded() && that && that->WorldInfo && that->WorldInfo->NetMode == NM_Client) {
 		std::string serverUrl = Utils::f2std(that->WorldInfo->GetAddressURL());
 		Logger::log("Connecting to server at %s", serverUrl.c_str());
-		// If not in roam map, attempt connection in case this is a compatible modded server
-		//Sleep(1000);
 		g_CustomServerManager = CustomServerManager();
 
 		g_CustomServerManager.start(serverUrl);
+	}
+
+	if (Utils::tr_menuMovie && Utils::tr_menuMovie->PlayerProfile) {
+		
+		g_GlobalState.matchStartXp = Data::getXpFromPlayerProfile(Utils::tr_menuMovie->PlayerProfile);
 	}
 
 	return false;

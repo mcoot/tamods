@@ -54,8 +54,11 @@
 #define CONST_MAP_ID_CTF_BELLAOMEGANS           1551
 #define CONST_MAP_ID_BLITZ_BLUESHIFT            1552
 #define CONST_MAP_ID_CTF_TERMINUS               1553
+#define CONST_MAP_ID_BLITZ_TERMINUS             1559
 #define CONST_MAP_ID_CTF_ICECOASTER             1554
+#define CONST_MAP_ID_BLITZ_ICECOASTER           1558
 #define CONST_MAP_ID_CTF_PERDITION              1555
+#define CONST_MAP_ID_TDM_PERDITION              1557
 #define CONST_MAP_ID_CTF_HELLFIRE               1560
 #define CONST_MAP_ID_BLITZ_HELLFIRE             1561
 #define CONST_MAP_ID_CTF_BELLAOMEGA             1573
@@ -66,6 +69,9 @@
 namespace Data
 {
 	int getItemId(const std::string& className, const std::string &itemName);
+	UClass* getRankByXp(int rankXp);
+	int getTotalXpByRank(int rankNum, int xp);	
+	int getXpFromPlayerProfile(UTgPlayerProfile* profile);
 
 	extern std::map<std::string, int> weapons[3];
 	extern std::map<std::string, int> packs[3];
@@ -98,4 +104,5 @@ namespace Data
 	extern std::string equip_type_name[];
 	extern std::map<std::string, int> map_id;
 	extern std::map<int, std::string> map_id_to_name;
+	extern std::map<int, std::string> map_id_to_filename;
 }

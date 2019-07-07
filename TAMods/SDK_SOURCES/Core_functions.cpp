@@ -187,6 +187,29 @@ UClass* UObject::FindClass ( char* ClassFullName )
 	return NULL; 
 } 
 
+TArray<UClass*> UObject::FindAllDuplicateClasses(const char* ClassFullName) {
+	TArray<UClass*> result;
+
+	while (!UObject::GObjObjects())
+		Sleep(100);
+
+	while (!FName::Names())
+		Sleep(100);
+
+	for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
+	{
+		UObject* Object = UObject::GObjObjects()->Data[i];
+
+		if (!Object)
+			continue;
+
+		if (!_stricmp(Object->GetFullName(), ClassFullName))
+			result.Add((UClass*)Object);
+	}
+
+	return result;
+}
+
 bool UObject::IsA ( UClass* pClass ) 
 { 
 	for ( UClass* SuperClass = this->Class; SuperClass; SuperClass = ( UClass* ) SuperClass->SuperField ) 

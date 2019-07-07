@@ -10,13 +10,13 @@
 #include <stdlib.h>
 
 // Uncomment for release
-#define RELEASE
+//#define RELEASE
 // Uncomment for T:A server build
 //#define SERVER
 
 #define WIN7_COMPATIBLE
 
-#define MODVERSION 1.02
+#define MODVERSION 1.1
 
 #define TAMODS_PROTOCOL_VERSION "0.1.0"
 

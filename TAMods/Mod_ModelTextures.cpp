@@ -428,10 +428,22 @@ static void ExploratoryTesting(ATrDevice* currentDevice) {
 #ifndef RELEASE
 void DebugCustomWeaponsBindFunc() {
 	Utils::console("[Bind triggered]");
+	Logger::log("[Bind triggered]");
 
 	if (Utils::tr_pc) {
-		Utils::console("SERVER IP IS: %s", Utils::f2std(Utils::tr_pc->GetServerNetworkAddress()).c_str());
+		Utils::tr_pc->m_fTotalDistanceSkiedSq = 200 * 696969;
 	}
+
+	//if (Utils::tr_pc) {
+	//	if (Utils::tr_menuMovie) {
+	//		UGFxTrScene_PlayerSummary* summaryScene = Utils::tr_menuMovie->PlayerSummaryScene;
+	//		Logger::log("player summary onlinesub = %p | bscenecreated = %d", summaryScene->OnlineSub, summaryScene->bSceneCreated);
+	//	}
+
+	//	Utils::tr_pc->ClientSetEndOfMatch();
+	//	Utils::tr_pc->ClientFadeToSummary();
+	//	Logger::log("[SetMenuSummaryScreen called]");
+	//}
 
 	//ATrDevice* dev = Utils::getCurrentDeviceHelper();
 	//if (!dev) return;
