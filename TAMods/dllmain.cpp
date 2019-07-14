@@ -50,7 +50,45 @@ static void testing_PrintOutGObjectIndices() {
 
 static bool GenericLoggingEventHook(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
 	std::string fName = pFunction ? pFunction->Name.GetName() : "<null ufunction>";
+	std::string oName = dwCallingObject ? dwCallingObject->Name.GetName() : "<null uobject>";
+	Logger::log("Event hook call | Object %s | Function: %s", oName.c_str(), fName.c_str());
+	return false;
+}
+
+static void GenericLoggingUScriptHook(UObject* that, void* params, void* result, Hooks::CallInfo* callInfo) {
+	std::string callerObject = callInfo->callerObject ? callInfo->callerObject->Name.GetName() : "<null>";
+	std::string callerFunc = callInfo->caller ? callInfo->caller->Name.GetName() : "<null>";
+	std::string calleeObject = callInfo->calleeObject ? callInfo->calleeObject->Name.GetName() : "<null>";
+	std::string calleeFunc = callInfo->callee ? callInfo->callee->Name.GetName() : "<null>";
+
+	Logger::log("UScript hook call | Caller: %s.%s | Callee: %s.%s", callerObject.c_str(), callerFunc.c_str(), calleeObject.c_str(), calleeFunc.c_str());
+	Logger::log("<UScript hook blackholed>");
+}
+
+static bool TrPlayerController_ReceiveLocalizedMessage(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	std::string fName = pFunction ? pFunction->Name.GetName() : "<null ufunction>";
 	Logger::log("Call in function: %s", fName.c_str());
+
+	ATrPlayerController_eventReceiveLocalizedMessage_Parms* params = (ATrPlayerController_eventReceiveLocalizedMessage_Parms*)pParams;
+	Logger::log("Params: %s | %d | %p | %p | %s", params->Message ? params->Message->Name.GetName() : "<null>", params->Switch, params->RelatedPRI, params->RelatedPRI01, params->OptionalObject ? params->OptionalObject->Name.GetName() : "<null>");
+	return false;
+}
+
+static bool PlayerController_VeryShortClientAdjustPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	std::string fName = pFunction ? pFunction->Name.GetName() : "<null ufunction>";
+	Logger::log("Call in function: %s", fName.c_str());
+
+	APlayerController_execVeryShortClientAdjustPosition_Parms* params = (APlayerController_execVeryShortClientAdjustPosition_Parms*)pParams;
+	Logger::log("Params: %f | %f | %f | %f | %s", params->TimeStamp, params->NewLocX, params->NewLocY, params->NewLocZ, params->NewBase ? params->NewBase->Name.GetName() : "<null>");
+	return false;
+}
+
+static bool PlayerController_ShortClientAdjustPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+	std::string fName = pFunction ? pFunction->Name.GetName() : "<null ufunction>";
+	Logger::log("Call in function: %s", fName.c_str());
+
+	APlayerController_execShortClientAdjustPosition_Parms* params = (APlayerController_execShortClientAdjustPosition_Parms*)pParams;
+	Logger::log("Params: %f | %s | %d | %f | %f | %f | %s", params->TimeStamp, params->NewState.GetName(), params->newPhysics, params->NewLocX, params->NewLocY, params->NewLocZ, params->NewBase ? params->NewBase->Name.GetName() : "<null>");
 	return false;
 }
 
@@ -75,7 +113,15 @@ void addClientModeHooks()
 
 	// Disabled due to bugs
 	//fixPingDependencies();
+	//Hooks::add(&TrPlayerController_ReceiveLocalizedMessage, "Function TribesGame.TrPlayerController.ReceiveLocalizedMessage");
+	//Hooks::add(&PlayerController_VeryShortClientAdjustPosition, "Function Engine.PlayerController.VeryShortClientAdjustPosition");
+	//Hooks::add(&PlayerController_ShortClientAdjustPosition, "Function Engine.PlayerController.ShortClientAdjustPosition");
 
+	//Hooks::add(&GenericLoggingEventHook, "Function TribesGame.GFxTrMenuMoviePlayer.BeginExperienceTweens");
+	//Hooks::addUScript(&GenericLoggingUScriptHook, "Function TribesGame.TrPlayerController.SummaryTweenTimer");
+	//Hooks::addUScript(&GenericLoggingUScriptHook, "Function TribesGame.TrPlayerController.TweenSummaryScreen");
+	//Hooks::add(&GenericLoggingEventHook, "Function TribesGame.GFxTrMenuMoviePlayer.TweenExperienceSummary");
+	//Hooks::addUScript(&GenericLoggingUScriptHook, "Function TribesGame.GFxTrMenuMoviePlayer.TweenPlayerSummary");
 
 	Hooks::addUScript(&TrDevice_SniperRifle_PlayScopeRechargeSound, "Function TribesGame.TrDevice_SniperRifle.PlayScopeRechargeSound");
 	Hooks::addUScript(&TrDevice_SniperRifle_StopScopeRechargeSound, "Function TribesGame.TrDevice_SniperRifle.StopScopeRechargeSound");
@@ -115,7 +161,6 @@ void addClientModeHooks()
 	Hooks::add(&TrPC_Dead_BeginState, "Function TrPlayerController.Dead.BeginState", Hooks::POST); // Stop stopwatch and route replay/recording
 	Hooks::add(&TrPC_PlayerWalking_ToggleJetpack, "Function TrPlayerController.PlayerWalking.ToggleJetpack"); // To abort replays when pressing jet
 
-
 	Hooks::addUScript(&TrDevice_FireAmmunition, "Function TribesGame.TrDevice.FireAmmunition");
 	Hooks::addUScript(&TrDevice_NovaSlug_FireAmmunition, "Function TribesGame.TrDevice_NovaSlug.FireAmmunition");
 	//Hooks::addUScript(&TrDevice_NovaSlug_StartFire, "Function TribesGame.TrDevice_NovaSlug.StartFire");
@@ -140,6 +185,11 @@ void addClientModeHooks()
 	Hooks::add(&TrFlagBase_PostRenderFor, "Function TribesGame.TrFlagBase.PostRenderFor"); // Only show flag icon when it's off-stand
 
 	Hooks::add(&TrPlayerController_ClientFadeToSummary, "Function TribesGame.TrPlayerController.ClientFadeToSummary", Hooks::POST); // Match end summary for custom servers
+	Hooks::addUScript(&GFxTrMenuMoviePlayer_TweenPlayerSummary, "Function TribesGame.GFxTrMenuMoviePlayer.TweenPlayerSummary");
+	Hooks::add(&GFxTrScene_PlayerSummary_LoadPlayerMiscData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadPlayerMiscData", Hooks::POST);
+	Hooks::add(&GFxTrScene_PlayerSummary_LoadPlayerAccoladeData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadPlayerAccoladeData", Hooks::POST);
+	Hooks::add(&GFxTrScene_PlayerSummary_LoadPlayerStatsData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadPlayerStatsData", Hooks::POST);
+	Hooks::add(&GFxTrScene_PlayerSummary_LoadXPData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadXPData", Hooks::POST);
 	Hooks::addUScript(&TrSummaryHelper_GetRankFromXP, "Function TribesGame.TrSummaryHelper.GetRankFromXP"); // Getting rank class
 
 	Hooks::add(&TrHUD_ChatMessageReceived, "Function TribesGame.TrHUD.ChatMessageReceived");

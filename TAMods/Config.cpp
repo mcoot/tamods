@@ -2575,3 +2575,12 @@ bool Config::isGotyCommandLineFlagPresent() {
 
 	return false;
 }
+
+void GlobalState::addAccolade(UTrAccolade* accolade) {
+	int curCount = 0;
+	if (accoladesThisMatch.find(accolade->DatabaseId) != accoladesThisMatch.end()) {
+		curCount = accoladesThisMatch[accolade->DatabaseId].Count;
+	}
+	AccoladeRecord rec = { accolade->DatabaseId, accolade->ActivityId, accolade->Type, accolade->IconIndex, curCount + 1 };
+	accoladesThisMatch[accolade->DatabaseId] = rec;
+}

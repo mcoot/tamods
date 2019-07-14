@@ -438,9 +438,20 @@ public:
 	bool shouldReloadTrHud;
 };
 
+struct AccoladeRecord {
+	int AccoladeId;
+	int ActivityId;
+	int Type;
+	int IconIndex;
+	int Count;
+};
+
 class GlobalState {
 public:
 	int matchStartXp = 0;
+	std::map<int, AccoladeRecord> accoladesThisMatch;
+public:
+	void addAccolade(UTrAccolade* accolade);
 };
 
 extern GlobalState g_GlobalState;

@@ -539,8 +539,6 @@ static wchar_t* gameMessagePromptBuffer = NULL;
 void TAModsServer::Client::handle_MessageToClientMessage(const json& j) {
 	MessageToClientMessage msg;
 
-	Logger::log("msg: %s", j.dump().c_str());
-
 	if (!msg.fromJson(j)) {
 		Logger::log("Failed to parse message details from server: %s", j.dump().c_str());
 		return;

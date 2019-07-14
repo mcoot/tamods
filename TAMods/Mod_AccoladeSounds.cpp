@@ -3,10 +3,14 @@
 bool TrPC_ClientQueueAccolade(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
 	ATrPlayerController_execClientQueueAccolade_Parms *params = (ATrPlayerController_execClientQueueAccolade_Parms*)pParams;
+	UTrAccolade* accolade = (UTrAccolade *)params->Accolade->Default;
 
-	int iconId = ((UTrAccolade *)params->Accolade->Default)->IconIndex;
+	int iconId = accolade->IconIndex;
 	std::string name = Utils::f2std(((UTrAccolade *)params->Accolade->Default)->FriendlyName);
 	bool isBadge = iconId >= 170 && iconId <= 263;
+
+	// Record that the accolade was gained
+	g_GlobalState.addAccolade(accolade);
 
 	// Lua function
 	if (g_config.onQueueAccolade && !g_config.onQueueAccolade->isNil() && g_config.onQueueAccolade->isFunction())

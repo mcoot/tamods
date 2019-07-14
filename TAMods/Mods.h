@@ -47,6 +47,11 @@ bool TrPC_AddChatToConsole(int ID, UObject *dwCallingObject, UFunction* pFunctio
 
 // Make end map screen show on custom servers
 bool TrPlayerController_ClientFadeToSummary(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+void GFxTrMenuMoviePlayer_TweenPlayerSummary(UGFxTrMenuMoviePlayer* that, UGFxTrMenuMoviePlayer_execTweenPlayerSummary_Parms* params);
+bool GFxTrScene_PlayerSummary_LoadPlayerAccoladeData(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool GFxTrScene_PlayerSummary_LoadPlayerMiscData(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool GFxTrScene_PlayerSummary_LoadPlayerStatsData(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool GFxTrScene_PlayerSummary_LoadXPData(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 void TrSummaryHelper_GetRankFromXP(UTrSummaryHelper* that, UTrSummaryHelper_execGetRankFromXP_Parms* params, UClass** result);
 
 // Fix for getting stuck in the menu after a map switch on a custom server

@@ -16,8 +16,8 @@ bool TrPC_InitInputSystem(int id, UObject *dwCallingObject, UFunction* pFunction
 		g_CustomServerManager.start(serverUrl);
 	}
 
+	// Set how much XP we have at the start of the match
 	if (Utils::tr_menuMovie && Utils::tr_menuMovie->PlayerProfile) {
-		
 		g_GlobalState.matchStartXp = Data::getXpFromPlayerProfile(Utils::tr_menuMovie->PlayerProfile);
 	}
 
