@@ -233,6 +233,11 @@ unsigned char getPlayerData::teamNum()
 
 	return 0;
 }
+int getPlayerData::credits() {
+	if (Utils::tr_pc)
+		return Utils::tr_pc->r_nCurrentCredits;
+	return 0;
+}
 /////////////////////////////////////////////////////////////////////////////////////
 bool getWeaponData::isReadyToFire(unsigned const char &n)
 {

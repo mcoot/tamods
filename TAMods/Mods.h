@@ -187,9 +187,6 @@ void GFxTrPage_Loadouts_FillOption(UGFxTrPage_Loadouts* that, UGFxTrPage_Loadout
 bool GFxTrHud_LoadVGSMenu(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 bool TrPlayerInput_OnVGSNumKeyPressed(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
-// Allow adding new vehicle options
-void TrPlayerController_OpenVehicleMenu(ATrPlayerController* that, ATrPlayerController_execOpenVehicleMenu_Parms* params);
-
 // Equip interface
 void TrEquipInterface_IsClassOwned(UTrEquipInterface* that, UTrEquipInterface_execIsClassOwned_Parms* params, bool* result);
 void TrEquipInterface_IsEquipOwned(UTrEquipInterface* that, UTrEquipInterface_execIsEquipOwned_Parms* params, bool* result);
@@ -225,3 +222,8 @@ void TrPlayerController_PlayerWalking_ProcessMove(ATrPlayerController* that, APl
 
 // Hook on end of game to close modded connection to server
 void UTGame_EndGame(AUTGame* that, AUTGame_execEndGame_Parms* params, void* result, Hooks::CallInfo* callInfo);
+
+// Vehicles cost credits
+void TrVehicleStation_AbleToSpawnVehicleType(ATrVehicleStation* that, ATrVehicleStation_execAbleToSpawnVehicleType_Parms* params, bool* result);
+void TrPlayerController_OpenVehicleMenu(ATrPlayerController* that, ATrPlayerController_execOpenVehicleMenu_Parms* params);
+void UGFxTrPage_Vehicle_FillOption(UGFxTrPage_Vehicle* that, UGFxTrPage_Vehicle_execFillOption_Parms* params, UGFxObject** result);

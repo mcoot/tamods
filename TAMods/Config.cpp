@@ -2449,6 +2449,7 @@ void Lua::init()
 			addFunction("deaths",          &getPlayerData::deaths).
 			addFunction("assists",         &getPlayerData::assists).
 			addFunction("arenaSpawnsLeft", &getPlayerData::arenaSpawnsLeft).
+			addFunction("credits",		   &getPlayerData::credits).
 		endNamespace().
 		beginNamespace("weapon").
 			addFunction("isReadyToFire",      &getWeaponData::isReadyToFire).

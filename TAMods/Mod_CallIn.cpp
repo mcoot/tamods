@@ -270,12 +270,18 @@ static bool IsValidTargetLocation(ATrDevice_LaserTargeter* that, FVector current
 
 	// Rules:
 	// 1) Nowhere is valid in pre-round
-	// 2) Must not collide with flag, other inv stations etc.
-	// 3) Must not be underneath any world geometry (e.g. inside a base)
+	// 2) Nowhere is valid if the player lacks enough credits
+	// 3) Must not collide with flag, other inv stations etc.
+	// 4) Must not be underneath any world geometry (e.g. inside a base)
 
 	// Check we aren't in preround
 	if (!that->WorldInfo || !that->WorldInfo->GRI) return false;
 	if (((ATrGameReplicationInfo*)that->WorldInfo->GRI)->bWarmupRound) {
+		return false;
+	}
+	if (!Utils::tr_pc) return false;
+	int callInCost = g_gameBalanceTracker.getReplicatedSetting("InventoryCallInCost", 0);
+	if (callInCost > 0 && Utils::tr_pc->r_nCurrentCredits < callInCost) {
 		return false;
 	}
 

@@ -38,6 +38,7 @@ namespace getPlayerData
 	int deaths();
 	int assists();
 	unsigned char teamNum();
+	int credits();
 }
 namespace getWeaponData
 {

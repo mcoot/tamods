@@ -257,9 +257,6 @@ void addClientModeHooks()
 	Hooks::add(&GFxTrHud_LoadVGSMenu, "Function TribesGame.GfxTrHud.LoadVGSMenu", Hooks::POST);
 	Hooks::add(&TrPlayerInput_OnVGSNumKeyPressed, "Function TribesGame.TrPlayerInput.OnVGSNumKeyPressed");
 
-	// Vehicle menu
-	Hooks::addUScript(TrPlayerController_OpenVehicleMenu, "Function TribesGame.TrPlayerController.OpenVehicleMenu");
-
 	// Equip Interface
 	Hooks::addUScript(&TrEquipInterface_IsClassOwned, "Function TribesGame.TrEquipInterface.IsClassOwned");
 	Hooks::addUScript(&TrEquipInterface_IsEquipOwned, "Function TribesGame.TrEquipInterface.IsEquipOwned");
@@ -273,6 +270,11 @@ void addClientModeHooks()
 
 	// Rage pack capper speed dependency fix
 	Hooks::addUScript(&TrPlayerController_PlayerWalking_ProcessMove, "Function TrPlayerController.PlayerWalking.ProcessMove");
+
+	// Vehicles cost credits
+	Hooks::addUScript(&TrVehicleStation_AbleToSpawnVehicleType, "Function TribesGame.TrVehicleStation.AbleToSpawnVehicleType");
+	Hooks::addUScript(&TrPlayerController_OpenVehicleMenu, "Function TribesGame.TrPlayerController.OpenVehicleMenu");
+	Hooks::addUScript(&UGFxTrPage_Vehicle_FillOption, "Function TribesGame.GFxTrPage_Vehicle.FillOption");
 }
 
 void onDLLProcessAttach()
