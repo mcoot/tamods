@@ -1,5 +1,6 @@
 #include "Mods.h"
 #include <iomanip>
+#include <filesystem>
 
 unsigned const ROUTE_SAVES_MAX = 3000;
 unsigned const ROUTE_SAVES_INTERVAL = 100; // Save location every 100ms. 0.1 seconds * 3000 dots = ~5 minutes recording
@@ -37,7 +38,8 @@ static unsigned int classHealth;
 static unsigned int routeLength = 0;
 static float flagGrabTime = 0.0f;
 
-static std::string routedir = Utils::getConfigDir() + "routes\\";
+//static std::string routedir = Utils::getConfigDir() + "routes\\";
+static std::string routedir = "D:\\routes_test\\accént\\routes\\";
 static std::vector<std::string> files;
 
 static ATrPlayerController *replayPC;
@@ -494,6 +496,7 @@ static void reloadRouteList(int team)
 	//team 0 = no sorting
 	//team 1 = my team
 	//team 2 = enemy team
+
 	if (!Utils::tr_pc || !Utils::tr_pc->WorldInfo)
 		return;
 
@@ -516,20 +519,14 @@ static void reloadRouteList(int team)
 	if (files.size() != 0)
 		files.clear();
 
-	stemp += L"*.route";
-	sw = stemp.c_str();
+	// The filesystem module is in std from C++17
+	// With VC++ (with no standard set lol) it's still under experimental
+	for (const auto& entry : std::experimental::filesystem::directory_iterator(routedir)) {
+		
+		std::string path = entry.path().string();
+		std::string fname = entry.path().filename().string();
 
-	WIN32_FIND_DATA search_data;
-
-	memset(&search_data, 0, sizeof(WIN32_FIND_DATA));
-
-	HANDLE handle = FindFirstFile(sw, &search_data);
-
-	while (handle != INVALID_HANDLE_VALUE)
-	{
-		std::wstring filename = search_data.cFileName;
-		std::string fname = std::string(filename.begin(), filename.end());
-		std::ifstream routefile(routedir + fname, std::ios::binary);
+		std::ifstream routefile(path, std::ios::binary);
 		std::string file_map_name;
 
 		unsigned char team_num;
@@ -574,13 +571,7 @@ static void reloadRouteList(int team)
 					files.push_back(fname);
 			}
 		}
-
-		if (FindNextFile(handle, &search_data) == FALSE)
-			break;
 	}
-
-	//Close the handle after use or memory/resource leak
-	FindClose(handle);
 }
 
 void routes::saveFile(const std::string &desc)

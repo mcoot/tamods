@@ -145,43 +145,33 @@ void ResetLaserTargetCallInCache() {
 	callInData.ClearAllData();
 }
 
+namespace CallInObjects {
+	ATrCallIn_SupportInventory* inventoryCallIn = NULL;
+
+	ATrCallIn_SupportInventory* getInventoryCallInObject(AActor* caller) {
+		if (!inventoryCallIn) {
+			inventoryCallIn = (ATrCallIn_SupportInventory*)caller->Spawn(ATrCallIn_SupportInventory::StaticClass(),
+				caller->Owner, FName(), FVector(), FRotator(), NULL, false);
+		}
+		return inventoryCallIn;
+	}
+}
+
 //////////////////////////
 //// Laser Targeter modifications
 //// Used to re-enable call-ins
 //////////////////////////
 
-// The length of the extent box use to check for collisions.
-float collisionExtentUnits = 100;
-
-// The following explanation was for the planar trace version. Some specifics
-// are not relevant. The size of each individual extent surface. If this length
-// is 10 times smaller than the length of the extent box then you are
-// essentially using 10*10=100 extent traces. Diving by 4 results in 16 traces,
-// by is 25 traces, etc. 10 is probably overkill if the extent length is small
-// but performace needs to be tested.
-
-// Since we're not using planar tracing but line tracing then this value is
-// basically the distance between neighbouring line traces.
-float subCollisionExtentUnits = collisionExtentUnits / 7;
-
-// The length of the extent box used to search for neighbouring inventories.
-// Basically the same thing as collisionExtentUnits.
-// Obviously this cannot differentiate between enemy or friendly inventories.
-float nearbyInventoryExtentUnits = 700;
-
-// Same thing as subCollisionExtentUnits but for nearbyInventoryExtentUnits.
-float subNearbyInventoryExtentUnits = nearbyInventoryExtentUnits / 7;
-
-// Any terrain with surface normal angle above this wil be rejected (too steep).
-float angle_terrain_max = 70;
-
-// Any mesh with surface normal angle above this wil be rejected (too steep).
-// Basically for stuff around the map like pillars.
-float angle_mesh_max = 40;
-
 // Check that the surface normal angle is within our set bounds.
 // Also have to check what exactly we hit in order to check the angle.
 bool TraceNormalAngleCheck(AActor* HitActor, FVector HitNormal) {
+	// Any terrain with surface normal angle above this wil be rejected (too steep).
+	float angle_terrain_max = g_gameBalanceTracker.getReplicatedSetting("InventoryCallInTerrainMaxAngle", 70.f);
+
+	// Any mesh with surface normal angle above this wil be rejected (too steep).
+	// Basically for stuff around the map like pillars.
+	float angle_mesh_max = g_gameBalanceTracker.getReplicatedSetting("InventoryCallInMeshMaxAngle", 40.f);
+
 	float angle = (std::acos(HitNormal.Z / Geom::distance3D(FVector(), HitNormal))) * CONST_RadToDeg;
 	char* name = HitActor->GetName();
 	bool isTerrain = strncmp(name, "Terrain", 7) == 0;
@@ -303,6 +293,28 @@ static bool IsValidTargetLocation(ATrDevice_LaserTargeter* that, FVector current
 		return false;
 	}
 
+	// The length of the extent box use to check for collisions.
+	float collisionExtentUnits = g_gameBalanceTracker.getReplicatedSetting("InventoryCallInMapCollisionCheckExtent", 100.f);
+
+	// The following explanation was for the planar trace version. Some specifics
+	// are not relevant. The size of each individual extent surface. If this length
+	// is 10 times smaller than the length of the extent box then you are
+	// essentially using 10*10=100 extent traces. Diving by 4 results in 16 traces,
+	// by is 25 traces, etc. 10 is probably overkill if the extent length is small
+	// but performace needs to be tested.
+
+	// Since we're not using planar tracing but line tracing then this value is
+	// basically the distance between neighbouring line traces.
+	float subCollisionExtentUnits = collisionExtentUnits / 7;
+
+	// The length of the extent box used to search for neighbouring inventories.
+	// Basically the same thing as collisionExtentUnits.
+	// Obviously this cannot differentiate between enemy or friendly inventories.
+	float nearbyInventoryExtentUnits = g_gameBalanceTracker.getReplicatedSetting("InventoryCallInStationCollisionCheckExtent", 700.f);
+
+	// Same thing as subCollisionExtentUnits but for nearbyInventoryExtentUnits.
+	float subNearbyInventoryExtentUnits = nearbyInventoryExtentUnits / 7;
+
 	// Find where the actual final location is. Maybe its equivalent to
 	// currentTarget? Trace again just to make sure.
 	FVector landLocationBottomed = { landLocation.X, landLocation.Y, landLocation.Z - 1000 };
@@ -361,8 +373,7 @@ static void ServerPerformCallIn(ATrDevice_LaserTargeter* that, FVector endLocati
 	}
 
 	if (IsValidTargetLocation(that, endLocation, callInData.GetTargetPos(that), NULL)) {
-		ATrCallIn_SupportInventory* callIn = (ATrCallIn_SupportInventory*)that->Spawn(ATrCallIn_SupportInventory::StaticClass(),
-			that->Owner, FName(), FVector(), FRotator(), NULL, false);
+		ATrCallIn_SupportInventory* callIn = CallInObjects::getInventoryCallInObject(that);
 		callIn->Initialize(0, 0, 0);
 		callInData.RecordActivation(that);
 		if (callIn->FireCompletedCallIn(1, endLocation, hitNormal)) {
@@ -510,5 +521,48 @@ void TrDevice_LaserTargeter_UpdateLaserEffect(ATrDevice_LaserTargeter* that, ATr
 		ServerPerformCallIn(that, end, hitNormal);
 		that->EndFire(that->CurrentFireMode);
 		that->GotoState(that->m_PostFireState, NULL, NULL, NULL);
+	}
+}
+
+/////////////////////////
+// Call-in material
+////////////////////////
+
+static void updateLaserTargeterMaterial(ATrDevice_LaserTargeter* that) {
+	static ATrStealthResidue* stealthResidue = NULL;
+
+	if (!that->Mesh) return;
+
+	Logger::log("Doin an updates");
+
+	if (!stealthResidue) {
+		stealthResidue = (ATrStealthResidue*)that->Spawn(ATrStealthResidue::StaticClass(), NULL, FName(), FVector(), FRotator(), NULL, false);
+		Logger::log("Got stealth residue %p", stealthResidue);
+	}
+
+	UMaterialInstanceConstant* displayMaterial = stealthResidue->m_MeshMaterial;
+
+	displayMaterial->Outer = that->Mesh->Outer;
+	UMaterialInstanceConstant* invMat = CallInObjects::getInventoryCallInObject(that)->MICDisplay;
+	Logger::log("invMat = %p - %s", invMat, invMat ? invMat->Name.GetName() : "<null>");
+	displayMaterial->SetParent(invMat);
+	that->Mesh->SetMaterial(1, displayMaterial);
+
+	Logger::log("Mesh: %s | %s | %s", that->Mesh->Name.GetName(), that->Mesh->GetMaterial(0) ? that->Mesh->GetMaterial(0)->Name.GetName() : "<null>", that->Mesh->GetMaterial(1) ? that->Mesh->GetMaterial(1)->Name.GetName() : "<null>");
+
+	Logger::log("Set display mat!");
+	
+	// TODO: credit material
+}
+
+void ATrDevice_PlayWeaponEquip(ATrDevice* that, ATrDevice_execPlayWeaponEquip_Parms* params) {
+	//Logger::log("[PlayWeaponEquip]");
+	
+	that->PlayWeaponEquip();
+
+	if (g_TAServerControlClient.isKnownToBeModded()
+		&& g_TAServerControlClient.getCurrentGameSettingMode() != "ootb"
+		&& that->IsA(ATrDevice_LaserTargeter::StaticClass())) {
+		updateLaserTargeterMaterial((ATrDevice_LaserTargeter*)that);
 	}
 }

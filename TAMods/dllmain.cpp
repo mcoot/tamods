@@ -95,6 +95,8 @@ static bool PlayerController_ShortClientAdjustPosition(int ID, UObject *dwCallin
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
+
+
 	UClass* havocClass = UObject::FindClass("Class TribesGame.TrVehicle_Havoc");
 	ATrVehicle_Havoc* havoc = (ATrVehicle_Havoc*)havocClass->Default;
 	havoc->m_VehicleType = VEHICLE_Havoc;
@@ -275,6 +277,9 @@ void addClientModeHooks()
 	Hooks::addUScript(&TrVehicleStation_AbleToSpawnVehicleType, "Function TribesGame.TrVehicleStation.AbleToSpawnVehicleType");
 	Hooks::addUScript(&TrPlayerController_OpenVehicleMenu, "Function TribesGame.TrPlayerController.OpenVehicleMenu");
 	Hooks::addUScript(&UGFxTrPage_Vehicle_FillOption, "Function TribesGame.GFxTrPage_Vehicle.FillOption");
+
+	// Laser targeter material changes
+	Hooks::addUScript(&ATrDevice_PlayWeaponEquip, "Function TribesGame.TrDevice.PlayWeaponEquip");
 }
 
 void onDLLProcessAttach()
