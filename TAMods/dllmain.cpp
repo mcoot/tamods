@@ -279,7 +279,7 @@ void addClientModeHooks()
 	Hooks::addUScript(&UGFxTrPage_Vehicle_FillOption, "Function TribesGame.GFxTrPage_Vehicle.FillOption");
 
 	// Laser targeter material changes
-	Hooks::addUScript(&ATrDevice_PlayWeaponEquip, "Function TribesGame.TrDevice.PlayWeaponEquip");
+	//Hooks::addUScript(&ATrDevice_PlayWeaponEquip, "Function TribesGame.TrDevice.PlayWeaponEquip");
 }
 
 void onDLLProcessAttach()
