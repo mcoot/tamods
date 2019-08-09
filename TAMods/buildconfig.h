@@ -10,7 +10,7 @@
 #include <stdlib.h>
 
 // Uncomment for release
-//#define RELEASE
+#define RELEASE
 // Uncomment for T:A server build
 //#define SERVER
 
