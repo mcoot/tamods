@@ -10,6 +10,10 @@ void TrVehicleStation_AbleToSpawnVehicleType(ATrVehicleStation* that, ATrVehicle
 }
 
 int getVehicleCost(ATrPlayerController* that, EVehicleTypes vehicleType) {
+	if (!g_TAServerControlClient.isKnownToBeModded() || !g_gameBalanceTracker.getReplicatedSetting("VehiclesEarnedWithCredits", false)) {
+		return 0;
+	}
+
 	int cost = 0;
 
 	ATrGameReplicationInfo* gri = (ATrGameReplicationInfo*)that->WorldInfo->GRI;
@@ -54,7 +58,9 @@ void TrPlayerController_OpenVehicleMenu(ATrPlayerController* that, ATrPlayerCont
 		if (params->VehicleStation) {
 			VehicleCount = params->VehicleStation->GetNumVehiclesSpawnedByType(v.first);
 			VehicleMaxAllowed = params->VehicleStation->GetMaxVehicleCountAllowed(v.first);
-			VehiclesReady = g_gameBalanceTracker.getReplicatedSetting("VehiclesEarnedWithCredits", false) ? VehicleMaxAllowed : params->VehicleStation->GetNumVehiclesCanSpawnByType(v.first);
+			VehiclesReady = g_gameBalanceTracker.getReplicatedSetting("VehiclesEarnedWithCredits", false) ? 
+				  VehicleMaxAllowed 
+				: params->VehicleStation->GetNumVehiclesCanSpawnByType(v.first);
 		}
 
 		ATrVehicle* vehicle = (ATrVehicle*)v.second->Default;

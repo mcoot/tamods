@@ -38,8 +38,7 @@ static unsigned int classHealth;
 static unsigned int routeLength = 0;
 static float flagGrabTime = 0.0f;
 
-//static std::string routedir = Utils::getConfigDir() + "routes\\";
-static std::string routedir = "D:\\routes_test\\accént\\routes\\";
+static std::string routedir = Utils::getConfigDir() + "routes\\";
 static std::vector<std::string> files;
 
 static ATrPlayerController *replayPC;

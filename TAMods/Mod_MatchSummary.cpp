@@ -102,40 +102,39 @@ static void generateMatchSummary(UGFxTrMenuMoviePlayer* mp, UGFxTrScene_MatchSum
 }
 
 bool TrPlayerController_ClientFadeToSummary(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
-
-	if (Utils::tr_pc && Utils::tr_menuMovie) {
-		Utils::tr_menuMovie->PlayerSummaryScene->bFirstWin = Utils::tr_pc->r_bDailyCompleted;
+	if (!g_TAServerControlClient.isKnownToBeModded()) {
+		return false;
 	}
 
-	if (g_TAServerControlClient.isKnownToBeModded() && Utils::tr_pc && Utils::tr_menuMovie) {
-		UGFxTrScene_PlayerSummary* p = Utils::tr_menuMovie->PlayerSummaryScene;
-		UGFxTrScene_MatchSummary* m = Utils::tr_menuMovie->MatchSummaryScene;
-
-		// Clear out any old summary
-		// Manually clear out the arrays to avoid crashes
-		p->AwardData.Clear();
-		p->accoladeData.Clear();
-		p->eventClearSummary();
-
-		m->MVPAwards.Clear();
-		m->MVPAccolades.Clear();
-		m->eventClearSummary();
-
-		// Get all data
-		generatePlayerSummary(Utils::tr_menuMovie, p, Utils::tr_pc);
-		generateMatchSummary(Utils::tr_menuMovie, m, Utils::tr_pc);
-
-		// Tell the UI it is ready to go
-		p->eventSummaryReady();
-		m->eventSummaryReady();
-
-		// Force loading
-		
-	}
-	else {
+	if (!Utils::tr_pc || !Utils::tr_menuMovie) {
 		Utils::tr_menuMovie->ASC_LoadPlayerSummary();
+		return true;
 	}
 
+	Utils::tr_menuMovie->PlayerSummaryScene->bFirstWin = Utils::tr_pc->r_bDailyCompleted;
+
+	UGFxTrScene_PlayerSummary* p = Utils::tr_menuMovie->PlayerSummaryScene;
+	UGFxTrScene_MatchSummary* m = Utils::tr_menuMovie->MatchSummaryScene;
+
+	// Clear out any old summary
+	// Manually clear out the arrays to avoid crashes
+	p->AwardData.Clear();
+	p->accoladeData.Clear();
+	p->eventClearSummary();
+
+	m->MVPAwards.Clear();
+	m->MVPAccolades.Clear();
+	m->eventClearSummary();
+
+	// Get all data
+	generatePlayerSummary(Utils::tr_menuMovie, p, Utils::tr_pc);
+	generateMatchSummary(Utils::tr_menuMovie, m, Utils::tr_pc);
+
+	// Tell the UI it is ready to go
+	p->eventSummaryReady();
+	m->eventSummaryReady();
+
+	// Force loading
 	return true;
 }
 
