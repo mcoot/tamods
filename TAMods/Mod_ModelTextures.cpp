@@ -430,8 +430,8 @@ void DebugCustomWeaponsBindFunc() {
 	Utils::console("[Bind triggered]");
 	Logger::log("[Bind triggered]");
 
-	if (Utils::tr_pc) {
-		Utils::tr_pc->m_fTotalDistanceSkiedSq = 200 * 696969;
+	if (Utils::tr_pc && Utils::tr_pc->PlayerReplicationInfo) {
+		Logger::log("skin = %d", ((ATrPlayerReplicationInfo*)Utils::tr_pc->PlayerReplicationInfo)->r_bSkinId);
 	}
 
 	//if (Utils::tr_pc) {

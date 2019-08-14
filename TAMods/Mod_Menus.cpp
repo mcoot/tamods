@@ -177,23 +177,44 @@ bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction
 	return true;
 }
 
-
-
 static std::chrono::time_point<std::chrono::system_clock> lastConnectionAttemptTime((std::chrono::time_point<std::chrono::system_clock>::min)());
-// Override so that we can do initialization when the player first mouses over something in the menus
-void GFxTrPage_Main_TakeFocus(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeFocus_Parms* params, int* result, Hooks::CallInfo callInfo) {
-	// Set the global reference to the main menu instance
-	Utils::tr_menuMovie = (UGFxTrMenuMoviePlayer*)that->Outer;
-	
-	// Rety connection every 5 seconds if it doesn't succeed
+static void performControlConnectionInitialization() {
+	// Retry connection at most every 5 seconds; this will be triggered by mouse-over on main menu
 	if (!g_TAServerControlClient.isKnownToBeModded() && std::chrono::system_clock::now() > lastConnectionAttemptTime + std::chrono::seconds(5)) {
 		// Indicate to the server that we are a modded client, so we can receive control messages
 		g_TAServerControlClient.sendConnect();
 		lastConnectionAttemptTime = std::chrono::system_clock::now();
 	}
+}
+
+
+// Override so that we can do initialization when the player first mouses over something in the menus
+void GFxTrPage_Main_TakeFocus(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeFocus_Parms* params, int* result, Hooks::CallInfo callInfo) {
+	// Set the global reference to the main menu instance
+	Utils::tr_menuMovie = (UGFxTrMenuMoviePlayer*)that->Outer;
+
+	// We don't want to connect yet if equipment hasn't been loaded from the login server
+	// Otherwise the login server data will overwrite our custom menus
+	if (!g_TAServerControlClient.isKnownToBeModded() && Utils::tr_menuMovie->bEquipmentLoaded) {
+		performControlConnectionInitialization();
+	}
 
 	// Perform the normal action
 	*result = that->TakeFocus(params->ActionIndex, params->DataList);
+}
+
+bool GFxTrMenuMoviePlayer_EquipmentLoaded(int id, UObject* dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+
+	UGFxTrMenuMoviePlayer* that = (UGFxTrMenuMoviePlayer*)dwCallingObject;
+
+	// If we're already connected, reset the menus anyway
+	if (g_TAServerControlClient.isKnownToBeModded()) {
+		initialiseMenus(that, g_TAServerControlClient.getCurrentGameSettingMode());
+	} else {
+		performControlConnectionInitialization();
+	}
+
+	return true;
 }
 
 static void performClassRename(std::string fiName, wchar_t* friendlyName, wchar_t* abbreviation) {
