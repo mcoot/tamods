@@ -160,3 +160,13 @@ void TrPlayerController_GetFamilyInfoFromId(ATrPlayerController* that, ATrPlayer
 		*result = Data::class_id_to_class[params->ClassId];
 	}
 }
+
+void TrContentLoader_StartLoadingPlayerSkin(UTrContentLoader* that, UTrContentLoader_execStartLoadingPlayerSkin_Parms* params) {
+	// Use the appropriate OOTB class id
+	int classId = params->ClassId;
+	if (Data::armor_class_to_ootb_class.find(params->ClassId) != Data::armor_class_to_ootb_class.end()) {
+		classId = Data::armor_class_to_ootb_class[params->ClassId];
+	}
+
+	that->StartLoadingPlayerSkin(classId, params->skinId, params->bLoad1PData);
+}

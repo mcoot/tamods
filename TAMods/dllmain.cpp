@@ -65,42 +65,13 @@ static void GenericLoggingUScriptHook(UObject* that, void* params, void* result,
 	Logger::log("<UScript hook blackholed>");
 }
 
-static bool TrPlayerController_ReceiveLocalizedMessage(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
-	std::string fName = pFunction ? pFunction->Name.GetName() : "<null ufunction>";
-	Logger::log("Call in function: %s", fName.c_str());
-
-	ATrPlayerController_eventReceiveLocalizedMessage_Parms* params = (ATrPlayerController_eventReceiveLocalizedMessage_Parms*)pParams;
-	Logger::log("Params: %s | %d | %p | %p | %s", params->Message ? params->Message->Name.GetName() : "<null>", params->Switch, params->RelatedPRI, params->RelatedPRI01, params->OptionalObject ? params->OptionalObject->Name.GetName() : "<null>");
-	return false;
-}
-
-static bool PlayerController_VeryShortClientAdjustPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
-	std::string fName = pFunction ? pFunction->Name.GetName() : "<null ufunction>";
-	Logger::log("Call in function: %s", fName.c_str());
-
-	APlayerController_execVeryShortClientAdjustPosition_Parms* params = (APlayerController_execVeryShortClientAdjustPosition_Parms*)pParams;
-	Logger::log("Params: %f | %f | %f | %f | %s", params->TimeStamp, params->NewLocX, params->NewLocY, params->NewLocZ, params->NewBase ? params->NewBase->Name.GetName() : "<null>");
-	return false;
-}
-
-static bool PlayerController_ShortClientAdjustPosition(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
-	std::string fName = pFunction ? pFunction->Name.GetName() : "<null ufunction>";
-	Logger::log("Call in function: %s", fName.c_str());
-
-	APlayerController_execShortClientAdjustPosition_Parms* params = (APlayerController_execShortClientAdjustPosition_Parms*)pParams;
-	Logger::log("Params: %f | %s | %d | %f | %f | %f | %s", params->TimeStamp, params->NewState.GetName(), params->newPhysics, params->NewLocX, params->NewLocY, params->NewLocZ, params->NewBase ? params->NewBase->Name.GetName() : "<null>");
-	return false;
-}
-
 // Hooks providing normal TAMods functionality (i.e. for a game client)
 void addClientModeHooks()
 {
-
-
 	UClass* havocClass = UObject::FindClass("Class TribesGame.TrVehicle_Havoc");
 	ATrVehicle_Havoc* havoc = (ATrVehicle_Havoc*)havocClass->Default;
 	havoc->m_VehicleType = VEHICLE_Havoc;
-	havoc->m_sName = fStringCache["Havoc"];
+	//havoc->m_sName = fStringCache["Havoc"];
 
 	//testing_PrintOutGObjectIndices();
 
@@ -115,15 +86,6 @@ void addClientModeHooks()
 
 	// Disabled due to bugs
 	//fixPingDependencies();
-	//Hooks::add(&TrPlayerController_ReceiveLocalizedMessage, "Function TribesGame.TrPlayerController.ReceiveLocalizedMessage");
-	//Hooks::add(&PlayerController_VeryShortClientAdjustPosition, "Function Engine.PlayerController.VeryShortClientAdjustPosition");
-	//Hooks::add(&PlayerController_ShortClientAdjustPosition, "Function Engine.PlayerController.ShortClientAdjustPosition");
-
-	//Hooks::add(&GenericLoggingEventHook, "Function TribesGame.GFxTrMenuMoviePlayer.BeginExperienceTweens");
-	//Hooks::addUScript(&GenericLoggingUScriptHook, "Function TribesGame.TrPlayerController.SummaryTweenTimer");
-	//Hooks::addUScript(&GenericLoggingUScriptHook, "Function TribesGame.TrPlayerController.TweenSummaryScreen");
-	//Hooks::add(&GenericLoggingEventHook, "Function TribesGame.GFxTrMenuMoviePlayer.TweenExperienceSummary");
-	//Hooks::addUScript(&GenericLoggingUScriptHook, "Function TribesGame.GFxTrMenuMoviePlayer.TweenPlayerSummary");
 
 	Hooks::addUScript(&TrDevice_SniperRifle_PlayScopeRechargeSound, "Function TribesGame.TrDevice_SniperRifle.PlayScopeRechargeSound");
 	Hooks::addUScript(&TrDevice_SniperRifle_StopScopeRechargeSound, "Function TribesGame.TrDevice_SniperRifle.StopScopeRechargeSound");
@@ -270,6 +232,9 @@ void addClientModeHooks()
 	Hooks::addUScript(&TrEquipInterface_GetActiveEquipId, "Function TribesGame.TrEquipInterface.GetActiveEquipId");
 	Hooks::addUScript(&TrInventoryHelper_GetFamilyClass, "Function TribesGame.TrInventoryHelper.GetFamilyClass");
 	Hooks::addUScript(&TrPlayerController_GetFamilyInfoFromId, "Function TribesGame.TrPlayerController.GetFamilyInfoFromId");
+
+	// Fix for skins on non pth/sld/jug failing to load in GOTY
+	Hooks::addUScript(&TrContentLoader_StartLoadingPlayerSkin, "Function TribesGame.TrContentLoader.StartLoadingPlayerSkin");
 
 	// Rage pack capper speed dependency fix
 	Hooks::addUScript(&TrPlayerController_PlayerWalking_ProcessMove, "Function TrPlayerController.PlayerWalking.ProcessMove");

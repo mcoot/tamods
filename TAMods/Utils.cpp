@@ -254,16 +254,21 @@ void Utils::printConsole(const std::string &str, const FColor &col)
 
 void Utils::openConsole(const std::string &text)
 {
+	Logger::log("openConsole 1");
 	if (tr_gvc && tr_gvc->ChatConsole)
 	{
-		UTrChatConsole &con = *tr_gvc->ChatConsole;
+		Logger::log("openConsole 2");
+		UTrChatConsole* con = tr_gvc->ChatConsole;
+		Logger::log("openConsole 3: %p", con);
 
-		if (!con.EqualEqual_NameName(con.GetStateName(), FName("Open")))
-			con.GotoState(FName("Open"), NULL, NULL, NULL);
-
-		con.SetInputText((wchar_t *)std::wstring(text.begin(), text.end()).c_str());
-		con.SetCursorPos(text.length());
-		con.UpdateCompleteIndices();
+		if (!con->EqualEqual_NameName(con->GetStateName(), FName("Open"))) {
+			Logger::log("openConsole GotoState; state is %s", con->GetStateName().GetName());
+			con->GotoState(FName("Open"), NULL, NULL, NULL);
+		}
+			
+		con->SetInputText((wchar_t *)std::wstring(text.begin(), text.end()).c_str());
+		con->SetCursorPos(text.length());
+		con->UpdateCompleteIndices();
 	}
 }
 

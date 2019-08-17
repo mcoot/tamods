@@ -8,6 +8,7 @@
 #include <regex>
 #include <map>
 #include "SdkHeaders.h"
+#include "Logger.h"
 
 typedef bool(*CallbackType)(UObject*);
 

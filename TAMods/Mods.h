@@ -199,6 +199,9 @@ void TrEquipInterface_GetActiveEquipId(UTrEquipInterface* that, UTrEquipInterfac
 void TrInventoryHelper_GetFamilyClass(UTrInventoryHelper* that, UTrInventoryHelper_execGetFamilyClass_Parms* params, UClass** result);
 void TrPlayerController_GetFamilyInfoFromId(ATrPlayerController* that, ATrPlayerController_execGetFamilyInfoFromId_Parms* params, UClass** result);
 
+// Fix for skins not working on non-OOTB classes in GOTY
+void TrContentLoader_StartLoadingPlayerSkin(UTrContentLoader* that, UTrContentLoader_execStartLoadingPlayerSkin_Parms* params);
+
 // Sniper rifle and laser targeter
 void TrDevice_CalcHUDAimChargePercent(ATrDevice* that, ATrDevice_execCalcHUDAimChargePercent_Parms* params, float* result, Hooks::CallInfo callInfo);
 float TrDevice_LaserTargeter_CalcHUDAimChargePercent(ATrDevice_LaserTargeter* that);
