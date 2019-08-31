@@ -45,6 +45,7 @@ namespace TAModsServer {
 		void sendPlayerConnectionMessage(FUniqueNetId id);
 		void sendRoleLoginMessage(std::string role, std::string password);
 		void sendExecLuaMessage(std::string commandString);
+		void sendExecCmdMessage(std::string commandString);
 	};
 
 }

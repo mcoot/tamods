@@ -87,4 +87,16 @@ namespace TAModsServer {
 		tcpClient->send(msg.getMessageKind(), j);
 	}
 
+	void Client::sendExecCmdMessage(std::string commandString) {
+		ExecuteCommandMessage msg;
+
+		msg.rawLua = false;
+		msg.commandString = commandString;
+
+		json j;
+		msg.toJson(j);
+
+		tcpClient->send(msg.getMessageKind(), j);
+	}
+
 }

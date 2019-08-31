@@ -537,6 +537,7 @@ void TrChatConsole_Typing_PostRender_Console(UTrChatConsole *that, UTrChatConsol
 
 static wchar_t* gameMessagePromptBuffer = NULL;
 void TAModsServer::Client::handle_MessageToClientMessage(const json& j) {
+	Logger::log("Received chat message from control client!");
 	MessageToClientMessage msg;
 
 	if (!msg.fromJson(j)) {
@@ -544,14 +545,34 @@ void TAModsServer::Client::handle_MessageToClientMessage(const json& j) {
 		return;
 	}
 
+	Logger::log("Unmarshalled chat message from control client!");
+
 	for (auto& msg : msg.consoleMessages) {
 		FColor c;
 		c.R = msg.r;
 		c.G = msg.g;
 		c.B = msg.b;
 		c.A = msg.a;
-		Utils::printConsole(msg.message, c);
+
+		Logger::log("About to print msg to console: \"%s\"", msg.message.c_str());
+
+		std::wstring msgWStr(msg.message.begin(), msg.message.end());
+
+		// Static buffer for the string to show in the console
+
+		if (!gameMessagePromptBuffer || wcslen(gameMessagePromptBuffer) < msgWStr.length()) {
+			gameMessagePromptBuffer = (wchar_t*)realloc(gameMessagePromptBuffer, sizeof(wchar_t) * (1 + msgWStr.length()));
+		}
+		const wchar_t* w = msgWStr.c_str();
+		for (size_t i = 0; i < msgWStr.length(); ++i) {
+			gameMessagePromptBuffer[i] = w[i];
+		}
+		gameMessagePromptBuffer[msgWStr.length()] = '\0';
+
+		Utils::printConsole(gameMessagePromptBuffer, c);
 	}
+
+	Logger::log("Printed console message from control client!");
 
 	if (msg.ingameMessage.doShow && Utils::tr_hud && Utils::tr_hud->m_GFxHud) {
 		std::wstring msgWStr(msg.ingameMessage.message.begin(), msg.ingameMessage.message.end());
@@ -591,4 +612,10 @@ void consoleCommands::cmd_srv_execlua(const std::wstring& cmd, const std::wstrin
 	std::string sParams(params.begin(), params.end());
 
 	g_CustomServerManager.client->sendExecLuaMessage(sParams);
+}
+
+void consoleCommands::cmd_srv_execcmd(const std::wstring& cmd, const std::wstring& params) {
+	std::string sParams(params.begin(), params.end());
+
+	g_CustomServerManager.client->sendExecCmdMessage(sParams);
 }

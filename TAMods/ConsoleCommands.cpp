@@ -213,7 +213,8 @@ namespace consoleCommands
 		{ L"/nextmap",            { &cmd_mapnext,        L"/nextmap <gametype> <mapname> (Set the next map. Alias: /mapnext /sc map next)" } },
 
 		{ L"/srvlogin",          { &cmd_srv_login,        L"/srvlogin <rolename> <password> (Log into the current custom server in the given role)" } },
-		{ L"/srvlua",            { &cmd_srv_execlua,        L"/srvlua <command> (Execute the Lua command on the current custom server)" } },
+		{ L"/srvlua",            { &cmd_srv_execlua,        L"/srvlua <command> (Execute raw Lua on the current custom server)" } },
+		{ L"/srvcmd",            { &cmd_srv_execcmd,        L"/srvcmd <command> <args> (Execute a server-defined command on the current custom server)" } },
 #ifndef RELEASE
 		{ L"/findobjects",        { &cmd_findobjects,    L"/findobjects <regex> (Search objects)" } },
 		{ L"/devel",              { &cmd_develcommands,  L"/devel <command> <parameter> (Execute a vanilla console commands)" } },

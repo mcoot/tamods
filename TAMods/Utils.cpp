@@ -245,24 +245,30 @@ void Utils::printConsole(const std::string &str)
 
 void Utils::printConsole(const std::string &str, const FColor &col)
 {
+	std::wstring wstr = std::wstring(str.begin(), str.end());
+	Utils::printConsole(wstr, col);
+}
+
+inline void Utils::printConsole(const std::wstring& wstr, const FColor& col)
+{
+	wchar_t* wch = (wchar_t*)wstr.c_str();
+	Utils::printConsole(wch, col);
+}
+
+inline void Utils::printConsole(wchar_t* wch, const FColor& col)
+{
 	if (!tr_gvc)
 		return;
-	std::wstring wstr = std::wstring(str.begin(), str.end());
-	wchar_t* wch = (wchar_t *)wstr.c_str();
 	tr_gvc->ChatConsole->OutputTextLine(wch, col);
 }
 
 void Utils::openConsole(const std::string &text)
 {
-	Logger::log("openConsole 1");
 	if (tr_gvc && tr_gvc->ChatConsole)
 	{
-		Logger::log("openConsole 2");
 		UTrChatConsole* con = tr_gvc->ChatConsole;
-		Logger::log("openConsole 3: %p", con);
 
 		if (!con->EqualEqual_NameName(con->GetStateName(), FName("Open"))) {
-			Logger::log("openConsole GotoState; state is %s", con->GetStateName().GetName());
 			con->GotoState(FName("Open"), NULL, NULL, NULL);
 		}
 			
