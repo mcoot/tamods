@@ -323,6 +323,10 @@ static void applyVehicleWeaponProperties(VehicleWeapons::VehicleWeaponsConfig& c
 	applyPropConfig(Data::vehicle_weapon_id_to_class, VehicleWeapons::properties, g_gameBalanceTracker.origVehicleWeaponProps, ATrVehicleWeapon::StaticClass(), cfg);
 }
 
+static void applyReplicatedSettingsConfig(GameBalanceTracker& tracker) {
+	// Apply any necessary changes based on replicatedsettings at replication-time
+}
+
 namespace GameBalance {
 
 	ValueType Property::getType() {
@@ -359,6 +363,7 @@ namespace GameBalance {
 		applyClassProperties(origClassProps);
 		applyVehicleProperties(origVehicleProps);
 		applyVehicleWeaponProperties(origVehicleWeaponProps);
+		applyReplicatedSettingsConfig(*this);
 	}
 }
 
@@ -382,6 +387,7 @@ void TAModsServer::Client::handle_GameBalanceDetailsMessage(const json& j) {
 	applyClassProperties(g_gameBalanceTracker.curClassProps);
 	applyVehicleProperties(g_gameBalanceTracker.curVehicleProps);
 	applyVehicleWeaponProperties(g_gameBalanceTracker.curVehicleWeaponProps);
+	applyReplicatedSettingsConfig(g_gameBalanceTracker);
 }
 
 void TAModsServer::Client::handle_StateUpdateMessage(const json& j) {

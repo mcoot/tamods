@@ -52,6 +52,9 @@ bool execCustomCommand(UTrChatConsole *that)
 	return false;
 }
 
+static std::mutex asyncMessagesToPrintMutex;
+static std::vector<std::pair<std::string, FColor>> asyncMessagesToPrint;
+
 // Custom console commands for the big console
 bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult)
 {
@@ -222,6 +225,17 @@ bool TrChatConsole_Typing_InputKey(int id, UObject *dwCallingObject, UFunction* 
 
 void TrChatConsole_Open_PostRender_Console(UTrChatConsole *that, UTrChatConsole_execPostRender_Console_Parms *params, void *result, Hooks::CallInfo *callInfo)
 {
+	// Print any queued messages
+	{
+		std::lock_guard<std::mutex> lock(asyncMessagesToPrintMutex);
+		if (asyncMessagesToPrint.size() > 0) {
+			for (auto& msg : asyncMessagesToPrint) {
+				Utils::printConsole(msg.first, msg.second);
+			}
+			asyncMessagesToPrint.clear();
+		}
+	}
+	
 	float Height;
 	float xl, yl, y, ScrollLineXL, ScrollLineYL, info_xl, info_yl;
 	FString OutStr;
@@ -537,7 +551,6 @@ void TrChatConsole_Typing_PostRender_Console(UTrChatConsole *that, UTrChatConsol
 
 static wchar_t* gameMessagePromptBuffer = NULL;
 void TAModsServer::Client::handle_MessageToClientMessage(const json& j) {
-	Logger::log("Received chat message from control client!");
 	MessageToClientMessage msg;
 
 	if (!msg.fromJson(j)) {
@@ -545,34 +558,16 @@ void TAModsServer::Client::handle_MessageToClientMessage(const json& j) {
 		return;
 	}
 
-	Logger::log("Unmarshalled chat message from control client!");
+	if (msg.consoleMessages.size() > 0) {
+		{
+			std::lock_guard<std::mutex> lock(asyncMessagesToPrintMutex);
 
-	for (auto& msg : msg.consoleMessages) {
-		FColor c;
-		c.R = msg.r;
-		c.G = msg.g;
-		c.B = msg.b;
-		c.A = msg.a;
-
-		Logger::log("About to print msg to console: \"%s\"", msg.message.c_str());
-
-		std::wstring msgWStr(msg.message.begin(), msg.message.end());
-
-		// Static buffer for the string to show in the console
-
-		if (!gameMessagePromptBuffer || wcslen(gameMessagePromptBuffer) < msgWStr.length()) {
-			gameMessagePromptBuffer = (wchar_t*)realloc(gameMessagePromptBuffer, sizeof(wchar_t) * (1 + msgWStr.length()));
+			for (auto& msg : msg.consoleMessages) {
+				FColor c = { msg.r, msg.g, msg.b, msg.a };
+				asyncMessagesToPrint.push_back(std::make_pair(msg.message, c));
+			}
 		}
-		const wchar_t* w = msgWStr.c_str();
-		for (size_t i = 0; i < msgWStr.length(); ++i) {
-			gameMessagePromptBuffer[i] = w[i];
-		}
-		gameMessagePromptBuffer[msgWStr.length()] = '\0';
-
-		Utils::printConsole(gameMessagePromptBuffer, c);
 	}
-
-	Logger::log("Printed console message from control client!");
 
 	if (msg.ingameMessage.doShow && Utils::tr_hud && Utils::tr_hud->m_GFxHud) {
 		std::wstring msgWStr(msg.ingameMessage.message.begin(), msg.ingameMessage.message.end());
