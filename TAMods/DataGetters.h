@@ -56,6 +56,7 @@ namespace getWeaponData
 	int ammoTotal(unsigned const char &n);
 	std::string name(unsigned const char &n);
 	int itemId(unsigned const char &n);
+	float accuracy(unsigned const char& n);
 }
 namespace getCurrentWeaponData
 {
@@ -75,6 +76,7 @@ namespace getCurrentWeaponData
 	unsigned char equippedAt();
 	std::string name();
 	int itemId();
+	float accuracy();
 
 	bool isZoomed();
 	float sniperChargePct();

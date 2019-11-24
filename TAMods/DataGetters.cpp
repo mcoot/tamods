@@ -238,6 +238,7 @@ int getPlayerData::credits() {
 		return Utils::tr_pc->r_nCurrentCredits;
 	return 0;
 }
+
 /////////////////////////////////////////////////////////////////////////////////////
 bool getWeaponData::isReadyToFire(unsigned const char &n)
 {
@@ -359,6 +360,13 @@ int getWeaponData::itemId(unsigned const char &n)
 	if (dev) return dev->DBWeaponId;
 
 	return 0;
+}
+float getWeaponData::accuracy(unsigned const char& n)
+{
+	ATrDevice* dev = Utils::getDeviceByEquipPointHelper(n);
+	if (dev) return dev->GetAccuracy();
+
+	return 0.f;
 }
 /////////////////////////////////////////////////////////////////////////////////////
 bool getCurrentWeaponData::isReadyToFire()
@@ -486,6 +494,13 @@ int getCurrentWeaponData::itemId()
 	if (!dev) return 0;
 
 	return dev->DBWeaponId;
+}
+float getCurrentWeaponData::accuracy()
+{
+	ATrDevice* dev = Utils::getCurrentDeviceHelper();
+	if (dev) return dev->GetAccuracy();
+
+	return 0.f;
 }
 bool getCurrentWeaponData::isZoomed()
 {

@@ -1882,6 +1882,17 @@ namespace GameBalance {
 			return true;
 		})
 			);
+		static const Property MAX_HEALTH_REGEN_SPEED(
+			ValueType::INTEGER,
+			applierAdapter<UTrFamilyInfo>([](PropValue p, UTrFamilyInfo* fi) {
+				return true;
+				}),
+			getterAdapter<UTrFamilyInfo>([](UTrFamilyInfo* fi, PropValue& ret) {
+					// NOTE: This value is only stored serverside!!
+					ret = PropValue::fromInt(-1);
+					return true;
+				})
+					);
 
 		// Jetting / Air Control
 		static const Property MAX_JETTING_SPEED(
@@ -2063,6 +2074,7 @@ namespace GameBalance {
 			{PropId::MOMENTUM_DAMPENING_ENABLED, MOMENTUM_DAMPENING_ENABLED},
 			{PropId::MOMENTUM_DAMPENING_THRESHOLD, MOMENTUM_DAMPENING_THRESHOLD},
 			{PropId::MOMENTUM_DAMPENING_PROPORTION, MOMENTUM_DAMPENING_PROPORTION},
+			{PropId::MAX_HEALTH_REGEN_SPEED, MAX_HEALTH_REGEN_SPEED},
 			// Jetting / Air Control
 			{PropId::MAX_JETTING_SPEED, MAX_JETTING_SPEED},
 			{PropId::JET_ACCELERATION, JET_ACCELERATION},
