@@ -102,6 +102,6 @@ bool SoundEffect::CurrentlyPlaying()
 	if (m_audioAvailable && state.BuffersQueued > 0)
 		return true;
 	else
-		return false;
 #endif
+        return false;
 }

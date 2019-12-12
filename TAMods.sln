@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TAMods", "TAMods\TAMods.vcxproj", "{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}"
 EndProject
@@ -20,8 +20,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Debug|Any CPU.ActiveCfg = Debug|Win32
-		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Debug|Mixed Platforms.ActiveCfg = Release|Win32
-		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Debug|Mixed Platforms.Build.0 = Release|Win32
+		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Debug|Win32.ActiveCfg = Debug|Win32
 		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Debug|Win32.Build.0 = Debug|Win32
 		{76FF0436-6349-43C7-9935-BC1E1AD9E0ED}.Release|Any CPU.ActiveCfg = Release|Win32
@@ -52,5 +52,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5D8CB32-62E5-4E6C-97DA-1582870951BB}
 	EndGlobalSection
 EndGlobal
