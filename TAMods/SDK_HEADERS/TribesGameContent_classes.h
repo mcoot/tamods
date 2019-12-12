@@ -12,7 +12,7 @@
 */
 
 #ifdef _MSC_VER
-	#pragma pack ( push, 0x4 )
+    #pragma pack ( push, 0x4 )
 #endif
 
 /*
@@ -42,20 +42,20 @@ class UTrMainMenuContentData_Content : public UTrMainMenuContentData
 public:
 
 private:
-	static UClass* pClassPointer;
+    static UClass* pClassPointer;
 
 public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 165460 ];
+    static UClass* StaticClass()
+    {
+        if ( ! pClassPointer )
+            pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 165460 ];
 
-		return pClassPointer;
-	};
+        return pClassPointer;
+    };
 
 };
 
 
 #ifdef _MSC_VER
-	#pragma pack ( pop )
+    #pragma pack ( pop )
 #endif

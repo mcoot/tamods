@@ -9,22 +9,22 @@
 #include "TAServerControlClient.h"
 
 struct CustomUpdatedGameState {
-	float playerPing;
+    float playerPing;
 };
 
 class CustomServerManager {
 public:
-	std::shared_ptr<TAModsServer::Client> client;
-	CustomUpdatedGameState updatedGameState;
+    std::shared_ptr<TAModsServer::Client> client;
+    CustomUpdatedGameState updatedGameState;
 public:
-	void handler_OnConnect();
-	void handler_OnConnectTimeOut();
+    void handler_OnConnect();
+    void handler_OnConnectTimeOut();
 
-	CustomServerManager() {}
+    CustomServerManager() {}
 
-	void start(std::string serverAddress);
-	bool isConnected();
-	void stop();
+    void start(std::string serverAddress);
+    bool isConnected();
+    void stop();
 };
 
 extern CustomServerManager g_CustomServerManager;
