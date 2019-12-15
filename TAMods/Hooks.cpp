@@ -32,7 +32,6 @@ static std::map<UFunction *, std::pair<Hook, Hook>> _hooks;
 static bool _print_hookable = true;
 static bool _lock = false;
 std::map<int, Hooks::CustomParameters> _customHookParameters;
-UObject *pCallObject;
 static ProcessEventFunction pProcessEvent = NULL;
 
 void Hooks::FFrame::Step(UObject *Context, void *result)
@@ -59,15 +58,8 @@ bool DispatchF(UObject *pCallObject, UFunction *pFunction, void *pParams, void *
     return false;
 }
 
-void __stdcall NakedFunction(UFunction *, void *, void *) { }
-
-void __stdcall ProxyFunction(UFunction *pFunction, void *pParms, void *pResult)
+void __fastcall ProxyFunction(UObject *that, void *, UFunction *pFunction, void *pParms, void *pResult)
 {
-    __asm pushad;
-    __asm mov pCallObject, ecx;
-
-    UObject *that = pCallObject;
-
     if (pFunction && !_lock)
     {
         static std::vector<std::string> dispatched_funcs;
@@ -92,25 +84,15 @@ void __stdcall ProxyFunction(UFunction *pFunction, void *pParms, void *pResult)
         bool call_original = true;
         if (it != _hooks.end())
             call_original = !DispatchF(that, pFunction, pParms, pResult, it->second.first);
-        if (!call_original)
+        if (call_original)
         {
-            __asm mov ecx, that;
-            __asm popad;
-            NakedFunction(pFunction, pParms, pResult);
-        }
-        else
-        {
-            __asm mov ecx, that;
-            __asm popad;
-            pProcessEvent(pFunction, pParms, pResult);
+            pProcessEvent(that, pFunction, pParms, pResult);
             if (it != _hooks.end())
                 DispatchF(that, pFunction, pParms, pResult, it->second.second);
         }
     }
     else {
-        __asm mov ecx, that;
-        __asm popad;
-        pProcessEvent(pFunction, pParms, pResult);
+        pProcessEvent(that, pFunction, pParms, pResult);
     }
 }
 

@@ -9,7 +9,7 @@
 #include "Logger.h"
 #include "Profiler.h"
 
-typedef void(__stdcall * ProcessEventFunction)(UFunction*, void *, void *);
+typedef void(__thiscall * ProcessEventFunction)(void *, UFunction*, void *, void *);
 typedef bool(*HookFunction)(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 
 namespace Hooks
@@ -95,16 +95,12 @@ private:
 };
 
 extern std::map<int, Hooks::CustomParameters> _customHookParameters;
-extern UObject *pCallObject;
 
 namespace Hooks
 {
     template<int ID>
-    void __stdcall UScriptBaseHook(Hooks::FFrame *stack, void *result)
+    void __fastcall UScriptBaseHook(UObject *pCallObject, void *, Hooks::FFrame *stack, void *result)
     {
-        __asm pushad;
-        __asm mov pCallObject, ecx;
-
         static const Hooks::CustomParameters &hookInfo = _customHookParameters[ID];
         static UFunction *pFunction = NULL;
         static std::vector<UProperty *> vProperty;
