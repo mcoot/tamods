@@ -2547,16 +2547,14 @@ void Lua::init()
             addFunction("reload", &config_reload).
             addFunction("getPath", &Utils::getConfigDir).
             addFunction("getFileList", &config_getFileList).
-        endNamespace().
-    endNamespace();
+        endNamespace();
 
     if (!Logger::isQuiet())
     {
         getGlobalNamespace(_state)
             .addFunction("profilerStart", &Profiler::start)
             .addFunction("profilerStop", &Profiler::stop)
-            .addFunction("profiler", &Profiler::toggle)
-        .endNamespace();
+            .addFunction("profiler", &Profiler::toggle);
     }
 }
 
