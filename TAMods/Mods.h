@@ -173,6 +173,7 @@ void TrRabbitScoreMessage_ClientReceive(UTrRabbitScoreMessage *that, UTrRabbitSc
 
 // Menu modifications
 bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
+bool TrLoginManager_Logout(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 void GFxTrPage_FillOptions(UGFxTrPage* that, UGFxTrPage_execFillOptions_Parms* params, UGFxObject** result);
 void GFxTrPage_Main_TakeFocus(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeFocus_Parms* params, int* result, Hooks::CallInfo callInfo);
 bool GFxTrMenuMoviePlayer_EquipmentLoaded(int id, UObject* dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);

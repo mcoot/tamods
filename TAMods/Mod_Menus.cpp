@@ -177,6 +177,12 @@ bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction
 	return true;
 }
 
+bool TrLoginManager_Logout(int id, UObject* dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
+    g_TAServerControlClient.logout();
+
+    return false;
+}
+
 static std::chrono::time_point<std::chrono::system_clock> lastConnectionAttemptTime((std::chrono::time_point<std::chrono::system_clock>::min)());
 static void performControlConnectionInitialization() {
 	// Retry connection at most every 5 seconds; this will be triggered by mouse-over on main menu

@@ -21,6 +21,7 @@ namespace TAServerControl {
 		void send(Message& msg);
 	public:
 		void handleControlMessage(std::wstring msg);
+        void logout();
 
 		std::string getCurrentGameSettingMode();
 		bool isKnownToBeModded();
