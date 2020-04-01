@@ -35,16 +35,11 @@ namespace TCP {
 		std::map<short, RecvHandlerType> handlers;
 	protected:
 
-		void handle_read(boost::system::error_code readErr, size_t asyncBytesRead) {
+		void handle_read(boost::system::error_code readErr) {
 			if (stopped) return;
 
 			if (readErr) {
 				error_state = readErr;
-				stop();
-				return;
-			}
-			if (!readErr && asyncBytesRead != 2) {
-				error_state.assign(boost::system::errc::message_size, boost::system::generic_category());
 				stop();
 				return;
 			}
@@ -104,7 +99,7 @@ namespace TCP {
 			boost::asio::async_read(socket,
 				boost::asio::buffer(read_msgsize_buff, sizeof(SizeType)),
 				boost::asio::transfer_exactly(sizeof(SizeType)),
-				boost::bind(&Connection::handle_read, this, _1, _2));
+				boost::bind(&Connection::handle_read, this, _1));
 		}
 
 		void write(short msgKind, const json& msgBody) {
@@ -123,7 +118,7 @@ namespace TCP {
 			// Message writing is synchronous and serialised to avoid a data race
 			boost::system::error_code writeErr;
 
-			size_t bytesWritten = 0;
+			size_t bytesWritten;
 			{
 				std::lock_guard<std::mutex> lock(write_mutex);
 				bytesWritten = boost::asio::write(socket, boost::asio::buffer(out_stream.str(), out_stream.str().length()), writeErr);
@@ -166,7 +161,7 @@ namespace TCP {
 			boost::asio::async_read(socket,
 				boost::asio::buffer(read_msgsize_buff, sizeof(SizeType)),
 				boost::asio::transfer_exactly(sizeof(SizeType)),
-				boost::bind(&Connection::handle_read, this, _1, _2));
+				boost::bind(&Connection::handle_read, this, _1));
 
 			if (connect_handler) {
 				connect_handler();
