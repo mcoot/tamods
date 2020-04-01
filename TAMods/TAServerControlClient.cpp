@@ -66,7 +66,6 @@ namespace TAServerControl {
         // This only really happens when a player is logged out due to a timeout
         // Reset modding state
         // So that flow to connect to login server happens properly on next login
-        Logger::log("Performing logout");
         knownToBeModded = false;
     }
 
