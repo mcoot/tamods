@@ -44,7 +44,7 @@ static void testing_PrintOutGObjectIndices() {
     for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
     {
         UObject* Object = UObject::GObjObjects()->Data[i];
-        Logger::log("%d \t\t | %s", i, Object->GetFullName());
+        Logger::log("%d \t\t | %s", i, Object->GetFullName().c_str());
     }
 }
 

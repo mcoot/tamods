@@ -1106,7 +1106,7 @@ static void config_searchSoundRe(const std::string &needle)
         {
             matches++;
 
-            Utils::printConsole(std::string(Object->GetFullName()));
+            Utils::printConsole(Object->GetFullName());
         }
     }
     Utils::printConsole("Total: " + std::to_string(matches));

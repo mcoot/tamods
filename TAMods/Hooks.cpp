@@ -70,8 +70,8 @@ void __fastcall ProxyFunction(UObject *that, void *, UFunction *pFunction, void 
             char FunctionName[128];
             char CallingName[128];
             
-            strcpy(FunctionName, pFunction->GetFullName());
-            strcpy(CallingName, that->GetFullName());
+            strcpy(FunctionName, pFunction->GetFullName().c_str());
+            strcpy(CallingName, that->GetFullName().c_str());
             std::string str = std::string(CallingName) + "::" + std::string(FunctionName);
             if (std::find(dispatched_funcs.begin(), dispatched_funcs.end(), str) == dispatched_funcs.end())
             {

@@ -296,6 +296,8 @@ void performGOTYRename() {
     //static FString lightEnergyInfo(L"Improves energy regeneration by 18%");
     //performItemRename("TrDevice", "ERechargePack_Pathfinder", lightEnergyName, lightEnergyInfo);
 
+// TODO: This crashes the debug build.. check if it's really necessary.
+#if 0
     // Set up perk lists correctly
     UTrPerkList* perkListDef = (UTrPerkList*)UTrPerkList::StaticClass()->Default;
 
@@ -323,7 +325,7 @@ void performGOTYRename() {
     perkListDef->PerkListB.Add(fStringCache["TrPerk_QuickDraw"]);
     perkListDef->PerkListB.Add(fStringCache["TrPerk_Mechanic"]);
     perkListDef->PerkListB.Add(fStringCache["TrPerk_Lightweight"]);
-
+#endif
 
 }
 

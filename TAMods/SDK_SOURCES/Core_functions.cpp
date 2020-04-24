@@ -80,18 +80,14 @@ TArray< UObject* >* UObject::GObjObjects()
     return ObjectArray; 
 } 
 
-char* UObject::GetName() 
+char *UObject::GetName() 
 { 
-    static char cOutBuffer[ 256 ]; 
-
-    sprintf_s ( cOutBuffer, "%s", this->Name.GetName() ); 
-
-    return cOutBuffer; 
+    return this->Name.GetName(); 
 } 
 
-char* UObject::GetNameCPP() 
-{ 
-    static char cOutBuffer[ 256 ]; 
+std::string UObject::GetNameCPP()
+{
+    char cOutBuffer[256];
 
     if ( this->IsA ( UClass::StaticClass() ) ) 
     { 
@@ -122,11 +118,11 @@ char* UObject::GetNameCPP()
     return cOutBuffer; 
 } 
 
-char* UObject::GetFullName() 
+std::string UObject::GetFullName()
 { 
     if ( this->Class && this->Outer ) 
     { 
-        static char cOutBuffer[ 256 ]; 
+        char cOutBuffer[ 256 ]; 
 
         if ( this->Outer->Outer ) 
         { 
@@ -155,15 +151,15 @@ char* UObject::GetFullName()
 
 std::string UObject::GetStringClassName()
 {
-    return std::string(Class ? Class->GetName() : "(null)");
+    return Class ? Class->GetName() : "(null)";
 }
 std::string UObject::GetStringName()
 {
-    return std::string(GetName());
+    return GetName();
 }
 std::string UObject::GetStringFullName()
 {
-    return std::string(GetFullName());
+    return GetFullName();
 }
 UClass* UObject::FindClass ( char* ClassFullName ) 
 { 
@@ -180,7 +176,7 @@ UClass* UObject::FindClass ( char* ClassFullName )
         if ( ! Object ) 
             continue; 
 
-        if ( ! _stricmp ( Object->GetFullName(), ClassFullName ) ) 
+        if ( ! _stricmp ( Object->GetFullName().c_str(), ClassFullName ) ) 
             return (UClass*) Object; 
     } 
 
@@ -203,7 +199,7 @@ TArray<UClass*> UObject::FindAllDuplicateClasses(const char* ClassFullName) {
         if (!Object)
             continue;
 
-        if (!_stricmp(Object->GetFullName(), ClassFullName))
+        if (!_stricmp(Object->GetFullName().c_str(), ClassFullName))
             result.Add((UClass*)Object);
     }
 

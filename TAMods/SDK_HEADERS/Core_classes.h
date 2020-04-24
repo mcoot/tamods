@@ -190,25 +190,56 @@ public:
     static TArray< UObject* >* GObjObjects(); 
 
     char* GetName(); 
-    char* GetNameCPP(); 
-    char* GetFullName(); 
+    std::string GetNameCPP(); 
+    std::string GetFullName(); 
 
     std::string GetStringClassName();
     std::string GetStringName();
     std::string GetStringFullName();
 
+    static void splitFullName(const std::string& ObjectFullName,
+        std::string& className,
+        std::string& outerOuterName,
+        std::string& outerName,
+        std::string& objectName)
+    {
+        auto space = ObjectFullName.find_first_of(' ');
+        auto afterSpace = space + 1;
+        auto firstDot = ObjectFullName.find_first_of('.', afterSpace);
+        auto afterFirstDot = firstDot + 1;
+        auto secondDot = ObjectFullName.find_first_of('.', afterFirstDot);
+        
+        className = ObjectFullName.substr(0, space);
+        if (secondDot == std::string::npos)
+        {
+            outerOuterName = "";
+            outerName = ObjectFullName.substr(afterSpace, firstDot - afterSpace);
+            objectName = ObjectFullName.substr(afterFirstDot);
+        }
+        else
+        {
+            auto afterSecondDot = secondDot + 1;
+            outerOuterName = ObjectFullName.substr(afterSpace, firstDot - afterSpace);
+            outerName = ObjectFullName.substr(afterFirstDot, secondDot - afterFirstDot);
+            objectName = ObjectFullName.substr(afterSecondDot);
+        }
+    }
+
     template< class T > static T* FindObject ( const char* ObjectFullName ) 
-    { 
+    {
         while ( ! UObject::GObjObjects() ) 
             Sleep ( 100 ); 
     
         while ( ! FName::Names() ) 
             Sleep( 100 ); 
-    
-        for ( int i = 0; i < UObject::GObjObjects()->Count; ++i ) 
-        { 
-            UObject* Object = UObject::GObjObjects()->Data[ i ]; 
-    
+
+        std::string className, outerOuterName, outerName, objectName;
+        splitFullName(ObjectFullName, className, outerOuterName, outerName, objectName);
+
+        for (int i = 0; i < UObject::GObjObjects()->Count; ++i)
+        {
+            UObject* Object = UObject::GObjObjects()->Data[i];
+
             // skip no T class objects 
             if 
             ( 
@@ -216,12 +247,16 @@ public:
                 ||    ! Object->IsA ( T::StaticClass() ) 
             ) 
                 continue; 
-    
+
             // check 
-            if ( ! _stricmp ( Object->GetFullName(), ObjectFullName ) ) 
-                return (T*) Object; 
-        } 
-    
+
+            if(!_stricmp(className.c_str(), Object->Class->GetName()) &&
+               (!Object->Outer->Outer || !_stricmp(outerOuterName.c_str(), Object->Outer->Outer->GetName())) &&
+               !_stricmp(outerName.c_str(), Object->Outer->GetName()) &&
+               !_stricmp(objectName.c_str(), Object->GetName()))
+                return (T*)Object;
+        }
+
         return NULL; 
     } 
     
