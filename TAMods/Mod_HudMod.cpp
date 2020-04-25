@@ -58,7 +58,7 @@ void TrHUD_DrawHealthBar(ATrHUD *that, ATrHUD_execDrawHealthBar_Parms *params, v
         float health = params->HealthBarMIC->ScalarParameterValues.Data[0].ParameterValue;
         try
         {
-            (*g_config.onDrawHealthBar)(params->Placement.X - params->PlacementX, params->Placement.Y - params->PlacementY, (bool)params->bFriend, health);
+            (*g_config.onDrawHealthBar)(params->Placement.X - params->PlacementX, params->Placement.Y - params->PlacementY, params->bFriend != 0, health);
         }
         catch (const LuaException &e)
         {

@@ -1494,7 +1494,7 @@ bool ATrGameObjective::RequiresLOSForRepairDeployable ( )
 
     this->ProcessEvent ( pFnRequiresLOSForRepairDeployable, &RequiresLOSForRepairDeployable_Parms, NULL );
 
-    return RequiresLOSForRepairDeployable_Parms.ReturnValue;
+    return RequiresLOSForRepairDeployable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.Destroyed
@@ -1561,7 +1561,7 @@ bool ATrGameObjective::IsAliveAndWell ( )
 
     this->ProcessEvent ( pFnIsAliveAndWell, &IsAliveAndWell_Parms, NULL );
 
-    return IsAliveAndWell_Parms.ReturnValue;
+    return IsAliveAndWell_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.GetSpectatorDescription
@@ -1731,7 +1731,7 @@ bool ATrGameObjective::PerformUpgrade ( class ATrPlayerController* Purchaser )
 
     this->ProcessEvent ( pFnPerformUpgrade, &PerformUpgrade_Parms, NULL );
 
-    return PerformUpgrade_Parms.ReturnValue;
+    return PerformUpgrade_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.ReceivesPowerFromGenerator
@@ -1750,7 +1750,7 @@ bool ATrGameObjective::ReceivesPowerFromGenerator ( )
 
     this->ProcessEvent ( pFnReceivesPowerFromGenerator, &ReceivesPowerFromGenerator_Parms, NULL );
 
-    return ReceivesPowerFromGenerator_Parms.ReturnValue;
+    return ReceivesPowerFromGenerator_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.ShouldShowHelpText
@@ -1771,7 +1771,7 @@ bool ATrGameObjective::ShouldShowHelpText ( unsigned char HelpTextType )
 
     this->ProcessEvent ( pFnShouldShowHelpText, &ShouldShowHelpText_Parms, NULL );
 
-    return ShouldShowHelpText_Parms.ReturnValue;
+    return ShouldShowHelpText_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.SpawnHelpTextCollisionProxy
@@ -1826,7 +1826,7 @@ bool ATrGameObjective::eventBlocksLineChecksFromSourceActor ( class AActor* Sour
 
     this->ProcessEvent ( pFnBlocksLineChecksFromSourceActor, &BlocksLineChecksFromSourceActor_Parms, NULL );
 
-    return BlocksLineChecksFromSourceActor_Parms.ReturnValue;
+    return BlocksLineChecksFromSourceActor_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.GetPossessiveInstigatorName
@@ -1849,7 +1849,7 @@ bool ATrGameObjective::GetPossessiveInstigatorName ( struct FString* PlayerName 
     if ( PlayerName )
         memcpy ( PlayerName, &GetPossessiveInstigatorName_Parms.PlayerName, 0xC );
 
-    return GetPossessiveInstigatorName_Parms.ReturnValue;
+    return GetPossessiveInstigatorName_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.GetMarker
@@ -1911,7 +1911,7 @@ bool ATrGameObjective::ShouldPostRenderForCaH ( )
 
     this->ProcessEvent ( pFnShouldPostRenderForCaH, &ShouldPostRenderForCaH_Parms, NULL );
 
-    return ShouldPostRenderForCaH_Parms.ReturnValue;
+    return ShouldPostRenderForCaH_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.TimerDestroy
@@ -2186,7 +2186,7 @@ bool ATrGameObjective::Shootable ( )
 
     this->ProcessEvent ( pFnShootable, &Shootable_Parms, NULL );
 
-    return Shootable_Parms.ReturnValue;
+    return Shootable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.Tick
@@ -2259,7 +2259,7 @@ bool ATrGameObjective::ShouldShowPromptText ( class APawn* aPawn )
 
     this->ProcessEvent ( pFnShouldShowPromptText, &ShouldShowPromptText_Parms, NULL );
 
-    return ShouldShowPromptText_Parms.ReturnValue;
+    return ShouldShowPromptText_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.GetUpgradeCost
@@ -2399,7 +2399,7 @@ bool ATrGameObjective::IsInLOS_Basic ( class APawn* TouchedPawn )
 
     pFnIsInLOS_Basic->FunctionFlags |= 0x400;
 
-    return IsInLOS_Basic_Parms.ReturnValue;
+    return IsInLOS_Basic_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameObjective.IsEnemy
@@ -2424,7 +2424,7 @@ bool ATrGameObjective::IsEnemy ( class AActor* Target )
 
     pFnIsEnemy->FunctionFlags |= 0x400;
 
-    return IsEnemy_Parms.ReturnValue;
+    return IsEnemy_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable.SetPowered
@@ -2495,7 +2495,7 @@ bool ATrDeployable::CalcOtherWatchingCam ( float fDeltaTime, class ATrPlayerCont
     if ( out_FOV )
         *out_FOV = CalcOtherWatchingCam_Parms.out_FOV;
 
-    return CalcOtherWatchingCam_Parms.ReturnValue;
+    return CalcOtherWatchingCam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable.GetPossessiveInstigatorName
@@ -2518,7 +2518,7 @@ bool ATrDeployable::GetPossessiveInstigatorName ( struct FString* PlayerName )
     if ( PlayerName )
         memcpy ( PlayerName, &GetPossessiveInstigatorName_Parms.PlayerName, 0xC );
 
-    return GetPossessiveInstigatorName_Parms.ReturnValue;
+    return GetPossessiveInstigatorName_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable.ReceivesPowerFromGenerator
@@ -2537,7 +2537,7 @@ bool ATrDeployable::ReceivesPowerFromGenerator ( )
 
     this->ProcessEvent ( pFnReceivesPowerFromGenerator, &ReceivesPowerFromGenerator_Parms, NULL );
 
-    return ReceivesPowerFromGenerator_Parms.ReturnValue;
+    return ReceivesPowerFromGenerator_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable.Destroyed
@@ -2632,7 +2632,7 @@ bool ATrDeployable::StopsProjectile ( class AProjectile* P )
 
     this->ProcessEvent ( pFnStopsProjectile, &StopsProjectile_Parms, NULL );
 
-    return StopsProjectile_Parms.ReturnValue;
+    return StopsProjectile_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable.GetWeaponStartTraceLocation
@@ -2706,7 +2706,7 @@ bool ATrDeployable::IsFiring ( )
 
     this->ProcessEvent ( pFnIsFiring, &IsFiring_Parms, NULL );
 
-    return IsFiring_Parms.ReturnValue;
+    return IsFiring_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable.DeployComplete
@@ -3106,7 +3106,7 @@ bool ATrDeployable::IsInLOS ( class AActor* TouchedActor, struct FVector StartLo
 
     pFnIsInLOS->FunctionFlags |= 0x400;
 
-    return IsInLOS_Parms.ReturnValue;
+    return IsInLOS_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable.CalcMeshOffset
@@ -3307,7 +3307,7 @@ bool ATrPawn::IsFirstPerson ( )
 
     this->ProcessEvent ( pFnIsFirstPerson, &IsFirstPerson_Parms, NULL );
 
-    return IsFirstPerson_Parms.ReturnValue;
+    return IsFirstPerson_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.StuckOnPawn
@@ -3383,7 +3383,7 @@ bool ATrPawn::eventCheckClotheslineDamage ( class APawn* PawnHittingMe )
 
     this->ProcessEvent ( pFnCheckClotheslineDamage, &CheckClotheslineDamage_Parms, NULL );
 
-    return CheckClotheslineDamage_Parms.ReturnValue;
+    return CheckClotheslineDamage_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.DoJump
@@ -3404,7 +3404,7 @@ bool ATrPawn::DoJump ( unsigned long bUpdating )
 
     this->ProcessEvent ( pFnDoJump, &DoJump_Parms, NULL );
 
-    return DoJump_Parms.ReturnValue;
+    return DoJump_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.PlayBlinkPackEffect
@@ -3463,7 +3463,7 @@ bool ATrPawn::IsFlagLockedFromPickup ( class ATrFlagBase* Flag )
 
     this->ProcessEvent ( pFnIsFlagLockedFromPickup, &IsFlagLockedFromPickup_Parms, NULL );
 
-    return IsFlagLockedFromPickup_Parms.ReturnValue;
+    return IsFlagLockedFromPickup_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.LockFromFlagPickup
@@ -3523,7 +3523,7 @@ bool ATrPawn::SetScannerDetect ( unsigned long detected )
 
     this->ProcessEvent ( pFnSetScannerDetect, &SetScannerDetect_Parms, NULL );
 
-    return SetScannerDetect_Parms.ReturnValue;
+    return SetScannerDetect_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.GetDetectedByEnemyScanner
@@ -3542,7 +3542,7 @@ bool ATrPawn::GetDetectedByEnemyScanner ( )
 
     this->ProcessEvent ( pFnGetDetectedByEnemyScanner, &GetDetectedByEnemyScanner_Parms, NULL );
 
-    return GetDetectedByEnemyScanner_Parms.ReturnValue;
+    return GetDetectedByEnemyScanner_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.SetDetectedByEnemyScanner
@@ -4223,7 +4223,7 @@ bool ATrPawn::IsJammedByEnemy ( )
 
     this->ProcessEvent ( pFnIsJammedByEnemy, &IsJammedByEnemy_Parms, NULL );
 
-    return IsJammedByEnemy_Parms.ReturnValue;
+    return IsJammedByEnemy_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.IsJammedByFriendOrSelf
@@ -4242,7 +4242,7 @@ bool ATrPawn::IsJammedByFriendOrSelf ( )
 
     this->ProcessEvent ( pFnIsJammedByFriendOrSelf, &IsJammedByFriendOrSelf_Parms, NULL );
 
-    return IsJammedByFriendOrSelf_Parms.ReturnValue;
+    return IsJammedByFriendOrSelf_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.ExitEnemyJammingRadius
@@ -4539,7 +4539,7 @@ bool ATrPawn::IsPulseStealthed ( )
 
     this->ProcessEvent ( pFnIsPulseStealthed, &IsPulseStealthed_Parms, NULL );
 
-    return IsPulseStealthed_Parms.ReturnValue;
+    return IsPulseStealthed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.PulseStealth
@@ -4682,7 +4682,7 @@ bool ATrPawn::CheckHeadShot ( struct FImpactInfo* Impact )
     if ( Impact )
         memcpy ( Impact, &CheckHeadShot_Parms.Impact, 0x50 );
 
-    return CheckHeadShot_Parms.ReturnValue;
+    return CheckHeadShot_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.SetSkin
@@ -4866,7 +4866,7 @@ bool ATrPawn::Died ( class AController* Killer, class UClass* DamageType, struct
 
     this->ProcessEvent ( pFnDied, &Died_Parms, NULL );
 
-    return Died_Parms.ReturnValue;
+    return Died_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.FellOutOfWorld
@@ -4919,7 +4919,7 @@ bool ATrPawn::IsLastHitFromNinjaSmoke ( )
 
     this->ProcessEvent ( pFnIsLastHitFromNinjaSmoke, &IsLastHitFromNinjaSmoke_Parms, NULL );
 
-    return IsLastHitFromNinjaSmoke_Parms.ReturnValue;
+    return IsLastHitFromNinjaSmoke_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.PlayDamageCameraShake
@@ -4974,7 +4974,7 @@ bool ATrPawn::ShouldGib ( class UClass* UTDamageType )
 
     this->ProcessEvent ( pFnShouldGib, &ShouldGib_Parms, NULL );
 
-    return ShouldGib_Parms.ReturnValue;
+    return ShouldGib_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.EncroachedBy
@@ -5035,7 +5035,7 @@ bool ATrPawn::PerformDodge ( unsigned char DoubleClickMove, struct FVector Dir, 
 
     this->ProcessEvent ( pFnPerformDodge, &PerformDodge_Parms, NULL );
 
-    return PerformDodge_Parms.ReturnValue;
+    return PerformDodge_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.Dodge
@@ -5056,7 +5056,7 @@ bool ATrPawn::Dodge ( unsigned char DoubleClickMove )
 
     this->ProcessEvent ( pFnDodge, &Dodge_Parms, NULL );
 
-    return Dodge_Parms.ReturnValue;
+    return Dodge_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.WeaponFired
@@ -5304,7 +5304,7 @@ bool ATrPawn::RecentlyGrabbedFlag ( )
 
     this->ProcessEvent ( pFnRecentlyGrabbedFlag, &RecentlyGrabbedFlag_Parms, NULL );
 
-    return RecentlyGrabbedFlag_Parms.ReturnValue;
+    return RecentlyGrabbedFlag_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.TakeRadiusDamage
@@ -5803,7 +5803,7 @@ bool ATrPawn::eventShouldRechargePowerPool ( )
 
     this->ProcessEvent ( pFnShouldRechargePowerPool, &ShouldRechargePowerPool_Parms, NULL );
 
-    return ShouldRechargePowerPool_Parms.ReturnValue;
+    return ShouldRechargePowerPool_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.ClientUpdateHUDHealth
@@ -6488,7 +6488,7 @@ bool ATrPawn::ServerUpdateLockedTarget ( class AActor* Locked )
 
     pFnServerUpdateLockedTarget->FunctionFlags |= 0x400;
 
-    return ServerUpdateLockedTarget_Parms.ReturnValue;
+    return ServerUpdateLockedTarget_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawn.SetOverlayMaterial
@@ -10296,7 +10296,7 @@ bool UGfxTrHud::ChangeDamageEffectParameter ( struct FName ParamName, float chan
 
     this->ProcessEvent ( pFnChangeDamageEffectParameter, &ChangeDamageEffectParameter_Parms, NULL );
 
-    return ChangeDamageEffectParameter_Parms.ReturnValue;
+    return ChangeDamageEffectParameter_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GfxTrHud.TickDirectionalDamageEffect
@@ -10677,7 +10677,7 @@ bool UGfxTrHud::ShouldShowSpectatorReticule ( )
 
     this->ProcessEvent ( pFnShouldShowSpectatorReticule, &ShouldShowSpectatorReticule_Parms, NULL );
 
-    return ShouldShowSpectatorReticule_Parms.ReturnValue;
+    return ShouldShowSpectatorReticule_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GfxTrHud.SetPlayerClassObjects
@@ -10944,7 +10944,7 @@ bool UGfxTrHud::eventWidgetInitialized ( struct FName WidgetName, struct FName W
 
     this->ProcessEvent ( pFnWidgetInitialized, &WidgetInitialized_Parms, NULL );
 
-    return WidgetInitialized_Parms.ReturnValue;
+    return WidgetInitialized_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GfxTrHud.Start
@@ -10965,7 +10965,7 @@ bool UGfxTrHud::Start ( unsigned long StartPaused )
 
     this->ProcessEvent ( pFnStart, &Start_Parms, NULL );
 
-    return Start_Parms.ReturnValue;
+    return Start_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GfxTrHud.DelegateSoundAccolade
@@ -13180,7 +13180,7 @@ bool UGFxTrMenuMoviePlayer::HandlePopupComplete ( int Id, struct FString Text )
 
     this->ProcessEvent ( pFnHandlePopupComplete, &HandlePopupComplete_Parms, NULL );
 
-    return HandlePopupComplete_Parms.ReturnValue;
+    return HandlePopupComplete_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.HandlePopup
@@ -13201,7 +13201,7 @@ bool UGFxTrMenuMoviePlayer::HandlePopup ( class UGFxObject* Obj )
 
     this->ProcessEvent ( pFnHandlePopup, &HandlePopup_Parms, NULL );
 
-    return HandlePopup_Parms.ReturnValue;
+    return HandlePopup_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.ShowSteamResponse
@@ -14253,7 +14253,7 @@ bool UGFxTrMenuMoviePlayer::PlayerNeedsClass ( )
 
     this->ProcessEvent ( pFnPlayerNeedsClass, &PlayerNeedsClass_Parms, NULL );
 
-    return PlayerNeedsClass_Parms.ReturnValue;
+    return PlayerNeedsClass_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.PlayerNeedsTeam
@@ -14272,7 +14272,7 @@ bool UGFxTrMenuMoviePlayer::PlayerNeedsTeam ( )
 
     this->ProcessEvent ( pFnPlayerNeedsTeam, &PlayerNeedsTeam_Parms, NULL );
 
-    return PlayerNeedsTeam_Parms.ReturnValue;
+    return PlayerNeedsTeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.TeamSelectOpen
@@ -14291,7 +14291,7 @@ bool UGFxTrMenuMoviePlayer::TeamSelectOpen ( )
 
     this->ProcessEvent ( pFnTeamSelectOpen, &TeamSelectOpen_Parms, NULL );
 
-    return TeamSelectOpen_Parms.ReturnValue;
+    return TeamSelectOpen_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.TeamSelectActive
@@ -14310,7 +14310,7 @@ bool UGFxTrMenuMoviePlayer::TeamSelectActive ( )
 
     this->ProcessEvent ( pFnTeamSelectActive, &TeamSelectActive_Parms, NULL );
 
-    return TeamSelectActive_Parms.ReturnValue;
+    return TeamSelectActive_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.KeyPressCaptured
@@ -14333,7 +14333,7 @@ bool UGFxTrMenuMoviePlayer::eventKeyPressCaptured ( struct FString KeyName, unsi
 
     this->ProcessEvent ( pFnKeyPressCaptured, &KeyPressCaptured_Parms, NULL );
 
-    return KeyPressCaptured_Parms.ReturnValue;
+    return KeyPressCaptured_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.KeyBindCaptured
@@ -14370,7 +14370,7 @@ bool UGFxTrMenuMoviePlayer::eventRequestPaperDoll ( )
 
     this->ProcessEvent ( pFnRequestPaperDoll, &RequestPaperDoll_Parms, NULL );
 
-    return RequestPaperDoll_Parms.ReturnValue;
+    return RequestPaperDoll_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.LoadingTimer
@@ -14541,7 +14541,7 @@ bool UGFxTrMenuMoviePlayer::eventWidgetInitialized ( struct FName WidgetName, st
 
     this->ProcessEvent ( pFnWidgetInitialized, &WidgetInitialized_Parms, NULL );
 
-    return WidgetInitialized_Parms.ReturnValue;
+    return WidgetInitialized_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.GetRankFromXP
@@ -14905,7 +14905,7 @@ bool UGFxTrMenuMoviePlayer::eventIsLoadComplete ( )
 
     this->ProcessEvent ( pFnIsLoadComplete, &IsLoadComplete_Parms, NULL );
 
-    return IsLoadComplete_Parms.ReturnValue;
+    return IsLoadComplete_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.OnProfileLoaded
@@ -15312,7 +15312,7 @@ bool UGFxTrMenuMoviePlayer::HaveEntry ( )
 
     this->ProcessEvent ( pFnHaveEntry, &HaveEntry_Parms, NULL );
 
-    return HaveEntry_Parms.ReturnValue;
+    return HaveEntry_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.EntryPlayerReady
@@ -15454,7 +15454,7 @@ bool UGFxTrMenuMoviePlayer::Start ( unsigned long StartPaused )
 
     this->ProcessEvent ( pFnStart, &Start_Parms, NULL );
 
-    return Start_Parms.ReturnValue;
+    return Start_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.UsingNewUI
@@ -15477,7 +15477,7 @@ bool UGFxTrMenuMoviePlayer::UsingNewUI ( )
 
     pFnUsingNewUI->FunctionFlags |= 0x400;
 
-    return UsingNewUI_Parms.ReturnValue;
+    return UsingNewUI_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.UsingAeria
@@ -15500,7 +15500,7 @@ bool UGFxTrMenuMoviePlayer::UsingAeria ( )
 
     pFnUsingAeria->FunctionFlags |= 0x400;
 
-    return UsingAeria_Parms.ReturnValue;
+    return UsingAeria_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.HaveClanTag
@@ -15523,7 +15523,7 @@ bool UGFxTrMenuMoviePlayer::HaveClanTag ( )
 
     pFnHaveClanTag->FunctionFlags |= 0x400;
 
-    return HaveClanTag_Parms.ReturnValue;
+    return HaveClanTag_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.GetEquipmentTierXP
@@ -15665,7 +15665,7 @@ bool UGFxTrMenuMoviePlayer::AddAcquisition ( int VendorId, int LootId )
 
     pFnAddAcquisition->FunctionFlags |= 0x400;
 
-    return AddAcquisition_Parms.ReturnValue;
+    return AddAcquisition_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.ForceFocus
@@ -15733,7 +15733,7 @@ bool UGFxTrMenuMoviePlayer::RegisterMarshalCallback ( struct FScriptDelegate Mar
 
     pFnRegisterMarshalCallback->FunctionFlags |= 0x400;
 
-    return RegisterMarshalCallback_Parms.ReturnValue;
+    return RegisterMarshalCallback_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.UserLoginChanged
@@ -15780,7 +15780,7 @@ bool UGFxTrMenuMoviePlayer::ReadPlayerProfileData ( class UTgPlayerProfile* Prof
 
     pFnReadPlayerProfileData->FunctionFlags |= 0x400;
 
-    return ReadPlayerProfileData_Parms.ReturnValue;
+    return ReadPlayerProfileData_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.OnMarshalEvent
@@ -15853,7 +15853,7 @@ bool UGFxTrMenuMoviePlayer::CheckAutoLoginStatus ( )
 
     pFnCheckAutoLoginStatus->FunctionFlags |= 0x400;
 
-    return CheckAutoLoginStatus_Parms.ReturnValue;
+    return CheckAutoLoginStatus_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.RequestPurchasePortalItem
@@ -15878,7 +15878,7 @@ bool UGFxTrMenuMoviePlayer::RequestPurchasePortalItem ( int LootItemId )
 
     pFnRequestPurchasePortalItem->FunctionFlags |= 0x400;
 
-    return RequestPurchasePortalItem_Parms.ReturnValue;
+    return RequestPurchasePortalItem_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.GetPortalCurrencyName
@@ -15947,7 +15947,7 @@ bool UGFxTrMenuMoviePlayer::UsePortal ( )
 
     pFnUsePortal->FunctionFlags |= 0x400;
 
-    return UsePortal_Parms.ReturnValue;
+    return UsePortal_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.IsGOTYEdition
@@ -15970,7 +15970,7 @@ bool UGFxTrMenuMoviePlayer::IsGOTYEdition ( )
 
     pFnIsGOTYEdition->FunctionFlags |= 0x400;
 
-    return IsGOTYEdition_Parms.ReturnValue;
+    return IsGOTYEdition_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.GetGoldItemInfo
@@ -16080,7 +16080,7 @@ bool UGFxTrMenuMoviePlayer::UseSteam ( )
 
     pFnUseSteam->FunctionFlags |= 0x400;
 
-    return UseSteam_Parms.ReturnValue;
+    return UseSteam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.DelegateAction
@@ -16165,7 +16165,7 @@ bool UGFxTrMenuMoviePlayer::DelegateBoolGetBool ( unsigned long val )
 
     this->ProcessEvent ( pFnDelegateBoolGetBool, &DelegateBoolGetBool_Parms, NULL );
 
-    return DelegateBoolGetBool_Parms.ReturnValue;
+    return DelegateBoolGetBool_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.DelegateBoolGetInt
@@ -16186,7 +16186,7 @@ bool UGFxTrMenuMoviePlayer::DelegateBoolGetInt ( int nVal )
 
     this->ProcessEvent ( pFnDelegateBoolGetInt, &DelegateBoolGetInt_Parms, NULL );
 
-    return DelegateBoolGetInt_Parms.ReturnValue;
+    return DelegateBoolGetInt_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.DelegateLogin
@@ -16211,7 +16211,7 @@ bool UGFxTrMenuMoviePlayer::DelegateLogin ( struct FString UserName, struct FStr
 
     this->ProcessEvent ( pFnDelegateLogin, &DelegateLogin_Parms, NULL );
 
-    return DelegateLogin_Parms.ReturnValue;
+    return DelegateLogin_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.DelegateGetBoolIntInt
@@ -16234,7 +16234,7 @@ bool UGFxTrMenuMoviePlayer::DelegateGetBoolIntInt ( int SlotId, int ClassId )
 
     this->ProcessEvent ( pFnDelegateGetBoolIntInt, &DelegateGetBoolIntInt_Parms, NULL );
 
-    return DelegateGetBoolIntInt_Parms.ReturnValue;
+    return DelegateGetBoolIntInt_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.DelegateIntIntInt
@@ -16259,7 +16259,7 @@ bool UGFxTrMenuMoviePlayer::DelegateIntIntInt ( int Val1, int Val2, int Val3 )
 
     this->ProcessEvent ( pFnDelegateIntIntInt, &DelegateIntIntInt_Parms, NULL );
 
-    return DelegateIntIntInt_Parms.ReturnValue;
+    return DelegateIntIntInt_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrMenuMoviePlayer.DelegateGetPrice
@@ -16778,7 +16778,7 @@ bool UGFxTrReticules::SetCustomReticule ( )
 
     this->ProcessEvent ( pFnSetCustomReticule, &SetCustomReticule_Parms, NULL );
 
-    return SetCustomReticule_Parms.ReturnValue;
+    return SetCustomReticule_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrReticules.ChangeReticule
@@ -17631,7 +17631,7 @@ bool UInterface_TrTripNotifier::eventGetTripSocketPosition ( unsigned long bIsLe
     if ( SocketPosition )
         memcpy ( SocketPosition, &GetTripSocketPosition_Parms.SocketPosition, 0xC );
 
-    return GetTripSocketPosition_Parms.ReturnValue;
+    return GetTripSocketPosition_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.Interface_TrTripNotifier.GetParticleSystemName
@@ -17747,7 +17747,7 @@ bool UTrAccoladeManager::CreditsGiven ( class UClass* Accolade )
 
     this->ProcessEvent ( pFnCreditsGiven, &CreditsGiven_Parms, NULL );
 
-    return CreditsGiven_Parms.ReturnValue;
+    return CreditsGiven_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrAccoladeManager.QueueAccolade
@@ -18937,7 +18937,7 @@ bool UTrAudioSettings::GetBassBoost ( )
 
     this->ProcessEvent ( pFnGetBassBoost, &GetBassBoost_Parms, NULL );
 
-    return GetBassBoost_Parms.ReturnValue;
+    return GetBassBoost_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrAudioSettings.SetVoiceVolume
@@ -19553,7 +19553,7 @@ bool ATrCallIn::FireCompletedCallIn ( int CallInOffs, struct FVector TargetLocat
 
     this->ProcessEvent ( pFnFireCompletedCallIn, &FireCompletedCallIn_Parms, NULL );
 
-    return FireCompletedCallIn_Parms.ReturnValue;
+    return FireCompletedCallIn_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCallIn.VerifyPower
@@ -19572,7 +19572,7 @@ bool ATrCallIn::VerifyPower ( )
 
     this->ProcessEvent ( pFnVerifyPower, &VerifyPower_Parms, NULL );
 
-    return VerifyPower_Parms.ReturnValue;
+    return VerifyPower_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCallIn.VerifyCredits
@@ -19591,7 +19591,7 @@ bool ATrCallIn::VerifyCredits ( )
 
     this->ProcessEvent ( pFnVerifyCredits, &VerifyCredits_Parms, NULL );
 
-    return VerifyCredits_Parms.ReturnValue;
+    return VerifyCredits_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCallIn.GetCreditCost
@@ -20993,7 +20993,7 @@ bool ATrPlayerController::InTraining ( )
 
     this->ProcessEvent ( pFnInTraining, &InTraining_Parms, NULL );
 
-    return InTraining_Parms.ReturnValue;
+    return InTraining_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.TestTrainingSlot
@@ -21369,7 +21369,7 @@ bool ATrPlayerController::GetHUDFriendStateNotifications ( )
 
     this->ProcessEvent ( pFnGetHUDFriendStateNotifications, &GetHUDFriendStateNotifications_Parms, NULL );
 
-    return GetHUDFriendStateNotifications_Parms.ReturnValue;
+    return GetHUDFriendStateNotifications_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.GetHUDNotifications
@@ -21388,7 +21388,7 @@ bool ATrPlayerController::GetHUDNotifications ( )
 
     this->ProcessEvent ( pFnGetHUDNotifications, &GetHUDNotifications_Parms, NULL );
 
-    return GetHUDNotifications_Parms.ReturnValue;
+    return GetHUDNotifications_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.GetHUDObjectivesValue
@@ -21407,7 +21407,7 @@ bool ATrPlayerController::GetHUDObjectivesValue ( )
 
     this->ProcessEvent ( pFnGetHUDObjectivesValue, &GetHUDObjectivesValue_Parms, NULL );
 
-    return GetHUDObjectivesValue_Parms.ReturnValue;
+    return GetHUDObjectivesValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.ShowAlienFX
@@ -21822,7 +21822,7 @@ bool ATrPlayerController::GetDamageCounterValue ( )
 
     this->ProcessEvent ( pFnGetDamageCounterValue, &GetDamageCounterValue_Parms, NULL );
 
-    return GetDamageCounterValue_Parms.ReturnValue;
+    return GetDamageCounterValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.EnableDamageCounter
@@ -21859,7 +21859,7 @@ bool ATrPlayerController::GetChatFilterValue ( )
 
     this->ProcessEvent ( pFnGetChatFilterValue, &GetChatFilterValue_Parms, NULL );
 
-    return GetChatFilterValue_Parms.ReturnValue;
+    return GetChatFilterValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.EnableChatFilter
@@ -21896,7 +21896,7 @@ bool ATrPlayerController::GetTinyWeaponValue ( )
 
     this->ProcessEvent ( pFnGetTinyWeaponValue, &GetTinyWeaponValue_Parms, NULL );
 
-    return GetTinyWeaponValue_Parms.ReturnValue;
+    return GetTinyWeaponValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.EnableTinyWeapons
@@ -22199,7 +22199,7 @@ bool ATrPlayerController::IsGameTypeCaH ( )
 
     this->ProcessEvent ( pFnIsGameTypeCaH, &IsGameTypeCaH_Parms, NULL );
 
-    return IsGameTypeCaH_Parms.ReturnValue;
+    return IsGameTypeCaH_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.IsGameTypeDaD
@@ -22218,7 +22218,7 @@ bool ATrPlayerController::IsGameTypeDaD ( )
 
     this->ProcessEvent ( pFnIsGameTypeDaD, &IsGameTypeDaD_Parms, NULL );
 
-    return IsGameTypeDaD_Parms.ReturnValue;
+    return IsGameTypeDaD_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.IsGameTypeArena
@@ -22237,7 +22237,7 @@ bool ATrPlayerController::IsGameTypeArena ( )
 
     this->ProcessEvent ( pFnIsGameTypeArena, &IsGameTypeArena_Parms, NULL );
 
-    return IsGameTypeArena_Parms.ReturnValue;
+    return IsGameTypeArena_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.CalcCameraOnViewTarget
@@ -22612,7 +22612,7 @@ bool ATrPlayerController::InRovingSpectate ( )
 
     this->ProcessEvent ( pFnInRovingSpectate, &InRovingSpectate_Parms, NULL );
 
-    return InRovingSpectate_Parms.ReturnValue;
+    return InRovingSpectate_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.GetViewTargetList
@@ -23023,7 +23023,7 @@ bool ATrPlayerController::eventNotifyHitWall ( struct FVector HitNormal, class A
 
     this->ProcessEvent ( pFnNotifyHitWall, &NotifyHitWall_Parms, NULL );
 
-    return NotifyHitWall_Parms.ReturnValue;
+    return NotifyHitWall_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.UpdatePotentialSeekingTargets
@@ -23137,7 +23137,7 @@ bool ATrPlayerController::RegisterPendingClass ( int ClassId, int Loadout )
 
     this->ProcessEvent ( pFnRegisterPendingClass, &RegisterPendingClass_Parms, NULL );
 
-    return RegisterPendingClass_Parms.ReturnValue;
+    return RegisterPendingClass_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.LoadPendingDeviceContentData
@@ -23580,7 +23580,7 @@ bool ATrPlayerController::AllowTextMessage ( struct FString msg )
 
     this->ProcessEvent ( pFnAllowTextMessage, &AllowTextMessage_Parms, NULL );
 
-    return AllowTextMessage_Parms.ReturnValue;
+    return AllowTextMessage_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.TeamSay
@@ -23669,7 +23669,7 @@ bool ATrPlayerController::CanCommunicate ( )
 
     this->ProcessEvent ( pFnCanCommunicate, &CanCommunicate_Parms, NULL );
 
-    return CanCommunicate_Parms.ReturnValue;
+    return CanCommunicate_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.Talk
@@ -23796,7 +23796,7 @@ bool ATrPlayerController::SendPrivateChatMessage ( struct FString PlayerName, st
 
     this->ProcessEvent ( pFnSendPrivateChatMessage, &SendPrivateChatMessage_Parms, NULL );
 
-    return SendPrivateChatMessage_Parms.ReturnValue;
+    return SendPrivateChatMessage_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.BroadcastChatMessage
@@ -23819,7 +23819,7 @@ bool ATrPlayerController::BroadcastChatMessage ( unsigned char Channel, struct F
 
     this->ProcessEvent ( pFnBroadcastChatMessage, &BroadcastChatMessage_Parms, NULL );
 
-    return BroadcastChatMessage_Parms.ReturnValue;
+    return BroadcastChatMessage_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.ShowFeedbackMessage
@@ -23858,7 +23858,7 @@ bool ATrPlayerController::IsPlayerCommand ( struct FString msg )
 
     this->ProcessEvent ( pFnIsPlayerCommand, &IsPlayerCommand_Parms, NULL );
 
-    return IsPlayerCommand_Parms.ReturnValue;
+    return IsPlayerCommand_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.Say
@@ -23913,7 +23913,7 @@ bool ATrPlayerController::ChooseDiamondSword ( )
 
     this->ProcessEvent ( pFnChooseDiamondSword, &ChooseDiamondSword_Parms, NULL );
 
-    return ChooseDiamondSword_Parms.ReturnValue;
+    return ChooseDiamondSword_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.ChooseBloodEagle
@@ -23932,7 +23932,7 @@ bool ATrPlayerController::ChooseBloodEagle ( )
 
     this->ProcessEvent ( pFnChooseBloodEagle, &ChooseBloodEagle_Parms, NULL );
 
-    return ChooseBloodEagle_Parms.ReturnValue;
+    return ChooseBloodEagle_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.AllowHelpTextToDisplay
@@ -23951,7 +23951,7 @@ bool ATrPlayerController::AllowHelpTextToDisplay ( )
 
     this->ProcessEvent ( pFnAllowHelpTextToDisplay, &AllowHelpTextToDisplay_Parms, NULL );
 
-    return AllowHelpTextToDisplay_Parms.ReturnValue;
+    return AllowHelpTextToDisplay_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.SuppressHelpText
@@ -24625,7 +24625,7 @@ bool ATrPlayerController::PerformedUseAction ( )
 
     this->ProcessEvent ( pFnPerformedUseAction, &PerformedUseAction_Parms, NULL );
 
-    return PerformedUseAction_Parms.ReturnValue;
+    return PerformedUseAction_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.ServerRequestSpawnVehicle
@@ -25019,7 +25019,7 @@ bool ATrPlayerController::NeedToVisitInventoryStation ( )
 
     this->ProcessEvent ( pFnNeedToVisitInventoryStation, &NeedToVisitInventoryStation_Parms, NULL );
 
-    return NeedToVisitInventoryStation_Parms.ReturnValue;
+    return NeedToVisitInventoryStation_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.TriggerInteracted
@@ -25038,7 +25038,7 @@ bool ATrPlayerController::TriggerInteracted ( )
 
     this->ProcessEvent ( pFnTriggerInteracted, &TriggerInteracted_Parms, NULL );
 
-    return TriggerInteracted_Parms.ReturnValue;
+    return TriggerInteracted_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.ServerSwitchToSeat
@@ -25287,7 +25287,7 @@ bool ATrPlayerController::IsInVehicle ( )
 
     this->ProcessEvent ( pFnIsInVehicle, &IsInVehicle_Parms, NULL );
 
-    return IsInVehicle_Parms.ReturnValue;
+    return IsInVehicle_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.SetAirVehicleControls
@@ -25342,7 +25342,7 @@ bool ATrPlayerController::GetAirVehicleInversion ( )
 
     this->ProcessEvent ( pFnGetAirVehicleInversion, &GetAirVehicleInversion_Parms, NULL );
 
-    return GetAirVehicleInversion_Parms.ReturnValue;
+    return GetAirVehicleInversion_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.RefreshHUD
@@ -25924,7 +25924,7 @@ bool ATrPlayerController::ServerRequestPickTeam ( unsigned char RequestedTeamNum
 
     this->ProcessEvent ( pFnServerRequestPickTeam, &ServerRequestPickTeam_Parms, NULL );
 
-    return ServerRequestPickTeam_Parms.ReturnValue;
+    return ServerRequestPickTeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.ClientStartSpawnTimer
@@ -26496,7 +26496,7 @@ bool ATrPlayerController::AimingHelp ( unsigned long bInstantHit )
 
     this->ProcessEvent ( pFnAimingHelp, &AimingHelp_Parms, NULL );
 
-    return AimingHelp_Parms.ReturnValue;
+    return AimingHelp_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.GetDeviceByEquipPoint
@@ -27206,7 +27206,7 @@ bool ATrPlayerController::IsGameUsingSeekFreeLoading ( )
 
     pFnIsGameUsingSeekFreeLoading->FunctionFlags |= 0x400;
 
-    return IsGameUsingSeekFreeLoading_Parms.ReturnValue;
+    return IsGameUsingSeekFreeLoading_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController._Crash
@@ -27441,7 +27441,7 @@ bool ATrPlayerController::IsBassBoostToggled ( )
 
     pFnIsBassBoostToggled->FunctionFlags |= 0x400;
 
-    return IsBassBoostToggled_Parms.ReturnValue;
+    return IsBassBoostToggled_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.ToggleBassBoost
@@ -27692,7 +27692,7 @@ bool ATrPlayerController::IsChatFiltered ( struct FString PlayerName )
 
     pFnIsChatFiltered->FunctionFlags |= 0x400;
 
-    return IsChatFiltered_Parms.ReturnValue;
+    return IsChatFiltered_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.HaveMenu
@@ -27715,7 +27715,7 @@ bool ATrPlayerController::HaveMenu ( )
 
     pFnHaveMenu->FunctionFlags |= 0x400;
 
-    return HaveMenu_Parms.ReturnValue;
+    return HaveMenu_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.IsTrPlayerMuted
@@ -27740,7 +27740,7 @@ bool ATrPlayerController::IsTrPlayerMuted ( struct FString PlayerName )
 
     pFnIsTrPlayerMuted->FunctionFlags |= 0x400;
 
-    return IsTrPlayerMuted_Parms.ReturnValue;
+    return IsTrPlayerMuted_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.UnmutePlayer
@@ -28216,7 +28216,7 @@ bool ATrPlayerController::MainMenuIsOpen ( )
 
     pFnMainMenuIsOpen->FunctionFlags |= 0x400;
 
-    return MainMenuIsOpen_Parms.ReturnValue;
+    return MainMenuIsOpen_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerController.KickPlayerFromMatch
@@ -28866,7 +28866,7 @@ bool ATrCollisionProxy::eventShouldIgnoreActor ( class AActor* Actor )
 
     this->ProcessEvent ( pFnShouldIgnoreActor, &ShouldIgnoreActor_Parms, NULL );
 
-    return ShouldIgnoreActor_Parms.ReturnValue;
+    return ShouldIgnoreActor_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCollisionProxy.UnTouch
@@ -29097,7 +29097,7 @@ bool UTrContentLoader::StartLoadingDeviceContentPackage ( class UClass* WeaponCl
 
     pFnStartLoadingDeviceContentPackage->FunctionFlags |= 0x400;
 
-    return StartLoadingDeviceContentPackage_Parms.ReturnValue;
+    return StartLoadingDeviceContentPackage_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrControlSettings.GetHUDObjectivesValue
@@ -29116,7 +29116,7 @@ bool UTrControlSettings::GetHUDObjectivesValue ( )
 
     this->ProcessEvent ( pFnGetHUDObjectivesValue, &GetHUDObjectivesValue_Parms, NULL );
 
-    return GetHUDObjectivesValue_Parms.ReturnValue;
+    return GetHUDObjectivesValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrControlSettings.SaveHUDObjectivesValue
@@ -29153,7 +29153,7 @@ bool UTrControlSettings::GetDamageCounterValue ( )
 
     this->ProcessEvent ( pFnGetDamageCounterValue, &GetDamageCounterValue_Parms, NULL );
 
-    return GetDamageCounterValue_Parms.ReturnValue;
+    return GetDamageCounterValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrControlSettings.SaveDamageCounterValue
@@ -29190,7 +29190,7 @@ bool UTrControlSettings::GetSimulatedProjectilesValue ( )
 
     this->ProcessEvent ( pFnGetSimulatedProjectilesValue, &GetSimulatedProjectilesValue_Parms, NULL );
 
-    return GetSimulatedProjectilesValue_Parms.ReturnValue;
+    return GetSimulatedProjectilesValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrControlSettings.SaveSimulatedProjectilesValue
@@ -29227,7 +29227,7 @@ bool UTrControlSettings::GetHelpTextValue ( )
 
     this->ProcessEvent ( pFnGetHelpTextValue, &GetHelpTextValue_Parms, NULL );
 
-    return GetHelpTextValue_Parms.ReturnValue;
+    return GetHelpTextValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrControlSettings.SaveHelpTextValue
@@ -29301,7 +29301,7 @@ bool UTrControlSettings::GetHUDFriendStateNotifications ( )
 
     this->ProcessEvent ( pFnGetHUDFriendStateNotifications, &GetHUDFriendStateNotifications_Parms, NULL );
 
-    return GetHUDFriendStateNotifications_Parms.ReturnValue;
+    return GetHUDFriendStateNotifications_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrControlSettings.SaveHUDFriendStateNotificationsValue
@@ -29338,7 +29338,7 @@ bool UTrControlSettings::GetChatFilterValue ( )
 
     this->ProcessEvent ( pFnGetChatFilterValue, &GetChatFilterValue_Parms, NULL );
 
-    return GetChatFilterValue_Parms.ReturnValue;
+    return GetChatFilterValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrControlSettings.SaveChatFilterValue
@@ -29393,7 +29393,7 @@ bool UTrControlSettings::GetAlienFXValue ( )
 
     this->ProcessEvent ( pFnGetAlienFXValue, &GetAlienFXValue_Parms, NULL );
 
-    return GetAlienFXValue_Parms.ReturnValue;
+    return GetAlienFXValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrControlSettings.GetTinyWeaponValue
@@ -29412,7 +29412,7 @@ bool UTrControlSettings::GetTinyWeaponValue ( )
 
     this->ProcessEvent ( pFnGetTinyWeaponValue, &GetTinyWeaponValue_Parms, NULL );
 
-    return GetTinyWeaponValue_Parms.ReturnValue;
+    return GetTinyWeaponValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrControlSettings.SaveTinyWeaponValue
@@ -30007,7 +30007,7 @@ bool ATrDevice::CanViewZoom ( )
 
     this->ProcessEvent ( pFnCanViewZoom, &CanViewZoom_Parms, NULL );
 
-    return CanViewZoom_Parms.ReturnValue;
+    return CanViewZoom_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.EndZoom
@@ -30169,7 +30169,7 @@ bool ATrDevice::CanAutoDeviceFireNow ( )
 
     this->ProcessEvent ( pFnCanAutoDeviceFireNow, &CanAutoDeviceFireNow_Parms, NULL );
 
-    return CanAutoDeviceFireNow_Parms.ReturnValue;
+    return CanAutoDeviceFireNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.ForceEndFire
@@ -30224,7 +30224,7 @@ bool ATrDevice::DenyPickupQuery ( class UClass* ItemClass, class AActor* Pickup 
 
     this->ProcessEvent ( pFnDenyPickupQuery, &DenyPickupQuery_Parms, NULL );
 
-    return DenyPickupQuery_Parms.ReturnValue;
+    return DenyPickupQuery_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.AnnounceInvalidPickup
@@ -30295,7 +30295,7 @@ bool ATrDevice::ShouldRefire ( )
 
     this->ProcessEvent ( pFnShouldRefire, &ShouldRefire_Parms, NULL );
 
-    return ShouldRefire_Parms.ReturnValue;
+    return ShouldRefire_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.LagRot
@@ -30411,7 +30411,7 @@ bool ATrDevice::CanFireOffhandNow ( )
 
     this->ProcessEvent ( pFnCanFireOffhandNow, &CanFireOffhandNow_Parms, NULL );
 
-    return CanFireOffhandNow_Parms.ReturnValue;
+    return CanFireOffhandNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.GetPutDownTime
@@ -30736,7 +30736,7 @@ bool ATrDevice::IsReloading ( )
 
     this->ProcessEvent ( pFnIsReloading, &IsReloading_Parms, NULL );
 
-    return IsReloading_Parms.ReturnValue;
+    return IsReloading_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.SuppressAnimNotifies
@@ -30809,7 +30809,7 @@ bool ATrDevice::IsInConduitWithVelocity ( )
 
     pFnIsInConduitWithVelocity->FunctionFlags |= 0x400;
 
-    return IsInConduitWithVelocity_Parms.ReturnValue;
+    return IsInConduitWithVelocity_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.GetReloadTime
@@ -30867,7 +30867,7 @@ bool ATrDevice::CanClientRequestReloadNow ( )
 
     this->ProcessEvent ( pFnCanClientRequestReloadNow, &CanClientRequestReloadNow_Parms, NULL );
 
-    return CanClientRequestReloadNow_Parms.ReturnValue;
+    return CanClientRequestReloadNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.GetAimForCamera
@@ -31073,7 +31073,7 @@ bool ATrDevice::NeedToVisitInventoryStation ( )
 
     this->ProcessEvent ( pFnNeedToVisitInventoryStation, &NeedToVisitInventoryStation_Parms, NULL );
 
-    return NeedToVisitInventoryStation_Parms.ReturnValue;
+    return NeedToVisitInventoryStation_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.ShowWeaponRedLowAmmoIndicator
@@ -31092,7 +31092,7 @@ bool ATrDevice::ShowWeaponRedLowAmmoIndicator ( )
 
     this->ProcessEvent ( pFnShowWeaponRedLowAmmoIndicator, &ShowWeaponRedLowAmmoIndicator_Parms, NULL );
 
-    return ShowWeaponRedLowAmmoIndicator_Parms.ReturnValue;
+    return ShowWeaponRedLowAmmoIndicator_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.GetAdjustedAim
@@ -31132,7 +31132,7 @@ bool ATrDevice::AddKickback ( )
 
     this->ProcessEvent ( pFnAddKickback, &AddKickback_Parms, NULL );
 
-    return AddKickback_Parms.ReturnValue;
+    return AddKickback_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.GetCurrentKickbackAmount
@@ -31312,7 +31312,7 @@ bool ATrDevice::IsDeviceCoolingDown ( unsigned char FireModeNum )
 
     this->ProcessEvent ( pFnIsDeviceCoolingDown, &IsDeviceCoolingDown_Parms, NULL );
 
-    return IsDeviceCoolingDown_Parms.ReturnValue;
+    return IsDeviceCoolingDown_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.UsesPower
@@ -31331,7 +31331,7 @@ bool ATrDevice::UsesPower ( )
 
     this->ProcessEvent ( pFnUsesPower, &UsesPower_Parms, NULL );
 
-    return UsesPower_Parms.ReturnValue;
+    return UsesPower_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.ProcessEffect
@@ -31504,7 +31504,7 @@ bool ATrDevice::AllowSwitchTo ( class AWeapon* NewWeapon )
 
     this->ProcessEvent ( pFnAllowSwitchTo, &AllowSwitchTo_Parms, NULL );
 
-    return AllowSwitchTo_Parms.ReturnValue;
+    return AllowSwitchTo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.HasAnyAmmo
@@ -31523,7 +31523,7 @@ bool ATrDevice::HasAnyAmmo ( )
 
     this->ProcessEvent ( pFnHasAnyAmmo, &HasAnyAmmo_Parms, NULL );
 
-    return HasAnyAmmo_Parms.ReturnValue;
+    return HasAnyAmmo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.HasAmmo
@@ -31546,7 +31546,7 @@ bool ATrDevice::HasAmmo ( unsigned char FireModeNum, int Amount )
 
     this->ProcessEvent ( pFnHasAmmo, &HasAmmo_Parms, NULL );
 
-    return HasAmmo_Parms.ReturnValue;
+    return HasAmmo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.GetNumRoundsCurrentlyInClip
@@ -31650,7 +31650,7 @@ bool ATrDevice::ShouldFireTracerBeam ( )
 
     this->ProcessEvent ( pFnShouldFireTracerBeam, &ShouldFireTracerBeam_Parms, NULL );
 
-    return ShouldFireTracerBeam_Parms.ReturnValue;
+    return ShouldFireTracerBeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.ShouldFireTracer
@@ -31669,7 +31669,7 @@ bool ATrDevice::ShouldFireTracer ( )
 
     this->ProcessEvent ( pFnShouldFireTracer, &ShouldFireTracer_Parms, NULL );
 
-    return ShouldFireTracer_Parms.ReturnValue;
+    return ShouldFireTracer_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.ShakeView
@@ -32069,7 +32069,7 @@ bool ATrDevice::ReplicateAmmoOnWeaponFire ( )
 
     this->ProcessEvent ( pFnReplicateAmmoOnWeaponFire, &ReplicateAmmoOnWeaponFire_Parms, NULL );
 
-    return ReplicateAmmoOnWeaponFire_Parms.ReturnValue;
+    return ReplicateAmmoOnWeaponFire_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.AddAmmo
@@ -32306,7 +32306,7 @@ bool ATrDevice::IsInLOS ( class AActor* TouchedActor, struct FVector ExpectedLoc
 
     pFnIsInLOS->FunctionFlags |= 0x400;
 
-    return IsInLOS_Parms.ReturnValue;
+    return IsInLOS_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.RestoreKickback
@@ -32513,7 +32513,7 @@ bool ATrDevice::ShouldAddToImpactList ( class AActor* HitActor, TArray< struct F
 
     pFnShouldAddToImpactList->FunctionFlags |= 0x400;
 
-    return ShouldAddToImpactList_Parms.ReturnValue;
+    return ShouldAddToImpactList_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.IsInsideCone
@@ -32544,7 +32544,7 @@ bool ATrDevice::IsInsideCone ( struct FVector SourceLookDir, class AActor* Targe
 
     pFnIsInsideCone->FunctionFlags |= 0x400;
 
-    return IsInsideCone_Parms.ReturnValue;
+    return IsInsideCone_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.IsEnemy
@@ -32569,7 +32569,7 @@ bool ATrDevice::IsEnemy ( class AActor* Target )
 
     pFnIsEnemy->FunctionFlags |= 0x400;
 
-    return IsEnemy_Parms.ReturnValue;
+    return IsEnemy_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.IsValidTarget
@@ -32596,7 +32596,7 @@ bool ATrDevice::IsValidTarget ( class AActor* Target, int nFireMode )
 
     pFnIsValidTarget->FunctionFlags |= 0x400;
 
-    return IsValidTarget_Parms.ReturnValue;
+    return IsValidTarget_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice.GetFireModeNum
@@ -32725,7 +32725,7 @@ bool ATrDevice_AutoFire::CanViewZoom ( )
 
     this->ProcessEvent ( pFnCanViewZoom, &CanViewZoom_Parms, NULL );
 
-    return CanViewZoom_Parms.ReturnValue;
+    return CanViewZoom_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_AutoFire.IncrementFlashCount
@@ -32824,7 +32824,7 @@ bool ATrDevice_AutoFire::CanAutoDeviceFireNow ( )
 
     this->ProcessEvent ( pFnCanAutoDeviceFireNow, &CanAutoDeviceFireNow_Parms, NULL );
 
-    return CanAutoDeviceFireNow_Parms.ReturnValue;
+    return CanAutoDeviceFireNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_AutoFire.DoOverridePrevWeapon
@@ -32843,7 +32843,7 @@ bool ATrDevice_AutoFire::DoOverridePrevWeapon ( )
 
     this->ProcessEvent ( pFnDoOverridePrevWeapon, &DoOverridePrevWeapon_Parms, NULL );
 
-    return DoOverridePrevWeapon_Parms.ReturnValue;
+    return DoOverridePrevWeapon_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_AutoFire.DoOverrideNextWeapon
@@ -32862,7 +32862,7 @@ bool ATrDevice_AutoFire::DoOverrideNextWeapon ( )
 
     this->ProcessEvent ( pFnDoOverrideNextWeapon, &DoOverrideNextWeapon_Parms, NULL );
 
-    return DoOverrideNextWeapon_Parms.ReturnValue;
+    return DoOverrideNextWeapon_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_AutoFire.CanFireNow
@@ -32881,7 +32881,7 @@ bool ATrDevice_AutoFire::CanFireNow ( )
 
     this->ProcessEvent ( pFnCanFireNow, &CanFireNow_Parms, NULL );
 
-    return CanFireNow_Parms.ReturnValue;
+    return CanFireNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_AutoFire.OnAnimEnd
@@ -32978,7 +32978,7 @@ bool ATrDevice_AutoFire::HasAmmo ( unsigned char FireModeNum, int Amount )
 
     this->ProcessEvent ( pFnHasAmmo, &HasAmmo_Parms, NULL );
 
-    return HasAmmo_Parms.ReturnValue;
+    return HasAmmo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_AutoFire.PerformInactiveReload
@@ -33249,7 +33249,7 @@ bool ATrDevice_Deployable::HasAmmo ( unsigned char FireModeNum, int Amount )
 
     this->ProcessEvent ( pFnHasAmmo, &HasAmmo_Parms, NULL );
 
-    return HasAmmo_Parms.ReturnValue;
+    return HasAmmo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.HasAnyAmmo
@@ -33268,7 +33268,7 @@ bool ATrDevice_Deployable::HasAnyAmmo ( )
 
     this->ProcessEvent ( pFnHasAnyAmmo, &HasAnyAmmo_Parms, NULL );
 
-    return HasAnyAmmo_Parms.ReturnValue;
+    return HasAnyAmmo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.GetAmmoCount
@@ -33306,7 +33306,7 @@ bool ATrDevice_Deployable::CanAutoDeviceFireNow ( )
 
     this->ProcessEvent ( pFnCanAutoDeviceFireNow, &CanAutoDeviceFireNow_Parms, NULL );
 
-    return CanAutoDeviceFireNow_Parms.ReturnValue;
+    return CanAutoDeviceFireNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.CustomFire
@@ -33365,7 +33365,7 @@ bool ATrDevice_Deployable::IsValidDesiredDeploy ( struct FVector DesiredPlacemen
 
     this->ProcessEvent ( pFnIsValidDesiredDeploy, &IsValidDesiredDeploy_Parms, NULL );
 
-    return IsValidDesiredDeploy_Parms.ReturnValue;
+    return IsValidDesiredDeploy_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.StartFire
@@ -33524,7 +33524,7 @@ bool ATrDevice_Deployable::eventCanAttemptDeploy ( )
 
     this->ProcessEvent ( pFnCanAttemptDeploy, &CanAttemptDeploy_Parms, NULL );
 
-    return CanAttemptDeploy_Parms.ReturnValue;
+    return CanAttemptDeploy_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.AddAmmo
@@ -33605,7 +33605,7 @@ bool ATrDevice_Deployable::BelowMaxCountLimit ( unsigned long bDestroyOldest )
 
     this->ProcessEvent ( pFnBelowMaxCountLimit, &BelowMaxCountLimit_Parms, NULL );
 
-    return BelowMaxCountLimit_Parms.ReturnValue;
+    return BelowMaxCountLimit_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.IsDeployableOldest
@@ -33626,7 +33626,7 @@ bool ATrDevice_Deployable::eventIsDeployableOldest ( class ATrDeployable* OtherD
 
     this->ProcessEvent ( pFnIsDeployableOldest, &IsDeployableOldest_Parms, NULL );
 
-    return IsDeployableOldest_Parms.ReturnValue;
+    return IsDeployableOldest_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.GetMaxDeployedLimit
@@ -33664,7 +33664,7 @@ bool ATrDevice_Deployable::TryPutDown ( )
 
     this->ProcessEvent ( pFnTryPutDown, &TryPutDown_Parms, NULL );
 
-    return TryPutDown_Parms.ReturnValue;
+    return TryPutDown_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.ResumeInhandWeapon
@@ -33821,7 +33821,7 @@ bool ATrDevice_Deployable::IsValidOutsideCheck ( struct FVector DeployLocation, 
 
     pFnIsValidOutsideCheck->FunctionFlags |= 0x400;
 
-    return IsValidOutsideCheck_Parms.ReturnValue;
+    return IsValidOutsideCheck_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.IsValidDeployProximity
@@ -33848,7 +33848,7 @@ bool ATrDevice_Deployable::IsValidDeployProximity ( struct FVector DeployLocatio
 
     pFnIsValidDeployProximity->FunctionFlags |= 0x400;
 
-    return IsValidDeployProximity_Parms.ReturnValue;
+    return IsValidDeployProximity_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.IsValidDeployVolume
@@ -33881,7 +33881,7 @@ bool ATrDevice_Deployable::IsValidDeployVolume ( unsigned long VerificationCheck
     if ( OutRotation )
         memcpy ( OutRotation, &IsValidDeployVolume_Parms.OutRotation, 0xC );
 
-    return IsValidDeployVolume_Parms.ReturnValue;
+    return IsValidDeployVolume_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.IsValidDeployTerrain
@@ -33914,7 +33914,7 @@ bool ATrDevice_Deployable::IsValidDeployTerrain ( unsigned long VerificationChec
     if ( OutRotation )
         memcpy ( OutRotation, &IsValidDeployTerrain_Parms.OutRotation, 0xC );
 
-    return IsValidDeployTerrain_Parms.ReturnValue;
+    return IsValidDeployTerrain_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Deployable.Deploy
@@ -34669,7 +34669,7 @@ bool UTrEquipInterface::RequestPurchaseGOTY ( )
 
     pFnRequestPurchaseGOTY->FunctionFlags |= 0x400;
 
-    return RequestPurchaseGOTY_Parms.ReturnValue;
+    return RequestPurchaseGOTY_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetGOTYPrice
@@ -34721,7 +34721,7 @@ bool UTrEquipInterface::SetReticuleString ( int EquipId, unsigned char Type, str
 
     pFnSetReticuleString->FunctionFlags |= 0x400;
 
-    return SetReticuleString_Parms.ReturnValue;
+    return SetReticuleString_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetReticuleString
@@ -34777,7 +34777,7 @@ bool UTrEquipInterface::SetReticuleValue ( int EquipId, unsigned char Type, int 
 
     pFnSetReticuleValue->FunctionFlags |= 0x400;
 
-    return SetReticuleValue_Parms.ReturnValue;
+    return SetReticuleValue_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetReticuleValue
@@ -34829,7 +34829,7 @@ bool UTrEquipInterface::OwnsReticule ( int EquipId )
 
     pFnOwnsReticule->FunctionFlags |= 0x400;
 
-    return OwnsReticule_Parms.ReturnValue;
+    return OwnsReticule_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.HasReticule
@@ -34854,7 +34854,7 @@ bool UTrEquipInterface::HasReticule ( int EquipId )
 
     pFnHasReticule->FunctionFlags |= 0x400;
 
-    return HasReticule_Parms.ReturnValue;
+    return HasReticule_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetVendorItemPrice
@@ -34887,7 +34887,7 @@ bool UTrEquipInterface::GetVendorItemPrice ( int VendorId, int VendorItemId, int
     if ( Price )
         *Price = GetVendorItemPrice_Parms.Price;
 
-    return GetVendorItemPrice_Parms.ReturnValue;
+    return GetVendorItemPrice_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetVendorItemInfo
@@ -34926,7 +34926,7 @@ bool UTrEquipInterface::GetVendorItemInfo ( int VendorId, int VendorItemId, stru
     if ( ribbonDesc )
         memcpy ( ribbonDesc, &GetVendorItemInfo_Parms.ribbonDesc, 0xC );
 
-    return GetVendorItemInfo_Parms.ReturnValue;
+    return GetVendorItemInfo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetVendorItemId
@@ -35009,7 +35009,7 @@ bool UTrEquipInterface::RequestPurchaseGeneral ( int VendorId, int VendorItemId,
 
     pFnRequestPurchaseGeneral->FunctionFlags |= 0x400;
 
-    return RequestPurchaseGeneral_Parms.ReturnValue;
+    return RequestPurchaseGeneral_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.SaveProfile
@@ -35062,7 +35062,7 @@ bool UTrEquipInterface::RequestPurchaseUpgrade ( int ClassId, int Type, int equi
 
     pFnRequestPurchaseUpgrade->FunctionFlags |= 0x400;
 
-    return RequestPurchaseUpgrade_Parms.ReturnValue;
+    return RequestPurchaseUpgrade_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.RequestPurchaseReticule
@@ -35093,7 +35093,7 @@ bool UTrEquipInterface::RequestPurchaseReticule ( int ClassId, int Type, int equ
 
     pFnRequestPurchaseReticule->FunctionFlags |= 0x400;
 
-    return RequestPurchaseReticule_Parms.ReturnValue;
+    return RequestPurchaseReticule_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.RequestPurchaseEquip
@@ -35124,7 +35124,7 @@ bool UTrEquipInterface::RequestPurchaseEquip ( int ClassId, int Type, int equip,
 
     pFnRequestPurchaseEquip->FunctionFlags |= 0x400;
 
-    return RequestPurchaseEquip_Parms.ReturnValue;
+    return RequestPurchaseEquip_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.RequestPurchaseLoadout
@@ -35153,7 +35153,7 @@ bool UTrEquipInterface::RequestPurchaseLoadout ( int ClassId, int Loadout, int C
 
     pFnRequestPurchaseLoadout->FunctionFlags |= 0x400;
 
-    return RequestPurchaseLoadout_Parms.ReturnValue;
+    return RequestPurchaseLoadout_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.RequestPurchaseMastery
@@ -35182,7 +35182,7 @@ bool UTrEquipInterface::RequestPurchaseMastery ( int ClassId, int Type, int equi
 
     pFnRequestPurchaseMastery->FunctionFlags |= 0x400;
 
-    return RequestPurchaseMastery_Parms.ReturnValue;
+    return RequestPurchaseMastery_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.RequestPurchaseClass
@@ -35209,7 +35209,7 @@ bool UTrEquipInterface::RequestPurchaseClass ( int ClassId, int Currency )
 
     pFnRequestPurchaseClass->FunctionFlags |= 0x400;
 
-    return RequestPurchaseClass_Parms.ReturnValue;
+    return RequestPurchaseClass_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetUpgradePrice
@@ -35273,7 +35273,7 @@ bool UTrEquipInterface::CanEquipCategory ( int ClassId, int Type, int Loadout, i
 
     pFnCanEquipCategory->FunctionFlags |= 0x400;
 
-    return CanEquipCategory_Parms.ReturnValue;
+    return CanEquipCategory_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.CanEquip
@@ -35304,7 +35304,7 @@ bool UTrEquipInterface::CanEquip ( int ClassId, int Type, int Loadout, int equip
 
     pFnCanEquip->FunctionFlags |= 0x400;
 
-    return CanEquip_Parms.ReturnValue;
+    return CanEquip_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.SetActiveEquipId
@@ -35335,7 +35335,7 @@ bool UTrEquipInterface::SetActiveEquipId ( int ClassId, int Type, int Loadout, i
 
     pFnSetActiveEquipId->FunctionFlags |= 0x400;
 
-    return SetActiveEquipId_Parms.ReturnValue;
+    return SetActiveEquipId_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetActiveEquipId
@@ -35409,7 +35409,7 @@ bool UTrEquipInterface::RequestPurchaseDeal ( int Currency )
 
     pFnRequestPurchaseDeal->FunctionFlags |= 0x400;
 
-    return RequestPurchaseDeal_Parms.ReturnValue;
+    return RequestPurchaseDeal_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetDailyDealPercentOff
@@ -35639,7 +35639,7 @@ bool UTrEquipInterface::IsDailyDealOwned ( )
 
     pFnIsDailyDealOwned->FunctionFlags |= 0x400;
 
-    return IsDailyDealOwned_Parms.ReturnValue;
+    return IsDailyDealOwned_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetBundleParent
@@ -35689,7 +35689,7 @@ bool UTrEquipInterface::IsBundleOwned ( int BundleId )
 
     pFnIsBundleOwned->FunctionFlags |= 0x400;
 
-    return IsBundleOwned_Parms.ReturnValue;
+    return IsBundleOwned_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.SetLoadoutName
@@ -35718,7 +35718,7 @@ bool UTrEquipInterface::SetLoadoutName ( int ClassId, int Loadout, struct FStrin
 
     pFnSetLoadoutName->FunctionFlags |= 0x400;
 
-    return SetLoadoutName_Parms.ReturnValue;
+    return SetLoadoutName_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetLoadoutPrice
@@ -35801,7 +35801,7 @@ bool UTrEquipInterface::IsLoadoutOwned ( int ClassId, int Loadout )
 
     pFnIsLoadoutOwned->FunctionFlags |= 0x400;
 
-    return IsLoadoutOwned_Parms.ReturnValue;
+    return IsLoadoutOwned_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetMasteryPrice
@@ -36091,7 +36091,7 @@ bool UTrEquipInterface::IsEquipMaxed ( int ClassId, int Type, int equip )
 
     pFnIsEquipMaxed->FunctionFlags |= 0x400;
 
-    return IsEquipMaxed_Parms.ReturnValue;
+    return IsEquipMaxed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.IsEquipOwned
@@ -36120,7 +36120,7 @@ bool UTrEquipInterface::IsEquipOwned ( int ClassId, int Type, int equip )
 
     pFnIsEquipOwned->FunctionFlags |= 0x400;
 
-    return IsEquipOwned_Parms.ReturnValue;
+    return IsEquipOwned_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetEquipIdFiltered
@@ -36353,7 +36353,7 @@ bool UTrEquipInterface::IsClassOwned ( int ClassId )
 
     pFnIsClassOwned->FunctionFlags |= 0x400;
 
-    return IsClassOwned_Parms.ReturnValue;
+    return IsClassOwned_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.GetClassId
@@ -36403,7 +36403,7 @@ bool UTrEquipInterface::RegisterMarshalCallback ( struct FScriptDelegate Marshal
 
     pFnRegisterMarshalCallback->FunctionFlags |= 0x400;
 
-    return RegisterMarshalCallback_Parms.ReturnValue;
+    return RegisterMarshalCallback_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEquipInterface.OnMarshalEvent
@@ -36870,7 +36870,7 @@ bool ATrFlagBase::ValidHolder ( class AActor* Other )
 
     this->ProcessEvent ( pFnValidHolder, &ValidHolder_Parms, NULL );
 
-    return ValidHolder_Parms.ReturnValue;
+    return ValidHolder_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrFlagBase.SetHolder
@@ -36925,7 +36925,7 @@ bool ATrFlagBase::ShouldMinimapRenderFor ( class APlayerController* PC )
 
     this->ProcessEvent ( pFnShouldMinimapRenderFor, &ShouldMinimapRenderFor_Parms, NULL );
 
-    return ShouldMinimapRenderFor_Parms.ReturnValue;
+    return ShouldMinimapRenderFor_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrFlagBase.OnBaseChainChanged
@@ -37157,7 +37157,7 @@ bool ATrGame::CanEnterSpectate ( class ATrPlayerController* TrPC, unsigned long 
 
     this->ProcessEvent ( pFnCanEnterSpectate, &CanEnterSpectate_Parms, NULL );
 
-    return CanEnterSpectate_Parms.ReturnValue;
+    return CanEnterSpectate_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame.GetGameTypeId
@@ -37272,7 +37272,7 @@ bool ATrGame::AllowRespawn ( class ATrPlayerController* TrPC )
 
     this->ProcessEvent ( pFnAllowRespawn, &AllowRespawn_Parms, NULL );
 
-    return AllowRespawn_Parms.ReturnValue;
+    return AllowRespawn_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame.CanSpectate
@@ -37295,7 +37295,7 @@ bool ATrGame::CanSpectate ( class APlayerController* Viewer, class APlayerReplic
 
     this->ProcessEvent ( pFnCanSpectate, &CanSpectate_Parms, NULL );
 
-    return CanSpectate_Parms.ReturnValue;
+    return CanSpectate_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame.GetRankFromXP
@@ -37461,7 +37461,7 @@ bool ATrGame::AreTeamsUnbalanced ( )
 
     this->ProcessEvent ( pFnAreTeamsUnbalanced, &AreTeamsUnbalanced_Parms, NULL );
 
-    return AreTeamsUnbalanced_Parms.ReturnValue;
+    return AreTeamsUnbalanced_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame.AllowCheats
@@ -37482,7 +37482,7 @@ bool ATrGame::AllowCheats ( class APlayerController* P )
 
     this->ProcessEvent ( pFnAllowCheats, &AllowCheats_Parms, NULL );
 
-    return AllowCheats_Parms.ReturnValue;
+    return AllowCheats_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame.CreditsSortViaPC
@@ -37634,7 +37634,7 @@ bool ATrGame::AutoAssignTeam ( class AController* C )
 
     this->ProcessEvent ( pFnAutoAssignTeam, &AutoAssignTeam_Parms, NULL );
 
-    return AutoAssignTeam_Parms.ReturnValue;
+    return AutoAssignTeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame.RequestTeam
@@ -37657,7 +37657,7 @@ bool ATrGame::RequestTeam ( unsigned char RequestedTeamNum, class AController* C
 
     this->ProcessEvent ( pFnRequestTeam, &RequestTeam_Parms, NULL );
 
-    return RequestTeam_Parms.ReturnValue;
+    return RequestTeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame.PickTeamForMigration
@@ -37726,7 +37726,7 @@ bool ATrGame::ChangeTeam ( class AController* Other, int Num, unsigned long bNew
 
     this->ProcessEvent ( pFnChangeTeam, &ChangeTeam_Parms, NULL );
 
-    return ChangeTeam_Parms.ReturnValue;
+    return ChangeTeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame.RestartPlayer
@@ -37763,7 +37763,7 @@ bool ATrGame::ForceRespawn ( )
 
     this->ProcessEvent ( pFnForceRespawn, &ForceRespawn_Parms, NULL );
 
-    return ForceRespawn_Parms.ReturnValue;
+    return ForceRespawn_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame.ScoreKill
@@ -38469,7 +38469,7 @@ bool ATrCaHCapturePoint::IsPawnConsideredNearby ( class ATrPawn* TRP )
 
     this->ProcessEvent ( pFnIsPawnConsideredNearby, &IsPawnConsideredNearby_Parms, NULL );
 
-    return IsPawnConsideredNearby_Parms.ReturnValue;
+    return IsPawnConsideredNearby_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCaHCapturePoint.CheckNearbyPlayersTimer
@@ -38549,7 +38549,7 @@ bool ATrCaHCapturePoint::ShouldPostRenderForCaH ( )
 
     this->ProcessEvent ( pFnShouldPostRenderForCaH, &ShouldPostRenderForCaH_Parms, NULL );
 
-    return ShouldPostRenderForCaH_Parms.ReturnValue;
+    return ShouldPostRenderForCaH_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCaHCapturePoint.AwardPointTimer
@@ -38913,7 +38913,7 @@ bool ATrDeployable_PrismMine::NoConnectionExists ( class ATrDeployable_PrismMine
 
     this->ProcessEvent ( pFnNoConnectionExists, &NoConnectionExists_Parms, NULL );
 
-    return NoConnectionExists_Parms.ReturnValue;
+    return NoConnectionExists_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_PrismMine.DeployComplete
@@ -38986,7 +38986,7 @@ bool ATrDeployable_PrismMine::eventGetTripSocketPosition ( unsigned long bIsLeft
     if ( SocketPosition )
         memcpy ( SocketPosition, &GetTripSocketPosition_Parms.SocketPosition, 0xC );
 
-    return GetTripSocketPosition_Parms.ReturnValue;
+    return GetTripSocketPosition_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_PrismMine.GetParticleSystemName
@@ -39173,7 +39173,7 @@ bool ATrDeployable_Sensor::IsDeployed ( )
 
     this->ProcessEvent ( pFnIsDeployed, &IsDeployed_Parms, NULL );
 
-    return IsDeployed_Parms.ReturnValue;
+    return IsDeployed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_Sensor.OnPawnExitedCollisionProxy
@@ -39212,7 +39212,7 @@ bool ATrDeployable_Sensor::IsInRange ( class APawn* P )
 
     this->ProcessEvent ( pFnIsInRange, &IsInRange_Parms, NULL );
 
-    return IsInRange_Parms.ReturnValue;
+    return IsInRange_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_Sensor.OnPawnDetectedByCollisionProxy
@@ -39251,7 +39251,7 @@ bool ATrDeployable_Sensor::ShouldDetectPawn ( class APawn* P )
 
     this->ProcessEvent ( pFnShouldDetectPawn, &ShouldDetectPawn_Parms, NULL );
 
-    return ShouldDetectPawn_Parms.ReturnValue;
+    return ShouldDetectPawn_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_Sensor.ReleaseOutOfSightEnemies
@@ -39410,7 +39410,7 @@ bool ATrDeployable_Sensor::CheckLOS ( class APawn* Target )
 
     this->ProcessEvent ( pFnCheckLOS, &CheckLOS_Parms, NULL );
 
-    return CheckLOS_Parms.ReturnValue;
+    return CheckLOS_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_TripSensor.OnTripSleep
@@ -39467,7 +39467,7 @@ bool ATrDeployable_TripSensor::eventGetTripSocketPosition ( unsigned long bIsLef
     if ( SocketPosition )
         memcpy ( SocketPosition, &GetTripSocketPosition_Parms.SocketPosition, 0xC );
 
-    return GetTripSocketPosition_Parms.ReturnValue;
+    return GetTripSocketPosition_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_TripSensor.GetParticleSystemName
@@ -39565,7 +39565,7 @@ bool ATrStation::eventBlocksLineChecksFromSourceActor ( class AActor* SourceActo
 
     this->ProcessEvent ( pFnBlocksLineChecksFromSourceActor, &BlocksLineChecksFromSourceActor_Parms, NULL );
 
-    return BlocksLineChecksFromSourceActor_Parms.ReturnValue;
+    return BlocksLineChecksFromSourceActor_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrStation.PlayStationLeftEffects
@@ -39843,7 +39843,7 @@ bool ATrGameReplicationInfo::CanJoinTeam ( unsigned char RequestedTeam, unsigned
 
     this->ProcessEvent ( pFnCanJoinTeam, &CanJoinTeam_Parms, NULL );
 
-    return CanJoinTeam_Parms.ReturnValue;
+    return CanJoinTeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameReplicationInfo.GetTeamSize
@@ -39921,7 +39921,7 @@ bool ATrGameReplicationInfo::IsValidTeamPlayer ( class ATrPlayerReplicationInfo*
 
     this->ProcessEvent ( pFnIsValidTeamPlayer, &IsValidTeamPlayer_Parms, NULL );
 
-    return IsValidTeamPlayer_Parms.ReturnValue;
+    return IsValidTeamPlayer_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameReplicationInfo.IsClassAllowed
@@ -39944,7 +39944,7 @@ bool ATrGameReplicationInfo::IsClassAllowed ( int TeamNum, class UClass* FamilyI
 
     this->ProcessEvent ( pFnIsClassAllowed, &IsClassAllowed_Parms, NULL );
 
-    return IsClassAllowed_Parms.ReturnValue;
+    return IsClassAllowed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameReplicationInfo.ChangePhysicsType
@@ -40095,7 +40095,7 @@ bool ATrGameReplicationInfo::OnSameTeam ( class AActor* A, class AActor* B )
 
     this->ProcessEvent ( pFnOnSameTeam, &OnSameTeam_Parms, NULL );
 
-    return OnSameTeam_Parms.ReturnValue;
+    return OnSameTeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameReplicationInfo.Timer
@@ -40232,7 +40232,7 @@ bool ATrGameReplicationInfo::SetPhysicsPresetProperty ( int PhysicsProperty, flo
 
     this->ProcessEvent ( pFnSetPhysicsPresetProperty, &SetPhysicsPresetProperty_Parms, NULL );
 
-    return SetPhysicsPresetProperty_Parms.ReturnValue;
+    return SetPhysicsPresetProperty_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGameReplicationInfo.SetPhysicsPresetPropertyByName
@@ -41379,7 +41379,7 @@ bool ATrHUD::GetEdgeScreenCoordinates ( class UCanvas* inCanvas, struct FVector 
     if ( ScreenLocation )
         memcpy ( ScreenLocation, &GetEdgeScreenCoordinates_Parms.ScreenLocation, 0xC );
 
-    return GetEdgeScreenCoordinates_Parms.ReturnValue;
+    return GetEdgeScreenCoordinates_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrHUD.DrawMICMarker
@@ -41615,7 +41615,7 @@ bool ATrHUD::CheckCrosshairOnFriendly ( )
 
     this->ProcessEvent ( pFnCheckCrosshairOnFriendly, &CheckCrosshairOnFriendly_Parms, NULL );
 
-    return CheckCrosshairOnFriendly_Parms.ReturnValue;
+    return CheckCrosshairOnFriendly_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrHUD.ClearCrosshairOnFriendly
@@ -43601,7 +43601,7 @@ bool UTrLoginManager::Login ( struct FString UserName, struct FString Password, 
 
     this->ProcessEvent ( pFnLogin, &Login_Parms, NULL );
 
-    return Login_Parms.ReturnValue;
+    return Login_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrLoginManager.Initialize
@@ -43677,7 +43677,7 @@ bool UTrFriendManager::IsFriend ( struct FString PlayerName )
 
     this->ProcessEvent ( pFnIsFriend, &IsFriend_Parms, NULL );
 
-    return IsFriend_Parms.ReturnValue;
+    return IsFriend_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrFriendManager.GetOnlineFollowerCount
@@ -43841,7 +43841,7 @@ bool UTrFriendManager::JoinFriend ( struct FString PlayerName, struct FString Pa
 
     pFnJoinFriend->FunctionFlags |= 0x400;
 
-    return JoinFriend_Parms.ReturnValue;
+    return JoinFriend_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrFriendManager.AddFriend
@@ -44282,7 +44282,7 @@ bool ATrPaperDoll::IsFullyStreamed ( struct FPaperDollInfo PaperDoll )
 
     pFnIsFullyStreamed->FunctionFlags |= 0x400;
 
-    return IsFullyStreamed_Parms.ReturnValue;
+    return IsFullyStreamed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPartyManager.LeaveParty
@@ -44457,7 +44457,7 @@ bool UTrPartyManager::AcceptInvite ( )
 
     pFnAcceptInvite->FunctionFlags |= 0x400;
 
-    return AcceptInvite_Parms.ReturnValue;
+    return AcceptInvite_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPartyManager.ActiveMember
@@ -44482,7 +44482,7 @@ bool UTrPartyManager::ActiveMember ( int Index )
 
     pFnActiveMember->FunctionFlags |= 0x400;
 
-    return ActiveMember_Parms.ReturnValue;
+    return ActiveMember_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPartyManager.SendInvite
@@ -44507,7 +44507,7 @@ bool UTrPartyManager::SendInvite ( struct FString PlayerName )
 
     pFnSendInvite->FunctionFlags |= 0x400;
 
-    return SendInvite_Parms.ReturnValue;
+    return SendInvite_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPartyManager.Kick
@@ -44532,7 +44532,7 @@ bool UTrPartyManager::Kick ( struct FString PlayerName )
 
     pFnKick->FunctionFlags |= 0x400;
 
-    return Kick_Parms.ReturnValue;
+    return Kick_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPartyManager.Leave
@@ -44555,7 +44555,7 @@ bool UTrPartyManager::Leave ( )
 
     pFnLeave->FunctionFlags |= 0x400;
 
-    return Leave_Parms.ReturnValue;
+    return Leave_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPartyManager.CanInvite
@@ -44578,7 +44578,7 @@ bool UTrPartyManager::CanInvite ( )
 
     pFnCanInvite->FunctionFlags |= 0x400;
 
-    return CanInvite_Parms.ReturnValue;
+    return CanInvite_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPartyManager.AmLeader
@@ -44601,7 +44601,7 @@ bool UTrPartyManager::AmLeader ( )
 
     pFnAmLeader->FunctionFlags |= 0x400;
 
-    return AmLeader_Parms.ReturnValue;
+    return AmLeader_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPartyManager.InParty
@@ -44624,7 +44624,7 @@ bool UTrPartyManager::InParty ( )
 
     pFnInParty->FunctionFlags |= 0x400;
 
-    return InParty_Parms.ReturnValue;
+    return InParty_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPartyManager.GetMemberCap
@@ -45168,7 +45168,7 @@ bool ATrPhysicsPresetInfo::eventSetPhysicsProperty ( int PhysicsProperty, float 
 
     this->ProcessEvent ( pFnSetPhysicsProperty, &SetPhysicsProperty_Parms, NULL );
 
-    return SetPhysicsProperty_Parms.ReturnValue;
+    return SetPhysicsProperty_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPhysicsPresetInfo.GetPropertyIDByName
@@ -45248,7 +45248,7 @@ bool ATrPhysicsPresetInfo::FindAndApplyPhysics ( int PhysicsId )
 
     pFnFindAndApplyPhysics->FunctionFlags |= 0x400;
 
-    return FindAndApplyPhysics_Parms.ReturnValue;
+    return FindAndApplyPhysics_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrConduitVolume.PawnLeavingVolume
@@ -46146,7 +46146,7 @@ bool ATrEntryPlayerController::RequestPaperDoll ( )
 
     pFnRequestPaperDoll->FunctionFlags |= 0x400;
 
-    return RequestPaperDoll_Parms.ReturnValue;
+    return RequestPaperDoll_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerInput.GetVGSClassId
@@ -46184,7 +46184,7 @@ bool UTrPlayerInput::InVGSLoadoutMode ( )
 
     this->ProcessEvent ( pFnInVGSLoadoutMode, &InVGSLoadoutMode_Parms, NULL );
 
-    return InVGSLoadoutMode_Parms.ReturnValue;
+    return InVGSLoadoutMode_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerInput.InVGSClassMode
@@ -46203,7 +46203,7 @@ bool UTrPlayerInput::InVGSClassMode ( )
 
     this->ProcessEvent ( pFnInVGSClassMode, &InVGSClassMode_Parms, NULL );
 
-    return InVGSClassMode_Parms.ReturnValue;
+    return InVGSClassMode_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerInput.SetFlyingYawSensitivity
@@ -46419,7 +46419,7 @@ bool UTrPlayerInput::IsValidVGSTarget ( class AActor* ActorUnderReticule )
 
     this->ProcessEvent ( pFnIsValidVGSTarget, &IsValidVGSTarget_Parms, NULL );
 
-    return IsValidVGSTarget_Parms.ReturnValue;
+    return IsValidVGSTarget_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerInput.PlayVGSCommand
@@ -46456,7 +46456,7 @@ bool UTrPlayerInput::PlaySpottedCommand ( )
 
     this->ProcessEvent ( pFnPlaySpottedCommand, &PlaySpottedCommand_Parms, NULL );
 
-    return PlaySpottedCommand_Parms.ReturnValue;
+    return PlaySpottedCommand_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerInput.OnVGSNumKeyPressed
@@ -46511,7 +46511,7 @@ bool UTrPlayerInput::IsMouseSmoothEnabled ( )
 
     this->ProcessEvent ( pFnIsMouseSmoothEnabled, &IsMouseSmoothEnabled_Parms, NULL );
 
-    return IsMouseSmoothEnabled_Parms.ReturnValue;
+    return IsMouseSmoothEnabled_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerInput.AdjustMouseSensitivity
@@ -47335,7 +47335,7 @@ bool ATrPlayerReplicationInfo::ShouldVisitStation ( )
 
     this->ProcessEvent ( pFnShouldVisitStation, &ShouldVisitStation_Parms, NULL );
 
-    return ShouldVisitStation_Parms.ReturnValue;
+    return ShouldVisitStation_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerReplicationInfo.GetSelectedLoadout
@@ -47377,7 +47377,7 @@ bool ATrPlayerReplicationInfo::RequestLoadoutChange ( class UClass* FamilyInfo, 
 
     this->ProcessEvent ( pFnRequestLoadoutChange, &RequestLoadoutChange_Parms, NULL );
 
-    return RequestLoadoutChange_Parms.ReturnValue;
+    return RequestLoadoutChange_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerReplicationInfo.VerifyAndLoadCharacter
@@ -47400,7 +47400,7 @@ bool ATrPlayerReplicationInfo::VerifyAndLoadCharacter ( class UClass* FamilyInfo
 
     this->ProcessEvent ( pFnVerifyAndLoadCharacter, &VerifyAndLoadCharacter_Parms, NULL );
 
-    return VerifyAndLoadCharacter_Parms.ReturnValue;
+    return VerifyAndLoadCharacter_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerReplicationInfo.SwapToPendingCharClass
@@ -47775,7 +47775,7 @@ bool ATrPlayerReplicationInfo::VerifyCharacter ( int ClassId )
 
     pFnVerifyCharacter->FunctionFlags |= 0x400;
 
-    return VerifyCharacter_Parms.ReturnValue;
+    return VerifyCharacter_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProjectile.ProcessTouch
@@ -47878,7 +47878,7 @@ bool ATrProjectile::HurtRadius_Internal ( float DamageAmount, float InDamageRadi
 
     this->ProcessEvent ( pFnHurtRadius_Internal, &HurtRadius_Internal_Parms, NULL );
 
-    return HurtRadius_Internal_Parms.ReturnValue;
+    return HurtRadius_Internal_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProjectile.ProjectileHurtRadius
@@ -47901,7 +47901,7 @@ bool ATrProjectile::ProjectileHurtRadius ( struct FVector HurtOrigin, struct FVe
 
     this->ProcessEvent ( pFnProjectileHurtRadius, &ProjectileHurtRadius_Parms, NULL );
 
-    return ProjectileHurtRadius_Parms.ReturnValue;
+    return ProjectileHurtRadius_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProjectile.Bounce
@@ -48309,7 +48309,7 @@ bool ATrProjectile::IsBlockedByBlocker ( class AActor* DamageInstigator, class A
 
     pFnIsBlockedByBlocker->FunctionFlags |= 0x400;
 
-    return IsBlockedByBlocker_Parms.ReturnValue;
+    return IsBlockedByBlocker_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_Grenade.NativeExplode
@@ -48424,7 +48424,7 @@ bool ATrProj_Grenade::StickToTarget ( class AActor* Target, struct FVector HitLo
 
     this->ProcessEvent ( pFnStickToTarget, &StickToTarget_Parms, NULL );
 
-    return StickToTarget_Parms.ReturnValue;
+    return StickToTarget_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_Grenade.Explode
@@ -48681,7 +48681,7 @@ bool ATrProj_StickyGrenade::StickToTarget ( class AActor* Target, struct FVector
 
     this->ProcessEvent ( pFnStickToTarget, &StickToTarget_Parms, NULL );
 
-    return StickToTarget_Parms.ReturnValue;
+    return StickToTarget_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_StickyGrenade.ProcessTouch
@@ -48820,7 +48820,7 @@ bool ATrProj_Lacerator::SpawnImpactEffect ( struct FVector HitLocation, struct F
 
     this->ProcessEvent ( pFnSpawnImpactEffect, &SpawnImpactEffect_Parms, NULL );
 
-    return SpawnImpactEffect_Parms.ReturnValue;
+    return SpawnImpactEffect_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_Lacerator.Landed
@@ -49116,7 +49116,7 @@ bool ATrProj_Mine::eventMeetsDetonationRequirements ( class APawn* Other )
 
     this->ProcessEvent ( pFnMeetsDetonationRequirements, &MeetsDetonationRequirements_Parms, NULL );
 
-    return MeetsDetonationRequirements_Parms.ReturnValue;
+    return MeetsDetonationRequirements_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_Mine.PawnEnteredDetonationArea
@@ -49291,7 +49291,7 @@ bool ATrProj_Mine::IsAliveAndWell ( )
 
     this->ProcessEvent ( pFnIsAliveAndWell, &IsAliveAndWell_Parms, NULL );
 
-    return IsAliveAndWell_Parms.ReturnValue;
+    return IsAliveAndWell_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_Mine.OnPRIReplicated
@@ -49493,7 +49493,7 @@ bool ATrProj_PrismMine::eventGetTripSocketPosition ( unsigned long bIsLeft, stru
     if ( SocketPosition )
         memcpy ( SocketPosition, &GetTripSocketPosition_Parms.SocketPosition, 0xC );
 
-    return GetTripSocketPosition_Parms.ReturnValue;
+    return GetTripSocketPosition_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_PrismMine.GetParticleSystemName
@@ -50221,7 +50221,7 @@ bool UTrQueueManager::IsRulesetFiltered ( int Id )
 
     this->ProcessEvent ( pFnIsRulesetFiltered, &IsRulesetFiltered_Parms, NULL );
 
-    return IsRulesetFiltered_Parms.ReturnValue;
+    return IsRulesetFiltered_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.FilterRuleset
@@ -50262,7 +50262,7 @@ bool UTrQueueManager::IsGameTypeFiltered ( int Id )
 
     this->ProcessEvent ( pFnIsGameTypeFiltered, &IsGameTypeFiltered_Parms, NULL );
 
-    return IsGameTypeFiltered_Parms.ReturnValue;
+    return IsGameTypeFiltered_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.FilterGameType
@@ -50470,7 +50470,7 @@ bool UTrQueueManager::AmServerOwner ( )
 
     this->ProcessEvent ( pFnAmServerOwner, &AmServerOwner_Parms, NULL );
 
-    return AmServerOwner_Parms.ReturnValue;
+    return AmServerOwner_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.GetServerExpired
@@ -50489,7 +50489,7 @@ bool UTrQueueManager::GetServerExpired ( )
 
     this->ProcessEvent ( pFnGetServerExpired, &GetServerExpired_Parms, NULL );
 
-    return GetServerExpired_Parms.ReturnValue;
+    return GetServerExpired_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.GetServerOnline
@@ -50510,7 +50510,7 @@ bool UTrQueueManager::GetServerOnline ( int Index )
 
     this->ProcessEvent ( pFnGetServerOnline, &GetServerOnline_Parms, NULL );
 
-    return GetServerOnline_Parms.ReturnValue;
+    return GetServerOnline_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.GetServerName
@@ -51498,7 +51498,7 @@ bool UTrQueueManager::eventCheckFilter ( int Index, unsigned long bRecent )
 
     this->ProcessEvent ( pFnCheckFilter, &CheckFilter_Parms, NULL );
 
-    return CheckFilter_Parms.ReturnValue;
+    return CheckFilter_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.UpdateFilter
@@ -51535,7 +51535,7 @@ bool UTrQueueManager::HaveServerData ( int Index )
 
     this->ProcessEvent ( pFnHaveServerData, &HaveServerData_Parms, NULL );
 
-    return HaveServerData_Parms.ReturnValue;
+    return HaveServerData_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.ServerInfoLoaded
@@ -51862,7 +51862,7 @@ bool UTrQueueManager::GetPhysicsAt ( int Index, int* Id, struct FString* Descrip
     if ( Description )
         memcpy ( Description, &GetPhysicsAt_Parms.Description, 0xC );
 
-    return GetPhysicsAt_Parms.ReturnValue;
+    return GetPhysicsAt_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.GetPhysicsCount
@@ -51912,7 +51912,7 @@ bool UTrQueueManager::MatchQueueJoin ( int Queue, struct FString Password )
 
     pFnMatchQueueJoin->FunctionFlags |= 0x400;
 
-    return MatchQueueJoin_Parms.ReturnValue;
+    return MatchQueueJoin_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.JoinQuick
@@ -51937,7 +51937,7 @@ bool UTrQueueManager::JoinQuick ( int GameClassId )
 
     pFnJoinQuick->FunctionFlags |= 0x400;
 
-    return JoinQuick_Parms.ReturnValue;
+    return JoinQuick_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.CustomSetName
@@ -51962,7 +51962,7 @@ bool UTrQueueManager::CustomSetName ( struct FString QueueName )
 
     pFnCustomSetName->FunctionFlags |= 0x400;
 
-    return CustomSetName_Parms.ReturnValue;
+    return CustomSetName_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.CustomBan
@@ -51987,7 +51987,7 @@ bool UTrQueueManager::CustomBan ( struct FString PlayerName )
 
     pFnCustomBan->FunctionFlags |= 0x400;
 
-    return CustomBan_Parms.ReturnValue;
+    return CustomBan_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.CustomKick
@@ -52012,7 +52012,7 @@ bool UTrQueueManager::CustomKick ( struct FString PlayerName )
 
     pFnCustomKick->FunctionFlags |= 0x400;
 
-    return CustomKick_Parms.ReturnValue;
+    return CustomKick_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.CustomNextMap
@@ -52037,7 +52037,7 @@ bool UTrQueueManager::CustomNextMap ( int MapId )
 
     pFnCustomNextMap->FunctionFlags |= 0x400;
 
-    return CustomNextMap_Parms.ReturnValue;
+    return CustomNextMap_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.CustomShutdown
@@ -52060,7 +52060,7 @@ bool UTrQueueManager::CustomShutdown ( )
 
     pFnCustomShutdown->FunctionFlags |= 0x400;
 
-    return CustomShutdown_Parms.ReturnValue;
+    return CustomShutdown_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.CustomStop
@@ -52083,7 +52083,7 @@ bool UTrQueueManager::CustomStop ( )
 
     pFnCustomStop->FunctionFlags |= 0x400;
 
-    return CustomStop_Parms.ReturnValue;
+    return CustomStop_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.CustomStart
@@ -52106,7 +52106,7 @@ bool UTrQueueManager::CustomStart ( )
 
     pFnCustomStart->FunctionFlags |= 0x400;
 
-    return CustomStart_Parms.ReturnValue;
+    return CustomStart_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.CustomLogin
@@ -52131,7 +52131,7 @@ bool UTrQueueManager::CustomLogin ( struct FString Password )
 
     pFnCustomLogin->FunctionFlags |= 0x400;
 
-    return CustomLogin_Parms.ReturnValue;
+    return CustomLogin_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.GetPropMax
@@ -52162,7 +52162,7 @@ bool UTrQueueManager::GetPropMax ( int PropId, int PropType, int* val )
     if ( val )
         *val = GetPropMax_Parms.val;
 
-    return GetPropMax_Parms.ReturnValue;
+    return GetPropMax_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.GetPropMin
@@ -52193,7 +52193,7 @@ bool UTrQueueManager::GetPropMin ( int PropId, int PropType, int* val )
     if ( val )
         *val = GetPropMin_Parms.val;
 
-    return GetPropMin_Parms.ReturnValue;
+    return GetPropMin_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.AddCustomServerTime
@@ -52218,7 +52218,7 @@ bool UTrQueueManager::AddCustomServerTime ( int LootId )
 
     pFnAddCustomServerTime->FunctionFlags |= 0x400;
 
-    return AddCustomServerTime_Parms.ReturnValue;
+    return AddCustomServerTime_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.AddCustomServer
@@ -52241,7 +52241,7 @@ bool UTrQueueManager::AddCustomServer ( )
 
     pFnAddCustomServer->FunctionFlags |= 0x400;
 
-    return AddCustomServer_Parms.ReturnValue;
+    return AddCustomServer_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.SetLocalName
@@ -52266,7 +52266,7 @@ bool UTrQueueManager::SetLocalName ( struct FString val )
 
     pFnSetLocalName->FunctionFlags |= 0x400;
 
-    return SetLocalName_Parms.ReturnValue;
+    return SetLocalName_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.SetPropString
@@ -52295,7 +52295,7 @@ bool UTrQueueManager::SetPropString ( int PropId, struct FString val, int PropTy
 
     pFnSetPropString->FunctionFlags |= 0x400;
 
-    return SetPropString_Parms.ReturnValue;
+    return SetPropString_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.SetPropNumber
@@ -52324,7 +52324,7 @@ bool UTrQueueManager::SetPropNumber ( int PropId, int val, int PropType )
 
     pFnSetPropNumber->FunctionFlags |= 0x400;
 
-    return SetPropNumber_Parms.ReturnValue;
+    return SetPropNumber_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.GetPropString
@@ -52407,7 +52407,7 @@ bool UTrQueueManager::GetNextMapId ( unsigned long bStart, int* MapId )
     if ( MapId )
         *MapId = GetNextMapId_Parms.MapId;
 
-    return GetNextMapId_Parms.ReturnValue;
+    return GetNextMapId_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrQueueManager.GetMapName
@@ -52806,7 +52806,7 @@ bool ATrServerSettingsInfo::IsWeaponAllowed ( int ClassId, unsigned char Slot, i
 
     this->ProcessEvent ( pFnIsWeaponAllowed, &IsWeaponAllowed_Parms, NULL );
 
-    return IsWeaponAllowed_Parms.ReturnValue;
+    return IsWeaponAllowed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrServerSettingsInfo.GetClassCount
@@ -52850,7 +52850,7 @@ bool ATrServerSettingsInfo::IsClassAllowed ( unsigned char ClassType, int Curren
 
     this->ProcessEvent ( pFnIsClassAllowed, &IsClassAllowed_Parms, NULL );
 
-    return IsClassAllowed_Parms.ReturnValue;
+    return IsClassAllowed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrServerSettingsInfo.IsCallinAllowed
@@ -52871,7 +52871,7 @@ bool ATrServerSettingsInfo::IsCallinAllowed ( int Index )
 
     this->ProcessEvent ( pFnIsCallinAllowed, &IsCallinAllowed_Parms, NULL );
 
-    return IsCallinAllowed_Parms.ReturnValue;
+    return IsCallinAllowed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrServerSettingsInfo.GetVehicleTime
@@ -52978,7 +52978,7 @@ bool ATrServerSettingsInfo::GetPropAsString ( int PropId, struct FString* Value 
     if ( Value )
         memcpy ( Value, &GetPropAsString_Parms.Value, 0xC );
 
-    return GetPropAsString_Parms.ReturnValue;
+    return GetPropAsString_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrServerSettingsInfo.GetPropAsInt
@@ -53007,7 +53007,7 @@ bool ATrServerSettingsInfo::GetPropAsInt ( int PropId, int* Value )
     if ( Value )
         *Value = GetPropAsInt_Parms.Value;
 
-    return GetPropAsInt_Parms.ReturnValue;
+    return GetPropAsInt_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrServerSettingsInfo.GetPropAsFloat
@@ -53036,7 +53036,7 @@ bool ATrServerSettingsInfo::GetPropAsFloat ( int PropId, float* Value )
     if ( Value )
         *Value = GetPropAsFloat_Parms.Value;
 
-    return GetPropAsFloat_Parms.ReturnValue;
+    return GetPropAsFloat_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrSkelControl_SpinControl.SpinToTargetRotation
@@ -53183,7 +53183,7 @@ bool ATrSpottedTarget::ShouldRenderMarker ( )
 
     this->ProcessEvent ( pFnShouldRenderMarker, &ShouldRenderMarker_Parms, NULL );
 
-    return ShouldRenderMarker_Parms.ReturnValue;
+    return ShouldRenderMarker_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrSpottedTarget.PostRenderFor
@@ -53260,7 +53260,7 @@ bool ATrSpottedTarget_MotionMine::ShouldRenderMarker ( )
 
     this->ProcessEvent ( pFnShouldRenderMarker, &ShouldRenderMarker_Parms, NULL );
 
-    return ShouldRenderMarker_Parms.ReturnValue;
+    return ShouldRenderMarker_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrSpottedTarget_MotionMine.GetMarkerColor
@@ -54461,7 +54461,7 @@ bool UTrStreamManager::HaveFeature ( )
 
     this->ProcessEvent ( pFnHaveFeature, &HaveFeature_Parms, NULL );
 
-    return HaveFeature_Parms.ReturnValue;
+    return HaveFeature_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrStreamManager.IsLiveAtIndex
@@ -54482,7 +54482,7 @@ bool UTrStreamManager::IsLiveAtIndex ( int Index )
 
     this->ProcessEvent ( pFnIsLiveAtIndex, &IsLiveAtIndex_Parms, NULL );
 
-    return IsLiveAtIndex_Parms.ReturnValue;
+    return IsLiveAtIndex_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrStreamManager.GetDescriptionAtIndex
@@ -54566,7 +54566,7 @@ bool UTrStreamManager::IsStream ( int Index )
 
     this->ProcessEvent ( pFnIsStream, &IsStream_Parms, NULL );
 
-    return IsStream_Parms.ReturnValue;
+    return IsStream_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrStreamManager.GetTypeCountWatching
@@ -55337,7 +55337,7 @@ bool UTrUser::IsFavoriteServer ( int ServerID )
 
     this->ProcessEvent ( pFnIsFavoriteServer, &IsFavoriteServer_Parms, NULL );
 
-    return IsFavoriteServer_Parms.ReturnValue;
+    return IsFavoriteServer_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrUser.RemoveLastRecentServer
@@ -55433,7 +55433,7 @@ bool UTrUser::IsRecentServer ( int ServerID )
 
     this->ProcessEvent ( pFnIsRecentServer, &IsRecentServer_Parms, NULL );
 
-    return IsRecentServer_Parms.ReturnValue;
+    return IsRecentServer_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrUser.SetRecentServer
@@ -55490,7 +55490,7 @@ bool UTrUser::NeedToSeeNewBundle ( int ItemId )
 
     this->ProcessEvent ( pFnNeedToSeeNewBundle, &NeedToSeeNewBundle_Parms, NULL );
 
-    return NeedToSeeNewBundle_Parms.ReturnValue;
+    return NeedToSeeNewBundle_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrUser.NeedToSeeAnyNewItem
@@ -55509,7 +55509,7 @@ bool UTrUser::NeedToSeeAnyNewItem ( )
 
     this->ProcessEvent ( pFnNeedToSeeAnyNewItem, &NeedToSeeAnyNewItem_Parms, NULL );
 
-    return NeedToSeeAnyNewItem_Parms.ReturnValue;
+    return NeedToSeeAnyNewItem_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrUser.NeedsToSeeNewBundle
@@ -55530,7 +55530,7 @@ bool UTrUser::NeedsToSeeNewBundle ( int ItemId )
 
     this->ProcessEvent ( pFnNeedsToSeeNewBundle, &NeedsToSeeNewBundle_Parms, NULL );
 
-    return NeedsToSeeNewBundle_Parms.ReturnValue;
+    return NeedsToSeeNewBundle_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrUser.NeedsToSeeNewItem
@@ -55551,7 +55551,7 @@ bool UTrUser::NeedsToSeeNewItem ( int EquipId )
 
     this->ProcessEvent ( pFnNeedsToSeeNewItem, &NeedsToSeeNewItem_Parms, NULL );
 
-    return NeedsToSeeNewItem_Parms.ReturnValue;
+    return NeedsToSeeNewItem_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrUser.NeedsToSeeNewItemsType
@@ -55574,7 +55574,7 @@ bool UTrUser::NeedsToSeeNewItemsType ( int ClassId, int Type )
 
     this->ProcessEvent ( pFnNeedsToSeeNewItemsType, &NeedsToSeeNewItemsType_Parms, NULL );
 
-    return NeedsToSeeNewItemsType_Parms.ReturnValue;
+    return NeedsToSeeNewItemsType_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrUser.NeedsToSeeNewItemsClass
@@ -55595,7 +55595,7 @@ bool UTrUser::NeedsToSeeNewItemsClass ( int ClassId )
 
     this->ProcessEvent ( pFnNeedsToSeeNewItemsClass, &NeedsToSeeNewItemsClass_Parms, NULL );
 
-    return NeedsToSeeNewItemsClass_Parms.ReturnValue;
+    return NeedsToSeeNewItemsClass_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrUser.NeedsToSeeClanTags
@@ -55614,7 +55614,7 @@ bool UTrUser::NeedsToSeeClanTags ( )
 
     this->ProcessEvent ( pFnNeedsToSeeClanTags, &NeedsToSeeClanTags_Parms, NULL );
 
-    return NeedsToSeeClanTags_Parms.ReturnValue;
+    return NeedsToSeeClanTags_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrUser.SeenNewItemsType
@@ -56013,7 +56013,7 @@ bool ATrVehicle::CalcOtherWatchingCam ( float fDeltaTime, class ATrPlayerControl
     if ( out_FOV )
         *out_FOV = CalcOtherWatchingCam_Parms.out_FOV;
 
-    return CalcOtherWatchingCam_Parms.ReturnValue;
+    return CalcOtherWatchingCam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.StopVehicleSounds
@@ -56144,7 +56144,7 @@ bool ATrVehicle::ShouldShowUseable ( class APlayerController* PC, float Dist )
 
     this->ProcessEvent ( pFnShouldShowUseable, &ShouldShowUseable_Parms, NULL );
 
-    return ShouldShowUseable_Parms.ReturnValue;
+    return ShouldShowUseable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.ProcessViewRotationBasedOnSeat
@@ -56506,7 +56506,7 @@ bool ATrVehicle::HealDamage ( int Amount, class AController* Healer, class UClas
 
     this->ProcessEvent ( pFnHealDamage, &HealDamage_Parms, NULL );
 
-    return HealDamage_Parms.ReturnValue;
+    return HealDamage_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.WeaponRotationChanged
@@ -56564,7 +56564,7 @@ bool ATrVehicle::AnySeatAvailable ( )
 
     this->ProcessEvent ( pFnAnySeatAvailable, &AnySeatAvailable_Parms, NULL );
 
-    return AnySeatAvailable_Parms.ReturnValue;
+    return AnySeatAvailable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.SeatAvailable
@@ -56585,7 +56585,7 @@ bool ATrVehicle::SeatAvailable ( int SeatIndex )
 
     this->ProcessEvent ( pFnSeatAvailable, &SeatAvailable_Parms, NULL );
 
-    return SeatAvailable_Parms.ReturnValue;
+    return SeatAvailable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.TryExitPos
@@ -56610,7 +56610,7 @@ bool ATrVehicle::TryExitPos ( class APawn* ExitingDriver, struct FVector ExitPos
 
     this->ProcessEvent ( pFnTryExitPos, &TryExitPos_Parms, NULL );
 
-    return TryExitPos_Parms.ReturnValue;
+    return TryExitPos_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.PlaceExitingDriver
@@ -56631,7 +56631,7 @@ bool ATrVehicle::PlaceExitingDriver ( class APawn* ExitingDriver )
 
     this->ProcessEvent ( pFnPlaceExitingDriver, &PlaceExitingDriver_Parms, NULL );
 
-    return PlaceExitingDriver_Parms.ReturnValue;
+    return PlaceExitingDriver_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.GetSeatIndexForStoragePawn
@@ -56714,7 +56714,7 @@ bool ATrVehicle::ChangeSeat ( class AController* ControllerToMove, int Requested
 
     this->ProcessEvent ( pFnChangeSeat, &ChangeSeat_Parms, NULL );
 
-    return ChangeSeat_Parms.ReturnValue;
+    return ChangeSeat_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.SwitchSeat
@@ -56794,7 +56794,7 @@ bool ATrVehicle::DriverEnter ( class APawn* P )
 
     this->ProcessEvent ( pFnDriverEnter, &DriverEnter_Parms, NULL );
 
-    return DriverEnter_Parms.ReturnValue;
+    return DriverEnter_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.RidingPawnLeave
@@ -56817,7 +56817,7 @@ bool ATrVehicle::RidingPawnLeave ( int SeatIndex, unsigned long bForceLeave )
 
     this->ProcessEvent ( pFnRidingPawnLeave, &RidingPawnLeave_Parms, NULL );
 
-    return RidingPawnLeave_Parms.ReturnValue;
+    return RidingPawnLeave_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.HandleEnteringFlag
@@ -56954,7 +56954,7 @@ bool ATrVehicle::PassengerEnter ( class APawn* P, int SeatIndex )
 
     this->ProcessEvent ( pFnPassengerEnter, &PassengerEnter_Parms, NULL );
 
-    return PassengerEnter_Parms.ReturnValue;
+    return PassengerEnter_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.InitializeSeats
@@ -57037,7 +57037,7 @@ bool ATrVehicle::RenderDriverPassengerMarker ( class UCanvas* Canvas, unsigned l
 
     this->ProcessEvent ( pFnRenderDriverPassengerMarker, &RenderDriverPassengerMarker_Parms, NULL );
 
-    return RenderDriverPassengerMarker_Parms.ReturnValue;
+    return RenderDriverPassengerMarker_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.PostRenderFor
@@ -57080,7 +57080,7 @@ bool ATrVehicle::Occupied ( )
 
     this->ProcessEvent ( pFnOccupied, &Occupied_Parms, NULL );
 
-    return Occupied_Parms.ReturnValue;
+    return Occupied_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.Tick
@@ -57187,7 +57187,7 @@ bool ATrVehicle::eventShouldRechargePowerPool ( )
 
     this->ProcessEvent ( pFnShouldRechargePowerPool, &ShouldRechargePowerPool_Parms, NULL );
 
-    return ShouldRechargePowerPool_Parms.ReturnValue;
+    return ShouldRechargePowerPool_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.CanActivateBoosters
@@ -57206,7 +57206,7 @@ bool ATrVehicle::CanActivateBoosters ( )
 
     this->ProcessEvent ( pFnCanActivateBoosters, &CanActivateBoosters_Parms, NULL );
 
-    return CanActivateBoosters_Parms.ReturnValue;
+    return CanActivateBoosters_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.ConsumeBoostPowerPool
@@ -57353,7 +57353,7 @@ bool ATrVehicle::TryToDrive ( class APawn* P )
 
     this->ProcessEvent ( pFnTryToDrive, &TryToDrive_Parms, NULL );
 
-    return TryToDrive_Parms.ReturnValue;
+    return TryToDrive_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.GetFirstAvailableSeat
@@ -57395,7 +57395,7 @@ bool ATrVehicle::CanArmorEnterVehicle ( class UClass* FamilyInfo )
 
     this->ProcessEvent ( pFnCanArmorEnterVehicle, &CanArmorEnterVehicle_Parms, NULL );
 
-    return CanArmorEnterVehicle_Parms.ReturnValue;
+    return CanArmorEnterVehicle_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.CanArmorDriveVehicle
@@ -57416,7 +57416,7 @@ bool ATrVehicle::CanArmorDriveVehicle ( class UClass* FamilyInfo )
 
     this->ProcessEvent ( pFnCanArmorDriveVehicle, &CanArmorDriveVehicle_Parms, NULL );
 
-    return CanArmorDriveVehicle_Parms.ReturnValue;
+    return CanArmorDriveVehicle_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.TeleportDriverToSeat
@@ -57475,7 +57475,7 @@ bool ATrVehicle::Died ( class AController* Killer, class UClass* DamageType, str
 
     this->ProcessEvent ( pFnDied, &Died_Parms, NULL );
 
-    return Died_Parms.ReturnValue;
+    return Died_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.DoesVehicleHaveEjectionSeat
@@ -57494,7 +57494,7 @@ bool ATrVehicle::DoesVehicleHaveEjectionSeat ( )
 
     this->ProcessEvent ( pFnDoesVehicleHaveEjectionSeat, &DoesVehicleHaveEjectionSeat_Parms, NULL );
 
-    return DoesVehicleHaveEjectionSeat_Parms.ReturnValue;
+    return DoesVehicleHaveEjectionSeat_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.SendLockOnMessage
@@ -57567,7 +57567,7 @@ bool ATrVehicle::IsEmpty ( )
 
     this->ProcessEvent ( pFnIsEmpty, &IsEmpty_Parms, NULL );
 
-    return IsEmpty_Parms.ReturnValue;
+    return IsEmpty_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.DetachDriver
@@ -57626,7 +57626,7 @@ bool ATrVehicle::StopsProjectile ( class AProjectile* P )
 
     this->ProcessEvent ( pFnStopsProjectile, &StopsProjectile_Parms, NULL );
 
-    return StopsProjectile_Parms.ReturnValue;
+    return StopsProjectile_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.RanInto
@@ -57749,7 +57749,7 @@ bool ATrVehicle::SetScannerDetect ( unsigned long detected )
 
     this->ProcessEvent ( pFnSetScannerDetect, &SetScannerDetect_Parms, NULL );
 
-    return SetScannerDetect_Parms.ReturnValue;
+    return SetScannerDetect_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.GetDetectedByEnemyScanner
@@ -57768,7 +57768,7 @@ bool ATrVehicle::GetDetectedByEnemyScanner ( )
 
     this->ProcessEvent ( pFnGetDetectedByEnemyScanner, &GetDetectedByEnemyScanner_Parms, NULL );
 
-    return GetDetectedByEnemyScanner_Parms.ReturnValue;
+    return GetDetectedByEnemyScanner_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicle.SetDetectedByEnemyScanner
@@ -58152,7 +58152,7 @@ bool ATrVehicleWeapon::CanViewZoom ( )
 
     this->ProcessEvent ( pFnCanViewZoom, &CanViewZoom_Parms, NULL );
 
-    return CanViewZoom_Parms.ReturnValue;
+    return CanViewZoom_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleWeapon.UpdateReplicatedCarriedAmmo
@@ -58307,7 +58307,7 @@ bool ATrVehicleWeapon::CanClientRequestReloadNow ( )
 
     this->ProcessEvent ( pFnCanClientRequestReloadNow, &CanClientRequestReloadNow_Parms, NULL );
 
-    return CanClientRequestReloadNow_Parms.ReturnValue;
+    return CanClientRequestReloadNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleWeapon.HasReticuleCharge
@@ -58326,7 +58326,7 @@ bool ATrVehicleWeapon::HasReticuleCharge ( )
 
     this->ProcessEvent ( pFnHasReticuleCharge, &HasReticuleCharge_Parms, NULL );
 
-    return HasReticuleCharge_Parms.ReturnValue;
+    return HasReticuleCharge_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleWeapon.PutDownWeapon
@@ -58564,7 +58564,7 @@ bool ATrVehicleWeapon::ShouldFireTracerBeam ( )
 
     this->ProcessEvent ( pFnShouldFireTracerBeam, &ShouldFireTracerBeam_Parms, NULL );
 
-    return ShouldFireTracerBeam_Parms.ReturnValue;
+    return ShouldFireTracerBeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleWeapon.ShouldFireTracer
@@ -58583,7 +58583,7 @@ bool ATrVehicleWeapon::ShouldFireTracer ( )
 
     this->ProcessEvent ( pFnShouldFireTracer, &ShouldFireTracer_Parms, NULL );
 
-    return ShouldFireTracer_Parms.ReturnValue;
+    return ShouldFireTracer_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleWeapon.ShakeView
@@ -58796,7 +58796,7 @@ bool ATrVehicleWeapon::IsWeaponInFiringCone ( )
 
     this->ProcessEvent ( pFnIsWeaponInFiringCone, &IsWeaponInFiringCone_Parms, NULL );
 
-    return IsWeaponInFiringCone_Parms.ReturnValue;
+    return IsWeaponInFiringCone_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleWeapon.StartFire
@@ -59752,7 +59752,7 @@ bool UGFxTrPage::NewEquipUpgrade ( int EquipId )
 
     this->ProcessEvent ( pFnNewEquipUpgrade, &NewEquipUpgrade_Parms, NULL );
 
-    return NewEquipUpgrade_Parms.ReturnValue;
+    return NewEquipUpgrade_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage.NewClassUpgrade
@@ -59773,7 +59773,7 @@ bool UGFxTrPage::NewClassUpgrade ( int ClassId )
 
     this->ProcessEvent ( pFnNewClassUpgrade, &NewClassUpgrade_Parms, NULL );
 
-    return NewClassUpgrade_Parms.ReturnValue;
+    return NewClassUpgrade_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage.NewClassEquip
@@ -59794,7 +59794,7 @@ bool UGFxTrPage::NewClassEquip ( int ClassId )
 
     this->ProcessEvent ( pFnNewClassEquip, &NewClassEquip_Parms, NULL );
 
-    return NewClassEquip_Parms.ReturnValue;
+    return NewClassEquip_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage.FillLoadoutDescription
@@ -60036,7 +60036,7 @@ bool UGFxTrPage::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage.CheckUpgrades
@@ -60057,7 +60057,7 @@ bool UGFxTrPage::CheckUpgrades ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckUpgrades, &CheckUpgrades_Parms, NULL );
 
-    return CheckUpgrades_Parms.ReturnValue;
+    return CheckUpgrades_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage.FillDefault
@@ -60118,7 +60118,7 @@ bool UGFxTrPage::IsEquipMaxed ( int Index )
 
     this->ProcessEvent ( pFnIsEquipMaxed, &IsEquipMaxed_Parms, NULL );
 
-    return IsEquipMaxed_Parms.ReturnValue;
+    return IsEquipMaxed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage.CheckPurchasable
@@ -60137,7 +60137,7 @@ bool UGFxTrPage::CheckPurchasable ( )
 
     this->ProcessEvent ( pFnCheckPurchasable, &CheckPurchasable_Parms, NULL );
 
-    return CheckPurchasable_Parms.ReturnValue;
+    return CheckPurchasable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage.IsOwned
@@ -60158,7 +60158,7 @@ bool UGFxTrPage::IsOwned ( int Index )
 
     this->ProcessEvent ( pFnIsOwned, &IsOwned_Parms, NULL );
 
-    return IsOwned_Parms.ReturnValue;
+    return IsOwned_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage.FillOptions
@@ -60701,7 +60701,7 @@ bool UGFxTrWeaponInventory::SetPosX ( float fX )
 
     this->ProcessEvent ( pFnSetPosX, &SetPosX_Parms, NULL );
 
-    return SetPosX_Parms.ReturnValue;
+    return SetPosX_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrWeaponInventory.OnInactiveReload
@@ -60924,7 +60924,7 @@ bool UTrVGSNode::VerifyVGSChild ( class UClass* VGSNodeClass, class UClass* Game
 
     this->ProcessEvent ( pFnVerifyVGSChild, &VerifyVGSChild_Parms, NULL );
 
-    return VerifyVGSChild_Parms.ReturnValue;
+    return VerifyVGSChild_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVGSNode.VerifyVGSCommandEntry
@@ -60947,7 +60947,7 @@ bool UTrVGSNode::VerifyVGSCommandEntry ( unsigned char Command, class UClass* Ga
 
     this->ProcessEvent ( pFnVerifyVGSCommandEntry, &VerifyVGSCommandEntry_Parms, NULL );
 
-    return VerifyVGSCommandEntry_Parms.ReturnValue;
+    return VerifyVGSCommandEntry_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVGSNode.ProcessKeyInput
@@ -61105,7 +61105,7 @@ bool ATrDevice_LaserTargeter::GetLaserStartAndEnd ( struct FVector* StartLocatio
     if ( EndLocation )
         memcpy ( EndLocation, &GetLaserStartAndEnd_Parms.EndLocation, 0xC );
 
-    return GetLaserStartAndEnd_Parms.ReturnValue;
+    return GetLaserStartAndEnd_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_LaserTargeter.OnStartConstantFire
@@ -61308,7 +61308,7 @@ bool ATrDevice_Pack::CanBeActive ( )
 
     this->ProcessEvent ( pFnCanBeActive, &CanBeActive_Parms, NULL );
 
-    return CanBeActive_Parms.ReturnValue;
+    return CanBeActive_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Pack.GetPowerPool
@@ -61348,7 +61348,7 @@ bool ATrDevice_Pack::UsesPower ( )
 
     this->ProcessEvent ( pFnUsesPower, &UsesPower_Parms, NULL );
 
-    return UsesPower_Parms.ReturnValue;
+    return UsesPower_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrInventoryHelper.GetFamilyClass
@@ -61614,7 +61614,7 @@ bool UTrPageManager::NavigateGold ( unsigned long bViaStore )
 
     this->ProcessEvent ( pFnNavigateGold, &NavigateGold_Parms, NULL );
 
-    return NavigateGold_Parms.ReturnValue;
+    return NavigateGold_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPageManager.TravelToStore
@@ -62681,7 +62681,7 @@ bool UGFxTrUI_TeamSelectionMenu::Start ( unsigned long StartPaused )
 
     this->ProcessEvent ( pFnStart, &Start_Parms, NULL );
 
-    return Start_Parms.ReturnValue;
+    return Start_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrUI_TeamSelectionMenu.Initialize
@@ -62755,7 +62755,7 @@ bool UGFxTrPage_Main::NeedFeatureUpdate ( )
 
     this->ProcessEvent ( pFnNeedFeatureUpdate, &NeedFeatureUpdate_Parms, NULL );
 
-    return NeedFeatureUpdate_Parms.ReturnValue;
+    return NeedFeatureUpdate_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Main.CheckGoldDeal
@@ -63018,7 +63018,7 @@ bool UGFxTrPage_Main::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Main.TakeFocus
@@ -64089,7 +64089,7 @@ bool UGFxTrPage_BlockedPlayers::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_BlockedPlayers.SpecialAction
@@ -64320,7 +64320,7 @@ bool UGFxTrPage_Bundles::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Bundles.FillData
@@ -64581,7 +64581,7 @@ bool UGFxTrPage_BuyBoost::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_BuyBoost.FillData
@@ -65151,7 +65151,7 @@ bool UGFxTrPage_VendorTable::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_VendorTable.FillData
@@ -65288,7 +65288,7 @@ bool UGFxTrPage_ClanTagChange::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_ClanTagChange.ModifyAction
@@ -65645,7 +65645,7 @@ bool UGFxTrPage_Classes::RequestActiveClass ( int ClassId, int Loadout )
 
     this->ProcessEvent ( pFnRequestActiveClass, &RequestActiveClass_Parms, NULL );
 
-    return RequestActiveClass_Parms.ReturnValue;
+    return RequestActiveClass_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Classes.IsOwned
@@ -65666,7 +65666,7 @@ bool UGFxTrPage_Classes::IsOwned ( int Index )
 
     this->ProcessEvent ( pFnIsOwned, &IsOwned_Parms, NULL );
 
-    return IsOwned_Parms.ReturnValue;
+    return IsOwned_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Classes.GetEquipName
@@ -65768,7 +65768,7 @@ bool UGFxTrPage_Classes::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Classes.CheckPurchasable
@@ -65787,7 +65787,7 @@ bool UGFxTrPage_Classes::CheckPurchasable ( )
 
     this->ProcessEvent ( pFnCheckPurchasable, &CheckPurchasable_Parms, NULL );
 
-    return CheckPurchasable_Parms.ReturnValue;
+    return CheckPurchasable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Classes.FillOption
@@ -66080,7 +66080,7 @@ bool UGFxTrPage_Loadouts::RequestActiveClass ( int ClassId, int Loadout )
 
     this->ProcessEvent ( pFnRequestActiveClass, &RequestActiveClass_Parms, NULL );
 
-    return RequestActiveClass_Parms.ReturnValue;
+    return RequestActiveClass_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Loadouts.PopupComplete
@@ -66176,7 +66176,7 @@ bool UGFxTrPage_Loadouts::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Loadouts.ModifyAction
@@ -66438,7 +66438,7 @@ bool UGFxTrPage_ClassSelect::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_ClassSelect.RequestActiveClass
@@ -66461,7 +66461,7 @@ bool UGFxTrPage_ClassSelect::RequestActiveClass ( int ClassId, int Loadout )
 
     this->ProcessEvent ( pFnRequestActiveClass, &RequestActiveClass_Parms, NULL );
 
-    return RequestActiveClass_Parms.ReturnValue;
+    return RequestActiveClass_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_ClassSelect.ShowModel
@@ -67301,7 +67301,7 @@ bool UGFxTrPage_Equip::IsOwned ( int Index )
 
     this->ProcessEvent ( pFnIsOwned, &IsOwned_Parms, NULL );
 
-    return IsOwned_Parms.ReturnValue;
+    return IsOwned_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Equip.IsEquipMaxed
@@ -67322,7 +67322,7 @@ bool UGFxTrPage_Equip::IsEquipMaxed ( int Index )
 
     this->ProcessEvent ( pFnIsEquipMaxed, &IsEquipMaxed_Parms, NULL );
 
-    return IsEquipMaxed_Parms.ReturnValue;
+    return IsEquipMaxed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Equip.CheckPurchasable
@@ -67341,7 +67341,7 @@ bool UGFxTrPage_Equip::CheckPurchasable ( )
 
     this->ProcessEvent ( pFnCheckPurchasable, &CheckPurchasable_Parms, NULL );
 
-    return CheckPurchasable_Parms.ReturnValue;
+    return CheckPurchasable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Equip.FillDescription
@@ -67443,7 +67443,7 @@ bool UGFxTrPage_Equip::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Equip.FillUpgrades
@@ -67485,7 +67485,7 @@ bool UGFxTrPage_Equip::CheckUpgrades ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckUpgrades, &CheckUpgrades_Parms, NULL );
 
-    return CheckUpgrades_Parms.ReturnValue;
+    return CheckUpgrades_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Equip.FillSkin
@@ -67548,7 +67548,7 @@ bool UGFxTrPage_Equip::IsWeaponLocked ( int EquipId )
 
     this->ProcessEvent ( pFnIsWeaponLocked, &IsWeaponLocked_Parms, NULL );
 
-    return IsWeaponLocked_Parms.ReturnValue;
+    return IsWeaponLocked_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Equip.FillData
@@ -68358,7 +68358,7 @@ bool UGFxTrPage_Followers::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Followers.SpecialAction
@@ -68610,7 +68610,7 @@ bool UGFxTrPage_Friends::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Friends.SpecialAction
@@ -69012,7 +69012,7 @@ bool UGFxTrPage_FriendJoin::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_FriendJoin.SpecialAction
@@ -71924,7 +71924,7 @@ bool UGFxTrPage_PartyInvite::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_PartyInvite.TakeFocus
@@ -72123,7 +72123,7 @@ bool UGFxTrPage_PartyMember::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_PartyMember.TakeFocus
@@ -72250,7 +72250,7 @@ bool UGFxTrPage_PlayNow::HaveDuplicates ( int Index )
 
     this->ProcessEvent ( pFnHaveDuplicates, &HaveDuplicates_Parms, NULL );
 
-    return HaveDuplicates_Parms.ReturnValue;
+    return HaveDuplicates_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_PlayNow.RemoveDuplicateQueues
@@ -73054,7 +73054,7 @@ bool UGFxTrPage_QuickMatch::AllowQuickJoin ( int Index )
 
     this->ProcessEvent ( pFnAllowQuickJoin, &AllowQuickJoin_Parms, NULL );
 
-    return AllowQuickJoin_Parms.ReturnValue;
+    return AllowQuickJoin_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_QuickMatch.FillOption
@@ -73718,7 +73718,7 @@ bool UGFxTrPage_ServerAddTime::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_ServerAddTime.ShowModel
@@ -74100,7 +74100,7 @@ bool UGFxTrPage_ServerBanByType::IsBanned ( int EquipId )
 
     this->ProcessEvent ( pFnIsBanned, &IsBanned_Parms, NULL );
 
-    return IsBanned_Parms.ReturnValue;
+    return IsBanned_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_ServerBanByType.ShowModel
@@ -77036,7 +77036,7 @@ bool UGFxTrPage_Store::CheckPricing ( class UGFxObject* DataList )
 
     this->ProcessEvent ( pFnCheckPricing, &CheckPricing_Parms, NULL );
 
-    return CheckPricing_Parms.ReturnValue;
+    return CheckPricing_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_Store.FillDealDescription
@@ -77916,7 +77916,7 @@ bool UGFxTrPage_WatchNow::IsFeatured ( int Num )
 
     this->ProcessEvent ( pFnIsFeatured, &IsFeatured_Parms, NULL );
 
-    return IsFeatured_Parms.ReturnValue;
+    return IsFeatured_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrPage_WatchNow.FillDescription
@@ -78216,7 +78216,7 @@ bool UGFxTrUI_MainMenu::Start ( unsigned long StartPaused )
 
     this->ProcessEvent ( pFnStart, &Start_Parms, NULL );
 
-    return Start_Parms.ReturnValue;
+    return Start_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.GFxTrUI_VehicleMenu.OnVehicleScreenFinished
@@ -78348,7 +78348,7 @@ bool UGFxTrUI_VehicleMenu::Start ( unsigned long StartPaused )
 
     this->ProcessEvent ( pFnStart, &Start_Parms, NULL );
 
-    return Start_Parms.ReturnValue;
+    return Start_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRCTF.GetGameTypeId
@@ -78388,7 +78388,7 @@ bool ATrGame_TRCTF::CheckScore ( class APlayerReplicationInfo* Scorer )
 
     this->ProcessEvent ( pFnCheckScore, &CheckScore_Parms, NULL );
 
-    return CheckScore_Parms.ReturnValue;
+    return CheckScore_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRCTF.AnnounceScore
@@ -78488,7 +78488,7 @@ bool ATrGame_TRCTF::CheckEndGame ( class APlayerReplicationInfo* Winner, struct 
 
     this->ProcessEvent ( pFnCheckEndGame, &CheckEndGame_Parms, NULL );
 
-    return CheckEndGame_Parms.ReturnValue;
+    return CheckEndGame_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRCTF.WantFastSpawnFor
@@ -78509,7 +78509,7 @@ bool ATrGame_TRCTF::WantFastSpawnFor ( class AAIController* B )
 
     this->ProcessEvent ( pFnWantFastSpawnFor, &WantFastSpawnFor_Parms, NULL );
 
-    return WantFastSpawnFor_Parms.ReturnValue;
+    return WantFastSpawnFor_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRCTF.NearGoal
@@ -78530,7 +78530,7 @@ bool ATrGame_TRCTF::NearGoal ( class AController* C )
 
     this->ProcessEvent ( pFnNearGoal, &NearGoal_Parms, NULL );
 
-    return NearGoal_Parms.ReturnValue;
+    return NearGoal_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRCTF.RegisterFlag
@@ -78581,7 +78581,7 @@ bool ATrGame_TRCTF::GetLocationFor ( class APawn* StatusPawn, int LocationSpeech
     if ( MessageIndex )
         *MessageIndex = GetLocationFor_Parms.MessageIndex;
 
-    return GetLocationFor_Parms.ReturnValue;
+    return GetLocationFor_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRCTF.GetHandicapNeed
@@ -78792,7 +78792,7 @@ bool ATrGame_TRTeamRabbit::CheckEndGame ( class APlayerReplicationInfo* Winner, 
 
     this->ProcessEvent ( pFnCheckEndGame, &CheckEndGame_Parms, NULL );
 
-    return CheckEndGame_Parms.ReturnValue;
+    return CheckEndGame_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRTeamRabbit.CheckScore
@@ -78813,7 +78813,7 @@ bool ATrGame_TRTeamRabbit::CheckScore ( class APlayerReplicationInfo* Scorer )
 
     this->ProcessEvent ( pFnCheckScore, &CheckScore_Parms, NULL );
 
-    return CheckScore_Parms.ReturnValue;
+    return CheckScore_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRTeamRabbit.ScoreKill
@@ -79162,7 +79162,7 @@ bool ATrPlayerPawn::CalcOtherWatchingCam ( float fDeltaTime, class ATrPlayerCont
     if ( out_FOV )
         *out_FOV = CalcOtherWatchingCam_Parms.out_FOV;
 
-    return CalcOtherWatchingCam_Parms.ReturnValue;
+    return CalcOtherWatchingCam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerPawn.CalcThirdPersonCam
@@ -79195,7 +79195,7 @@ bool ATrPlayerPawn::CalcThirdPersonCam ( float fDeltaTime, struct FVector* out_C
     if ( out_FOV )
         *out_FOV = CalcThirdPersonCam_Parms.out_FOV;
 
-    return CalcThirdPersonCam_Parms.ReturnValue;
+    return CalcThirdPersonCam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerPawn.SetThirdPersonCamera
@@ -79246,7 +79246,7 @@ bool ATrPlayerPawn::CalcCamera ( float fDeltaTime, struct FVector* out_CamLoc, s
     if ( out_FOV )
         *out_FOV = CalcCamera_Parms.out_FOV;
 
-    return CalcCamera_Parms.ReturnValue;
+    return CalcCamera_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPlayerPawn.Tick
@@ -80122,7 +80122,7 @@ bool UTrEffect::CanBeApplied ( class AActor* Target )
 
     this->ProcessEvent ( pFnCanBeApplied, &CanBeApplied_Parms, NULL );
 
-    return CanBeApplied_Parms.ReturnValue;
+    return CanBeApplied_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEffect.Remove
@@ -80361,7 +80361,7 @@ bool ATrInventoryManager::AddInventory ( class AInventory* NewItem, unsigned lon
 
     this->ProcessEvent ( pFnAddInventory, &AddInventory_Parms, NULL );
 
-    return AddInventory_Parms.ReturnValue;
+    return AddInventory_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrInventoryManager.SetPendingWeapon
@@ -81144,7 +81144,7 @@ bool ATrHelpTextManager::UnsuppressedHelpTextsExist ( )
 
     this->ProcessEvent ( pFnUnsuppressedHelpTextsExist, &UnsuppressedHelpTextsExist_Parms, NULL );
 
-    return UnsuppressedHelpTextsExist_Parms.ReturnValue;
+    return UnsuppressedHelpTextsExist_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrHelpTextManager.HelpTextQueueSort
@@ -81265,7 +81265,7 @@ bool ATrHelpTextManager::RequestHelpText ( unsigned char RequestedType )
 
     this->ProcessEvent ( pFnRequestHelpText, &RequestHelpText_Parms, NULL );
 
-    return RequestHelpText_Parms.ReturnValue;
+    return RequestHelpText_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrHelpTextManager.IsSuppressed
@@ -81286,7 +81286,7 @@ bool ATrHelpTextManager::IsSuppressed ( unsigned char RequestedType )
 
     this->ProcessEvent ( pFnIsSuppressed, &IsSuppressed_Parms, NULL );
 
-    return IsSuppressed_Parms.ReturnValue;
+    return IsSuppressed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrHelpTextManager.CheckDestroy
@@ -81305,7 +81305,7 @@ bool ATrHelpTextManager::CheckDestroy ( )
 
     this->ProcessEvent ( pFnCheckDestroy, &CheckDestroy_Parms, NULL );
 
-    return CheckDestroy_Parms.ReturnValue;
+    return CheckDestroy_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrHelpTextManager.Tick
@@ -81589,7 +81589,7 @@ bool ATrDeviceAttachment::ShouldFireTracerBeam ( )
 
     this->ProcessEvent ( pFnShouldFireTracerBeam, &ShouldFireTracerBeam_Parms, NULL );
 
-    return ShouldFireTracerBeam_Parms.ReturnValue;
+    return ShouldFireTracerBeam_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeviceAttachment.ShouldFireTracer
@@ -81608,7 +81608,7 @@ bool ATrDeviceAttachment::ShouldFireTracer ( )
 
     this->ProcessEvent ( pFnShouldFireTracer, &ShouldFireTracer_Parms, NULL );
 
-    return ShouldFireTracer_Parms.ReturnValue;
+    return ShouldFireTracer_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeviceAttachment.SetPuttingDownWeapon
@@ -82322,7 +82322,7 @@ bool ATrDevice_RepairTool::HasAnyAmmo ( )
 
     this->ProcessEvent ( pFnHasAnyAmmo, &HasAnyAmmo_Parms, NULL );
 
-    return HasAnyAmmo_Parms.ReturnValue;
+    return HasAnyAmmo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_RepairTool.ModifyInstantHitDamage
@@ -82416,7 +82416,7 @@ bool ATrDevice_RepairTool::HasViewModeSwitched ( )
 
     this->ProcessEvent ( pFnHasViewModeSwitched, &HasViewModeSwitched_Parms, NULL );
 
-    return HasViewModeSwitched_Parms.ReturnValue;
+    return HasViewModeSwitched_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_RepairTool.KillRepairEffect
@@ -82463,7 +82463,7 @@ bool ATrDevice_RepairTool::GetRepairEndAndTangent ( struct FVector* EndLocation,
     if ( HitActor )
         *HitActor = GetRepairEndAndTangent_Parms.HitActor;
 
-    return GetRepairEndAndTangent_Parms.ReturnValue;
+    return GetRepairEndAndTangent_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_RepairTool.ProcessInstantHit_Internal
@@ -82594,7 +82594,7 @@ bool ATrDevice_RepairTool::CanActorBeRepaired ( class AActor* HitActor )
 
     this->ProcessEvent ( pFnCanActorBeRepaired, &CanActorBeRepaired_Parms, NULL );
 
-    return CanActorBeRepaired_Parms.ReturnValue;
+    return CanActorBeRepaired_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_ElfProjector.OnEndConstantFire
@@ -82684,7 +82684,7 @@ bool ATrDevice_ElfProjector::GetRepairEndAndTangent ( struct FVector* EndLocatio
     if ( HitActor )
         *HitActor = GetRepairEndAndTangent_Parms.HitActor;
 
-    return GetRepairEndAndTangent_Parms.ReturnValue;
+    return GetRepairEndAndTangent_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_ElfProjector.ServerSetImpact
@@ -82811,7 +82811,7 @@ bool ATrDevice_ElfProjector::CanActorBeRepaired ( class AActor* HitActor )
 
     this->ProcessEvent ( pFnCanActorBeRepaired, &CanActorBeRepaired_Parms, NULL );
 
-    return CanActorBeRepaired_Parms.ReturnValue;
+    return CanActorBeRepaired_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_H1.PlayReloadAnim
@@ -83829,7 +83829,7 @@ bool ATrDevice_Melee::HasAmmo ( unsigned char FireModeNum, int Amount )
 
     this->ProcessEvent ( pFnHasAmmo, &HasAmmo_Parms, NULL );
 
-    return HasAmmo_Parms.ReturnValue;
+    return HasAmmo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Melee.CalcAmountToLoad
@@ -84219,7 +84219,7 @@ bool ATrDevice_RemoteArxBuster::CanClientRequestReloadNow ( )
 
     this->ProcessEvent ( pFnCanClientRequestReloadNow, &CanClientRequestReloadNow_Parms, NULL );
 
-    return CanClientRequestReloadNow_Parms.ReturnValue;
+    return CanClientRequestReloadNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_RemoteArxBuster.RequestReload
@@ -84642,7 +84642,7 @@ bool ATrDevice_SaberLauncher::ValidateTrackingTarget ( class AActor* Target, uns
 
     this->ProcessEvent ( pFnValidateTrackingTarget, &ValidateTrackingTarget_Parms, NULL );
 
-    return ValidateTrackingTarget_Parms.ReturnValue;
+    return ValidateTrackingTarget_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_SaberLauncher.IsActorInLOS
@@ -84663,7 +84663,7 @@ bool ATrDevice_SaberLauncher::IsActorInLOS ( class AActor* A )
 
     this->ProcessEvent ( pFnIsActorInLOS, &IsActorInLOS_Parms, NULL );
 
-    return IsActorInLOS_Parms.ReturnValue;
+    return IsActorInLOS_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_SaberLauncher.TargetInsideReticle
@@ -84686,7 +84686,7 @@ bool ATrDevice_SaberLauncher::TargetInsideReticle ( class AActor* Target, unsign
 
     this->ProcessEvent ( pFnTargetInsideReticle, &TargetInsideReticle_Parms, NULL );
 
-    return TargetInsideReticle_Parms.ReturnValue;
+    return TargetInsideReticle_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_SaberLauncher.Destroyed
@@ -85250,7 +85250,7 @@ bool ATrDeployable_RadarSensor::RequiresLOSForRepairDeployable ( )
 
     this->ProcessEvent ( pFnRequiresLOSForRepairDeployable, &RequiresLOSForRepairDeployable_Parms, NULL );
 
-    return RequiresLOSForRepairDeployable_Parms.ReturnValue;
+    return RequiresLOSForRepairDeployable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_RadarSensor.AwardUpgradeAssists
@@ -85349,7 +85349,7 @@ bool ATrDeployable_RadarSensor::IsDeployed ( )
 
     this->ProcessEvent ( pFnIsDeployed, &IsDeployed_Parms, NULL );
 
-    return IsDeployed_Parms.ReturnValue;
+    return IsDeployed_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_RadarSensor.RadarBlip
@@ -85423,7 +85423,7 @@ bool ATrDeployable_RadarSensor::ShouldShowHelpText ( unsigned char HelpTextType 
 
     this->ProcessEvent ( pFnShouldShowHelpText, &ShouldShowHelpText_Parms, NULL );
 
-    return ShouldShowHelpText_Parms.ReturnValue;
+    return ShouldShowHelpText_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_RadarSensor.GetBaseDamageMultiplierAgainstArmor
@@ -85481,7 +85481,7 @@ bool ATrDeployable_RadarSensor::ReceivesPowerFromGenerator ( )
 
     this->ProcessEvent ( pFnReceivesPowerFromGenerator, &ReceivesPowerFromGenerator_Parms, NULL );
 
-    return ReceivesPowerFromGenerator_Parms.ReturnValue;
+    return ReceivesPowerFromGenerator_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_RadarSensor.ApplyServerSettings
@@ -85532,7 +85532,7 @@ bool ATrDeployable_BaseTurret::RequiresLOSForRepairDeployable ( )
 
     this->ProcessEvent ( pFnRequiresLOSForRepairDeployable, &RequiresLOSForRepairDeployable_Parms, NULL );
 
-    return RequiresLOSForRepairDeployable_Parms.ReturnValue;
+    return RequiresLOSForRepairDeployable_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_BaseTurret.TakeDamage
@@ -85638,7 +85638,7 @@ bool ATrDeployable_BaseTurret::ShouldShowHelpText ( unsigned char HelpTextType )
 
     this->ProcessEvent ( pFnShouldShowHelpText, &ShouldShowHelpText_Parms, NULL );
 
-    return ShouldShowHelpText_Parms.ReturnValue;
+    return ShouldShowHelpText_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_BaseTurret.GetBaseDamageMultiplierAgainstArmor
@@ -85678,7 +85678,7 @@ bool ATrDeployable_BaseTurret::ReceivesPowerFromGenerator ( )
 
     this->ProcessEvent ( pFnReceivesPowerFromGenerator, &ReceivesPowerFromGenerator_Parms, NULL );
 
-    return ReceivesPowerFromGenerator_Parms.ReturnValue;
+    return ReceivesPowerFromGenerator_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_BaseTurret.ApplyServerSettings
@@ -85900,7 +85900,7 @@ bool ATrDeployable_Turret::CanTargetPawn ( class APawn* aPawn )
 
     this->ProcessEvent ( pFnCanTargetPawn, &CanTargetPawn_Parms, NULL );
 
-    return CanTargetPawn_Parms.ReturnValue;
+    return CanTargetPawn_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_Turret.CleanupIgnoreList
@@ -86121,7 +86121,7 @@ bool ATrPowerGenerator::IsGeneratingPower ( )
 
     this->ProcessEvent ( pFnIsGeneratingPower, &IsGeneratingPower_Parms, NULL );
 
-    return IsGeneratingPower_Parms.ReturnValue;
+    return IsGeneratingPower_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPowerGenerator.AutoRestoreHealth
@@ -86328,7 +86328,7 @@ bool ATrPowerGenerator::ShouldShowHelpText ( unsigned char HelpTextType )
 
     this->ProcessEvent ( pFnShouldShowHelpText, &ShouldShowHelpText_Parms, NULL );
 
-    return ShouldShowHelpText_Parms.ReturnValue;
+    return ShouldShowHelpText_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPowerGenerator.ReplicatedEvent
@@ -86575,7 +86575,7 @@ bool ATrRabbitBase::eventIsActive ( )
 
     this->ProcessEvent ( pFnIsActive, &IsActive_Parms, NULL );
 
-    return IsActive_Parms.ReturnValue;
+    return IsActive_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrRabbitBase.GetFlag
@@ -86730,7 +86730,7 @@ bool ATrVehicleStation::ShouldPostRenderForCaH ( )
 
     this->ProcessEvent ( pFnShouldPostRenderForCaH, &ShouldPostRenderForCaH_Parms, NULL );
 
-    return ShouldPostRenderForCaH_Parms.ReturnValue;
+    return ShouldPostRenderForCaH_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleStation.GetMarker
@@ -86894,7 +86894,7 @@ bool ATrVehicleStation::AbleToSpawnVehicleType ( unsigned char VehicleType )
 
     this->ProcessEvent ( pFnAbleToSpawnVehicleType, &AbleToSpawnVehicleType_Parms, NULL );
 
-    return AbleToSpawnVehicleType_Parms.ReturnValue;
+    return AbleToSpawnVehicleType_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleStation.Unlock
@@ -86963,7 +86963,7 @@ bool ATrVehicleStation::RequestSpawnVehicle ( unsigned char VehicleType )
 
     this->ProcessEvent ( pFnRequestSpawnVehicle, &RequestSpawnVehicle_Parms, NULL );
 
-    return RequestSpawnVehicle_Parms.ReturnValue;
+    return RequestSpawnVehicle_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleStation.PlayVehiclePadCollapseAnim
@@ -87465,7 +87465,7 @@ bool ATrGame_TRRabbit::CheckEndGame ( class APlayerReplicationInfo* Winner, stru
 
     this->ProcessEvent ( pFnCheckEndGame, &CheckEndGame_Parms, NULL );
 
-    return CheckEndGame_Parms.ReturnValue;
+    return CheckEndGame_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRRabbit.CheckScore
@@ -87486,7 +87486,7 @@ bool ATrGame_TRRabbit::CheckScore ( class APlayerReplicationInfo* Scorer )
 
     this->ProcessEvent ( pFnCheckScore, &CheckScore_Parms, NULL );
 
-    return CheckScore_Parms.ReturnValue;
+    return CheckScore_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRRabbit.SortPlayerScores
@@ -87507,7 +87507,7 @@ bool ATrGame_TRRabbit::SortPlayerScores ( class APlayerReplicationInfo* Scorer )
 
     this->ProcessEvent ( pFnSortPlayerScores, &SortPlayerScores_Parms, NULL );
 
-    return SortPlayerScores_Parms.ReturnValue;
+    return SortPlayerScores_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRRabbit.MakeScoreStruct
@@ -87938,7 +87938,7 @@ bool ATrGame_TrCaH::CheckEndGame ( class APlayerReplicationInfo* Winner, struct 
 
     this->ProcessEvent ( pFnCheckEndGame, &CheckEndGame_Parms, NULL );
 
-    return CheckEndGame_Parms.ReturnValue;
+    return CheckEndGame_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrCaH.GotoPendingRoundStartTimer
@@ -87975,7 +87975,7 @@ bool ATrGame_TrCaH::CheckScore ( class APlayerReplicationInfo* Scorer )
 
     this->ProcessEvent ( pFnCheckScore, &CheckScore_Parms, NULL );
 
-    return CheckScore_Parms.ReturnValue;
+    return CheckScore_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrCaH.ScoreKill
@@ -88264,7 +88264,7 @@ bool ATrDeployable_BackupGenerator::MainGeneratorIsOnline ( )
 
     this->ProcessEvent ( pFnMainGeneratorIsOnline, &MainGeneratorIsOnline_Parms, NULL );
 
-    return MainGeneratorIsOnline_Parms.ReturnValue;
+    return MainGeneratorIsOnline_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_BackupGenerator.DeployComplete
@@ -88369,7 +88369,7 @@ bool ATrCollisionProxy_HelpText::ShouldShowHelpText_Delegate ( unsigned char Hel
 
     this->ProcessEvent ( pFnShouldShowHelpText_Delegate, &ShouldShowHelpText_Delegate_Parms, NULL );
 
-    return ShouldShowHelpText_Delegate_Parms.ReturnValue;
+    return ShouldShowHelpText_Delegate_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPromptMessage.GetString
@@ -88601,7 +88601,7 @@ bool ATrDeployableController::CanFireWeapon ( class AWeapon* Wpn, unsigned char 
 
     this->ProcessEvent ( pFnCanFireWeapon, &CanFireWeapon_Parms, NULL );
 
-    return CanFireWeapon_Parms.ReturnValue;
+    return CanFireWeapon_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrSubDevice_Turret.GetFireInterval
@@ -88683,7 +88683,7 @@ bool ATrBaseTurret_Neutral::ShouldShowHelpText ( unsigned char HelpTextType )
 
     this->ProcessEvent ( pFnShouldShowHelpText, &ShouldShowHelpText_Parms, NULL );
 
-    return ShouldShowHelpText_Parms.ReturnValue;
+    return ShouldShowHelpText_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrPawnCollisionProxy.OnPawnRemoved
@@ -89212,7 +89212,7 @@ bool ATrGame_TrArena::AllowRespawn ( class ATrPlayerController* TrPC )
 
     this->ProcessEvent ( pFnAllowRespawn, &AllowRespawn_Parms, NULL );
 
-    return AllowRespawn_Parms.ReturnValue;
+    return AllowRespawn_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrArena.SendMatchCountdown
@@ -89269,7 +89269,7 @@ bool ATrGame_TrArena::CheckEndGame ( class APlayerReplicationInfo* Winner, struc
 
     this->ProcessEvent ( pFnCheckEndGame, &CheckEndGame_Parms, NULL );
 
-    return CheckEndGame_Parms.ReturnValue;
+    return CheckEndGame_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrArena.IsDiamondSwordOutOfLives
@@ -89288,7 +89288,7 @@ bool ATrGame_TrArena::IsDiamondSwordOutOfLives ( )
 
     this->ProcessEvent ( pFnIsDiamondSwordOutOfLives, &IsDiamondSwordOutOfLives_Parms, NULL );
 
-    return IsDiamondSwordOutOfLives_Parms.ReturnValue;
+    return IsDiamondSwordOutOfLives_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrArena.IsBloodEagleOutOfLives
@@ -89307,7 +89307,7 @@ bool ATrGame_TrArena::IsBloodEagleOutOfLives ( )
 
     this->ProcessEvent ( pFnIsBloodEagleOutOfLives, &IsBloodEagleOutOfLives_Parms, NULL );
 
-    return IsBloodEagleOutOfLives_Parms.ReturnValue;
+    return IsBloodEagleOutOfLives_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrArena.GetNumRemainingAlivePlayers
@@ -89421,7 +89421,7 @@ bool ATrGame_TrArena::CheckScore ( class APlayerReplicationInfo* Scorer )
 
     this->ProcessEvent ( pFnCheckScore, &CheckScore_Parms, NULL );
 
-    return CheckScore_Parms.ReturnValue;
+    return CheckScore_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrArena.ScoreKill
@@ -89751,7 +89751,7 @@ bool ATrRadarStation_Neutral::ShouldShowHelpText ( unsigned char HelpTextType )
 
     this->ProcessEvent ( pFnShouldShowHelpText, &ShouldShowHelpText_Parms, NULL );
 
-    return ShouldShowHelpText_Parms.ReturnValue;
+    return ShouldShowHelpText_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCaHMessage.ClientReceive
@@ -90119,7 +90119,7 @@ bool ATrCallIn_CrashLandInfo::SpawnCrashLandInfo ( class AController* Initialize
 
     this->ProcessEvent ( pFnSpawnCrashLandInfo, &SpawnCrashLandInfo_Parms, NULL );
 
-    return SpawnCrashLandInfo_Parms.ReturnValue;
+    return SpawnCrashLandInfo_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCallIn_OpenDeliveryPod.RemovePod
@@ -90192,7 +90192,7 @@ bool ATrCallIn_Projectile::FireCompletedCallIn ( int CallInOffs, struct FVector 
 
     this->ProcessEvent ( pFnFireCompletedCallIn, &FireCompletedCallIn_Parms, NULL );
 
-    return FireCompletedCallIn_Parms.ReturnValue;
+    return FireCompletedCallIn_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_CallInBase.EffectIsRelevant
@@ -90219,7 +90219,7 @@ bool ATrProj_CallInBase::EffectIsRelevant ( struct FVector SpawnLocation, unsign
 
     this->ProcessEvent ( pFnEffectIsRelevant, &EffectIsRelevant_Parms, NULL );
 
-    return EffectIsRelevant_Parms.ReturnValue;
+    return EffectIsRelevant_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_CallInBase.ReplicatedEvent
@@ -90294,7 +90294,7 @@ bool ATrCallIn_Support::FireCompletedCallIn ( int CallInOffs, struct FVector Tar
 
     this->ProcessEvent ( pFnFireCompletedCallIn, &FireCompletedCallIn_Parms, NULL );
 
-    return FireCompletedCallIn_Parms.ReturnValue;
+    return FireCompletedCallIn_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCamera_Spectator.SetFOV
@@ -90431,7 +90431,7 @@ bool UTrChatConsole::InputKey ( int ControllerId, struct FName Key, unsigned cha
 
     this->ProcessEvent ( pFnInputKey, &InputKey_Parms, NULL );
 
-    return InputKey_Parms.ReturnValue;
+    return InputKey_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrChatConsole.PostRender_Console
@@ -90468,7 +90468,7 @@ bool UTrChatConsole::IsPlayerTell ( )
 
     this->ProcessEvent ( pFnIsPlayerTell, &IsPlayerTell_Parms, NULL );
 
-    return IsPlayerTell_Parms.ReturnValue;
+    return IsPlayerTell_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrChatConsole.IsSlashCommand
@@ -90487,7 +90487,7 @@ bool UTrChatConsole::IsSlashCommand ( )
 
     this->ProcessEvent ( pFnIsSlashCommand, &IsSlashCommand_Parms, NULL );
 
-    return IsSlashCommand_Parms.ReturnValue;
+    return IsSlashCommand_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrChatConsole.StartTyping
@@ -90618,7 +90618,7 @@ bool UTrGameViewportClient::eventInit ( struct FString* OutError )
     if ( OutError )
         memcpy ( OutError, &Init_Parms.OutError, 0xC );
 
-    return Init_Parms.ReturnValue;
+    return Init_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrChatInput.AppendInputText
@@ -90659,7 +90659,7 @@ bool UTrChatInput::ProcessControlKey ( struct FName Key, unsigned char Event )
 
     this->ProcessEvent ( pFnProcessControlKey, &ProcessControlKey_Parms, NULL );
 
-    return ProcessControlKey_Parms.ReturnValue;
+    return ProcessControlKey_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrChatInput.FlushPlayerInput
@@ -90698,7 +90698,7 @@ bool UTrChatInput::InputChar ( int ControllerId, struct FString Unicode )
 
     this->ProcessEvent ( pFnInputChar, &InputChar_Parms, NULL );
 
-    return InputChar_Parms.ReturnValue;
+    return InputChar_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrChatInput.InputKey
@@ -90727,7 +90727,7 @@ bool UTrChatInput::InputKey ( int ControllerId, struct FName Key, unsigned char 
 
     this->ProcessEvent ( pFnInputKey, &InputKey_Parms, NULL );
 
-    return InputKey_Parms.ReturnValue;
+    return InputKey_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrChatInput.PostRender_Console
@@ -91278,7 +91278,7 @@ bool ATrGame_TrTraining::CheckScore ( class APlayerReplicationInfo* Scorer )
 
     this->ProcessEvent ( pFnCheckScore, &CheckScore_Parms, NULL );
 
-    return CheckScore_Parms.ReturnValue;
+    return CheckScore_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrWarningMessage.GetString
@@ -91447,7 +91447,7 @@ bool ATrDevice_Blink::IsRageBlink ( class ATrPawn* TRP )
 
     this->ProcessEvent ( pFnIsRageBlink, &IsRageBlink_Parms, NULL );
 
-    return IsRageBlink_Parms.ReturnValue;
+    return IsRageBlink_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Blink.OnBlink
@@ -91761,7 +91761,7 @@ bool ATrDeployable_MotionSensor::CanSetOffAlarm ( class ATrPawn* P )
 
     this->ProcessEvent ( pFnCanSetOffAlarm, &CanSetOffAlarm_Parms, NULL );
 
-    return CanSetOffAlarm_Parms.ReturnValue;
+    return CanSetOffAlarm_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_MotionSensor.UpdateInRangeEnemyPawns
@@ -91998,7 +91998,7 @@ bool ATrGame_TrDaD::CheckEndGame ( class APlayerReplicationInfo* Winner, struct 
 
     this->ProcessEvent ( pFnCheckEndGame, &CheckEndGame_Parms, NULL );
 
-    return CheckEndGame_Parms.ReturnValue;
+    return CheckEndGame_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrDaD.GotoPendingRoundStartTimer
@@ -92054,7 +92054,7 @@ bool ATrGame_TrDaD::CheckScore ( class APlayerReplicationInfo* Scorer )
 
     this->ProcessEvent ( pFnCheckScore, &CheckScore_Parms, NULL );
 
-    return CheckScore_Parms.ReturnValue;
+    return CheckScore_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrDaD.ScoreKill
@@ -92304,7 +92304,7 @@ bool UTrSavedMove::CanCombineWith ( class USavedMove* NewMove, class APawn* inPa
 
     this->ProcessEvent ( pFnCanCombineWith, &CanCombineWith_Parms, NULL );
 
-    return CanCombineWith_Parms.ReturnValue;
+    return CanCombineWith_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrSavedMove.PostUpdate
@@ -92439,7 +92439,7 @@ bool ATrConsolePlayerController::PerformedUseAction ( )
 
     this->ProcessEvent ( pFnPerformedUseAction, &PerformedUseAction_Parms, NULL );
 
-    return PerformedUseAction_Parms.ReturnValue;
+    return PerformedUseAction_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrConsolePlayerController.AimHelpModifier
@@ -92479,7 +92479,7 @@ bool ATrConsolePlayerController::AimingHelp ( unsigned long bInstantHit )
 
     this->ProcessEvent ( pFnAimingHelp, &AimingHelp_Parms, NULL );
 
-    return AimingHelp_Parms.ReturnValue;
+    return AimingHelp_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrConsolePlayerController.UpdateRotation
@@ -92847,7 +92847,7 @@ bool UTrCTFHUDMessage::AddAnnouncement ( class AUTAnnouncer* Announcer, int Mess
 
     this->ProcessEvent ( pFnAddAnnouncement, &AddAnnouncement_Parms, NULL );
 
-    return AddAnnouncement_Parms.ReturnValue;
+    return AddAnnouncement_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrCTFHUDMessage.GetString
@@ -93818,7 +93818,7 @@ bool UTrDataStore_OnlineGameSearch::HasExistingSearchResults ( )
 
     this->ProcessEvent ( pFnHasExistingSearchResults, &HasExistingSearchResults_Parms, NULL );
 
-    return HasExistingSearchResults_Parms.ReturnValue;
+    return HasExistingSearchResults_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDataStore_OnlineGameSearch.HasOutstandingQueries
@@ -93839,7 +93839,7 @@ bool UTrDataStore_OnlineGameSearch::HasOutstandingQueries ( unsigned long bRestr
 
     this->ProcessEvent ( pFnHasOutstandingQueries, &HasOutstandingQueries_Parms, NULL );
 
-    return HasOutstandingQueries_Parms.ReturnValue;
+    return HasOutstandingQueries_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDataStore_OnlineGameSearch.OnSearchComplete
@@ -93880,7 +93880,7 @@ bool UTrDataStore_OnlineGameSearch::eventSubmitGameSearch ( unsigned char Contro
 
     this->ProcessEvent ( pFnSubmitGameSearch, &SubmitGameSearch_Parms, NULL );
 
-    return SubmitGameSearch_Parms.ReturnValue;
+    return SubmitGameSearch_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDataStore_OnlineGameSearch.Init
@@ -94137,7 +94137,7 @@ bool ATrDemoRecSpectator::SetPause ( unsigned long bPause, struct FScriptDelegat
 
     this->ProcessEvent ( pFnSetPause, &SetPause_Parms, NULL );
 
-    return SetPause_Parms.ReturnValue;
+    return SetPause_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDemoRecSpectator.ClientSetRealViewTarget
@@ -94318,7 +94318,7 @@ bool ATrStationCollision::CheckCanPawnUseStationNow ( class ATrPawn* P )
 
     this->ProcessEvent ( pFnCheckCanPawnUseStationNow, &CheckCanPawnUseStationNow_Parms, NULL );
 
-    return CheckCanPawnUseStationNow_Parms.ReturnValue;
+    return CheckCanPawnUseStationNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrStationCollision.UnTouch
@@ -94416,7 +94416,7 @@ bool ATrInventoryStationCollision::CheckCanPawnUseStationNow ( class ATrPawn* P 
 
     this->ProcessEvent ( pFnCheckCanPawnUseStationNow, &CheckCanPawnUseStationNow_Parms, NULL );
 
-    return CheckCanPawnUseStationNow_Parms.ReturnValue;
+    return CheckCanPawnUseStationNow_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDeployable_ForceField.GetMarker
@@ -94847,7 +94847,7 @@ bool ATrProj_ArmoredClaymore::MeetsDetonationRequirements ( class APawn* Other )
 
     this->ProcessEvent ( pFnMeetsDetonationRequirements, &MeetsDetonationRequirements_Parms, NULL );
 
-    return MeetsDetonationRequirements_Parms.ReturnValue;
+    return MeetsDetonationRequirements_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_Buckler.SpawnFlightEffects
@@ -95167,7 +95167,7 @@ bool ATrDevice_Stealth::CanBeActive ( )
 
     this->ProcessEvent ( pFnCanBeActive, &CanBeActive_Parms, NULL );
 
-    return CanBeActive_Parms.ReturnValue;
+    return CanBeActive_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrDevice_Stealth.PostBeginPlay
@@ -95260,7 +95260,7 @@ bool ATrProj_Honorfusor::ProjectileHurtRadius ( struct FVector HurtOrigin, struc
 
     this->ProcessEvent ( pFnProjectileHurtRadius, &ProjectileHurtRadius_Parms, NULL );
 
-    return ProjectileHurtRadius_Parms.ReturnValue;
+    return ProjectileHurtRadius_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrEffect_Jammer.Remove
@@ -95791,7 +95791,7 @@ bool ATrProj_RemoteArxBuster::StickToTarget ( class AActor* Target, struct FVect
 
     this->ProcessEvent ( pFnStickToTarget, &StickToTarget_Parms, NULL );
 
-    return StickToTarget_Parms.ReturnValue;
+    return StickToTarget_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_RemoteArxBuster.ReportDestroyedByOtherToParentDevice
@@ -96412,7 +96412,7 @@ bool ATrProj_SpikeGrenade::IsFractalActive ( )
 
     this->ProcessEvent ( pFnIsFractalActive, &IsFractalActive_Parms, NULL );
 
-    return IsFractalActive_Parms.ReturnValue;
+    return IsFractalActive_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_SpikeGrenade.ClientReceivedExplosionLocation
@@ -96589,7 +96589,7 @@ bool ATrProj_SpikeLauncher::StickToTarget ( class AActor* Target, struct FVector
 
     this->ProcessEvent ( pFnStickToTarget, &StickToTarget_Parms, NULL );
 
-    return StickToTarget_Parms.ReturnValue;
+    return StickToTarget_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrProj_SpikeLauncher.PreBeginPlay
@@ -96688,7 +96688,7 @@ bool ATrVehicle_GravCycle::DoesVehicleHaveEjectionSeat ( )
 
     this->ProcessEvent ( pFnDoesVehicleHaveEjectionSeat, &DoesVehicleHaveEjectionSeat_Parms, NULL );
 
-    return DoesVehicleHaveEjectionSeat_Parms.ReturnValue;
+    return DoesVehicleHaveEjectionSeat_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleWeapon_BeowulfGunner.Activate
@@ -97754,7 +97754,7 @@ bool ATrGame_TRTDM::CheckScore ( class APlayerReplicationInfo* Scorer )
 
     this->ProcessEvent ( pFnCheckScore, &CheckScore_Parms, NULL );
 
-    return CheckScore_Parms.ReturnValue;
+    return CheckScore_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TRTDM.ScoreKill
@@ -98062,7 +98062,7 @@ bool ATrGame_TrSiege::IsInRoundOne ( )
 
     this->ProcessEvent ( pFnIsInRoundOne, &IsInRoundOne_Parms, NULL );
 
-    return IsInRoundOne_Parms.ReturnValue;
+    return IsInRoundOne_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrSiege.OnCoreBlownUp
@@ -98174,7 +98174,7 @@ bool ATrGame_TrStorm::CheckEndGame ( class APlayerReplicationInfo* Winner, struc
 
     this->ProcessEvent ( pFnCheckEndGame, &CheckEndGame_Parms, NULL );
 
-    return CheckEndGame_Parms.ReturnValue;
+    return CheckEndGame_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrGame_TrStorm.TakeDamageFromCore
@@ -98879,7 +98879,7 @@ bool ATrHelpTextManager_Training::RequestHelpText ( unsigned char RequestedType 
 
     this->ProcessEvent ( pFnRequestHelpText, &RequestHelpText_Parms, NULL );
 
-    return RequestHelpText_Parms.ReturnValue;
+    return RequestHelpText_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrHelpTextManager_Training.CheckDestroy
@@ -98898,7 +98898,7 @@ bool ATrHelpTextManager_Training::CheckDestroy ( )
 
     this->ProcessEvent ( pFnCheckDestroy, &CheckDestroy_Parms, NULL );
 
-    return CheckDestroy_Parms.ReturnValue;
+    return CheckDestroy_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrHelpTextManager_Training.UpdateTypesToRemoveOnTimers
@@ -99403,7 +99403,7 @@ bool UTrRabbitLeaderboard::UpdateLeaderboard ( int Index, struct FName PRIName, 
 
     this->ProcessEvent ( pFnUpdateLeaderboard, &UpdateLeaderboard_Parms, NULL );
 
-    return UpdateLeaderboard_Parms.ReturnValue;
+    return UpdateLeaderboard_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrRabbitLeaderboard.UpdatePlayers
@@ -99510,7 +99510,7 @@ bool UTrScoreboard::IsValidScoreboardPlayer ( class ATrPlayerReplicationInfo* PR
 
     this->ProcessEvent ( pFnIsValidScoreboardPlayer, &IsValidScoreboardPlayer_Parms, NULL );
 
-    return IsValidScoreboardPlayer_Parms.ReturnValue;
+    return IsValidScoreboardPlayer_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrScoreboard.UpdateHeaders
@@ -99572,7 +99572,7 @@ bool UTrScoreboard::UpdateSlot ( int Index, class ATrPlayerReplicationInfo* PRI 
 
     this->ProcessEvent ( pFnUpdateSlot, &UpdateSlot_Parms, NULL );
 
-    return UpdateSlot_Parms.ReturnValue;
+    return UpdateSlot_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrScoreboard.ClearSlot
@@ -99593,7 +99593,7 @@ bool UTrScoreboard::ClearSlot ( int Index )
 
     this->ProcessEvent ( pFnClearSlot, &ClearSlot_Parms, NULL );
 
-    return ClearSlot_Parms.ReturnValue;
+    return ClearSlot_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrScoreboard.CreditsSort
@@ -100094,7 +100094,7 @@ bool UTrMakeQuickMatch::RequestJoin ( struct FOnlineGameSearchResult GameToJoin 
 
     this->ProcessEvent ( pFnRequestJoin, &RequestJoin_Parms, NULL );
 
-    return RequestJoin_Parms.ReturnValue;
+    return RequestJoin_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrMakeQuickMatch.BuildJoinURL
@@ -100192,7 +100192,7 @@ bool UTrMakeQuickMatch::SubmitGameSearch ( )
 
     this->ProcessEvent ( pFnSubmitGameSearch, &SubmitGameSearch_Parms, NULL );
 
-    return SubmitGameSearch_Parms.ReturnValue;
+    return SubmitGameSearch_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrMakeQuickMatch.Cleanup
@@ -100247,7 +100247,7 @@ bool UTrMakeQuickMatch::Init ( unsigned char ControllerIndex, int GameMode )
 
     this->ProcessEvent ( pFnInit, &Init_Parms, NULL );
 
-    return Init_Parms.ReturnValue;
+    return Init_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrMultiKillMessage.AddAnnouncement
@@ -100274,7 +100274,7 @@ bool UTrMultiKillMessage::AddAnnouncement ( class AUTAnnouncer* Announcer, int M
 
     this->ProcessEvent ( pFnAddAnnouncement, &AddAnnouncement_Parms, NULL );
 
-    return AddAnnouncement_Parms.ReturnValue;
+    return AddAnnouncement_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrMultiKillMessage.ShouldBeRemoved
@@ -100299,7 +100299,7 @@ bool UTrMultiKillMessage::ShouldBeRemoved ( class AUTQueuedAnnouncement* MyAnnou
 
     this->ProcessEvent ( pFnShouldBeRemoved, &ShouldBeRemoved_Parms, NULL );
 
-    return ShouldBeRemoved_Parms.ReturnValue;
+    return ShouldBeRemoved_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrMultiKillMessage.GetFontSize
@@ -101179,7 +101179,7 @@ bool ATrTimedPowerup::DenyPickupQuery ( class UClass* ItemClass, class AActor* P
 
     this->ProcessEvent ( pFnDenyPickupQuery, &DenyPickupQuery_Parms, NULL );
 
-    return DenyPickupQuery_Parms.ReturnValue;
+    return DenyPickupQuery_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrTimedPowerup.DisplayPowerup
@@ -101352,7 +101352,7 @@ bool UTrUIDataProvider_MapInfo::eventShouldBeFiltered ( )
 
     this->ProcessEvent ( pFnShouldBeFiltered, &ShouldBeFiltered_Parms, NULL );
 
-    return ShouldBeFiltered_Parms.ReturnValue;
+    return ShouldBeFiltered_Parms.ReturnValue != 0;
 };
 
 // Function TribesGame.TrVehicleMessage.GetString

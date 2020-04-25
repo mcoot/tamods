@@ -19,7 +19,7 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
         loc.Z -= ((UTrDmgType_Bullet *)UTrDmgType_Bullet::StaticClass()->Default)->m_v2DDamageNumbersMinMaxZ.X;
 
     // Hit sounds
-    playHitSound((bool)params->bShieldDamage, &params->NumberToShow);
+    playHitSound(params->bShieldDamage != 0, &params->NumberToShow);
 
     // Headshots
     if (nHitEnemyHeadshot != that->r_nHitEnemyHeadshot)
@@ -46,7 +46,7 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
         TArray<FOverheadNumber> *overheads = &((ATrHUD *)that->myHUD)->m_OverheadNumbers;
         try
         {
-            (*g_config.onDamageNumberCreate)(overheads, params->NumberToShow, loc, (bool) params->bShieldDamage);
+            (*g_config.onDamageNumberCreate)(overheads, params->NumberToShow, loc, params->bShieldDamage != 0);
         }
         catch (const LuaException &e)
         {
@@ -86,7 +86,7 @@ bool TrPC_ClientShowOverheadNumber(int id, UObject *dwCallingObject, UFunction* 
 
     if (params->NumberToShow <= g_config.damageNumbersLimit)
         return true;
-    TrHUD_addOverheadNumber((ATrHUD *)that->myHUD, params->NumberToShow, loc, params->bShieldDamage);
+    TrHUD_addOverheadNumber((ATrHUD *)that->myHUD, params->NumberToShow, loc, params->bShieldDamage != 0);
     return true;
 }
 
