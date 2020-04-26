@@ -12,7 +12,7 @@
 */
 
 #ifdef _MSC_VER
-	#pragma pack ( push, 0x4 )
+    #pragma pack ( push, 0x4 )
 #endif
 
 #include "../SdkHeaders.h"
@@ -48,22 +48,22 @@ UClass* UTgNetConn::pClassPointer = NULL;
 
 bool UTgGameEngine::HandlePlayerCommandInput ( struct FString FSCommand, class APlayerController* PC )
 {
-	static UFunction* pFnHandlePlayerCommandInput = NULL;
+    static UFunction* pFnHandlePlayerCommandInput = NULL;
 
-	if ( ! pFnHandlePlayerCommandInput )
-		pFnHandlePlayerCommandInput = (UFunction*) UObject::GObjObjects()->Data[ 34067 ];
+    if ( ! pFnHandlePlayerCommandInput )
+        pFnHandlePlayerCommandInput = (UFunction*) UObject::GObjObjects()->Data[ 34067 ];
 
-	UTgGameEngine_execHandlePlayerCommandInput_Parms HandlePlayerCommandInput_Parms;
-	memcpy ( &HandlePlayerCommandInput_Parms.FSCommand, &FSCommand, 0xC );
-	HandlePlayerCommandInput_Parms.PC = PC;
+    UTgGameEngine_execHandlePlayerCommandInput_Parms HandlePlayerCommandInput_Parms;
+    memcpy ( &HandlePlayerCommandInput_Parms.FSCommand, &FSCommand, 0xC );
+    HandlePlayerCommandInput_Parms.PC = PC;
 
-	pFnHandlePlayerCommandInput->FunctionFlags |= ~0x400;
+    pFnHandlePlayerCommandInput->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnHandlePlayerCommandInput, &HandlePlayerCommandInput_Parms, NULL );
+    this->ProcessEvent ( pFnHandlePlayerCommandInput, &HandlePlayerCommandInput_Parms, NULL );
 
-	pFnHandlePlayerCommandInput->FunctionFlags |= 0x400;
+    pFnHandlePlayerCommandInput->FunctionFlags |= 0x400;
 
-	return HandlePlayerCommandInput_Parms.ReturnValue;
+    return HandlePlayerCommandInput_Parms.ReturnValue;
 };
 
 // Function PlatformCommon.TgGameEngine.SendGameRequest
@@ -73,19 +73,19 @@ bool UTgGameEngine::HandlePlayerCommandInput ( struct FString FSCommand, class A
 
 void UTgGameEngine::SendGameRequest ( struct FString fsRequest )
 {
-	static UFunction* pFnSendGameRequest = NULL;
+    static UFunction* pFnSendGameRequest = NULL;
 
-	if ( ! pFnSendGameRequest )
-		pFnSendGameRequest = (UFunction*) UObject::GObjObjects()->Data[ 34065 ];
+    if ( ! pFnSendGameRequest )
+        pFnSendGameRequest = (UFunction*) UObject::GObjObjects()->Data[ 34065 ];
 
-	UTgGameEngine_execSendGameRequest_Parms SendGameRequest_Parms;
-	memcpy ( &SendGameRequest_Parms.fsRequest, &fsRequest, 0xC );
+    UTgGameEngine_execSendGameRequest_Parms SendGameRequest_Parms;
+    memcpy ( &SendGameRequest_Parms.fsRequest, &fsRequest, 0xC );
 
-	pFnSendGameRequest->FunctionFlags |= ~0x400;
+    pFnSendGameRequest->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSendGameRequest, &SendGameRequest_Parms, NULL );
+    this->ProcessEvent ( pFnSendGameRequest, &SendGameRequest_Parms, NULL );
 
-	pFnSendGameRequest->FunctionFlags |= 0x400;
+    pFnSendGameRequest->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgGameEngine.SendCtrlRequest
@@ -95,19 +95,19 @@ void UTgGameEngine::SendGameRequest ( struct FString fsRequest )
 
 void UTgGameEngine::SendCtrlRequest ( struct FString fsRequest )
 {
-	static UFunction* pFnSendCtrlRequest = NULL;
+    static UFunction* pFnSendCtrlRequest = NULL;
 
-	if ( ! pFnSendCtrlRequest )
-		pFnSendCtrlRequest = (UFunction*) UObject::GObjObjects()->Data[ 34063 ];
+    if ( ! pFnSendCtrlRequest )
+        pFnSendCtrlRequest = (UFunction*) UObject::GObjObjects()->Data[ 34063 ];
 
-	UTgGameEngine_execSendCtrlRequest_Parms SendCtrlRequest_Parms;
-	memcpy ( &SendCtrlRequest_Parms.fsRequest, &fsRequest, 0xC );
+    UTgGameEngine_execSendCtrlRequest_Parms SendCtrlRequest_Parms;
+    memcpy ( &SendCtrlRequest_Parms.fsRequest, &fsRequest, 0xC );
 
-	pFnSendCtrlRequest->FunctionFlags |= ~0x400;
+    pFnSendCtrlRequest->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSendCtrlRequest, &SendCtrlRequest_Parms, NULL );
+    this->ProcessEvent ( pFnSendCtrlRequest, &SendCtrlRequest_Parms, NULL );
 
-	pFnSendCtrlRequest->FunctionFlags |= 0x400;
+    pFnSendCtrlRequest->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgGameEngine.ClearMarshalEventDelegate
@@ -117,19 +117,19 @@ void UTgGameEngine::SendCtrlRequest ( struct FString fsRequest )
 
 void UTgGameEngine::ClearMarshalEventDelegate ( struct FScriptDelegate MarshalEventDelegate )
 {
-	static UFunction* pFnClearMarshalEventDelegate = NULL;
+    static UFunction* pFnClearMarshalEventDelegate = NULL;
 
-	if ( ! pFnClearMarshalEventDelegate )
-		pFnClearMarshalEventDelegate = (UFunction*) UObject::GObjObjects()->Data[ 34061 ];
+    if ( ! pFnClearMarshalEventDelegate )
+        pFnClearMarshalEventDelegate = (UFunction*) UObject::GObjObjects()->Data[ 34061 ];
 
-	UTgGameEngine_execClearMarshalEventDelegate_Parms ClearMarshalEventDelegate_Parms;
-	memcpy ( &ClearMarshalEventDelegate_Parms.MarshalEventDelegate, &MarshalEventDelegate, 0xC );
+    UTgGameEngine_execClearMarshalEventDelegate_Parms ClearMarshalEventDelegate_Parms;
+    memcpy ( &ClearMarshalEventDelegate_Parms.MarshalEventDelegate, &MarshalEventDelegate, 0xC );
 
-	pFnClearMarshalEventDelegate->FunctionFlags |= ~0x400;
+    pFnClearMarshalEventDelegate->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnClearMarshalEventDelegate, &ClearMarshalEventDelegate_Parms, NULL );
+    this->ProcessEvent ( pFnClearMarshalEventDelegate, &ClearMarshalEventDelegate_Parms, NULL );
 
-	pFnClearMarshalEventDelegate->FunctionFlags |= 0x400;
+    pFnClearMarshalEventDelegate->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgGameEngine.AddMarshalEventDelegate
@@ -139,19 +139,19 @@ void UTgGameEngine::ClearMarshalEventDelegate ( struct FScriptDelegate MarshalEv
 
 void UTgGameEngine::AddMarshalEventDelegate ( struct FScriptDelegate MarshalEventDelegate )
 {
-	static UFunction* pFnAddMarshalEventDelegate = NULL;
+    static UFunction* pFnAddMarshalEventDelegate = NULL;
 
-	if ( ! pFnAddMarshalEventDelegate )
-		pFnAddMarshalEventDelegate = (UFunction*) UObject::GObjObjects()->Data[ 34059 ];
+    if ( ! pFnAddMarshalEventDelegate )
+        pFnAddMarshalEventDelegate = (UFunction*) UObject::GObjObjects()->Data[ 34059 ];
 
-	UTgGameEngine_execAddMarshalEventDelegate_Parms AddMarshalEventDelegate_Parms;
-	memcpy ( &AddMarshalEventDelegate_Parms.MarshalEventDelegate, &MarshalEventDelegate, 0xC );
+    UTgGameEngine_execAddMarshalEventDelegate_Parms AddMarshalEventDelegate_Parms;
+    memcpy ( &AddMarshalEventDelegate_Parms.MarshalEventDelegate, &MarshalEventDelegate, 0xC );
 
-	pFnAddMarshalEventDelegate->FunctionFlags |= ~0x400;
+    pFnAddMarshalEventDelegate->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnAddMarshalEventDelegate, &AddMarshalEventDelegate_Parms, NULL );
+    this->ProcessEvent ( pFnAddMarshalEventDelegate, &AddMarshalEventDelegate_Parms, NULL );
 
-	pFnAddMarshalEventDelegate->FunctionFlags |= 0x400;
+    pFnAddMarshalEventDelegate->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgGameEngine.OnMarshalEvent
@@ -161,15 +161,15 @@ void UTgGameEngine::AddMarshalEventDelegate ( struct FScriptDelegate MarshalEven
 
 void UTgGameEngine::OnMarshalEvent ( struct FPointer pMarEvent )
 {
-	static UFunction* pFnOnMarshalEvent = NULL;
+    static UFunction* pFnOnMarshalEvent = NULL;
 
-	if ( ! pFnOnMarshalEvent )
-		pFnOnMarshalEvent = (UFunction*) UObject::GObjObjects()->Data[ 34012 ];
+    if ( ! pFnOnMarshalEvent )
+        pFnOnMarshalEvent = (UFunction*) UObject::GObjObjects()->Data[ 34012 ];
 
-	UTgGameEngine_execOnMarshalEvent_Parms OnMarshalEvent_Parms;
-	memcpy ( &OnMarshalEvent_Parms.pMarEvent, &pMarEvent, 0x4 );
+    UTgGameEngine_execOnMarshalEvent_Parms OnMarshalEvent_Parms;
+    memcpy ( &OnMarshalEvent_Parms.pMarEvent, &pMarEvent, 0x4 );
 
-	this->ProcessEvent ( pFnOnMarshalEvent, &OnMarshalEvent_Parms, NULL );
+    this->ProcessEvent ( pFnOnMarshalEvent, &OnMarshalEvent_Parms, NULL );
 };
 
 // Function PlatformCommon.TgGameEngine.GetFieldString
@@ -181,24 +181,24 @@ void UTgGameEngine::OnMarshalEvent ( struct FPointer pMarEvent )
 
 bool UTgGameEngine::GetFieldString ( int nToken, struct FString* StrValue )
 {
-	static UFunction* pFnGetFieldString = NULL;
+    static UFunction* pFnGetFieldString = NULL;
 
-	if ( ! pFnGetFieldString )
-		pFnGetFieldString = (UFunction*) UObject::GObjObjects()->Data[ 34054 ];
+    if ( ! pFnGetFieldString )
+        pFnGetFieldString = (UFunction*) UObject::GObjObjects()->Data[ 34054 ];
 
-	UTgGameEngine_execGetFieldString_Parms GetFieldString_Parms;
-	GetFieldString_Parms.nToken = nToken;
+    UTgGameEngine_execGetFieldString_Parms GetFieldString_Parms;
+    GetFieldString_Parms.nToken = nToken;
 
-	pFnGetFieldString->FunctionFlags |= ~0x400;
+    pFnGetFieldString->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetFieldString, &GetFieldString_Parms, NULL );
+    this->ProcessEvent ( pFnGetFieldString, &GetFieldString_Parms, NULL );
 
-	pFnGetFieldString->FunctionFlags |= 0x400;
+    pFnGetFieldString->FunctionFlags |= 0x400;
 
-	if ( StrValue )
-		memcpy ( StrValue, &GetFieldString_Parms.StrValue, 0xC );
+    if ( StrValue )
+        memcpy ( StrValue, &GetFieldString_Parms.StrValue, 0xC );
 
-	return GetFieldString_Parms.ReturnValue;
+    return GetFieldString_Parms.ReturnValue;
 };
 
 // Function PlatformCommon.TgGameEngine.GetFieldFloat
@@ -210,24 +210,24 @@ bool UTgGameEngine::GetFieldString ( int nToken, struct FString* StrValue )
 
 bool UTgGameEngine::GetFieldFloat ( int nToken, float* FloatValue )
 {
-	static UFunction* pFnGetFieldFloat = NULL;
+    static UFunction* pFnGetFieldFloat = NULL;
 
-	if ( ! pFnGetFieldFloat )
-		pFnGetFieldFloat = (UFunction*) UObject::GObjObjects()->Data[ 34050 ];
+    if ( ! pFnGetFieldFloat )
+        pFnGetFieldFloat = (UFunction*) UObject::GObjObjects()->Data[ 34050 ];
 
-	UTgGameEngine_execGetFieldFloat_Parms GetFieldFloat_Parms;
-	GetFieldFloat_Parms.nToken = nToken;
+    UTgGameEngine_execGetFieldFloat_Parms GetFieldFloat_Parms;
+    GetFieldFloat_Parms.nToken = nToken;
 
-	pFnGetFieldFloat->FunctionFlags |= ~0x400;
+    pFnGetFieldFloat->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetFieldFloat, &GetFieldFloat_Parms, NULL );
+    this->ProcessEvent ( pFnGetFieldFloat, &GetFieldFloat_Parms, NULL );
 
-	pFnGetFieldFloat->FunctionFlags |= 0x400;
+    pFnGetFieldFloat->FunctionFlags |= 0x400;
 
-	if ( FloatValue )
-		*FloatValue = GetFieldFloat_Parms.FloatValue;
+    if ( FloatValue )
+        *FloatValue = GetFieldFloat_Parms.FloatValue;
 
-	return GetFieldFloat_Parms.ReturnValue;
+    return GetFieldFloat_Parms.ReturnValue;
 };
 
 // Function PlatformCommon.TgGameEngine.GetFieldInt
@@ -239,24 +239,24 @@ bool UTgGameEngine::GetFieldFloat ( int nToken, float* FloatValue )
 
 bool UTgGameEngine::GetFieldInt ( int nToken, int* IntValue )
 {
-	static UFunction* pFnGetFieldInt = NULL;
+    static UFunction* pFnGetFieldInt = NULL;
 
-	if ( ! pFnGetFieldInt )
-		pFnGetFieldInt = (UFunction*) UObject::GObjObjects()->Data[ 34046 ];
+    if ( ! pFnGetFieldInt )
+        pFnGetFieldInt = (UFunction*) UObject::GObjObjects()->Data[ 34046 ];
 
-	UTgGameEngine_execGetFieldInt_Parms GetFieldInt_Parms;
-	GetFieldInt_Parms.nToken = nToken;
+    UTgGameEngine_execGetFieldInt_Parms GetFieldInt_Parms;
+    GetFieldInt_Parms.nToken = nToken;
 
-	pFnGetFieldInt->FunctionFlags |= ~0x400;
+    pFnGetFieldInt->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGetFieldInt, &GetFieldInt_Parms, NULL );
+    this->ProcessEvent ( pFnGetFieldInt, &GetFieldInt_Parms, NULL );
 
-	pFnGetFieldInt->FunctionFlags |= 0x400;
+    pFnGetFieldInt->FunctionFlags |= 0x400;
 
-	if ( IntValue )
-		*IntValue = GetFieldInt_Parms.IntValue;
+    if ( IntValue )
+        *IntValue = GetFieldInt_Parms.IntValue;
 
-	return GetFieldInt_Parms.ReturnValue;
+    return GetFieldInt_Parms.ReturnValue;
 };
 
 // Function PlatformCommon.TgGameEngine.SendMarshalAll
@@ -266,19 +266,19 @@ bool UTgGameEngine::GetFieldInt ( int nToken, int* IntValue )
 
 void UTgGameEngine::SendMarshalAll ( unsigned long bLowPriority )
 {
-	static UFunction* pFnSendMarshalAll = NULL;
+    static UFunction* pFnSendMarshalAll = NULL;
 
-	if ( ! pFnSendMarshalAll )
-		pFnSendMarshalAll = (UFunction*) UObject::GObjObjects()->Data[ 34044 ];
+    if ( ! pFnSendMarshalAll )
+        pFnSendMarshalAll = (UFunction*) UObject::GObjObjects()->Data[ 34044 ];
 
-	UTgGameEngine_execSendMarshalAll_Parms SendMarshalAll_Parms;
-	SendMarshalAll_Parms.bLowPriority = bLowPriority;
+    UTgGameEngine_execSendMarshalAll_Parms SendMarshalAll_Parms;
+    SendMarshalAll_Parms.bLowPriority = bLowPriority;
 
-	pFnSendMarshalAll->FunctionFlags |= ~0x400;
+    pFnSendMarshalAll->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSendMarshalAll, &SendMarshalAll_Parms, NULL );
+    this->ProcessEvent ( pFnSendMarshalAll, &SendMarshalAll_Parms, NULL );
 
-	pFnSendMarshalAll->FunctionFlags |= 0x400;
+    pFnSendMarshalAll->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgGameEngine.SendMarshal
@@ -289,20 +289,20 @@ void UTgGameEngine::SendMarshalAll ( unsigned long bLowPriority )
 
 void UTgGameEngine::SendMarshal ( struct FUniqueNetId qwPlayerId, unsigned long bLowPriority )
 {
-	static UFunction* pFnSendMarshal = NULL;
+    static UFunction* pFnSendMarshal = NULL;
 
-	if ( ! pFnSendMarshal )
-		pFnSendMarshal = (UFunction*) UObject::GObjObjects()->Data[ 34041 ];
+    if ( ! pFnSendMarshal )
+        pFnSendMarshal = (UFunction*) UObject::GObjObjects()->Data[ 34041 ];
 
-	UTgGameEngine_execSendMarshal_Parms SendMarshal_Parms;
-	memcpy ( &SendMarshal_Parms.qwPlayerId, &qwPlayerId, 0x8 );
-	SendMarshal_Parms.bLowPriority = bLowPriority;
+    UTgGameEngine_execSendMarshal_Parms SendMarshal_Parms;
+    memcpy ( &SendMarshal_Parms.qwPlayerId, &qwPlayerId, 0x8 );
+    SendMarshal_Parms.bLowPriority = bLowPriority;
 
-	pFnSendMarshal->FunctionFlags |= ~0x400;
+    pFnSendMarshal->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSendMarshal, &SendMarshal_Parms, NULL );
+    this->ProcessEvent ( pFnSendMarshal, &SendMarshal_Parms, NULL );
 
-	pFnSendMarshal->FunctionFlags |= 0x400;
+    pFnSendMarshal->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgGameEngine.ClearMarshal
@@ -311,18 +311,18 @@ void UTgGameEngine::SendMarshal ( struct FUniqueNetId qwPlayerId, unsigned long 
 
 void UTgGameEngine::ClearMarshal ( )
 {
-	static UFunction* pFnClearMarshal = NULL;
+    static UFunction* pFnClearMarshal = NULL;
 
-	if ( ! pFnClearMarshal )
-		pFnClearMarshal = (UFunction*) UObject::GObjObjects()->Data[ 34040 ];
+    if ( ! pFnClearMarshal )
+        pFnClearMarshal = (UFunction*) UObject::GObjObjects()->Data[ 34040 ];
 
-	UTgGameEngine_execClearMarshal_Parms ClearMarshal_Parms;
+    UTgGameEngine_execClearMarshal_Parms ClearMarshal_Parms;
 
-	pFnClearMarshal->FunctionFlags |= ~0x400;
+    pFnClearMarshal->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnClearMarshal, &ClearMarshal_Parms, NULL );
+    this->ProcessEvent ( pFnClearMarshal, &ClearMarshal_Parms, NULL );
 
-	pFnClearMarshal->FunctionFlags |= 0x400;
+    pFnClearMarshal->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgGameEngine.SetFieldString
@@ -334,22 +334,22 @@ void UTgGameEngine::ClearMarshal ( )
 
 bool UTgGameEngine::SetFieldString ( int nToken, struct FString StrValue )
 {
-	static UFunction* pFnSetFieldString = NULL;
+    static UFunction* pFnSetFieldString = NULL;
 
-	if ( ! pFnSetFieldString )
-		pFnSetFieldString = (UFunction*) UObject::GObjObjects()->Data[ 34036 ];
+    if ( ! pFnSetFieldString )
+        pFnSetFieldString = (UFunction*) UObject::GObjObjects()->Data[ 34036 ];
 
-	UTgGameEngine_execSetFieldString_Parms SetFieldString_Parms;
-	SetFieldString_Parms.nToken = nToken;
-	memcpy ( &SetFieldString_Parms.StrValue, &StrValue, 0xC );
+    UTgGameEngine_execSetFieldString_Parms SetFieldString_Parms;
+    SetFieldString_Parms.nToken = nToken;
+    memcpy ( &SetFieldString_Parms.StrValue, &StrValue, 0xC );
 
-	pFnSetFieldString->FunctionFlags |= ~0x400;
+    pFnSetFieldString->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetFieldString, &SetFieldString_Parms, NULL );
+    this->ProcessEvent ( pFnSetFieldString, &SetFieldString_Parms, NULL );
 
-	pFnSetFieldString->FunctionFlags |= 0x400;
+    pFnSetFieldString->FunctionFlags |= 0x400;
 
-	return SetFieldString_Parms.ReturnValue;
+    return SetFieldString_Parms.ReturnValue;
 };
 
 // Function PlatformCommon.TgGameEngine.SetFieldFloat
@@ -361,22 +361,22 @@ bool UTgGameEngine::SetFieldString ( int nToken, struct FString StrValue )
 
 bool UTgGameEngine::SetFieldFloat ( int nToken, float FloatValue )
 {
-	static UFunction* pFnSetFieldFloat = NULL;
+    static UFunction* pFnSetFieldFloat = NULL;
 
-	if ( ! pFnSetFieldFloat )
-		pFnSetFieldFloat = (UFunction*) UObject::GObjObjects()->Data[ 34032 ];
+    if ( ! pFnSetFieldFloat )
+        pFnSetFieldFloat = (UFunction*) UObject::GObjObjects()->Data[ 34032 ];
 
-	UTgGameEngine_execSetFieldFloat_Parms SetFieldFloat_Parms;
-	SetFieldFloat_Parms.nToken = nToken;
-	SetFieldFloat_Parms.FloatValue = FloatValue;
+    UTgGameEngine_execSetFieldFloat_Parms SetFieldFloat_Parms;
+    SetFieldFloat_Parms.nToken = nToken;
+    SetFieldFloat_Parms.FloatValue = FloatValue;
 
-	pFnSetFieldFloat->FunctionFlags |= ~0x400;
+    pFnSetFieldFloat->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetFieldFloat, &SetFieldFloat_Parms, NULL );
+    this->ProcessEvent ( pFnSetFieldFloat, &SetFieldFloat_Parms, NULL );
 
-	pFnSetFieldFloat->FunctionFlags |= 0x400;
+    pFnSetFieldFloat->FunctionFlags |= 0x400;
 
-	return SetFieldFloat_Parms.ReturnValue;
+    return SetFieldFloat_Parms.ReturnValue;
 };
 
 // Function PlatformCommon.TgGameEngine.SetFieldInt
@@ -388,22 +388,22 @@ bool UTgGameEngine::SetFieldFloat ( int nToken, float FloatValue )
 
 bool UTgGameEngine::SetFieldInt ( int nToken, int IntValue )
 {
-	static UFunction* pFnSetFieldInt = NULL;
+    static UFunction* pFnSetFieldInt = NULL;
 
-	if ( ! pFnSetFieldInt )
-		pFnSetFieldInt = (UFunction*) UObject::GObjObjects()->Data[ 34028 ];
+    if ( ! pFnSetFieldInt )
+        pFnSetFieldInt = (UFunction*) UObject::GObjObjects()->Data[ 34028 ];
 
-	UTgGameEngine_execSetFieldInt_Parms SetFieldInt_Parms;
-	SetFieldInt_Parms.nToken = nToken;
-	SetFieldInt_Parms.IntValue = IntValue;
+    UTgGameEngine_execSetFieldInt_Parms SetFieldInt_Parms;
+    SetFieldInt_Parms.nToken = nToken;
+    SetFieldInt_Parms.IntValue = IntValue;
 
-	pFnSetFieldInt->FunctionFlags |= ~0x400;
+    pFnSetFieldInt->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetFieldInt, &SetFieldInt_Parms, NULL );
+    this->ProcessEvent ( pFnSetFieldInt, &SetFieldInt_Parms, NULL );
 
-	pFnSetFieldInt->FunctionFlags |= 0x400;
+    pFnSetFieldInt->FunctionFlags |= 0x400;
 
-	return SetFieldInt_Parms.ReturnValue;
+    return SetFieldInt_Parms.ReturnValue;
 };
 
 // Function PlatformCommon.TgGameEngine.SetFunction
@@ -414,21 +414,21 @@ bool UTgGameEngine::SetFieldInt ( int nToken, int IntValue )
 
 bool UTgGameEngine::SetFunction ( int nFunction )
 {
-	static UFunction* pFnSetFunction = NULL;
+    static UFunction* pFnSetFunction = NULL;
 
-	if ( ! pFnSetFunction )
-		pFnSetFunction = (UFunction*) UObject::GObjObjects()->Data[ 34025 ];
+    if ( ! pFnSetFunction )
+        pFnSetFunction = (UFunction*) UObject::GObjObjects()->Data[ 34025 ];
 
-	UTgGameEngine_execSetFunction_Parms SetFunction_Parms;
-	SetFunction_Parms.nFunction = nFunction;
+    UTgGameEngine_execSetFunction_Parms SetFunction_Parms;
+    SetFunction_Parms.nFunction = nFunction;
 
-	pFnSetFunction->FunctionFlags |= ~0x400;
+    pFnSetFunction->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnSetFunction, &SetFunction_Parms, NULL );
+    this->ProcessEvent ( pFnSetFunction, &SetFunction_Parms, NULL );
 
-	pFnSetFunction->FunctionFlags |= 0x400;
+    pFnSetFunction->FunctionFlags |= 0x400;
 
-	return SetFunction_Parms.ReturnValue;
+    return SetFunction_Parms.ReturnValue;
 };
 
 // Function PlatformCommon.TgSupportCommands.scSetBatchPhysicsProperty
@@ -438,15 +438,15 @@ bool UTgGameEngine::SetFunction ( int nFunction )
 
 void UTgSupportCommands::scSetBatchPhysicsProperty ( struct FString BatchProperties )
 {
-	static UFunction* pFnscSetBatchPhysicsProperty = NULL;
+    static UFunction* pFnscSetBatchPhysicsProperty = NULL;
 
-	if ( ! pFnscSetBatchPhysicsProperty )
-		pFnscSetBatchPhysicsProperty = (UFunction*) UObject::GObjObjects()->Data[ 34190 ];
+    if ( ! pFnscSetBatchPhysicsProperty )
+        pFnscSetBatchPhysicsProperty = (UFunction*) UObject::GObjObjects()->Data[ 34190 ];
 
-	UTgSupportCommands_execscSetBatchPhysicsProperty_Parms scSetBatchPhysicsProperty_Parms;
-	memcpy ( &scSetBatchPhysicsProperty_Parms.BatchProperties, &BatchProperties, 0xC );
+    UTgSupportCommands_execscSetBatchPhysicsProperty_Parms scSetBatchPhysicsProperty_Parms;
+    memcpy ( &scSetBatchPhysicsProperty_Parms.BatchProperties, &BatchProperties, 0xC );
 
-	this->ProcessEvent ( pFnscSetBatchPhysicsProperty, &scSetBatchPhysicsProperty_Parms, NULL );
+    this->ProcessEvent ( pFnscSetBatchPhysicsProperty, &scSetBatchPhysicsProperty_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scSPP
@@ -457,16 +457,16 @@ void UTgSupportCommands::scSetBatchPhysicsProperty ( struct FString BatchPropert
 
 void UTgSupportCommands::scSPP ( struct FString PropertyName, float Value )
 {
-	static UFunction* pFnscSPP = NULL;
+    static UFunction* pFnscSPP = NULL;
 
-	if ( ! pFnscSPP )
-		pFnscSPP = (UFunction*) UObject::GObjObjects()->Data[ 34187 ];
+    if ( ! pFnscSPP )
+        pFnscSPP = (UFunction*) UObject::GObjObjects()->Data[ 34187 ];
 
-	UTgSupportCommands_execscSPP_Parms scSPP_Parms;
-	memcpy ( &scSPP_Parms.PropertyName, &PropertyName, 0xC );
-	scSPP_Parms.Value = Value;
+    UTgSupportCommands_execscSPP_Parms scSPP_Parms;
+    memcpy ( &scSPP_Parms.PropertyName, &PropertyName, 0xC );
+    scSPP_Parms.Value = Value;
 
-	this->ProcessEvent ( pFnscSPP, &scSPP_Parms, NULL );
+    this->ProcessEvent ( pFnscSPP, &scSPP_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scSetPhysicsProperty
@@ -477,16 +477,16 @@ void UTgSupportCommands::scSPP ( struct FString PropertyName, float Value )
 
 void UTgSupportCommands::scSetPhysicsProperty ( struct FString PropertyName, float Value )
 {
-	static UFunction* pFnscSetPhysicsProperty = NULL;
+    static UFunction* pFnscSetPhysicsProperty = NULL;
 
-	if ( ! pFnscSetPhysicsProperty )
-		pFnscSetPhysicsProperty = (UFunction*) UObject::GObjObjects()->Data[ 34184 ];
+    if ( ! pFnscSetPhysicsProperty )
+        pFnscSetPhysicsProperty = (UFunction*) UObject::GObjObjects()->Data[ 34184 ];
 
-	UTgSupportCommands_execscSetPhysicsProperty_Parms scSetPhysicsProperty_Parms;
-	memcpy ( &scSetPhysicsProperty_Parms.PropertyName, &PropertyName, 0xC );
-	scSetPhysicsProperty_Parms.Value = Value;
+    UTgSupportCommands_execscSetPhysicsProperty_Parms scSetPhysicsProperty_Parms;
+    memcpy ( &scSetPhysicsProperty_Parms.PropertyName, &PropertyName, 0xC );
+    scSetPhysicsProperty_Parms.Value = Value;
 
-	this->ProcessEvent ( pFnscSetPhysicsProperty, &scSetPhysicsProperty_Parms, NULL );
+    this->ProcessEvent ( pFnscSetPhysicsProperty, &scSetPhysicsProperty_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scPerfDebugRelevMode
@@ -496,15 +496,15 @@ void UTgSupportCommands::scSetPhysicsProperty ( struct FString PropertyName, flo
 
 void UTgSupportCommands::scPerfDebugRelevMode ( int Mode )
 {
-	static UFunction* pFnscPerfDebugRelevMode = NULL;
+    static UFunction* pFnscPerfDebugRelevMode = NULL;
 
-	if ( ! pFnscPerfDebugRelevMode )
-		pFnscPerfDebugRelevMode = (UFunction*) UObject::GObjObjects()->Data[ 34182 ];
+    if ( ! pFnscPerfDebugRelevMode )
+        pFnscPerfDebugRelevMode = (UFunction*) UObject::GObjObjects()->Data[ 34182 ];
 
-	UTgSupportCommands_execscPerfDebugRelevMode_Parms scPerfDebugRelevMode_Parms;
-	scPerfDebugRelevMode_Parms.Mode = Mode;
+    UTgSupportCommands_execscPerfDebugRelevMode_Parms scPerfDebugRelevMode_Parms;
+    scPerfDebugRelevMode_Parms.Mode = Mode;
 
-	this->ProcessEvent ( pFnscPerfDebugRelevMode, &scPerfDebugRelevMode_Parms, NULL );
+    this->ProcessEvent ( pFnscPerfDebugRelevMode, &scPerfDebugRelevMode_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scPerfDebugSkip
@@ -514,15 +514,15 @@ void UTgSupportCommands::scPerfDebugRelevMode ( int Mode )
 
 void UTgSupportCommands::scPerfDebugSkip ( int skips )
 {
-	static UFunction* pFnscPerfDebugSkip = NULL;
+    static UFunction* pFnscPerfDebugSkip = NULL;
 
-	if ( ! pFnscPerfDebugSkip )
-		pFnscPerfDebugSkip = (UFunction*) UObject::GObjObjects()->Data[ 34180 ];
+    if ( ! pFnscPerfDebugSkip )
+        pFnscPerfDebugSkip = (UFunction*) UObject::GObjObjects()->Data[ 34180 ];
 
-	UTgSupportCommands_execscPerfDebugSkip_Parms scPerfDebugSkip_Parms;
-	scPerfDebugSkip_Parms.skips = skips;
+    UTgSupportCommands_execscPerfDebugSkip_Parms scPerfDebugSkip_Parms;
+    scPerfDebugSkip_Parms.skips = skips;
 
-	this->ProcessEvent ( pFnscPerfDebugSkip, &scPerfDebugSkip_Parms, NULL );
+    this->ProcessEvent ( pFnscPerfDebugSkip, &scPerfDebugSkip_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scPerfDebugFeet
@@ -532,15 +532,15 @@ void UTgSupportCommands::scPerfDebugSkip ( int skips )
 
 void UTgSupportCommands::scPerfDebugFeet ( int feet )
 {
-	static UFunction* pFnscPerfDebugFeet = NULL;
+    static UFunction* pFnscPerfDebugFeet = NULL;
 
-	if ( ! pFnscPerfDebugFeet )
-		pFnscPerfDebugFeet = (UFunction*) UObject::GObjObjects()->Data[ 34178 ];
+    if ( ! pFnscPerfDebugFeet )
+        pFnscPerfDebugFeet = (UFunction*) UObject::GObjObjects()->Data[ 34178 ];
 
-	UTgSupportCommands_execscPerfDebugFeet_Parms scPerfDebugFeet_Parms;
-	scPerfDebugFeet_Parms.feet = feet;
+    UTgSupportCommands_execscPerfDebugFeet_Parms scPerfDebugFeet_Parms;
+    scPerfDebugFeet_Parms.feet = feet;
 
-	this->ProcessEvent ( pFnscPerfDebugFeet, &scPerfDebugFeet_Parms, NULL );
+    this->ProcessEvent ( pFnscPerfDebugFeet, &scPerfDebugFeet_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scDemoStop
@@ -549,14 +549,14 @@ void UTgSupportCommands::scPerfDebugFeet ( int feet )
 
 void UTgSupportCommands::scDemoStop ( )
 {
-	static UFunction* pFnscDemoStop = NULL;
+    static UFunction* pFnscDemoStop = NULL;
 
-	if ( ! pFnscDemoStop )
-		pFnscDemoStop = (UFunction*) UObject::GObjObjects()->Data[ 34177 ];
+    if ( ! pFnscDemoStop )
+        pFnscDemoStop = (UFunction*) UObject::GObjObjects()->Data[ 34177 ];
 
-	UTgSupportCommands_execscDemoStop_Parms scDemoStop_Parms;
+    UTgSupportCommands_execscDemoStop_Parms scDemoStop_Parms;
 
-	this->ProcessEvent ( pFnscDemoStop, &scDemoStop_Parms, NULL );
+    this->ProcessEvent ( pFnscDemoStop, &scDemoStop_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scDemoRec
@@ -565,14 +565,14 @@ void UTgSupportCommands::scDemoStop ( )
 
 void UTgSupportCommands::scDemoRec ( )
 {
-	static UFunction* pFnscDemoRec = NULL;
+    static UFunction* pFnscDemoRec = NULL;
 
-	if ( ! pFnscDemoRec )
-		pFnscDemoRec = (UFunction*) UObject::GObjObjects()->Data[ 34176 ];
+    if ( ! pFnscDemoRec )
+        pFnscDemoRec = (UFunction*) UObject::GObjObjects()->Data[ 34176 ];
 
-	UTgSupportCommands_execscDemoRec_Parms scDemoRec_Parms;
+    UTgSupportCommands_execscDemoRec_Parms scDemoRec_Parms;
 
-	this->ProcessEvent ( pFnscDemoRec, &scDemoRec_Parms, NULL );
+    this->ProcessEvent ( pFnscDemoRec, &scDemoRec_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scTimer
@@ -582,15 +582,15 @@ void UTgSupportCommands::scDemoRec ( )
 
 void UTgSupportCommands::scTimer ( struct FString sCommand )
 {
-	static UFunction* pFnscTimer = NULL;
+    static UFunction* pFnscTimer = NULL;
 
-	if ( ! pFnscTimer )
-		pFnscTimer = (UFunction*) UObject::GObjObjects()->Data[ 34173 ];
+    if ( ! pFnscTimer )
+        pFnscTimer = (UFunction*) UObject::GObjObjects()->Data[ 34173 ];
 
-	UTgSupportCommands_execscTimer_Parms scTimer_Parms;
-	memcpy ( &scTimer_Parms.sCommand, &sCommand, 0xC );
+    UTgSupportCommands_execscTimer_Parms scTimer_Parms;
+    memcpy ( &scTimer_Parms.sCommand, &sCommand, 0xC );
 
-	this->ProcessEvent ( pFnscTimer, &scTimer_Parms, NULL );
+    this->ProcessEvent ( pFnscTimer, &scTimer_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scTime
@@ -600,15 +600,15 @@ void UTgSupportCommands::scTimer ( struct FString sCommand )
 
 void UTgSupportCommands::scTime ( int nSeconds )
 {
-	static UFunction* pFnscTime = NULL;
+    static UFunction* pFnscTime = NULL;
 
-	if ( ! pFnscTime )
-		pFnscTime = (UFunction*) UObject::GObjObjects()->Data[ 34170 ];
+    if ( ! pFnscTime )
+        pFnscTime = (UFunction*) UObject::GObjObjects()->Data[ 34170 ];
 
-	UTgSupportCommands_execscTime_Parms scTime_Parms;
-	scTime_Parms.nSeconds = nSeconds;
+    UTgSupportCommands_execscTime_Parms scTime_Parms;
+    scTime_Parms.nSeconds = nSeconds;
 
-	this->ProcessEvent ( pFnscTime, &scTime_Parms, NULL );
+    this->ProcessEvent ( pFnscTime, &scTime_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scScore
@@ -619,16 +619,16 @@ void UTgSupportCommands::scTime ( int nSeconds )
 
 void UTgSupportCommands::scScore ( int nTeam, int nCount )
 {
-	static UFunction* pFnscScore = NULL;
+    static UFunction* pFnscScore = NULL;
 
-	if ( ! pFnscScore )
-		pFnscScore = (UFunction*) UObject::GObjObjects()->Data[ 34166 ];
+    if ( ! pFnscScore )
+        pFnscScore = (UFunction*) UObject::GObjObjects()->Data[ 34166 ];
 
-	UTgSupportCommands_execscScore_Parms scScore_Parms;
-	scScore_Parms.nTeam = nTeam;
-	scScore_Parms.nCount = nCount;
+    UTgSupportCommands_execscScore_Parms scScore_Parms;
+    scScore_Parms.nTeam = nTeam;
+    scScore_Parms.nCount = nCount;
 
-	this->ProcessEvent ( pFnscScore, &scScore_Parms, NULL );
+    this->ProcessEvent ( pFnscScore, &scScore_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scEndGame
@@ -638,15 +638,15 @@ void UTgSupportCommands::scScore ( int nTeam, int nCount )
 
 void UTgSupportCommands::scEndGame ( struct FString Reason )
 {
-	static UFunction* pFnscEndGame = NULL;
+    static UFunction* pFnscEndGame = NULL;
 
-	if ( ! pFnscEndGame )
-		pFnscEndGame = (UFunction*) UObject::GObjObjects()->Data[ 34163 ];
+    if ( ! pFnscEndGame )
+        pFnscEndGame = (UFunction*) UObject::GObjObjects()->Data[ 34163 ];
 
-	UTgSupportCommands_execscEndGame_Parms scEndGame_Parms;
-	memcpy ( &scEndGame_Parms.Reason, &Reason, 0xC );
+    UTgSupportCommands_execscEndGame_Parms scEndGame_Parms;
+    memcpy ( &scEndGame_Parms.Reason, &Reason, 0xC );
 
-	this->ProcessEvent ( pFnscEndGame, &scEndGame_Parms, NULL );
+    this->ProcessEvent ( pFnscEndGame, &scEndGame_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scStartGame
@@ -656,15 +656,15 @@ void UTgSupportCommands::scEndGame ( struct FString Reason )
 
 void UTgSupportCommands::scStartGame ( struct FString Reason )
 {
-	static UFunction* pFnscStartGame = NULL;
+    static UFunction* pFnscStartGame = NULL;
 
-	if ( ! pFnscStartGame )
-		pFnscStartGame = (UFunction*) UObject::GObjObjects()->Data[ 34160 ];
+    if ( ! pFnscStartGame )
+        pFnscStartGame = (UFunction*) UObject::GObjObjects()->Data[ 34160 ];
 
-	UTgSupportCommands_execscStartGame_Parms scStartGame_Parms;
-	memcpy ( &scStartGame_Parms.Reason, &Reason, 0xC );
+    UTgSupportCommands_execscStartGame_Parms scStartGame_Parms;
+    memcpy ( &scStartGame_Parms.Reason, &Reason, 0xC );
 
-	this->ProcessEvent ( pFnscStartGame, &scStartGame_Parms, NULL );
+    this->ProcessEvent ( pFnscStartGame, &scStartGame_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scLogMark
@@ -674,15 +674,15 @@ void UTgSupportCommands::scStartGame ( struct FString Reason )
 
 void UTgSupportCommands::scLogMark ( struct FString Comment )
 {
-	static UFunction* pFnscLogMark = NULL;
+    static UFunction* pFnscLogMark = NULL;
 
-	if ( ! pFnscLogMark )
-		pFnscLogMark = (UFunction*) UObject::GObjObjects()->Data[ 34158 ];
+    if ( ! pFnscLogMark )
+        pFnscLogMark = (UFunction*) UObject::GObjObjects()->Data[ 34158 ];
 
-	UTgSupportCommands_execscLogMark_Parms scLogMark_Parms;
-	memcpy ( &scLogMark_Parms.Comment, &Comment, 0xC );
+    UTgSupportCommands_execscLogMark_Parms scLogMark_Parms;
+    memcpy ( &scLogMark_Parms.Comment, &Comment, 0xC );
 
-	this->ProcessEvent ( pFnscLogMark, &scLogMark_Parms, NULL );
+    this->ProcessEvent ( pFnscLogMark, &scLogMark_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.scLog
@@ -693,16 +693,16 @@ void UTgSupportCommands::scLogMark ( struct FString Comment )
 
 void UTgSupportCommands::scLog ( struct FString LogName, unsigned long bEnabled )
 {
-	static UFunction* pFnscLog = NULL;
+    static UFunction* pFnscLog = NULL;
 
-	if ( ! pFnscLog )
-		pFnscLog = (UFunction*) UObject::GObjObjects()->Data[ 34154 ];
+    if ( ! pFnscLog )
+        pFnscLog = (UFunction*) UObject::GObjObjects()->Data[ 34154 ];
 
-	UTgSupportCommands_execscLog_Parms scLog_Parms;
-	memcpy ( &scLog_Parms.LogName, &LogName, 0xC );
-	scLog_Parms.bEnabled = bEnabled;
+    UTgSupportCommands_execscLog_Parms scLog_Parms;
+    memcpy ( &scLog_Parms.LogName, &LogName, 0xC );
+    scLog_Parms.bEnabled = bEnabled;
 
-	this->ProcessEvent ( pFnscLog, &scLog_Parms, NULL );
+    this->ProcessEvent ( pFnscLog, &scLog_Parms, NULL );
 };
 
 // Function PlatformCommon.TgSupportCommands.GPerfDebugRelevMode
@@ -712,19 +712,19 @@ void UTgSupportCommands::scLog ( struct FString LogName, unsigned long bEnabled 
 
 void UTgSupportCommands::GPerfDebugRelevMode ( int Mode )
 {
-	static UFunction* pFnGPerfDebugRelevMode = NULL;
+    static UFunction* pFnGPerfDebugRelevMode = NULL;
 
-	if ( ! pFnGPerfDebugRelevMode )
-		pFnGPerfDebugRelevMode = (UFunction*) UObject::GObjObjects()->Data[ 34152 ];
+    if ( ! pFnGPerfDebugRelevMode )
+        pFnGPerfDebugRelevMode = (UFunction*) UObject::GObjObjects()->Data[ 34152 ];
 
-	UTgSupportCommands_execGPerfDebugRelevMode_Parms GPerfDebugRelevMode_Parms;
-	GPerfDebugRelevMode_Parms.Mode = Mode;
+    UTgSupportCommands_execGPerfDebugRelevMode_Parms GPerfDebugRelevMode_Parms;
+    GPerfDebugRelevMode_Parms.Mode = Mode;
 
-	pFnGPerfDebugRelevMode->FunctionFlags |= ~0x400;
+    pFnGPerfDebugRelevMode->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGPerfDebugRelevMode, &GPerfDebugRelevMode_Parms, NULL );
+    this->ProcessEvent ( pFnGPerfDebugRelevMode, &GPerfDebugRelevMode_Parms, NULL );
 
-	pFnGPerfDebugRelevMode->FunctionFlags |= 0x400;
+    pFnGPerfDebugRelevMode->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgSupportCommands.GPerfDebugSkips
@@ -734,19 +734,19 @@ void UTgSupportCommands::GPerfDebugRelevMode ( int Mode )
 
 void UTgSupportCommands::GPerfDebugSkips ( int skips )
 {
-	static UFunction* pFnGPerfDebugSkips = NULL;
+    static UFunction* pFnGPerfDebugSkips = NULL;
 
-	if ( ! pFnGPerfDebugSkips )
-		pFnGPerfDebugSkips = (UFunction*) UObject::GObjObjects()->Data[ 34150 ];
+    if ( ! pFnGPerfDebugSkips )
+        pFnGPerfDebugSkips = (UFunction*) UObject::GObjObjects()->Data[ 34150 ];
 
-	UTgSupportCommands_execGPerfDebugSkips_Parms GPerfDebugSkips_Parms;
-	GPerfDebugSkips_Parms.skips = skips;
+    UTgSupportCommands_execGPerfDebugSkips_Parms GPerfDebugSkips_Parms;
+    GPerfDebugSkips_Parms.skips = skips;
 
-	pFnGPerfDebugSkips->FunctionFlags |= ~0x400;
+    pFnGPerfDebugSkips->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGPerfDebugSkips, &GPerfDebugSkips_Parms, NULL );
+    this->ProcessEvent ( pFnGPerfDebugSkips, &GPerfDebugSkips_Parms, NULL );
 
-	pFnGPerfDebugSkips->FunctionFlags |= 0x400;
+    pFnGPerfDebugSkips->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgSupportCommands.GPerfDebugFeet
@@ -756,19 +756,19 @@ void UTgSupportCommands::GPerfDebugSkips ( int skips )
 
 void UTgSupportCommands::GPerfDebugFeet ( int feet )
 {
-	static UFunction* pFnGPerfDebugFeet = NULL;
+    static UFunction* pFnGPerfDebugFeet = NULL;
 
-	if ( ! pFnGPerfDebugFeet )
-		pFnGPerfDebugFeet = (UFunction*) UObject::GObjObjects()->Data[ 34148 ];
+    if ( ! pFnGPerfDebugFeet )
+        pFnGPerfDebugFeet = (UFunction*) UObject::GObjObjects()->Data[ 34148 ];
 
-	UTgSupportCommands_execGPerfDebugFeet_Parms GPerfDebugFeet_Parms;
-	GPerfDebugFeet_Parms.feet = feet;
+    UTgSupportCommands_execGPerfDebugFeet_Parms GPerfDebugFeet_Parms;
+    GPerfDebugFeet_Parms.feet = feet;
 
-	pFnGPerfDebugFeet->FunctionFlags |= ~0x400;
+    pFnGPerfDebugFeet->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFnGPerfDebugFeet, &GPerfDebugFeet_Parms, NULL );
+    this->ProcessEvent ( pFnGPerfDebugFeet, &GPerfDebugFeet_Parms, NULL );
 
-	pFnGPerfDebugFeet->FunctionFlags |= 0x400;
+    pFnGPerfDebugFeet->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgSupportCommands.gmC
@@ -778,19 +778,19 @@ void UTgSupportCommands::GPerfDebugFeet ( int feet )
 
 void UTgSupportCommands::gmC ( struct FString sCommand )
 {
-	static UFunction* pFngmC = NULL;
+    static UFunction* pFngmC = NULL;
 
-	if ( ! pFngmC )
-		pFngmC = (UFunction*) UObject::GObjObjects()->Data[ 34146 ];
+    if ( ! pFngmC )
+        pFngmC = (UFunction*) UObject::GObjObjects()->Data[ 34146 ];
 
-	UTgSupportCommands_execgmC_Parms gmC_Parms;
-	memcpy ( &gmC_Parms.sCommand, &sCommand, 0xC );
+    UTgSupportCommands_execgmC_Parms gmC_Parms;
+    memcpy ( &gmC_Parms.sCommand, &sCommand, 0xC );
 
-	pFngmC->FunctionFlags |= ~0x400;
+    pFngmC->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFngmC, &gmC_Parms, NULL );
+    this->ProcessEvent ( pFngmC, &gmC_Parms, NULL );
 
-	pFngmC->FunctionFlags |= 0x400;
+    pFngmC->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgSupportCommands.gmCommand
@@ -800,19 +800,19 @@ void UTgSupportCommands::gmC ( struct FString sCommand )
 
 void UTgSupportCommands::gmCommand ( struct FString sCommand )
 {
-	static UFunction* pFngmCommand = NULL;
+    static UFunction* pFngmCommand = NULL;
 
-	if ( ! pFngmCommand )
-		pFngmCommand = (UFunction*) UObject::GObjObjects()->Data[ 34144 ];
+    if ( ! pFngmCommand )
+        pFngmCommand = (UFunction*) UObject::GObjObjects()->Data[ 34144 ];
 
-	UTgSupportCommands_execgmCommand_Parms gmCommand_Parms;
-	memcpy ( &gmCommand_Parms.sCommand, &sCommand, 0xC );
+    UTgSupportCommands_execgmCommand_Parms gmCommand_Parms;
+    memcpy ( &gmCommand_Parms.sCommand, &sCommand, 0xC );
 
-	pFngmCommand->FunctionFlags |= ~0x400;
+    pFngmCommand->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFngmCommand, &gmCommand_Parms, NULL );
+    this->ProcessEvent ( pFngmCommand, &gmCommand_Parms, NULL );
 
-	pFngmCommand->FunctionFlags |= 0x400;
+    pFngmCommand->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgSupportCommands.gmMatchNext
@@ -822,19 +822,19 @@ void UTgSupportCommands::gmCommand ( struct FString sCommand )
 
 void UTgSupportCommands::gmMatchNext ( int nMapId )
 {
-	static UFunction* pFngmMatchNext = NULL;
+    static UFunction* pFngmMatchNext = NULL;
 
-	if ( ! pFngmMatchNext )
-		pFngmMatchNext = (UFunction*) UObject::GObjObjects()->Data[ 34142 ];
+    if ( ! pFngmMatchNext )
+        pFngmMatchNext = (UFunction*) UObject::GObjObjects()->Data[ 34142 ];
 
-	UTgSupportCommands_execgmMatchNext_Parms gmMatchNext_Parms;
-	gmMatchNext_Parms.nMapId = nMapId;
+    UTgSupportCommands_execgmMatchNext_Parms gmMatchNext_Parms;
+    gmMatchNext_Parms.nMapId = nMapId;
 
-	pFngmMatchNext->FunctionFlags |= ~0x400;
+    pFngmMatchNext->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFngmMatchNext, &gmMatchNext_Parms, NULL );
+    this->ProcessEvent ( pFngmMatchNext, &gmMatchNext_Parms, NULL );
 
-	pFngmMatchNext->FunctionFlags |= 0x400;
+    pFngmMatchNext->FunctionFlags |= 0x400;
 };
 
 // Function PlatformCommon.TgSupportCommands.gmMatchForce
@@ -844,22 +844,22 @@ void UTgSupportCommands::gmMatchNext ( int nMapId )
 
 void UTgSupportCommands::gmMatchForce ( int nQueueId )
 {
-	static UFunction* pFngmMatchForce = NULL;
+    static UFunction* pFngmMatchForce = NULL;
 
-	if ( ! pFngmMatchForce )
-		pFngmMatchForce = (UFunction*) UObject::GObjObjects()->Data[ 34140 ];
+    if ( ! pFngmMatchForce )
+        pFngmMatchForce = (UFunction*) UObject::GObjObjects()->Data[ 34140 ];
 
-	UTgSupportCommands_execgmMatchForce_Parms gmMatchForce_Parms;
-	gmMatchForce_Parms.nQueueId = nQueueId;
+    UTgSupportCommands_execgmMatchForce_Parms gmMatchForce_Parms;
+    gmMatchForce_Parms.nQueueId = nQueueId;
 
-	pFngmMatchForce->FunctionFlags |= ~0x400;
+    pFngmMatchForce->FunctionFlags |= ~0x400;
 
-	this->ProcessEvent ( pFngmMatchForce, &gmMatchForce_Parms, NULL );
+    this->ProcessEvent ( pFngmMatchForce, &gmMatchForce_Parms, NULL );
 
-	pFngmMatchForce->FunctionFlags |= 0x400;
+    pFngmMatchForce->FunctionFlags |= 0x400;
 };
 
 
 #ifdef _MSC_VER
-	#pragma pack ( pop )
+    #pragma pack ( pop )
 #endif

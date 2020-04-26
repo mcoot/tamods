@@ -17,35 +17,35 @@
 
 namespace TAModsServer {
 
-	class Client {
-	public:
-		typedef std::function<void(const json&)> RecvHandlerType;
-	private:
-		boost::asio::io_service ios;
-		std::shared_ptr<std::thread> iosThread;
-		std::shared_ptr<TCP::Client<uint32_t> > tcpClient;
+    class Client {
+    public:
+        typedef std::function<void(const json&)> RecvHandlerType;
+    private:
+        boost::asio::io_service ios;
+        std::shared_ptr<std::thread> iosThread;
+        std::shared_ptr<TCP::Client<uint32_t> > tcpClient;
 
-		std::function<void()> onConnectHandler;
-		std::function<void()> onConnectFailedHandler;
-	private:
-		void attachHandlers();
-	public:
-		Client(std::function<void()> connect_handler, std::function<void()> connect_failed_handler) :
-			onConnectHandler(connect_handler), 
-			onConnectFailedHandler(connect_failed_handler) {}
-		
-		bool connect(std::string host, int port);
-		bool disconnect();
-		bool isConnected();
+        std::function<void()> onConnectHandler;
+        std::function<void()> onConnectFailedHandler;
+    private:
+        void attachHandlers();
+    public:
+        Client(std::function<void()> connect_handler, std::function<void()> connect_failed_handler) :
+            onConnectHandler(connect_handler), 
+            onConnectFailedHandler(connect_failed_handler) {}
+        
+        bool connect(std::string host, int port);
+        bool disconnect();
+        bool isConnected();
 
-		void handle_GameBalanceDetailsMessage(const json& j);
-		void handle_StateUpdateMessage(const json& j);
-		void handle_MessageToClientMessage(const json& j);
+        void handle_GameBalanceDetailsMessage(const json& j);
+        void handle_StateUpdateMessage(const json& j);
+        void handle_MessageToClientMessage(const json& j);
 
-		void sendPlayerConnectionMessage(FUniqueNetId id);
-		void sendRoleLoginMessage(std::string role, std::string password);
-		void sendExecLuaMessage(std::string commandString);
-		void sendExecCmdMessage(std::string commandString);
-	};
+        void sendPlayerConnectionMessage(FUniqueNetId id);
+        void sendRoleLoginMessage(std::string role, std::string password);
+        void sendExecLuaMessage(std::string commandString);
+        void sendExecCmdMessage(std::string commandString);
+    };
 
 }

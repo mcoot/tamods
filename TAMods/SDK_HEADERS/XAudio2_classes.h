@@ -12,7 +12,7 @@
 */
 
 #ifdef _MSC_VER
-	#pragma pack ( push, 0x4 )
+    #pragma pack ( push, 0x4 )
 #endif
 
 /*
@@ -40,23 +40,23 @@
 class UXAudio2Device : public UAudioDevice
 {
 public:
-	unsigned char                                      UnknownData00[ 0x9C ];                            		// 0x02C4 (0x009C) MISSED OFFSET
+    unsigned char                                      UnknownData00[ 0x9C ];                                    // 0x02C4 (0x009C) MISSED OFFSET
 
 private:
-	static UClass* pClassPointer;
+    static UClass* pClassPointer;
 
 public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1344 ];
+    static UClass* StaticClass()
+    {
+        if ( ! pClassPointer )
+            pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1344 ];
 
-		return pClassPointer;
-	};
+        return pClassPointer;
+    };
 
 };
 
 
 #ifdef _MSC_VER
-	#pragma pack ( pop )
+    #pragma pack ( pop )
 #endif

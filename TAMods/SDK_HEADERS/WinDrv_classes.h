@@ -12,7 +12,7 @@
 */
 
 #ifdef _MSC_VER
-	#pragma pack ( push, 0x4 )
+    #pragma pack ( push, 0x4 )
 #endif
 
 /*
@@ -40,23 +40,23 @@
 class UWindowsClient : public UClient
 {
 public:
-	unsigned char                                      UnknownData00[ 0x14C ];                           		// 0x0050 (0x014C) MISSED OFFSET
-	class UClass*                                      AudioDeviceClass;                                 		// 0x019C (0x0004) [0x0000000000004000]              ( CPF_Config )
-	unsigned char                                      UnknownData01[ 0x2C ];                            		// 0x01A0 (0x002C) MISSED OFFSET
-	int                                                AllowJoystickInput;                               		// 0x01CC (0x0004) [0x0000000000004000]              ( CPF_Config )
-	unsigned char                                      UnknownData02[ 0xC ];                             		// 0x01D0 (0x000C) MISSED OFFSET
+    unsigned char                                      UnknownData00[ 0x14C ];                                   // 0x0050 (0x014C) MISSED OFFSET
+    class UClass*                                      AudioDeviceClass;                                         // 0x019C (0x0004) [0x0000000000004000]              ( CPF_Config )
+    unsigned char                                      UnknownData01[ 0x2C ];                                    // 0x01A0 (0x002C) MISSED OFFSET
+    int                                                AllowJoystickInput;                                       // 0x01CC (0x0004) [0x0000000000004000]              ( CPF_Config )
+    unsigned char                                      UnknownData02[ 0xC ];                                     // 0x01D0 (0x000C) MISSED OFFSET
 
 private:
-	static UClass* pClassPointer;
+    static UClass* pClassPointer;
 
 public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1362 ];
+    static UClass* StaticClass()
+    {
+        if ( ! pClassPointer )
+            pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1362 ];
 
-		return pClassPointer;
-	};
+        return pClassPointer;
+    };
 
 };
 
@@ -67,20 +67,20 @@ class UXnaForceFeedbackManager : public UForceFeedbackManager
 public:
 
 private:
-	static UClass* pClassPointer;
+    static UClass* pClassPointer;
 
 public:
-	static UClass* StaticClass()
-	{
-		if ( ! pClassPointer )
-			pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1363 ];
+    static UClass* StaticClass()
+    {
+        if ( ! pClassPointer )
+            pClassPointer = (UClass*) UObject::GObjObjects()->Data[ 1363 ];
 
-		return pClassPointer;
-	};
+        return pClassPointer;
+    };
 
 };
 
 
 #ifdef _MSC_VER
-	#pragma pack ( pop )
+    #pragma pack ( pop )
 #endif

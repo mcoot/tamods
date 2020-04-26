@@ -7,17 +7,17 @@
 template <typename K, typename V>
 class MemoisedCache {
 private:
-	std::map<K, V> cache;
-	std::function<V(K)> insertTransformer;
+    std::map<K, V> cache;
+    std::function<V(K)> insertTransformer;
 public:
-	MemoisedCache(std::function<V(K)> transformer) : cache(), insertTransformer(transformer) {}
+    MemoisedCache(std::function<V(K)> transformer) : cache(), insertTransformer(transformer) {}
 
-	V &operator[](K key) {
-		if (cache.find(key) == cache.end()) {
-			cache[key] = insertTransformer(key);
-		}
-		return cache[key];
-	}
+    V &operator[](K key) {
+        if (cache.find(key) == cache.end()) {
+            cache[key] = insertTransformer(key);
+        }
+        return cache[key];
+    }
 };
 
 // This cache is an attempt to fix crashing on exit

@@ -12,7 +12,7 @@
 */
 
 #ifdef _MSC_VER
-	#pragma pack ( push, 0x4 )
+    #pragma pack ( push, 0x4 )
 #endif
 
 #include "../SdkHeaders.h"
@@ -34,5 +34,5 @@ UClass* UXnaForceFeedbackManager::pClassPointer = NULL;
 
 
 #ifdef _MSC_VER
-	#pragma pack ( pop )
+    #pragma pack ( pop )
 #endif

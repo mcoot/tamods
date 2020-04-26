@@ -9,12 +9,12 @@
 class NameCryptor
 {
 public:
-	NameCryptor();
-	std::string toId(const std::string &name);
-	void fromId(std::string &text);
+    NameCryptor();
+    std::string toId(const std::string &name);
+    void fromId(std::string &text);
 
 private:
-	std::vector<std::string> nameCache;
+    std::vector<std::string> nameCache;
 };
 
 extern NameCryptor cryptor;

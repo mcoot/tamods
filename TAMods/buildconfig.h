@@ -23,15 +23,15 @@
 #ifdef WIN7_COMPATIBLE
 typedef unsigned char byte;
 struct IXAudio2 {
-	bool meaningless;
+    bool meaningless;
 };
 struct IXAudio2MasteringVoice {
-	bool meaningless;
+    bool meaningless;
 };
 struct IXAudio2SourceVoice {
-	bool meaningless;
+    bool meaningless;
 };
 struct Wave {
-	bool meaningless;
+    bool meaningless;
 };
 #endif
