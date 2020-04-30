@@ -8657,10 +8657,12 @@ class UGFxObject* UGfxTrHud::RetrieveGFxObject ( struct FString ObjName, class U
     UGfxTrHud_execRetrieveGFxObject_Parms RetrieveGFxObject_Parms;
     memcpy ( &RetrieveGFxObject_Parms.ObjName, &ObjName, 0xC );
 
+    // RetrieveGFxObject only fills Obj if it is None, so Obj is really an in-out param
+    RetrieveGFxObject_Parms.Obj = *Obj;
+
     this->ProcessEvent ( pFnRetrieveGFxObject, &RetrieveGFxObject_Parms, NULL );
 
-    if ( Obj )
-        *Obj = RetrieveGFxObject_Parms.Obj;
+    *Obj = RetrieveGFxObject_Parms.Obj;
 
     return RetrieveGFxObject_Parms.ReturnValue;
 };
