@@ -81,6 +81,9 @@ namespace TAModLauncher
 
         public void loadServerManifest()
         {
+            // Allow TLS 1.2
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
             // Load xml document; may throw exceptions
             serverManifest.Load(updateUrl);
 
