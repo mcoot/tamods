@@ -148,14 +148,6 @@ void addClientModeHooks()
 
     Hooks::add(&TrFlagBase_PostRenderFor, "Function TribesGame.TrFlagBase.PostRenderFor"); // Only show flag icon when it's off-stand
 
-    Hooks::add(&TrPlayerController_ClientFadeToSummary, "Function TribesGame.TrPlayerController.ClientFadeToSummary", Hooks::POST); // Match end summary for custom servers
-    Hooks::addUScript(&GFxTrMenuMoviePlayer_TweenPlayerSummary, "Function TribesGame.GFxTrMenuMoviePlayer.TweenPlayerSummary");
-    Hooks::add(&GFxTrScene_PlayerSummary_LoadPlayerMiscData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadPlayerMiscData", Hooks::POST);
-    Hooks::add(&GFxTrScene_PlayerSummary_LoadPlayerAccoladeData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadPlayerAccoladeData", Hooks::POST);
-    Hooks::add(&GFxTrScene_PlayerSummary_LoadPlayerStatsData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadPlayerStatsData", Hooks::POST);
-    Hooks::add(&GFxTrScene_PlayerSummary_LoadXPData, "Function TribesGame.GFxTrScene_PlayerSummary.LoadXPData", Hooks::POST);
-    Hooks::addUScript(&TrSummaryHelper_GetRankFromXP, "Function TribesGame.TrSummaryHelper.GetRankFromXP"); // Getting rank class
-
     Hooks::add(&TrHUD_ChatMessageReceived, "Function TribesGame.TrHUD.ChatMessageReceived");
     Hooks::add(&GFxTrMenuMoviePlayer_ChatMessageReceived, "Function TribesGame.GFxTrMenuMoviePlayer.ChatMessageReceived");
     Hooks::add(&TrPlayerController_ClientReceiveVGSCommand, "Function TribesGame.TrPlayerController.ClientReceiveVGSCommand");

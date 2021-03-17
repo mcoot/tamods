@@ -396,9 +396,6 @@
     <ClCompile Include="MemoisedCache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mod_MatchSummary.cpp">
-      <Filter>Source Files\Mods</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h">
