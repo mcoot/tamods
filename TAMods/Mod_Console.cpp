@@ -600,17 +600,26 @@ void consoleCommands::cmd_srv_login(const std::wstring& cmd, const std::wstring&
     std::string role = sParams.substr(0, splitPos);
     std::string password = sParams.substr(splitPos + 1);
 
-    g_CustomServerManager.client->sendRoleLoginMessage(role, password);
+    if(g_CustomServerManager.client)
+    {
+        g_CustomServerManager.client->sendRoleLoginMessage(role, password);
+    }
 }
 
 void consoleCommands::cmd_srv_execlua(const std::wstring& cmd, const std::wstring& params) {
     std::string sParams(params.begin(), params.end());
 
-    g_CustomServerManager.client->sendExecLuaMessage(sParams);
+    if(g_CustomServerManager.client)
+    {
+        g_CustomServerManager.client->sendExecLuaMessage(sParams);
+    }
 }
 
 void consoleCommands::cmd_srv_execcmd(const std::wstring& cmd, const std::wstring& params) {
     std::string sParams(params.begin(), params.end());
 
-    g_CustomServerManager.client->sendExecCmdMessage(sParams);
+    if(g_CustomServerManager.client)
+    {
+        g_CustomServerManager.client->sendExecCmdMessage(sParams);
+    }
 }
