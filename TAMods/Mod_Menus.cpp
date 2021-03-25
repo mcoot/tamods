@@ -2,6 +2,62 @@
 
 #define ACTION_NUM_SWITCH_GAMEMODE 3
 
+class FStringArrayRestorer
+{
+public:
+    void backupArray(TArray<FString> *pArray)
+    {
+        if(mArrays.find(pArray) == mArrays.end())
+        {
+            TArrayPod original = *pArray;
+            mArrays[pArray] = original;
+
+            TArray<FString> copy(*pArray);
+            pArray->Data = copy.Data;
+        }
+    }
+
+    void restoreArrays()
+    {
+        for(auto &kv: mArrays)
+        {
+            auto pArray = kv.first;
+            auto original = kv.second;
+            
+            pArray->Data = original.Data;
+            pArray->Count = original.Count;
+            pArray->Max = original.Max;
+        }
+        mArrays.clear();
+    }
+
+private:
+    struct TArrayPod
+    {
+        TArrayPod():
+            Data(0),
+            Count(0),
+            Max(0)
+        {
+        }
+
+        TArrayPod(const TArray<FString> &other):
+            Data(other.Data),
+            Count(other.Count),
+            Max(other.Max)
+        {
+        }
+
+        FString* Data; 
+        int Count; 
+        int Max; 
+    };
+
+    std::map<TArray<FString>*, TArrayPod> mArrays;
+};
+
+static FStringArrayRestorer sFStringArrayRestorer;
+
 void GFxTrPage_Main_SpecialAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execSpecialAction_Parms* params) {
     UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
     
@@ -40,6 +96,9 @@ static void GFxTrPage_Main_UpdateGameModeUI(UGFxTrPage_Main* that, bool gotyMode
         switchText = fStringCache["> SWITCH TO GOTY <"];
         curModeText = fStringCache["Current mode: OOTB"];
     }
+
+    sFStringArrayRestorer.backupArray(&that->OptionTitles);
+    sFStringArrayRestorer.backupArray(&that->OptionSubtext);
 
     that->OptionTitles.Set(3, switchText);
     that->OptionSubtext.Set(0, curModeText);
@@ -92,6 +151,7 @@ static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
         eqpPointsToShow.erase(std::remove(eqpPointsToShow.begin(), eqpPointsToShow.end(), EQP_Tertiary), eqpPointsToShow.end());
 
         // Rename perk menu options
+        sFStringArrayRestorer.backupArray(&that->OptionSubtext);
         that->OptionSubtext = TArray<FString>();
         that->OptionSubtext.Add(fStringCache["PRIMARY WEAPON"]);
         that->OptionSubtext.Add(fStringCache["SECONDARY WEAPON"]);
@@ -108,6 +168,7 @@ static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
         eqpPointsToShow.erase(std::remove(eqpPointsToShow.begin(), eqpPointsToShow.end(), EQP_PerkB), eqpPointsToShow.end());
 
         // Rename class menu options
+        sFStringArrayRestorer.backupArray(&that->OptionSubtext);
         that->OptionSubtext = TArray<FString>();
         that->OptionSubtext.Add(fStringCache["SLOT ONE"]);
         that->OptionSubtext.Add(fStringCache["SLOT TWO"]);
@@ -180,6 +241,8 @@ bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction
 void TrLoginManager_Logout(UTrLoginManager* that, UTrLoginManager_execLogout_Parms* params) {
     g_TAServerControlClient.logout();
     that->Logout();
+
+    sFStringArrayRestorer.restoreArrays();
 }
 
 static std::chrono::time_point<std::chrono::system_clock> lastConnectionAttemptTime((std::chrono::time_point<std::chrono::system_clock>::min)());
