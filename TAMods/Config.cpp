@@ -197,9 +197,8 @@ void Config::reset()
     // HUD scaling
     IFFScale             = 1.0f;
 
-    // GOTY mode setting can be overridden in Lua config
-    // But is otherwise set based on whether the -goty flag was passed to the game at launch
-    useGOTYMode             = isGotyCommandLineFlagPresent();
+    // Deprecated property, no longer used for anything
+    useGOTYMode             = false;
 
     // Console
     consoleSize          = 0.75f;
@@ -2556,23 +2555,6 @@ void Lua::init()
             .addFunction("profilerStop", &Profiler::stop)
             .addFunction("profiler", &Profiler::toggle);
     }
-}
-
-bool Config::isGotyCommandLineFlagPresent() {
-    int numArgs;
-    wchar_t** args = CommandLineToArgvW(GetCommandLineW(), &numArgs);
-
-    if (!args) {
-        return false;
-    }
-
-    for (int i = 0; i < numArgs; ++i) {
-        if (wcscmp(args[i], L"-goty") == 0) {
-            return true;
-        }
-    }
-
-    return false;
 }
 
 void GlobalState::addAccolade(UTrAccolade* accolade) {
