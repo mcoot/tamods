@@ -69,7 +69,7 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
     {
         std::string ver;
         std::stringstream ss;
-        ss << MODVERSION;
+        ss << TAMODS_VERSION;
         ss >> ver;
 
         Utils::printConsole(" .___________________________________________________________",                           { 150, 150, 150, 255 });
@@ -79,9 +79,9 @@ bool TrChatConsole_Open_InputKey(int id, UObject *dwCallingObject, UFunction* pF
         Utils::printConsole("      |__|    /___/  |__| |.__|\\/|__.|  \\_____./ |_____/   /_____/ v" + ver,            { 100, 100, 180, 255 });
         Utils::printConsole("  __________________________________________________________.",                           { 120, 120, 120, 255 });
         Utils::printConsole("                                                                    ensis mcoot schreq",  { 150, 150, 150, 255 });
-        Utils::printConsole("                                                                            dodge qualm", { 120, 120, 120, 255 });
+        Utils::printConsole("                                                                 dodge qualm griffon26", { 120, 120, 120, 255 });
         Utils::printConsole(" Type /help for a list of console commands",                                              {   0, 250, 250, 255 });
-        Utils::printConsole(" Active Australian Discord Link: https://discord.gg/WBDmmde", { 0, 250, 250, 255 });
+        Utils::printConsole(" Active Australian Discord Link: https://discord.gg/WSuj3yxcNT", { 0, 250, 250, 255 });
     
         welcomeMsgShown = true;
     }

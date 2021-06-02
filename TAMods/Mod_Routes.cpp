@@ -26,7 +26,7 @@ static bool recording;
 static bool replaying;
 
 // Meta data for the route file
-static float modVersion;
+static float routeFileVersion;
 static int classID;
 static std::string classAbbr;
 static std::string mapName;
@@ -611,7 +611,7 @@ void routes::saveFile(const std::string &desc)
 
     if (routefile.is_open())
     {
-        binary_write(routefile, (float)MODVERSION);
+        binary_write(routefile, (float)ROUTEFILE_VERSION);
 
         routefile << mapName << ' ' << classAbbr << ' ' << playerName << ' ' << description << ' ';
 
@@ -664,9 +664,9 @@ void routes::loadFile(unsigned int num)
     if (routefile.is_open())
     {
         routes::reset();
-        binary_read(routefile, modVersion);
+        binary_read(routefile, routeFileVersion);
 
-        if (modVersion < 0.5f)
+        if (routeFileVersion < 0.5f)
         {
             routefile.close();
             Utils::console("Error: This route file has a wrong format");

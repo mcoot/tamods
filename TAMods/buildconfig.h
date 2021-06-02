@@ -16,7 +16,12 @@
 
 #define WIN7_COMPATIBLE
 
-#define MODVERSION 1.18
+// Previously had MODVERSION as a float
+// This was used to version Route files, and as a result we keep it around, but only for that purpose
+// Needs to be incremented if we ever make an incompatible change to the routefile format
+#define ROUTEFILE_VERSION 1.2
+
+#define TAMODS_VERSION "1.2.0"
 
 #define TAMODS_PROTOCOL_VERSION "0.1.0"
 
