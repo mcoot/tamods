@@ -520,8 +520,8 @@ static void reloadRouteList(int team)
 
     // The filesystem module is in std from C++17
     // With VC++ (with no standard set lol) it's still under experimental
-    for (const auto& entry : std::experimental::filesystem::directory_iterator(routedir)) {
-        
+    for (const auto& entry : std::filesystem::recursive_directory_iterator(routedir)) {
+
         std::string path = entry.path().string();
         std::string fname = entry.path().filename().string();
 
