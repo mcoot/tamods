@@ -154,8 +154,10 @@ void TrPlayerController_GetBlinkPackAccel(ATrPlayerController* that, ATrPlayerCo
     // Modify the acceleration based on a speed cap
     float PawnSpeed = that->VSize(TrP->Velocity);
     float BlinkPackSpeedCapMultiplier = 1.0f;
+    float RageThrustMultiplier = g_gameBalanceTracker.getReplicatedSetting("RageThrustMultiplier", 1.0f);
+    float BlinkPackCapperPct = BlinkPack->m_fSpeedCapPct * RageThrustMultiplier;
     if ((that->Dot_VectorVector(that->Normal(TrP->Velocity), Geom::rotationToVector(ViewRot)) >= 0) && PawnSpeed > BlinkPack->m_fSpeedCapThresholdStart) {
-        BlinkPackSpeedCapMultiplier = that->Lerp(1.0f, BlinkPack->m_fSpeedCapPct, that->FPctByRange(that->Min(PawnSpeed, BlinkPack->m_fSpeedCapThreshold), BlinkPack->m_fSpeedCapThresholdStart, BlinkPack->m_fSpeedCapThreshold));
+        BlinkPackSpeedCapMultiplier = that->Lerp(1.0f, BlinkPackCapperPct, that->FPctByRange(that->Min(PawnSpeed, BlinkPack->m_fSpeedCapThreshold), BlinkPack->m_fSpeedCapThresholdStart, BlinkPack->m_fSpeedCapThreshold));
     }
     BlinkPackPctEffectiveness *= BlinkPackSpeedCapMultiplier;
 
