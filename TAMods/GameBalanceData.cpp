@@ -1347,6 +1347,17 @@ namespace GameBalance {
             return true;
         })
             );
+        static const Property THRUST_PACK_SPEED_RAGE_MULTIPLIER(
+            ValueType::FLOAT,
+            applierAdapter<ATrDevice_Blink>([](PropValue p, ATrDevice_Blink* dev) {
+            dev->m_fInheritSpeedPct = p.valFloat;
+            return true;
+        }),
+            getterAdapter<ATrDevice_Blink>([](ATrDevice_Blink* dev, PropValue& ret) {
+            ret = PropValue::fromFloat(dev->m_fInheritSpeedPct);
+            return true;
+        })
+            );
 
         // Deployable / Turret
         static const Property DEPLOYABLE_RANGE(
@@ -1645,6 +1656,7 @@ namespace GameBalance {
             {PropId::JAMMER_PACK_RANGE, JAMMER_PACK_RANGE},
             {PropId::PACK_BUFF_AMOUNT, PACK_BUFF_AMOUNT},
             {PropId::STEALTH_PACK_MAX_SPEED, STEALTH_PACK_MAX_SPEED},
+            {PropId::THRUST_PACK_SPEED_RAGE_MULTIPLIER, THRUST_PACK_SPEED_RAGE_MULTIPLIER},
 
             // Deployable / Turret
             {PropId::DEPLOYABLE_RANGE, DEPLOYABLE_RANGE},
