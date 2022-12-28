@@ -128,6 +128,67 @@ static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that, bool gotyMode) {
     that->AddActionPage(moviePlayer->Pages->SettingsPage);
     that->AddActionNumber(that->NumQuit);
 }
+static void GFxTrPage_RoamCAHtoRoamCommunity_SetItems(UGFxTrPage_RoamingMatch* that) {
+    
+    that->OptionTitles.Set(3, L"COMMUNITY MAPS");
+    that->OptionSubtext.Set(3, L"COMMUNITY MAPS");
+}
+static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
+
+    FString CommunityMapTitles[] = {
+        //Dodge
+        FString(L"Oceanus"),
+        FString(L"Blues"),
+        FString(L"Periculo"),
+        FString(L"Incidamus"),
+        FString(L"Acheron"),
+        FString(L"Phlegathon"),
+        FString(L"Deserted Valley"),
+        FString(L"Styx"),
+        FString(L"Treacherous Pass"),
+        //Evil
+        FString(L"Fracture"),
+        FString(L"Polaris"),
+        FString(L"Ascent"),
+        FString(L"Dangerous Xylophone"),
+        //Nerve
+        FString(L"Crash"),
+        //Karu
+        FString(L"Meridian")
+    };
+
+    FString CommunityMapNames[] = {
+        //Dodge
+        FString(L"TrCTF-Oceanus?m_bRoamingMap=true"),
+        FString(L"TrCTF-Blues?m_bRoamingMap=true"),
+        FString(L"TrCTF-Periculo?m_bRoamingMap=true"),
+        FString(L"TrCTF-Incidamus?m_bRoamingMap=true"),
+        FString(L"TrCTF-Acheron?m_bRoamingMap=true"),
+        FString(L"TrCTF-Phlegathon?m_bRoamingMap=true"),
+        FString(L"TrCTF-DesertedValley?m_bRoamingMap=true"),
+        FString(L"TrCTF-Styx?m_bRoamingMap=true"),
+        FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"),
+        //Evil
+        FString(L"TrCTF-Fracture?m_bRoamingMap=true"),
+        FString(L"TrCTF-Polaris?m_bRoamingMap=true"),
+        FString(L"TrCTF-Ascent?m_bRoamingMap=true"),
+        FString(L"TrCTF-DangerousXylophone?m_bRoamingMap=true"),
+        //Nerve
+        FString(L"TrCTF-Crash?m_bRoamingMap=true"),
+        //Karu
+        FString(L"TrCTF-Meridian?m_bRoamingMap=true")
+    };
+
+    that->ClearActions();
+    that->OptionTitles = TArray<FString>();
+    that->OptionSubtext = TArray<FString>();
+
+    for (int i = 0; i < 14; i++) {
+        that->OptionTitles.Add(CommunityMapTitles[i]);
+        that->OptionSubtext.Add(CommunityMapTitles[i]);
+        that->AddActionString(CommunityMapNames[i]);
+    }
+}
 
 static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
     that->ClearActions();
@@ -221,8 +282,12 @@ static void initialiseMenus(UGFxTrMenuMoviePlayer* menuMovie, std::string gameSe
     GFxTrPage_Class_SetItems(Utils::tr_menuMovie->Pages->ClassPage, gameSettingMode != "ootb");
     GFxTrPage_Classes_SetItems(Utils::tr_menuMovie->Pages->ClassesPage, gameSettingMode != "ootb");
     GFxTrPage_Classes_SetItems(Utils::tr_menuMovie->Pages->ClassSelectPage, gameSettingMode != "ootb");
-}
 
+    //CommunityRoamMap (Replaces CAH)
+    GFxTrPage_RoamCAHtoRoamCommunity_SetItems(Utils::tr_menuMovie->Pages->RoamingMatchPage);
+    GFxTrPage_RoamCommunityCTF_SetItems(Utils::tr_menuMovie->Pages->RoamCAHPage);
+}
+    
 bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
     //UTrLoginManager* that = (UTrLoginManager*)dwCallingObject;
     //UTrLoginManager_execLogin_Parms* params = (UTrLoginManager_execLogin_Parms*)pParams;
