@@ -135,58 +135,45 @@ static void GFxTrPage_RoamCAHtoRoamCommunity_SetItems(UGFxTrPage_RoamingMatch* t
 }
 static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
 
-    FString CommunityMapTitles[] = {
-        //Dodge
-        FString(L"Oceanus"),
-        FString(L"Blues"),
-        FString(L"Periculo"),
-        FString(L"Incidamus"),
-        FString(L"Acheron"),
-        FString(L"Phlegathon"),
-        FString(L"Deserted Valley"),
-        FString(L"Styx"),
-        FString(L"Treacherous Pass"),
-        //Evil
-        FString(L"Fracture"),
-        FString(L"Polaris"),
-        FString(L"Ascent"),
-        FString(L"Dangerous Xylophone"),
-        //Nerve
-        FString(L"Crash"),
-        //Karu
-        FString(L"Meridian")
+    struct CommunityMap {
+        FString mapName;
+        FString mapFileName;
+        FString author;
     };
 
-    FString CommunityMapNames[] = {
+    CommunityMap communityMaps[16] = {
         //Dodge
-        FString(L"TrCTF-Oceanus?m_bRoamingMap=true"),
-        FString(L"TrCTF-Blues?m_bRoamingMap=true"),
-        FString(L"TrCTF-Periculo?m_bRoamingMap=true"),
-        FString(L"TrCTF-Incidamus?m_bRoamingMap=true"),
-        FString(L"TrCTF-Acheron?m_bRoamingMap=true"),
-        FString(L"TrCTF-Phlegathon?m_bRoamingMap=true"),
-        FString(L"TrCTF-DesertedValley?m_bRoamingMap=true"),
-        FString(L"TrCTF-Styx?m_bRoamingMap=true"),
-        FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"),
+        {FString(L"Oceanus"), FString(L"TrCTF-Oceanus?m_bRoamingMap=true"), FString(L"Made by Dodge")},
+        {FString(L"Blues"), FString(L"TrCTF-Blues?m_bRoamingMap=true"), FString(L"Made by Dodge")},
+        {FString(L"Periculo"), FString(L"TrCTF-Periculo?m_bRoamingMap=true"), FString(L"Made by Dodge")},
+        {FString(L"Incidamus"), FString(L"TrCTF-Incidamus?m_bRoamingMap=true"), FString(L"Made by Dodge")},
+        {FString(L"Acheron"), FString(L"TrCTF-Acheron?m_bRoamingMap=true"), FString(L"Made by Dodge")},
+        {FString(L"Phlegethon"), FString(L"TrCTF-Phlegethon?m_bRoamingMap=true"), FString(L"Made by Dodge")},
+        {FString(L"Deserted Valley"), FString(L"TrCTF-DesertedValley?m_bRoamingMap=true"), FString(L"Made by Dodge")},
+        {FString(L"Styx"), FString(L"TrCTF-Styx?m_bRoamingMap=true"), FString(L"Made by Dodge")},
+        {FString(L"Treacherous Pass"), FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"), FString(L"Made by Dodge")},
         //Evil
-        FString(L"TrCTF-Fracture?m_bRoamingMap=true"),
-        FString(L"TrCTF-Polaris?m_bRoamingMap=true"),
-        FString(L"TrCTF-Ascent?m_bRoamingMap=true"),
-        FString(L"TrCTF-DangerousXylophone?m_bRoamingMap=true"),
+        {FString(L"Fracture"), FString(L"TrCTF-Fracture?m_bRoamingMap=true"), FString(L"Made by Evil")},
+        {FString(L"Polaris"), FString(L"TrCTF-Polaris?m_bRoamingMap=true"), FString(L"Made by Evil")},
+        {FString(L"Ascent"), FString(L"TrCTF-Ascent?m_bRoamingMap=true"), FString(L"Made by Evil")},
+        {FString(L"Dangerous Xylophone"), FString(L"TrCTF-DangerousXylophone?m_bRoamingMap=true"), FString(L"Made by Evil")},
         //Nerve
-        FString(L"TrCTF-Crash?m_bRoamingMap=true"),
-        //Karu
-        FString(L"TrCTF-Meridian?m_bRoamingMap=true")
+        {FString(L"Crash"), FString(L"TrCTF-Crash?m_bRoamingMap=true"), FString(L"Made by Nerve")},
+        //Karuciel
+        {FString(L"Meridian"), FString(L"TrCTF-Meridian?m_bRoamingMap=true"), FString(L"Made by Karuciel")},
+        //Krogoth
+        {FString(L"Broadside"), FString(L"TrCTFBlitz-Broadside?m_bRoamingMap=true"), FString(L"Made by Krogoth")}
     };
 
     that->ClearActions();
     that->OptionTitles = TArray<FString>();
     that->OptionSubtext = TArray<FString>();
+    that->PageLabel = FString(L"COMMUNITY MAPS");
 
-    for (int i = 0; i < 14; i++) {
-        that->OptionTitles.Add(CommunityMapTitles[i]);
-        that->OptionSubtext.Add(CommunityMapTitles[i]);
-        that->AddActionString(CommunityMapNames[i]);
+    for (int i = 0; i < 16; i++) {
+        that->OptionTitles.Add(communityMaps[i].mapName);
+        that->OptionSubtext.Add(communityMaps[i].author);
+        that->AddActionString(communityMaps[i].mapFileName);
     }
 }
 
