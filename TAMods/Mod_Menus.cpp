@@ -156,7 +156,7 @@ static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
         {FString(L"Fracture"), FString(L"TrCTF-Fracture?m_bRoamingMap=true"), FString(L"Made by Evil")},
         {FString(L"Polaris"), FString(L"TrCTF-Polaris?m_bRoamingMap=true"), FString(L"Made by Evil")},
         {FString(L"Ascent"), FString(L"TrCTF-Ascent?m_bRoamingMap=true"), FString(L"Made by Evil")},
-        {FString(L"Dangerous Xylophone"), FString(L"TrCTF-DangerousXylophone?m_bRoamingMap=true"), FString(L"Made by Evil")},
+        {FString(L"Eclipse"), FString(L"TrCTF-Eclipse?m_bRoamingMap=true"), FString(L"Made by Evil")},
         //Nerve
         {FString(L"Crash"), FString(L"TrCTF-Crash?m_bRoamingMap=true"), FString(L"Made by Nerve")},
         //Karuciel
