@@ -182,15 +182,17 @@ static ATrPlayerController_Training* spawnPawn()
         spawned->m_AudioComponentLowHealthLoop->VolumeMultiplier = 0.0f;
         spawned->m_AudioComponentRechargeHealth->VolumeMultiplier = 0.0f;
     }
-
     spawned->ServerChangeTeam(teamNum);
 
     if (spawned->PlayerReplicationInfo->IsA(ATrPlayerReplicationInfo::StaticClass()))
     {
         // Update the class of the bot to the one used in the replay
+        
+        /* FIXME Replace bot class, currently crashes the game. 
         ATrPlayerReplicationInfo *rep = (ATrPlayerReplicationInfo *)spawned->PlayerReplicationInfo;
         rep->m_CurrentBaseClass = Utils::tr_pc->m_TrInventoryHelper->GetFamilyClass(classID);
         rep->m_PendingBaseClass = rep->m_CurrentBaseClass;
+        */
     }
 
     // Suicide & respawn
@@ -204,7 +206,6 @@ static ATrPlayerController_Training* spawnPawn()
         ((ATrPawn *)spawned->Pawn)->m_AudioComponentSkiLoop->VolumeMultiplier = 0.0f;
         ((ATrPawn *)spawned->Pawn)->m_AudioComponentSpeedSound->VolumeMultiplier = 0.0f;
     }
-
     return spawned;
 }
 
