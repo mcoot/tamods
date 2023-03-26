@@ -210,3 +210,4 @@ FakesAssemblies/
 documentation/out/
 
 UpdaterRepo/*.dll
+TAMods/.vscode/settings.json
