@@ -106,6 +106,8 @@ static void GFxTrPage_Main_UpdateGameModeUI(UGFxTrPage_Main* that, bool gotyMode
 }
 
 static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that, bool gotyMode) {
+    if (that == nullptr) return;
+
     UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
 
     that->ClearActions();
@@ -129,11 +131,13 @@ static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that, bool gotyMode) {
     that->AddActionNumber(that->NumQuit);
 }
 static void GFxTrPage_RoamCAHtoRoamCommunity_SetItems(UGFxTrPage_RoamingMatch* that) {
-    
+    if (that == nullptr) return;
+
     that->OptionTitles.Set(3, L"COMMUNITY MAPS");
     that->OptionSubtext.Set(3, L"COMMUNITY MAPS");
 }
 static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
+    if (that == nullptr) return;
 
     struct CommunityMap {
         FString mapName;
@@ -178,6 +182,8 @@ static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
 }
 
 static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
+    if (that == nullptr) return;
+
     that->ClearActions();
 
     UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
@@ -240,6 +246,8 @@ static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
 }
 
 static void GFxTrPage_Classes_SetItems(UGFxTrPage* that, bool gotyMode) {
+    if (that == nullptr) return;
+
     that->ClearActions();
 
     std::vector<int> ootbClasses = { CONST_CLASS_TYPE_LIGHT, CONST_CLASS_TYPE_MEDIUM, CONST_CLASS_TYPE_HEAVY };
@@ -262,6 +270,9 @@ static void GFxTrPage_Classes_SetItems(UGFxTrPage* that, bool gotyMode) {
 }
 
 static void initialiseMenus(UGFxTrMenuMoviePlayer* menuMovie, std::string gameSettingMode) {
+
+    if (!Utils::tr_menuMovie) return;
+
     // Initialize the main menu changes
     GFxTrPage_Main_SetItems(Utils::tr_menuMovie->Pages->MainPage, gameSettingMode != "ootb");
 
