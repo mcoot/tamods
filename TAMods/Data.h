@@ -80,9 +80,11 @@
 #define CONST_MAP_ID_CTF_ECLIPSE                1613
 #define CONST_MAP_ID_CTF_POLARIS                1614
 #define CONST_MAP_ID_CTF_CRASH                  1615
+#define CONST_MAP_ID_CTF_ANDROMEDA              1616
 #define CONST_MAP_ID_ARENA_RUINS                1641
 #define CONST_MAP_ID_ARENA_ELYSIANBATTLEGROUND  1642
 #define CONST_MAP_ID_BLITZ_BROADSIDE            1651
+#define CONST_MAP_ID_BLITZ_AIRARENA             1652
 
 namespace Data
 {

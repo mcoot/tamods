@@ -145,28 +145,33 @@ static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
         FString author;
     };
 
-    CommunityMap communityMaps[16] = {
+    CommunityMap communityMaps[20] = {
         //Dodge
-        {FString(L"Oceanus"), FString(L"TrCTF-Oceanus?m_bRoamingMap=true"), FString(L"Made by Dodge")},
-        {FString(L"Blues"), FString(L"TrCTF-Blues?m_bRoamingMap=true"), FString(L"Made by Dodge")},
-        {FString(L"Periculo"), FString(L"TrCTF-Periculo?m_bRoamingMap=true"), FString(L"Made by Dodge")},
-        {FString(L"Incidamus"), FString(L"TrCTF-Incidamus?m_bRoamingMap=true"), FString(L"Made by Dodge")},
-        {FString(L"Acheron"), FString(L"TrCTF-Acheron?m_bRoamingMap=true"), FString(L"Made by Dodge")},
-        {FString(L"Phlegethon"), FString(L"TrCTF-Phlegethon?m_bRoamingMap=true"), FString(L"Made by Dodge")},
-        {FString(L"Deserted Valley"), FString(L"TrCTF-DesertedValley?m_bRoamingMap=true"), FString(L"Made by Dodge")},
-        {FString(L"Styx"), FString(L"TrCTF-Styx?m_bRoamingMap=true"), FString(L"Made by Dodge")},
-        {FString(L"Treacherous Pass"), FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"), FString(L"Made by Dodge")},
+        {FString(L"Oceanus"), FString(L"TrCTF-Oceanus?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Treacherous Pass"), FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"), FString(L"Skii Challenge, made by Dodge")},
+        {FString(L"Blues"), FString(L"TrCTF-Blues?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Periculo"), FString(L"TrCTF-Periculo?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Incidamus"), FString(L"TrCTF-Incidamus?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Acheron"), FString(L"TrCTF-Acheron?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Phlegethon"), FString(L"TrCTF-Phlegethon?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Deserted Valley"), FString(L"TrCTF-DesertedValley?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Styx"), FString(L"TrCTF-Styx?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Air Arena Blitz"), FString(L"TrCTFBlitz-AirArena?m_bRoamingMap=true"), FString(L"CTF Blitz, made by Dodge")},
+        {FString(L"Elysian Battleground"), FString(L"TrArena-ElysianBattleground?m_bRoamingMap=true"), FString(L"Arena, made by Dodge")},
         //Evil
-        {FString(L"Fracture"), FString(L"TrCTF-Fracture?m_bRoamingMap=true"), FString(L"Made by Evil")},
-        {FString(L"Polaris"), FString(L"TrCTF-Polaris?m_bRoamingMap=true"), FString(L"Made by Evil")},
-        {FString(L"Ascent"), FString(L"TrCTF-Ascent?m_bRoamingMap=true"), FString(L"Made by Evil")},
-        {FString(L"Eclipse"), FString(L"TrCTF-Eclipse?m_bRoamingMap=true"), FString(L"Made by Evil")},
+        {FString(L"Fracture"), FString(L"TrCTF-Fracture?m_bRoamingMap=true"), FString(L"CTF, made by Evil")},
+        {FString(L"Polaris"), FString(L"TrCTF-Polaris?m_bRoamingMap=true"), FString(L"CTF, made by Evil")},
+        {FString(L"Ascent"), FString(L"TrCTF-Ascent?m_bRoamingMap=true"), FString(L"CTF, made by Evil")},
+        {FString(L"Eclipse"), FString(L"TrCTF-Eclipse?m_bRoamingMap=true"), FString(L"CTF, made by Evil")},
+        {FString(L"Ruins"), FString(L"TrArena-Ruins?m_bRoamingMap=true"), FString(L"Arena, made by Evil")},
         //Nerve
-        {FString(L"Crash"), FString(L"TrCTF-Crash?m_bRoamingMap=true"), FString(L"Made by Nerve")},
+        {FString(L"Crash"), FString(L"TrCTF-Crash?m_bRoamingMap=true"), FString(L"CTF, made by Nerve")},
+        //Cro
+        {FString(L"Andromeda"), FString(L"TrCTF-Andromeda?m_bRoamingMap=true"), FString(L"CTF, made by Cro")},
         //Karuciel
-        {FString(L"Meridian"), FString(L"TrCTF-Meridian?m_bRoamingMap=true"), FString(L"Made by Karuciel")},
+        {FString(L"Meridian"), FString(L"TrCTF-Meridian?m_bRoamingMap=true"), FString(L"CTF, made by Karuciel")},
         //Krogoth
-        {FString(L"Broadside"), FString(L"TrCTFBlitz-Broadside?m_bRoamingMap=true"), FString(L"Made by Krogoth")}
+        {FString(L"Broadside"), FString(L"TrCTFBlitz-Broadside?m_bRoamingMap=true"), FString(L"CTF Blitz, made by Krogoth")}
     };
 
     that->ClearActions();
@@ -174,7 +179,7 @@ static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
     that->OptionSubtext = TArray<FString>();
     that->PageLabel = FString(L"COMMUNITY MAPS");
 
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 20; i++) {
         that->OptionTitles.Add(communityMaps[i].mapName);
         that->OptionSubtext.Add(communityMaps[i].author);
         that->AddActionString(communityMaps[i].mapFileName);
