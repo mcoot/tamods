@@ -145,7 +145,7 @@ static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
         FString author;
     };
 
-    CommunityMap communityMaps[20] = {
+    CommunityMap communityMaps[21] = {
         //Dodge
         {FString(L"Oceanus"), FString(L"TrCTF-Oceanus?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
         {FString(L"Treacherous Pass"), FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"), FString(L"Skii Challenge, made by Dodge")},
@@ -166,6 +166,7 @@ static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
         {FString(L"Ruins"), FString(L"TrArena-Ruins?m_bRoamingMap=true"), FString(L"Arena, made by Evil")},
         //Nerve
         {FString(L"Crash"), FString(L"TrCTF-Crash?m_bRoamingMap=true"), FString(L"CTF, made by Nerve")},
+        {FString(L"Maze Runner"), FString(L"TrCTFBlitz-MazeRunner?m_bRoamingMap=true"), FString(L"Maze Blitz, made by Nerve")},
         //Cro
         {FString(L"Andromeda"), FString(L"TrCTF-Andromeda?m_bRoamingMap=true"), FString(L"CTF, made by Cro")},
         //Karuciel
@@ -179,7 +180,7 @@ static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
     that->OptionSubtext = TArray<FString>();
     that->PageLabel = FString(L"COMMUNITY MAPS");
 
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 21; i++) {
         that->OptionTitles.Add(communityMaps[i].mapName);
         that->OptionSubtext.Add(communityMaps[i].author);
         that->AddActionString(communityMaps[i].mapFileName);

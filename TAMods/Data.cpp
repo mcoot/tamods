@@ -1151,6 +1151,7 @@ namespace Data
         { R"rx(^blitz[-_]?(k|ba).*$)rx",                CONST_MAP_ID_BLITZ_KATABATIC },
         { R"rx(^blitz[-_]?(broa|ide).*$)rx",            CONST_MAP_ID_BLITZ_BROADSIDE },
         { R"rx(^blitz[-_]?a.*$)rx",                     CONST_MAP_ID_BLITZ_AIRARENA },
+        { R"rx(^blitz[-_]?(maze|nner.*$)rx",            CONST_MAP_ID_BLITZ_MAZERUNNER },
 
         { R"rx(^cah[-_]?(c[^o]|re).*$)rx",              CONST_MAP_ID_CAH_CANYONCRUSADEREVIVAL },
         { R"rx(^cah[-_]?(d[^a]|ni).*$)rx",              CONST_MAP_ID_CAH_DRYDOCKNIGHT },
@@ -1289,6 +1290,7 @@ namespace Data
         { CONST_MAP_ID_ARENA_ELYSIANBATTLEGROUND,  "[Arena] Elysian Battleground" },
         { CONST_MAP_ID_BLITZ_BROADSIDE,            "[Blitz] Broadside" },
         { CONST_MAP_ID_BLITZ_AIRARENA,             "[Blitz] Air Arena" },
+        { CONST_MAP_ID_BLITZ_MAZERUNNER,           "[Blitz] Maze Runner" },
     };
 
     std::map<int, std::string> map_id_to_filename = {
@@ -1370,6 +1372,7 @@ namespace Data
         { CONST_MAP_ID_ARENA_ELYSIANBATTLEGROUND,  "TrArena-Elysian Battleground" },
         { CONST_MAP_ID_BLITZ_BROADSIDE,            "TrCTFBlitz-Broadside" },
         { CONST_MAP_ID_BLITZ_AIRARENA,             "TrCTFBlitz-AirArena" },
+        { CONST_MAP_ID_BLITZ_MAZERUNNER,           "TrCTFBlitz-MazeRunner" },
     };
 }
 
