@@ -21,7 +21,7 @@
 // Needs to be incremented if we ever make an incompatible change to the routefile format
 #define ROUTEFILE_VERSION 1.2
 
-#define TAMODS_VERSION "1.2.2"
+#define TAMODS_VERSION "1.2.3"
 
 #define TAMODS_PROTOCOL_VERSION "0.1.0"
 
