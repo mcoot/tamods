@@ -148,7 +148,7 @@ static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
     CommunityMap communityMaps[21] = {
         //Dodge
         {FString(L"Oceanus"), FString(L"TrCTF-Oceanus?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
-        {FString(L"Treacherous Pass"), FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"), FString(L"Skii Challenge, made by Dodge")},
+        {FString(L"Treacherous Pass"), FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"), FString(L"Ski Challenge, made by Dodge")},
         {FString(L"Blues"), FString(L"TrCTF-Blues?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
         {FString(L"Periculo"), FString(L"TrCTF-Periculo?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
         {FString(L"Incidamus"), FString(L"TrCTF-Incidamus?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
