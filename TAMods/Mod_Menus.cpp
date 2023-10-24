@@ -72,6 +72,11 @@ void GFxTrPage_Main_SpecialAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execSpe
     that->SpecialAction(params->Action);
 }
 
+void GFxTrPage_ManageProfiles_SpecialAction(UGFxTrPage_ManageProfiles* that, UGFxTrPage_Main_execSpecialAction_Parms* params) {
+    Utils::tr_menuMovie->MenuSounds->SoundSelectedQueue();
+    Utils::tr_menuMovie->QueueManager->OpenLocal(params->Action->ActionString);
+}
+
 bool GFxTrMenuMoviePlayer_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
     UGFxTrMenuMoviePlayer* that = (UGFxTrMenuMoviePlayer*)dwCallingObject;
     UGFxTrMenuMoviePlayer_execChatMessageReceived_Parms* params = (UGFxTrMenuMoviePlayer_execChatMessageReceived_Parms*)pParams;
@@ -130,13 +135,41 @@ static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that, bool gotyMode) {
     that->AddActionPage(moviePlayer->Pages->SettingsPage);
     that->AddActionNumber(that->NumQuit);
 }
-static void GFxTrPage_RoamCAHtoRoamCommunity_SetItems(UGFxTrPage_RoamingMatch* that) {
+
+static void GFxTrPage_RoamingMatch_SetItems(UGFxTrPage_RoamingMatch* that) {
     if (that == nullptr) return;
 
-    that->OptionTitles.Set(3, L"COMMUNITY MAPS");
-    that->OptionSubtext.Set(3, L"COMMUNITY MAPS");
+    UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
+
+    // Remove the original actions from the page (This must be done in order to add new actions)
+    that->ClearActions();
+    that->OptionTitles = TArray<FString>();
+    that->OptionSubtext = TArray<FString>();
+
+    // Recreate the original actions
+    that->OptionTitles.Add(FString(L"TEAM DEATHMATCH"));
+    that->OptionSubtext.Add(FString(L"ROAM A TEAM DEATHMATCH MAP"));
+    that->AddActionPage(moviePlayer->Pages->RoamTDMPage);
+
+    that->OptionTitles.Add(FString(L"CAPTURE THE FLAG"));
+    that->OptionSubtext.Add(FString(L"ROAM A CAPTURE THE FLAG MAP"));
+    that->AddActionPage(moviePlayer->Pages->RoamCTFPage);
+
+    that->OptionTitles.Add(FString(L"ARENA"));
+    that->OptionSubtext.Add(FString(L"ROAM AN ARENA MAP"));
+    that->AddActionPage(moviePlayer->Pages->RoamArenaPage);
+
+    that->OptionTitles.Add(FString(L"CAPTURE AND HOLD"));
+    that->OptionSubtext.Add(FString(L"ROAM A CAPTURE-AND-HOLD MAP"));
+    that->AddActionPage(moviePlayer->Pages->RoamCAHPage);
+
+    // Add the custom action
+    that->OptionTitles.Add(FString(L"COMMUNITY"));
+    that->OptionSubtext.Add(FString(L"ROAM A COMMUNITY MAP"));
+    that->AddActionPage(moviePlayer->Pages->ManageProfilesPage);
 }
-static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
+
+static void GFxTrPage_RoamCommunity_SetItems(UGFxTrPage_ManageProfiles* that) {
     if (that == nullptr) return;
 
     struct CommunityMap {
@@ -148,7 +181,7 @@ static void GFxTrPage_RoamCommunityCTF_SetItems(UGFxTrPage_RoamCAH* that) {
     CommunityMap communityMaps[21] = {
         //Dodge
         {FString(L"Oceanus"), FString(L"TrCTF-Oceanus?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
-        {FString(L"Treacherous Pass"), FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"), FString(L"Skii Challenge, made by Dodge")},
+        {FString(L"Treacherous Pass"), FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"), FString(L"Ski Challenge, made by Dodge")},
         {FString(L"Blues"), FString(L"TrCTF-Blues?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
         {FString(L"Periculo"), FString(L"TrCTF-Periculo?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
         {FString(L"Incidamus"), FString(L"TrCTF-Incidamus?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
@@ -287,9 +320,9 @@ static void initialiseMenus(UGFxTrMenuMoviePlayer* menuMovie, std::string gameSe
     GFxTrPage_Classes_SetItems(Utils::tr_menuMovie->Pages->ClassesPage, gameSettingMode != "ootb");
     GFxTrPage_Classes_SetItems(Utils::tr_menuMovie->Pages->ClassSelectPage, gameSettingMode != "ootb");
 
-    //CommunityRoamMap (Replaces CAH)
-    GFxTrPage_RoamCAHtoRoamCommunity_SetItems(Utils::tr_menuMovie->Pages->RoamingMatchPage);
-    GFxTrPage_RoamCommunityCTF_SetItems(Utils::tr_menuMovie->Pages->RoamCAHPage);
+    // Create the RoamCommunity page (Replaces the unused ManageProfiles page)
+    GFxTrPage_RoamingMatch_SetItems(Utils::tr_menuMovie->Pages->RoamingMatchPage);
+    GFxTrPage_RoamCommunity_SetItems(Utils::tr_menuMovie->Pages->ManageProfilesPage);
 }
     
 bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
