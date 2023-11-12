@@ -65,6 +65,27 @@
 #define CONST_MAP_ID_BLITZ_TERMINUS             1559
 #define CONST_MAP_ID_CTF_HELLFIRE               1560
 #define CONST_MAP_ID_BLITZ_HELLFIRE             1561
+#define CONST_MAP_ID_CTF_ACHERON                1601
+#define CONST_MAP_ID_CTF_BLUES                  1602
+#define CONST_MAP_ID_CTF_DESERTEDVALLEY         1603
+#define CONST_MAP_ID_CTF_FRACTURE               1604
+#define CONST_MAP_ID_CTF_INCIDAMUS              1605
+#define CONST_MAP_ID_CTF_PERICULO               1606
+#define CONST_MAP_ID_CTF_PHLEGATHON             1607
+#define CONST_MAP_ID_CTF_STYX                   1608
+#define CONST_MAP_ID_CTF_OCEANUS                1609
+#define CONST_MAP_ID_CTF_TREACHEROUSPASS        1610
+#define CONST_MAP_ID_CTF_MERIDIAN               1611
+#define CONST_MAP_ID_CTF_ASCENT                 1612
+#define CONST_MAP_ID_CTF_ECLIPSE                1613
+#define CONST_MAP_ID_CTF_POLARIS                1614
+#define CONST_MAP_ID_CTF_CRASH                  1615
+#define CONST_MAP_ID_CTF_ANDROMEDA              1616
+#define CONST_MAP_ID_ARENA_RUINS                1641
+#define CONST_MAP_ID_ARENA_ELYSIANBATTLEGROUND  1642
+#define CONST_MAP_ID_BLITZ_BROADSIDE            1651
+#define CONST_MAP_ID_BLITZ_AIRARENA             1652
+#define CONST_MAP_ID_BLITZ_MAZERUNNER           1653
 
 namespace Data
 {

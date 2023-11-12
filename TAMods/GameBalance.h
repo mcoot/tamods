@@ -293,6 +293,7 @@ namespace GameBalance {
             JAMMER_PACK_RANGE = 7010,
             PACK_BUFF_AMOUNT = 7011,
             STEALTH_PACK_MAX_SPEED = 7012,
+            THRUST_PACK_SPEED_RAGE_MULTIPLIER = 7013,
 
             // Deployable
             DEPLOYABLE_RANGE = 8000,

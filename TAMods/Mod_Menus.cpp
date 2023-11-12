@@ -72,6 +72,11 @@ void GFxTrPage_Main_SpecialAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execSpe
     that->SpecialAction(params->Action);
 }
 
+void GFxTrPage_ManageProfiles_SpecialAction(UGFxTrPage_ManageProfiles* that, UGFxTrPage_Main_execSpecialAction_Parms* params) {
+    Utils::tr_menuMovie->MenuSounds->SoundSelectedQueue();
+    Utils::tr_menuMovie->QueueManager->OpenLocal(params->Action->ActionString);
+}
+
 bool GFxTrMenuMoviePlayer_ChatMessageReceived(int ID, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
     UGFxTrMenuMoviePlayer* that = (UGFxTrMenuMoviePlayer*)dwCallingObject;
     UGFxTrMenuMoviePlayer_execChatMessageReceived_Parms* params = (UGFxTrMenuMoviePlayer_execChatMessageReceived_Parms*)pParams;
@@ -106,6 +111,8 @@ static void GFxTrPage_Main_UpdateGameModeUI(UGFxTrPage_Main* that, bool gotyMode
 }
 
 static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that, bool gotyMode) {
+    if (that == nullptr) return;
+
     UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
 
     that->ClearActions();
@@ -129,7 +136,93 @@ static void GFxTrPage_Main_SetItems(UGFxTrPage_Main* that, bool gotyMode) {
     that->AddActionNumber(that->NumQuit);
 }
 
+static void GFxTrPage_RoamingMatch_SetItems(UGFxTrPage_RoamingMatch* that) {
+    if (that == nullptr) return;
+
+    UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
+
+    // Remove the original actions from the page (This must be done in order to add new actions)
+    that->ClearActions();
+    that->OptionTitles = TArray<FString>();
+    that->OptionSubtext = TArray<FString>();
+
+    // Recreate the original actions
+    that->OptionTitles.Add(FString(L"TEAM DEATHMATCH"));
+    that->OptionSubtext.Add(FString(L"ROAM A TEAM DEATHMATCH MAP"));
+    that->AddActionPage(moviePlayer->Pages->RoamTDMPage);
+
+    that->OptionTitles.Add(FString(L"CAPTURE THE FLAG"));
+    that->OptionSubtext.Add(FString(L"ROAM A CAPTURE THE FLAG MAP"));
+    that->AddActionPage(moviePlayer->Pages->RoamCTFPage);
+
+    that->OptionTitles.Add(FString(L"ARENA"));
+    that->OptionSubtext.Add(FString(L"ROAM AN ARENA MAP"));
+    that->AddActionPage(moviePlayer->Pages->RoamArenaPage);
+
+    that->OptionTitles.Add(FString(L"CAPTURE AND HOLD"));
+    that->OptionSubtext.Add(FString(L"ROAM A CAPTURE-AND-HOLD MAP"));
+    that->AddActionPage(moviePlayer->Pages->RoamCAHPage);
+
+    // Add the custom action
+    that->OptionTitles.Add(FString(L"COMMUNITY"));
+    that->OptionSubtext.Add(FString(L"ROAM A COMMUNITY MAP"));
+    that->AddActionPage(moviePlayer->Pages->ManageProfilesPage);
+}
+
+static void GFxTrPage_RoamCommunity_SetItems(UGFxTrPage_ManageProfiles* that) {
+    if (that == nullptr) return;
+
+    struct CommunityMap {
+        FString mapName;
+        FString mapFileName;
+        FString author;
+    };
+
+    CommunityMap communityMaps[21] = {
+        //Dodge
+        {FString(L"Oceanus"), FString(L"TrCTF-Oceanus?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Treacherous Pass"), FString(L"TrCTF-TreacherousPass?m_bRoamingMap=true"), FString(L"Ski Challenge, made by Dodge")},
+        {FString(L"Blues"), FString(L"TrCTF-Blues?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Periculo"), FString(L"TrCTF-Periculo?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Incidamus"), FString(L"TrCTF-Incidamus?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Acheron"), FString(L"TrCTF-Acheron?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Phlegethon"), FString(L"TrCTF-Phlegethon?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Deserted Valley"), FString(L"TrCTF-DesertedValley?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Styx"), FString(L"TrCTF-Styx?m_bRoamingMap=true"), FString(L"CTF, made by Dodge")},
+        {FString(L"Air Arena Blitz"), FString(L"TrCTFBlitz-AirArena?m_bRoamingMap=true"), FString(L"CTF Blitz, made by Dodge")},
+        {FString(L"Elysian Battleground"), FString(L"TrArena-ElysianBattleground?m_bRoamingMap=true"), FString(L"Arena, made by Dodge")},
+        //Evil
+        {FString(L"Fracture"), FString(L"TrCTF-Fracture?m_bRoamingMap=true"), FString(L"CTF, made by Evil")},
+        {FString(L"Polaris"), FString(L"TrCTF-Polaris?m_bRoamingMap=true"), FString(L"CTF, made by Evil")},
+        {FString(L"Ascent"), FString(L"TrCTF-Ascent?m_bRoamingMap=true"), FString(L"CTF, made by Evil")},
+        {FString(L"Eclipse"), FString(L"TrCTF-Eclipse?m_bRoamingMap=true"), FString(L"CTF, made by Evil")},
+        {FString(L"Ruins"), FString(L"TrArena-Ruins?m_bRoamingMap=true"), FString(L"Arena, made by Evil")},
+        //Nerve
+        {FString(L"Crash"), FString(L"TrCTF-Crash?m_bRoamingMap=true"), FString(L"CTF, made by Nerve")},
+        {FString(L"Maze Runner"), FString(L"TrCTFBlitz-MazeRunner?m_bRoamingMap=true"), FString(L"Maze Blitz, made by Nerve")},
+        //Cro
+        {FString(L"Andromeda"), FString(L"TrCTF-Andromeda?m_bRoamingMap=true"), FString(L"CTF, made by Cro")},
+        //Karuciel
+        {FString(L"Meridian"), FString(L"TrCTF-Meridian?m_bRoamingMap=true"), FString(L"CTF, made by Karuciel")},
+        //Krogoth
+        {FString(L"Broadside"), FString(L"TrCTFBlitz-Broadside?m_bRoamingMap=true"), FString(L"CTF Blitz, made by Krogoth")}
+    };
+
+    that->ClearActions();
+    that->OptionTitles = TArray<FString>();
+    that->OptionSubtext = TArray<FString>();
+    that->PageLabel = FString(L"COMMUNITY MAPS");
+
+    for (int i = 0; i < 21; i++) {
+        that->OptionTitles.Add(communityMaps[i].mapName);
+        that->OptionSubtext.Add(communityMaps[i].author);
+        that->AddActionString(communityMaps[i].mapFileName);
+    }
+}
+
 static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
+    if (that == nullptr) return;
+
     that->ClearActions();
 
     UGFxTrMenuMoviePlayer* moviePlayer = (UGFxTrMenuMoviePlayer*)that->Outer;
@@ -192,6 +285,8 @@ static void GFxTrPage_Class_SetItems(UGFxTrPage_Class* that, bool gotyMode) {
 }
 
 static void GFxTrPage_Classes_SetItems(UGFxTrPage* that, bool gotyMode) {
+    if (that == nullptr) return;
+
     that->ClearActions();
 
     std::vector<int> ootbClasses = { CONST_CLASS_TYPE_LIGHT, CONST_CLASS_TYPE_MEDIUM, CONST_CLASS_TYPE_HEAVY };
@@ -214,6 +309,9 @@ static void GFxTrPage_Classes_SetItems(UGFxTrPage* that, bool gotyMode) {
 }
 
 static void initialiseMenus(UGFxTrMenuMoviePlayer* menuMovie, std::string gameSettingMode) {
+
+    if (!Utils::tr_menuMovie) return;
+
     // Initialize the main menu changes
     GFxTrPage_Main_SetItems(Utils::tr_menuMovie->Pages->MainPage, gameSettingMode != "ootb");
 
@@ -221,8 +319,12 @@ static void initialiseMenus(UGFxTrMenuMoviePlayer* menuMovie, std::string gameSe
     GFxTrPage_Class_SetItems(Utils::tr_menuMovie->Pages->ClassPage, gameSettingMode != "ootb");
     GFxTrPage_Classes_SetItems(Utils::tr_menuMovie->Pages->ClassesPage, gameSettingMode != "ootb");
     GFxTrPage_Classes_SetItems(Utils::tr_menuMovie->Pages->ClassSelectPage, gameSettingMode != "ootb");
-}
 
+    // Create the RoamCommunity page (Replaces the unused ManageProfiles page)
+    GFxTrPage_RoamingMatch_SetItems(Utils::tr_menuMovie->Pages->RoamingMatchPage);
+    GFxTrPage_RoamCommunity_SetItems(Utils::tr_menuMovie->Pages->ManageProfilesPage);
+}
+    
 bool TrLoginManager_Login(int id, UObject *dwCallingObject, UFunction* pFunction, void* pParams, void* pResult) {
     //UTrLoginManager* that = (UTrLoginManager*)dwCallingObject;
     //UTrLoginManager_execLogin_Parms* params = (UTrLoginManager_execLogin_Parms*)pParams;

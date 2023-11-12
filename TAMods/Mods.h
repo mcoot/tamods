@@ -169,6 +169,7 @@ void GFxTrPage_FillOptions(UGFxTrPage* that, UGFxTrPage_execFillOptions_Parms* p
 void GFxTrPage_Main_TakeFocus(UGFxTrPage_Main* that, UGFxTrPage_Main_execTakeFocus_Parms* params, int* result, Hooks::CallInfo callInfo);
 bool GFxTrMenuMoviePlayer_EquipmentLoaded(int id, UObject* dwCallingObject, UFunction* pFunction, void* pParams, void* pResult);
 void GFxTrPage_Main_SpecialAction(UGFxTrPage_Main* that, UGFxTrPage_Main_execSpecialAction_Parms* params);
+void GFxTrPage_ManageProfiles_SpecialAction(UGFxTrPage_ManageProfiles* that, UGFxTrPage_Main_execSpecialAction_Parms* params);
 void GFxTrPage_Class_SpecialAction(UGFxTrPage_Class* that, UGFxTrPage_Class_execSpecialAction_Parms* params, void* result, Hooks::CallInfo callInfo);
 void GFxTrPage_Class_PopupData(UGFxTrPage_Class* that, UGFxTrPage_Class_execPopupData_Parms* params);
 void GFxTrPage_Class_PopupComplete(UGFxTrPage_Class* that, UGFxTrPage_Class_execPopupComplete_Parms* params);
